@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  imports = [ ./home ./packages ];
+  imports = [ ./home.nix ];
 
   programs.home-manager.enable = true;
 

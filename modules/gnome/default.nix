@@ -15,6 +15,12 @@
     user = "jay";
   };
 
+  ## NEED TO ADD THE BELOW PKGS
+  #   # Gnome
+  # gnomeExtensions.caffeine
+  # gnomeExtensions.screenshot-tool
+  # gnomeExtensions.dash-to-panel
+
   # If using gnome desktop manager, exclude these from installation
   environment.gnome.excludePackages = with pkgs; [
     gnome.cheese
