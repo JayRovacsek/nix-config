@@ -47,9 +47,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
+        "id": "nur",
+        "type": "indirect"
       }
     },
     "root": {
