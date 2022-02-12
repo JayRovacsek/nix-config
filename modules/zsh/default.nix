@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
+    histSize = 10000;
     promptInit = ''
       HYPHEN_INSENSITIVE="true"
       ENABLE_CORRECTION="true"

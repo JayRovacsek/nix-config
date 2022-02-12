@@ -57,37 +57,10 @@
     # Development
     vscode
 
-    ## C
-    gcc
-    gnumake
-
-    ## Python
-    python311
-
-    ## Rust
-    cargo
-    clippy
-    rust-analyzer
-    rustc
-    rustfmt
-
-    ## NodeJS
-    nodejs
-    nodePackages.npm
-    nodePackages.typescript
-
     ## Nix
     nixfmt
 
-    ## Golang
-    delve
-    go
-    go-outline
-    go-tools
-    gopls
-
     ## Virtualisation
-    docker
     docker-compose
     wine
 
@@ -106,23 +79,7 @@
     glfw
 
     # Games
-    lutris
     runelite
-    minecraft
-
-    # Game Requirements
-    ## Origin: https://github.com/lutris/docs/blob/master/Origin.md
-    alsaPlugins
-    dbus
-    gnutls
-    libgcrypt
-    libgpgerror
-    libxml2
-    mono
-    protontricks
-    SDL2
-    wine
-    winetricks
 
     # Communication
     discord

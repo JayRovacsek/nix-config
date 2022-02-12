@@ -1,6 +1,7 @@
 {
   imports = [
     ../../modules/alacritty
+    ../../modules/docker
     ../../modules/firefox
     ../../modules/fonts
     ../../modules/gnome
