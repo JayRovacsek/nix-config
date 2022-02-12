@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }: {
 
+  imports = [ ../../services/redshift ];
+
   services.xserver.desktopManager.gnome.enable = true;
 
   services.xserver.enable = true;
@@ -23,6 +25,7 @@
     gnomeExtensions.caffeine
     gnomeExtensions.screenshot-tool
     gnomeExtensions.dash-to-panel
+    gnomeExtensions.sensory-perception
   ];
 
   # If using gnome desktop manager, exclude these from installation
