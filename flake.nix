@@ -7,7 +7,7 @@
       url = "github:rycee/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nur.url = "github:nix-community/NUR";
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { nixpkgs, home-manager, nur, ... }:
@@ -16,7 +16,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
-        # overlays = [ nur.overlay ];
+        overlays = [ nur.overlay ];
       };
     in {
       nixosConfigurations = {
