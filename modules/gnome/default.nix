@@ -40,7 +40,6 @@
     gnome.hitori
     gnome.atomix
     gnome.gnome-weather
-    gnome.gnome-screenshot
     gnome.gnome-contacts
     gnome.gnome-maps
     gnome.geary
