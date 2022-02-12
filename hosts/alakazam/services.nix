@@ -1,4 +1,9 @@
 {
-  imports =
-    [ ../../services/clamav ../../services/openssh ../../services/pipewire ];
+  imports = [
+    ../../services/clamav
+    ../../services/docker
+    ../../services/gnome
+    ../../services/openssh
+    ../../services/pipewire
+  ];
 }
