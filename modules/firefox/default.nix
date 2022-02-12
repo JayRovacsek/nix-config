@@ -1,7 +1,7 @@
 {
   home-manager.users.jay.programs.firefox = {
     enable = true;
-    extensions = with nur.repos.rycee.firefox-addons; [
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       decentraleyes
       keepassxc-browser
       multi-account-containers
