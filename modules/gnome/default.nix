@@ -14,15 +14,14 @@
 
   services.gvfs.enable = true;
 
-  environment.systemPackages = with pkgs;
-    [
-      gjs
-      gnome.gnome-tweaks
-      gnome.nautilus
-      gnomeExtensions.caffeine
-      gnomeExtensions.screenshot-tool
-      gnomeExtensions.dash-to-panel
-    ] ++ config.environment.systemPackages;
+  environment.systemPackages = with pkgs; [
+    gjs
+    gnome.gnome-tweaks
+    gnome.nautilus
+    gnomeExtensions.caffeine
+    gnomeExtensions.screenshot-tool
+    gnomeExtensions.dash-to-panel
+  ];
 
   # If using gnome desktop manager, exclude these from installation
   environment.gnome.excludePackages = with pkgs; [

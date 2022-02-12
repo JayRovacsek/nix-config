@@ -1,1 +1,1 @@
-{ home-manager.users.jay.programs.steam.enable = true; }
+{ programs.steam.enable = true; }

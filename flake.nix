@@ -24,12 +24,12 @@
           inherit pkgs system;
           modules = [
             ./hosts/alakazam
-            ./packages/linux-x86.nix
+            # ./packages/linux-x86.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.jay = import ./users/jay;
+              home-manager.users.jay = import ./packages/linux-x86.nix;
             }
           ];
         };
