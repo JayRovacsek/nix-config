@@ -53,6 +53,7 @@
     gnomeExtensions.screenshot-tool
     gnomeExtensions.dash-to-panel
     yubikey-personalization
+    jellyfin-media-player
 
     # Development
     vscode
