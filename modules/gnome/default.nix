@@ -1,12 +1,10 @@
 { config, pkgs, lib, ... }: {
 
-  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.displayManager.gdm = {
     enable = true;
-    nvidiaWayland = false;
     wayland = false;
   };
 
@@ -15,11 +13,17 @@
     user = "jay";
   };
 
-  ## NEED TO ADD THE BELOW PKGS
-  #   # Gnome
-  # gnomeExtensions.caffeine
-  # gnomeExtensions.screenshot-tool
-  # gnomeExtensions.dash-to-panel
+  services.gvfs.enable = true;
+
+  environment.systemPackages = with pkgs;
+    [
+      gjs
+      gnome.gnome-tweaks
+      gnome.nautilus
+      gnomeExtensions.caffeine
+      gnomeExtensions.screenshot-tool
+      gnomeExtensions.dash-to-panel
+    ] ++ config.environment.systemPackages;
 
   # If using gnome desktop manager, exclude these from installation
   environment.gnome.excludePackages = with pkgs; [
