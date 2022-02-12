@@ -2,7 +2,6 @@
 
   services.xserver.desktopManager.gnome.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.displayManager.gdm = {
     enable = true;
     wayland = false;
