@@ -8,6 +8,8 @@
     ./users.nix
   ];
 
+  # This assumes we're using GRUB in order to utilise os-prober, otherwise the
+  # better option will be boot.loader.systemd-boot
   boot = {
     loader = {
       grub = {
@@ -23,7 +25,7 @@
   };
 
   boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/7cf02c33-9404-45af-9e53-2fa65aa59027";
+    device = "/dev/disk/by-uuid/${uuid}";
     preLVM = true;
   };
 
@@ -36,6 +38,7 @@
     };
   };
 
+  # Previously required for auto-login for a user, need to test & remove if no longer required
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 

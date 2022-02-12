@@ -1,4 +1,7 @@
 {
+  # Add or remove references to modules to modify functionality.
+  # Note that these modules will be system and not specific to a 
+  # single user  
   imports = [
     ../../modules/alacritty
     ../../modules/firefox

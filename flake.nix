@@ -24,7 +24,6 @@
           inherit pkgs system;
           modules = [
             ./hosts/alakazam
-            # ./packages/linux-x86.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

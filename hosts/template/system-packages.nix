@@ -1,4 +1,6 @@
 { config, pkgs, ... }: {
+  # Base package configuration of a system, add/remove as required where
+  # modules, services or home-manager installs are unsuitable or unsupported
   environment.systemPackages = with pkgs; [
     # CLI
     curl
