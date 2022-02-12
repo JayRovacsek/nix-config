@@ -1,10 +1,9 @@
 {
+  location.latitude = -32.917;
+  location.longitude = 151.8;
+
   services.redshift = {
     enable = true;
-
-    latitude = -32.917;
-    longitude = 151.8;
-
     brightness = {
       day = "1";
       night = "1";
