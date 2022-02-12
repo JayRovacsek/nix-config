@@ -31,11 +31,7 @@
     traceroute
 
     # Browsers
-    firefox
     ungoogled-chromium
-
-    # Fonts
-    nerdfonts
 
     # Productivity
     keepassxc
