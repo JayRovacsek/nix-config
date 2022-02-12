@@ -1,1 +1,3 @@
-{ services.udev.packages = [ pkgs.yubikey-personalization ]; }
+{ config, pkgs, ... }: {
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+}
