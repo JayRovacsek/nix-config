@@ -12,18 +12,6 @@
     };
   };
 
-  environment.interactiveShellInit = ''
-    HYPHEN_INSENSITIVE="true"
-    ENABLE_CORRECTION="true"
-    COMPLETION_WAITING_DOTS="true"
-
-     Preferred editor for local and remote sessions
-    if [[ -n $SSH_CONNECTION ]]; then
-        export EDITOR='vim'
-    else
-        export EDITOR='vim'
-    fi
-  '';
   environment.shellAliases = {
     nano = "vim";
     l = "lsd -al";

@@ -14,8 +14,6 @@
           export EDITOR='vim'
       fi
 
-      export PATH=$PATH:$(go env GOPATH)/bin
-      export GOPATH=$(go env GOPATH)
       eval "$(starship init zsh)"
     '';
     autosuggestions.enable = true;
