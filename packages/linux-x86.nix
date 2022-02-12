@@ -48,10 +48,6 @@
     libreoffice-fresh
     yubikey-manager-qt
     smartmontools
-    gnomeExtensions.sensory-perception
-    gnomeExtensions.caffeine
-    gnomeExtensions.screenshot-tool
-    gnomeExtensions.dash-to-panel
     yubikey-personalization
     jellyfin-media-player
 
