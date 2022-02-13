@@ -3,6 +3,9 @@ driverPackage:
 
 let
   # Original definitions thanks to: https://github.com/keylase/nvidia-patch/blob/master/patch.sh
+
+  # Note the below WILL ASSUME a patched output of libnvidia-encode - MAKE SURE THIS IS STILL
+  # THE CASE IF YOU ARE ADDING NEW DEFINITIONS
   patches = {
     "440.26" =
       "s/\\x85\\xc0\\x41\\x89\\xc4\\x75\\x1f/\\x31\\xc0\\x41\\x89\\xc4\\x75\\x1f/g";
