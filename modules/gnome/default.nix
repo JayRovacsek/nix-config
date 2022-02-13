@@ -27,7 +27,6 @@
     gnomeExtensions.screenshot-tool
     gnomeExtensions.dash-to-panel
     gnomeExtensions.sensory-perception
-    gnomeExtensions.custom-hot-corners-extended
     gnomeExtensions.pop-shell
     gnomeExtensions.improved-workspace-indicator
     gnomeExtensions.blur-my-shell
