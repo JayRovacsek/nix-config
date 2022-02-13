@@ -73,6 +73,7 @@
 
     # Games
     runelite
+    polymc
 
     # Communication
     discord

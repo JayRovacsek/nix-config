@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: {
 
-  imports = [ ../../services/redshift ];
+  imports = [ ../redshift ];
 
   services.xserver.desktopManager.gnome.enable = true;
 
@@ -22,10 +22,16 @@
     gjs
     gnome.gnome-tweaks
     gnome.nautilus
+    gnome.dconf-editor
     gnomeExtensions.caffeine
     gnomeExtensions.screenshot-tool
     gnomeExtensions.dash-to-panel
     gnomeExtensions.sensory-perception
+    gnomeExtensions.custom-hot-corners-extended
+    gnomeExtensions.pop-shell
+    gnomeExtensions.improved-workspace-indicator
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.notification-banner-reloaded
   ];
 
   # If using gnome desktop manager, exclude these from installation

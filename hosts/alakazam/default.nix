@@ -3,7 +3,6 @@
     ./hardware-configuration.nix
     ./modules.nix
     ./networking.nix
-    ./services.nix
     ./system-packages.nix
     ./users.nix
   ];
