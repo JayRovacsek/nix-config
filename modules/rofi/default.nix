@@ -1,114 +1,117 @@
-{ pkgs, lib, config, ... }: {
+{ config, pkgs, ... }:
+let cfg = config.modules.rofi;
+in {
 
   home-manager.users.jay.programs.rofi = {
     enable = true;
-    theme = {
+    theme = let inherit (config.lib.formats.rasi) mkLiteral;
+    in {
       configuration = {
-        font = "Noto Sans 10";
+        font = mkLiteral "Noto Sans 10";
         show-icons = true;
-        icon-theme = "Papirus";
-        display-drun = "";
-        drun-display-format = "{name}";
+        icon-theme = mkLiteral "Papirus";
+        display-drun = mkLiteral "";
+        drun-display-format = mkLiteral "{name}";
         disable-history = false;
         sidebar-mode = false;
       };
 
       window = {
-        transparency = "real";
-        background-color = "@background";
-        text-color = "@foreground";
-        border = "0px";
-        border-color = "@border";
-        border-radius = "0px";
-        width = "38%";
-        location = "center";
+        transparency = mkLiteral "real";
+        background-color = mkLiteral "@background";
+        text-color = mkLiteral "@foreground";
+        border = mkLiteral "0px";
+        border-color = mkLiteral "@border";
+        border-radius = mkLiteral "0px";
+        width = mkLiteral "38%";
+        location = mkLiteral "center";
         x-offset = 0;
         y-offset = 0;
       };
 
       prompt = {
         enabled = true;
-        padding = "0.30% 0.75% 0% -0.5%";
-        background-color = "@background-alt";
-        text-color = "@foreground";
-        font = "FantasqueSansMono Nerd Font 10";
+        padding = mkLiteral "0.30% 0.75% 0% -0.5%";
+        background-color = mkLiteral "@background-alt";
+        text-color = mkLiteral "@foreground";
+        font = mkLiteral "FantasqueSansMono Nerd Font 10";
       };
 
       entry = {
-        background-color = "@background-alt";
-        text-color = "@foreground";
-        placeholder-color = "@foreground";
+        background-color = mkLiteral "@background-alt";
+        text-color = mkLiteral "@foreground";
+        placeholder-color = mkLiteral "@foreground";
         expand = true;
         horizontal-align = 0;
-        placeholder = "Search";
-        padding = "-0.15% 0% 0% 0%";
+        placeholder = mkLiteral "Search";
+        padding = mkLiteral "-0.15% 0% 0% 0%";
         blink = true;
       };
 
       inputbar = {
-        children = "[ prompt, entry ]";
-        background-color = "@background";
-        text-color = "@foreground";
+        children = mkLiteral "[ prompt, entry ]";
+        background-color = mkLiteral "@background";
+        text-color = mkLiteral "@foreground";
         expand = false;
-        border = "0.1%";
-        border-radius = "4px";
-        border-color = "@accent";
-        margin = "0% 0% 0% 0%";
-        padding = "1%";
+        border = mkLiteral "0.1%";
+        border-radius = mkLiteral "4px";
+        border-color = mkLiteral "@accent";
+        margin = mkLiteral "0% 0% 0% 0%";
+        padding = mkLiteral "1%";
       };
 
       listview = {
-        background-color = "@background-alt";
+        background-color = mkLiteral "@background-alt";
         columns = 6;
         lines = 3;
-        spacing = "0%";
+        spacing = mkLiteral "0%";
         cycle = false;
         dynamic = true;
-        layout = "vertical";
+        layout = mkLiteral "vertical";
       };
 
       mainbox = {
-        background-color = "@background-alt";
-        border = "0% 0% 0% 0%";
-        border-radius = "0% 0% 0% 0%";
-        border-color = "@accent";
-        children = "[ inputbar, listview ]";
-        spacing = "1%";
-        padding = "1% 0.5% 1% 0.5%";
+        background-color = mkLiteral "@background-alt";
+        border = mkLiteral "0% 0% 0% 0%";
+        border-radius = mkLiteral "0% 0% 0% 0%";
+        border-color = mkLiteral "@accent";
+        children = mkLiteral "[ inputbar, listview ]";
+        spacing = mkLiteral "1%";
+        padding = mkLiteral "1% 0.5% 1% 0.5%";
       };
 
       element = {
-        background-color = "@background-alt";
-        text-color = "@foreground";
-        orientation = "vertical";
-        border-radius = "0%";
-        padding = "2% 0% 2% 0%";
+        background-color = mkLiteral "@background-alt";
+        text-color = mkLiteral "@foreground";
+        orientation = mkLiteral "vertical";
+        border-radius = mkLiteral "0%";
+        padding = mkLiteral "2% 0% 2% 0%";
       };
 
       element-icon = {
-        background-color = "@background-alt";
-        text-color = "inherit";
-        horizontal-align = "0.5";
-        vertical-align = "0.5";
-        size = "64px";
-        border = "0px";
+        background-color = mkLiteral "@background-alt";
+        text-color = mkLiteral "inherit";
+        horizontal-align = mkLiteral "0.5";
+        vertical-align = mkLiteral "0.5";
+        size = mkLiteral "64px";
+        border = mkLiteral "0px";
       };
 
       element-text = {
-        background-color = "@background-alt";
-        text-color = "inherit";
+        background-color = mkLiteral "@background-alt";
+        text-color = mkLiteral "inherit";
         expand = true;
-        horizontal-align = "0.5";
-        vertical-align = "0.5";
-        margin = "0.5% 0.5% -0.5% 0.5%";
+        horizontal-align = mkLiteral "0.5";
+        vertical-align = mkLiteral "0.5";
+        margin = mkLiteral "0.5% 0.5% -0.5% 0.5%";
       };
 
       "element selected" = {
-        background-color = "@background-bar";
-        text-color = "@foreground";
-        border = "0.1%";
-        border-radius = "4px";
-        border-color = "@accent";
+        background-color = mkLiteral "@background-bar";
+        text-color = mkLiteral "@foreground";
+        border = mkLiteral "0.1%";
+        border-radius = mkLiteral "4px";
+        border-color = mkLiteral "@accent";
       };
     };
     terminal = "${pkgs.alacritty}/bin/alacritty";

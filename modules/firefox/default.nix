@@ -239,7 +239,7 @@
         "privacy.userContext.ui.enabled" = true;
         "privacy.window.name.update.enabled" = true;
         "security.OCSP.enabled" = 1;
-        "security.OCSP.require" = true;
+        "security.OCSP.require" = false;
         "security.ask_for_password" = 2;
         "security.cert_pinning.enforcement_level" = 2;
         "security.csp.enable" = true;

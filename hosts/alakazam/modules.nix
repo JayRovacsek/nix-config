@@ -13,7 +13,7 @@
     ../../modules/openssh
     ../../modules/pipewire
     # ../../modules/starship
-    ../../modules/rofi
+    # ../../modules/rofi
     ../../modules/steam
     ../../modules/udev
     ../../modules/zsh
