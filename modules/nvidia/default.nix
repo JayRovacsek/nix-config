@@ -1,6 +1,9 @@
 { config, lib, ... }:
 let patchDriver = import ./nvenc-unlock.nix;
 in {
+  # Required to remedy weird crash when using nvidia in docker
+  systemd.enableUnifiedCgroupHierarchy = false;
+
   hardware = {
     opengl = {
       enable = true;
