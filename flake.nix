@@ -38,8 +38,17 @@
 
       darwinConfigurations = {
         cloyster = darwin.lib.darwinSystem {
+          inherit pkgs;
           system = "x86_64-darwin";
-          modules = [ ./hosts/cloyster ];
+          modules = [
+            ./hosts/cloyster
+            home-manager.darwinModule
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jrovacsek = import ./packages/darwin_x86.nix;
+            }
+          ];
         };
       };
     };
