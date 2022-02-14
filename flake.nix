@@ -38,8 +38,12 @@
 
       darwinConfigurations = {
         cloyster = darwin.lib.darwinSystem {
-          inherit pkgs;
           system = "x86_64-darwin";
+          pkgs = import nixpkgs {
+            inherit system;
+            config = { allowUnfree = true; };
+            overlays = [ nur.overlay ];
+          };
           modules = [
             ./hosts/cloyster
             home-manager.darwinModule
