@@ -2,7 +2,7 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "unstable";
     home-manager = {
@@ -36,18 +36,13 @@
     darwinConfigurations = {
       cloyster = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
-        pkgs = import nixpkgs {
-          system = "x86_64-darwin";
-          config = { allowUnfree = true; };
-          overlays = [ nur.overlay ];
-        };
         modules = [
           ./hosts/cloyster
           home-manager.darwinModule
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.jrovacsek = import ./packages/darwin_x86.nix;
+            home-manager.users.jrovacsek = import ./packages/darwin-x86.nix;
           }
         ];
       };

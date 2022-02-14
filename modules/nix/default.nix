@@ -1,5 +1,17 @@
-{ config, pkgs, ... }: {
-  nix = {
+{ config, pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
+  nix = if isDarwin then {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  } else {
     gc = {
       automatic = true;
       dates = "monthly";

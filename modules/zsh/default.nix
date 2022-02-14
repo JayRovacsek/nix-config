@@ -1,5 +1,24 @@
-{ config, pkgs, ... }: {
-  programs.zsh = {
+{ config, pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
+  programs.zsh = if isDarwin then {
+    enable = true;
+    promptInit = ''
+      HYPHEN_INSENSITIVE="true"
+      ENABLE_CORRECTION="true"
+      COMPLETION_WAITING_DOTS="true"
+
+      # Preferred editor for local and remote sessions
+      if [[ -n $SSH_CONNECTION ]]; then
+          export EDITOR='vim'
+      else
+          export EDITOR='vim'
+      fi
+
+      eval "$(starship init zsh)"
+    '';
+    enableCompletion = true;
+  } else {
     enable = true;
     histSize = 10000;
     promptInit = ''
