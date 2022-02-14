@@ -2,12 +2,12 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.inputs.nixpkgs.follows = "unstable";
     home-manager = {
       url = "github:rycee/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     nur.url = "github:nix-community/NUR";
   };
