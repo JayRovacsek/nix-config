@@ -32,6 +32,25 @@
             }
           ];
         };
+
+        # work machine, needs a lot of _work_ ba-doom-tish.gif
+        device = nixpkgs.lib.nixosSystem {
+          system = "x86_64-darwin";
+          pkgs = import nixpkgs {
+            system = "x86_64-darwin";
+            config = { allowUnfree = true; };
+            overlays = [ nur.overlay ];
+          };
+          modules = [
+            ./hosts/device
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jay = import ./packages/darwin-x86.nix;
+            }
+          ];
+        };
       };
     };
 }
