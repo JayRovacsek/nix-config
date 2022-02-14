@@ -2,10 +2,11 @@
   imports = [
     ./hardware-configuration.nix
     ./modules.nix
-    ./networking.nix
     ./system-packages.nix
     ./users.nix
   ];
+
+  networking.hostName = "alakazam";
 
   boot = {
     loader = {
@@ -26,8 +27,6 @@
     preLVM = true;
   };
 
-  time.timeZone = "Australia/NSW";
-
   hardware = {
     opengl = {
       enable = true;
@@ -38,7 +37,6 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  documentation.man.generateCaches = true;
   system = {
     stateVersion = "22.05";
     autoUpgrade = {

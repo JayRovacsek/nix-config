@@ -8,6 +8,7 @@
     ../../modules/gnome
     ../../modules/gnupg
     # ../../modules/lsd
+    ../../modules/networking
     ../../modules/nix
     ../../modules/nvidia
     ../../modules/openssh
@@ -15,6 +16,7 @@
     # ../../modules/starship
     # ../../modules/rofi
     ../../modules/steam
+    ../../modules/time
     ../../modules/udev
     ../../modules/zsh
   ];
