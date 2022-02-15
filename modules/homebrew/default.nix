@@ -13,6 +13,7 @@
       "slack"
       "gimp"
       "keepassxc"
+      "signal"
       # "zoomus"
     ];
   };
