@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
-  home-manager.users.jay.programs.vscode = {
+{ pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
+  home-manager.users.${
+    if isDarwin then "jrovacsek" else "jay"
+  }.programs.vscode = {
     enable = true;
 
     userSettings = {
@@ -33,13 +37,12 @@
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
       "editor.bracketPairColorization.enabled" = true;
-      "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       "editor.fontFamily" = "Hack Nerd Font";
       "editor.fontLigatures" = true;
       "editor.fontSize" = 14;
       "editor.formatOnSave" = true;
       "editor.guides.bracketPairs" = "active";
-      "editor.maxTokenizationLineLength" = 50000;
+      "editor.maxTokenizationLineLength" = 10000;
       "editor.minimap.enabled" = false;
       "editor.unicodeHighlight.ambiguousCharacters" = false;
       "editor.wordWrap" = "on";
@@ -47,7 +50,7 @@
       "eslint.lintTask.enable" = true;
       "explorer.confirmDelete" = false;
       "explorer.confirmDragAndDrop" = false;
-      "git.autofetch" = true;
+      "git.autofetch" = false;
       "git.confirmSync" = false;
       "git.enableSmartCommit" = true;
       "go.toolsManagement.autoUpdate" = true;
