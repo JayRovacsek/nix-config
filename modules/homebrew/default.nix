@@ -9,7 +9,11 @@
     ];
 
     casks = [
-
+      "firefox"
+      "slack"
+      "gimp"
+      "keepassxc"
+      # "zoomus"
     ];
   };
 }
