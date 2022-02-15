@@ -48,6 +48,11 @@
           url =
             "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
         };
+        "Nix Uber Search" = {
+          keyword = "ns";
+          url =
+            "https://search.nix.gsc.io/?q=%s&i=nope&files=&excludeFiles=&repos=";
+        };
         "nib Jira Search" = {
           keyword = "j";
           url =
@@ -123,13 +128,7 @@
         "browser.safebrowsing.malware.enabled" = false;
         "browser.safebrowsing.phishing.enabled" = false;
         "browser.search.context.loadInBackground" = false;
-        "browser.search.isUS" = false;
-        "browser.search.log" = false;
-        "browser.search.region" = "AU";
-        "browser.search.searchEnginesURL" =
-          "https://addons.mozilla.org/%LOCALE%/firefox/search-engines/";
         "browser.search.suggest.enabled" = false;
-        "browser.search.update" = false;
         "browser.sessionstore.privacy_level" = 2;
         "browser.shell.checkDefaultBrowser" = false;
         "browser.ssl_override_behavior" = 1;
@@ -139,9 +138,7 @@
         "browser.tabs.crashReporting.sendReport" = false;
         "browser.uitour.enabled" = false;
         "browser.uitour.url" = "";
-        "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
         "browser.urlbar.speculativeConnect.enabled" = false;
-        "browser.urlbar.suggest.searches" = false;
         "browser.urlbar.trimURLs" = false;
         "browser.xul.error_pages.expert_bad_cert" = true;
         "captivedetect.canonicalURL" = "";
@@ -177,7 +174,6 @@
         "geo.provider.use_corelocation" = false;
         "geo.provider.use_gpsd" = false;
         "intl.accept_languages" = "en-US, en";
-        "keyword.enabled" = false;
         "layout.spellcheckDefault" = 2;
         "media.autoplay.default" = 5;
         "media.eme.enabled" = false;
@@ -222,7 +218,6 @@
         "privacy.cpd.cookies" = true;
         "privacy.cpd.formdata" = true;
         "privacy.cpd.history" = true;
-        "privacy.cpd.offlineApps" = true;
         "privacy.cpd.passwords" = false;
         "privacy.cpd.sessions" = true;
         "privacy.cpd.siteSettings" = false;
