@@ -25,7 +25,7 @@ in {
     settings = {
       trusted-users = [ "jay" "root" ];
       auto-optimise-store = true;
-      useSandbox = true;
+      sandbox = true;
     };
 
     package = pkgs.nixUnstable;
