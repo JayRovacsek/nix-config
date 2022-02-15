@@ -21,6 +21,7 @@
     # ../../modules/steam
     ../../modules/time
     # ../../modules/udev
+    ../../modules/vscode
     ../../modules/zsh
   ];
 }
