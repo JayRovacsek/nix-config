@@ -1,1 +1,1 @@
-{ time.timeZone = "Australia/NSW"; }
+{ time.timeZone = "Australia/Sydney"; }

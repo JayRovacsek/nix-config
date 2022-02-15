@@ -1,5 +1,7 @@
-{
-  home-manager.users.jay.programs.lsd = {
+{ pkgs, ... }:
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+in {
+  home-manager.users.${if isDarwin then "jrovacsek" else "jay"}.programs.lsd = {
     enable = true;
     settings = {
       classic = false;
