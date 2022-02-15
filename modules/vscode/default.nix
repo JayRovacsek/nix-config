@@ -68,7 +68,8 @@ in {
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.menuBarVisibility" = "toggle";
       "window.titleBarStyle" = "custom";
-      "workbench.colorTheme" = "Dracula";
+      "oneDarkPro.editorTheme" = "Retro";
+      "workbench.colorTheme" = "Abyss";
       "workbench.iconTheme" = "material-icon-theme";
     };
 
