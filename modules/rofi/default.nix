@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
-let cfg = config.modules.rofi;
-in {
+{ config, pkgs, ... }: {
 
   home-manager.users.jay.programs.rofi = {
     enable = true;
+    terminal = "${pkgs.alacritty}/bin/alacritty";
+    package = pkgs.rofi.override { plugins = [ pkgs.rofi-calc ]; };
+
     theme = let inherit (config.lib.formats.rasi) mkLiteral;
     in {
       configuration = {
@@ -114,7 +115,5 @@ in {
         border-color = mkLiteral "@accent";
       };
     };
-    terminal = "${pkgs.alacritty}/bin/alacritty";
-    package = pkgs.rofi.override { plugins = [ pkgs.rofi-calc ]; };
   };
 }
