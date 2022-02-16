@@ -4,9 +4,7 @@
     enable = true;
     autoUpdate = true;
     cleanup = "zap";
-    brews = [
-
-    ];
+    brews = [];
 
     casks = [
       "firefox"

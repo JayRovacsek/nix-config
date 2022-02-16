@@ -14,7 +14,7 @@
     ../../modules/openssh
     ../../modules/pipewire
     # ../../modules/starship
-    # ../../modules/rofi
+    ../../modules/rofi
     ../../modules/steam
     ../../modules/time
     ../../modules/udev
