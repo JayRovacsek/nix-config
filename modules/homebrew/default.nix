@@ -10,11 +10,12 @@
 
     casks = [
       "firefox"
-      "slack"
       "gimp"
+      "jellyfin-media-player"
       "keepassxc"
       "signal"
-      # "zoomus"
+      "slack"
+      "zoom"
     ];
   };
 }
