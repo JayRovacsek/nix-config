@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
-let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+  package = pkgs.nixUnstable;
 in {
   nix = if isDarwin then {
     gc = {
@@ -8,10 +13,8 @@ in {
       user = "jrovacsek";
     };
 
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    inherit package;
+    inherit extraOptions;
   } else {
     gc = {
       automatic = true;
@@ -28,9 +31,7 @@ in {
       sandbox = true;
     };
 
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    inherit package;
+    inherit extraOptions;
   };
 }
