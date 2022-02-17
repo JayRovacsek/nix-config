@@ -4,9 +4,10 @@
     enable = true;
     autoUpdate = true;
     cleanup = "zap";
-    brews = [];
+    brews = [ ];
 
     casks = [
+      "discord"
       "firefox"
       "gimp"
       "jellyfin-media-player"

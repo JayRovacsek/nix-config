@@ -27,6 +27,7 @@
     pigz
     wireshark
     unzip
+    direnv
 
     # Development
     vscode
