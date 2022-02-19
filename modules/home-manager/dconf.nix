@@ -315,6 +315,8 @@ with lib.hm.gvariant;
       background-opacity = "0.0";
       apply-custom-theme = true;
       show-mounts = false;
+      show-trash = false;
+      show-show-apps-button = false;
     };
 
     "org/gnome/shell/extensions/pop-shell" = {
