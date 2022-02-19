@@ -28,8 +28,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.jay = { pkgs, ... }: {
-              imports =
-                [ ./modules/home-manager/dconf.nix ./packages/linux-x86.nix ];
+              imports = [
+                ./modules/home-manager/dconf.nix 
+                ./packages/linux-x86.nix
+              ];
             };
           }
         ];

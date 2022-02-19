@@ -1,5 +1,16 @@
-{ config, pkgs, lib, ... }: {
-
+{ pkgs, lib, ... }:
+let
+  gnomePackages = with pkgs.gnome; [ gnome-tweaks nautilus dconf-editor ];
+  gnomeExtensions = with pkgs.gnomeExtensions; [
+    caffeine
+    screenshot-tool
+    dash-to-dock
+    sensory-perception
+    pop-shell
+    blur-my-shell
+    notification-banner-reloaded
+  ];
+in {
   imports = [ ../redshift ];
 
   services.xserver.desktopManager.gnome.enable = true;
@@ -18,20 +29,8 @@
 
   services.gvfs.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    gjs
-    gnome.gnome-tweaks
-    gnome.nautilus
-    gnome.dconf-editor
-    gnomeExtensions.caffeine
-    gnomeExtensions.screenshot-tool
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.sensory-perception
-    gnomeExtensions.pop-shell
-    gnomeExtensions.improved-workspace-indicator
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.notification-banner-reloaded
-  ];
+  environment.systemPackages = with pkgs;
+    [ gjs ] ++ gnomePackages ++ gnomeExtensions;
 
   # If using gnome desktop manager, exclude these from installation
   environment.gnome.excludePackages = with pkgs; [

@@ -5,6 +5,14 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "ca/desrt/dconf-editor" = {
+      saved-pathbar-path = "/org/gnome/shell/extensions/caffeine/";
+      saved-view = "/org/gnome/shell/extensions/caffeine/";
+      window-height = 985;
+      window-is-maximized = false;
+      window-width = 948;
+    };
+
     "org/gnome/calculator" = {
       accuracy = 9;
       angle-units = "degrees";
@@ -21,7 +29,7 @@ with lib.hm.gvariant;
       word-size = 64;
     };
 
-    "org/gnome/control-center" = { last-panel = "keyboard"; };
+    "org/gnome/control-center" = { last-panel = "wifi"; };
 
     "org/gnome/desktop/input-sources" = {
       per-window = false;
@@ -218,6 +226,8 @@ with lib.hm.gvariant;
       };
 
     "org/gnome/shell" = {
+      app-picker-layout =
+        "[{'org.gnome.clocks.desktop': <{'position': <0>}>, 'org.gnome.Calculator.desktop': <{'position': <1>}>, 'org.gnome.FileRoller.desktop': <{'position': <2>}>, 'org.gnome.Calendar.desktop': <{'position': <3>}>, 'simple-scan.desktop': <{'position': <4>}>, 'chromium-browser.desktop': <{'position': <5>}>, 'gnome-control-center.desktop': <{'position': <6>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <7>}>, 'gnome-system-monitor.desktop': <{'position': <8>}>, 'discord.desktop': <{'position': <9>}>, 'org.gnome.baobab.desktop': <{'position': <10>}>, 'org.gnome.Terminal.desktop': <{'position': <11>}>, 'org.gnome.DiskUtility.desktop': <{'position': <12>}>, 'org.gnome.Extensions.desktop': <{'position': <13>}>, 'gimp.desktop': <{'position': <14>}>, 'yelp.desktop': <{'position': <15>}>, 'htop.desktop': <{'position': <16>}>, 'org.gnome.Screenshot.desktop': <{'position': <17>}>, 'org.gnome.eog.desktop': <{'position': <18>}>, 'com.github.iwalton3.jellyfin-media-player.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'startcenter.desktop': <{'position': <21>}>, 'base.desktop': <{'position': <22>}>, 'calc.desktop': <{'position': <23>}>}, {'draw.desktop': <{'position': <0>}>, 'impress.desktop': <{'position': <1>}>, 'math.desktop': <{'position': <2>}>, 'writer.desktop': <{'position': <3>}>, 'org.gnome.Logs.desktop': <{'position': <4>}>, 'cups.desktop': <{'position': <5>}>, 'com.nextcloud.desktopclient.nextcloud.desktop': <{'position': <6>}>, 'nixos-manual.desktop': <{'position': <7>}>, 'nvidia-settings.desktop': <{'position': <8>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <9>}>, 'org.polymc.PolyMC.desktop': <{'position': <10>}>, 'redshift-gtk.desktop': <{'position': <11>}>, 'steam.desktop': <{'position': <12>}>, 'thunderbird.desktop': <{'position': <13>}>, 'org.gnome.Tour.desktop': <{'position': <14>}>, 'org.gnome.tweaks.desktop': <{'position': <15>}>, 'Unrailed!.desktop': <{'position': <16>}>, 'org.wireshark.Wireshark.desktop': <{'position': <17>}>, 'xterm.desktop': <{'position': <18>}>, 'ykman-gui.desktop': <{'position': <19>}>}]";
       disable-user-extensions = false;
       disabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
@@ -227,11 +237,11 @@ with lib.hm.gvariant;
       enabled-extensions = [
         "gnome-shell-screenshot@ttll.de"
         "caffeine@patapon.info"
-        "dash-to-panel@jderose9.github.com"
         "blur-my-shell@aunetx"
         "notification-banner-reloaded@marcinjakubowski.github.com"
         "pop-shell@system76.com"
         "sensory-perception@HarlemSquirrel.github.io"
+        "dash-to-dock@micxgx.gmail.com"
       ];
       favorite-apps = [
         "Alacritty.desktop"
@@ -291,108 +301,20 @@ with lib.hm.gvariant;
         action = "disabled";
       };
 
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      animate-app-switch = true;
-      animate-appicon-hover = true;
-      animate-appicon-hover-animation-convexity =
-        "{'RIPPLE': 2.0, 'PLANK': 1.0, 'SIMPLE': 0.0}";
-      animate-appicon-hover-animation-duration =
-        "{'SIMPLE': uint32 160, 'RIPPLE': 130, 'PLANK': 100}";
-      animate-appicon-hover-animation-extent =
-        "{'RIPPLE': 4, 'PLANK': 4, 'SIMPLE': 1}";
-      animate-appicon-hover-animation-rotation =
-        "{'SIMPLE': 0, 'RIPPLE': 10, 'PLANK': 0}";
-      animate-appicon-hover-animation-travel =
-        "{'SIMPLE': 0.29999999999999999, 'RIPPLE': 0.40000000000000002, 'PLANK': 0.0}";
-      animate-appicon-hover-animation-type = "SIMPLE";
-      animate-appicon-hover-animation-zoom =
-        "{'SIMPLE': 1.0, 'RIPPLE': 1.25, 'PLANK': 2.0}";
-      animate-window-launch = true;
-      appicon-margin = 8;
-      appicon-padding = 4;
-      available-monitors = [ 1 0 ];
-      desktop-line-use-custom-color = false;
-      dot-color-1 = "#5294e2";
-      dot-color-2 = "#5294e2";
-      dot-color-3 = "#5294e2";
-      dot-color-4 = "#5294e2";
-      dot-color-dominant = false;
-      dot-color-override = false;
-      dot-color-unfocused-1 = "#5294e2";
-      dot-color-unfocused-2 = "#5294e2";
-      dot-color-unfocused-3 = "#5294e2";
-      dot-color-unfocused-4 = "#5294e2";
-      dot-color-unfocused-different = false;
-      dot-position = "RIGHT";
-      dot-size = 3;
-      dot-style-focused = "DOTS";
-      dot-style-unfocused = "DOTS";
-      focus-highlight = true;
-      focus-highlight-color = "#EEEEEE";
-      focus-highlight-dominant = false;
-      focus-highlight-opacity = 25;
-      group-apps = true;
-      hide-overview-on-startup = false;
-      hotkeys-overlay-combo = "TEMPORARILY";
-      intellihide = true;
-      intellihide-animation-time = 200;
-      intellihide-behaviour = "ALL_WINDOWS";
-      intellihide-close-delay = 400;
-      intellihide-enable-start-delay = 2000;
-      intellihide-hide-from-windows = true;
-      intellihide-key-toggle-text = "<Super>i";
-      intellihide-only-secondary = false;
-      intellihide-pressure-threshold = 100;
-      intellihide-pressure-time = 1000;
-      intellihide-show-in-fullscreen = false;
-      intellihide-use-pressure = false;
-      isolate-workspaces = false;
-      leftbox-padding = -1;
-      middle-click-action = "LAUNCH";
-      panel-anchors = ''
-        {"0":"START","1":"START","2":"START","3":"START"}\n
-      '';
-      panel-element-positions = ''
-        {"0":[{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centered"},{"element":"centerBox","visible":false,"position":"stackedBR"},{"element":"rightBox","visible":false,"position":"stackedBR"},{"element":"dateMenu","visible":false,"position":"stackedBR"},{"element":"systemMenu","visible":false,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}],"1":[{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centered"},{"element":"centerBox","visible":false,"position":"stackedBR"},{"element":"rightBox","visible":false,"position":"stackedBR"},{"element":"dateMenu","visible":false,"position":"stackedBR"},{"element":"systemMenu","visible":false,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}],"2":[{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centered"},{"element":"centerBox","visible":false,"position":"stackedBR"},{"element":"rightBox","visible":false,"position":"stackedBR"},{"element":"dateMenu","visible":false,"position":"stackedBR"},{"element":"systemMenu","visible":false,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}],"3":[{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centered"},{"element":"centerBox","visible":false,"position":"stackedBR"},{"element":"rightBox","visible":false,"position":"stackedBR"},{"element":"dateMenu","visible":false,"position":"stackedBR"},{"element":"systemMenu","visible":false,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}\n
-      '';
-      panel-element-positions-monitors-sync = true;
-      panel-lengths = ''
-        {"0":100,"1":100,"2":100,"3":100}\n
-      '';
-      panel-positions = ''
-        {"0":"LEFT","1":"LEFT","2":"LEFT","3":"LEFT"}\n
-      '';
-      panel-sizes = ''
-        {"0":48,"1":48,"2":48,"3":48}\n
-      '';
-      primary-monitor = 3;
-      secondarymenu-contains-showdetails = false;
-      shift-click-action = "MINIMIZE";
-      shift-middle-click-action = "LAUNCH";
-      show-appmenu = false;
-      show-apps-icon-file = "";
-      show-apps-icon-side-padding = 0;
-      show-apps-override-escape = true;
-      show-favorites-all-monitors = true;
-      show-running-apps = true;
-      show-showdesktop-delay = 1000;
-      show-showdesktop-hover = false;
-      show-showdesktop-time = 300;
-      showdesktop-button-width = 8;
-      status-icon-padding = -1;
-      stockgs-force-hotcorner = true;
-      stockgs-keep-dash = false;
-      stockgs-keep-top-panel = true;
-      stockgs-panelbtn-click-only = false;
-      trans-bg-color = "#000000";
-      trans-panel-opacity = 0.0;
-      trans-use-custom-bg = false;
-      trans-use-custom-gradient = false;
-      trans-use-custom-opacity = true;
-      trans-use-dynamic-opacity = false;
-      tray-padding = -1;
-      tray-size = 64;
-      window-preview-title-position = "TOP";
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      dock-position = "LEFT";
+      intellihide-mode = "ALL_WINDOWS";
+      transparency-mode = "FIXED";
+      running-indicator-style = "DOTS";
+      multi-monitor = true;
+      custom-background-color = true;
+      background-color = "#FFFFFF";
+      customize-alphas = true;
+      min-alpha = "0.0";
+      max-alpha = "0.0";
+      background-opacity = "0.0";
+      apply-custom-theme = true;
+      show-mounts = false;
     };
 
     "org/gnome/shell/extensions/pop-shell" = {
@@ -424,6 +346,10 @@ with lib.hm.gvariant;
 
     "org/gnome/tweaks" = { show-extensions-notice = false; };
 
+    "org/gtk/gtk4/settings/color-chooser" = {
+      selected-color = mkTuple [ true 0.0 ];
+    };
+
     "org/gtk/gtk4/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
@@ -436,6 +362,11 @@ with lib.hm.gvariant;
       sort-order = "ascending";
       type-format = "category";
       window-size = mkTuple [ 986 431 ];
+    };
+
+    "org/gtk/settings/color-chooser" = {
+      custom-colors = [ (mkTuple [ 1.0 0.0 ]) ];
+      selected-color = mkTuple [ true 0.239216 ];
     };
 
     "org/gtk/settings/file-chooser" = {

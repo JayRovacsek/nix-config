@@ -16,6 +16,7 @@
     nmap
     starship
     tree
+    direnv
 
     # Terminal
     alacritty
