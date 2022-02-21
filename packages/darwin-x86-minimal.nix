@@ -1,17 +1,24 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     # CLI Utilities
-    exfat
     git
     htop
     jq
-    killall
-    lsd
-    tree
     unzip
+    direnv
 
-    # Password Management
+    # Terminal
+    alacritty
+    starship
+
+    # Network Tools
+    nmap
+
+    # Secrets Management
     keepassxc
+
+    # Development
+    vscode
 
     ## Misc
     hunspell

@@ -1,33 +1,31 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     # CLI Utilities
-    alacritty
     aws
     git
     htop
     jq
     lsd
-    nmap
-    oh-my-zsh
     pciutils
-    starship
     tree
-    yubikey-personalization
-    zsh
-    zsh-autosuggestions
-    zsh-completions
-    zsh-syntax-highlighting
+    pigz
+    unzip
+    direnv
+
+    # Terminal
+    alacritty
+    starship
+
+    # Network Tools
+    nmap
+    wireshark
 
     # Fonts
     nerdfonts
 
-    # Productivity
+    # Secrets Management
     keepassxc
-    libvirt
-    pigz
-    wireshark
-    unzip
-    direnv
+    yubikey-personalization
 
     # Development
     vscode
@@ -60,11 +58,6 @@
     go-outline
     go-tools
     gopls
-
-    ## Virtualisation
-    docker
-    docker-compose
-    lima
 
     ## Tex
     texlive.combined.scheme-full

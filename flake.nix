@@ -28,10 +28,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.jay = { pkgs, ... }: {
-              imports = [
-                ./modules/home-manager/dconf.nix 
-                ./packages/linux-x86.nix
-              ];
+              imports =
+                [ ./modules/home-manager/dconf.nix ./packages/linux-x86.nix ];
             };
           }
         ];
@@ -48,6 +46,19 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.jrovacsek = import ./packages/darwin-x86.nix;
+          }
+        ];
+      };
+      ninetales = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        modules = [
+          ./hosts/ninetales
+          home-manager.darwinModule
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.jrovacsek =
+              import ./packages/darwin-x86-minimal.nix;
           }
         ];
       };
