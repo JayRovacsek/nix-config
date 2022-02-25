@@ -1,10 +1,13 @@
 { pkgs, ... }:
-let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+let
+  configs = {
+    x86_64-darwin = import ./x86_64-darwin.nix;
+    aarch64-linux = import ./aarch64-linux.nix;
+  };
 in {
-  networking = if isDarwin then {
-    dns = [ "192.168.6.2" "1.1.1.1" "8.8.8.8" ];
-    knownNetworkServices = [ "Wi-Fi" "USB 10/100/1000 LAN" ];
-  } else {
+  networking = if pkgs.system != "x86_64-linux" then
+    configs.${pkgs.system}
+  else {
     useDHCP = false;
     networkmanager.enable = true;
   };
