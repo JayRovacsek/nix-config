@@ -7,6 +7,8 @@
     ../../modules/nix
     ../../modules/openssh
     ../../modules/time
+    ../../modules/vlans/dns.nix
+    { interface = "eth0"; }
     ../../modules/xfce
     ../../modules/zsh
   ];
