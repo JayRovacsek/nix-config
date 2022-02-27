@@ -30,8 +30,10 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.jay = { pkgs, ... }: {
-                imports =
-                  [ ./modules/home-manager/dconf.nix ./packages/linux-x86.nix ];
+                imports = [
+                  ./modules/home-manager/dconf.nix
+                  ./packages/x86_64-linux.nix
+                ];
               };
             }
           ];
@@ -44,8 +46,18 @@
             config = { allowUnfree = true; };
             overlays = [ nur.overlay ];
           };
-          modules =
-            [ ./hosts/wigglytuff nixos-hardware.nixosModules.raspberry-pi-4 ];
+          modules = [
+            ./hosts/wigglytuff
+            nixos-hardware.nixosModules.raspberry-pi-4
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jay = { pkgs, ... }: {
+                imports = [ ./packages/aarch64-linux-minimal.nix ];
+              };
+            }
+          ];
         };
       };
 
@@ -58,7 +70,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.jrovacsek = import ./packages/darwin-x86.nix;
+              home-manager.users.jrovacsek =
+                import ./packages/x86_64-darwin.nix;
             }
           ];
         };
@@ -71,7 +84,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.jrovacsek =
-                import ./packages/darwin-x86-minimal.nix;
+                import ./packages/x86_64-darwin-minimal.nix;
             }
           ];
         };

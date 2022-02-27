@@ -13,5 +13,9 @@
     };
   };
 
-  environment.shellAliases = { nano = "vim"; };
+  environment.shellAliases = {
+    nano = "vim";
+    l = "lsd -al";
+    ls = "lsd";
+  };
 }
