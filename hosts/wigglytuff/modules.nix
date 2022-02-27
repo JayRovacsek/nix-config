@@ -1,4 +1,4 @@
-with import ../../modules/vlans/dns.nix { interface = "eth0"; }; {
+{
   imports = [
     ../../modules/clamav
     ../../modules/docker
