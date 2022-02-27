@@ -10,6 +10,6 @@ let
 in {
   nix = configs.${pkgs.system};
 } // {
-  inherit package;
-  inherit extraOptions;
+  nix.package = package;
+  nix.extraOptions = extraOptions;
 }

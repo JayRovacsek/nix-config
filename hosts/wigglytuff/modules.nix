@@ -1,4 +1,4 @@
-{
+with import ../../modules/vlans/dns.nix { interface = "eth0"; }; {
   imports = [
     ../../modules/clamav
     ../../modules/docker
@@ -7,8 +7,6 @@
     ../../modules/nix
     ../../modules/openssh
     ../../modules/time
-    ../../modules/vlans/dns.nix
-    { interface = "eth0"; }
     ../../modules/xfce
     ../../modules/zsh
   ];
