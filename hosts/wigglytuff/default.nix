@@ -7,4 +7,5 @@
   ];
 
   networking.hostName = "wigglytuff";
+  networking.hostId = "d2a7b80b";
 }

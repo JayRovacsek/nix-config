@@ -5,6 +5,6 @@
       id = 6;
     };
     interfaces.dns.useDHCP = true;
-    defaultGateway = "192.168.${vlans.dns.id}.1";
+    defaultGateway = "192.168.6.1";
   };
 }
