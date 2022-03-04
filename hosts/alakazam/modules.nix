@@ -7,6 +7,7 @@
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/lorri
     # ../../modules/lsd
     ../../modules/networking
     ../../modules/nix
