@@ -1,11 +1,11 @@
-{ config ? {
+{ vlanConfig ? {
   interface = "eth0";
   name = "vlan";
   id = 99;
 }, ... }: {
-  networking.vlans.${config.name} = {
-    interface = config.interface;
-    id = config.id;
+  networking.vlans.${vlanConfig.name} = {
+    interface = vlanConfig.interface;
+    id = vlanConfig.id;
   };
-  networking.interfaces.${config.name}.useDHCP = true;
+  networking.interfaces.${vlanConfig.name}.useDHCP = true;
 }
