@@ -48,6 +48,13 @@
           };
           modules = [
             ./hosts/wigglytuff
+            (import ./functions/vlan.nix ({
+              config = {
+                interface = "eth0";
+                id = 6;
+                name = "dns";
+              };
+            }))
             nixos-hardware.nixosModules.raspberry-pi-4
             home-manager.nixosModules.home-manager
             {
