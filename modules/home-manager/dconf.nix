@@ -304,19 +304,10 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/dash-to-dock" = {
       dock-position = "LEFT";
       intellihide-mode = "ALL_WINDOWS";
-      transparency-mode = "FIXED";
-      running-indicator-style = "DOTS";
+      transparency-mode = "DYNAMIC";
       multi-monitor = true;
-      custom-background-color = true;
-      background-color = "#FFFFFF";
-      customize-alphas = true;
-      min-alpha = "0.0";
-      max-alpha = "0.0";
-      background-opacity = "0.0";
-      apply-custom-theme = true;
       show-mounts = false;
       show-trash = false;
-      show-show-apps-button = false;
     };
 
     "org/gnome/shell/extensions/pop-shell" = {

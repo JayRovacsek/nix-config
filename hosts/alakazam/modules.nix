@@ -8,13 +8,13 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/lorri
-    # ../../modules/lsd
+    ../../modules/lsd
     ../../modules/networking
     ../../modules/nix
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
-    # ../../modules/starship
+    ../../modules/starship
     ../../modules/rofi
     ../../modules/steam
     ../../modules/time
