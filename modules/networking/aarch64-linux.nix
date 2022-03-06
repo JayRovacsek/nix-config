@@ -1,1 +1,1 @@
-{ networking = { useDHCP = false; }; }
+{ useDHCP = false; }
