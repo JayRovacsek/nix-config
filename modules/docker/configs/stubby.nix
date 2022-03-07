@@ -1,8 +1,8 @@
 {
-  image = "";
-  serviceName = "";
-  ports = [ ];
-  volumes = [ ];
+  image = "mvance/stubby:latest";
+  serviceName = "stubby";
+  ports = [ "8053:8053/udp" ];
+  volumes = [ "/etc/stubby:/etc/stubby:rw" ];
   environment = { TZ = "Australia/Sydney"; };
-  extraOptions = [ ];
+  extraOptions = [ "--network=host" "--restart unless-stopped" ];
 }

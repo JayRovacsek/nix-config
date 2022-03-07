@@ -4,6 +4,7 @@
     ./modules.nix
     ./system-packages.nix
     ./users.nix
+    ./vlans.nix
   ];
 
   networking.hostName = "wigglytuff";

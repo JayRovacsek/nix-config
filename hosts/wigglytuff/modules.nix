@@ -2,6 +2,7 @@
   imports = [
     ../../modules/clamav
     ../../modules/docker
+    ../../modules/docker/stacks/dns.nix
     ../../modules/gnupg
     ../../modules/lsd
     ../../modules/networking
