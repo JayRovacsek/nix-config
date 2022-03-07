@@ -14,7 +14,10 @@ let
   pihole = dockerFunction { containerConfig = piholeDockerConfig; };
   stubby = dockerFunction { containerConfig = stubbyDockerConfig; };
 in {
-  virtualisation.oci-containers = { containers = pihole // stubby; };
+  virtualisation.oci-containers = {
+    containers = pihole // stubby;
+    backend = "podman";
+  };
   users.extraUsers = piholeUser.extraUsers // stubbyUser.extraUsers;
   users.extraGroups = piholeUser.extraGroups // stubbyUser.extraGroups;
 }
