@@ -14,5 +14,6 @@
       gid = userConfig.group.id;
       members = userConfig.group.members;
     };
+    "${userConfig.name}" = { };
   };
 }
