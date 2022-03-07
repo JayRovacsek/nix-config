@@ -18,5 +18,5 @@
     ServerIP = "192.168.6.4";
     WEBPASSWORD = "password";
   };
-  extraOptions = [ "--network=host" "--restart unless-stopped" ];
+  extraOptions = [ "--network=host" "--restart=unless-stopped" ];
 }
