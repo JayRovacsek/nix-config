@@ -1,4 +1,1 @@
-let
-  jay = import ../../users/standard/jay.nix;
-  test = import ../../users/standard/test.nix;
-in { users = [ jay test ]; }
+let jay = import ../../users/standard/jay.nix; in { users = [ jay ]; }

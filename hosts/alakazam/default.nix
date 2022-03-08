@@ -1,15 +1,13 @@
 { config, pkgs, ... }:
 let
-  userFunction = import ../../functions/user.nix;
-  alakazamUserConfigs = (import ./users.nix).users;
-  alakazamUsers =
-    builtins.foldl' (x: y: (userFunction { userConfig = x; }) // y) { }
-    alakazamUserConfigs;
+  userFunction = import ../../functions/map-reduce-users.nix;
+  userConfigs = (import ./users.nix).users;
+  users = userFunction { users = userConfigs; };
 in {
+  inherit users;
+
   imports =
     [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
-
-  users.users = alakazamUsers;
 
   networking.hostName = "alakazam";
 
