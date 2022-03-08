@@ -1,10 +1,15 @@
-{ config, pkgs, ... }: {
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./system-packages.nix
-    ./users.nix
-  ];
+{ config, pkgs, ... }:
+let
+  userFunction = import ../../functions/user.nix;
+  alakazamUserConfigs = (import ./users.nix).users;
+  alakazamUsers =
+    builtins.foldl' (x: y: (userFunction { userConfig = x; }) // y) { }
+    alakazamUserConfigs;
+in {
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+
+  users.users = alakazamUsers;
 
   networking.hostName = "alakazam";
 
