@@ -7,7 +7,6 @@
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
-    ../../modules/stubby
     ../../modules/time
     ../../modules/zsh
   ];

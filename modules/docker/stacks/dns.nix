@@ -16,4 +16,8 @@ in {
   };
   users.extraUsers = piholeUser.extraUsers;
   users.extraGroups = piholeUser.extraGroups;
+
+  imports = [ ../../stubby ];
+
+  boot.kernel.sysctl = { "net.ipv4.ip_unprivileged_port_start" = 53; };
 }
