@@ -1,6 +1,6 @@
 let piholeUser = import ../../../../users/service-accounts/pihole.nix;
 in {
-  name = "pihole/dnsmasq.d/02-rebound-domains.conf";
+  name = "pihole/dnsmasq.d/03-local.conf";
   text = ''
     # Local Address Binds
     address=/ubiquiti_ap.localdomain/192.168.1.3
