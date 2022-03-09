@@ -8,7 +8,6 @@
     ../../modules/nix
     ../../modules/openssh
     ../../modules/time
-    # ../../modules/xfce
     ../../modules/zsh
   ];
 }

@@ -1,4 +1,4 @@
-{
+rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
   ports = [ "53:53/tcp" "53:53/udp" "67:67/udp" "80:80/tcp" "444:443/tcp" ];
@@ -18,5 +18,6 @@
     ServerIP = "192.168.6.4";
     WEBPASSWORD = "password";
   };
-  extraOptions = [ "--network=host" "--restart=unless-stopped" ];
+  extraOptions =
+    [ "--network=host" "--restart=unless-stopped" "--name=${serviceName}" ];
 }
