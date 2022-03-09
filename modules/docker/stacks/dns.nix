@@ -22,7 +22,7 @@ in {
   users.extraGroups = piholeUser.extraGroups // stubbyUser.extraGroups;
 
   environment.etc = {
-    "stubby/stubby.yml".source = ''
+    "stubby/stubby.yml".text = ''
       resolution_type: GETDNS_RESOLUTION_STUB
       dns_transport_list:
         - GETDNS_TRANSPORT_TLS
