@@ -9,12 +9,13 @@ rec {
   ];
   environment = {
     TZ = "Australia/Sydney";
-    PIHOLE_DNS_ = "192.168.6.4#8053";
+    PIHOLE_DNS_ = "127.0.0.1#8053";
     DNSSEC = "true";
-    DNS_BOGUS_PRIV = "true";
+    DNS_BOGUS_PRIV = "false";
     DNS_FQDN_REQUIRED = "true";
     DHCP_ACTIVE = "false";
     DNSMASQ_LISTENING = "all";
+    DNSMASQ_USER = "pihole";
     ServerIP = "192.168.6.4";
     WEBPASSWORD = "password";
   };
