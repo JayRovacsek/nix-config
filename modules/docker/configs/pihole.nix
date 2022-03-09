@@ -1,4 +1,5 @@
-rec {
+let piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
+in rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
   ports = [ "53:53/tcp" "53:53/udp" "67:67/udp" "80:80/tcp" "444:443/tcp" ];
@@ -16,5 +17,12 @@ rec {
     ServerIP = "192.168.6.4";
     WEBPASSWORD = "password";
   };
-  extraOptions = [ "--network=podman" "--name=${serviceName}" ];
+  extraOptions = [
+    "--network=podman"
+    "--name=${serviceName}"
+    ''
+      --user="${builtins.toString piholeUserConfig.uid}:${
+        builtins.toString piholeUserConfig.group.id
+      }"''
+  ];
 }
