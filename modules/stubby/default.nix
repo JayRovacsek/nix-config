@@ -32,7 +32,7 @@ in {
       edns_client_subnet_private = 1;
       round_robin_upstreams = 1;
       idle_timeout = 10000;
-      listen_addresses = [ "0.0.0.0@8053" "0:0:0:0:0:0:0:0@8053" ];
+      listen_addresses = [ "127.0.0.1@8053" ];
       tls_query_padding_blocksize = 128;
       tls_authentication = "GETDNS_AUTHENTICATION_REQUIRED";
       dns_transport_list = [ "GETDNS_TRANSPORT_TLS" ];
