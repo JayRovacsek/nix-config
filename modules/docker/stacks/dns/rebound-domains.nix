@@ -139,5 +139,5 @@ in {
   '';
   uid = piholeUser.uid;
   gid = piholeUser.group.id;
-  mode = "0400";
+  mode = "0444";
 }
