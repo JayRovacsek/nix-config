@@ -23,9 +23,6 @@ in {
 
   environment.etc = {
     "stubby/stubby.yml".source = ''
-      # For more information see
-      # https://dnsprivacy.org/wiki/display/DP/Configuring+Stubby
-
       resolution_type: GETDNS_RESOLUTION_STUB
       dns_transport_list:
         - GETDNS_TRANSPORT_TLS
@@ -50,8 +47,6 @@ in {
         - address_data: 185.213.26.187
           tls_auth_name: "dot.ny.ahadns.net"
         - address_data: 94.16.114.254
-          tls_auth_name: "jabber-germany.de"
-
-          '';
+          tls_auth_name: "jabber-germany.de"'';
   };
 }
