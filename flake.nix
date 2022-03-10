@@ -15,7 +15,8 @@
 
   outputs =
     { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, ... }@inputs: {
-      nixosConfigurations = {
+      nixosConfigurations = let customOverlays = import ./overlays;
+      in {
         alakazam = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = import nixpkgs {
@@ -44,7 +45,7 @@
           pkgs = import nixpkgs {
             system = "aarch64-linux";
             config = { allowUnfree = true; };
-            overlays = [ nur.overlay ];
+            overlays = [ nur.overlay customOverlays ];
           };
           modules = [
             ./hosts/wigglytuff
