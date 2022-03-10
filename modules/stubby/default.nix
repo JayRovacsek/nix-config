@@ -42,4 +42,5 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [ utilisedPort ];
+  networking.firewall.allowedUDPPorts = [ utilisedPort ];
 }
