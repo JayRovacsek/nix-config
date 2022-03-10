@@ -31,6 +31,4 @@ in {
   imports = [ ../../../stubby ];
 
   environment.etc = etcConfigs;
-
-  boot.kernel.sysctl = { "net.ipv4.ip_unprivileged_port_start" = 53; };
 }
