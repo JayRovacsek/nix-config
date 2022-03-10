@@ -33,7 +33,7 @@ in {
       edns_client_subnet_private = 1;
       round_robin_upstreams = 1;
       idle_timeout = 10000;
-      listen_addresses = [ "127.0.0.1@${utilisedPort}" ];
+      listen_addresses = [ "127.0.0.1@${builtins.toString utilisedPort}" ];
       tls_query_padding_blocksize = 128;
       tls_authentication = "GETDNS_AUTHENTICATION_REQUIRED";
       dns_transport_list = [ "GETDNS_TRANSPORT_TLS" ];
