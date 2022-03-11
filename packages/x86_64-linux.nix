@@ -30,6 +30,7 @@
     lm_sensors
     pciutils
     traceroute
+    gparted
 
     # Browsers
     ungoogled-chromium

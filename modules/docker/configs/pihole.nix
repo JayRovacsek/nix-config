@@ -16,9 +16,5 @@ in rec {
     DNSMASQ_USER = "pihole";
     WEBPASSWORD = "password";
   };
-  extraOptions = [
-    "--network=podman"
-    "--name=${serviceName}"
-    "--cap-add=CAP_NET_BIND_SERVICE"
-  ];
+  extraOptions = [ "--name=${serviceName}" "--cap-add=CAP_NET_BIND_SERVICE" ];
 }
