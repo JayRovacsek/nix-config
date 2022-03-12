@@ -23,7 +23,7 @@ in {
       port = 6680
       zeroconf = Mopidy HTTP Server
       csrf_protection = true
-      default_app = muse
+      default_app = mopidy
       [muse]
       enabled = true
       [file]
