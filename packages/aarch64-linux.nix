@@ -13,9 +13,7 @@
     # Development
     vscode
 
-    # Media
-    mopidy
-    mopidy-mopify
-    mopidy-jellyfin
+    # Firefox
+    firefox
   ];
 }
