@@ -3,7 +3,7 @@ let secrets = (builtins.fromJSON (builtins.readFile /secrets/jellyfin.json));
 in {
   services.mopidy = {
     enable = true;
-    extensionPackages = with pkgs; [ mopidy-jellyfin mopidy-muse ];
+    extensionPackages = with pkgs; [ mopidy-jellyfin mopidy-iris ];
     configuration = ''
       [audio]
       mixer = none
@@ -23,8 +23,8 @@ in {
       port = 6680
       zeroconf = Mopidy HTTP Server
       csrf_protection = true
-      default_app = mopidy
-      [muse]
+      default_app = iris
+      [iris]
       enabled = true
       [file]
       enabled = false
