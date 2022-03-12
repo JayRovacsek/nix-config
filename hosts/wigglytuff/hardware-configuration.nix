@@ -6,4 +6,6 @@
       options = [ "noatime" ];
     };
   };
+
+  hardware.enableRedistributableFirmware = true;
 }
