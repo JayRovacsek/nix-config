@@ -5,8 +5,12 @@ let
   users = userFunction { users = userConfigs; };
 in {
   inherit users;
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./modules.nix
+    ./system-packages.nix
+    ./vlans.nix
+  ];
 
   networking.hostName = "jigglypuff";
   networking.hostId = "d2a7f613";
