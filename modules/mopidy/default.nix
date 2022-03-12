@@ -19,7 +19,7 @@ in {
           rtsp
       [http]
       enabled = true
-      hostname = 127.0.0.0
+      hostname = 0.0.0.0
       port = 6680
       zeroconf = Mopidy HTTP Server
       csrf_protection = true
