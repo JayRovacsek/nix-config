@@ -1,6 +1,7 @@
 {
   imports = [
     ../../modules/clamav
+    ../../modules/docker/stacks/dns
     ../../modules/gnupg
     ../../modules/lsd
     ../../modules/networking
