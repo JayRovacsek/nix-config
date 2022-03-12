@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
@@ -11,9 +11,8 @@
   boot.loader.raspberryPi = {
     enable = true;
     version = 3;
+    uboot.enable = true;
   };
-
-  boot.loader.generic-extlinux-compatible.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 }
