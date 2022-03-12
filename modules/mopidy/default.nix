@@ -3,7 +3,7 @@ let secrets = (builtins.fromJSON (builtins.readFile /secrets/jellyfin.json));
 in {
   services.mopidy = {
     enable = true;
-    extensionPackages = with pkgs; [ mopidy-jellyfin ];
+    extensionPackages = with pkgs; [ mopidy-jellyfin mopidy-muse ];
     configuration = ''
       [audio]
       mixer = none
@@ -37,6 +37,4 @@ in {
       password = ${secrets.password}
       album_format = {ProductionYear} - {Name}'';
   };
-
-  environment.systemPackages = with pkgs; [ mopidy-muse ];
 }
