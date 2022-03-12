@@ -74,7 +74,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.jay = { pkgs, ... }: {
-                imports = [ ./packages/aarch64-linux-minimal.nix ];
+                imports = [ ./packages/aarch64-linux.nix ];
               };
             }
           ];
