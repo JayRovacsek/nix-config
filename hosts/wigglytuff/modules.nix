@@ -3,6 +3,7 @@
     ../../modules/clamav
     ../../modules/gnupg
     ../../modules/lsd
+    ../../modules/mopidy
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
