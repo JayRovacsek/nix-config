@@ -15,4 +15,9 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
 }

@@ -8,4 +8,8 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+  swapDevices = [{
+    device = "/swapfile";
+    size = 3072;
+  }];
 }
