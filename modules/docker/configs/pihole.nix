@@ -1,4 +1,7 @@
-let piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
+let
+  piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
+  piholeUid = builtins.toString piholeUserConfig.uid;
+  piholeGid = builtins.toString piholeUserConfig.group.id;
 in rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
@@ -22,8 +25,8 @@ in rec {
     FTLCONF_RESOLVE_IPV6 = "no";
     FTLCONF_SOCKET_LISTENING = "all";
     FTLCONF_NAMES_FROM_NETDB = "true";
-    PIHOLE_UID = piholeUserConfig.uid;
-    PIHOLE_GID = piholeUserConfig.group.id;
+    PIHOLE_UID = piholeUid;
+    PIHOLE_GID = piholeGid;
   };
   extraOptions = [
     "--name=${serviceName}"
@@ -31,9 +34,6 @@ in rec {
     "--cap-add=CAP_SYS_NICE"
     "--cap-add=CAP_CHOWN"
     "--network=host"
-    ''
-      --user="${builtins.toString piholeUserConfig.uid}:${
-        builtins.toString piholeUserConfig.group.id
-      }"''
+    ''--user="${piholeUid}:${piholeGid}"''
   ];
 }
