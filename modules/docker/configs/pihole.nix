@@ -1,7 +1,9 @@
 let
   piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
   piholeUid = builtins.toString piholeUserConfig.uid;
+  piholeUname = piholeUserConfig.name;
   piholeGid = builtins.toString piholeUserConfig.group.id;
+  piholeGname = piholeUserConfig.group.name;
 in rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
@@ -34,6 +36,6 @@ in rec {
     "--cap-add=CAP_SYS_NICE"
     "--cap-add=CAP_CHOWN"
     "--network=host"
-    ''--user="${piholeUid}:${piholeGid}"''
+    ''--user="${piholeUname}:${piholeGname}"''
   ];
 }
