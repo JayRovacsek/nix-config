@@ -31,6 +31,9 @@ in rec {
     "--cap-add=CAP_SYS_NICE"
     "--cap-add=CAP_CHOWN"
     "--network=host"
-    ''--user="${piholeUserConfig.uid}:${piholeUserConfig.group.id}"''
+    ''
+      --user="${builtins.toString piholeUserConfig.uid}:${
+        builtins.toString piholeUserConfig.group.id
+      }"''
   ];
 }
