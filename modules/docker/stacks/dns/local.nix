@@ -9,6 +9,7 @@ in {
     address=/speedtest.localdomain/192.168.1.222
     address=/duplicati.localdomain/192.168.1.223
     address=/tv.localdomain/192.168.3.2
+    address=/wigglytuff.localdomain/192.168.3.2
     address=/car_bed.localdomain/192.168.3.10
     address=/jackett.localdomain/192.168.4.129
     address=/deluge.localdomain/192.168.4.130
@@ -22,12 +23,15 @@ in {
     address=/flare-solverr.localdomain/192.168.4.138
     address=/swag.localdomain/192.168.5.3
     address=/pihole.localdomain/192.168.6.2
+    address=/stubby.localdomain/192.168.6.3
+    address=/jigglypuff.localdomain/192.168.6.4
     address=/authelia.localdomain/192.168.9.2
     address=/nextcloud.localdomain/192.168.10.2
     address=/homeassistant.localdomain/192.168.12.2
     address=/cache.localdomain/192.168.16.2
     address=/minecraft.localdomain/192.168.17.5
     address=/minecraft.rovacsek.com/192.168.17.5
+    address=/minecraft.rovacsek.com.localdomain/192.168.17.5
     address=/valheim.localdomain/192.168.17.3
     address=/valheim.rovacsek.com/192.168.17.3
     address=/terraria.localdomain/192.168.17.4
