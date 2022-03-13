@@ -30,5 +30,5 @@ in {
   environment.etc = etcConfigs;
 
   networking.firewall.allowedTCPPorts = [ 53 80 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedUDPPorts = [ 53 67 ];
 }
