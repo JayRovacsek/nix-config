@@ -12,6 +12,9 @@
     enable = true;
     version = 3;
     uboot.enable = true;
+    firmwareConfig = ''
+      gpu_mem=256
+    '';
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
