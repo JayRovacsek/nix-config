@@ -2,7 +2,7 @@ let piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
 in rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
-  ports = [ "53:53/tcp" "53:53/udp" "67:67/udp" "80:80/tcp" ];
+  ports = [ "53:53/tcp" "53:53/udp" "80:80/tcp" ];
   volumes =
     [ "/etc/pihole:/etc/pihole:rw" "/etc/pihole/dnsmasq.d:/etc/dnsmasq.d:rw" ];
   environment = {
