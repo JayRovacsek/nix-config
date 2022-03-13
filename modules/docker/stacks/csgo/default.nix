@@ -9,6 +9,14 @@ let
   # Actual constructs used to generate useful config
   csgoUser = userFunction { userConfig = csgoUserConfig; };
   csgo = dockerFunction { containerConfig = csgoDockerConfig; };
+
+  # Config file contents to write to environment.etc locations
+  settings = import ./settings.nix;
+
+  # Files to write to etc
+  etcConfigs =
+    builtins.foldl' (x: y: x // etcFunction { config = y; }) { } settings.files;
+
 in {
   virtualisation.oci-containers = { containers = csgo; };
   users.extraUsers = csgoUser.extraUsers;

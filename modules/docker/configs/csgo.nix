@@ -3,7 +3,7 @@ in rec {
   image = "cm2network/csgo:latest";
   serviceName = "csgo";
   ports = [ "27015:27015/tcp" "27015:27015/udp" "27005:27005/udp" ];
-  volumes = [ "/etc/csgo:/home/steam/csgo-dedicated/:rw" ];
+  volumes = [ "/etc/csgo-data:/home/steam/csgo-dedicated/:rw" ];
   environment = {
     TZ = "Australia/Sydney";
     SRCDS_TOKEN = "changeme";
@@ -31,5 +31,6 @@ in rec {
   extraOptions = [
     "--name=${serviceName}"
     ''--user="${csgoUserConfig.name}/${csgoUserConfig.group.name}"''
+    "--net=host"
   ];
 }
