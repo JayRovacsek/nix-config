@@ -6,11 +6,8 @@ in rec {
   image = "pihole/pihole:latest";
   serviceName = "pihole";
   ports = [ "53:53/tcp" "53:53/udp" "80:80/tcp" ];
-  volumes = [
-    "/etc/pihole:/etc/pihole:rw"
-    "/etc/pihole/dnsmasq.d:/etc/dnsmasq.d:rw"
-    "/etc/passwd:/etc/passwd:ro"
-  ];
+  volumes =
+    [ "/etc/pihole:/etc/pihole:rw" "/etc/pihole/dnsmasq.d:/etc/dnsmasq.d:rw" ];
   environment = {
     TZ = "Australia/Sydney";
     PIHOLE_DNS_ = "127.0.0.1#8053";
