@@ -18,6 +18,7 @@ in {
     ../../modules/lsd
     ../../modules/networking
     ../../modules/openssh
+    ../../modules/starship
     ../../modules/time
     ../../modules/zsh
   ];
