@@ -2,7 +2,7 @@
 let
   userFunction = import ../../functions/map-reduce-users.nix;
   userConfigs = (import ./users.nix).users;
-  users = userFunction { users = userConfigs; };
+  users = userFunction { inherit pkgs userConfigs; };
 in {
   inherit users;
   imports = [
