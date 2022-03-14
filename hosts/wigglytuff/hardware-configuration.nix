@@ -12,4 +12,8 @@
     device = "/swapfile";
     size = 3072;
   }];
+
+  hardware.pulseaudio.extraConfig = ''
+    set-default-sink alsa_output.platform-bcm2835_audio.stereo-fallback.2
+  '';
 }
