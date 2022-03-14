@@ -1,4 +1,7 @@
-{
+{ config, pkgs, ... }:
+let nixConfig = import ../../modules/nix { pkgs = pkgs; };
+in {
+  nix = nixConfig.nix;
   imports = [
     ../../modules/alacritty
     ../../modules/clamav
@@ -10,7 +13,6 @@
     ../../modules/lorri
     ../../modules/lsd
     ../../modules/networking
-    ../../modules/nix
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
