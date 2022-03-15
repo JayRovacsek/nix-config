@@ -8,14 +8,11 @@ let
   etcFunction = import ../../../../functions/etc.nix;
 
   # Config file contents to write to environment.etc locations
-  reboundDomains = import ./rebound-domains.nix;
   local = import ./local.nix;
 
   # Files to write to etc
-  etcConfigs = builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [
-    reboundDomains
-    local
-  ];
+  etcConfigs =
+    builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [ local ];
 
   # Actual constructs used to generate useful config
   piholeUser = userFunction { userConfig = piholeUserConfig; };
