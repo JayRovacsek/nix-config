@@ -19,6 +19,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.cleanTmpDir = true;
+
   swapDevices = [{
     device = "/swapfile";
     size = 1024;

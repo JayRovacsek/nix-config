@@ -11,6 +11,8 @@
     package = pkgs.pulseaudioFull;
   };
 
+  boot.cleanTmpDir = true;
+
   boot = {
     extraModprobeConfig = ''
       options snd_bcm2835 enable_headphones=1
