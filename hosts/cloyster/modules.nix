@@ -10,6 +10,7 @@ in {
     ../../modules/lorri
     ../../modules/lsd
     ../../modules/networking
+    ../../modules/nix
     ../../modules/starship
     ../../modules/time
     ../../modules/vscode
