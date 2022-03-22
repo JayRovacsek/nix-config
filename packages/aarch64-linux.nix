@@ -12,8 +12,13 @@
 
     # Development
     vscode
+    nixfmt
 
-    # Firefox
-    firefox
+    # Browsers
+    ungoogled-chromium
+    
+    # Productivity
+    keepassxc 
+    nextcloud-client 
   ];
 }
