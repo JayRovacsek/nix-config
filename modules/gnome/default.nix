@@ -22,11 +22,6 @@ in {
     wayland = false;
   };
 
-  services.xserver.displayManager.autoLogin = {
-    enable = true;
-    user = "jay";
-  };
-
   services.gvfs.enable = true;
 
   environment.systemPackages = with pkgs;
