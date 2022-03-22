@@ -75,9 +75,6 @@ in {
 
     extensions = with pkgs.vscode-extensions; [
 
-      # Time Tracking
-      WakaTime.vscode-wakatime
-
       # Nix
       bbenoist.nix
       jnoortheen.nix-ide
@@ -105,9 +102,6 @@ in {
       matklad.rust-analyzer
       vadimcn.vscode-lldb
 
-      # Python
-      ms-python.python
-
       # Spellcheck
       streetsidesoftware.code-spell-checker
 
@@ -125,7 +119,6 @@ in {
 
       # Markdown
       yzhang.markdown-all-in-one
-
     ];
   };
 }
