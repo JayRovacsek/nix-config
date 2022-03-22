@@ -1,17 +1,18 @@
-{ config, pkgs, ... }:
-let nixConfig = import ../../modules/nix { pkgs = pkgs; };
-in {
+{
   imports = [
     ../../modules/alacritty
-    ../../modules/documentation
-    ../../modules/fonts
     ../../modules/gnupg
-    ../../modules/homebrew
-    ../../modules/lorri
+    ../../modules/hardware/m1
+    ../../modules/firefox
+    ../../modules/fonts
     ../../modules/lsd
     ../../modules/networking
+    ../../modules/nix
+    ../../modules/openssh
     ../../modules/starship
     ../../modules/time
+    ../../modules/gnome    
+    ../../modules/udev
     ../../modules/vscode
     ../../modules/zsh
   ];
