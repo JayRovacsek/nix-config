@@ -38,6 +38,26 @@
             }
           ];
         };
+        
+        ninetales = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            config = { allowUnfree = true; };
+            overlays = [ nur.overlay ];
+          };
+          modules = [
+            ./hosts/ninetales
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jay = { pkgs, ... }: {
+                imports = [ ./packages/aarch64-linux.nix ];
+              };
+            }
+          ];
+        };
 
         jigglypuff = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
