@@ -86,6 +86,7 @@ in users
 
 * Flake my home server
 * Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
+* Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
 * SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
 * GPG signing for git automatically configured by nix across Linux and Macos
 * Elasticsearch implementation to gather, munge and query logs from all compute
