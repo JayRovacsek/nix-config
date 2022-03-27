@@ -103,3 +103,12 @@ in users
 I'm totally missing some ideas, hopefully I'll add them with related links as they come back into my head.
 
 ![Would I recommend nixos?](./resources/recommend.jpg)
+
+## WIP: Dynamic user configs
+Just getting this out of my head for a minute but user configs that mean our inputs to a system could be described as:
+* System has a list of users
+* System has a list of modules
+* Users can have a list of excludes for modules
+Otherwise; 
+  * Users have home-manager programs generated per system config
+  * Sometimes excluding modules where they are not required 
