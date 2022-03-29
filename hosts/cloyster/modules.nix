@@ -9,11 +9,24 @@ in {
     ../../modules/homebrew
     ../../modules/lorri
     ../../modules/lsd
+    ../../modules/mac-dock
     ../../modules/networking
     ../../modules/nix
     ../../modules/starship
     ../../modules/time
-    ../../modules/vscode
+    ../../modules/vscodium
     ../../modules/zsh
   ];
+
+  mac-dock = {
+    enable = true;
+    entries = [
+      { path = "${pkgs.alacritty.outPath}/Applications/Alacritty.app"; }
+      { path = "/Applications/Firefox.app"; }
+      { path = "${pkgs.vscodium.outPath}/Applications/VSCodium.app"; }
+      { path = "/Applications/KeePassXC.app"; }
+      { path = "/Applications/Microsoft Outlook.app"; }
+      { path = "/Applications/Slack.app"; }
+    ];
+  };
 }
