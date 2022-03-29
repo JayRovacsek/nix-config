@@ -4,6 +4,7 @@ in {
   home-manager.users.${
     if isDarwin then "jrovacsek" else "jay"
   }.programs.vscode = {
+    package = pkgs.vscodium;
     enable = true;
 
     userSettings = {

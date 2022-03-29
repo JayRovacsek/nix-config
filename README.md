@@ -84,31 +84,45 @@ let
 in users
 ```
 
-* Flake my home server
-* Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
-* Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
-* SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
-* GPG signing for git automatically configured by nix across Linux and Macos
-* Elasticsearch implementation to gather, munge and query logs from all compute
-* [Headscale](https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=headscale) + client configs to implement a true zero-trust network within compute I control. This removes bounds of hosts needing to run inside of network segments that aren't captured by nix configs (unless nixos as a router becomes a thing)
-* Dig into the usability of [microvms](https://github.com/astro/microvm.nix) to avoid use of docker where possible. This is not because docker is bad, but instead to enable reuse of existing modules within these configs - afterall, why bother having a [clamav module](./modules/clamav/default.nix) if you can't deploy it to all your compute
-* Dig into nixos as a router ([eg](https://francis.begyn.be/blog/nixos-home-router))
-* Look into deploying armv7 instances of nixos to:
-  * RaspberryPi Zero (w and not)
-  * RaspberryPi 2 (Igglybuff if we can get this going - get that sucker to run as an internal DNS node)
-  * OrangePi Lite
-  * OrangePi Plus v2
-  * OrangePi Winplus
+- Flake my home server
+- Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
+- Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
+- SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
+- GPG signing for git automatically configured by nix across Linux and Macos
+- Elasticsearch implementation to gather, munge and query logs from all compute
+- [Headscale](https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=headscale) + client configs to implement a true zero-trust network within compute I control. This removes bounds of hosts needing to run inside of network segments that aren't captured by nix configs (unless nixos as a router becomes a thing)
+- Dig into the usability of [microvms](https://github.com/astro/microvm.nix) to avoid use of docker where possible. This is not because docker is bad, but instead to enable reuse of existing modules within these configs - afterall, why bother having a [clamav module](./modules/clamav/default.nix) if you can't deploy it to all your compute
+- Dig into nixos as a router ([eg](https://francis.begyn.be/blog/nixos-home-router))
+- Look into deploying armv7 instances of nixos to:
+  - RaspberryPi Zero (w and not)
+  - RaspberryPi 2 (Igglybuff if we can get this going - get that sucker to run as an internal DNS node)
+  - OrangePi Lite
+  - OrangePi Plus v2
+  - OrangePi Winplus
 
 I'm totally missing some ideas, hopefully I'll add them with related links as they come back into my head.
 
 ![Would I recommend nixos?](./resources/recommend.jpg)
 
 ## WIP: Dynamic user configs
+
 Just getting this out of my head for a minute but user configs that mean our inputs to a system could be described as:
-* System has a list of users
-* System has a list of modules
-* Users can have a list of excludes for modules
-Otherwise; 
-  * Users have home-manager programs generated per system config
-  * Sometimes excluding modules where they are not required 
+- System has a list of users
+- System has a list of modules
+- Users can have a list of excludes for modules
+Otherwise;
+  - Users have home-manager programs generated per system config
+  - Sometimes excluding modules where they are not required
+
+## Issues
+
+### VSCodium Config
+
+Since changing to vscodium on MacOs the configurations are not written correctly for user settings as per [this module](./modules/vscodium/default.nix) on Linux systems this works just fine however.
+
+A resolve exists in removing the following directories:
+- `rm -rf ~/.vscode-oss`
+- `rm -rf ~/Library/Application\ Support/VSCodium`
+Then symlinking the following folders as they have the correct config written:
+- `ln -s ~/.vscode ~/.vscode-oss`
+- `ln -s ~/Library/Application\ Support/Code ~/Library/Application\ Support/VSCodium`
