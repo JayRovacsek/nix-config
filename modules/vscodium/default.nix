@@ -80,6 +80,7 @@ in {
       bbenoist.nix
       jnoortheen.nix-ide
       brettm12345.nixfmt-vscode
+      arrterian.nix-env-selector
 
       # JS/TS
       dbaeumer.vscode-eslint

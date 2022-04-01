@@ -49,9 +49,6 @@
     yubikey-personalization
     jellyfin-media-player
 
-    # Development
-    vscode
-
     ## Nix
     nixfmt
 

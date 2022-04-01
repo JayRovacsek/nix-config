@@ -3,6 +3,7 @@
     ../../modules/alacritty
     ../../modules/clamav
     ../../modules/docker
+    #../../modules/docker/stacks/csgo
     ../../modules/firefox
     ../../modules/fonts
     ../../modules/gnome
@@ -19,7 +20,7 @@
     ../../modules/steam
     ../../modules/time
     ../../modules/udev
-    ../../modules/vscode
+    ../../modules/vscodium
     ../../modules/zsh
   ];
 }
