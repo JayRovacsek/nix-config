@@ -2,6 +2,7 @@
   imports = [
     ../../modules/alacritty
     ../../modules/clamav
+    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-4
     ../../modules/lorri
