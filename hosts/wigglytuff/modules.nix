@@ -4,6 +4,7 @@
     ../../modules/clamav
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-4
+    ../../modules/lorri
     ../../modules/lsd
     ../../modules/networking
     ../../modules/nix
@@ -11,6 +12,7 @@
     ../../modules/starship
     ../../modules/time
     ../../modules/xfce
+    ../../modules/vscodium
     ../../modules/zsh
   ];
 }
