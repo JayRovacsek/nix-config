@@ -1,21 +1,25 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  promptInit = ''
-    HYPHEN_INSENSITIVE="true"
-    ENABLE_CORRECTION="true"
-    COMPLETION_WAITING_DOTS="true"
+  direnvInit =
+    if config.services.lorri.enable then ''eval "$(direnv hook zsh)"'' else "";
 
-    # Preferred editor for local and remote sessions
-    if [[ -n $SSH_CONNECTION ]]; then
-        export EDITOR='vim'
-    else
-        export EDITOR='vim'
-    fi
+  promptInit = lib.strings.concatStrings [
+    ''
+      HYPHEN_INSENSITIVE="true"
+      ENABLE_CORRECTION="true"
+      COMPLETION_WAITING_DOTS="true"
 
-    eval "$(starship init zsh)"
-    eval "$(direnv hook zsh)"
-  '';
+      # Preferred editor for local and remote sessions
+      if [[ -n $SSH_CONNECTION ]]; then
+          export EDITOR='vim'
+      else
+          export EDITOR='vim'
+      fi
+    ''
+    direnvInit
+  ];
+
 in {
   programs.zsh = if isDarwin then {
     inherit promptInit;

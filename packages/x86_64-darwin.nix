@@ -10,7 +10,6 @@
     tree
     pigz
     unzip
-    direnv
 
     # Terminal
     alacritty

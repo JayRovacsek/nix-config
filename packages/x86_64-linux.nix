@@ -14,9 +14,7 @@
     killall
     lsd
     nmap
-    starship
     tree
-    direnv
 
     # Terminal
     alacritty
