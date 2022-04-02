@@ -11,9 +11,9 @@
     ../../modules/openssh
     ../../modules/starship
     ../../modules/time
-    ../../modules/gnome    
+    ../../modules/gnome
     ../../modules/udev
-    ../../modules/vscode
+    ../../modules/vscodium
     ../../modules/zsh
   ];
 }

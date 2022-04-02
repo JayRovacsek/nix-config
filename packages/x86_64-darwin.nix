@@ -13,7 +13,6 @@
 
     # Terminal
     alacritty
-    starship
 
     # Network Tools
     nmap
@@ -25,9 +24,6 @@
     # Secrets Management
     keepassxc
     yubikey-personalization
-
-    # Development
-    vscode
 
     ## C
     gcc

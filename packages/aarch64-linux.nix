@@ -6,19 +6,17 @@
     jq
     killall
     lsd
-    starship
     tree
     unzip
 
     # Development
-    vscode
     nixfmt
 
     # Browsers
     ungoogled-chromium
-    
+
     # Productivity
-    keepassxc 
-    nextcloud-client 
+    keepassxc
+    nextcloud-client
   ];
 }

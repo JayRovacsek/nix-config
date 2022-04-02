@@ -6,7 +6,6 @@
     jq
     killall
     lsd
-    starship
     tree
     unzip
   ];

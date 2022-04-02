@@ -9,16 +9,12 @@
 
     # Terminal
     alacritty
-    starship
 
     # Network Tools
     nmap
 
     # Secrets Management
     keepassxc
-
-    # Development
-    vscode
 
     ## Misc
     hunspell
