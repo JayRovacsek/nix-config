@@ -11,10 +11,11 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
+    microvm.url = "github:astro/microvm.nix";
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm
+    , ... }@inputs: {
       nixosConfigurations = {
         alakazam = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -38,7 +39,7 @@
             }
           ];
         };
-        
+
         ninetales = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           pkgs = import nixpkgs {

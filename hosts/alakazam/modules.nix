@@ -10,6 +10,7 @@
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/lsd
+    # ../../modules/microvm
     ../../modules/networking
     ../../modules/nix
     ../../modules/nvidia
