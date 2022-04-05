@@ -1,11 +1,12 @@
+{ pkgs, ... }:
+let
+  configs = { x86_64-darwin = import ./x86_64-darwin.nix;
+  
+  x86_64-linux = import ./x86_64-linux.nix; 
+aarch64-linux = import ./x86_64-linux.nix;
+   };
+in 
 {
   time.timeZone = "Australia/Sydney";
-  services.timesyncd = {
-    servers = [
-      "0.au.pool.ntp.org"
-      "1.au.pool.ntp.org"
-      "2.au.pool.ntp.org"
-      "3.au.pool.ntp.org"
-    ];
-  };
+  services = {} // configs.${pkgs.system};
 }
