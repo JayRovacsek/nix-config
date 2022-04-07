@@ -1,5 +1,5 @@
 {
-  services.timesyncd = {
+  timesyncd = {
     servers = [
       "0.au.pool.ntp.org"
       "1.au.pool.ntp.org"

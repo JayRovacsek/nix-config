@@ -4,6 +4,12 @@ let
   direnvInit =
     if config.services.lorri.enable then ''eval "$(direnv hook zsh)"'' else "";
 
+  starshipInit = if isDarwin
+  && config.home-manager.users.jrovacsek.programs.starship.enable then
+    ''eval "$(starship init zsh)"''
+  else
+    "";
+
   promptInit = lib.strings.concatStrings [
     ''
       HYPHEN_INSENSITIVE="true"
@@ -17,16 +23,17 @@ let
           export EDITOR='vim'
       fi
     ''
+    starshipInit
     direnvInit
   ];
 
 in {
-  programs.zsh = if isDarwin then {
+  programs.zsh = {
     inherit promptInit;
+  } // (if isDarwin then {
     enable = true;
     enableCompletion = true;
   } else {
-    inherit promptInit;
     enable = true;
     histSize = 10000;
     autosuggestions.enable = true;
@@ -37,5 +44,5 @@ in {
       customPkgs = [ pkgs.spaceship-prompt ];
       theme = "risto";
     };
-  };
+  });
 }

@@ -1,10 +1,11 @@
-{ pkgs, ... }:
-let inherit (pkgs.stdenv.hostPlatform) isDarwin;
+{ config, pkgs, lib, ... }:
+let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  package = if isDarwin then { } else { package = pkgs.vscodium; };
 in {
   home-manager.users.${
     if isDarwin then "jrovacsek" else "jay"
   }.programs.vscode = {
-    package = pkgs.vscodium;
     enable = true;
 
     userSettings = {
@@ -122,6 +123,6 @@ in {
       # Markdown
       yzhang.markdown-all-in-one
     ];
-  };
+  } // package;
 }
 
