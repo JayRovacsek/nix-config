@@ -9,9 +9,6 @@
     tree
     unzip
 
-    # Development
-    nixfmt
-
     # Browsers
     ungoogled-chromium
 

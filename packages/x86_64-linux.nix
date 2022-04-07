@@ -47,9 +47,6 @@
     yubikey-personalization
     jellyfin-media-player
 
-    ## Nix
-    nixfmt
-
     ## Virtualisation
     docker-compose
     wine

@@ -13,9 +13,6 @@
     # Secrets Management
     yubikey-personalization
 
-    ## Nix
-    nixfmt
-
     ## Misc
     hunspell
     hunspellDicts.en-au
