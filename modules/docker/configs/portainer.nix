@@ -13,6 +13,8 @@ in {
   extraOptions = [
     "--restart=always"
     "--network=bridge"
-    "--user ${portainerUser.name}:${portainerUser.group.name}"
+    "--user ${builtins.toString portainerUser.uid}:${
+      builtins.toString portainerUser.group.id
+    }"
   ];
 }
