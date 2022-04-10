@@ -10,11 +10,8 @@ in {
     "/etc/passwd:/etc/passwd:ro"
   ];
   environment = { TZ = "Australia/Sydney"; };
-  extraOptions = [
-    "--restart=always"
-    "--network=bridge"
-    "--user ${builtins.toString portainerUser.uid}:${
+  user = "${builtins.toString portainerUser.uid}:${
       builtins.toString portainerUser.group.id
-    }"
-  ];
+    }";
+  extraOptions = [ "--restart=always" "--network=bridge" ];
 }
