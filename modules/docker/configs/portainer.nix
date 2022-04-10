@@ -10,8 +10,8 @@ in rec {
     "/etc/passwd:/etc/passwd:ro"
   ];
   environment = { TZ = "Australia/Sydney"; };
-  user = "${builtins.toString portainerUser.uid}:${
-      builtins.toString portainerUser.group.id
-    }";
+  # user = "${builtins.toString portainerUser.uid}:${
+  #     builtins.toString portainerUser.group.id
+  #   }";
   extraOptions = [ "--name=${serviceName}" "--network=bridge" ];
 }

@@ -6,6 +6,6 @@
     volumes = containerConfig.volumes;
     environment = containerConfig.environment;
     extraOptions = containerConfig.extraOptions;
-    user = containerConfig.user;
+    # user = containerConfig.user;
   };
 }
