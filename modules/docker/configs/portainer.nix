@@ -13,6 +13,5 @@ in rec {
   user = "${builtins.toString portainerUser.uid}:${
       builtins.toString portainerUser.group.id
     }";
-  extraOptions =
-    [ "--name=${serviceName}" "--restart=always" "--network=bridge" ];
+  extraOptions = [ "--name=${serviceName}" "--network=bridge" ];
 }
