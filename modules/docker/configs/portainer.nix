@@ -1,5 +1,5 @@
 let portainerUser = import ../../../users/service-accounts/portainer.nix;
-in {
+in rec {
   autoStart = true;
   image = "portainer/portainer-ce:alpine";
   serviceName = "portainer";
@@ -13,5 +13,6 @@ in {
   user = "${builtins.toString portainerUser.uid}:${
       builtins.toString portainerUser.group.id
     }";
-  extraOptions = [ "--restart=always" "--network=bridge" ];
+  extraOptions =
+    [ "--name=${serviceName}" "--restart=always" "--network=bridge" ];
 }
