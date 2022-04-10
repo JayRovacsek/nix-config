@@ -1,4 +1,13 @@
-{ userConfig, ... }: {
+{ userConfig, ... }:
+
+let
+  extraGroupExtendedOptions = if userConfig.name == userConfig.group.name then
+    { }
+  else {
+    "${userConfig.name}" = { };
+  };
+
+in {
   extraUsers = {
     "${userConfig.name}" = {
       uid = userConfig.uid;
@@ -14,6 +23,5 @@
       gid = userConfig.group.id;
       members = userConfig.group.members;
     };
-    "${userConfig.name}" = { };
-  };
+  } // extraGroupExtendedOptions;
 }
