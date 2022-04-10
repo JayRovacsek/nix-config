@@ -2,9 +2,17 @@
 let
   userFunction = import ../../functions/map-reduce-users.nix;
   userConfigs = (import ./users.nix).users;
-  users = userFunction { inherit pkgs userConfigs; };
+  generatedUsers = userFunction { inherit pkgs userConfigs; };
 in {
-  inherit users;
+  ## Todo: rewrite this to add root config in a consistent way with other configs
+  users = {
+    defaultUserShell = pkgs.zsh;
+    mutableUsers = false;
+    users.root = {
+      hashedPassword =
+        "$6$wRRIfT/GbE4O9sCu$4SVNy.ig6x.qFiefE0y/aG4kdbKEdXF23bew7f53tn.ZxBDKra64obi0CoSnwRJBT1p5NlLEXh5m9jhX6.k3a1";
+    };
+  } // generatedUsers;
 
   ## Todo: write out the below - need to rework networking module.
   networking = {
@@ -22,6 +30,9 @@ in {
 
   imports =
     [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   system = {
     stateVersion = "22.05";

@@ -17,6 +17,9 @@ let
         [ "zfs-mount.service" ]
       else
         [ ];
+
+    systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
+
   };
 
 in { virtualisation.docker = configs.${pkgs.system}; } // systemdUnitConfigs
