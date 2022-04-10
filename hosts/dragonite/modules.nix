@@ -20,5 +20,6 @@
     ../../modules/zfs
     ../../modules/zsh
     ./old-users.nix
+    ./filesystems.nix
   ];
 }
