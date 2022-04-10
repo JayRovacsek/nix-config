@@ -1,4 +1,5 @@
 {
+  autoStart = true;
   image = "";
   serviceName = "";
   ports = [ ];

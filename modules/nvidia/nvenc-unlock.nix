@@ -2,10 +2,7 @@
 driverPackage:
 
 let
-  # Original definitions thanks to: https://github.com/keylase/nvidia-patch/blob/master/patch.sh
-
-  # Note the below WILL ASSUME a patched output of libnvidia-encode - MAKE SURE THIS IS STILL
-  # THE CASE IF YOU ARE ADDING NEW DEFINITIONS
+  # https://github.com/keylase/nvidia-patch/blob/master/patch.sh
   patches = {
     "440.26" =
       "s/\\x85\\xc0\\x41\\x89\\xc4\\x75\\x1f/\\x31\\xc0\\x41\\x89\\xc4\\x75\\x1f/g";
@@ -173,6 +170,9 @@ let
       "s/\\xe8\\x15\\x1f\\xff\\xff\\x85\\xc0\\x41\\x89\\xc4/\\xe8\\x15\\x1f\\xff\\xff\\x29\\xc0\\x41\\x89\\xc4/g";
     "510.54" =
       "s/\\xe8\\x15\\x1f\\xff\\xff\\x85\\xc0\\x41\\x89\\xc4/\\xe8\\x15\\x1f\\xff\\xff\\x29\\xc0\\x41\\x89\\xc4/g";
+    "510.60.02" =
+      "s/\\xe8\\x15\\x1f\\xff\\xff\\x85\\xc0\\x41\\x89\\xc4/\\xe8\\x15\\x1f\\xff\\xff\\x29\\xc0\\x41\\x89\\xc4/g";
+
   };
 in driverPackage.overrideAttrs ({ version, preFixup ? "", ... }: {
   preFixup = preFixup + ''

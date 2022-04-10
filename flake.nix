@@ -40,6 +40,16 @@
           ];
         };
 
+        dragonite = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = { allowUnfree = true; };
+            overlays = [ nur.overlay ];
+          };
+          modules = [ ./hosts/dragonite ];
+        };
+
         ninetales = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           pkgs = import nixpkgs {

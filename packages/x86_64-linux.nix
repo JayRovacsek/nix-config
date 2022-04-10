@@ -13,14 +13,9 @@
     jq
     killall
     lsd
-    nmap
     tree
 
-    # Terminal
-    alacritty
-
     # Utils
-    # bintools
     cifs-utils
     dnsutils
     exiftool
@@ -30,26 +25,19 @@
     traceroute
     gparted
 
+    virt-manager
+
     # Browsers
-    ungoogled-chromium
+    # ungoogled-chromium
 
     # Productivity
     keepassxc
     libvirt
-    pigz
-    wireshark
     unzip
     nextcloud-client
     gimp
-    libreoffice-fresh
-    yubikey-manager-qt
-    smartmontools
-    yubikey-personalization
     jellyfin-media-player
-
-    ## Virtualisation
-    docker-compose
-    wine
+    inkscape
 
     ## Tex
     texlive.combined.scheme-full

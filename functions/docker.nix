@@ -1,5 +1,6 @@
 { containerConfig, ... }: {
   "${containerConfig.serviceName}" = {
+    autoStart = containerConfig.autoStart;
     image = containerConfig.image;
     ports = containerConfig.ports;
     volumes = containerConfig.volumes;

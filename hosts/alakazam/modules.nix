@@ -8,6 +8,7 @@
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/libvirtd
     ../../modules/lorri
     ../../modules/lsd
     # ../../modules/microvm

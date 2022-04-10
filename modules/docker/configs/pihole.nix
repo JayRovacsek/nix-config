@@ -3,6 +3,7 @@ let
   piholeUid = builtins.toString piholeUserConfig.uid;
   piholeGid = builtins.toString piholeUserConfig.group.id;
 in rec {
+  autoStart = true;
   image = "pihole/pihole:latest";
   serviceName = "pihole";
   ports = [ "53:53/tcp" "53:53/udp" "80:80/tcp" ];
