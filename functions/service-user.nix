@@ -15,6 +15,7 @@ in {
       createHome = false;
       description = "User account generated for running a specific service";
       group = "${userConfig.name}";
+      extraGroups = userConfig.extraGroups;
     };
   };
 

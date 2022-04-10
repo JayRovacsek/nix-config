@@ -3,4 +3,5 @@ in {
   name = "csgo";
   uid = 2003;
   inherit group;
+  extraGroups = [ ];
 }
