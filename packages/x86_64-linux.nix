@@ -25,8 +25,6 @@
     traceroute
     gparted
 
-    virt-manager
-
     # Browsers
     # ungoogled-chromium
 
