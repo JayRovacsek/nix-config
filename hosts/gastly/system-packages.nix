@@ -4,11 +4,5 @@
     curl
     vim
     wget
-
-    # Yubikey
-    libfido2
-
-    # System Notifications
-    libnotify
   ];
 }

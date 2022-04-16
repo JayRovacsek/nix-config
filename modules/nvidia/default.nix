@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let patchDriver = import ./nvenc-unlock.nix;
 in {
   # Required to remedy weird crash when using nvidia in docker
@@ -16,4 +16,6 @@ in {
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  environment.systemPackages = with pkgs; [ linuxPackages.nvidia_x11 ];
 }

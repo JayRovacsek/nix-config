@@ -21,4 +21,5 @@
       };
     };
   };
+  environment.systemPackages = with pkgs; [ libnotify ];
 }
