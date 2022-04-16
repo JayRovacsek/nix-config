@@ -40,6 +40,29 @@
           ];
         };
 
+        gastly = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = { allowUnfree = true; };
+            overlays = [ nur.overlay ];
+          };
+          modules = [
+            ./hosts/gastly
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.jay = { pkgs, ... }: {
+                imports = [
+                  ./modules/home-manager/dconf.nix
+                  ./packages/x86_64-linux.nix
+                ];
+              };
+            }
+          ];
+        };
+
         dragonite = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = import nixpkgs {
