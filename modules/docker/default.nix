@@ -8,8 +8,11 @@ let
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
 
-  zfsServiceSupported = config.services.zfs.autoScrub.enabled
-    || config.services.zfs.autoScrub.enabled;
+  zfsServiceSupported = config.services.zfs.autoScrub.enable
+    || config.services.zfs.autoSnapshot.enable;
+
+  enableNvidia =
+    builtins.any (x: x == "nvidia") config.services.xserver.videoDrivers;
 
   systemdUnitConfigs = {
     systemd.services.docker.after =
@@ -22,4 +25,6 @@ let
 
   };
 
-in { virtualisation.docker = configs.${pkgs.system}; } // systemdUnitConfigs
+in {
+  virtualisation.docker = configs.${pkgs.system} // { inherit enableNvidia; };
+} // systemdUnitConfigs
