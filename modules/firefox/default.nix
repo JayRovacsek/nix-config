@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  home-manager.users.jay.programs.firefox = {
+  programs.firefox = {
     enable = true;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       decentraleyes

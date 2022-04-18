@@ -14,30 +14,29 @@
     microvm.url = "github:astro/microvm.nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm
-    , ... }@inputs: {
+  outputs =
+    { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm, ... }:
+    let
+      home-manager-function = import ./functions/home-manager.nix;
+      overlays = [ nur.overlay ];
+      x86-linux-pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        inherit overlays;
+        config = { allowUnfree = true; };
+      };
+    in {
       nixosConfigurations = {
-        alakazam = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-            overlays = [ nur.overlay ];
+        alakazam = let
+          system = x86-linux-pkgs.system;
+          pkgs = x86-linux-pkgs;
+          modules = home-manager-function {
+            inherit home-manager;
+            host = "alakazam";
           };
-          modules = [
-            ./hosts/alakazam
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.jay = { pkgs, ... }: {
-                imports = [
-                  ./modules/home-manager/dconf.nix
-                  ./packages/x86_64-linux.nix
-                ];
-              };
-            }
-          ];
+        in nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          inherit modules;
         };
 
         gastly = nixpkgs.lib.nixosSystem {
@@ -63,13 +62,17 @@
           ];
         };
 
-        dragonite = nixpkgs.lib.nixosSystem {
+        dragonite = let
           system = "x86_64-linux";
+          overlays = [ nur.overlay ];
           pkgs = import nixpkgs {
-            system = "x86_64-linux";
+            inherit system;
+            inherit overlays;
             config = { allowUnfree = true; };
-            overlays = [ nur.overlay ];
           };
+        in nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
           modules = [ ./hosts/dragonite ];
         };
 

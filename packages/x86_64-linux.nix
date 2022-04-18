@@ -1,9 +1,4 @@
-{ config, lib, pkgs, ... }: {
-
-  programs.home-manager.enable = true;
-  home.username = "jay";
-  home.homeDirectory = "/home/jay";
-  home.stateVersion = "22.05";
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     # CLI Utilities
     aws
@@ -26,7 +21,7 @@
     gparted
 
     # Browsers
-    # ungoogled-chromium
+    brave
 
     # Productivity
     keepassxc

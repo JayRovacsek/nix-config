@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ config, pkgs, ... }: {
   virtualisation.libvirtd = {
     onBoot = "start";
     onShutdown = "shutdown";

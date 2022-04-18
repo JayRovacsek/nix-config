@@ -1,9 +1,5 @@
-{ pkgs, ... }:
-let inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in {
-  home-manager.users.${
-    if isDarwin then "jrovacsek" else "jay"
-  }.programs.alacritty = {
+{
+  programs.alacritty = {
     enable = true;
     settings = {
       shell.program = "/run/current-system/sw/bin/zsh";

@@ -3,9 +3,7 @@ let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
   package = if isDarwin then { } else { package = pkgs.vscodium; };
 in {
-  home-manager.users.${
-    if isDarwin then "jrovacsek" else "jay"
-  }.programs.vscode = {
+  programs.vscode = {
     enable = true;
 
     userSettings = {
