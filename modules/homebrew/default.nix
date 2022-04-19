@@ -4,7 +4,7 @@
     enable = true;
     autoUpdate = true;
     cleanup = "zap";
-    brews = [ "openssh" ];
+    brews = [ "openssh" "pidof" ];
 
     casks = [
       "discord"

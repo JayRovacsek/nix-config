@@ -24,6 +24,11 @@
         inherit overlays;
         config = { allowUnfree = true; };
       };
+      x86-darwin-pkgs = import nixpkgs {
+        system = "x86_64-darwin";
+        inherit overlays;
+        config = { allowUnfree = true; };
+      };
     in {
       nixosConfigurations = {
         alakazam = let
@@ -32,6 +37,7 @@
           modules = home-manager-function {
             inherit home-manager;
             host = "alakazam";
+            isNixos = true;
           };
         in nixpkgs.lib.nixosSystem {
           inherit system;
@@ -138,20 +144,19 @@
         };
       };
 
-      darwinConfigurations = {
-        cloyster = darwin.lib.darwinSystem {
-          system = "x86_64-darwin";
-          modules = [
-            ./hosts/cloyster
-            home-manager.darwinModule
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.jrovacsek =
-                import ./packages/x86_64-darwin.nix;
-            }
-          ];
+      darwinConfigurations = let system = "x86_64-darwin";
+      in rec {
+        cloyster = let
+          modules = home-manager-function {
+            inherit home-manager;
+            host = "cloyster";
+            isNixos = false;
+          };
+        in darwin.lib.darwinSystem {
+          inherit system;
+          inherit modules;
         };
+
         ninetales = darwin.lib.darwinSystem {
           system = "x86_64-darwin";
           modules = [
