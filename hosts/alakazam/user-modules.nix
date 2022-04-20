@@ -1,8 +1,8 @@
 {
   imports = [
     ../../modules/alacritty
+    ../../modules/direnv
     ../../modules/firefox
-    ../../modules/lorri
     ../../modules/lsd
     ../../modules/starship
     ../../modules/rofi

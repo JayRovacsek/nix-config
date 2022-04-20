@@ -2,12 +2,12 @@
   imports = [
     ../../modules/alacritty
     ../../modules/clamav
+    ../../modules/direnv
     ../../modules/docker
     ../../modules/firefox
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
-    ../../modules/lorri
     ../../modules/lsd
     ../../modules/networking
     ../../modules/nix

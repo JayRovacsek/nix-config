@@ -12,10 +12,11 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     microvm.url = "github:astro/microvm.nix";
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm, ... }:
+  outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm
+    , nixpkgs-firefox-darwin, ... }:
     let
       home-manager-function = import ./functions/home-manager.nix;
       overlays = [ nur.overlay ];
@@ -155,6 +156,7 @@
         in darwin.lib.darwinSystem {
           inherit system;
           inherit modules;
+          nixpkgs.overlays = [ nixpkgs-firefox-darwin ];
         };
 
         ninetales = darwin.lib.darwinSystem {

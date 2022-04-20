@@ -2,10 +2,10 @@
   imports = [
     ../../modules/alacritty
     ../../modules/clamav
+    ../../modules/direnv
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-4
-    ../../modules/lorri
     ../../modules/lsd
     ../../modules/networking
     ../../modules/nix

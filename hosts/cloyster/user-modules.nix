@@ -3,6 +3,8 @@ let nixConfig = import ../../modules/nix { pkgs = pkgs; };
 in {
   imports = [
     ../../modules/alacritty
+    ../../modules/direnv
+    ../../modules/firefox
     ../../modules/lsd
     # ../../modules/mac-dock
     ../../modules/starship
