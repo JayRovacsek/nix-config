@@ -1,13 +1,15 @@
 { config, pkgs, lib, ... }:
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  direnvInit =
-    if config.services.lorri.enable then ''eval "$(direnv hook zsh)"'' else "";
+  direnvInit = if config.services.lorri.enable then ''
+    eval "$(direnv hook zsh)"
+  '' else
+    "";
 
   starshipInit = if isDarwin
-  && config.home-manager.users.jrovacsek.programs.starship.enable then
-    ''eval "$(starship init zsh)"''
-  else
+  && config.home-manager.users.jrovacsek.programs.starship.enable then ''
+    eval "$(starship init zsh)"
+  '' else
     "";
 
   promptInit = lib.strings.concatStrings [
