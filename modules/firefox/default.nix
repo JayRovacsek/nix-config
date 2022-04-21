@@ -7,7 +7,6 @@
       keepassxc-browser
       multi-account-containers
       noscript
-      okta-browser-plugin
       privacy-badger
       ublock-origin
       user-agent-string-switcher
@@ -139,6 +138,7 @@
         "browser.tabs.crashReporting.sendReport" = false;
         "browser.uitour.enabled" = false;
         "browser.uitour.url" = "";
+        "browser.urlbar.placeholderName" = "DuckDuckGo";
         "browser.urlbar.speculativeConnect.enabled" = false;
         "browser.urlbar.trimURLs" = false;
         "browser.xul.error_pages.expert_bad_cert" = true;
@@ -202,7 +202,7 @@
         "network.protocol-handler.external.ms-windows-store" = false;
         "network.proxy.socks_remote_dns" = true;
         "network.trr.mode" = 3;
-        "network.trr.resolvers" = "https://doh.libredns.gr/dns-query";
+        "network.trr.uri" = "https://doh.libredns.gr/dns-query";
         "pdfjs.disabled" = false;
         "pdfjs.enableScripting" = false;
         "permissions.delegation.enabled" = false;
