@@ -1,5 +1,4 @@
 {
-  time.timeZone = "Australia/Sydney";
   services.timesyncd = {
     servers = [
       "0.au.pool.ntp.org"
