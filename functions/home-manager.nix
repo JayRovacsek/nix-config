@@ -6,7 +6,9 @@ let
     "${x.name}" = { imports = [ ../hosts/${host}/user-modules.nix ]; };
   }) systemUsers;
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
-in if isNixos then [
+  # Configs are generated either for linux systems or for darwin
+  # 
+  config = if isNixos then [
   ../hosts/${host}
   home-manager.nixosModules.home-manager
   {
@@ -22,4 +24,5 @@ in if isNixos then [
     home-manager.useUserPackages = true;
     home-manager.users = users;
   }
-]
+];
+in config ++ [overrides]

@@ -6,6 +6,7 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/libvirtd
+    ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
     ../../modules/nvidia

@@ -8,7 +8,6 @@
 
     casks = [
       "discord"
-      "firefox"
       "gimp"
       "jellyfin-media-player"
       "keepassxc"

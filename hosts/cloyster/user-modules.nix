@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
-let nixConfig = import ../../modules/nix { pkgs = pkgs; };
-in {
+{ config, pkgs, ... }: {
   imports = [
     ../../modules/alacritty
-    ../../modules/direnv
     ../../modules/firefox
     ../../modules/lsd
     # ../../modules/mac-dock

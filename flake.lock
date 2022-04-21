@@ -21,6 +21,24 @@
         "type": "github"
       }
     },
+    "firefox-darwin": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1650243406,
+        "narHash": "sha256-h6shGqEgNfbC+g6mrYaicvHpaiYYOiuVsjwtG/fr+fw=",
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "rev": "5f46bd22bc9d846c20ecdb2ba66d4ab3ce5dace3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1649676176,
@@ -60,7 +78,7 @@
     "microvm": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1650068625,
@@ -94,54 +112,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1649986882,
-        "narHash": "sha256-cNsInUFq1MbuvaEmv8x6jetWnmAU+osMpnwKumtjksI=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5181d5945eda382ff6a9ca3e072ed6ea9b547fee",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-firefox-darwin": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1650243406,
-        "narHash": "sha256-h6shGqEgNfbC+g6mrYaicvHpaiYYOiuVsjwtG/fr+fw=",
-        "owner": "bandithedoge",
-        "repo": "nixpkgs-firefox-darwin",
-        "rev": "5f46bd22bc9d846c20ecdb2ba66d4ab3ce5dace3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bandithedoge",
-        "repo": "nixpkgs-firefox-darwin",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1650469885,
-        "narHash": "sha256-BuILRZ6pzMnGey8/irbjGq1oo3vIvZa1pitSdZCmIXA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "df78cc4e2a46fca75d14508a5d2ed3494add28ff",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1639237670,
         "narHash": "sha256-RTdL4rEQcgaZGpvtDgkp3oK/V+1LM3I53n0ACPSroAQ=",
         "owner": "NixOS",
@@ -156,13 +126,43 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1649986882,
+        "narHash": "sha256-cNsInUFq1MbuvaEmv8x6jetWnmAU+osMpnwKumtjksI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5181d5945eda382ff6a9ca3e072ed6ea9b547fee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1650469885,
+        "narHash": "sha256-BuILRZ6pzMnGey8/irbjGq1oo3vIvZa1pitSdZCmIXA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "df78cc4e2a46fca75d14508a5d2ed3494add28ff",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "nur": {
       "locked": {
-        "lastModified": 1650487645,
-        "narHash": "sha256-JdtaRQCKV7SLE+wiJxxMlG//4f930cbgsZD30h5D7zg=",
+        "lastModified": 1650492844,
+        "narHash": "sha256-NUIcag7Mbs2WxmRZvsJL8M410JlXXAdxEJYyzJuPwpY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "2031fcc5b01d774459356461f5a62eb995fb8224",
+        "rev": "0046cab3717c456c7cb63e406046ee2ec10b5126",
         "type": "github"
       },
       "original": {
@@ -174,11 +174,11 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
+        "firefox-darwin": "firefox-darwin",
         "home-manager": "home-manager",
         "microvm": "microvm",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
-        "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
+        "nixpkgs": "nixpkgs_3",
         "nur": "nur",
         "unstable": "unstable"
       }
