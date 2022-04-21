@@ -4,7 +4,7 @@ let
   gnomeExtensions = with pkgs.gnomeExtensions; [
     caffeine
     screenshot-tool
-    dash-to-dock
+    dash-to-panel
     sensory-perception
     pop-shell
     blur-my-shell

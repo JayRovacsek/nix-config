@@ -1,7 +1,10 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let
+  packageSettings =
+    if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
+in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       decentraleyes
       keepassxc-browser
@@ -275,5 +278,5 @@
         "widget.non-native-theme.enabled" = true;
       };
     };
-  };
+  } // packageSettings;
 }
