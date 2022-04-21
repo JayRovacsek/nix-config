@@ -63,7 +63,7 @@ in {
         dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options} --replacing ${entry.section}
       '') cfg.entries;
     in {
-      environment = { systemPackages = with pkgs; [ dockutil ]; };
+      environment.systemPackages = with pkgs; [ dockutil ];
 
       system.activationScripts.postUserActivation.text = ''
         echo >&2 "Setting up dock items..."
