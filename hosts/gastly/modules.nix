@@ -2,7 +2,6 @@
   imports = [
     ../../modules/alacritty
     ../../modules/clamav
-    ../../modules/direnv
     ../../modules/docker
     ../../modules/firefox
     ../../modules/fonts

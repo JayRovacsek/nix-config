@@ -1,7 +1,6 @@
 {
   imports = [
     ../../modules/alacritty
-    ../../modules/direnv
     ../../modules/firefox
     ../../modules/lsd
     ../../modules/starship

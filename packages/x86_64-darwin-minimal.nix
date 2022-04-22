@@ -5,7 +5,6 @@
     htop
     jq
     unzip
-    direnv
 
     # Terminal
     alacritty
