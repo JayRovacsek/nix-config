@@ -5,13 +5,14 @@
     ../../modules/hardware/m1
     ../../modules/firefox
     ../../modules/fonts
+    ../../modules/gnome
     ../../modules/lsd
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
     ../../modules/starship
     ../../modules/time
-    ../../modules/gnome
+    ../../modules/timesyncd
     ../../modules/udev
     ../../modules/vscodium
     ../../modules/zsh

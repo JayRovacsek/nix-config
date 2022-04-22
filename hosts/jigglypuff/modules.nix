@@ -8,6 +8,7 @@
     ../../modules/openssh
     ../../modules/starship
     ../../modules/time
+    ../../modules/timesyncd
     ../../modules/zsh
   ];
 }

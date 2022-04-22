@@ -15,6 +15,7 @@
     ../../modules/starship
     ../../modules/steam
     ../../modules/time
+    ../../modules/timesyncd
     ../../modules/udev
     ../../modules/zsh
   ];

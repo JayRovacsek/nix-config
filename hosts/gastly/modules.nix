@@ -17,6 +17,7 @@
     ../../modules/rofi
     ../../modules/steam
     ../../modules/time
+    ../../modules/timesyncd
     ../../modules/udev
     ../../modules/vscodium
     ../../modules/zsh

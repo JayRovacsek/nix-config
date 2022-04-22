@@ -16,6 +16,7 @@
     # ../../modules/starship
     # ../../modules/samba
     ../../modules/time
+    ../../modules/timesyncd
     ../../modules/udev
     ../../modules/zfs
     ../../modules/zsh
