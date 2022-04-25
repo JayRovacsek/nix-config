@@ -71,19 +71,7 @@ Having more time would be great, for now I'll try capture some ideas/goals of wh
 
 Current list:
 
-- Have home-manager configs generate per standard user on a system rather than binding to "jay" / "jrovacsek" based on OS type. There are already examples of this but my first attempt in grokking a scalable approach failed. As a note for future self; the following does give current users however when joined with a `home-manager.users.${x}.programs.*` it appears to suffer infiinite recursion.
-
-```nix
-{ config }:
-let
-  # This translates as: get all set values of the system's users.users config
-  # where a user is a normal user (can login / is expected to login)
-  # returning a list of usernames, e.g: [ "foo" "bar" ]  
-  users = builtins.filter (x: config.users.users."${x}".isNormalUser == true)
-    (builtins.attrNames config.users.users);
-in users
-```
-
+- ~Have home-manager configs generate per standard user on a system rather than binding to "jay" / "jrovacsek" based on OS type. There are already examples of this but my first attempt in grokking a scalable approach failed. As a note for future self; the following does give current users however when joined with a `home-manager.users.${x}.programs.*` it appears to suffer infiinite recursion.~ DONE
 - ~Flake my home server~ DONE
 - Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
 - Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
