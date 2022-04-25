@@ -1,4 +1,4 @@
-{ nixpkgs, overlays, home-manager, nixos-hardware ? { } }:
+{ nixpkgs, overlays, home-manager, nixos-hardware ? { }, darwin ? { } }:
 let
   home-manager-function = import ../functions/home-manager.nix;
 
@@ -7,7 +7,6 @@ let
     inherit overlays;
     config = { allowUnfree = true; };
   };
-  system = "x86_64-darwin";
 in {
   cloyster = let
     system = x86_64-darwin.system;
@@ -16,13 +15,10 @@ in {
       inherit home-manager;
       host = "cloyster";
       isNixos = false;
+      extraModules = [{ nixpkgs.overlays = overlays; }];
     };
   in darwin.lib.darwinSystem {
     inherit system;
     inherit modules;
-    #  = modules ++ [{
-    #   nixpkgs.overlays =
-    #     [ firefox-darwin.overlay nur.overlay my-overlays.dockutil ];
-    # }];
   };
 }

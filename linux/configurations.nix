@@ -1,4 +1,4 @@
-{ nixpkgs, overlays, home-manager, nixos-hardware ? { } }:
+{ nixpkgs, overlays, home-manager, nixos-hardware ? { }, darwin ? { } }:
 let
   home-manager-function = import ../functions/home-manager.nix;
 

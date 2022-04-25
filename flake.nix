@@ -30,6 +30,7 @@
         overlays = linuxOverlays;
       };
       darwinConfigurations = import ./darwin/configurations.nix {
+        inherit darwin;
         inherit nixpkgs;
         inherit home-manager;
         inherit nixos-hardware;
