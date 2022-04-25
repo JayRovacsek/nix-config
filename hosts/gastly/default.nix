@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = (import ./users.nix).users;
+  userConfigs = import ./users.nix;
   users = userFunction { inherit pkgs userConfigs; };
 in {
   inherit users;
@@ -9,7 +9,7 @@ in {
   imports =
     [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
-  boot.loader = { 
+  boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
@@ -26,7 +26,7 @@ in {
   };
 
   networking.hostName = "gastly";
-  
+
   system = {
     stateVersion = "22.05";
     autoUpgrade = {

@@ -1,15 +1,12 @@
 { config, pkgs, lib, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = (import ./users.nix).users;
+  userConfigs = import ./users.nix;
   users = userFunction { inherit pkgs userConfigs; };
 in {
   inherit users;
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./system-packages.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   networking.hostName = "ninetales";
   networking.hostId = "4148aee3";

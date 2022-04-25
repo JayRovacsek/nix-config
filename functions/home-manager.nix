@@ -1,4 +1,4 @@
-{ home-manager, host, isNixos, overrides ? { }, ... }:
+{ home-manager, host, isNixos, extraModules ? [], ... }:
 let
   systemUsers = import ../hosts/${host}/users.nix;
   mappedUsers = builtins.map (x: {
@@ -25,4 +25,4 @@ let
     home-manager.users = users;
   }
 ];
-in config ++ [overrides]
+in config ++ extraModules

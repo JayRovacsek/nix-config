@@ -1,15 +1,14 @@
 { config, pkgs, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = (import ./users.nix).users;
+  userConfigs = import ./users.nix;
   generatedUsers = userFunction { inherit pkgs userConfigs; };
 in {
   ## Todo: rewrite this to add root config in a consistent way with other configs
   users = {
     defaultUserShell = pkgs.zsh;
-    mutableUsers = false;
     users.root = {
-      hashedPassword =
+      initialHashedPassword =
         "$6$wRRIfT/GbE4O9sCu$4SVNy.ig6x.qFiefE0y/aG4kdbKEdXF23bew7f53tn.ZxBDKra64obi0CoSnwRJBT1p5NlLEXh5m9jhX6.k3a1";
     };
   } // generatedUsers;
@@ -23,8 +22,11 @@ in {
     interfaces.enp9s0.useDHCP = true;
 
     firewall = {
-      allowedTCPPorts = [ 22 80 139 443 445 5900 7200 8200 9000 ];
-      allowedUDPPorts = [ 137 138 ];
+      ## Todo: remove below as they can be abstracted into microvms
+      # For reference:
+      # 5900: VNC (need to kill)
+      # 8200: Duplicati
+      allowedTCPPorts = [ 5900 8200 ];
     };
   };
 
