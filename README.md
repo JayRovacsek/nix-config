@@ -84,7 +84,7 @@ let
 in users
 ```
 
-- Flake my home server
+- ~Flake my home server~ DONE
 - Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
 - Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
 - SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
@@ -103,26 +103,3 @@ in users
 I'm totally missing some ideas, hopefully I'll add them with related links as they come back into my head.
 
 ![Would I recommend nixos?](./resources/recommend.jpg)
-
-## WIP: Dynamic user configs
-
-Just getting this out of my head for a minute but user configs that mean our inputs to a system could be described as:
-- System has a list of users
-- System has a list of modules
-- Users can have a list of excludes for modules
-Otherwise;
-  - Users have home-manager programs generated per system config
-  - Sometimes excluding modules where they are not required
-
-## Issues
-
-### VSCodium Config
-
-Since changing to vscodium on MacOs the configurations are not written correctly for user settings as per [this module](./modules/vscodium/default.nix) on Linux systems this works just fine however.
-
-A resolve exists in removing the following directories:
-- `rm -rf ~/.vscode-oss`
-- `rm -rf ~/Library/Application\ Support/VSCodium`
-Then symlinking the following folders as they have the correct config written:
-- `ln -s ~/.vscode ~/.vscode-oss`
-- `ln -s ~/Library/Application\ Support/Code ~/Library/Application\ Support/VSCodium`
