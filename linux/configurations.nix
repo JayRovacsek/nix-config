@@ -20,8 +20,7 @@ in {
     pkgs = x86_64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "alakazam";
-      isNixos = true;
+      hostname = "alakazam";
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -34,8 +33,7 @@ in {
     pkgs = x86_64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "gastly";
-      isNixos = true;
+      hostname = "gastly";
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -48,8 +46,7 @@ in {
     pkgs = x86_64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "dragonite";
-      isNixos = true;
+      hostname = "dragonite";
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -62,8 +59,7 @@ in {
     pkgs = aarch64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "ninetales";
-      isNixos = true;
+      hostname = "ninetales";
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -76,8 +72,7 @@ in {
     pkgs = aarch64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "jigglypuff";
-      isNixos = true;
+      hostname = "jigglypuff";
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -90,8 +85,7 @@ in {
     pkgs = aarch64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      host = "jigglypuff";
-      isNixos = true;
+      hostname = "jigglypuff";
       extraModules = [ nixos-hardware.nixosModules.raspberry-pi-4 ];
     };
   in nixpkgs.lib.nixosSystem {
