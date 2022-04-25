@@ -1,6 +1,11 @@
 { pkgs, lib, ... }:
 let
-  gnomePackages = with pkgs.gnome; [ gnome-tweaks nautilus dconf-editor ];
+  gnomePackages = with pkgs.gnome; [
+    gnome-tweaks
+    nautilus
+    dconf-editor
+    gnome-screenshot
+  ];
   gnomeExtensions = with pkgs.gnomeExtensions; [
     caffeine
     screenshot-tool
