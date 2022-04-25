@@ -1,5 +1,7 @@
 { nixpkgs, overlays, home-manager, nixos-hardware ? { } }:
 let
+  home-manager-function = import ../functions/home-manager.nix;
+
   x86_64-darwin = import nixpkgs {
     system = "x86_64-darwin";
     inherit overlays;
@@ -17,9 +19,10 @@ in {
     };
   in darwin.lib.darwinSystem {
     inherit system;
-    modules = modules ++ [{
-      nixpkgs.overlays =
-        [ firefox-darwin.overlay nur.overlay my-overlays.dockutil ];
-    }];
+    inherit modules;
+    #  = modules ++ [{
+    #   nixpkgs.overlays =
+    #     [ firefox-darwin.overlay nur.overlay my-overlays.dockutil ];
+    # }];
   };
 }
