@@ -47,7 +47,17 @@ Becomes:
 }
 ```
 
-Which we can use for any number of docker configs to map against `virtualisation.oci-containers.containers` assuming the service name does not collide with another service name
+Which we can use for any number of docker configs to map against `virtualisation.oci-containers.containers` assuming the service name does not collide with another service name.
+
+e.g:
+```nix
+{
+    virtualisation.oci-containers.containers = {
+        hello-world = { ... };
+        portainer = { ... };
+    };
+}
+```
 
 ## etc.nix
 TODO
