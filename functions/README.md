@@ -49,6 +49,12 @@ Becomes:
 
 Which we can use for any number of docker configs to map against `virtualisation.oci-containers.containers` assuming the service name does not collide with another service name
 
+## etc.nix
+TODO
+
+### Output
+TODO
+
 ## home-manager.nix
 This function was created to solve the problem that was needing to include usernames (a dynamic property) in configs such as alacritty, firefox etc.
 
@@ -68,9 +74,7 @@ As the `users.nix` file is assumed to be utilised also by the `map-reduce-users`
 User modules _cannot_ be used interchangably as system modules if defined the same way that I have used [e.g](https://github.com/JayRovacsek/nix-config/blob/5f37e2d5c6c9fc0d9013a3196777c8d8ccc5f203/modules/firefox/default.nix#L1):
 ```nix
 {
-  programs.firefox = {
-      enable = true;
-  }
+  programs.firefox.enable = true;
 }
 ``` 
 
@@ -124,3 +128,27 @@ The above of-course is simplified, but any options in a user module are inherite
     };
 }
 ```
+
+## map-reduce-users.nix
+TODO
+
+### Output
+TODO
+
+## service-user.nix
+TODO
+
+### Output
+TODO
+
+## user.nix
+TODO
+
+### Output
+TODO
+
+## vlan.nix
+TODO
+
+### Output
+TODO
