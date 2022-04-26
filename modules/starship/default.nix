@@ -39,7 +39,7 @@
         disabled = false;
         format = "🕙[$time]($style) ";
         time_format = "%T";
-        utc_time_offset = "+11";
+        utc_time_offset = "+10";
       };
 
       command_timeout = 5000;
