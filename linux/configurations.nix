@@ -1,6 +1,9 @@
-{ nixpkgs, overlays, home-manager, nixos-hardware ? { }, darwin ? { } }:
+{ nixpkgs, overlays, home-manager, extraModules ? { }, darwin ? { } }:
 let
   home-manager-function = import ../functions/home-manager.nix;
+
+  nixos-hardware = builtins.getAttr "nixos-hardware" extraModules;
+  microvm = builtins.getAttr "microvm" extraModules;
 
   x86_64-linux = import nixpkgs {
     system = "x86_64-linux";
@@ -21,6 +24,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "alakazam";
+      extraModules = [ microvm.nixosModules.host ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;

@@ -12,6 +12,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     microvm.url = "github:astro/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "unstable";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     my-overlays.url = "github:JayRovacsek/nix-overlays";
   };
@@ -26,7 +27,10 @@
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs;
         inherit home-manager;
-        inherit nixos-hardware;
+        extraModules = {
+          inherit nixos-hardware;
+          inherit microvm;
+        };
         overlays = linuxOverlays;
       };
       darwinConfigurations = import ./darwin/configurations.nix {
