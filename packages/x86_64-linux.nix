@@ -32,9 +32,6 @@
     jellyfin-media-player
     inkscape
 
-    ## Tex
-    texlive.combined.scheme-full
-
     ## X Utils
     libpng
     libxkbcommon
