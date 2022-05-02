@@ -13,7 +13,7 @@ in {
     pkgs = x86_64-darwin;
     modules = home-manager-function {
       inherit home-manager;
-      host = "cloyster";
+      hostname = "cloyster";
       isNixos = false;
       extraModules = [{ nixpkgs.overlays = overlays; }];
     };

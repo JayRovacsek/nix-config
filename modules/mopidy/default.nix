@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let secrets = (builtins.fromJSON (builtins.readFile /secrets/jellyfin.json));
+let secrets = builtins.fromJSON (builtins.readFile /secrets/jellyfin.json);
 in {
   services.mopidy = {
     enable = true;

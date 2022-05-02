@@ -9,8 +9,8 @@ let
   package = pkgs.nixUnstable;
 in {
   nix = {
-    package = package;
-    extraOptions = extraOptions;
+    inherit package;
+    inherit extraOptions;
     binaryCaches = [ "https://binarycache.rovacsek.com" ];
     binaryCachePublicKeys = [
       "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
