@@ -4,6 +4,7 @@ let
 
   nixos-hardware = builtins.getAttr "nixos-hardware" extraModules;
   microvm = builtins.getAttr "microvm" extraModules;
+  nixos-generators = builtins.getAttr "nixos-generators" extraModules;
 
   x86_64-linux = import nixpkgs {
     system = "x86_64-linux";
@@ -97,4 +98,19 @@ in {
     inherit pkgs;
     inherit modules;
   };
+
+  # packages.x86_64-linux = {
+  #   vmware = nixos-generators.nixosGenerate {
+  #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  #     modules = [
+  #       # you can include your own nixos configuration here, i.e.
+  #       # ./configuration.nix
+  #     ];
+  #     format = "vmware";
+  #   };
+  #   vbox = nixos-generators.nixosGenerate {
+  #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  #     format = "virtualbox";
+  #   };
+  # };
 }

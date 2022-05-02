@@ -15,10 +15,15 @@
     microvm.inputs.nixpkgs.follows = "unstable";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     my-overlays.url = "github:JayRovacsek/nix-overlays";
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "unstable";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware, microvm
-    , firefox-darwin, my-overlays, ... }:
+    , firefox-darwin, my-overlays, nixos-generators, ... }:
     let
       linuxOverlays = [ nur.overlay ];
       darwinOverlays =
@@ -30,6 +35,7 @@
         extraModules = {
           inherit nixos-hardware;
           inherit microvm;
+          inherit nixos-generators;
         };
         overlays = linuxOverlays;
       };

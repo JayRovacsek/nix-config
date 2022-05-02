@@ -87,6 +87,7 @@ Current list:
   - OrangePi Lite
   - OrangePi Plus v2
   - OrangePi Winplus
+- Automate flake updates (well, git pull/nixos rebuild) as a system service on all devices
 
 I'm totally missing some ideas, hopefully I'll add them with related links as they come back into my head.
 
