@@ -5,6 +5,7 @@
     address = "0.0.0.0";
     serverUrl = "https://headscale.rovacsek.com:443";
     dns = {
+      # Replace this in time with resolved magic DNS address of my DNS resolvers.
       nameservers = [ "1.1.1.1" ];
       domains = [ "rovacsek.com.internal" ];
       baseDomain = "rovacsek.com";
