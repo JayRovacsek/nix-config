@@ -2,7 +2,7 @@
 
   home.packages = with pkgs; [
     # CLI Utilities
-    aws
+    awscli
     git
     htop
     jq

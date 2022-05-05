@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     # CLI Utilities
-    aws
+    awscli
     exfat
     git
     htop
