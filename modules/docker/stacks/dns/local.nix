@@ -22,6 +22,7 @@ in {
     address=/prowlarr.localdomain/192.168.4.137
     address=/flare-solverr.localdomain/192.168.4.138
     address=/swag.localdomain/192.168.5.3
+    address=/jellyfin.localdomain/192.168.5.4
     address=/pihole.localdomain/192.168.6.2
     address=/stubby.localdomain/192.168.6.3
     address=/jigglypuff.localdomain/192.168.6.4
