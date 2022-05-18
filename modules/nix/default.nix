@@ -6,12 +6,11 @@ let
   extraOptions = ''
     experimental-features = nix-command flakes
   '';
-  package = pkgs.nixUnstable;
 in {
   nix = {
-    inherit package;
     inherit extraOptions;
-    binaryCaches = [ "https://binarycache.rovacsek.com" ];
+    binaryCaches =
+      [ "https://binarycache.rovacsek.com" "https://cache.nixos.org" ];
     binaryCachePublicKeys = [
       "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
     ];
