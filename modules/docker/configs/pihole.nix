@@ -18,11 +18,15 @@ in rec {
     DHCP_ACTIVE = "false";
     DNSMASQ_LISTENING = "all";
     DNSMASQ_USER = "pihole";
+    IPv6 = "false";
     WEBPASSWORD = "password";
     WEBTHEME = "default-dark";
+    FTL_CMD = "no-daemon -- --dns-forward-max 500";
     FTLCONF_RESOLVE_IPV6 = "no";
     FTLCONF_SOCKET_LISTENING = "all";
     FTLCONF_NAMES_FROM_NETDB = "true";
+    FTLCONF_REPLY_WHEN_BUSY = "ALLOW";
+    FTLCONF_SHOW_DNSSEC = "true";
     PIHOLE_UID = piholeUid;
     PIHOLE_GID = piholeGid;
   };
