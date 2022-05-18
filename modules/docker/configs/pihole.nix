@@ -27,6 +27,7 @@ in rec {
     FTLCONF_NAMES_FROM_NETDB = "true";
     FTLCONF_REPLY_WHEN_BUSY = "ALLOW";
     FTLCONF_SHOW_DNSSEC = "true";
+    FTLCONF_RATE_LIMIT = "0/0";
     PIHOLE_UID = piholeUid;
     PIHOLE_GID = piholeGid;
   };
