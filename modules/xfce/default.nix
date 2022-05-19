@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 let
+  isAarch = pkgs.system == "aarch64-linux";
   autoLoginEnable =
     builtins.any (x: x.name == "jay") (builtins.attrValues config.users.users);
-  autoLogin = if autoLoginEnable then {
+  autoLogin = if isAarch && autoLoginEnable then {
     enable = true;
     user = "jay";
   } else
@@ -11,10 +12,8 @@ in {
   services.xserver = {
     enable = true;
     displayManager = {
-      lightdm = {
-        inherit autoLogin;
-        enable = true;
-      };
+      inherit autoLogin;
+      lightdm.enable = true;
     };
     desktopManager.xfce = {
       enable = true;
