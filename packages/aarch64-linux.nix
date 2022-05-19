@@ -15,5 +15,6 @@
     # Productivity
     keepassxc
     nextcloud-client
+    jellyfin-web
   ];
 }
