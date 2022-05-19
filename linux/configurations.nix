@@ -90,7 +90,7 @@ in {
     pkgs = aarch64-linux;
     modules = home-manager-function {
       inherit home-manager;
-      hostname = "jigglypuff";
+      hostname = "wigglytuff";
       extraModules = [ nixos-hardware.nixosModules.raspberry-pi-4 ];
     };
   in nixpkgs.lib.nixosSystem {
