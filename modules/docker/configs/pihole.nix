@@ -12,7 +12,6 @@ in rec {
   environment = {
     TZ = "Australia/Sydney";
     PIHOLE_DNS_ = "127.0.0.1#8053";
-    DNSSEC = "true";
     DNS_BOGUS_PRIV = "true";
     DNS_FQDN_REQUIRED = "true";
     DHCP_ACTIVE = "false";
@@ -21,6 +20,7 @@ in rec {
     IPv6 = "false";
     WEBPASSWORD = "password";
     WEBTHEME = "default-dark";
+    CUSTOM_CACHE_SIZE = "50000";
     FTL_CMD = "no-daemon -- --dns-forward-max 500";
     FTLCONF_RESOLVE_IPV6 = "no";
     FTLCONF_SOCKET_LISTENING = "all";
