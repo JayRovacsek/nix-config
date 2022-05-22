@@ -9,7 +9,7 @@ in {
     address=/speedtest.localdomain/192.168.1.222
     address=/duplicati.localdomain/192.168.1.223
     address=/tv.localdomain/192.168.3.2
-    address=/wigglytuff.localdomain/192.168.3.2
+    address=/wigglytuff.localdomain/192.168.6.6
     address=/car_bed.localdomain/192.168.3.10
     address=/jackett.localdomain/192.168.4.129
     address=/deluge.localdomain/192.168.4.130
