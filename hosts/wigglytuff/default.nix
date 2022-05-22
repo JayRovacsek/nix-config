@@ -10,8 +10,10 @@ in {
     ./modules.nix
     ./system-packages.nix
     ./vlans.nix
+    ./wireless.nix
   ];
 
   networking.hostName = "wigglytuff";
   networking.hostId = "d2a7b80b";
+  system.stateVersion = "22.05";
 }
