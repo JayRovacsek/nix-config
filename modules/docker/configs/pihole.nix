@@ -21,6 +21,7 @@ in rec {
     IPv6 = "false";
     WEBPASSWORD = "password";
     WEBTHEME = "default-dark";
+    CUSTOM_CACHE_SIZE = 50000;
     FTL_CMD = "no-daemon -- --dns-forward-max 500";
     FTLCONF_RESOLVE_IPV6 = "no";
     FTLCONF_SOCKET_LISTENING = "all";
