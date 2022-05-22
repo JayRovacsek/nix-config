@@ -9,7 +9,7 @@ in {
     ./hardware-configuration.nix
     ./modules.nix
     ./system-packages.nix
-    ./wireless.nix
+    ./vlans.nix
   ];
 
   networking.hostName = "jigglypuff";
