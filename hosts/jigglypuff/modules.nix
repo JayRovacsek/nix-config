@@ -1,7 +1,6 @@
 let mode = "dns-server";
 in {
   imports = [
-    ../../modules/clamav
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/lorri
