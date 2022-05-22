@@ -20,12 +20,12 @@ in rec {
     IPv6 = "false";
     WEBPASSWORD = "password";
     WEBTHEME = "default-dark";
-    CUSTOM_CACHE_SIZE = "50000";
+    CUSTOM_CACHE_SIZE = "10000";
     FTL_CMD = "no-daemon -- --dns-forward-max 500";
     FTLCONF_RESOLVE_IPV6 = "no";
     FTLCONF_SOCKET_LISTENING = "all";
     FTLCONF_NAMES_FROM_NETDB = "true";
-    FTLCONF_REPLY_WHEN_BUSY = "ALLOW";
+    FTLCONF_REPLY_WHEN_BUSY = "DROP";
     FTLCONF_SHOW_DNSSEC = "true";
     FTLCONF_RATE_LIMIT = "0/0";
     PIHOLE_UID = piholeUid;
