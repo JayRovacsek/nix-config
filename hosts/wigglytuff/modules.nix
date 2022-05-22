@@ -1,4 +1,5 @@
-{
+let mode = "dns-server";
+in {
   imports = [
     ../../modules/clamav
     ../../modules/fonts
@@ -8,8 +9,8 @@
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
+    ../../modules/raspberry-pi/${mode}.nix
     ../../modules/time
-    ../../modules/xfce
     ../../modules/zsh
   ];
 }

@@ -6,6 +6,6 @@
     ../../modules/starship
     ../../modules/vscodium
 
-    ../../packages/aarch64-linux.nix
+    ../../packages/aarch64-linux-minimal.nix
   ];
 }
