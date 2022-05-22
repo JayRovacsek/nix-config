@@ -20,7 +20,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "cloyster";
-      isNixos = false;
+      isLinux = false;
       extraModules = [{ nixpkgs.overlays = overlays; }];
     };
   in darwin.lib.darwinSystem {
@@ -33,8 +33,8 @@ in {
     pkgs = aarch64-darwin;
     modules = home-manager-function {
       inherit home-manager;
-      hostname = "aarch64-ninetales";
-      isNixos = false;
+      hostname = "ninetales";
+      isLinux = false;
       extraModules = [{ nixpkgs.overlays = overlays; }];
     };
   in darwin.lib.darwinSystem {
