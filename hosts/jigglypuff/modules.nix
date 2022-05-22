@@ -1,7 +1,10 @@
 let mode = "desktop";
 in {
   imports = [
+    ../../modules/clamav
+    ../../modules/fonts
     ../../modules/gnupg
+    ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
