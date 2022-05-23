@@ -18,7 +18,10 @@ let
   piholeUser = userFunction { userConfig = piholeUserConfig; };
   pihole = dockerFunction { containerConfig = piholeDockerConfig; };
 in {
-  virtualisation.oci-containers.containers = pihole;
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = pihole;
+  };
   users.extraUsers = piholeUser.extraUsers;
   users.extraGroups = piholeUser.extraGroups;
 

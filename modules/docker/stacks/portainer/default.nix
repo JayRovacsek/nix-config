@@ -11,10 +11,7 @@ let
   portainer = dockerFunction { containerConfig = portainerDockerConfig; };
 
 in {
-  virtualisation.oci-containers = {
-    containers = portainer;
-    backend = "docker";
-  };
+  virtualisation.oci-containers = { containers = portainer; };
   users.extraUsers = portainerUser.extraUsers;
   users.extraGroups = portainerUser.extraGroups;
 
