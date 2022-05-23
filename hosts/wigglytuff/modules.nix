@@ -1,4 +1,4 @@
-let mode = "dns-server";
+let mode = "desktop";
 in {
   imports = [
     ../../modules/clamav
