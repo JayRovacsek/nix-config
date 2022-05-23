@@ -23,9 +23,6 @@
       { path = "/Applications/KeePassXC.app"; }
       { path = "/Applications/Microsoft Outlook.app"; }
       { path = "/Applications/Slack.app"; }
-      # Temporary additions:
-      { path = "/Applications/Keka.app"; }
-      { path = "/Applications/VMware Fusion.app"; }
     ];
   };
 }

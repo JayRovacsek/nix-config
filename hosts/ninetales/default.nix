@@ -1,19 +1,17 @@
-{ config, pkgs, lib, ... }:
-let
-  userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
-  users = userFunction { inherit pkgs userConfigs; };
-in {
-  inherit users;
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+{ config, pkgs, ... }:
 
-  networking.hostName = "ninetales";
-  networking.hostId = "4148aee3";
+{
+  imports = [ ./modules.nix ./system-packages.nix ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.kernelBuildIsCross = true;
+  services.nix-daemon.enable = true;
 
-  nixpkgs.config.allowUnsupportedSystem = true;
+  networking = {
+    computerName = "ninetales";
+    hostName = "ninetales";
+    localHostName = "ninetales";
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  system.stateVersion = 4;
 }
