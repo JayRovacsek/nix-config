@@ -12,6 +12,8 @@ in {
     ./vlans.nix
   ];
 
+  virtualisation.oci-containers.backend = "docker";
+
   networking.hostName = "jigglypuff";
   networking.hostId = "d2a7f613";
   system.stateVersion = "22.05";
