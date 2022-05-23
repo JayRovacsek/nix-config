@@ -21,7 +21,5 @@ in {
     shares = [ readOnlySharedStore ];
   };
 
-  imports = [
-    ../modules/dnsmasq
-  ]
+  imports = [ ../modules/dnsmasq ];
 }

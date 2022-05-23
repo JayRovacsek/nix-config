@@ -41,6 +41,7 @@
         inherit nixpkgs;
         inherit home-manager;
         extraModules = {
+          inherit self;
           inherit nixos-hardware;
           inherit microvm;
           inherit nixos-generators;

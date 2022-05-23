@@ -10,9 +10,10 @@ in {
   nix = {
     inherit extraOptions;
     binaryCaches =
-      [ "https://binarycache.rovacsek.com" "https://cache.nixos.org" ];
+      [ "https://binarycache.rovacsek.com/" "https://microvm.cachix.org/" ];
     binaryCachePublicKeys = [
       "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
+      "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
     ];
   } // configs.${pkgs.system};
 }
