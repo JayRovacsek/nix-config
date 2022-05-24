@@ -28,7 +28,6 @@ in rec {
     FTLCONF_REPLY_WHEN_BUSY = "DROP";
     FTLCONF_SHOW_DNSSEC = "true";
     FTLCONF_RATE_LIMIT = "0/0";
-    FTLCONF_EDNS0_ECS = "true";
     PIHOLE_UID = piholeUid;
     PIHOLE_GID = piholeGid;
   };
