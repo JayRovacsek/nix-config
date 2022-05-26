@@ -75,7 +75,7 @@ Current list:
 - ~Flake my home server~ DONE
 - ~Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )~ [long live agenix!](https://github.com/JayRovacsek/nix-config/tree/main/secrets)
 - Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
-- SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
+- ~SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generating a trillion of them, death to password SSH)~
 - GPG signing for git automatically configured by nix across Linux and Macos
 - Elasticsearch implementation to gather, munge and query logs from all compute
 - [Headscale](https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=headscale) + client configs to implement a true zero-trust network within compute I control. This removes bounds of hosts needing to run inside of network segments that aren't captured by nix configs (unless nixos as a router becomes a thing)
