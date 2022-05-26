@@ -47,5 +47,11 @@
       path = "/home/jay/.ssh/id_ed25519_sk_type_c_2.pub";
       owner = "jay";
     };
+
+    jay_ssh_config = {
+      file = ../../secrets/jay_ssh_config.age;
+      path = "/home/jay/.ssh/config";
+      owner = "jay";
+    };
   };
 }
