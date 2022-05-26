@@ -73,7 +73,7 @@ Current list:
 
 - ~Have home-manager configs generate per standard user on a system rather than binding to "jay" / "jrovacsek" based on OS type. There are already examples of this but my first attempt in grokking a scalable approach failed. As a note for future self; the following does give current users however when joined with a `home-manager.users.${x}.programs.*` it appears to suffer infiinite recursion.~ DONE
 - ~Flake my home server~ DONE
-- Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )
+- ~Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )~ [long live agenix!](https://github.com/JayRovacsek/nix-config/tree/main/secrets)
 - Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
 - SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generatinga  trillion of them, death to password SSH)
 - GPG signing for git automatically configured by nix across Linux and Macos
