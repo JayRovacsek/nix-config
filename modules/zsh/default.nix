@@ -6,13 +6,29 @@ let
   '' else
     "";
 
+  environment.systemPackages =
+    if isDarwin then with pkgs; [ oh-my-zsh ] else [ ];
+
+  ohMyZshInit = if isDarwin then ''
+    export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh/
+  '' else
+    "";
+
+  ohMyZshPostInit = if isDarwin then ''
+    ZSH_THEME="risto"
+    plugins=(zsh-autosuggestions, git)
+    source $ZSH/oh-my-zsh.sh
+  '' else
+    "";
+
   starshipInit = if isDarwin
   && config.home-manager.users.jrovacsek.programs.starship.enable then ''
     eval "$(starship init zsh)"
   '' else
     "";
 
-  promptInit = lib.strings.concatStrings [
+  interactiveShellInit = lib.strings.concatStrings [
+    ohMyZshInit
     ''
       HYPHEN_INSENSITIVE="true"
       ENABLE_CORRECTION="true"
@@ -25,13 +41,24 @@ let
           export EDITOR='vim'
       fi
     ''
+    ohMyZshPostInit
     starshipInit
     direnvInit
   ];
 
+  promptInit = "";
+
+  shellAliases = if isDarwin
+  && config.home-manager.users.jrovacsek.programs.lsd.enable then {
+    ls = "lsd";
+  } else
+    { };
 in {
+  environment.shellAliases = shellAliases;
+
   programs.zsh = {
     inherit promptInit;
+    inherit interactiveShellInit;
   } // (if isDarwin then {
     enable = true;
     enableCompletion = true;
