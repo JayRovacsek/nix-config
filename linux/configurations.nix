@@ -2,6 +2,8 @@
 let
   home-manager-function = import ../functions/home-manager.nix;
 
+  self = builtins.getAttr "self" extraModules;
+  agenix = builtins.getAttr "agenix" extraModules;
   nixos-hardware = builtins.getAttr "nixos-hardware" extraModules;
   microvm = builtins.getAttr "microvm" extraModules;
   nixos-generators = builtins.getAttr "nixos-generators" extraModules;
@@ -25,7 +27,11 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "alakazam";
-      extraModules = [ microvm.nixosModules.host ];
+      extraModules = [
+        microvm.nixosModules.host
+        # ({ microvm.vms.igglybuff.flake = self; })
+        agenix.nixosModule
+      ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -39,6 +45,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "gastly";
+      extraModules = [ agenix.nixosModule ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -52,6 +59,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "dragonite";
+      extraModules = [ agenix.nixosModule ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -65,6 +73,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "ninetales";
+      extraModules = [ agenix.nixosModule ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -78,6 +87,7 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "jigglypuff";
+      extraModules = [ agenix.nixosModule ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -91,12 +101,19 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "wigglytuff";
-      extraModules = [ nixos-hardware.nixosModules.raspberry-pi-4 ];
+      extraModules =
+        [ nixos-hardware.nixosModules.raspberry-pi-4 agenix.nixosModule ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
     inherit pkgs;
     inherit modules;
+  };
+
+  igglybuff = nixpkgs.lib.nixosSystem {
+    system = x86_64-linux.system;
+    pkgs = x86_64-linux;
+    modules = [ microvm.nixosModules.microvm ../microvms/dns.nix ];
   };
 
   # packages.x86_64-linux = {

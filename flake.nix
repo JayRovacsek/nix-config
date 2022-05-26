@@ -28,12 +28,17 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "unstable";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "unstable";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
-    , firefox-darwin, my-overlays, nixos-generators, microvm, ... }:
+    , firefox-darwin, my-overlays, nixos-generators, microvm, agenix, ... }:
     let
-      linuxOverlays = [ nur.overlay ];
+      linuxOverlays = [ nur.overlay agenix.overlay ];
       darwinOverlays =
         [ firefox-darwin.overlay nur.overlay my-overlays.dockutil ];
     in {
@@ -45,6 +50,7 @@
           inherit nixos-hardware;
           inherit microvm;
           inherit nixos-generators;
+          inherit agenix;
         };
         overlays = linuxOverlays;
       };
@@ -52,7 +58,10 @@
         inherit darwin;
         inherit nixpkgs;
         inherit home-manager;
-        extraModules = { inherit nixos-hardware; };
+        extraModules = {
+          inherit nixos-hardware;
+          inherit agenix;
+        };
         overlays = darwinOverlays;
       };
     };

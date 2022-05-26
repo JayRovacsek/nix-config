@@ -4,5 +4,6 @@
     curl
     vim
     wget
+    agenix
   ];
 }

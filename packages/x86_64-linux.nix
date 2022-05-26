@@ -27,7 +27,6 @@
     keepassxc
     libvirt
     unzip
-    nextcloud-client
     gimp
     jellyfin-media-player
     inkscape
