@@ -69,7 +69,7 @@ in {
       "window.menuBarVisibility" = "toggle";
       "window.titleBarStyle" = "custom";
       "oneDarkPro.editorTheme" = "Retro";
-      "workbench.colorTheme" = "Abyss";
+      "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
     };
 

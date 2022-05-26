@@ -17,7 +17,7 @@ in {
     address=/radarr.localdomain/192.168.4.132
     address=/lidarr.localdomain/192.168.4.133
     address=/ombi.localdomain/192.168.4.134
-    address=/tdarr-controller.localdomain/192.168.4.135
+    address=/tdarr.localdomain/192.168.4.135
     address=/tdarr-node-01.localdomain/192.168.4.136
     address=/prowlarr.localdomain/192.168.4.137
     address=/flare-solverr.localdomain/192.168.4.138
