@@ -33,14 +33,27 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "unstable";
     };
+
+    # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
+    # Note that this is only used for the OPTIONS and the main agenix package is utilised for
+    # actual actions related to agenix
+    agenix-darwin = {
+      url = "github:cmhamill/agenix";
+      inputs.nixpkgs.follows = "unstable";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
-    , firefox-darwin, my-overlays, nixos-generators, microvm, agenix, ... }:
+    , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
+    , agenix-darwin, ... }:
     let
       linuxOverlays = [ nur.overlay agenix.overlay ];
-      darwinOverlays =
-        [ firefox-darwin.overlay nur.overlay my-overlays.dockutil ];
+      darwinOverlays = [
+        firefox-darwin.overlay
+        nur.overlay
+        my-overlays.dockutil
+        agenix.overlay
+      ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs;
@@ -60,7 +73,7 @@
         inherit home-manager;
         extraModules = {
           inherit nixos-hardware;
-          inherit agenix;
+          agenix = agenix-darwin;
         };
         overlays = darwinOverlays;
       };

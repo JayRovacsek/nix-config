@@ -20,6 +20,26 @@
         "type": "github"
       }
     },
+    "agenix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1638411360,
+        "narHash": "sha256-51qPmgtnsD+Ft92S3wwLt13NLBufvOe3qqvjCE6RAFs=",
+        "owner": "cmhamill",
+        "repo": "agenix",
+        "rev": "86762b6d86c7962cda2542237811140da56c20da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cmhamill",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -250,6 +270,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "agenix-darwin": "agenix-darwin",
         "darwin": "darwin",
         "firefox-darwin": "firefox-darwin",
         "home-manager": "home-manager",

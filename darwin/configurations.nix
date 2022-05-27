@@ -1,11 +1,13 @@
 { nixpkgs, overlays, home-manager, extraModules ? { }, darwin ? { } }:
 let
   home-manager-function = import ../functions/home-manager.nix;
+  agenix = builtins.getAttr "agenix" extraModules;
 
   x86_64-darwin = import nixpkgs {
     system = "x86_64-darwin";
     inherit overlays;
     config = { allowUnfree = true; };
+    extraModules = [ ];
   };
 
   aarch64-darwin = import nixpkgs {
@@ -21,7 +23,8 @@ in {
       inherit home-manager;
       hostname = "cloyster";
       isLinux = false;
-      extraModules = [{ nixpkgs.overlays = overlays; }];
+      extraModules =
+        [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
     };
   in darwin.lib.darwinSystem {
     inherit system;

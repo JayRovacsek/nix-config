@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./modules.nix ./system-packages.nix ];
+  imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
 
   services.nix-daemon.enable = true;
 
