@@ -38,7 +38,8 @@ in {
       inherit home-manager;
       hostname = "ninetales";
       isLinux = false;
-      extraModules = [{ nixpkgs.overlays = overlays; }];
+      extraModules =
+        [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
     };
   in darwin.lib.darwinSystem {
     inherit system;
