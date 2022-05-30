@@ -14,6 +14,7 @@ let
     system = "aarch64-darwin";
     inherit overlays;
     config = { allowUnfree = true; };
+    extraModules = [ ];
   };
 in {
   cloyster = let
