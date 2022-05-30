@@ -15,7 +15,6 @@
       "keepassxc"
       "signal"
       "slack"
-      "zoom"
     ];
   };
 }
