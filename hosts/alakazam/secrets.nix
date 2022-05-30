@@ -49,7 +49,7 @@
     };
 
     jay_ssh_config = {
-      file = ../../secrets/jay_ssh_config.age;
+      file = ../../secrets/ssh_config.age;
       path = "/home/jay/.ssh/config";
       owner = "jay";
     };

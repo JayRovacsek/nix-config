@@ -27,14 +27,6 @@ in {
 
   networking.hostName = "gastly";
 
-  system = {
-    stateVersion = "22.05";
-    autoUpgrade = {
-      enable = true;
-      dates = "04:00";
-      allowReboot = true;
-      channel = "https://nixos.org/channels/nixos-unstable";
-    };
-  };
+  system.stateVersion = "22.05";
 }
 
