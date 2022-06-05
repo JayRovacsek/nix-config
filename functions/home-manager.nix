@@ -2,7 +2,10 @@
 let
   systemUsers = import ../hosts/${hostname}/users.nix;
   mappedUsers = builtins.map (x: {
-    "${x.name}" = { imports = [ ../hosts/${hostname}/user-modules.nix ]; };
+    "${x.name}" = {
+      imports = [ ../hosts/${hostname}/user-modules.nix ];
+      home = if (builtins.hasAttr "homeConfigs" x) then x.homeConfigs else { };
+    };
   }) systemUsers;
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin

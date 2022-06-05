@@ -17,6 +17,27 @@ in {
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICOGbb7QMU4l5jccNIaGp9M8HBhyGm3JeNnD30td49nfAAAABHNzaDo= jay@rovacsek.com"
   ];
   shell = "zsh";
+
+  homeConfigs = {
+    file.".ssh/config".text = ''
+      Host github.com
+        HostName github.com
+        User git
+        AddKeysToAgent yes
+        IdentityFile ~/.ssh/id_ed25519_sk_type_a_1
+        IdentityFile ~/.ssh/id_ed25519_sk_type_a_2
+        IdentityFile ~/.ssh/id_ed25519_sk_type_c_1
+        IdentityFile ~/.ssh/id_ed25519_sk_type_c_2
+
+      Host *
+        AddKeysToAgent yes
+        IdentityFile ~/.ssh/id_ed25519_sk_type_a_1
+        IdentityFile ~/.ssh/id_ed25519_sk_type_a_2
+        IdentityFile ~/.ssh/id_ed25519_sk_type_c_1
+        IdentityFile ~/.ssh/id_ed25519_sk_type_c_2
+    '';
+  };
+
   # The below should just be done by gen list, then map against a + c but I'll fix it later
   secrets = [
     {
