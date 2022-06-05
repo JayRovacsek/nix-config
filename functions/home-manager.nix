@@ -4,7 +4,10 @@ let
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];
-      home = if (builtins.hasAttr "homeConfigs" x) then x.homeConfigs else { };
+      home = if (builtins.hasAttr "homeManagerConfig" x) then
+        x.homeManagerConfig
+      else
+        { };
     };
   }) systemUsers;
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;

@@ -18,7 +18,7 @@ in {
   ];
   shell = "zsh";
 
-  homeConfigs = {
+  homeManagerConfig = {
     file.".ssh/config".text = ''
       Host github.com
         HostName github.com
