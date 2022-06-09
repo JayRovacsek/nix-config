@@ -68,6 +68,7 @@
         };
         overlays = linuxOverlays;
       };
+
       darwinConfigurations = import ./darwin/configurations.nix {
         inherit darwin;
         inherit nixpkgs;
