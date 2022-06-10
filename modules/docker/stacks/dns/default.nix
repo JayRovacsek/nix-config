@@ -9,10 +9,13 @@ let
 
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
+  cache = import ./cache.nix;
 
   # Files to write to etc
-  etcConfigs =
-    builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [ local ];
+  etcConfigs = builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [
+    local
+    cache
+  ];
 
   # Actual constructs used to generate useful config
   piholeUser = userFunction { userConfig = piholeUserConfig; };

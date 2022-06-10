@@ -2,16 +2,20 @@
 let
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
+  cache = import ./cache.nix;
 
   etcFunction = import ../../functions/etc.nix;
   # Files to write to etc
-  etcConfigs =
-    builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [ local ];
+  etcConfigs = builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [
+    local
+    cache
+  ];
 
   extraConfig = ''
+    # See more: https://oss.segetech.com/intra/srv/dnsmasq.conf
     # Uncomment these to enable DNSSEC validation and caching:
     # (Requires dnsmasq to be built with DNSSEC option.)
-    dnssec
+    # dnssec
     conf-file=${pkgs.dnsmasq.outPath}/share/dnsmasq/trust-anchors.conf
 
     # Never forward plain names (without a dot or domain part)
@@ -29,7 +33,7 @@ let
 
     # For debugging purposes, log each DNS query as it passes through
     # dnsmasq.
-    #log-queries
+    log-queries
 
     # Include all files in a directory which end in .conf
     conf-dir=/etc/dnsmasq.d/,*.conf
