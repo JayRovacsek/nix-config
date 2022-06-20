@@ -8,7 +8,12 @@ let
   microvm = builtins.getAttr "microvm" extraModules;
   nixos-generators = builtins.getAttr "nixos-generators" extraModules;
 
-  x86_64-linux = import nixpkgs {
+  # This is required for any system needing to reference the flake itself from
+  # within the nixosSystem config. It will be available as an argument to the 
+  # config as "flake" if used as defined below
+  referenceSelf = { config._module.args.flake = self; };
+
+  x86_64-linux = microvm.packages.x86_64-linux // import nixpkgs {
     system = "x86_64-linux";
     inherit overlays;
     config = { allowUnfree = true; };
@@ -27,11 +32,8 @@ in {
     modules = home-manager-function {
       inherit home-manager;
       hostname = "alakazam";
-      extraModules = [
-        microvm.nixosModules.host
-        # ({ microvm.vms.igglybuff.flake = self; })
-        agenix.nixosModule
-      ];
+      extraModules =
+        [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
     };
   in nixpkgs.lib.nixosSystem {
     inherit system;
@@ -113,21 +115,7 @@ in {
   igglybuff = nixpkgs.lib.nixosSystem {
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
-    modules = [ microvm.nixosModules.microvm ../microvms/dns.nix ];
+    modules =
+      [ microvm.nixosModules.microvm ../microvms/dns.nix referenceSelf ];
   };
-
-  # packages.x86_64-linux = {
-  #   vmware = nixos-generators.nixosGenerate {
-  #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-  #     modules = [
-  #       # you can include your own nixos configuration here, i.e.
-  #       # ./configuration.nix
-  #     ];
-  #     format = "vmware";
-  #   };
-  #   vbox = nixos-generators.nixosGenerate {
-  #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-  #     format = "virtualbox";
-  #   };
-  # };
 }

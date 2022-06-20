@@ -17,5 +17,5 @@ in {
 
   networking.hostName = "wigglytuff";
   networking.hostId = "d2a7b80b";
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }

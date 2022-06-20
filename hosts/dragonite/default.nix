@@ -38,5 +38,5 @@ in {
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }
