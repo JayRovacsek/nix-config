@@ -1,5 +1,5 @@
 {
   name = "dns";
   id = 10001;
-  members = [ "pihole" "stubby" ];
+  members = [ "pihole" "stubby" "dns" ];
 }
