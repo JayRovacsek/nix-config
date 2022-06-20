@@ -6,6 +6,8 @@ in {
   programs.vscode = {
     enable = true;
 
+    mutableExtensionsDir = false;
+
     userSettings = {
       "[dockercompose]" = {
         "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
