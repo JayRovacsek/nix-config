@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flake, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
   userConfigs = import ./users.nix;
@@ -13,7 +13,12 @@ in {
     ./secrets.nix
   ];
 
-  networking.hostName = "alakazam";
+  networking = {
+    hostName = "alakazam";
+    hostId = "ef26b1be";
+  };
+
+  microvm.autostart = [ "igglybuff" ];
 
   boot = {
     loader = {

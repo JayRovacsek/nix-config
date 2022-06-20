@@ -1,16 +1,12 @@
 {
   imports = [
     ../../modules/clamav
-    ../../modules/dnsmasq
     ../../modules/docker
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
-    # ../../modules/libvirtd
-    # ../../modules/microvm
-    # ../../modules/libvirtd
     ../../modules/lorri
-    ../../modules/networking
+    ../../modules/systemd-networkd
     ../../modules/nix
     ../../modules/nvidia
     ../../modules/openssh
