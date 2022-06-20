@@ -1,25 +1,42 @@
+{ config, pkgs, ... }:
 let
   dnsUserConfig = import ../users/service-accounts/dns.nix;
 
+  userConfigs = import ./users.nix;
+
   # Helper functions for generating correct nix configs
-  userFunction = import ../functions/service-user.nix;
+  serviceUserFunction = import ../functions/service-user.nix;
+  userFunction = import ../functions/map-reduce-users.nix;
 
   # Actual constructs used to generate useful config
-  dnsUser = userFunction { userConfig = dnsUserConfig; };
+  dnsUser = serviceUserFunction { userConfig = dnsUserConfig; };
+  users = userFunction { inherit pkgs userConfigs; };
 
   readOnlySharedStore = import ./shared/read-only-store.nix;
 in {
-  users.extraUsers = dnsUser.extraUsers;
-  users.extraGroups = dnsUser.extraGroups;
+  users = users // dnsUser;
 
-  networking.hostName = "igglybuff";
-  microvm.writableStoreOverlay = null;
-  microvm = {
-    vcpu = 1;
-    mem = 1024;
-    hypervisor = "qemu";
-    shares = [ readOnlySharedStore ];
+  networking = {
+    hostName = "igglybuff";
+    hostId = "b560563b";
   };
 
-  imports = [ ../modules/dnsmasq ];
+  microvm = {
+    vcpu = 1;
+    mem = 2048;
+    hypervisor = "qemu";
+    shares = [ readOnlySharedStore ];
+    interfaces = [{
+      type = "tap";
+      id = "vm-dns-01";
+      mac = "02:42:c0:a8:06:08";
+    }];
+    writableStoreOverlay = null;
+  };
+
+  services.openssh = { enable = true; };
+
+  imports = [ ../modules/dnsmasq ../modules/systemd-networkd ];
+
+  system.stateVersion = "22.11";
 }
