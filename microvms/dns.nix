@@ -34,9 +34,19 @@ in {
     writableStoreOverlay = null;
   };
 
-  services.openssh = { enable = true; };
+  environment.systemPackages = with pkgs; [ dnsutils ];
 
-  imports = [ ../modules/dnsmasq ../modules/systemd-networkd ];
+  services.openssh.enable = true;
+  services.resolved.enable = false;
+
+  networking.resolvconf.extraOptions = [ "ndots:0" ];
+
+  imports = [
+    ../modules/dnsmasq
+    ../modules/systemd-networkd
+    ../modules/time
+    ../modules/timesyncd
+  ];
 
   system.stateVersion = "22.11";
 }

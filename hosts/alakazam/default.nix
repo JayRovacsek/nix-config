@@ -18,7 +18,12 @@ in {
     hostId = "ef26b1be";
   };
 
-  microvm.autostart = [ "igglybuff" ];
+  microvm.vms.igglybuff = {
+    inherit flake;
+    autostart = true;
+  };
+
+  # microvm.autostart = [ "igglybuff" ];
 
   boot = {
     loader = {
