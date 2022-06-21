@@ -1,1 +1,3 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs; [ htop vim git ]; }
+{ pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ htop vim git libraspberrypi ];
+}
