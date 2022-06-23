@@ -79,6 +79,7 @@ in {
     address=/gs-sec.ww.np.dl.playstation.net/192.168.16.2
 
     # Steam
+    address=/lancache.steampowered.com/192.168.16.2
     address=/lancache.steamcontent.com/192.168.16.2
     address=/.content.steampowered.com/192.168.16.2
     address=/content1.steampowered.com/192.168.16.2
