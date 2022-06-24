@@ -1,1 +1,1 @@
-{ imports = [ ../xfce ]; }
+{ imports = [ ../lxqt ]; }
