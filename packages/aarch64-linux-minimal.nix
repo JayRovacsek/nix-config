@@ -5,7 +5,6 @@
     htop
     jq
     killall
-    lsd
     tree
     unzip
   ];
