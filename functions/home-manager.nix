@@ -1,13 +1,19 @@
-{ home-manager, hostname, isLinux ? true, extraModules ? [ ], ... }:
+{ home-manager, hostname, isLinux ? true, extraModules ? [ ], self, ... }:
 let
   systemUsers = import ../hosts/${hostname}/users.nix;
+  stateVersion = {
+    stateVersion = if isLinux then
+      self.nixosConfigurations."${hostname}".config.system.stateVersion
+    else
+      self.darwinConfigurations."${hostname}".config.system.nixpkgsRelease;
+  };
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];
       home = if (builtins.hasAttr "homeManagerConfig" x) then
-        x.homeManagerConfig
+        x.homeManagerConfig // stateVersion
       else
-        { };
+        stateVersion;
     };
   }) systemUsers;
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;

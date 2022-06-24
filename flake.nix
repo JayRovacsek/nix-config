@@ -57,24 +57,17 @@
       ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {
-        inherit nixpkgs;
-        inherit home-manager;
+        inherit nixpkgs home-manager;
         extraModules = {
-          inherit self;
-          inherit nixos-hardware;
-          inherit microvm;
-          inherit nixos-generators;
-          inherit agenix;
+          inherit self nixos-hardware microvm nixos-generators agenix;
         };
         overlays = linuxOverlays;
       };
 
       darwinConfigurations = import ./darwin/configurations.nix {
-        inherit darwin;
-        inherit nixpkgs;
-        inherit home-manager;
+        inherit darwin nixpkgs home-manager;
         extraModules = {
-          inherit nixos-hardware;
+          inherit self nixos-hardware;
           agenix = agenix-darwin;
         };
         overlays = darwinOverlays;

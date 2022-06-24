@@ -30,87 +30,63 @@ in {
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "alakazam";
       extraModules =
         [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   gastly = let
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "gastly";
       extraModules = [ agenix.nixosModule ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   dragonite = let
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "dragonite";
       extraModules = [ agenix.nixosModule ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   ninetales = let
     system = aarch64-linux.system;
     pkgs = aarch64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "ninetales";
       extraModules = [ agenix.nixosModule ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
     system = aarch64-linux.system;
     pkgs = aarch64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "jigglypuff";
       extraModules = [ agenix.nixosModule ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   wigglytuff = let
     system = aarch64-linux.system;
     pkgs = aarch64-linux;
     modules = home-manager-function {
-      inherit home-manager;
+      inherit home-manager self;
       hostname = "wigglytuff";
       extraModules =
         [ nixos-hardware.nixosModules.raspberry-pi-4 agenix.nixosModule ];
     };
-  in nixpkgs.lib.nixosSystem {
-    inherit system;
-    inherit pkgs;
-    inherit modules;
-  };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   igglybuff = nixpkgs.lib.nixosSystem {
     system = x86_64-linux.system;

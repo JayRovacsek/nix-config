@@ -23,8 +23,6 @@ in {
     autostart = true;
   };
 
-  # microvm.autostart = [ "igglybuff" ];
-
   boot = {
     loader = {
       grub = {
