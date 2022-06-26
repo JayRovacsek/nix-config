@@ -5,6 +5,7 @@ let
   self = builtins.getAttr "self" extraModules;
   agenix = builtins.getAttr "agenix" extraModules;
   nixos-hardware = builtins.getAttr "nixos-hardware" extraModules;
+  nvidia-vgpu = builtins.getAttr "nvidia-vgpu" extraModules;
   microvm = builtins.getAttr "microvm" extraModules;
   nixos-generators = builtins.getAttr "nixos-generators" extraModules;
 
@@ -32,8 +33,12 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "alakazam";
-      extraModules =
-        [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
+      extraModules = [
+        microvm.nixosModules.host
+        agenix.nixosModule
+        referenceSelf
+        nvidia-vgpu.nixosModules.nvidia-vgpu
+      ];
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 

@@ -30,6 +30,11 @@
       inputs.nixpkgs.follows = "unstable";
     };
 
+    nvidia-vgpu = {
+      url = "github:JayRovacsek/nixos-nvidia-vgpu";
+      inputs.nixpkgs.follows = "unstable";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "unstable";
@@ -46,7 +51,7 @@
 
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
     , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
-    , agenix-darwin, ... }:
+    , agenix-darwin, nvidia-vgpu, ... }:
     let
       linuxOverlays = [ nur.overlay agenix.overlay ];
       darwinOverlays = [
@@ -59,7 +64,8 @@
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs home-manager;
         extraModules = {
-          inherit self nixos-hardware microvm nixos-generators agenix;
+          inherit self nixos-hardware microvm nixos-generators agenix
+            nvidia-vgpu;
         };
         overlays = linuxOverlays;
       };
