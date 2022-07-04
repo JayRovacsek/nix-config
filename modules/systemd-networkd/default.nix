@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let meta = import ./meta.nix { inherit config; };
 in {
   networking = {
     useNetworkd = true;
     dhcpcd.enable = false;
 
-    nat = mkIf meta.isMicrovmHost {
+    nat = lib.mkIf meta.isMicrovmHost {
       enable = true;
       enableIPv6 = false;
       externalInterface = "phys0";
