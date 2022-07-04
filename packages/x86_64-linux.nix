@@ -10,6 +10,11 @@
     lsd
     tree
 
+    zoom-us
+
+    # Virt
+    virt-manager
+
     # Utils
     cifs-utils
     dnsutils
@@ -30,6 +35,7 @@
     gimp
     jellyfin-media-player
     inkscape
+    nextcloud-client
 
     ## X Utils
     libpng

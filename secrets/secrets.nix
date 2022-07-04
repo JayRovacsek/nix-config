@@ -5,6 +5,10 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEovGIk8AE7nM76xwGc7AmryAX3EdoL5qAtEs2sItDE";
   keys = [ primaryKey secondaryKey ];
 in {
+  # need to re-do these to only use hyphens. what was I even thinking below.
+  "headscale-dns-preauth-key.age".publicKeys = keys;
+  "headscale-db-password.age".publicKeys = keys;
+  "headscale-private-key.age".publicKeys = keys;
   "id_ed25519_sk_type_a_1.age".publicKeys = keys;
   "id_ed25519_sk_type_a_1.pub.age".publicKeys = keys;
   "id_ed25519_sk_type_c_1.age".publicKeys = keys;
