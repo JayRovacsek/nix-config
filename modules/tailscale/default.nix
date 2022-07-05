@@ -2,8 +2,8 @@
 let loginServer = "https://headscale.rovacsek.com";
 in {
 
-  age.secrets."headscale-dns-preauth-key" = {
-    file = ../../secrets/headscale-dns-preauth-key.age;
+  age.secrets."tailscale-dns-preauth-key" = {
+    file = ../../secrets/tailscale-dns-preauth-key.age;
     mode = "0400";
     owner = config.services.headscale.user;
   };
@@ -48,7 +48,7 @@ in {
       fi
 
       # else bring tailscale up, reading the authkey for our instance
-      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.headscale-dns-preauth-key.path}) --login-server ${loginServer}"
+      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale-dns-preauth-key.path}) --login-server ${loginServer}"
     '';
   };
 }

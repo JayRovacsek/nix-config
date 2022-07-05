@@ -42,8 +42,8 @@ in {
 
   imports = [ ./acl.nix ];
 
-  age.secrets."headscale-dns-preauth-key" = {
-    file = ../../secrets/headscale-dns-preauth-key.age;
+  age.secrets."tailscale-dns-preauth-key" = {
+    file = ../../secrets/tailscale-dns-preauth-key.age;
     mode = "0400";
     owner = config.services.headscale.user;
   };

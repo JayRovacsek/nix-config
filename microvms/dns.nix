@@ -4,13 +4,9 @@ let
 
   userConfigs = import ./users.nix { inherit config pkgs; };
 
-  # Helper functions for generating correct nix configs
-  serviceUserFunction = import ../functions/service-user.nix;
-  userFunction = import ../functions/map-reduce-users.nix;
-
-  # Actual constructs used to generate useful config
-  dnsUser = serviceUserFunction { userConfig = dnsUserConfig; };
-  users = userFunction { inherit userConfigs; };
+  dnsUser =
+    import ../functions/service-user.nix { userConfig = dnsUserConfig; };
+  users = import ../functions/map-reduce-users.nix { inherit userConfigs; };
 
   readOnlySharedStore = import ./shared/read-only-store.nix;
 in {
