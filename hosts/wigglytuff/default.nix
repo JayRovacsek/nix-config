@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
+  userConfigs = import ./users.nix { inherit config pkgs; };
   users = userFunction { inherit pkgs userConfigs; };
 in {
   inherit users;

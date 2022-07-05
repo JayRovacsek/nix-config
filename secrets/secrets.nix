@@ -9,12 +9,8 @@ in {
   "headscale-dns-preauth-key.age".publicKeys = keys;
   "headscale-db-password.age".publicKeys = keys;
   "headscale-private-key.age".publicKeys = keys;
-  "id_ed25519_sk_type_a_1.age".publicKeys = keys;
-  "id_ed25519_sk_type_a_1.pub.age".publicKeys = keys;
-  "id_ed25519_sk_type_c_1.age".publicKeys = keys;
-  "id_ed25519_sk_type_c_1.pub.age".publicKeys = keys;
-  "id_ed25519_sk_type_a_2.age".publicKeys = keys;
-  "id_ed25519_sk_type_a_2.pub.age".publicKeys = keys;
-  "id_ed25519_sk_type_c_2.age".publicKeys = keys;
-  "id_ed25519_sk_type_c_2.pub.age".publicKeys = keys;
+  "jay-id-ed25519-sk-type-a-1.age".publicKeys = keys;
+  "jay-id-ed25519-sk-type-c-1.age".publicKeys = keys;
+  "jay-id-ed25519-sk-type-a-2.age".publicKeys = keys;
+  "jay-id-ed25519-sk-type-c-2.age".publicKeys = keys;
 }

@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
   userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
-  generatedUsers = userFunction { inherit pkgs userConfigs; };
+  userConfigs = import ./users.nix { inherit config pkgs; };
+  generatedUsers = userFunction { inherit userConfigs; };
 in {
   ## Todo: rewrite this to add root config in a consistent way with other configs
   users = {

@@ -48,14 +48,14 @@ in {
     owner = config.services.headscale.user;
   };
 
-  age.secrets."headscale_db_password" = {
-    file = ../../secrets/headscale_db_password.age;
+  age.secrets."headscale-db-password" = {
+    file = ../../secrets/headscale-db-password.age;
     mode = "0400";
     owner = config.services.headscale.user;
   };
 
-  age.secrets."headscale_private_key" = {
-    file = ../../secrets/headscale_private_key.age;
+  age.secrets."headscale-private-key" = {
+    file = ../../secrets/headscale-private-key.age;
     mode = "0400";
     owner = config.services.headscale.user;
   };
@@ -140,7 +140,7 @@ in {
       type = "sqlite3";
       path = "/var/lib/headscale/db.sqlite";
       name = "headscale";
-      passwordFile = config.age.secrets.headscale_db_password.path;
+      passwordFile = config.age.secrets.headscale-db-password.path;
     };
   };
 }

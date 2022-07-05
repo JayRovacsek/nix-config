@@ -2,7 +2,7 @@
 let
   dnsUserConfig = import ../users/service-accounts/dns.nix;
 
-  userConfigs = import ./users.nix;
+  userConfigs = import ./users.nix { inherit config pkgs; };
 
   # Helper functions for generating correct nix configs
   serviceUserFunction = import ../functions/service-user.nix;
@@ -10,7 +10,7 @@ let
 
   # Actual constructs used to generate useful config
   dnsUser = serviceUserFunction { userConfig = dnsUserConfig; };
-  users = userFunction { inherit pkgs userConfigs; };
+  users = userFunction { inherit userConfigs; };
 
   readOnlySharedStore = import ./shared/read-only-store.nix;
 in {

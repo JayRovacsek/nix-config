@@ -1,6 +1,15 @@
 { home-manager, hostname, isLinux ? true, extraModules ? [ ], self, ... }:
 let
-  systemUsers = import ../hosts/${hostname}/users.nix;
+  systemUsers = import ../hosts/${hostname}/users.nix {
+    config = if isLinux then
+      self.nixosConfigurations."${hostname}".config
+    else
+      self.darwinConfigurations."${hostname}".config;
+    pkgs = if isLinux then
+      self.nixosConfigurations."${hostname}".pkgs
+    else
+      self.darwinConfigurations."${hostname}".pkgs;
+  };
   stateVersion = {
     stateVersion = if isLinux then
       self.nixosConfigurations."${hostname}".config.system.stateVersion

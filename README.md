@@ -81,6 +81,7 @@ Current list:
 - [Headscale](https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=headscale) + client configs to implement a true zero-trust network within compute I control. This removes bounds of hosts needing to run inside of network segments that aren't captured by nix configs (unless nixos as a router becomes a thing)
 - Dig into the usability of [microvms](https://github.com/astro/microvm.nix) to avoid use of docker where possible. This is not because docker is bad, but instead to enable reuse of existing modules within these configs - afterall, why bother having a [clamav module](./modules/clamav/default.nix) if you can't deploy it to all your compute
 - Dig into nixos as a router ([eg](https://francis.begyn.be/blog/nixos-home-router))
+- ~Implement vGPU for nvidia~ Done in a branch, however blocked as it turns out the drivers are not publicly available so either do illegal stuffs and get that driver (yeah, nah) or pay for it :cry:
 - Look into deploying armv7 instances of nixos to:
   - RaspberryPi Zero (w and not)
   - RaspberryPi 2 (Igglybuff if we can get this going - get that sucker to run as an internal DNS node)

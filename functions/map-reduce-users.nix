@@ -1,9 +1,5 @@
-{ userConfigs, pkgs, ... }:
+{ userConfigs }:
 let
-  userFunction = import ./user.nix;
-  mappedUsers = builtins.map (x:
-    userFunction {
-      inherit pkgs;
-      userConfig = x;
-    }) userConfigs;
+  mappedUsers =
+    builtins.map (x: import ./user.nix { userConfig = x; }) userConfigs;
 in { users = builtins.foldl' (x: y: x // y) { } mappedUsers; }
