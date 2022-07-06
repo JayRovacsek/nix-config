@@ -1,5 +1,6 @@
 {
   imports = [
+    ../../modules/agenix
     ../../modules/clamav
     ../../modules/docker
     ../../modules/fonts
