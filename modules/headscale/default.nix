@@ -2,6 +2,24 @@
 let
   unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
   futureMeProblem = "'2050-01-01 00:00:00.000000000+00:00'";
+
+  # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
+  # capabilities but translates as follows:
+  # * read the contents of our secrets directory, grabbing all file names
+  # * where the filename includes "-preauth-key"
+  # * map keys to a structure of ("name" minus ".age") = set representing agenix config
+  #
+  # So yeah, not pretty but scales to pull in all secrets that include the 
+  # "-preauth-key" value so we can generate entries into sqlite on every rebuild
+  preauthSecrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+    "${lib.strings.removeSuffix ".age" x}" = {
+      file = ../../secrets/${x};
+      mode = "0400";
+      owner = config.services.headscale.user;
+    };
+  }) (builtins.filter (z: (lib.strings.hasInfix "-preauth-key" z))
+    (builtins.attrNames (builtins.readDir ../../secrets))));
+
   preauthKeys = builtins.filter (x: lib.strings.hasInfix "-preauth-key" x.name)
     (builtins.attrValues config.age.secrets);
 
@@ -38,27 +56,27 @@ let
 
     END_SQL"
   '';
+
+  imports = map (n: "${./pkgConfigs}/${n}")
+    (builtins.attrNames (builtins.readDir ./pkgConfigs));
 in {
 
   imports = [ ./acl.nix ];
 
-  age.secrets."tailscale-dns-preauth-key" = {
-    file = ../../secrets/tailscale-dns-preauth-key.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
+  age.secrets = {
+    "headscale-db-password" = {
+      file = ../../secrets/headscale-db-password.age;
+      mode = "0400";
+      owner = config.services.headscale.user;
+    };
+    "headscale-private-key" = {
+      file = ../../secrets/headscale-private-key.age;
+      mode = "0400";
+      owner = config.services.headscale.user;
+    };
 
-  age.secrets."headscale-db-password" = {
-    file = ../../secrets/headscale-db-password.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
-
-  age.secrets."headscale-private-key" = {
-    file = ../../secrets/headscale-private-key.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
+  } // preauthSecrets;
+  #  // preauthSecrets;
 
   networking.firewall = {
     allowedTCPPorts = [ config.services.headscale.port ];
