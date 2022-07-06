@@ -10,7 +10,7 @@ let
       "${lib.strings.removeSuffix ".age" x}" = {
         file = ../../secrets/${x};
         mode = "0400";
-        owner = builtins.trace user.name user.name;
+        owner = user.name;
       };
     }) (builtins.filter (z:
       (lib.strings.hasInfix "id-ed25519" z && lib.strings.hasInfix user.name z))
