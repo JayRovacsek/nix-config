@@ -37,6 +37,7 @@ in {
   "tailscale-work-preauth-key.age".publicKeys = tailscaleKeys;
   "tailscale-log-preauth-key.age".publicKeys = tailscaleKeys;
   "tailscale-game-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-reverse-proxy-preauth-key.age".publicKeys = tailscaleKeys;
   "tailscale-trust-preauth-key.age".publicKeys = tailscaleKeys;
   ## Headscale config keys
   "headscale-db-password.age".publicKeys = tailscaleKeys;
