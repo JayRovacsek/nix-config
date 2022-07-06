@@ -10,5 +10,14 @@ in {
       };
       vlanConfig.Id = 6;
     };
+
+    "vlan-microvm" = {
+      enable = meta.isMicrovmHost;
+      netdevConfig = {
+        Kind = "vlan";
+        Name = "vlan-microvm";
+      };
+      vlanConfig.Id = 6;
+    };
   };
 }

@@ -2,14 +2,14 @@
 let meta = import ./meta.nix { inherit config; };
 in {
   systemd.network.netdevs = {
-    "10-mvl-dns" = {
+    "10-macvlan-microvm" = {
       enable = meta.isMicrovmHost;
       netdevConfig = {
         Kind = "macvlan";
-        Name = "mvl-dns";
+        Name = "mvl-microvm";
       };
       macvlanConfig.Mode = "bridge";
-      vlanConfig.Id = 6;
+      vlanConfig.Id = 20;
     };
   };
 }
