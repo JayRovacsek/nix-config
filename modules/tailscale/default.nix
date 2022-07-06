@@ -17,6 +17,8 @@ let
     };
   }) (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
     (builtins.attrNames (builtins.readDir ../../secrets))));
+
+  preauthPath = config.age.secrets."tailscale-${tailnet}-preauth-key".path;
 in {
 
   age.secrets = secrets;
@@ -57,12 +59,13 @@ in {
       # check if we are already authenticated to tailscale
       status="$(${pkgs.tailscale}/bin/tailscale status -json | ${pkgs.jq}/bin/jq -r .BackendState)"
 
-      if [ $status == "Running" ]; then # if so, then do nothing
-        exit 0
+      if [ $status == "Running" ]; then # Assume changes might have been made to this config - re-auth to ensure we match our config
+        tailscale logout
       fi
 
-      # else bring tailscale up, reading the authkey for our instance
-      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale-dns-preauth-key.path}) --login-server ${loginServer}"
+      sleep 2
+
+      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${preauthPath}) --login-server ${loginServer}"
     '';
   };
 }

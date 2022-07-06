@@ -5,10 +5,10 @@ in {
     useNetworkd = true;
     dhcpcd.enable = false;
 
-    nat = lib.mkIf meta.isMicrovmHost {
-      enable = true;
+    nat = {
+      enable = meta.isMicrovmHost;
       enableIPv6 = false;
-      externalInterface = "phys0";
+      externalInterface = if meta.isMicrovmHost then "phys0" else null;
       internalInterfaces = [ "microvm" ];
     };
   };
