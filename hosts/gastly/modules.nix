@@ -1,4 +1,4 @@
-{
+{ config, pkgs, lib, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -11,7 +11,10 @@
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam
-    ../../modules/tailscale
+    (import ../../modules/tailscale {
+      inherit config pkgs lib;
+      tailnet = "trust";
+    })
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev
