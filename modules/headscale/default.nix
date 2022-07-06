@@ -24,7 +24,8 @@ let
   preauthKeys = builtins.filter (x: lib.strings.hasInfix "-preauth-key" x.name)
     (builtins.attrValues config.age.secrets);
 
-  namespaceInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap1
+  # CREATE TABLE `namespaces` (`id` integer,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,`name` text UNIQUE,PRIMARY KEY (`id`));
+  namespaceInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
     (i: v:
       "INSERT INTO namespaces ('id','created_at','updated_at','name') VALUES (${
         builtins.toString i
@@ -33,12 +34,14 @@ let
         (lib.strings.removeSuffix "-preauth-key" v.name)
       }');") preauthKeys);
 
+  # CREATE TABLE `pre_auth_keys` (`id` integer,`key` text,`namespace_id` integer,`reusable` numeric,`ephemeral` numeric DEFAULT false,`used` numeric DEFAULT false,`created_at` datetime,`expiration` datetime,PRIMARY KEY (`id`));
   preauthInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
     (i: v:
       "INSERT INTO pre_auth_keys ('id','key','namespace_id','reusable','ephemeral','used','created_at','expiration') VALUES (${
         builtins.toString i
-      },'`cat ${v.path}`',1,1,0,0,${unixEpoch},${futureMeProblem});")
-    preauthKeys);
+      },'`cat ${v.path}`',${
+        builtins.toString i
+      },1,0,0,${unixEpoch},${futureMeProblem});") preauthKeys);
 
   sqlStatement = ''
     DELETE FROM namespaces;

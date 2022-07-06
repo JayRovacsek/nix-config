@@ -1,11 +1,25 @@
-{ config, pkgs, ... }:
-let loginServer = "https://headscale.rovacsek.com";
+{ config, pkgs, lib, tailnet, ... }:
+let
+  loginServer = "https://headscale.rovacsek.com";
+
+  tailnets = builtins.map (x:
+    "${lib.strings.removeSuffix "-preauth-key"
+    (lib.strings.removePrefix "tailscale-" x)}")
+    (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
+      (builtins.attrNames (builtins.readDir ../../secrets)));
+
+  # TODO: validate the parameter tailnet is one of the above via an assert
+
+  secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+    "${lib.strings.removeSuffix ".age" x}" = {
+      file = ../../secrets/${x};
+      mode = "0400";
+    };
+  }) (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
+    (builtins.attrNames (builtins.readDir ../../secrets))));
 in {
 
-  age.secrets."tailscale-dns-preauth-key" = {
-    file = ../../secrets/tailscale-dns-preauth-key.age;
-    mode = "0400";
-  };
+  age.secrets = secrets;
 
   # Client tailscale config
   services.tailscale = {
