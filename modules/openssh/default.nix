@@ -10,9 +10,10 @@ let
       "${lib.strings.removeSuffix ".age" x}" = {
         file = ../../secrets/${x};
         mode = "0400";
-        owner = config.services.headscale.user;
+        owner = builtins.trace user.name user.name;
       };
-    }) (builtins.filter (z: (lib.strings.hasInfix "id-ed25519" z))
+    }) (builtins.filter (z:
+      (lib.strings.hasInfix "id-ed25519" z && lib.strings.hasInfix user.name z))
       (builtins.attrNames (builtins.readDir ../../secrets)))))) users);
 in {
   age.secrets = sshKeys;
