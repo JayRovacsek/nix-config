@@ -2,10 +2,30 @@
 let
   unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
   futureMeProblem = "'2050-01-01 00:00:00.000000000+00:00'";
+
+  # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
+  # capabilities but translates as follows:
+  # * read the contents of our secrets directory, grabbing all file names
+  # * where the filename includes "tailscale" or "headscale"
+  # * map keys to a structure of ("name" minus ".age") = set representing agenix config
+  #
+  # So yeah, not pretty but scales to pull in all secrets that include the 
+  # "-preauth-key" value so we can generate entries into sqlite on every rebuild
+  secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+    "${lib.strings.removeSuffix ".age" x}" = {
+      file = ../../secrets/${x};
+      mode = "0400";
+      owner = config.services.headscale.user;
+    };
+  }) (builtins.filter (z:
+    (lib.strings.hasInfix "tailscale" z || lib.strings.hasInfix "headscale" z))
+    (builtins.attrNames (builtins.readDir ../../secrets))));
+
   preauthKeys = builtins.filter (x: lib.strings.hasInfix "-preauth-key" x.name)
     (builtins.attrValues config.age.secrets);
 
-  namespaceInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap1
+  # CREATE TABLE `namespaces` (`id` integer,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,`name` text UNIQUE,PRIMARY KEY (`id`));
+  namespaceInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
     (i: v:
       "INSERT INTO namespaces ('id','created_at','updated_at','name') VALUES (${
         builtins.toString i
@@ -14,12 +34,14 @@ let
         (lib.strings.removeSuffix "-preauth-key" v.name)
       }');") preauthKeys);
 
+  # CREATE TABLE `pre_auth_keys` (`id` integer,`key` text,`namespace_id` integer,`reusable` numeric,`ephemeral` numeric DEFAULT false,`used` numeric DEFAULT false,`created_at` datetime,`expiration` datetime,PRIMARY KEY (`id`));
   preauthInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
     (i: v:
       "INSERT INTO pre_auth_keys ('id','key','namespace_id','reusable','ephemeral','used','created_at','expiration') VALUES (${
         builtins.toString i
-      },'`cat ${v.path}`',1,1,0,0,${unixEpoch},${futureMeProblem});")
-    preauthKeys);
+      },'`cat ${v.path}`',${
+        builtins.toString i
+      },1,0,0,${unixEpoch},${futureMeProblem});") preauthKeys);
 
   sqlStatement = ''
     DELETE FROM namespaces;
@@ -38,27 +60,14 @@ let
 
     END_SQL"
   '';
+
+  imports = map (n: "${./pkgConfigs}/${n}")
+    (builtins.attrNames (builtins.readDir ./pkgConfigs));
 in {
 
   imports = [ ./acl.nix ];
 
-  age.secrets."tailscale-dns-preauth-key" = {
-    file = ../../secrets/tailscale-dns-preauth-key.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
-
-  age.secrets."headscale-db-password" = {
-    file = ../../secrets/headscale-db-password.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
-
-  age.secrets."headscale-private-key" = {
-    file = ../../secrets/headscale-private-key.age;
-    mode = "0400";
-    owner = config.services.headscale.user;
-  };
+  age.secrets = secrets;
 
   networking.firewall = {
     allowedTCPPorts = [ config.services.headscale.port ];
@@ -116,6 +125,7 @@ in {
     # autoUpdate
     # };
     # Define ACLS as json file in path - this would be far better nixified but all in time.
+    # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
     # I can see the below being problematic while still using SWAG.
     # Will need to dig into changing this once I can extract SWAG into nixified modules.

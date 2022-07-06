@@ -1,11 +1,27 @@
-{ config, pkgs, ... }:
-let loginServer = "https://headscale.rovacsek.com";
+{ config, pkgs, lib, tailnet, ... }:
+let
+  loginServer = "https://headscale.rovacsek.com";
+
+  tailnets = builtins.map (x:
+    "${lib.strings.removeSuffix "-preauth-key"
+    (lib.strings.removePrefix "tailscale-" x)}")
+    (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
+      (builtins.attrNames (builtins.readDir ../../secrets)));
+
+  # TODO: validate the parameter tailnet is one of the above via an assert
+
+  secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+    "${lib.strings.removeSuffix ".age" x}" = {
+      file = ../../secrets/${x};
+      mode = "0400";
+    };
+  }) (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
+    (builtins.attrNames (builtins.readDir ../../secrets))));
+
+  preauthPath = config.age.secrets."tailscale-${tailnet}-preauth-key".path;
 in {
 
-  age.secrets."tailscale-dns-preauth-key" = {
-    file = ../../secrets/tailscale-dns-preauth-key.age;
-    mode = "0400";
-  };
+  age.secrets = secrets;
 
   # Client tailscale config
   services.tailscale = {
@@ -43,12 +59,13 @@ in {
       # check if we are already authenticated to tailscale
       status="$(${pkgs.tailscale}/bin/tailscale status -json | ${pkgs.jq}/bin/jq -r .BackendState)"
 
-      if [ $status == "Running" ]; then # if so, then do nothing
-        exit 0
+      if [ $status == "Running" ]; then # Assume changes might have been made to this config - re-auth to ensure we match our config
+        tailscale logout
       fi
 
-      # else bring tailscale up, reading the authkey for our instance
-      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale-dns-preauth-key.path}) --login-server ${loginServer}"
+      sleep 2
+
+      ${pkgs.tailscale}/bin/tailscale up -authkey $(cat ${preauthPath}) --login-server ${loginServer}"
     '';
   };
 }
