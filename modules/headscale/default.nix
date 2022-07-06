@@ -6,18 +6,19 @@ let
   # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
   # capabilities but translates as follows:
   # * read the contents of our secrets directory, grabbing all file names
-  # * where the filename includes "-preauth-key"
+  # * where the filename includes "tailscale" or "headscale"
   # * map keys to a structure of ("name" minus ".age") = set representing agenix config
   #
   # So yeah, not pretty but scales to pull in all secrets that include the 
   # "-preauth-key" value so we can generate entries into sqlite on every rebuild
-  preauthSecrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+  secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
     "${lib.strings.removeSuffix ".age" x}" = {
       file = ../../secrets/${x};
       mode = "0400";
       owner = config.services.headscale.user;
     };
-  }) (builtins.filter (z: (lib.strings.hasInfix "-preauth-key" z))
+  }) (builtins.filter (z:
+    (lib.strings.hasInfix "tailscale" z || lib.strings.hasInfix "headscale" z))
     (builtins.attrNames (builtins.readDir ../../secrets))));
 
   preauthKeys = builtins.filter (x: lib.strings.hasInfix "-preauth-key" x.name)
@@ -63,20 +64,7 @@ in {
 
   imports = [ ./acl.nix ];
 
-  age.secrets = {
-    "headscale-db-password" = {
-      file = ../../secrets/headscale-db-password.age;
-      mode = "0400";
-      owner = config.services.headscale.user;
-    };
-    "headscale-private-key" = {
-      file = ../../secrets/headscale-private-key.age;
-      mode = "0400";
-      owner = config.services.headscale.user;
-    };
-
-  } // preauthSecrets;
-  #  // preauthSecrets;
+  age.secrets = secrets;
 
   networking.firewall = {
     allowedTCPPorts = [ config.services.headscale.port ];
@@ -134,6 +122,7 @@ in {
     # autoUpdate
     # };
     # Define ACLS as json file in path - this would be far better nixified but all in time.
+    # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
     # I can see the below being problematic while still using SWAG.
     # Will need to dig into changing this once I can extract SWAG into nixified modules.
