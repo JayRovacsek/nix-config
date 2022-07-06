@@ -5,8 +5,8 @@ in {
   age.secrets."tailscale-dns-preauth-key" = {
     file = ../../secrets/tailscale-dns-preauth-key.age;
     mode = "0400";
-    owner = config.services.headscale.user;
   };
+
   # Client tailscale config
   services.tailscale = {
     port = 0;
@@ -43,7 +43,7 @@ in {
       # check if we are already authenticated to tailscale
       status="$(${pkgs.tailscale}/bin/tailscale status -json | ${pkgs.jq}/bin/jq -r .BackendState)"
 
-      if [ $status = "Running" ]; then # if so, then do nothing
+      if [ $status == "Running" ]; then # if so, then do nothing
         exit 0
       fi
 

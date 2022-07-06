@@ -6,12 +6,8 @@ let
 in {
   inherit users;
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./system-packages.nix
-    ./secrets.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;

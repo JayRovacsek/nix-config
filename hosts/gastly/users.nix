@@ -1,4 +1,8 @@
+{ config, pkgs }:
 let
-  jay = import ../../users/standard/jay.nix;
-  sarah = import ../../users/standard/sarah.nix;
-in [ jay sarah ]
+  users = builtins.map
+    (x: import ../../users/standard/${x}.nix { inherit config pkgs; }) [
+      "jay"
+      "sarah"
+    ];
+in users
