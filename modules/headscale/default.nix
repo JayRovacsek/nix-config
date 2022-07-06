@@ -30,7 +30,7 @@ let
       "INSERT INTO namespaces ('id','created_at','updated_at','name') VALUES (${
         builtins.toString i
       }, ${unixEpoch},${unixEpoch},'${
-        lib.strings.removePrefix "headscale-"
+        lib.strings.removePrefix "tailscale-"
         (lib.strings.removeSuffix "-preauth-key" v.name)
       }');") preauthKeys);
 
@@ -43,9 +43,15 @@ let
         builtins.toString i
       },1,0,0,${unixEpoch},${futureMeProblem});") preauthKeys);
 
+  # The delete from all tables below could probably be done better but I can't DB :)
+  # It's required to ensure we have a blank slate moving in and no residual state can be 
+  # left behind causing issues later
   sqlStatement = ''
-    DELETE FROM namespaces;
-    DELETE FROM pre_auth_keys;
+    delete from namespaces;
+    delete from pre_auth_keys;
+    delete from machines;
+    delete from kvs;
+    delete from api_keys;
 
     ${namespaceInsertStatements}
 
@@ -124,7 +130,6 @@ in {
     # updateFrequency
     # autoUpdate
     # };
-    # Define ACLS as json file in path - this would be far better nixified but all in time.
     # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
     # I can see the below being problematic while still using SWAG.
