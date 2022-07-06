@@ -53,7 +53,8 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "dragonite";
-      extraModules = [ agenix.nixosModule ];
+      extraModules =
+        [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
