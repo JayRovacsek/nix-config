@@ -29,7 +29,16 @@ in {
   # "meta-ssh-secondary-key.age".publicKeys = metaKeys;
 
   # Secrets related to tailscale/headscale
+  ## Tailscale preauth keys
   "tailscale-dns-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-download-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-authelia-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-nextcloud-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-work-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-log-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-game-preauth-key.age".publicKeys = tailscaleKeys;
+  "tailscale-trust-preauth-key.age".publicKeys = tailscaleKeys;
+  ## Headscale config keys
   "headscale-db-password.age".publicKeys = tailscaleKeys;
   "headscale-private-key.age".publicKeys = tailscaleKeys;
 
