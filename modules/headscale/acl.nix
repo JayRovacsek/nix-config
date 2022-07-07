@@ -25,9 +25,18 @@ let
     dst = [ "group:dns:53,8053" ];
   }];
 
+  # Not keeping the below - just adding for documentation of things to fix.
+  # see also: https://tailscale.com/kb/1103/exit-nodes/#prerequisites
+  allowAllViaExitNodes = [{
+    action = "accept";
+    src = [ "autogroup:members" ];
+    dst = [ "autogroup:internet:*" ];
+  }];
+
   aclConfig = {
     inherit groups;
-    acls = allowTrustToAll ++ allowAllToDNS ++ defaultNamespaceCommunication;
+    acls = allowTrustToAll ++ allowAllToDNS ++ defaultNamespaceCommunication
+      ++ allowAllViaExitNodes;
   };
 in {
   environment.etc."headscale/acls.json" = {
