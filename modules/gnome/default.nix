@@ -1,19 +1,25 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
+  tailscaleExtensions = if config.services.tailscale.enable then
+    with pkgs.gnomeExtensions; [ tailscale-status taildrop-send ]
+  else
+    [ ];
+
   gnomePackages = with pkgs.gnome; [
     gnome-tweaks
     nautilus
     dconf-editor
     gnome-screenshot
   ];
-  gnomeExtensions = with pkgs.gnomeExtensions; [
-    caffeine
-    screenshot-tool
-    sensory-perception
-    pop-shell
-    blur-my-shell
-    notification-banner-reloaded
-  ];
+  gnomeExtensions = with pkgs.gnomeExtensions;
+    [
+      caffeine
+      screenshot-tool
+      sensory-perception
+      pop-shell
+      blur-my-shell
+      notification-banner-reloaded
+    ] ++ tailscaleExtensions;
 in {
   imports = [ ../redshift ];
 
