@@ -51,6 +51,7 @@ in {
   networking.firewall = {
     trustedInterfaces = [ "tailscale0" ];
     checkReversePath = "loose";
+    allowedUDPPorts = [ config.services.tailscale.port ];
   };
 
   systemd.services.tailscaled.wants = [ "tailscaled.service" ];
@@ -87,6 +88,8 @@ in {
         --login-server=${loginServer} \
         --hostname=${hostname}
       fi
+
+      exit 0
     '';
   };
 }
