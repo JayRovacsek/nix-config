@@ -13,6 +13,10 @@
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh
+    (import ../../modules/tailscale {
+      inherit config pkgs lib;
+      tailnet = "trust";
+    })
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev
