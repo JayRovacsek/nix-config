@@ -32,7 +32,7 @@ let
   # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
   # capabilities but translates as follows:
   # * read the contents of our secrets directory, grabbing all file names
-  # * where the filename includes "tailscale" or "headscale"
+  # * where the filename includes "-preauth-key" or "headscale"
   # * map keys to a structure of ("name" minus ".age") = set representing agenix config
   #
   # So yeah, not pretty but scales to pull in all secrets that include the 
@@ -44,7 +44,8 @@ let
       owner = config.services.headscale.user;
     };
   }) (builtins.filter (z:
-    (lib.strings.hasInfix "tailscale" z || lib.strings.hasInfix "headscale" z))
+    (lib.strings.hasInfix "-preauth-key" z
+      || lib.strings.hasInfix "headscale" z))
     (builtins.attrNames (builtins.readDir ../../secrets))));
 
   # The delete from all tables below could probably be done better but I can't DB :)
