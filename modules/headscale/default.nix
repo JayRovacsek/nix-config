@@ -74,9 +74,9 @@ in {
 
     tls = {
       # certFile = config.age.secrets."headscale-tls-crt".path;
-      certFile = "/mnt/zfs/containers/swag/keys/cert.crt";
+      certFile = "/mnt/zfs/containers/swag/keys/letsencrypt/cert.pem";
       # keyFile = config.age.secrets."headscale-tls-key".path;
-      keyFile = "/mnt/zfs/containers/swag/keys/cert.key";
+      keyFile = "/mnt/zfs/containers/swag/keys/letsencrypt/privkey.pem";
     };
 
     # TODO: make this dynamic depending on a search through /etc configs for this system
