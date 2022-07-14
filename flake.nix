@@ -48,13 +48,8 @@
     , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
     , agenix-darwin, ... }:
     let
-      linuxOverlays = [ nur.overlay agenix.overlay ];
-      darwinOverlays = [
-        firefox-darwin.overlay
-        nur.overlay
-        my-overlays.dockutil
-        agenix.overlay
-      ];
+      linuxOverlays = [ nur.overlay agenix.overlay my-overlays.headscale ];
+      darwinOverlays = [ firefox-darwin.overlay nur.overlay agenix.overlay ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs home-manager;
