@@ -9,7 +9,7 @@ let
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   defaultNamespaceCommunication = builtins.map (x: {
     action = "accept";
-    src = [ "${x}" ];
+    src = [ "group:${x}" ];
     dst = [ "${x}:*" ];
   }) meta.namespaces;
 
