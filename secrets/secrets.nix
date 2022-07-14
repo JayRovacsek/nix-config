@@ -43,6 +43,8 @@ in {
   ## Headscale config keys
   "headscale-db-password.age".publicKeys = tailscaleKeys;
   "headscale-private-key.age".publicKeys = tailscaleKeys;
+  "headscale-tls-crt.age".publicKeys = tailscaleKeys;
+  "headscale-tls-key.age".publicKeys = tailscaleKeys;
 
   # Secrets SSH keys - in this instance all hard-tokens so 
   # threat modeling would require physical access to fully
