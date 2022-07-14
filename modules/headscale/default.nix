@@ -72,12 +72,12 @@ in {
       autoUpdate = true;
     };
 
-    tls = {
-      # certFile = config.age.secrets."headscale-tls-crt".path;
-      certFile = "/mnt/zfs/containers/swag/keys/letsencrypt/cert.pem";
-      # keyFile = config.age.secrets."headscale-tls-key".path;
-      keyFile = "/mnt/zfs/containers/swag/keys/letsencrypt/privkey.pem";
-    };
+    # tls = {
+    #   # certFile = config.age.secrets."headscale-tls-crt".path;
+    #   certFile = "/mnt/zfs/containers/swag/keys/letsencrypt/cert.pem";
+    #   # keyFile = config.age.secrets."headscale-tls-key".path;
+    #   keyFile = "/mnt/zfs/containers/swag/keys/letsencrypt/privkey.pem";
+    # };
 
     # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
