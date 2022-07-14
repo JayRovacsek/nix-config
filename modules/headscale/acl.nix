@@ -9,28 +9,28 @@ let
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   defaultNamespaceCommunication = builtins.map (x: {
     action = "accept";
-    src = [ "group:${x}" ];
-    dst = [ "${x}:*" ];
+    users = [ "group:${x}" ];
+    ports = [ "${x}:*" ];
   }) meta.namespaces;
 
   allowTrustToAll = [{
     action = "accept";
-    src = [ "group:trust" ];
-    dst = [ "*:*" ];
+    users = [ "group:trust" ];
+    ports = [ "*:*" ];
   }];
 
   allowAllToDNS = [{
     action = "accept";
-    src = [ "group:*" ];
-    dst = [ "group:dns:53,8053" ];
+    users = [ "group:*" ];
+    ports = [ "group:dns:53,8053" ];
   }];
 
   # Not keeping the below - just adding for documentation of things to fix.
   # see also: https://tailscale.com/kb/1103/exit-nodes/#prerequisites
   allowAllViaExitNodes = [{
     action = "accept";
-    src = [ "autogroup:members" ];
-    dst = [ "autogroup:internet:*" ];
+    users = [ "autogroup:members" ];
+    ports = [ "autogroup:internet:*" ];
   }];
 
   aclConfig = {
