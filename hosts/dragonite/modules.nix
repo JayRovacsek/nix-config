@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, flake, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -9,7 +9,7 @@
     ../../modules/headscale
     ../../modules/libvirtd
     ../../modules/lorri
-    ../../modules/nix
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, flake, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -7,7 +7,7 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/networking
-    ../../modules/nix
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam

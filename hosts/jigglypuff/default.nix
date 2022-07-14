@@ -1,13 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, flake, ... }:
 let
-  userFunction = import ../../functions/map-reduce-users.nix;
   userConfigs = import ./users.nix { inherit config pkgs; };
-  users = userFunction { inherit userConfigs; };
+  users = import ../../functions/map-reduce-users.nix {
+    inherit config pkgs userConfigs;
+  };
 in {
   inherit users;
   imports = [
     ./hardware-configuration.nix
     ./modules.nix
+    ./options.nix
     ./system-packages.nix
     ./vlans.nix
   ];

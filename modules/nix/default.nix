@@ -1,9 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flake ? { }, ... }:
 let
-  configs = { aarch64-darwin = import ./x86_64-darwin.nix; };
-  configs = { x86_64-darwin = import ./x86_64-darwin.nix; };
-  configs = { aarch64-linux = import ./x86_64-linux.nix; };
-  configs = { x86_64-linux = import ./x86_64-linux.nix; };
+  configs = {
+    aarch64-darwin = import ./x86_64-darwin.nix;
+    x86_64-darwin = import ./x86_64-darwin.nix;
+    aarch64-linux = import ./aarch64-linux.nix { inherit config flake; };
+    x86_64-linux = import ./x86_64-linux.nix { inherit config flake; };
+  };
+
   extraOptions = ''
     experimental-features = nix-command flakes
   '';

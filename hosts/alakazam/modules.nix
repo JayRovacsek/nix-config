@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, flake, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -7,13 +7,14 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/lorri
-    ../../modules/systemd-networkd
-    ../../modules/nix
+    # ../../modules/nginx
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/starship
     ../../modules/steam
+    ../../modules/systemd-networkd
     (import ../../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "trust";

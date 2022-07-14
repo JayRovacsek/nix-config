@@ -1,6 +1,8 @@
 { config, pkgs }:
 let
   users = builtins.map
-    (x: import ../../users/standard/${x}.nix { inherit config pkgs; })
-    [ "jay" ];
+    (x: import ../../users/standard/${x}.nix { inherit config pkgs; }) [
+      "jay"
+      "builder"
+    ];
 in users

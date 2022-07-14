@@ -1,3 +1,4 @@
+{ config, pkgs, lib, flake, ... }:
 let mode = "dns-server";
 in {
   imports = [
@@ -5,7 +6,7 @@ in {
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/networking
-    ../../modules/nix
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
     ../../modules/starship

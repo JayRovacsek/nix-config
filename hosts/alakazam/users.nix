@@ -4,5 +4,6 @@ let
     (x: import ../../users/standard/${x}.nix { inherit config pkgs; }) [
       "jay"
       "sarah"
+      "builder"
     ];
 in users

@@ -43,7 +43,7 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "gastly";
-      extraModules = [ agenix.nixosModule ];
+      extraModules = [ agenix.nixosModule referenceSelf ];
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
@@ -58,15 +58,16 @@ in {
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
-  ninetales = let
-    system = aarch64-linux.system;
-    pkgs = aarch64-linux;
-    modules = home-manager-function {
-      inherit home-manager self;
-      hostname = "ninetales";
-      extraModules = [ agenix.nixosModule ];
-    };
-  in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
+  # Dead for now. RIP M1
+  # ninetales = let
+  #   system = aarch64-linux.system;
+  #   pkgs = aarch64-linux;
+  #   modules = home-manager-function {
+  #     inherit home-manager self;
+  #     hostname = "ninetales";
+  #     extraModules = [ agenix.nixosModule ];
+  #   };
+  # in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
     system = aarch64-linux.system;
@@ -74,7 +75,7 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "jigglypuff";
-      extraModules = [ agenix.nixosModule ];
+      extraModules = [ agenix.nixosModule referenceSelf ];
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
@@ -84,15 +85,22 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "wigglytuff";
-      extraModules =
-        [ nixos-hardware.nixosModules.raspberry-pi-4 agenix.nixosModule ];
+      extraModules = [
+        nixos-hardware.nixosModules.raspberry-pi-4
+        agenix.nixosModule
+        referenceSelf
+      ];
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   igglybuff = nixpkgs.lib.nixosSystem {
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
-    modules =
-      [ microvm.nixosModules.microvm ../microvms/dns.nix referenceSelf ];
+    modules = [
+      microvm.nixosModules.microvm
+      ../microvms/dns.nix
+      agenix.nixosModule
+      referenceSelf
+    ];
   };
 }

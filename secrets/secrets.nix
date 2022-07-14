@@ -53,4 +53,7 @@ in {
   "jay-id-ed25519-sk-type-c-1.age".publicKeys = sshKeys;
   "jay-id-ed25519-sk-type-a-2.age".publicKeys = sshKeys;
   "jay-id-ed25519-sk-type-c-2.age".publicKeys = sshKeys;
+
+  # SSH key used for remote builds
+  "builder-id-ed25519.age".publicKeys = sshKeys;
 }

@@ -1,12 +1,18 @@
-{ config, pkgs, flake, ... }:
+{ config, pkgs, lib, flake, ... }:
 let
   userConfigs = import ./users.nix { inherit config pkgs; };
-  users = import ../../functions/map-reduce-users.nix { inherit userConfigs; };
+  users = import ../../functions/map-reduce-users.nix {
+    inherit config pkgs userConfigs;
+  };
 in {
   inherit users;
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    (import ./modules.nix { inherit config pkgs lib flake; })
+    ./options.nix
+    ./system-packages.nix
+  ];
 
   networking = {
     hostName = "alakazam";

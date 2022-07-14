@@ -1,3 +1,4 @@
+{ config, pkgs, lib, flake, ... }:
 let mode = "desktop";
 in {
   imports = [
@@ -7,7 +8,7 @@ in {
     ../../modules/hardware/raspberry-pi-4
     ../../modules/lorri
     ../../modules/networking
-    ../../modules/nix
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
     ../../modules/time
