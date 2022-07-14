@@ -11,8 +11,8 @@ in {
   age.secrets = meta.secrets;
 
   networking.firewall = {
-    allowedTCPPorts = [ config.services.headscale.port ];
-    allowedUDPPorts = [ config.services.headscale.port ];
+    allowedTCPPorts = [ config.services.headscale.port grpcPort metricsPort ];
+    allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
   };
 
   environment.systemPackages = with pkgs; [ headscale sqlite-interactive ];
@@ -60,7 +60,7 @@ in {
       # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
     };
 
-    privateKeyFile = config.age.secrets.headscale-private-key.path;
+    # privateKeyFile = config.age.secrets.headscale-private-key.path;
     logLevel = "debug";
     ## TODO: Address the below to use my own options.
     # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
