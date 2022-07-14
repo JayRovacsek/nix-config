@@ -8,7 +8,11 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-    my-overlays.url = "github:JayRovacsek/nix-overlays";
+
+    my-overlays = {
+      url = "github:JayRovacsek/nix-overlays";
+      inputs.nixpkgs.follows = "unstable";
+    };
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
