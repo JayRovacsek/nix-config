@@ -54,8 +54,7 @@ in {
     dns = {
       magicDns = true;
       # Replace this in time with resolved magic DNS address of my DNS resolvers.
-      nameservers =
-        [ "192.168.6.4" "192.168.6.2" "igglybuff.dns.rovacsek.com.internal" ];
+      nameservers = [ "192.168.6.4" "192.168.6.2" ];
       domains = [ "rovacsek.com.internal" ];
       baseDomain = "rovacsek.com.internal";
       # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
