@@ -12,10 +12,16 @@
       isNormalUser =
         if builtins.hasAttr "isNormalUser" x then x.isNormalUser else false;
       isSystemUser = !isNormalUser;
-      initialHashedPassword = x.initialHashedPassword;
+      initialHashedPassword = if builtins.hasAttr "initialHashedPassword" x then
+        x.initialHashedPassword
+      else
+        null;
       extraGroups =
         if builtins.hasAttr "extraGroups" x then x.extraGroups else [ ];
-      openssh.authorizedKeys.keys = x.openssh.authorizedKeys.keys;
+      openssh.authorizedKeys.keys = if builtins.hasAttr "openssh" x then
+        x.openssh.authorizedKeys.keys
+      else
+        [ ];
       home = if builtins.hasAttr "home" x then x.home else "/var/empty";
       shell = if builtins.hasAttr "shell" x then x.shell else pkgs.shadow;
       group = if isNormalUser then "users" else x.name;

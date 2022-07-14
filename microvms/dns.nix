@@ -1,16 +1,23 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   dnsUserConfig = import ../users/service-accounts/dns.nix;
 
-  userConfigs = import ./users.nix { inherit config pkgs; };
-
-  dnsUser =
-    import ../functions/service-user.nix { userConfig = dnsUserConfig; };
-  users = import ../functions/map-reduce-users.nix { inherit userConfigs; };
+  serviceUsers = import ../functions/map-reduce-users.nix {
+    inherit config pkgs;
+    userConfigs = [ dnsUserConfig ];
+  };
 
   readOnlySharedStore = import ./shared/read-only-store.nix;
+  tailscalePreauthKey = import ./shared/tailscale-dns-preauth-key.nix;
 in {
-  users = users // dnsUser;
+  users = {
+    users."abc" = {
+      initialPassword = "toor";
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+    };
+
+  } // serviceUsers;
 
   networking = {
     hostName = "igglybuff";
@@ -21,7 +28,7 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore ];
+    shares = [ readOnlySharedStore tailscalePreauthKey ];
     interfaces = [{
       type = "tap";
       id = "vm-dns-01";
@@ -30,16 +37,43 @@ in {
     writableStoreOverlay = null;
   };
 
-  environment.systemPackages = with pkgs; [ dnsutils ];
-
   services.openssh.enable = true;
+
   services.resolved.enable = false;
 
   networking.resolvconf.extraOptions = [ "ndots:0" ];
 
+  networking.useNetworkd = true;
+
+  systemd.network.networks."00-wired" = {
+    enable = true;
+    matchConfig.Name = "enp*";
+    networkConfig = { Address = "10.0.0.2/24"; };
+    routes = [
+      {
+        routeConfig = {
+          Gateway = "10.0.0.1";
+          Destination = "0.0.0.0/0";
+          Metric = 1024;
+        };
+      }
+      {
+        routeConfig = {
+          Gateway = "10.0.0.1";
+          Destination = "10.0.0.0/24";
+          Metric = 1024;
+        };
+      }
+    ];
+  };
+
   imports = [
+    ../modules/agenix
     ../modules/dnsmasq
-    ../modules/systemd-networkd
+    (import ../modules/tailscale {
+      inherit config pkgs lib;
+      tailnet = "dns";
+    })
     ../modules/time
     ../modules/timesyncd
   ];
