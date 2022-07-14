@@ -20,7 +20,7 @@ in {
 
     # make sure we perform actions prior to headscale starting
     before = [ "headscale.service" ];
-    wantedBy = [ "multi-user.target" "headscale.service" ];
+    wantedBy = [ "headscale.service" ];
 
     # Required to use nix-shell within our script
     path = with pkgs; [ bash sqlite-interactive ];
