@@ -60,7 +60,7 @@ in {
       # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
     };
 
-    # privateKeyFile = config.age.secrets.headscale-private-key.path;
+    privateKeyFile = config.age.secrets.headscale-private-key.path;
     logLevel = "debug";
     ## TODO: Address the below to use my own options.
     # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
@@ -72,10 +72,10 @@ in {
       autoUpdate = true;
     };
 
-    tls = {
-      certFile = config.age.secrets."headscale-tls-crt".path;
-      keyFile = config.age.secrets."headscale-tls-key".path;
-    };
+    # tls = {
+    #   certFile = config.age.secrets."headscale-tls-crt".path;
+    #   keyFile = config.age.secrets."headscale-tls-key".path;
+    # };
 
     # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
