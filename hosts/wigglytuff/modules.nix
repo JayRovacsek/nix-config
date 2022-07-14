@@ -8,7 +8,10 @@ in {
     ../../modules/hardware/raspberry-pi-4
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix { inherit config pkgs flake; })
+    (import ../../modules/nix {
+      inherit config flake;
+      arch = "aarch64-linux";
+    })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
     ../../modules/time

@@ -6,7 +6,10 @@ in {
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix { inherit config pkgs flake; })
+    (import ../../modules/nix {
+      inherit config flake;
+      arch = "aarch64-linux";
+    })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
     ../../modules/starship

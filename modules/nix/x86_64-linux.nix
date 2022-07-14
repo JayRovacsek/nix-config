@@ -1,4 +1,4 @@
-{ config, flake, ... }:
+{ flake, ... }:
 let
   hardwareProfile = system:
     if builtins.hasAttr "profile" system.hardware.cpu then {
@@ -25,21 +25,23 @@ let
     (builtins.attrValues flake.nixosConfigurations);
 
 in {
-  gc = {
-    automatic = true;
-    dates = "monthly";
-    options = "--delete-older-than 7d";
-  };
-  optimise = {
-    automatic = true;
-    dates = [ "weekly" ];
-  };
-  settings = {
-    trusted-users = [ "jay" "root" "builder" ];
-    auto-optimise-store = true;
-    sandbox = true;
-  };
-  distributedBuilds = true;
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "monthly";
+      options = "--delete-older-than 7d";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+    settings = {
+      trusted-users = [ "jay" "root" "builder" ];
+      auto-optimise-store = true;
+      sandbox = true;
+    };
+    distributedBuilds = true;
 
-  inherit buildMachines;
+    inherit buildMachines;
+  };
 }

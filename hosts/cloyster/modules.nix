@@ -7,7 +7,10 @@
     ../../modules/lorri
     ../../modules/mac-dock
     ../../modules/networking
-    ../../modules/nix
+    (import ../../modules/nix {
+      inherit config;
+      arch = "x86_64-darwin";
+    })
     ../../modules/time
     ../../modules/zsh
   ];

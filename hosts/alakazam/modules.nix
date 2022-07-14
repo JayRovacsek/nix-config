@@ -8,7 +8,7 @@
     ../../modules/gnupg
     ../../modules/lorri
     # ../../modules/nginx
-    (import ../../modules/nix { inherit config pkgs flake; })
+    (import ../../modules/nix { inherit config flake; })
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire

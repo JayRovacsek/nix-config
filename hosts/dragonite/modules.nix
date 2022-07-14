@@ -9,7 +9,7 @@
     ../../modules/headscale
     ../../modules/libvirtd
     ../../modules/lorri
-    (import ../../modules/nix { inherit config pkgs flake; })
+    (import ../../modules/nix { inherit config flake; })
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh
