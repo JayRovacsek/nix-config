@@ -1,4 +1,4 @@
-{ flake, ... }:
+{ config, flake, ... }:
 let
   hardwareProfile = system:
     if builtins.hasAttr "profile" system.hardware.cpu then {
@@ -13,8 +13,9 @@ let
   buildSystemFunction = system: {
     systems = [ system.nixpkgs.system ] ++ system.boot.binfmt.emulatedSystems;
     sshUser = "builder";
+    sshKey = config.age.secrets."builder-id-ed25519".path;
     hostName = system.networking.hostName;
-    supportedFeatures = system.nix.systemFeatures;
+    supportedFeatures = system.nix.settings.system-features;
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass
     speedFactor = (builtins.mul ((hardwareProfile (system)).cores)
@@ -25,6 +26,11 @@ let
     (builtins.attrValues flake.nixosConfigurations);
 
 in {
+  age.secrets."builder-id-ed25519" = {
+    file = ../../secrets/builder-id-ed25519.age;
+    mode = "0400";
+  };
+
   nix = {
     gc = {
       automatic = true;
