@@ -30,7 +30,7 @@ in {
 
     inherit virtualHosts;
 
-    config = "include /etc/nginx/modules/*.conf;";
+    # config = "include /etc/nginx/modules/*.conf;";
 
     # DNS Resolution
     resolver = {
