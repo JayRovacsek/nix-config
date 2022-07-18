@@ -84,7 +84,9 @@ in {
 
       if [ -f "${preauthPath}" ]; then
         ${pkgs.tailscale}/bin/tailscale up \
-        --auth-key=file:${preauthPath} \
+        --accept-dns \
+        --accept-routes \
+        -auth-key=file:${preauthPath} \
         --login-server=${loginServer} \
         --hostname=${hostname}
       fi

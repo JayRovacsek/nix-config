@@ -52,7 +52,7 @@
     , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
     , agenix-darwin, ... }:
     let
-      linuxOverlays = [ nur.overlay agenix.overlay my-overlays.headscale ];
+      linuxOverlays = [ nur.overlay agenix.overlay ];
       darwinOverlays = [ firefox-darwin.overlay nur.overlay agenix.overlay ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {

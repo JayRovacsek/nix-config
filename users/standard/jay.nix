@@ -31,7 +31,7 @@ in {
         AddKeysToAgent yes
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
-      Host *
+      Host *.rovacsek.com.internal
         AddKeysToAgent yes
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
     '';

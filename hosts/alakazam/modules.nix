@@ -9,6 +9,7 @@
     ../../modules/lorri
     # ../../modules/nginx
     (import ../../modules/nix { inherit config flake; })
+    (import ../../modules/microvm-host { inherit config flake lib; })
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire

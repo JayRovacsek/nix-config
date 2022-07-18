@@ -1,1 +1,1 @@
-{ imports = [ ../../options/hardware ]; }
+{ imports = [ ../../options/hardware ../../options/networking ]; }

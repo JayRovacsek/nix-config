@@ -18,7 +18,7 @@ in {
   environment.systemPackages = with pkgs; [ headscale sqlite-interactive ];
 
   systemd.services."headscale-autosetup" = {
-    script = meta.script;
+    inherit (meta) script;
 
     description = "Automatic configuration of Headscale";
 
@@ -82,7 +82,7 @@ in {
     # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
 
-    ephemeralNodeInactivityTimeout = "5m";
+    ephemeralNodeInactivityTimeout = "1m";
 
     # This will override settings that are not exposed as nix module options
     settings = {
