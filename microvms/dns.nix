@@ -1,23 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, flake, ... }:
 let
   dnsUserConfig = import ../users/service-accounts/dns.nix;
 
-  serviceUsers = import ../functions/map-reduce-users.nix {
+  users = import ../functions/map-reduce-users.nix {
     inherit config pkgs;
     userConfigs = [ dnsUserConfig ];
   };
 
   readOnlySharedStore = import ./shared/read-only-store.nix;
   tailscalePreauthKey = import ./shared/tailscale-dns-preauth-key.nix;
+  journaldShare =
+    import ./common/journald.nix { hostName = config.networking.hostName; };
 in {
-  users = {
-    users."abc" = {
-      initialPassword = "toor";
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
-    };
-
-  } // serviceUsers;
+  inherit users;
 
   networking = {
     hostName = "igglybuff";
@@ -28,7 +23,7 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore tailscalePreauthKey ];
+    shares = [ readOnlySharedStore tailscalePreauthKey journaldShare ];
     interfaces = [{
       type = "tap";
       id = "vm-dns-01";
@@ -68,8 +63,10 @@ in {
   };
 
   imports = [
+    (import ./common/machine-id.nix { inherit config flake; })
     ../modules/agenix
     ../modules/dnsmasq
+    ./options.nix
     (import ../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "dns";

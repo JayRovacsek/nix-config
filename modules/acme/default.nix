@@ -1,17 +1,16 @@
-{ config, primaryDomain ? "rovacsek.com", tlds ? [ primaryDomain ]
-, subdomains ? [ ], ... }:
+{ config, primaryDomain ? "rovacsek.com", tlds ? [ primaryDomain ], ... }:
 let
   port = 10080;
 
-  tldCertConfigs = builtins.map
-    (tld: { "${tld}" = { listenHTTP = ":${builtins.toString port}"; }; }) tlds;
+  tldCertConfigs = builtins.map (tld: {
+    "${tld}" = {
+      extraDomainNames = [ "*.${tld}" ];
+      listenHTTP = ":${builtins.toString port}";
+      reloadServices = [ "nginx" ];
+    };
+  }) tlds;
 
-  subdomainCertConfigs = builtins.map (subdomain: {
-    "${subdomain}" = { listenHTTP = ":${builtins.toString port}"; };
-  }) subdomains;
-
-  certs =
-    builtins.foldl' (x: y: x // y) { } (tldCertConfigs ++ subdomainCertConfigs);
+  certs = builtins.foldl' (x: y: x // y) { } (tldCertConfigs);
 
   defaults = {
     email = "acme@${primaryDomain}";

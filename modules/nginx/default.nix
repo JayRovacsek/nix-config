@@ -31,12 +31,10 @@ in {
     inherit virtualHosts;
 
     config = ''
-      user ${config.services.nginx.user};
-
-      # Enables the use of JIT for regular expressions to speed-up their processing.
       pcre_jit on;
 
       include /etc/nginx/modules/*.conf;
+
       events {
           # The maximum number of simultaneous connections that can be opened by
           # a worker process.

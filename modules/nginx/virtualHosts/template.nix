@@ -15,7 +15,7 @@ let
 in {
   "${subdomain}.${tld}" = {
     forceSSL = true;
-    useACMEHost = fqdn;
+    useACMEHost = tld;
     locations."/" = {
       proxyPass = "${scheme}://${target}:${builtins.toString port}";
       # This enables authelia on the location. Sometimes APIs need to be exposed without Authelia due to integrations.

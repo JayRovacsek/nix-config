@@ -13,7 +13,7 @@ let
 in {
   "${fqdn}" = {
     forceSSL = true;
-    useACMEHost = fqdn;
+    useACMEHost = tld;
     locations."/" = {
       proxyPass = "${scheme}://${target}:${builtins.toString port}";
       recommendedProxySettings = true;
