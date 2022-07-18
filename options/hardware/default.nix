@@ -3,7 +3,6 @@ with lib;
 let cfg = config.hardware.cpu.profile;
 in {
   options.hardware.cpu.profile = {
-    enable = mkEnableOption "CPU Profile Settings";
     cores = mkOption {
       type = types.int;
       default = 1;

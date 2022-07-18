@@ -15,7 +15,7 @@ let
     # See more: https://oss.segetech.com/intra/srv/dnsmasq.conf
     # Uncomment these to enable DNSSEC validation and caching:
     # (Requires dnsmasq to be built with DNSSEC option.)
-    # dnssec
+    dnssec
     conf-file=${pkgs.dnsmasq.outPath}/share/dnsmasq/trust-anchors.conf
 
     # Never forward plain names (without a dot or domain part)
@@ -37,6 +37,11 @@ let
 
     # Include all files in a directory which end in .conf
     conf-dir=/etc/dnsmasq.d/,*.conf
+
+    localise-queries
+    no-resolv
+    log-async
+    server=127.0.0.1#8053
   '';
 in {
   services.dnsmasq = {

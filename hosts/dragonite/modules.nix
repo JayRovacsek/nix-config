@@ -9,8 +9,10 @@
     ../../modules/headscale
     ../../modules/libvirtd
     ../../modules/lorri
+    (import ../../modules/microvm-host { inherit config flake lib; })
     (import ../../modules/nix { inherit config flake; })
     ../../modules/nix-serve
+    # ../../modules/nginx
     ../../modules/nvidia
     ../../modules/openssh
     (import ../../modules/tailscale {

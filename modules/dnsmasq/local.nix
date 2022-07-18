@@ -28,7 +28,7 @@ in {
     address=/jigglypuff.lan/192.168.6.4
     address=/authelia.lan/192.168.9.2
     address=/nextcloud.lan/192.168.10.2
-    address=/homeassistant.lan/192.168.12.2
+    address=/home-assistant.lan/192.168.12.2
     address=/cache.lan/192.168.16.2
     address=/minecraft.lan/192.168.17.5
     address=/minecraft.rovacsek.com/192.168.17.5
