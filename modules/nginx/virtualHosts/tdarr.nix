@@ -1,6 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
-  subdomain = "lidarr";
+  subdomain = "tdarr";
   fqdn = "${subdomain}.${tld}";
   target = "${subdomain}.${
       if builtins.hasAttr "localDomain" config.networking then
@@ -8,7 +8,7 @@ let
       else
         ""
     }";
-  port = 8686;
+  port = 8265;
   scheme = "http";
 in {
   "${subdomain}.${tld}" = {
@@ -18,11 +18,6 @@ in {
       "/" = {
         proxyPass = "${scheme}://${target}:${builtins.toString port}";
         extraConfig = "include /etc/nginx/modules/authelia-location.conf;";
-        recommendedProxySettings = true;
-      };
-
-      "~ (/lidarr)?/api" = {
-        proxyPass = "${scheme}://${target}:${builtins.toString port}";
         recommendedProxySettings = true;
       };
     };

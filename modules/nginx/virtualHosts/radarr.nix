@@ -1,6 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
-  subdomain = "lidarr";
+  subdomain = "radarr";
   fqdn = "${subdomain}.${tld}";
   target = "${subdomain}.${
       if builtins.hasAttr "localDomain" config.networking then
@@ -8,7 +8,7 @@ let
       else
         ""
     }";
-  port = 8686;
+  port = 7878;
   scheme = "http";
 in {
   "${subdomain}.${tld}" = {
@@ -21,7 +21,7 @@ in {
         recommendedProxySettings = true;
       };
 
-      "~ (/lidarr)?/api" = {
+      "~ (/radarr)?/api" = {
         proxyPass = "${scheme}://${target}:${builtins.toString port}";
         recommendedProxySettings = true;
       };
