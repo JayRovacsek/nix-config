@@ -60,7 +60,6 @@ in {
       # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
     };
 
-    # privateKeyFile = config.age.secrets.headscale-private-key.path;
     logLevel = "debug";
     ## TODO: Address the below to use my own options.
     # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
@@ -72,17 +71,10 @@ in {
       autoUpdate = true;
     };
 
-    # tls = {
-    #   # certFile = config.age.secrets."headscale-tls-crt".path;
-    #   certFile = "/mnt/zfs/containers/swag/keys/letsencrypt/cert.pem";
-    #   # keyFile = config.age.secrets."headscale-tls-key".path;
-    #   keyFile = "/mnt/zfs/containers/swag/keys/letsencrypt/privkey.pem";
-    # };
-
     # TODO: make this dynamic depending on a search through /etc configs for this system
     aclPolicyFile = "/etc/headscale/acls.json";
 
-    ephemeralNodeInactivityTimeout = "1m";
+    ephemeralNodeInactivityTimeout = "5m";
 
     # This will override settings that are not exposed as nix module options
     settings = {
