@@ -27,7 +27,7 @@
         normal.family = "Hack Nerd Font";
         bold.family = "Hack Nerd Font";
         italic.family = "Hack Nerd Font";
-        size = 18.0;
+        size = 14.0;
         offset = {
           x = 0;
           y = 0;

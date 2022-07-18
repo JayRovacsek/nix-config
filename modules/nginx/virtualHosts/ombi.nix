@@ -1,6 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
-  subdomain = "lidarr";
+  subdomain = "ombi";
   fqdn = "${subdomain}.${tld}";
   target = "${subdomain}.${
       if builtins.hasAttr "localDomain" config.networking then
@@ -8,7 +8,7 @@ let
       else
         ""
     }";
-  port = 8686;
+  port = 3579;
   scheme = "http";
 in {
   "${subdomain}.${tld}" = {
@@ -21,11 +21,21 @@ in {
         recommendedProxySettings = true;
       };
 
-      "~ (/lidarr)?/api" = {
+      "~ (/ombi)?/api" = {
+        proxyPass = "${scheme}://${target}:${builtins.toString port}";
+        recommendedProxySettings = true;
+      };
+
+      "~ (/ombi)?/swagger" = {
         proxyPass = "${scheme}://${target}:${builtins.toString port}";
         recommendedProxySettings = true;
       };
     };
-    extraConfig = "include /etc/nginx/modules/authelia-server.conf;";
+    extraConfig = ''
+      include /etc/nginx/modules/authelia-server.conf;
+      if ($http_referer ~* /ombi) {
+          rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
+      }
+    '';
   };
 }

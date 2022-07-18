@@ -3,6 +3,7 @@ in {
   name = "dnsmasq.d/03-local.conf";
   text = ''
     # Local Address Binds
+    address=/pfsense.lan/192.168.1.1
     address=/ubiquiti_ap.lan/192.168.1.3
     address=/dragonite.lan/192.168.1.220
     address=/alakazam.lan/192.168.1.221

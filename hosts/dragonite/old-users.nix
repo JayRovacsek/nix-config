@@ -32,11 +32,6 @@
       members = [ "authelia" ];
     };
 
-    nginx = {
-      gid = 10007;
-      members = [ "nginx" ];
-    };
-
     home_assistant = {
       gid = 10008;
       members = [ "home_assistant" ];
@@ -137,12 +132,6 @@
       inherit isSystemUser createHome description;
       uid = 988;
       group = "nextcloud";
-    };
-
-    nginx = {
-      inherit isSystemUser createHome description;
-      uid = 987;
-      group = "nginx";
     };
 
     radarr = {

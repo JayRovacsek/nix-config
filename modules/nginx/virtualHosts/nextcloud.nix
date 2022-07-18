@@ -1,6 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
-  subdomain = "authelia";
+  subdomain = "nextcloud";
   fqdn = "${subdomain}.${tld}";
   target = "${subdomain}.${
       if builtins.hasAttr "localDomain" config.networking then
@@ -8,10 +8,10 @@ let
       else
         ""
     }";
-  port = 9091;
-  scheme = "http";
+  port = 443;
+  scheme = "https";
 in {
-  "${fqdn}" = {
+  "${subdomain}.${tld}" = {
     forceSSL = true;
     useACMEHost = fqdn;
     locations."/" = {
