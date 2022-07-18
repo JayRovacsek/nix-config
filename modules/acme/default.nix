@@ -1,12 +1,14 @@
 { config, primaryDomain ? "rovacsek.com", tlds ? [ primaryDomain ]
 , subdomains ? [ ], ... }:
 let
-  tldCertConfigs =
-    builtins.map (tld: { "${tld}" = { listenHTTP = ":80"; }; }) tlds;
+  port = 10080;
 
-  subdomainCertConfigs =
-    builtins.map (subdomain: { "${subdomain}" = { listenHTTP = ":80"; }; })
-    subdomains;
+  tldCertConfigs = builtins.map
+    (tld: { "${tld}" = { listenHTTP = ":${builtins.toString port}"; }; }) tlds;
+
+  subdomainCertConfigs = builtins.map (subdomain: {
+    "${subdomain}" = { listenHTTP = ":${builtins.toString port}"; };
+  }) subdomains;
 
   certs =
     builtins.foldl' (x: y: x // y) { } (tldCertConfigs ++ subdomainCertConfigs);
@@ -16,6 +18,8 @@ let
     group = config.services.nginx.group;
   };
 in {
+  networking.firewall.allowedTCPPorts = [ port ];
+
   security.acme = {
 
     inherit certs defaults;
