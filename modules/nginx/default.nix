@@ -30,7 +30,51 @@ in {
 
     inherit virtualHosts;
 
-    config = "include /etc/nginx/modules/*.conf;";
+    config = ''
+      user ${config.services.nginx.user};
+
+      # Enables the use of JIT for regular expressions to speed-up their processing.
+      pcre_jit on;
+
+      include /etc/nginx/modules/*.conf;
+      events {
+          # The maximum number of simultaneous connections that can be opened by
+          # a worker process.
+          worker_connections 1024;
+          # multi_accept on;
+      }
+
+      http {
+          default_type application/octet-stream;
+
+          server_tokens off;
+
+          client_max_body_size 0;
+
+          sendfile on;
+
+          tcp_nopush on;
+
+          # Helper variable for proxying websockets.
+          map $http_upgrade $connection_upgrade {
+              default upgrade;
+              \'\' close;
+          }
+
+          client_body_buffer_size 128k;
+          keepalive_timeout 65;
+          large_client_header_buffers 4 16k;
+          send_timeout 5m;
+          tcp_nodelay on;
+          types_hash_max_size 2048;
+          variables_hash_max_size 2048;
+          # server_names_hash_bucket_size 64;
+          # server_name_in_redirect off;
+
+          gzip on;
+          gzip_disable "msie6";
+      }
+    '';
 
     # DNS Resolution
     resolver = {
