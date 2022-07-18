@@ -17,7 +17,8 @@ in {
     locations = {
       "/" = {
         proxyPass = "${scheme}://${target}:${builtins.toString port}";
-        extraConfig = "include /etc/nginx/modules/authelia-location.conf;";
+        extraConfig =
+          "include /etc/nginx/modules/authelia/authelia-location.conf;";
         recommendedProxySettings = true;
       };
 
@@ -26,6 +27,6 @@ in {
         recommendedProxySettings = true;
       };
     };
-    extraConfig = "include /etc/nginx/modules/authelia-server.conf;";
+    extraConfig = "include /etc/nginx/modules/authelia/authelia-server.conf;";
   };
 }

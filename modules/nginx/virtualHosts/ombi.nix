@@ -17,7 +17,8 @@ in {
     locations = {
       "/" = {
         proxyPass = "${scheme}://${target}:${builtins.toString port}";
-        extraConfig = "include /etc/nginx/modules/authelia-location.conf;";
+        extraConfig =
+          "include /etc/nginx/modules/authelia/authelia-location.conf;";
         recommendedProxySettings = true;
       };
 
@@ -32,7 +33,7 @@ in {
       };
     };
     extraConfig = ''
-      include /etc/nginx/modules/authelia-server.conf;
+      include /etc/nginx/modules/authelia/authelia-server.conf;
       if ($http_referer ~* /ombi) {
           rewrite ^/swagger/(.*) /ombi/swagger/$1? redirect;
       }

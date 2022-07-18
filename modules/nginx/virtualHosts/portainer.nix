@@ -11,13 +11,15 @@ in {
     useACMEHost = fqdn;
     locations."/" = {
       proxyPass = "${scheme}://${target}:${builtins.toString port}";
-      extraConfig = "include /etc/nginx/modules/authelia-location.conf;";
+      extraConfig =
+        "include /etc/nginx/modules/authelia/authelia-location.conf;";
       recommendedProxySettings = true;
     };
 
     locations."/api/websocket/" = {
       proxyPass = "${scheme}://${target}:${builtins.toString port}";
-      extraConfig = "include /etc/nginx/modules/authelia-location.conf;";
+      extraConfig =
+        "include /etc/nginx/modules/authelia/authelia-location.conf;";
       recommendedProxySettings = true;
     };
   };

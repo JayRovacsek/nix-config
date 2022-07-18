@@ -20,7 +20,7 @@ in {
         extraConfig = ''
           proxy_set_header Range $http_range;
           proxy_set_header If-Range $http_if_range;
-          include /etc/nginx/modules/authelia-location.conf;
+          include /etc/nginx/modules/authelia/authelia-location.conf;
         '';
         recommendedProxySettings = true;
       };
@@ -30,6 +30,6 @@ in {
         recommendedProxySettings = true;
       };
     };
-    extraConfig = "include /etc/nginx/modules/authelia-server.conf;";
+    extraConfig = "include /etc/nginx/modules/authelia/authelia-server.conf;";
   };
 }

@@ -1,5 +1,5 @@
 { config, ... }: {
-  environment.etc."nginx/modules/authelia-location.conf" = {
+  environment.etc."nginx/modules/authelia/authelia-location.conf" = {
     mode = "0444";
     user = config.services.nginx.user;
     group = config.services.nginx.group;
