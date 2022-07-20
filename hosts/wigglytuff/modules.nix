@@ -2,6 +2,7 @@
 let mode = "desktop";
 in {
   imports = [
+    ../../modules/agenix
     ../../modules/clamav
     ../../modules/fonts
     ../../modules/gnupg
