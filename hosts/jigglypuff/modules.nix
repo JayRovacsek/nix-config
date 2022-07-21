@@ -2,6 +2,7 @@
 let mode = "dns-server";
 in {
   imports = [
+    ../../modules/agenix
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/lorri

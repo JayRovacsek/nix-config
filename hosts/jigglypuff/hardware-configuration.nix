@@ -6,13 +6,15 @@
     };
   };
 
+  boot.kernelModules = [ "bcm2835-v4l2" ];
+  boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" ];
+
   boot = {
 
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "cma=128M" ];
 
     loader = {
-      # Disable GRUB in favour of rpi + uboot
       grub.enable = false;
       raspberryPi = {
         enable = true;
