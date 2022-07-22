@@ -14,6 +14,9 @@ in {
     ./vlans.nix
   ];
 
+  # Remote deploy requires passwordless root access. We can do this via --use-remote-sudo
+  security.sudo.wheelNeedsPassword = false;
+
   virtualisation.oci-containers.backend = "docker";
 
   networking.hostName = "jigglypuff";
