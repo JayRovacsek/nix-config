@@ -9,22 +9,7 @@
     kernelParams = [ "cma=128M" ];
 
     initrd = {
-      kernelModules = [
-        "genet"
-        "lan78xx"
-        "pcie_brcmstb"
-        "broadcom"
-        "vc4"
-        "v3d"
-        "reset_raspberrypi"
-        "xhci_pci"
-        "sd_mod"
-        "usbhid"
-        "hid_generic"
-        "hid_microsoft"
-      ];
-      availableKernelModules =
-        [ "xhci_pci" "xhci_hcd" "uas" "usb_storage" "mmc_block" "usbhid" ];
+      availableKernelModules = [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
     };
 
     loader = {
