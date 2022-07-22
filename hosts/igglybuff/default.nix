@@ -1,16 +1,16 @@
 { config, pkgs, lib, flake, ... }:
 let
-  dnsUserConfig = import ../users/service-accounts/dns.nix;
+  dnsUserConfig = import ../../users/service-accounts/dns.nix;
 
-  users = import ../functions/map-reduce-users.nix {
+  users = import ../../functions/map-reduce-users.nix {
     inherit config pkgs;
     userConfigs = [ dnsUserConfig ];
   };
 
-  readOnlySharedStore = import ./shared/read-only-store.nix;
-  tailscalePreauthKey = import ./shared/tailscale-dns-preauth-key.nix;
+  readOnlySharedStore = import ../shared/read-only-store.nix;
+  tailscalePreauthKey = import ../shared/tailscale-dns-preauth-key.nix;
   journaldShare =
-    import ./common/journald.nix { hostName = config.networking.hostName; };
+    import ../common/journald.nix { hostName = config.networking.hostName; };
 in {
   inherit users;
 
@@ -63,16 +63,16 @@ in {
   };
 
   imports = [
-    (import ./common/machine-id.nix { inherit config flake; })
-    ../modules/agenix
-    ../modules/dnsmasq
+    (import ../common/machine-id.nix { inherit config flake; })
+    ../../modules/agenix
+    ../../modules/dnsmasq
     ./options.nix
-    (import ../modules/tailscale {
+    (import ../../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "dns";
     })
-    ../modules/time
-    ../modules/timesyncd
+    ../../modules/time
+    ../../modules/timesyncd
   ];
 
   system.stateVersion = "22.11";

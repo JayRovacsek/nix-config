@@ -52,7 +52,11 @@
     , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
     , agenix-darwin, ... }:
     let
-      linuxOverlays = [ nur.overlay agenix.overlay ];
+      allowMissingKernelModules = (final: super: {
+        makeModulesClosure = x:
+          super.makeModulesClosure (x // { allowMissing = true; });
+      });
+      linuxOverlays = [ nur.overlay agenix.overlay allowMissingKernelModules ];
       darwinOverlays = [ firefox-darwin.overlay nur.overlay agenix.overlay ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {

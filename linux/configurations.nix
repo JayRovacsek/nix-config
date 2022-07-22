@@ -98,7 +98,7 @@ in {
     pkgs = x86_64-linux;
     modules = [
       microvm.nixosModules.microvm
-      ../microvms/dns.nix
+      ../hosts/igglybuff
       agenix.nixosModule
       referenceSelf
     ];
