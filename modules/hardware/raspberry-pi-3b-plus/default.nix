@@ -6,10 +6,7 @@
     })
   ];
 
-  hardware = {
-    enableRedistributableFirmware = true;
-    deviceTree.filter = "bcm*-rpi-3-b-plus.dtb";
-  };
+  hardware.enableRedistributableFirmware = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi3;
@@ -21,14 +18,7 @@
 
     loader = {
       grub.enable = false;
-      raspberryPi = {
-        enable = true;
-        version = 3;
-        uboot.enable = true;
-        firmwareConfig = ''
-          gpu_mem=256
-        '';
-      };
+      generic-extlinux-compatible = true;
     };
   };
 }
