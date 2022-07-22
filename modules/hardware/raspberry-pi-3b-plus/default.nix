@@ -18,7 +18,7 @@
 
     loader = {
       grub.enable = false;
-      generic-extlinux-compatible = true;
+      generic-extlinux-compatible.enable = true;
     };
   };
 }
