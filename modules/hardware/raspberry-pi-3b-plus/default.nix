@@ -1,4 +1,11 @@
 { pkgs, ... }: {
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x:
+        super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
+
   hardware = {
     enableRedistributableFirmware = true;
     deviceTree.filter = "bcm*-rpi-3-b-plus.dtb";
