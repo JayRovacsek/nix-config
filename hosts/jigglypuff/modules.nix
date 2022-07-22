@@ -5,6 +5,7 @@ in {
     ../../modules/agenix
     ../../modules/fonts
     ../../modules/gnupg
+    (import ../../modules/hardware/raspberry-pi-3b-plus { inherit pkgs; })
     ../../modules/lorri
     ../../modules/networking
     (import ../../modules/nix {
