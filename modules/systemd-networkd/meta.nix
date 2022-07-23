@@ -4,6 +4,7 @@ let
 
   isMicrovmHost =
     if hasMicrovm then builtins.hasAttr "vms" config.microvm else false;
+
   isMicrovmGuest =
     if hasMicrovm then builtins.hasAttr "hypervisor" config.microvm else false;
   # there may be reason for a host to be both a guest and host
@@ -23,7 +24,7 @@ let
 
   meta = {
     inherit hasMicrovm isMicrovmGuest isMicrovmHost isRecursiveMicrovm macvlans
-      vlans;
+      vlans bridgeNetworks;
   };
 
 in meta

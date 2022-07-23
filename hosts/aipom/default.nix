@@ -1,27 +1,19 @@
 { config, pkgs, lib, flake, ... }:
 let
-  dnsUserConfig = import ../../users/service-accounts/dns.nix;
-
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs;
-    userConfigs = [ dnsUserConfig ];
-  };
-
   readOnlySharedStore = import ../shared/read-only-store.nix;
   tailscalePreauthKey = import ../shared/tailscale-preauth-key.nix;
   journaldShare =
     import ../common/journald.nix { hostName = config.networking.hostName; };
 in {
-  inherit users;
 
   networking = {
-    hostName = "igglybuff";
-    hostId = "b560563b";
+    hostName = "aipom";
+    hostId = "0f5cb1b8";
   };
 
   microvm = {
     vcpu = 1;
-    mem = 2048;
+    mem = 1024;
     hypervisor = "qemu";
     shares = [ readOnlySharedStore tailscalePreauthKey journaldShare ];
     interfaces = [{
@@ -31,12 +23,6 @@ in {
     }];
     writableStoreOverlay = null;
   };
-
-  services.openssh.enable = true;
-
-  services.resolved.enable = false;
-
-  networking.resolvconf.extraOptions = [ "ndots:0" ];
 
   networking.useNetworkd = true;
 
@@ -49,12 +35,12 @@ in {
   imports = [
     (import ../common/machine-id.nix { inherit config flake; })
     ../../modules/agenix
-    ../../modules/dnsmasq
     ./options.nix
     (import ../../modules/tailscale {
       inherit config pkgs lib;
-      tailnet = "dns";
+      tailnet = "general";
     })
+    ../../modules/ombi
     ../../modules/time
     ../../modules/timesyncd
   ];

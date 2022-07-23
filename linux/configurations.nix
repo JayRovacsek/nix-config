@@ -93,12 +93,25 @@ in {
     };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
+  ## MICROVMS
+
   igglybuff = nixpkgs.lib.nixosSystem {
     system = x86_64-linux.system;
     pkgs = x86_64-linux;
     modules = [
       microvm.nixosModules.microvm
       ../hosts/igglybuff
+      agenix.nixosModule
+      referenceSelf
+    ];
+  };
+
+  aipom = nixpkgs.lib.nixosSystem {
+    system = x86_64-linux.system;
+    pkgs = x86_64-linux;
+    modules = [
+      microvm.nixosModules.microvm
+      ../hosts/aipom
       agenix.nixosModule
       referenceSelf
     ];

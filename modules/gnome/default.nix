@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   tailscaleExtensions = if config.services.tailscale.enable then
-    with pkgs.gnomeExtensions; [ tailscale-status taildrop-send ]
+    with pkgs.gnomeExtensions; [ tailscale-status ]
   else
     [ ];
 

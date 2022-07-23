@@ -3,8 +3,9 @@ let meta = import ./meta.nix { inherit config; };
 in {
   systemd.network.links = {
     "10-phys0" = {
+      enable = meta.isMicrovmHost;
       matchConfig = {
-        PermanentMACAddress = "4c:cc:6a:4a:12:f6";
+        Name = "en*";
         Virtualization = "no";
       };
       linkConfig.Name = "phys0";
