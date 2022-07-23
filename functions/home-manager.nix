@@ -24,7 +24,7 @@ let
       else
         stateVersion;
     };
-  }) (builtins.filter (y: y.isNormalUser == true) systemUsers);
+  }) (builtins.filter (y: y.isNormalUser) systemUsers);
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin
   config = if isLinux then [
