@@ -29,6 +29,7 @@ let
   extraHostNames = darwinHosts ++ linuxHosts;
   extraHostConfigs = builtins.map (hostName: ''
     Host ${hostName}
+      HostName ${hostName}
       AddKeysToAgent yes
       ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
   '') extraHostNames;
