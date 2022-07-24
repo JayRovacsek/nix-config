@@ -9,6 +9,7 @@ let
       self.nixosConfigurations."${hostname}".pkgs
     else
       self.darwinConfigurations."${hostname}".pkgs;
+    flake = self;
   };
   stateVersion = {
     stateVersion = if isLinux then
@@ -24,7 +25,11 @@ let
       else
         stateVersion;
     };
-  }) (builtins.filter (y: y.isNormalUser) systemUsers);
+  }) (builtins.filter (y:
+    if builtins.hasAttr "isNormalUser" y then
+      y.isNormalUser
+    else
+      isLinux == false) systemUsers);
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin
   config = if isLinux then [

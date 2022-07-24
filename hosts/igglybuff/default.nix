@@ -3,7 +3,7 @@ let
   dnsUserConfig = import ../../users/service-accounts/dns.nix;
 
   users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs;
+    inherit config pkgs lib;
     userConfigs = [ dnsUserConfig ];
   };
 

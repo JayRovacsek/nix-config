@@ -4,18 +4,23 @@ let
   agenix = builtins.getAttr "agenix" extraModules;
   self = builtins.getAttr "self" extraModules;
 
+  # This is required for any system needing to reference the flake itself from
+  # within the nixosSystem config. It will be available as an argument to the 
+  # config as "flake" if used as defined below
+  referenceSelf = { config._module.args.flake = self; };
+
   x86_64-darwin = import nixpkgs {
     system = "x86_64-darwin";
     inherit overlays;
     config = { allowUnfree = true; };
-    extraModules = [ ];
+    extraModules = [ referenceSelf ];
   };
 
   aarch64-darwin = import nixpkgs {
     system = "aarch64-darwin";
     inherit overlays;
     config = { allowUnfree = true; };
-    extraModules = [ ];
+    extraModules = [ referenceSelf ];
   };
 in {
   cloyster = let

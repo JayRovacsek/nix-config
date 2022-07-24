@@ -1,5 +1,7 @@
-{ config, pkgs, userConfigs, ... }: {
-  users = builtins.foldl' (x: y: x // y) {
+{ config, pkgs, lib, userConfigs, ... }:
+let
+  isLinux = lib.hasSuffix "linux" config.nixpkgs.system;
+  seed = if isLinux then {
     # There's the obvious huge downside of seeding systems with the same initial root
     # config. But breaking the hash below is going to matter once I no longer do.
     # Please hold up math :)
@@ -7,8 +9,11 @@
       initialHashedPassword =
         "$6$wRRIfT/GbE4O9sCu$4SVNy.ig6x.qFiefE0y/aG4kdbKEdXF23bew7f53tn.ZxBDKra64obi0CoSnwRJBT1p5NlLEXh5m9jhX6.k3a1";
     };
-  } (builtins.map (x: {
-    "${x.name}" = rec {
+  } else
+    { };
+in {
+  users = builtins.foldl' (x: y: x // y) seed (builtins.map (x: {
+    "${x.name}" = if isLinux then rec {
       isNormalUser =
         if builtins.hasAttr "isNormalUser" x then x.isNormalUser else false;
       isSystemUser = !isNormalUser;
@@ -25,6 +30,11 @@
       home = if builtins.hasAttr "home" x then x.home else "/var/empty";
       shell = if builtins.hasAttr "shell" x then x.shell else pkgs.shadow;
       group = if isNormalUser then "users" else x.name;
+    } else {
+      home = if builtins.hasAttr "home" x then x.home else "/var/empty";
+      shell = if builtins.hasAttr "shell" x then x.shell else "/sbin/nologin";
+      isHidden = false;
+      createHome = true;
     };
   }) userConfigs);
 }

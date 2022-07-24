@@ -1,4 +1,4 @@
-{ config, pkgs }:
+{ config, pkgs, flake ? { }, ... }:
 let
   lib = pkgs.lib;
   name = "sarah";

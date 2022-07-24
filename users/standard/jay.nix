@@ -1,13 +1,37 @@
-{ config, pkgs }:
+{ config, pkgs, flake ? { }, ... }:
 let
   lib = pkgs.lib;
   name = "jay";
   home = "/home/${name}";
-  agenixPresent = builtins.hasAttr "age" config;
+
   userSshKeys =
     import ../functions/agenixSshKeys.nix { inherit name config lib; };
   identityFiles = builtins.concatStringsSep "\n  "
     (builtins.map (x: "IdentityFile ${x.path}") userSshKeys);
+
+  localDomain = if builtins.hasAttr "localDomain" config.networking then
+    config.networking.localDomain
+  else
+    config.networking.domain;
+
+  darwinHosts = if builtins.hasAttr "darwinConfigurations" flake then
+    (builtins.map (x: x.config.networking.hostName)
+      (builtins.attrValues flake.darwinConfigurations))
+  else
+    [ ];
+
+  linuxHosts = if builtins.hasAttr "nixosConfigurations" flake then
+    (builtins.map (x: x.config.networking.hostName)
+      (builtins.attrValues flake.nixosConfigurations))
+  else
+    [ ];
+
+  extraHostNames = darwinHosts ++ linuxHosts;
+  extraHostConfigs = builtins.map (hostName: ''
+    Host ${hostName}
+      AddKeysToAgent yes
+      ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
+  '') extraHostNames;
 in {
   inherit name home;
   isNormalUser = true;
@@ -34,6 +58,17 @@ in {
       Host *.rovacsek.com.internal
         AddKeysToAgent yes
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
+
+      ${if localDomain == null then
+        ""
+      else ''
+        Host *.${localDomain}
+          AddKeysToAgent yes
+          ${
+            if ((builtins.length userSshKeys) != 0) then identityFiles else ""
+          }''}
+
+      ${builtins.concatStringsSep "\n\n" extraHostConfigs}
     '';
   };
 }

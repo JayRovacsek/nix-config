@@ -1,9 +1,42 @@
-{
+{ config, pkgs, flake ? { }, ... }:
+let
+  lib = pkgs.lib;
   name = "jrovacsek";
-  initialHashedPassword =
-    "$6$LRvlOuUlmWfOtbKW$JuSDUvL0ykqAhFi80rMdWrc89wDz/uJ1Mt6WuHpsa/7kxSTWlz5O0f7xRvFvJ6nxEePUkxx/52FuHHl3rEhj61";
-  extraGroups =
-    [ "wheel" "docker" "libirt" "networkmanager" "audio" "video" "input" ];
+  home = "/Users/${name}";
+
+  userSshKeys =
+    import ../functions/agenixSshKeys.nix { inherit name config lib; };
+  identityFiles = builtins.concatStringsSep "\n  "
+    (builtins.map (x: "IdentityFile ${x.path}") userSshKeys);
+
+  localDomain = if builtins.hasAttr "localDomain" config.networking then
+    config.networking.localDomain
+  else if builtins.hasAttr "domain" config.networking then
+    config.networking.domain
+  else
+    null;
+
+  darwinHosts = if builtins.hasAttr "darwinConfigurations" flake then
+    (builtins.map (x: x.config.networking.hostName)
+      (builtins.attrValues flake.darwinConfigurations))
+  else
+    [ ];
+
+  linuxHosts = if builtins.hasAttr "nixosConfigurations" flake then
+    (builtins.map (x: x.config.networking.hostName)
+      (builtins.attrValues flake.nixosConfigurations))
+  else
+    [ ];
+
+  extraHostNames = darwinHosts ++ linuxHosts;
+  extraHostConfigs = builtins.map (hostName: ''
+    Host ${hostName}
+      AddKeysToAgent yes
+      ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
+  '') extraHostNames;
+in {
+  inherit name home;
+
   openssh.authorizedKeys.keys = [
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMO6FTToBOIByP9uVP2Ke2jGD/ESxPcXEMhvR7unukNGAAAABHNzaDo= jay@rovacsek.com"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAINNGQz3ekO1q/DrxuhP7Ck3TnP9V4ooF5vo8ibFWKKqFAAAABHNzaDo= jay@rovacsek.com"
@@ -12,7 +45,7 @@
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAHcp9K2S8UZWpWTkuXLsEJQ57qoXpriEqHmU4AjrWKFAAAABHNzaDo= jay@rovacsek.com"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICOGbb7QMU4l5jccNIaGp9M8HBhyGm3JeNnD30td49nfAAAABHNzaDo= jay@rovacsek.com"
   ];
-  shell = "zsh";
+  shell = pkgs.zsh;
 
   homeManagerConfig = {
     file.".ssh/config".text = ''
@@ -20,17 +53,22 @@
         HostName github.com
         User git
         AddKeysToAgent yes
-        IdentityFile ~/.ssh/id_ed25519_sk_type_a_1
-        IdentityFile ~/.ssh/id_ed25519_sk_type_a_2
-        IdentityFile ~/.ssh/id_ed25519_sk_type_c_1
-        IdentityFile ~/.ssh/id_ed25519_sk_type_c_2
+        ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
-      Host *
+      Host *.rovacsek.com.internal
         AddKeysToAgent yes
-        IdentityFile ~/.ssh/id_ed25519_sk_type_a_1
-        IdentityFile ~/.ssh/id_ed25519_sk_type_a_2
-        IdentityFile ~/.ssh/id_ed25519_sk_type_c_1
-        IdentityFile ~/.ssh/id_ed25519_sk_type_c_2
+        ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
+
+      ${if localDomain == null then
+        ""
+      else ''
+        Host *.${localDomain}
+          AddKeysToAgent yes
+          ${
+            if ((builtins.length userSshKeys) != 0) then identityFiles else ""
+          }''}
+
+      ${builtins.concatStringsSep "\n\n" extraHostConfigs}
     '';
   };
 }
