@@ -1,13 +1,13 @@
 # Seriously thankful for @tboerger for the inspiration behind this: https://github.com/tboerger/darwin-config/blob/master/profiles/modules/dock.nix
-# Changed option from my.modules.dock to mac-dock
+# Changed option from my.modules.dock to dockutil
 # Added --relpacing to ensure existing tiles are clobbered if need be
 { pkgs, lib, config, options, ... }:
 
-let cfg = config.mac-dock;
+let cfg = config.dockutil;
 
 in {
   options = with lib; {
-    mac-dock = {
+    dockutil = {
       enable = mkEnableOption ''
         Whether to enable dock module
       '';

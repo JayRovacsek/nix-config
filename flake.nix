@@ -2,41 +2,36 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-22.05";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
 
-    my-overlays = {
-      url = "github:JayRovacsek/nix-overlays";
-      inputs.nixpkgs.follows = "unstable";
-    };
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
       url = "github:rycee/home-manager/master";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     microvm = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
@@ -44,13 +39,12 @@
     # actual actions related to agenix
     agenix-darwin = {
       url = "github:cmhamill/agenix";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
-    , firefox-darwin, my-overlays, nixos-generators, microvm, agenix
-    , agenix-darwin, ... }:
+    , firefox-darwin, nixos-generators, microvm, agenix, agenix-darwin, ... }:
     let
       allowMissingKernelModules = (final: super: {
         makeModulesClosure = x:
