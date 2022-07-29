@@ -37,7 +37,7 @@ in {
     address=/valheim.rovacsek.com/192.168.17.3
     address=/terraria.lan/192.168.17.4
     address=/terraria.rovacsek.com/192.168.17.4
-    address=/.rovacsek.com/192.168.5.4
+    address=/.rovacsek.com/192.168.5.3
   '';
   uid = piholeUser.uid;
   gid = piholeUser.group.id;
