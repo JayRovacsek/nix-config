@@ -19,6 +19,6 @@ in {
   };
 
   extraGroups = {
-    "${userConfig.group.name}" = { inherit (userConfig.group) id members; };
+    "${userConfig.group.name}" = { inherit (userConfig.group) gid members; };
   } // extraGroupExtendedOptions;
 }

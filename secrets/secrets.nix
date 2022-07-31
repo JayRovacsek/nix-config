@@ -11,6 +11,12 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlEvnIWwozY75HIpf/0ZPIjkkDk47uCL1nhqdDHUpED";
   sshKeys = [ primarySshKey secondarySshKey ];
 
+  primaryWirelessKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZl+B55kdAs3wZv8W2O0wy2mNuJv9MD7Y+Do9IGSf9q";
+  secondaryWirelessKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0KzuSlDoE1jkiGfhVI5/N1rbmpUjQCLmpprcQMr+NW  ";
+  wirelessKeys = [ primaryWirelessKey secondaryWirelessKey ];
+
   primaryTailscaleKey =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFufEoK+LGcpNy7PnCih/LwwrjANruawcCzeh2INnZ0A";
   secondaryTailscaleKey =
@@ -45,6 +51,9 @@ in {
   "headscale-private-key.age".publicKeys = tailscaleKeys;
   "headscale-tls-crt.age".publicKeys = tailscaleKeys;
   "headscale-tls-key.age".publicKeys = tailscaleKeys;
+
+  # Wireless Secret keys
+  "wireless-iot.env.age".publicKeys = wirelessKeys;
 
   # Secrets SSH keys - in this instance all hard-tokens so 
   # threat modeling would require physical access to fully
