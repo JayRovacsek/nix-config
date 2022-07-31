@@ -87,7 +87,7 @@ in {
         server = {
           enabled = true;
           region_id = 999;
-          region_code = "fap";
+          region_code = "rovacsek";
           region_name = "headscale.rovacsek.com";
           stun_listen_addr = "0.0.0.0:${builtins.toString derpServerStunPort}";
         };
