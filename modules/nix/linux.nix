@@ -22,8 +22,9 @@ let
       ((hardwareProfile system).speed));
   };
 
-  buildMachines = builtins.map (host: buildSystemFunction host.config)
-    (builtins.attrValues flake.nixosConfigurations);
+  buildMachines = builtins.filter (x: x.speedFactor != 1)
+    (builtins.map (host: buildSystemFunction host.config)
+      (builtins.attrValues flake.nixosConfigurations));
 
 in {
   age.secrets."builder-id-ed25519" = {
