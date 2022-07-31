@@ -60,7 +60,6 @@ in {
       # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
     };
 
-    logLevel = "debug";
     ## TODO: Address the below to use my own options.
     # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
     derp = {
