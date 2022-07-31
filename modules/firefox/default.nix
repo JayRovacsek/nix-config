@@ -153,6 +153,7 @@ in {
         "dom.disable_beforeunload" = true;
         "dom.disable_open_during_load" = true;
         "dom.disable_window_move_resize" = true;
+        "dom.event.contextmenu.enabled" = false;
         "dom.popup_allowed_events" = "click dblclick mousedown pointerdown";
         "dom.push.enabled" = false;
         "dom.security.https_only_mode" = true;
