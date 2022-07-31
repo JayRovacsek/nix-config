@@ -1,5 +1,5 @@
 {
   name = "portainer";
-  id = 10000;
+  gid = 10000;
   members = [ "portainer" ];
 }

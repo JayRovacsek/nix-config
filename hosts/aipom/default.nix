@@ -24,23 +24,16 @@ in {
     writableStoreOverlay = null;
   };
 
-  networking.useNetworkd = true;
-
-  systemd.network.networks."00-wired" = {
-    enable = true;
-    matchConfig.Name = "enp*";
-    networkConfig.DHCP = "ipv4";
-  };
-
   imports = [
     (import ../common/machine-id.nix { inherit config flake; })
     ../../modules/agenix
     ./options.nix
+    (import ../../modules/microvm/guest { inherit config flake lib; })
+    ../../modules/ombi
     (import ../../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "general";
     })
-    ../../modules/ombi
     ../../modules/time
     ../../modules/timesyncd
   ];

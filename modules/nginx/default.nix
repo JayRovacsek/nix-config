@@ -3,8 +3,8 @@ let
   virtualHostConfigs = builtins.filter (x: x != "template.nix")
     (builtins.attrNames (builtins.readDir ./virtualHosts));
 
-  extraConfigs = (builtins.map (x: (import ./config/${x} { inherit config; }))
-    (builtins.attrNames (builtins.readDir ./config)));
+  extraConfigs = builtins.map (x: (import ./config/${x} { inherit config; }))
+    (builtins.attrNames (builtins.readDir ./config));
 
   subdomains = builtins.attrNames config.services.nginx.virtualHosts;
 

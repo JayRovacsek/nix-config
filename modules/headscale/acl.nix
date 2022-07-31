@@ -41,11 +41,11 @@ let
 
   allowAllToDNS = if usingNewAclFormat then [{
     action = "accept";
-    src = [ "group:*" ];
+    src = [ "*" ];
     dst = [ "group:dns:53,8053" ];
   }] else [{
     action = "accept";
-    users = [ "group:*" ];
+    users = [ "*" ];
     ports = [ "group:dns:53,8053" ];
   }];
 
@@ -68,8 +68,7 @@ let
   };
 in {
   environment.etc."headscale/acls.json" = {
-    user = config.services.headscale.user;
-    group = config.services.headscale.group;
+    inherit (config.services.headscale) user group;
     text = builtins.toJSON aclConfig;
   };
 }

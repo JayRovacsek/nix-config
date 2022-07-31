@@ -7,7 +7,7 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/networking
-    (import ../../modules/nix { inherit config flake; })
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam

@@ -38,9 +38,8 @@ let
   hostname = config.networking.hostName;
 in {
 
-  age.secrets = lib.mkIf (isMicrovmGuest == false) secrets;
+  age.secrets = lib.mkIf (isMicrovmGuest != true) secrets;
 
-  # Client tailscale config
   services.tailscale = {
     enable = true;
     interfaceName = "tailscale0";

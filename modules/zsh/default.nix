@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (pkgs.stdenv) isDarwin;
   direnvInit = if config.services.lorri.enable then ''
     eval "$(direnv hook zsh)"
   '' else

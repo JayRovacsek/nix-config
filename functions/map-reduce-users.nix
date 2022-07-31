@@ -1,6 +1,6 @@
-{ config, pkgs, lib, userConfigs, ... }:
+{ pkgs, lib, userConfigs, ... }:
 let
-  isLinux = lib.hasSuffix "linux" config.nixpkgs.system;
+  inherit (pkgs.stdenv) isLinux;
   seed = if isLinux then {
     # There's the obvious huge downside of seeding systems with the same initial root
     # config. But breaking the hash below is going to matter once I no longer do.

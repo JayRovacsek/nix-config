@@ -1,5 +1,7 @@
-let dnsmasqUser = import ../../users/service-accounts/dnsmasq.nix;
+let user = import ../../users/service-accounts/dnsmasq.nix;
 in {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "dnsmasq.d/04-cache.conf";
   text = ''
     # Lancache Rebinds (https://github.com/uklans/cache-domains)
@@ -148,7 +150,5 @@ in {
     address=/xvcf2.xboxlive.com/192.168.16.2
     address=/d1.xboxlive.com/192.168.16.2
   '';
-  uid = dnsmasqUser.uid;
-  gid = dnsmasqUser.group.id;
   mode = "0444";
 }

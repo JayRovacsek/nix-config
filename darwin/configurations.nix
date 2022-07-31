@@ -24,7 +24,7 @@ let
   };
 in {
   cloyster = let
-    system = x86_64-darwin.system;
+    inherit (x86_64-darwin) system;
     pkgs = x86_64-darwin;
     modules = home-manager-function {
       inherit home-manager self;
@@ -36,7 +36,7 @@ in {
   in darwin.lib.darwinSystem { inherit system modules; };
 
   ninetales = let
-    system = aarch64-darwin.system;
+    inherit (aarch64-darwin) system;
     pkgs = aarch64-darwin;
     modules = home-manager-function {
       inherit home-manager self;

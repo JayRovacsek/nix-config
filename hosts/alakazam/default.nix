@@ -19,9 +19,15 @@ in {
     hostId = "ef26b1be";
   };
 
-  microvm.vms.igglybuff = {
+  microvm.vms = {
+    aipom = {
     inherit flake;
     autostart = true;
+    };
+    igglybuff = {
+      inherit flake;
+      autostart = true;
+    };
   };
 
   boot = {

@@ -1,6 +1,6 @@
 { config, pkgs, flake ? { }, ... }:
 let
-  lib = pkgs.lib;
+  inherit (pkgs) lib;
   name = "jrovacsek";
   home = "/Users/${name}";
 

@@ -1,8 +1,7 @@
 { config, ... }: {
   environment.etc."nginx/modules/authelia/authelia-server.conf" = {
     mode = "0444";
-    user = config.services.nginx.user;
-    group = config.services.nginx.group;
+    inherit (config.services.nginx) user group;
     text = ''
       location ^~ /authelia {
           include /config/nginx/proxy.conf;

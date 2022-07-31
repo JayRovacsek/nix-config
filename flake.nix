@@ -46,12 +46,15 @@
   outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
     , firefox-darwin, nixos-generators, microvm, agenix, agenix-darwin, ... }:
     let
-      allowMissingKernelModules = (final: super: {
+      allowMissingKernelModules = final: super: {
         makeModulesClosure = x:
           super.makeModulesClosure (x // { allowMissing = true; });
-      });
-      linuxOverlays = [ nur.overlay agenix.overlay allowMissingKernelModules ];
-      darwinOverlays = [ firefox-darwin.overlay nur.overlay agenix.overlay ];
+      };
+      localOverlays = import ./overlays;
+      linuxOverlays =
+        [ nur.overlay agenix.overlay allowMissingKernelModules localOverlays ];
+      darwinOverlays =
+        [ firefox-darwin.overlay nur.overlay agenix.overlay localOverlays ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs home-manager;

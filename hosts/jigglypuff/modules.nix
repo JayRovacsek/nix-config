@@ -9,10 +9,7 @@ in {
     (import ../../modules/hardware/raspberry-pi-3b-plus { inherit pkgs; })
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix {
-      inherit config flake;
-      arch = "aarch64-linux";
-    })
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
     ../../modules/starship

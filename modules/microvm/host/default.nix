@@ -1,5 +1,7 @@
 { config, flake, lib }:
 let
+  meta = import ../meta.nix { inherit config flake; };
+
   microvmHostnames = (builtins.attrNames config.microvm.vms);
 
   microvms =
@@ -17,9 +19,9 @@ let
         shortHostname =
           builtins.substring 0 7 (builtins.hashString "sha256" hostName);
       in {
-        "00-${hostName}-bridge" = {
+        "00-${hostName}-network" = {
           matchConfig.Name = "${shortHostname}-bridge";
-          networkConfig.DHCPServer = "yes";
+          networkConfig.DHCPServer = false;
           addresses =
             [{ addressConfig.Address = "10.0.${builtins.toString i}.1/24"; }];
         };
@@ -51,6 +53,29 @@ let
     in "L+ /var/log/journal/${machineId} - - - - /var/lib/microvms/${hostName}/journal/${machineId}")
     (microvms);
 in {
+
+  imports = [ ../../systemd-networkd ];
+
+  networking = {
+    nat = {
+      enable = meta.isMicrovmHost;
+      enableIPv6 = false;
+      externalInterface = if meta.isMicrovmHost then "phys0" else null;
+      internalInterfaces =
+        if meta.isMicrovmHost then meta.bridgeNetworks else [ ];
+    };
+  };
+
+  systemd.network.links = {
+    "10-phys0" = {
+      enable = meta.isMicrovmHost;
+      matchConfig = {
+        Name = "en*";
+        Virtualization = "!qemu";
+      };
+      linkConfig.Name = "phys0";
+    };
+  };
 
   systemd.network.networks = microvmNetworks;
   systemd.network.netdevs = microvmNetdevs;

@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 pkgs.mkShell {
   name = "nix-config";
-  buildInputs = with pkgs; [ nixfmt statix ];
+  buildInputs = with pkgs; [ nixfmt statix vulnix ];
   shellHook = "";
 }

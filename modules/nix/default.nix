@@ -1,10 +1,10 @@
-{ config, arch ? "x86_64-linux", flake ? { }, ... }: {
-
-  imports = [ (import ./${arch}.nix { inherit config flake; }) ];
-
-  nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+{ config, pkgs, isLinux ? true, flake ? { }, ... }:
+let
+  configs = {
+    linux = import ./linux.nix { inherit config flake; };
+    darwin = import ./darwin.nix { inherit config flake; };
   };
-}
+
+  appliedConfig = if isLinux then configs.linux else configs.darwin;
+
+in appliedConfig

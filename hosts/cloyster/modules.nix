@@ -8,8 +8,8 @@
     ../../modules/lorri
     ../../modules/networking
     (import ../../modules/nix {
-      inherit config;
-      arch = "x86_64-darwin";
+      inherit config pkgs;
+      isLinux = false;
     })
     ../../modules/time
     ../../modules/zsh

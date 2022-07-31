@@ -13,8 +13,8 @@ let
   certs = builtins.foldl' (x: y: x // y) { } (tldCertConfigs);
 
   defaults = {
+    inherit (config.services.nginx) group;
     email = "acme@${primaryDomain}";
-    group = config.services.nginx.group;
   };
 in {
   networking.firewall.allowedTCPPorts = [ port ];

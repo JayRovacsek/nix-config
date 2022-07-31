@@ -9,12 +9,13 @@ in {
     ../../modules/hardware/raspberry-pi-4
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix {
-      inherit config flake;
-      arch = "aarch64-linux";
-    })
+    (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
+    (import ../../modules/tailscale {
+      inherit config pkgs lib;
+      tailnet = "general";
+    })
     ../../modules/time
     ../../modules/zsh
   ];

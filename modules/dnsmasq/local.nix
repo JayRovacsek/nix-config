@@ -1,5 +1,7 @@
-let dnsmasqUser = import ../../users/service-accounts/dnsmasq.nix;
+let user = import ../../users/service-accounts/dnsmasq.nix;
 in {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "dnsmasq.d/03-local.conf";
   text = ''
     # Local Address Binds
@@ -39,7 +41,5 @@ in {
     address=/terraria.rovacsek.com/192.168.17.4
     address=/.rovacsek.com/192.168.5.3
   '';
-  uid = dnsmasqUser.uid;
-  gid = dnsmasqUser.group.id;
   mode = "0444";
 }

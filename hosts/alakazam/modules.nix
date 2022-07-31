@@ -7,15 +7,13 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/lorri
-    # ../../modules/nginx
-    (import ../../modules/nix { inherit config flake; })
-    (import ../../modules/microvm-host { inherit config flake lib; })
+    (import ../../modules/nix { inherit config flake pkgs; })
+    (import ../../modules/microvm/host { inherit config flake lib; })
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/starship
     ../../modules/steam
-    ../../modules/systemd-networkd
     (import ../../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "trust";

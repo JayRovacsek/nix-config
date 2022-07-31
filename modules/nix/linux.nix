@@ -19,7 +19,7 @@ let
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass
     speedFactor = (builtins.mul ((hardwareProfile (system)).cores)
-      ((hardwareProfile (system)).speed));
+      ((hardwareProfile system).speed));
   };
 
   buildMachines = builtins.map (host: buildSystemFunction host.config)
@@ -56,6 +56,10 @@ in {
         "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
       ];
     };
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
 
     inherit buildMachines;
   };
