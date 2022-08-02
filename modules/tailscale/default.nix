@@ -38,7 +38,7 @@ let
   hostname = config.networking.hostName;
 in {
 
-  imports = [ ../../options/tailscale ];
+  # imports = [ ../../options/tailscale ];
 
   age.secrets = lib.mkIf (isMicrovmGuest != true) secrets;
 
