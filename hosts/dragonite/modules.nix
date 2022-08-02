@@ -9,7 +9,7 @@
     ../../modules/headscale
     ../../modules/libvirtd
     ../../modules/lorri
-    (import ../../modules/microvm/host { inherit config flake lib; })
+    # (import ../../modules/microvm/host { inherit config flake lib; })
     (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/nix-serve
     ../../modules/nginx
