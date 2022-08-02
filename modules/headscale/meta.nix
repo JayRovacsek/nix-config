@@ -27,7 +27,7 @@ let
         builtins.toString i
       },'`cat ${v.path}`',${
         builtins.toString i
-      },1,1,0,${unixEpoch},${futureMeProblem});") preauthKeys);
+      },1,0,0,${unixEpoch},${futureMeProblem});") preauthKeys);
 
   # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
   # capabilities but translates as follows:
