@@ -56,6 +56,13 @@ in {
         AddKeysToAgent yes
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
+      Host minecraft.galah.fun
+        HostName minecraft.galah.fun
+        User jay
+        AddKeysToAgent yes
+        ForwardAgent yes
+        ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
+
       Host *.rovacsek.com.internal
         AddKeysToAgent yes
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
