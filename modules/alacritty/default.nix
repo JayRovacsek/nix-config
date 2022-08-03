@@ -1,8 +1,8 @@
-{
+{ pkgs, ... }: {
   programs.alacritty = {
     enable = true;
     settings = {
-      shell.program = "/run/current-system/sw/bin/zsh";
+      shell.program = "${pkgs.zsh}/bin/zsh";
       window = {
         dimenstions = {
           columns = 0;

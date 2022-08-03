@@ -13,6 +13,8 @@
       "gimp"
       "jellyfin-media-player"
       "keepassxc"
+      "microsoft-remote-desktop"
+      "raycast"
       "signal"
       "slack"
       "zoom"

@@ -2,8 +2,8 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-22.05";
+    stable.url = "github:nixos/nixpkgs/nixos-22.05";    
+    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
@@ -11,27 +11,27 @@
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     home-manager = {
       url = "github:rycee/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     microvm = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
@@ -39,7 +39,7 @@
     # actual actions related to agenix
     agenix-darwin = {
       url = "github:cmhamill/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
   };
 
@@ -53,8 +53,12 @@
       localOverlays = import ./overlays;
       linuxOverlays =
         [ nur.overlay agenix.overlay allowMissingKernelModules localOverlays ];
-      darwinOverlays =
-        [ firefox-darwin.overlay nur.overlay agenix.overlay localOverlays ];
+      darwinOverlays = [
+        firefox-darwin.overlay
+        nur.overlay
+        agenix-darwin.overlay
+        localOverlays
+      ];
     in {
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs home-manager;

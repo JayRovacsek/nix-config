@@ -48,26 +48,20 @@ let
 
   promptInit = "";
 
-  shellAliases = if isDarwin
-  && config.home-manager.users.jrovacsek.programs.lsd.enable then {
-    ls = "lsd";
-  } else
-    { };
+  shellAliases = { "ls" = "lsd"; };
 in {
   environment.shellAliases = shellAliases;
 
   programs.zsh = {
-    inherit promptInit;
-    inherit interactiveShellInit;
-  } // (if isDarwin then {
     enable = true;
     enableCompletion = true;
+    inherit promptInit interactiveShellInit;
+  } // (if isDarwin then {
+    enableSyntaxHighlighting = true;
   } else {
-    enable = true;
     histSize = 10000;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    enableCompletion = true;
     ohMyZsh = {
       enable = true;
       customPkgs = [ pkgs.spaceship-prompt ];

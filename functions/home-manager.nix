@@ -32,7 +32,7 @@ let
       isLinux == false) systemUsers);
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin
-  config = if isLinux then [
+  cfg = if isLinux then [
     ../hosts/${hostname}
     home-manager.nixosModules.home-manager
     {
@@ -49,4 +49,4 @@ let
       home-manager.users = users;
     }
   ];
-in config ++ extraModules
+in cfg ++ extraModules
