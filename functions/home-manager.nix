@@ -27,7 +27,7 @@ let
     };
   }) (builtins.filter (y:
     if builtins.hasAttr "isNormalUser" y then
-      y.isNormalUser
+      (y.isNormalUser && y.name != "builder")
     else
       isLinux == false) systemUsers);
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;

@@ -47,7 +47,9 @@ in {
       auto-optimise-store = true;
       sandbox = true;
     };
-    distributedBuilds = true;
+
+    inherit buildMachines;
+    distributedBuilds = (builtins.length buildMachines) != 0;
 
     settings = {
       substituters =
@@ -61,7 +63,5 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-
-    inherit buildMachines;
   };
 }

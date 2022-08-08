@@ -5,5 +5,5 @@
   openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqBcu2ksJ3Rlm9VLo2H5cg88My1SuKncPuel6ncQi7c"
   ];
-  isNormalUser = false;
+  isNormalUser = true;
 }
