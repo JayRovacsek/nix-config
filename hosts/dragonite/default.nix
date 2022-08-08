@@ -22,8 +22,7 @@ in {
       # For reference:
       # 5900: VNC (need to kill)
       # 8200: Duplicati
-      # 51820: wireguard testing, REMOVE ONCE COMPLETE
-      allowedTCPPorts = [ 5900 8200 51820 ];
+      allowedTCPPorts = [ 5900 8200 ];
     };
   };
 
