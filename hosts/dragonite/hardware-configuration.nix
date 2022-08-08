@@ -12,8 +12,7 @@
   };
 
   boot = {
-    binfmt.emulatedSystems =
-      [ "aarch64-linux" "armv7l-linux" "x86_64-darwin" "aarch64-darwin" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" "x86_64-darwin" ];
 
     loader = {
       systemd-boot.enable = true;
