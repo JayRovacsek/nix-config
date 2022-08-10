@@ -45,6 +45,6 @@ in {
       isLinux = false;
       extraModules =
         [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
-    };
+    } ++ standardiseNix;
   in darwin.lib.darwinSystem { inherit system modules; };
 }

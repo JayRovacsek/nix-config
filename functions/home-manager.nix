@@ -20,7 +20,10 @@ let
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];
-      xdg.configFile."nix/inputs/nixpkgs".source = self.inputs.nixpkgs.outPath;
+      ## The below is rather dangeous if not called out:
+      # It'll ensure a user NIX_PATH follows the input which may not align with system
+      # nixpkgs follow if changed. 
+      xdg.configFile."nix/inputs/nixpkgs".source = self.inputs.unstable.outPath;
       home = if (builtins.hasAttr "homeManagerConfig" x) then
         x.homeManagerConfig // stateVersion
       else

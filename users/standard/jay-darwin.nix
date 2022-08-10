@@ -49,8 +49,9 @@ in {
   shell = pkgs.zsh;
 
   homeManagerConfig = {
-    sessionVariables.NIX_PATH =
-      "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
+    sessionVariables.NIX_PATH = "nixpkgs=${
+        config.home-manager.users."${name}".xdg.configHome
+      }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
     file.".ssh/config".text = ''
       Host github.com
         HostName github.com

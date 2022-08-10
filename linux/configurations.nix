@@ -7,6 +7,7 @@ let
   nixos-hardware = builtins.getAttr "nixos-hardware" extraModules;
   microvm = builtins.getAttr "microvm" extraModules;
   nixos-generators = builtins.getAttr "nixos-generators" extraModules;
+  standardiseNix = builtins.getAttr "standardiseNix" extraModules;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -34,7 +35,7 @@ in {
       hostname = "alakazam";
       extraModules =
         [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
-    };
+    } ++ standardiseNix;
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   gastly = let
@@ -44,7 +45,7 @@ in {
       inherit home-manager self;
       hostname = "gastly";
       extraModules = [ agenix.nixosModule referenceSelf ];
-    };
+    } ++ standardiseNix;
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   dragonite = let
@@ -55,7 +56,7 @@ in {
       hostname = "dragonite";
       extraModules =
         [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
-    };
+    } ++ standardiseNix;
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   # Dead for now. RIP M1
@@ -66,7 +67,7 @@ in {
   #     inherit home-manager self;
   #     hostname = "ninetales";
   #     extraModules = [ agenix.nixosModule ];
-  #   };
+  #   } ++ standardiseNix;
   # in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
@@ -76,7 +77,7 @@ in {
       inherit home-manager self;
       hostname = "jigglypuff";
       extraModules = [ agenix.nixosModule referenceSelf ];
-    };
+    } ++ standardiseNix;
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   wigglytuff = let
@@ -90,7 +91,7 @@ in {
         agenix.nixosModule
         referenceSelf
       ];
-    };
+    } ++ standardiseNix;
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   ## MICROVMS
@@ -103,7 +104,7 @@ in {
       ../hosts/igglybuff
       agenix.nixosModule
       referenceSelf
-    ];
+    ] ++ standardiseNix;
   };
 
   aipom = nixpkgs.lib.nixosSystem {
@@ -114,6 +115,6 @@ in {
       ../hosts/aipom
       agenix.nixosModule
       referenceSelf
-    ];
+    ] ++ standardiseNix;
   };
 }
