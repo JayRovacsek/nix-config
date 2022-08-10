@@ -48,7 +48,14 @@ in {
   ];
   shell = pkgs.zsh;
 
-  homeManagerConfig = {
+  homeManagerConfig = let
+    addKeys = "AddKeysToAgent yes";
+    forwardAgent = "ForwardAgent yes";
+    addKeysForwardAgent = ''
+      ${addKeys}
+      ${forwardAgent}
+    '';
+  in {
     sessionVariables.NIX_PATH = "nixpkgs=${
         config.home-manager.users."${name}".xdg.configHome
       }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
@@ -56,25 +63,24 @@ in {
       Host github.com
         HostName github.com
         User git
-        AddKeysToAgent yes
+        ${addKeys}
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
-      Host minecraft.galah.fun
-        HostName minecraft.galah.fun
+      Host gcleopard1.galahcyber.com.au
+        HostName gcleopard1.galahcyber.com.au
         User jay
-        AddKeysToAgent yes
-        ForwardAgent yes
+        ${addKeysForwardAgent}
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
       Host *.rovacsek.com.internal
-        AddKeysToAgent yes
+        ${addKeysForwardAgent}
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
       ${if localDomain == null then
         ""
       else ''
         Host *.${localDomain}
-          AddKeysToAgent yes
+          ${addKeysForwardAgent}
           ${
             if ((builtins.length userSshKeys) != 0) then identityFiles else ""
           }''}
