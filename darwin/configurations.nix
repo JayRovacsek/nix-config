@@ -1,8 +1,9 @@
-{ nixpkgs, overlays, home-manager, extraModules ? { }, darwin ? { } }:
+{ nixpkgs, overlays, home-manager, darwin, extraModules ? { } }:
 let
   home-manager-function = import ../functions/home-manager.nix;
   agenix = builtins.getAttr "agenix" extraModules;
   self = builtins.getAttr "self" extraModules;
+  standardiseNix = builtins.getAttr "standardiseNix" extraModules;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -32,7 +33,7 @@ in {
       isLinux = false;
       extraModules =
         [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
-    };
+    } ++ standardiseNix;
   in darwin.lib.darwinSystem { inherit system modules; };
 
   ninetales = let

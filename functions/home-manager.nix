@@ -20,6 +20,7 @@ let
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];
+      xdg.configFile."nix/inputs/nixpkgs".source = self.inputs.nixpkgs.outPath;
       home = if (builtins.hasAttr "homeManagerConfig" x) then
         x.homeManagerConfig // stateVersion
       else
