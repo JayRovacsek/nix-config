@@ -64,6 +64,7 @@ in {
       "terminal.external.linuxExec" = "alacritty";
       "terminal.external.osxExec" =
         "${pkgs.alacritty}/Applications/Alacritty.app";
+      "terminal.integrated.defaultProfile.linux" = "zsh";
       "terminal.integrated.fontFamily" = "Hack Nerd Font";
       "terminal.integrated.fontSize" = 12;
       "typescript.updateImportsOnFileMove.enabled" = "always";
@@ -72,20 +73,6 @@ in {
       "oneDarkPro.editorTheme" = "Retro";
       "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
-      "terminal.integrated.profiles.osx" = {
-        "zsh" = {
-          "path" = "${pkgs.zsh}/bin/zsh";
-          "icon" = "star";
-        };
-      };
-      "terminal.integrated.defaultProfile.osx" = "zsh";
-      "terminal.integrated.profiles.linux" = {
-        "zsh" = {
-          "path" = "${pkgs.zsh}/bin/zsh";
-          "icon" = "star";
-        };
-      };
-      "terminal.integrated.defaultProfile.linux" = "zsh";
     };
 
     extensions = with pkgs.vscode-extensions; [
