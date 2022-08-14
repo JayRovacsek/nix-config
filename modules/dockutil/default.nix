@@ -8,8 +8,8 @@ let
   };
   braveEnrty = { path = "/Applications/Brave Browser.app"; };
   chromiumEntry = { path = "/Applications/Chromium.app"; };
-  vscodeEntry = {
-    path = "${pkgs.vscode.outPath}/Applications/Visual Studio Code.app";
+  vscodiumEntry = {
+    path = "${pkgs.vscodium.outPath}/Applications/VSCodium.app";
   };
   keepassEntry = { path = "/Applications/KeePassXC.app"; };
   outlookEntry = { path = "/Applications/Microsoft Outlook.app"; };
@@ -25,7 +25,7 @@ in {
       firefoxEntry
       braveEnrty
       chromiumEntry
-      vscodeEntry
+      vscodiumEntry
       keepassEntry
       outlookEntry
       slackEntry

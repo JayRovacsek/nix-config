@@ -1,12 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-  package = if isDarwin then { } else { package = pkgs.vscodium; };
-in {
+{ pkgs, ... }: {
   programs.vscode = {
     enable = true;
+    package = pkgs.vscodium;
 
-    mutableExtensionsDir = false;
+    mutableExtensionsDir = true;
 
     userSettings = {
       "[dockercompose]" = {
@@ -60,15 +57,11 @@ in {
       "latex-workshop.view.pdf.viewer" = "tab";
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
-      "terminal.explorerKind" = "external";
-      "terminal.external.linuxExec" = "alacritty";
-      "terminal.external.osxExec" =
-        "${pkgs.alacritty}/Applications/Alacritty.app";
       "terminal.integrated.defaultProfile.linux" = "zsh";
+      "terminal.integrated.defaultProfile.osx" = "zsh";
       "terminal.integrated.fontFamily" = "Hack Nerd Font";
       "terminal.integrated.fontSize" = 12;
       "typescript.updateImportsOnFileMove.enabled" = "always";
-      "window.menuBarVisibility" = "toggle";
       "window.titleBarStyle" = "custom";
       "oneDarkPro.editorTheme" = "Retro";
       "workbench.colorTheme" = "Tomorrow Night Blue";
@@ -125,6 +118,6 @@ in {
       # Markdown
       yzhang.markdown-all-in-one
     ];
-  } // package;
+  };
 }
 
