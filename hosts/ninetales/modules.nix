@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
+    ../../modules/docker-darwin
     ../../modules/dockutil
     ../../modules/documentation
     ../../modules/fonts
