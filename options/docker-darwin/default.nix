@@ -15,6 +15,14 @@ in with lib; {
           {command}`docker` command line tool.
         '';
       };
+      logFile = mkOption {
+        type = types.nullOr types.path;
+        default = "/tmp/docker-darwin.log";
+        example = "/var/log/docker-darwin.log";
+        description = ''
+          The logfile to use for the docker service.
+        '';
+      };
     };
   };
 
@@ -39,9 +47,11 @@ in with lib; {
 
       serviceConfig = {
         Label = "local.docker";
-        KeepAlive = true;
+        AbandonProcessGroup = true;
         RunAtLoad = true;
         ExitTimeOut = 0;
+        StandardOutPath = cfg.logFile;
+        StandardErrorPath = cfg.logFile;
       };
     };
   };
