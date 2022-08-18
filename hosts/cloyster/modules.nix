@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
+    ../../modules/docker-darwin
     ../../modules/dockutil
     ../../modules/documentation
     ../../modules/fonts
@@ -12,6 +13,7 @@
       isLinux = false;
     })
     ../../modules/time
+    ../../modules/yabai
     ../../modules/zsh
   ];
 }

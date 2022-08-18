@@ -21,14 +21,26 @@ in with lib; {
   config = mkIf cfg.enable {
     environment.systemPackages = requiredPackages;
     launchd.user.agents.docker = {
-      path = requiredPackages;
 
-      command =
-        "${pkgs.docker}/bin/docker ps -q || ${pkgs.colima}/bin/colima start";
+      path = requiredPackages ++ [ config.environment.systemPath ];
+
+      # Script logic is:
+      # check if docker ps gives a zero exit code, if not use `colima start`
+      # but guard this also from unclean stops by assuming in another non
+      # zero exit that a qemu host exists/is running but host side is borked
+      # and pkill the pid if so.
+
+      # Then check colima status, if default (normal colima namespace with start)
+      # has a non-zero exit (i.e not running) start it.
+      script = ''
+        ${pkgs.docker}/bin/docker ps -q || ${pkgs.colima}/bin/colima start || pkill -F ~/.lima/colima/qemu.pid 
+        ${pkgs.colima}/bin/colima status -p default || ${pkgs.colima}/bin/colima start default 
+      '';
 
       serviceConfig = {
         Label = "local.docker";
-        KeepAlive = false;
+        KeepAlive = true;
+        RunAtLoad = true;
         ExitTimeOut = 0;
       };
     };
