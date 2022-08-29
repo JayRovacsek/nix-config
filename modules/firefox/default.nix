@@ -37,6 +37,11 @@ in {
           keyword = "gh";
           url = "https://github.com/search?q=%s";
         };
+        "Github Search for Nix" = {
+          keyword = "ghn";
+          url =
+            "https://github.com/search?q=%s+language%3ANix&type=Code&ref=advsearch&l=Nix&l=";
+        };
         "Dockerhub Search" = {
           keyword = "dh";
           url = "https://hub.docker.com/search?q=%s";

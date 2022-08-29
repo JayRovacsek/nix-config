@@ -17,8 +17,8 @@ in with lib; {
       };
       logFile = mkOption {
         type = types.nullOr types.path;
-        default = "/tmp/docker-darwin.log";
-        example = "/var/log/docker-darwin.log";
+        default = "/tmp/docker.log";
+        example = "/var/log/docker.log";
         description = ''
           The logfile to use for the docker service.
         '';
