@@ -33,9 +33,13 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "alakazam";
-      extraModules =
-        [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
-    } ++ standardiseNix;
+      extraModules = [
+        microvm.nixosModules.host
+        agenix.nixosModule
+        referenceSelf
+        standardiseNix
+      ];
+    };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   gastly = let
@@ -44,8 +48,8 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "gastly";
-      extraModules = [ agenix.nixosModule referenceSelf ];
-    } ++ standardiseNix;
+      extraModules = [ agenix.nixosModule referenceSelf standardiseNix ];
+    };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   dragonite = let
@@ -54,9 +58,13 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "dragonite";
-      extraModules =
-        [ microvm.nixosModules.host agenix.nixosModule referenceSelf ];
-    } ++ standardiseNix;
+      extraModules = [
+        microvm.nixosModules.host
+        agenix.nixosModule
+        referenceSelf
+        standardiseNix
+      ];
+    };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   # Dead for now. RIP M1
@@ -66,8 +74,8 @@ in {
   #   modules = home-manager-function {
   #     inherit home-manager self;
   #     hostname = "ninetales";
-  #     extraModules = [ agenix.nixosModule ];
-  #   } ++ standardiseNix;
+  #     extraModules = [ agenix.nixosModule standardiseNix ];
+  #   };
   # in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
@@ -76,8 +84,8 @@ in {
     modules = home-manager-function {
       inherit home-manager self;
       hostname = "jigglypuff";
-      extraModules = [ agenix.nixosModule referenceSelf ];
-    } ++ standardiseNix;
+      extraModules = [ agenix.nixosModule referenceSelf standardiseNix ];
+    };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   wigglytuff = let
@@ -90,8 +98,9 @@ in {
         nixos-hardware.nixosModules.raspberry-pi-4
         agenix.nixosModule
         referenceSelf
+        standardiseNix
       ];
-    } ++ standardiseNix;
+    };
   in nixpkgs.lib.nixosSystem { inherit system pkgs modules; };
 
   ## MICROVMS
@@ -104,7 +113,8 @@ in {
       ../hosts/igglybuff
       agenix.nixosModule
       referenceSelf
-    ] ++ standardiseNix;
+      standardiseNix
+    ];
   };
 
   aipom = nixpkgs.lib.nixosSystem {
@@ -115,6 +125,7 @@ in {
       ../hosts/aipom
       agenix.nixosModule
       referenceSelf
-    ] ++ standardiseNix;
+      standardiseNix
+    ];
   };
 }

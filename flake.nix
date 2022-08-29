@@ -15,7 +15,7 @@
     };
 
     home-manager = {
-      url = "github:rycee/home-manager/master";
+      url = "github:rycee/home-manager/release-22.05";
       inputs.nixpkgs.follows = "unstable";
     };
 
@@ -43,9 +43,16 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, darwin, nixos-hardware
-    , firefox-darwin, nixos-generators, microvm, agenix, agenix-darwin, ... }:
+  outputs = { self, home-manager, nur, darwin, nixos-hardware, firefox-darwin
+    , nixos-generators, microvm, agenix, agenix-darwin, ... }:
     let
+      # This will set nix path to point to STABLE across applied hosts
+      # This may not be desirable always and can be overridden by setting 
+      # NIX_PATH to the derivation path of unstable.
+      # Otherwise change the below to:
+      # nixpkgs = self.inputs.unstable;
+      nixpkgs = self.inputs.stable;
+
       allowMissingKernelModules = final: super: {
         makeModulesClosure = x:
           super.makeModulesClosure (x // { allowMissing = true; });
@@ -59,10 +66,10 @@
         agenix-darwin.overlay
         localOverlays
       ];
-      standardiseNix = [{
+      standardiseNix = {
         environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
         nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
-      }];
+      };
     in {
       nixosConfigurations = import ./linux/configurations.nix {
         inherit nixpkgs home-manager;

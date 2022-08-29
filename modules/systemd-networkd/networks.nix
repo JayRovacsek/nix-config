@@ -3,10 +3,7 @@ let phys0Exists = builtins.hasAttr "10-phys0" config.systemd.network.links;
 in {
   systemd.network.networks = {
     "00-wired" = {
-      matchConfig = {
-        Name = if phys0Exists then "phys0" else "en*";
-        Virtualization = "!qemu";
-      };
+      matchConfig.Name = if phys0Exists then "phys0" else "en*";
       networkConfig = {
         DHCP = "ipv4";
         Domains = [ "lan" ];

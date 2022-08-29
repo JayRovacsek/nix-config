@@ -19,15 +19,14 @@ let
         shortHostname =
           builtins.substring 0 7 (builtins.hashString "sha256" hostName);
       in {
-        "00-${hostName}-network" = {
+        "10-${shortHostname}-network" = {
           matchConfig.Name = "${shortHostname}-bridge";
-          networkConfig.DHCPServer = false;
           addresses =
             [{ addressConfig.Address = "10.0.${builtins.toString i}.1/24"; }];
         };
 
-        "01-${hostName}-network" = {
-          matchConfig.Name = "vm-${hostName}-*";
+        "11-${shortHostname}-network" = {
+          matchConfig.Name = "vm-${hostName}*";
           networkConfig.Bridge = "${shortHostname}-bridge";
         };
       }) microvmHostnames);
@@ -37,7 +36,7 @@ let
       shortHostname =
         builtins.substring 0 7 (builtins.hashString "sha256" hostName);
     in {
-      "00-${hostName}-bridge" = {
+      "10-${shortHostname}-bridge" = {
         netdevConfig = {
           Kind = "bridge";
           Name = "${shortHostname}-bridge";

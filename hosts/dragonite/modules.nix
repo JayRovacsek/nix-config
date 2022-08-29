@@ -12,7 +12,7 @@
     # (import ../../modules/microvm/host { inherit config flake lib; })
     (import ../../modules/nix { inherit config pkgs flake; })
     ../../modules/nix-serve
-    ../../modules/nginx
+    # ../../modules/nginx
     ../../modules/nvidia
     ../../modules/openssh
     (import ../../modules/tailscale {

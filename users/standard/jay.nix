@@ -26,11 +26,18 @@ let
   else
     [ ];
 
+  addKeys = "AddKeysToAgent yes";
+  forwardAgent = "ForwardAgent yes";
+  addKeysForwardAgent = ''
+    ${addKeys}
+      ${forwardAgent}
+  '';
+
   extraHostNames = darwinHosts ++ linuxHosts;
   extraHostConfigs = builtins.map (hostName: ''
     Host ${hostName}
       HostName ${hostName}
-      AddKeysToAgent yes
+      ${addKeysForwardAgent}
       ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
   '') extraHostNames;
 in {
@@ -48,14 +55,7 @@ in {
   ];
   shell = pkgs.zsh;
 
-  homeManagerConfig = let
-    addKeys = "AddKeysToAgent yes";
-    forwardAgent = "ForwardAgent yes";
-    addKeysForwardAgent = ''
-      ${addKeys}
-      ${forwardAgent}
-    '';
-  in {
+  homeManagerConfig = {
     sessionVariables.NIX_PATH = "nixpkgs=${
         config.home-manager.users."${name}".xdg.configHome
       }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";

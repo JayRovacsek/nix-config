@@ -1,8 +1,5 @@
 { config, flake, lib, ... }:
-let
-  meta = import ../meta.nix { inherit config flake; };
-
-  # parents = meta.microvmHosts;
+let meta = import ../meta.nix { inherit config flake; };
 in {
   networking.useNetworkd = true;
 

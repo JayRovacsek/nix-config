@@ -1,4 +1,4 @@
 {
-  imports = [ ../../options/docker-darwin ];
+  imports = [ ../../options/docker ];
   virtualisation.docker.enable = true;
 }

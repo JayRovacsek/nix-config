@@ -31,9 +31,12 @@ in {
       inherit home-manager self;
       hostname = "cloyster";
       isLinux = false;
-      extraModules =
-        [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
-    } ++ standardiseNix;
+      extraModules = [
+        { nixpkgs.overlays = overlays; }
+        agenix.nixosModules.age
+        standardiseNix
+      ];
+    };
   in darwin.lib.darwinSystem { inherit system modules; };
 
   ninetales = let
@@ -43,8 +46,11 @@ in {
       inherit home-manager self;
       hostname = "ninetales";
       isLinux = false;
-      extraModules =
-        [ { nixpkgs.overlays = overlays; } agenix.nixosModules.age ];
-    } ++ standardiseNix;
+      extraModules = [
+        { nixpkgs.overlays = overlays; }
+        agenix.nixosModules.age
+        standardiseNix
+      ];
+    };
   in darwin.lib.darwinSystem { inherit system modules; };
 }

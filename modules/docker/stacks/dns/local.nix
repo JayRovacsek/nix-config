@@ -1,5 +1,7 @@
-let piholeUser = import ../../../../users/service-accounts/pihole.nix;
+let user = import ../../../../users/service-accounts/pihole.nix;
 in {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "pihole/dnsmasq.d/03-local.conf";
   text = ''
     # Local Address Binds
@@ -39,7 +41,5 @@ in {
     address=/terraria.rovacsek.com/192.168.17.4
     address=/.rovacsek.com/192.168.5.3
   '';
-  uid = piholeUser.uid;
-  gid = piholeUser.group.id;
   mode = "0444";
 }
