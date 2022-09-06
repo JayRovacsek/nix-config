@@ -11,12 +11,7 @@ let
       self.darwinConfigurations."${hostname}".pkgs;
     flake = self;
   };
-  stateVersion = {
-    stateVersion = if isLinux then
-      self.nixosConfigurations."${hostname}".config.system.stateVersion
-    else
-      self.darwinConfigurations."${hostname}".config.system.nixpkgsRelease;
-  };
+  stateVersion.stateVersion = "22.05";
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];

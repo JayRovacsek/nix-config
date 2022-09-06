@@ -15,4 +15,9 @@ self: super: {
     pname = "hello-unfree";
     version = "9002";
   });
+
+  # Useful for SBCs when they will be missing modules that upstream definitions
+  # expect but we won't use; e.g SATA
+  makeModulesClosure = x:
+    super.makeModulesClosure (x // { allowMissing = true; });
 }

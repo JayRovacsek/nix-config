@@ -13,6 +13,7 @@
       "gimp"
       "jellyfin-media-player"
       "keepassxc"
+      "keepingyouawake"
       "microsoft-remote-desktop"
       "raycast"
       "signal"
