@@ -22,10 +22,9 @@ let
   referenceSelf = { config._module.args.flake = self; };
 
   standardiseNix = { stable ? false }: {
-    environment.etc."nix/inputs/nixpkgs".source = if stable then nixpkgs.outPath else nixpkgs-unstable.outPath;    
-    nix.nixPath = [ 
-      "nixpkgs=/etc/nix/inputs/nixpkgs"
-    ];
+    environment.etc."nix/inputs/nixpkgs".source =
+      if stable then nixpkgs.outPath else nixpkgs-unstable.outPath;
+    nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
   };
 
   localOverlays = import ../overlays;
@@ -33,6 +32,16 @@ let
 
   extraModules = [ referenceSelf ];
   config = { allowUnfree = true; };
+
+  aarch64-darwin-stable = import nixpkgs {
+    system = "aarch64-darwin";
+    inherit overlays extraModules config;
+  };
+
+  aarch64-darwin-unstable = import nixpkgs-unstable {
+    system = "aarch64-darwin";
+    inherit overlays extraModules config;
+  };
 
   x86_64-darwin-stable = import nixpkgs {
     system = "x86_64-darwin";
@@ -44,15 +53,6 @@ let
     inherit overlays extraModules config;
   };
 
-  aarch64-darwin-stable = import nixpkgs {
-    system = "aarch64-darwin";
-    inherit overlays extraModules config;
-  };
-
-  aarch64-darwin-unstable = import nixpkgs-unstable {
-    system = "aarch64-darwin";
-    inherit overlays extraModules config;
-  };
 in {
   cloyster = let
     inherit (x86_64-darwin-unstable) system;
@@ -64,7 +64,7 @@ in {
       extraModules = [
         { nixpkgs.overlays = overlays; }
         agenix.nixosModules.age
-        (standardiseNix {})
+        (standardiseNix { })
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
@@ -79,7 +79,7 @@ in {
       extraModules = [
         { nixpkgs.overlays = overlays; }
         agenix.nixosModules.age
-        (standardiseNix {})
+        (standardiseNix { })
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };

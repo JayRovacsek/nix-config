@@ -8,8 +8,8 @@
 
     casks = [
       "brave-browser"
-      "eloston-chromium"
       "discord"
+      "eloston-chromium"
       "gimp"
       "jellyfin-media-player"
       "keepassxc"
@@ -20,5 +20,14 @@
       "slack"
       "zoom"
     ];
+
+    masApps = {
+      "Microsoft Excel" = 462058435;
+      "Microsoft Outlook" = 985367838;
+      "Microsoft PowerPoint" = 462062816;
+      "Microsoft Word" = 462054704;
+      OneDrive = 823766827;
+      Xcode = 497799835;
+    };
   };
 }
