@@ -1,5 +1,6 @@
-{ config, pkgs, ... }: {
+{
   imports = [
+    ../../options/flake
     ../../modules/docker-darwin
     ../../modules/dockutil
     ../../modules/documentation
@@ -8,10 +9,7 @@
     ../../modules/homebrew
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix {
-      inherit config pkgs;
-      isLinux = false;
-    })
+    ../../modules/nix
     ../../modules/time
     ../../modules/yabai
     ../../modules/zsh

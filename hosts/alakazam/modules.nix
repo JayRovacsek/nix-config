@@ -7,7 +7,7 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/lorri
-    (import ../../modules/nix { inherit config flake pkgs; })
+    ../../modules/nix
     (import ../../modules/microvm/host { inherit config flake lib; })
     ../../modules/nvidia
     ../../modules/openssh

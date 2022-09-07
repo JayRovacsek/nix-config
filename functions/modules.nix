@@ -1,5 +1,7 @@
 { home-manager, hostname, isLinux ? true, extraModules ? [ ], self, ... }:
 let
+  stateVersion.stateVersion = "22.05";
+
   systemUsers = import ../hosts/${hostname}/users.nix {
     config = if isLinux then
       self.nixosConfigurations."${hostname}".config
@@ -11,7 +13,13 @@ let
       self.darwinConfigurations."${hostname}".pkgs;
     flake = self;
   };
-  stateVersion.stateVersion = "22.05";
+
+  standardUsers = (builtins.filter (y:
+    if builtins.hasAttr "isNormalUser" y then
+      (y.isNormalUser && y.name != "builder")
+    else
+      isLinux == false) systemUsers);
+
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
       imports = [ ../hosts/${hostname}/user-modules.nix ];
@@ -24,11 +32,7 @@ let
       else
         stateVersion;
     };
-  }) (builtins.filter (y:
-    if builtins.hasAttr "isNormalUser" y then
-      (y.isNormalUser && y.name != "builder")
-    else
-      isLinux == false) systemUsers);
+  }) (standardUsers);
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin
   cfg = if isLinux then [

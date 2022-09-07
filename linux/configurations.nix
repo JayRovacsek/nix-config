@@ -1,6 +1,6 @@
 { self }:
 let
-  home-manager-function = import ../functions/home-manager.nix;
+  modules-function = import ../functions/modules.nix;
 
   inputs = self.inputs;
 
@@ -63,7 +63,7 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "alakazam";
       extraModules = [
@@ -78,7 +78,7 @@ in {
   gastly = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "gastly";
       extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
@@ -88,7 +88,7 @@ in {
   dragonite = let
     inherit (x86_64-linux-stable) system;
     pkgs = x86_64-linux-stable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "dragonite";
       extraModules = [
@@ -103,7 +103,7 @@ in {
   jigglypuff = let
     inherit (aarch64-linux-unstable) system;
     pkgs = aarch64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "jigglypuff";
       extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
@@ -113,7 +113,7 @@ in {
   wigglytuff = let
     inherit (aarch64-linux-unstable) system;
     pkgs = aarch64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "wigglytuff";
       extraModules = [
