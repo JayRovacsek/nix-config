@@ -12,7 +12,6 @@
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
-    ../../modules/starship
     ../../modules/steam
     (import ../../modules/tailscale {
       inherit config pkgs lib;

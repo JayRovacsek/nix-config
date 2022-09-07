@@ -1,13 +1,11 @@
-{ config, pkgs, ... }: {
-  imports = [
-    ../../modules/alacritty
-    ../../modules/firefox
-    ../../modules/lsd
-    ../../modules/starship
-    ../../modules/vscodium
-
-    ../../packages/x86_64-darwin.nix
-  ];
+{ config, pkgs, ... }:
+let
+  # Relative path to this location
+  path = "./../../home-manager-modules";
+  # List of home-manager modules we want for this system
+  modules = [ "alacritty" "firefox" "lsd" "starship" "vscodium" ];
+in {
+  imports = builtins.map (module: ./. + "${path}/${module}") modules;
 
   home.file."Nix Applications".source = let
     apps = pkgs.buildEnv {

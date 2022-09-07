@@ -12,7 +12,6 @@ in {
     ../../modules/nix
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
-    ../../modules/starship
     (import ../../modules/tailscale {
       inherit config pkgs lib;
       tailnet = "dns";
