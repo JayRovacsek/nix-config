@@ -1,6 +1,6 @@
 { config, pkgs, lib, flake, ... }:
 let
-  userConfigs = import ./users.nix;
+  userConfigs = import ./users.nix { inherit config pkgs; };
   users = import ../../functions/map-reduce-users.nix {
     inherit config pkgs lib userConfigs;
   };
