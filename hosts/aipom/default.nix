@@ -25,10 +25,10 @@ in {
   };
 
   imports = [
-    (import ../common/machine-id.nix { inherit config flake; })
+    ../common/machine-id.nix
     ../../modules/agenix
     ./options.nix
-    (import ../../modules/microvm/guest { inherit config flake lib; })
+    ../../modules/microvm/guest
     ../../modules/ombi
     (import ../../modules/tailscale {
       inherit config pkgs lib;

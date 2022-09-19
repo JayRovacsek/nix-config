@@ -4,4 +4,7 @@ let
   # List of home-manager modules we want for this system
   modules =
     [ "alacritty" "dconf" "firefox" "lsd" "starship" "rofi" "vscodium" ];
-in { imports = builtins.map (module: ./. + "${path}/${module}") modules; }
+in {
+  imports = (builtins.map (module: ./. + "${path}/${module}") modules)
+    ++ [ ../../packages/x86_64-linux.nix ];
+}

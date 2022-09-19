@@ -1,11 +1,11 @@
 { config, pkgs, lib, flake, ... }:
 let
-  userConfigs = import ./users.nix { inherit config pkgs flake; };
+  userConfigs = import ./users.nix { inherit config pkgs; };
   users = import ../../functions/map-reduce-users.nix {
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
+  inherit users flake;
 
   virtualisation.oci-containers.backend = "docker";
 

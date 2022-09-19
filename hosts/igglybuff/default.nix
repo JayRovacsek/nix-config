@@ -32,34 +32,12 @@ in {
     writableStoreOverlay = null;
   };
 
-  services.openssh.enable = true;
-
   services.resolved.enable = false;
 
   networking.resolvconf.extraOptions = [ "ndots:0" ];
 
-  networking.useNetworkd = true;
-
-  # systemd.network.networks."00-wired" = {
-  #   enable = true;
-  #   matchConfig.Name = "enp*";
-  #   networkConfig.DHCP = "ipv4";
-  # };
-
-  # systemd.network.networks."00-wired" = {
-  #   enable = true;
-  #   matchConfig.Name = "enp*";
-  #   networkConfig = { Address = "10.0.1.2/24"; };
-  #   routes = [{
-  #     routeConfig = {
-  #       Gateway = "10.0.1.1";
-  #       Destination = "0.0.0.0/0";
-  #     };
-  #   }];
-  # };
-
   imports = [
-    (import ../common/machine-id.nix { inherit config flake; })
+    ../common/machine-id.nix
     ../../modules/agenix
     ../../modules/dnsmasq
     ../../modules/microvm/guest

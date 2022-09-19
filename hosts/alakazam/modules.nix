@@ -1,4 +1,4 @@
-{ config, pkgs, lib, flake, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -8,7 +8,7 @@
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/nix
-    (import ../../modules/microvm/host { inherit config flake lib; })
+    ../../modules/microvm/host
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire

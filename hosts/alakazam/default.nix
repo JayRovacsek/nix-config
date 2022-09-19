@@ -5,11 +5,11 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
+  inherit users flake;
 
   imports = [
     ./hardware-configuration.nix
-    (import ./modules.nix { inherit config pkgs lib flake; })
+    ./modules.nix
     ./options.nix
     ./system-packages.nix
   ];
@@ -17,12 +17,14 @@ in {
   networking = {
     hostName = "alakazam";
     hostId = "ef26b1be";
+    useDHCP = false;
+    interfaces.enp0s31f6.useDHCP = true;
   };
 
   microvm.vms = {
     aipom = {
-    inherit flake;
-    autostart = true;
+      inherit flake;
+      autostart = true;
     };
     igglybuff = {
       inherit flake;

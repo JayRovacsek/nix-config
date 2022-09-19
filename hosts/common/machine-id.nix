@@ -1,4 +1,4 @@
-{ config, flake, ... }:
+{ config, ... }:
 let
   machineIdFunction = import ../../functions/machine-id.nix;
   # The below is utilised to ensure our host has it's machine-id

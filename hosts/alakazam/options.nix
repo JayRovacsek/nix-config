@@ -1,1 +1,4 @@
-{ imports = [ ../../options/hardware ../../options/networking ]; }
+{
+  imports =
+    [ ../../options/flake ../../options/hardware ../../options/networking ];
+}

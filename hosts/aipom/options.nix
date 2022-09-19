@@ -1,1 +1,1 @@
-{ imports = [ ../../options/systemd ]; }
+{ imports = [ ../../options/flake ../../options/systemd ]; }
