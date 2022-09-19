@@ -32,6 +32,8 @@ let
             EmitDNS = true;
             DNS = [ "10.0.${builtins.toString i}.1/24" ];
             EmitRouter = true;
+            PoolSize = 1;
+            PoolOffset = 2;
           };
           address = [ "10.0.${builtins.toString i}.1/24" ];
         };
