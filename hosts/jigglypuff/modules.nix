@@ -6,7 +6,7 @@ in {
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/journald
-    (import ../../modules/hardware/raspberry-pi-3b-plus { inherit pkgs; })
+    ../../modules/hardware/raspberry-pi-3b-plus
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
