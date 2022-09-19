@@ -12,8 +12,8 @@ let
   # name via homebrew nix module - this notably is possible to include masApps
   # see also: https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.masApps
   homeBrewHas = package:
-    (builtins.elem package config.homebrew.casks
-      || builtins.elem package config.homebrew.brews
+    (builtins.elem package (builtins.map (x: x.name) config.homebrew.casks)
+      || builtins.elem package (builtins.map (x: x.name) config.homebrew.brews)
       || builtins.elem package (builtins.attrNames config.homebrew.masApps));
 
   anyUserHas = package: (homeBrewHas package || homeManagerHas package);
@@ -37,7 +37,7 @@ let
     # Gross hack - TODO: fix later
     ++ (if anyUserHas "vscode" then vscodiumEntry else [ ])
     ++ (if anyUserHas "keepassxc" then keepassEntry else [ ])
-    ++ (if anyUserHas "outlook" then outlookEntry else [ ])
+    ++ (if anyUserHas "Microsoft Outlook" then outlookEntry else [ ])
     ++ (if anyUserHas "slack" then slackEntry else [ ]);
 
 in {
