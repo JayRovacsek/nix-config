@@ -1,7 +1,5 @@
 { config, pkgs, lib, ... }:
-# Inspired from https://github.com/X01A/nixos/blob/6b81e786f70381950eef30c24da06fa3a29e1e09/modules/network/tailscale.nix#L1
-# :chefkiss: 
-
+# Mostly thanks to: https://github.com/X01A/nixos/blob/d22772e7870db9c53d24c3b259b1ee983c1455be/modules/network/tailscale/cert.nix#L1
 with lib;
 let
   cfg = config.services.tailscale;
@@ -30,6 +28,13 @@ in {
         description = "File location store tailscale auth-key";
       };
 
+      tailnet = mkOption {
+        type = types.str;
+        example = "dns";
+        description =
+          "The tailnet primarily associated with the host. This isn't utilised in the config beyond as a referenceable data point for flake config generation";
+      };
+
       loginServer = mkOption {
         type = types.str;
         default = "https://controlplane.tailscale.com";
@@ -55,11 +60,6 @@ in {
         default = false;
       };
 
-      insertTable = mkOption {
-        type = types.bool;
-        default = true;
-      };
-
       extraUpArgs = mkOption {
         type = with types; listOf str;
         default = [ ];
@@ -68,61 +68,51 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      services.tailscale.enable = true;
-      environment.systemPackages = with pkgs; [ tailscale ];
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ tailscale ];
 
-      # Don't restart tailscale if changed, arovid ssh connection disconnect
-      systemd.services.tailscaled.restartIfChanged = false;
-      systemd.services.tailscale-autoconnect = {
-        description = "Automatic connection to Tailscale";
+    # Don't restart tailscale if changed, arovid ssh connection disconnect
+    systemd.services.tailscaled.restartIfChanged = false;
+    systemd.services.tailscale-autoconnect = {
+      description = "Automatic connection to Tailscale";
 
-        # make sure tailscale is running before trying to connect to tailscale
-        after = [ "network-pre.target" "tailscale.service" ];
-        wants = [ "network-pre.target" "tailscale.service" ];
-        wantedBy = [ "multi-user.target" ];
+      # make sure tailscale is running before trying to connect to tailscale
+      after = [ "network-pre.target" "tailscale.service" ];
+      wants = [ "network-pre.target" "tailscale.service" ];
+      wantedBy = [ "multi-user.target" ];
 
-        serviceConfig.Type = "oneshot";
-        script = with pkgs; ''
-          # wait for tailscaled to settle
-          sleep 2
+      serviceConfig.Type = "oneshot";
+      script = with pkgs; ''
+        # wait for tailscaled to settle
+        sleep 2
 
-          # check if we are already authenticated to tailscale
-          status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-          if [ $status = "Running" ]; then # if so, then do nothing
-            exit 0
-          fi
+        # check if we are already authenticated to tailscale
+        status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+        if [ $status = "Running" ]; then # if so, then do nothing
+          exit 0
+        fi
 
-          health="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r '.Health | .[0]')"
-          if [ $status = "not in map poll" ]; then # reauth the connection
-            echo "It's reauthing"
-            ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --force-reauth
-          else
-            ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString}
-          fi
-        '';
-      };
-    }
-
-    (mkIf enableForwarding {
-      boot.kernel.sysctl = {
-        "net.ipv4.conf.all.forwarding" = true;
-        "net.ipv4.conf.default.forwarding" = true;
-        "net.ipv4.ip_forward" = true;
-        "net.ipv6.conf.all.forwarding" = true;
-      };
-    })
-
-    (mkIf (enableForwarding && cfg.insertTable) {
-      networking.nftables.ruleset = mkAfter ''
-        table ip nat {
-          chain postrouting {
-            type nat hook postrouting priority srcnat; policy accept;
-            iifname "tailscale0" masquerade
-          }
-        }
+        health="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r '.Health | .[0]')"
+        if [ $status = "not in map poll" ]; then # reauth the connection
+          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --force-reauth
+        else
+          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString}
+        fi
       '';
-    })
-  ]);
+    };
+
+    networking.firewall = {
+      trustedInterfaces = [ "tailscale0" ];
+      checkReversePath = "loose";
+      allowedUDPPorts = [ cfg.port ];
+    };
+
+    boot.kernel.sysctl = if enableForwarding then {
+      "net.ipv4.conf.all.forwarding" = true;
+      "net.ipv4.conf.default.forwarding" = true;
+      "net.ipv4.ip_forward" = true;
+      "net.ipv6.conf.all.forwarding" = true;
+    } else
+      { };
+  };
 }
