@@ -27,6 +27,7 @@
     # when first shifting to the new structure
     agenix.url = "github:ryantm/agenix";
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:rycee/home-manager/release-22.05";
     microvm.url = "github:astro/microvm.nix";
     nixos-generators.url = "github:nix-community/nixos-generators";
@@ -34,8 +35,27 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, ... }: {
-    nixosConfigurations = import ./linux/configurations.nix { inherit self; };
-    darwinConfigurations = import ./darwin/configurations.nix { inherit self; };
-  };
+  outputs = { self, flake-utils, ... }:
+    # The below sets a dev shell for the flake with inputs defined in 
+    # the packags section of the dev shell and shellHook running on 
+    # evaluation by direnv
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = self.inputs.unstable.legacyPackages.${system};
+        devShells = pkgs.mkShell {
+          packages = with pkgs; [ nixfmt statix vulnix ];
+          shellHook = "";
+        };
+      in {
+        inherit devShells;
+        # Normally the // pattern is a little frowned upon as it does not act
+        # the way most people expect - here it's fine as we've got two sets that have no 
+        # collision space:
+        # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
+      }) // {
+        nixosConfigurations =
+          import ./linux/configurations.nix { inherit self; };
+        darwinConfigurations =
+          import ./darwin/configurations.nix { inherit self; };
+      };
 }
