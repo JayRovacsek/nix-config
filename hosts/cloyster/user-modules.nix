@@ -5,7 +5,8 @@ let
   # List of home-manager modules we want for this system
   modules = [ "alacritty" "firefox" "lsd" "starship" "vscodium" ];
 in {
-  imports = builtins.map (module: ./. + "${path}/${module}") modules;
+  imports = (builtins.map (module: ./. + "${path}/${module}") modules)
+    ++ [ ../../packages/x86_64-darwin.nix ];
 
   home.file."Nix Applications".source = let
     apps = pkgs.buildEnv {

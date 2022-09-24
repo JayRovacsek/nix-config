@@ -20,7 +20,6 @@ in {
   networking.firewall.allowedTCPPorts = [ port ];
 
   security.acme = {
-
     inherit certs defaults;
     acceptTerms = true;
   };

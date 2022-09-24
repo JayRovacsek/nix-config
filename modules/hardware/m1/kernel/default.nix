@@ -1,7 +1,6 @@
 # the Asahi Linux kernel and options that must go along with it
 
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   config = {
     boot.kernelPackages = pkgs.callPackage ./package.nix {
       crossBuild = config.boot.kernelBuildIsCross;
@@ -13,7 +12,7 @@
     powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
     # our kernel config is weird and doesn't really have any modules
-    boot.initrd.availableKernelModules = lib.mkForce [];
+    boot.initrd.availableKernelModules = lib.mkForce [ ];
 
     # kernel parameters that are useful for debugging
     boot.consoleLogLevel = 7;
@@ -47,7 +46,7 @@
     nixpkgs.overlays = lib.optional config.boot.kernelBuildIs16K (self: super: {
       # patch libunwind to work with dynamic pagesizes
       libunwind_fixed_for_16k = super.libunwind.overrideAttrs (o: {
-        patches = (o.patches or []) ++ [
+        patches = (o.patches or [ ]) ++ [
           (self.fetchpatch {
             url = "https://github.com/libunwind/libunwind/pull/330.patch";
             sha256 = "sha256-z3Hpg98D4UMmrE/LC596RFcyxRTvDjD4k7llDPfz1NI=";
@@ -58,11 +57,11 @@
 
     # sub the fixed libunwind in for the broken copy without triggering
     # horrendous rebuilds
-    system.replaceRuntimeDependencies = lib.optionals config.boot.kernelBuildIs16K [
-      { original = pkgs.libunwind;
+    system.replaceRuntimeDependencies =
+      lib.optionals config.boot.kernelBuildIs16K [{
+        original = pkgs.libunwind;
         replacement = pkgs.libunwind_fixed_for_16k;
-      }
-    ];
+      }];
   };
 
   options.boot.kernelBuildIsCross = lib.mkOption {
