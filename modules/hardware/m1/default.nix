@@ -1,8 +1,1 @@
-{ config, pkgs, lib, ... }:
-{
-  imports = [
-    ./kernel
-    ./firmware
-    ./boot-m1n1
-  ];
-}
+{ config, pkgs, lib, ... }: { imports = [ ./kernel ./firmware ./boot-m1n1 ]; }
