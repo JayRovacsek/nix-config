@@ -101,14 +101,14 @@ in {
   in stable.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
-    inherit (aarch64-linux-stable) system;
-    pkgs = aarch64-linux-stable;
+    inherit (aarch64-linux-unstable) system;
+    pkgs = aarch64-linux-unstable;
     modules = modules-function {
       inherit home-manager self;
       hostname = "jigglypuff";
       extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
     };
-  in stable.lib.nixosSystem { inherit system pkgs modules; };
+  in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
   wigglytuff = let
     inherit (aarch64-linux-unstable) system;

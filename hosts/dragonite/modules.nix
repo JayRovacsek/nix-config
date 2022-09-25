@@ -15,10 +15,7 @@
     # ../../modules/nginx
     ../../modules/nvidia
     ../../modules/openssh
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "trust";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

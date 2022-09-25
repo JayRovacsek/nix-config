@@ -15,6 +15,12 @@ in {
     ./wireless.nix
   ];
 
+  # Add wireless key to identity path
+  age.identityPaths = [
+    "/agenix/id-ed25519-wireless-primary"
+    # "/agenix/id-ed25519-wireless-secondary"
+  ];
+
   networking.hostName = "wigglytuff";
   networking.hostId = "d2a7b80b";
   system.stateVersion = "22.05";

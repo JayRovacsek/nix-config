@@ -12,10 +12,7 @@ in {
     ../../modules/nix
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "dns";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/zsh

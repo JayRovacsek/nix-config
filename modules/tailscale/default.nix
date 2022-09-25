@@ -1,5 +1,10 @@
 { config, ... }:
 let
+  hasMicrovm = if builtins.hasAttr "microvm" config then true else false;
+
+  isMicrovmGuest =
+    if hasMicrovm then builtins.hasAttr "hypervisor" config.microvm else false;
+
   hostMap = {
     alakazam = "admin";
     dragonite = "admin";
@@ -12,7 +17,10 @@ let
     wigglytuff = "general";
   };
   tailnet = hostMap.${config.networking.hostName};
-  authFile = config.age.secrets."tailscale-preauth-${tailnet}".path;
+  authFile = if isMicrovmGuest then
+    "/run/agenix.d/tailscale-preauth-${tailnet}"
+  else
+    config.age.secrets."tailscale-preauth-${tailnet}".path;
 in {
   imports = [ ../../options/tailscale ];
 

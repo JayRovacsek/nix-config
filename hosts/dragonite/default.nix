@@ -9,6 +9,8 @@ in {
 
   virtualisation.oci-containers.backend = "docker";
 
+  services.tailscale.tailnet = "admin";
+
   ## Todo: write out the below - need to rework networking module.
   networking = {
     wireless.enable = false;

@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 let
   inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs) system;
+  inherit (config.flake.outputs.packages.${system}) oh-my-custom;
+
   direnvInit = if config.services.lorri.enable then ''
     eval "$(direnv hook zsh)"
   '' else
@@ -16,7 +19,7 @@ let
 
   ohMyZshPostInit = if isDarwin then ''
     ZSH_THEME="risto"
-    plugins=(zsh-autosuggestions, git)
+    plugins=(fzf-zsh, zsh-autosuggestions, zsh-syntax-highlighting, git)
     source $ZSH/oh-my-zsh.sh
   '' else
     "";
@@ -49,23 +52,35 @@ let
   promptInit = "";
 
   shellAliases = { "ls" = "lsd"; };
+
+  darwinConfig = {
+    inherit promptInit interactiveShellInit;
+
+    enable = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+    enableFzfCompletion = true;
+  };
+
 in {
   environment.shellAliases = shellAliases;
 
-  programs.zsh = {
+  programs.zsh = if isDarwin then
+    darwinConfig
+  else {
+    inherit promptInit interactiveShellInit;
+
     enable = true;
     enableCompletion = true;
-    inherit promptInit interactiveShellInit;
-  } // (if isDarwin then {
-    enableSyntaxHighlighting = true;
-  } else {
     histSize = 10000;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     ohMyZsh = {
+      custom = oh-my-custom.outPath;
       enable = true;
-      customPkgs = [ pkgs.spaceship-prompt ];
       theme = "risto";
+      plugins = [ "git" "fzf-zsh" ];
+    };
     };
   });
 }

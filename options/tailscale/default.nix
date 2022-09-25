@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-# Mostly thanks to: https://github.com/X01A/nixos/blob/d22772e7870db9c53d24c3b259b1ee983c1455be/modules/network/tailscale/cert.nix#L1
+# Mostly thanks to: https://github.com/X01A/nixos/blob/d22772e7870db9c53d24c3b259b1ee983c1455be/modules/network/tailscale/default.nix#L1
 with lib;
 let
   cfg = config.services.tailscale;
@@ -7,7 +7,7 @@ let
   optionalList = cond: list: if cond then list else [ ];
 
   tailscaleJoinArgsList =
-    [ "-auth-key=file:${cfg.authFile}" "--login-server" cfg.loginServer ]
+    [ "-authkey" "$(cat ${cfg.authFile})" "--login-server" cfg.loginServer ]
     ++ (optionalList (haveElement cfg.advertiseRoutes) [
       "--advertise-routes"
       (builtins.concatStringsSep "," cfg.advertiseRoutes)
@@ -30,6 +30,7 @@ in {
 
       tailnet = mkOption {
         type = types.str;
+        default = "general";
         example = "dns";
         description =
           "The tailnet primarily associated with the host. This isn't utilised in the config beyond as a referenceable data point for flake config generation";
@@ -37,7 +38,7 @@ in {
 
       loginServer = mkOption {
         type = types.str;
-        default = "https://controlplane.tailscale.com";
+        default = "https://headscale.rovacsek.com";
         example = "https://headscale.example.com";
         description = "Tailscale login server url";
       };
@@ -96,7 +97,7 @@ in {
         if [ $status = "not in map poll" ]; then # reauth the connection
           ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --force-reauth
         else
-          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString}
+          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --reset
         fi
       '';
     };

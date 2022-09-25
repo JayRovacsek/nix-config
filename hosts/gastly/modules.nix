@@ -11,10 +11,7 @@
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "trust";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

@@ -42,13 +42,13 @@ in {
     package = pkgs.headscale;
     address = "0.0.0.0";
     serverUrl = "https://headscale.rovacsek.com";
+    privateKeyFile = config.age.secrets.wg-private-key.path;
 
     database = {
-      user = "headscale";
+      user = config.services.headscale.user;
       type = "sqlite3";
       path = "/var/lib/headscale/db.sqlite";
       name = "headscale";
-      passwordFile = config.age.secrets.headscale-db-password.path;
     };
 
     dns = {

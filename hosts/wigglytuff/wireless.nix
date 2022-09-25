@@ -1,6 +1,6 @@
 { config, ... }: {
   age.secrets."wireless.env" = {
-    file = ../../secrets/wireless-iot.env.age;
+    file = ../../secrets/wireless/wireless-iot.env.age;
     mode = "0400";
     symlink = false;
   };

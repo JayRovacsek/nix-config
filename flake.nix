@@ -46,8 +46,12 @@
           packages = with pkgs; [ nixfmt statix vulnix ];
           shellHook = "";
         };
+        # Import local packages passing system relevnet pkgs through
+        # for dependencies.
+        localPackages = import ./packages { inherit pkgs; };
+        packages = flake-utils.lib.flattenTree localPackages;
       in {
-        inherit devShells;
+        inherit devShells packages;
         # Normally the // pattern is a little frowned upon as it does not act
         # the way most people expect - here it's fine as we've got two sets that have no 
         # collision space:

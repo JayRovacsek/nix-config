@@ -7,6 +7,8 @@ let
 in {
   inherit users flake;
 
+  services.tailscale.tailnet = "dns";
+
   imports = [
     ./hardware-configuration.nix
     ./modules.nix

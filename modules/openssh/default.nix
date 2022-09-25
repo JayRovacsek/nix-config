@@ -8,13 +8,13 @@ let
   sshKeys = builtins.foldl' (a: b: a // b) { } (builtins.map (user:
     (builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
       "${lib.strings.removeSuffix ".age" x}" = {
-        file = ../../secrets/${x};
+        file = ../../secrets/ssh/${x};
         mode = "0400";
         owner = user.name;
       };
     }) (builtins.filter (z:
       (lib.strings.hasInfix "id-ed25519" z && lib.strings.hasInfix user.name z))
-      (builtins.attrNames (builtins.readDir ../../secrets)))))) users);
+      (builtins.attrNames (builtins.readDir ../../secrets/ssh)))))) users);
 in {
   age.secrets = sshKeys;
 

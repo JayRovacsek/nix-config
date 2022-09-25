@@ -4,10 +4,26 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
+    loader = {
+      grub = {
+        enable = true;
+        version = 2;
+        device = "nodev";
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+        useOSProber = true;
+        enableCryptodisk = true;
+      };
+    };
+
     initrd = {
       availableKernelModules =
         [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ "dm-snapshot" ];
+      luks.devices.crypted = {
+        device = "/dev/disk/by-uuid/7cf02c33-9404-45af-9e53-2fa65aa59027";
+        preLVM = true;
+      };
     };
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
