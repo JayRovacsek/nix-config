@@ -82,5 +82,4 @@ in {
       plugins = [ "git" "fzf-zsh" ];
     };
     };
-  });
 }
