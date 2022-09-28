@@ -81,5 +81,5 @@ in {
       theme = "risto";
       plugins = [ "git" "fzf-zsh" ];
     };
-    };
+  };
 }
