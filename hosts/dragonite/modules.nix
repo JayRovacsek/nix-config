@@ -10,15 +10,12 @@
     ../../modules/libvirtd
     ../../modules/lorri
     # (import ../../modules/microvm/host { inherit config flake lib; })
-    (import ../../modules/nix { inherit config pkgs flake; })
+    ../../modules/nix
     ../../modules/nix-serve
     # ../../modules/nginx
     ../../modules/nvidia
     ../../modules/openssh
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "trust";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

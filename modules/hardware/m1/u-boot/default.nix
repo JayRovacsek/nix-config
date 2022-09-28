@@ -1,8 +1,5 @@
-{ lib
-, fetchFromGitHub
-, pkgsCross
-, m1n1
-}: (pkgsCross.aarch64-multiplatform.buildUBoot rec {
+{ lib, fetchFromGitHub, pkgsCross, m1n1 }:
+(pkgsCross.aarch64-multiplatform.buildUBoot rec {
   src = fetchFromGitHub {
     # tracking branch: https://github.com/AsahiLinux/u-boot/tree/releng/installer-release
     owner = "AsahiLinux";

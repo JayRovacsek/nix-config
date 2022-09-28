@@ -7,14 +7,11 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/networking
-    (import ../../modules/nix { inherit config pkgs flake; })
+    ../../modules/nix
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "trust";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

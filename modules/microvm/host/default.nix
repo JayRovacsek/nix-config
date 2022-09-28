@@ -1,5 +1,6 @@
-{ config, flake, lib }:
+{ config, lib, ... }:
 let
+  inherit (config) flake;
   meta = import ../meta.nix { inherit config flake; };
 
   microvmHostnames = (builtins.attrNames config.microvm.vms);
@@ -20,14 +21,21 @@ let
           builtins.substring 0 7 (builtins.hashString "sha256" hostName);
       in {
         "10-${shortHostname}-network" = {
-          matchConfig.Name = "${shortHostname}-bridge";
-          addresses =
-            [{ addressConfig.Address = "10.0.${builtins.toString i}.1/24"; }];
+          matchConfig.Name = "vm-${hostName}*";
+          networkConfig.Bridge = "${shortHostname}-bridge";
         };
 
         "11-${shortHostname}-network" = {
-          matchConfig.Name = "vm-${hostName}*";
-          networkConfig.Bridge = "${shortHostname}-bridge";
+          matchConfig.Name = "${shortHostname}-bridge";
+          networkConfig.DHCPServer = true;
+          dhcpServerConfig = {
+            EmitDNS = true;
+            DNS = [ "10.0.${builtins.toString i}.1/24" ];
+            EmitRouter = true;
+            PoolSize = 1;
+            PoolOffset = 2;
+          };
+          address = [ "10.0.${builtins.toString i}.1/24" ];
         };
       }) microvmHostnames);
 
@@ -51,6 +59,12 @@ let
       # creates a symlink of each MicroVM's journal under the host's /var/log/journal
     in "L+ /var/log/journal/${machineId} - - - - /var/lib/microvms/${hostName}/journal/${machineId}")
     (microvms);
+
+  externalInterface = if meta.isMicrovmHost then
+    (builtins.head (builtins.filter (interface: interface.useDHCP)
+      (builtins.attrValues config.networking.interfaces))).name
+  else
+    null;
 in {
 
   imports = [ ../../systemd-networkd ];
@@ -58,21 +72,10 @@ in {
   networking = {
     nat = {
       enable = meta.isMicrovmHost;
-      enableIPv6 = false;
-      externalInterface = if meta.isMicrovmHost then "phys0" else null;
+      enableIPv6 = meta.isMicrovmHost;
+      inherit externalInterface;
       internalInterfaces =
         if meta.isMicrovmHost then meta.bridgeNetworks else [ ];
-    };
-  };
-
-  systemd.network.links = {
-    "10-phys0" = {
-      enable = meta.isMicrovmHost;
-      matchConfig = {
-        Name = "en*";
-        Virtualization = "!qemu";
-      };
-      linkConfig.Name = "phys0";
     };
   };
 
@@ -80,4 +83,5 @@ in {
   systemd.network.netdevs = microvmNetdevs;
   systemd.tmpfiles.rules = journaldRules;
 
+  networking.firewall.allowedUDPPorts = [ 67 ];
 }

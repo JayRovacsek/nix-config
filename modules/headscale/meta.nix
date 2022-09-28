@@ -39,14 +39,12 @@ let
   # "-preauth-key" value so we can generate entries into sqlite on every rebuild
   secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
     "${lib.strings.removeSuffix ".age" x}" = {
-      file = ../../secrets/${x};
+      file = ../../secrets/headscale/${x};
       mode = "0400";
       owner = config.services.headscale.user;
     };
-  }) (builtins.filter (z:
-    (lib.strings.hasInfix "-preauth-key" z
-      || lib.strings.hasInfix "headscale" z))
-    (builtins.attrNames (builtins.readDir ../../secrets))));
+  }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
+    (builtins.attrNames (builtins.readDir ../../secrets/headscale))));
 
   # The delete from all tables below could probably be done better but I can't DB :)
   # It's required to ensure we have a blank slate moving in and no residual state can be 

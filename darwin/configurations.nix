@@ -1,7 +1,8 @@
 { self }:
 let
-  home-manager-function = import ../functions/home-manager.nix;
+  modules-function = import ../functions/modules.nix;
 
+  flake = self;
   inputs = self.inputs;
 
   # Package Sets
@@ -30,41 +31,40 @@ let
   localOverlays = import ../overlays;
   overlays = [ agenix.overlay firefox.overlay localOverlays nur.overlay ];
 
-  extraModules = [ referenceSelf ];
-  config = { allowUnfree = true; };
-
   aarch64-darwin-stable = import nixpkgs {
     system = "aarch64-darwin";
-    inherit overlays extraModules config;
+    inherit overlays;
   };
 
   aarch64-darwin-unstable = import nixpkgs-unstable {
     system = "aarch64-darwin";
-    inherit overlays extraModules config;
+    inherit overlays;
   };
 
   x86_64-darwin-stable = import nixpkgs {
     system = "x86_64-darwin";
-    inherit overlays extraModules config;
+    inherit overlays;
   };
 
   x86_64-darwin-unstable = import nixpkgs-unstable {
     system = "x86_64-darwin";
-    inherit overlays extraModules config;
+    inherit overlays;
   };
+
+  overlayModule = { nixpkgs = { inherit overlays; }; };
 
 in {
   cloyster = let
     inherit (x86_64-darwin-unstable) system;
-    pkgs = x86_64-darwin-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "cloyster";
       isLinux = false;
       extraModules = [
-        { nixpkgs.overlays = overlays; }
+        overlayModule
         agenix.nixosModules.age
         (standardiseNix { })
+        referenceSelf
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
@@ -72,14 +72,15 @@ in {
   ninetales = let
     inherit (aarch64-darwin-unstable) system;
     pkgs = aarch64-darwin-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "ninetales";
       isLinux = false;
       extraModules = [
-        { nixpkgs.overlays = overlays; }
+        overlayModule
         agenix.nixosModules.age
         (standardiseNix { })
+        referenceSelf
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };

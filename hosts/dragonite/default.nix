@@ -1,13 +1,18 @@
 { config, pkgs, lib, flake, ... }:
 let
-  userConfigs = import ./users.nix { inherit config pkgs flake; };
+  userConfigs = import ./users.nix { inherit config pkgs; };
   users = import ../../functions/map-reduce-users.nix {
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
+  inherit users flake;
+
+  age.identityPaths =
+    [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-headscale-primary" ];
 
   virtualisation.oci-containers.backend = "docker";
+
+  services.tailscale.tailnet = "admin";
 
   ## Todo: write out the below - need to rework networking module.
   networking = {

@@ -5,11 +5,24 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
+  inherit users flake;
+
+  age = {
+    secrets."tailscale-dns-preauth-key" = {
+      file = ../../secrets/tailscale/preauth-dns.age;
+      mode = "0400";
+    };
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      # "/agenix/id-ed25519-ssh-secondary"
+    ];
+  };
+
+  services.tailscale.tailnet = "admin";
 
   imports = [
     ./hardware-configuration.nix
-    (import ./modules.nix { inherit config pkgs lib flake; })
+    ./modules.nix
     ./options.nix
     ./system-packages.nix
   ];
@@ -17,42 +30,18 @@ in {
   networking = {
     hostName = "alakazam";
     hostId = "ef26b1be";
+    useDHCP = false;
+    interfaces.enp0s31f6.useDHCP = true;
   };
 
   microvm.vms = {
     aipom = {
-    inherit flake;
-    autostart = true;
+      inherit flake;
+      autostart = true;
     };
     igglybuff = {
       inherit flake;
       autostart = true;
-    };
-  };
-
-  boot = {
-    loader = {
-      grub = {
-        enable = true;
-        version = 2;
-        device = "nodev";
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        useOSProber = true;
-        enableCryptodisk = true;
-      };
-    };
-  };
-
-  boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/7cf02c33-9404-45af-9e53-2fa65aa59027";
-    preLVM = true;
-  };
-
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport32Bit = true;
     };
   };
 

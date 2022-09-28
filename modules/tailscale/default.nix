@@ -1,98 +1,36 @@
-{ config, pkgs, lib, tailnet, ... }:
+{ config, ... }:
 let
   hasMicrovm = if builtins.hasAttr "microvm" config then true else false;
 
   isMicrovmGuest =
     if hasMicrovm then builtins.hasAttr "hypervisor" config.microvm else false;
 
-  loginServer = "https://headscale.rovacsek.com";
-
-  tailnets = if isMicrovmGuest then
-    [ tailnet ]
+  hostMap = {
+    alakazam = "admin";
+    dragonite = "admin";
+    aipom = "download";
+    cloyster = "work";
+    gastly = "admin";
+    igglybuff = "dns";
+    jigglypuff = "dns";
+    ninetales = "work";
+    wigglytuff = "general";
+  };
+  tailnet = hostMap.${config.networking.hostName};
+  authFile = if isMicrovmGuest then
+    "/run/agenix.d/tailscale-preauth-${tailnet}"
   else
-    builtins.map (x:
-      "${lib.strings.removeSuffix "-preauth-key"
-      (lib.strings.removePrefix "tailscale-" x)}")
-    (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
-      (builtins.attrNames (builtins.readDir ../../secrets)));
-
-  # TODO: validate the parameter tailnet is one of the above via an assert
-
-  secrets = if isMicrovmGuest then
-    [ ]
-  else
-    builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
-      "${lib.strings.removeSuffix ".age" x}" = {
-        file = ../../secrets/${x};
-        mode = "0400";
-        path = "/run/agenix.d/tailscale/${x}";
-      };
-    }) (builtins.filter (z: (lib.strings.hasInfix "${tailnet}-preauth-key" z))
-      (builtins.attrNames (builtins.readDir ../../secrets))));
-
-  preauthPath = if isMicrovmGuest then
-    "/run/agenix.d/tailscale/tailscale-${tailnet}-preauth-key.age"
-  else
-    config.age.secrets."tailscale-${tailnet}-preauth-key".path;
-
-  hostname = config.networking.hostName;
+    config.age.secrets."tailscale-preauth-${tailnet}".path;
 in {
-
-  # imports = [ ../../options/tailscale ];
-
-  age.secrets = lib.mkIf (isMicrovmGuest != true) secrets;
+  imports = [ ../../options/tailscale ];
 
   services.tailscale = {
+    inherit authFile tailnet;
     enable = true;
-    interfaceName = "tailscale0";
   };
 
-  environment.systemPackages = with pkgs; [ jq tailscale ];
-
-  networking.firewall = {
-    trustedInterfaces = [ "tailscale0" ];
-    checkReversePath = "loose";
-    allowedUDPPorts = [ config.services.tailscale.port ];
-  };
-
-  systemd.services.tailscaled.wants = [ "tailscaled.service" ];
-
-  # create a job to authenticate to Tailscale
-  # thanks to https://github.com/ashkan-leo/machines/blob/main/modules/network/tailscale.nix for this
-  systemd.services."tailscale-autoconnect" = {
-    description = "Automatic connection to Tailscale";
-
-    # make sure tailscale is running before trying to connect to tailscale
-    after = [ "tailscaled.service" ];
-    wantedBy = [ "tailscaled.service" ];
-
-    path = with pkgs; [ jq tailscale ];
-
-    serviceConfig.Type = "oneshot";
-
-    script = ''
-      # wait for tailscaled to settle
-      sleep 2
-
-      # check if we are already authenticated to tailscale
-      status="$(${pkgs.tailscale}/bin/tailscale status -json | ${pkgs.jq}/bin/jq -r .BackendState)"
-
-      if [ $status = "Running" ]; then
-        tailscale logout
-      fi
-
-      sleep 2
-
-      if [ -f "${preauthPath}" ]; then
-        ${pkgs.tailscale}/bin/tailscale up \
-        --accept-dns \
-        --accept-routes \
-        -auth-key=file:${preauthPath} \
-        --login-server=${loginServer} \
-        --hostname=${hostname}
-      fi
-
-      exit 0
-    '';
+  age.secrets."tailscale-preauth-${tailnet}" = {
+    file = ../../secrets/tailscale/preauth-${tailnet}.age;
+    mode = "0400";
   };
 }

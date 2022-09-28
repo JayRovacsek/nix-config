@@ -1,6 +1,6 @@
 { self }:
 let
-  home-manager-function = import ../functions/home-manager.nix;
+  modules-function = import ../functions/modules.nix;
 
   inputs = self.inputs;
 
@@ -9,6 +9,9 @@ let
   nixpkgs = inputs.stable;
   unstable = inputs.unstable;
   nixpkgs-unstable = inputs.unstable;
+
+  # Nix User Repositories
+  nur = inputs.nur;
 
   # Pull recusrive update out to use it later
   inherit (stable.lib) recursiveUpdate;
@@ -19,7 +22,6 @@ let
   microvm = inputs.microvm;
   nixos-generators = inputs.nixos-generators;
   nixos-hardware = inputs.nixos-hardware;
-  nur = inputs.nur;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -63,13 +65,14 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "alakazam";
       extraModules = [
         microvm.nixosModules.host
         agenix.nixosModule
         referenceSelf
+        nur.nixosModules.nur
         (standardiseNix { })
       ];
     };
@@ -78,7 +81,7 @@ in {
   gastly = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "gastly";
       extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
@@ -88,7 +91,7 @@ in {
   dragonite = let
     inherit (x86_64-linux-stable) system;
     pkgs = x86_64-linux-stable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "dragonite";
       extraModules = [
@@ -103,7 +106,7 @@ in {
   jigglypuff = let
     inherit (aarch64-linux-unstable) system;
     pkgs = aarch64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "jigglypuff";
       extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
@@ -113,7 +116,7 @@ in {
   wigglytuff = let
     inherit (aarch64-linux-unstable) system;
     pkgs = aarch64-linux-unstable;
-    modules = home-manager-function {
+    modules = modules-function {
       inherit home-manager self;
       hostname = "wigglytuff";
       extraModules = [

@@ -26,7 +26,6 @@ with lib.hm.gvariant;
         "org-gnome-nautilus"
         "gnome-network-panel"
         "slack"
-        "com-nextcloud-desktopclient-nextcloud"
         "steam"
         "gnome-control-center"
         "zoom"
@@ -38,11 +37,6 @@ with lib.hm.gvariant;
     "org/gnome/desktop/notifications/application/alacritty" = {
       application-id = "Alacritty.desktop";
     };
-
-    "org/gnome/desktop/notifications/application/com-nextcloud-desktopclient-nextcloud" =
-      {
-        application-id = "com.nextcloud.desktopclient.nextcloud.desktop";
-      };
 
     "org/gnome/desktop/notifications/application/discord" = {
       application-id = "discord.desktop";
@@ -187,8 +181,6 @@ with lib.hm.gvariant;
       };
 
     "org/gnome/shell" = {
-      app-picker-layout =
-        "[{'org.gnome.clocks.desktop': <{'position': <0>}>, 'org.gnome.Calculator.desktop': <{'position': <1>}>, 'org.gnome.FileRoller.desktop': <{'position': <2>}>, 'org.gnome.Calendar.desktop': <{'position': <3>}>, 'simple-scan.desktop': <{'position': <4>}>, 'chromium-browser.desktop': <{'position': <5>}>, 'gnome-control-center.desktop': <{'position': <6>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <7>}>, 'gnome-system-monitor.desktop': <{'position': <8>}>, 'discord.desktop': <{'position': <9>}>, 'org.gnome.baobab.desktop': <{'position': <10>}>, 'org.gnome.Terminal.desktop': <{'position': <11>}>, 'org.gnome.DiskUtility.desktop': <{'position': <12>}>, 'org.gnome.Extensions.desktop': <{'position': <13>}>, 'gimp.desktop': <{'position': <14>}>, 'yelp.desktop': <{'position': <15>}>, 'htop.desktop': <{'position': <16>}>, 'org.gnome.Screenshot.desktop': <{'position': <17>}>, 'org.gnome.eog.desktop': <{'position': <18>}>, 'com.github.iwalton3.jellyfin-media-player.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'startcenter.desktop': <{'position': <21>}>, 'base.desktop': <{'position': <22>}>, 'calc.desktop': <{'position': <23>}>}, {'draw.desktop': <{'position': <0>}>, 'impress.desktop': <{'position': <1>}>, 'math.desktop': <{'position': <2>}>, 'writer.desktop': <{'position': <3>}>, 'org.gnome.Logs.desktop': <{'position': <4>}>, 'cups.desktop': <{'position': <5>}>, 'com.nextcloud.desktopclient.nextcloud.desktop': <{'position': <6>}>, 'nixos-manual.desktop': <{'position': <7>}>, 'nvidia-settings.desktop': <{'position': <8>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <9>}>, 'org.polymc.PolyMC.desktop': <{'position': <10>}>, 'redshift-gtk.desktop': <{'position': <11>}>, 'steam.desktop': <{'position': <12>}>, 'thunderbird.desktop': <{'position': <13>}>, 'org.gnome.Tour.desktop': <{'position': <14>}>, 'org.gnome.tweaks.desktop': <{'position': <15>}>, 'Unrailed!.desktop': <{'position': <16>}>, 'org.wireshark.Wireshark.desktop': <{'position': <17>}>, 'xterm.desktop': <{'position': <18>}>, 'ykman-gui.desktop': <{'position': <19>}>}]";
       disable-user-extensions = false;
       disabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"

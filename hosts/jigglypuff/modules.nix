@@ -6,17 +6,13 @@ in {
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/journald
-    (import ../../modules/hardware/raspberry-pi-3b-plus { inherit pkgs; })
+    ../../modules/hardware/raspberry-pi-3b-plus
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix { inherit config pkgs flake; })
+    ../../modules/nix
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
-    ../../modules/starship
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "dns";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/zsh

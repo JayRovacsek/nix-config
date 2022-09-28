@@ -7,12 +7,14 @@ let
     userConfigs = [ dnsUserConfig ];
   };
 
+  tailscaleKey = import ../shared/tailscale-identity-key.nix;
   readOnlySharedStore = import ../shared/read-only-store.nix;
-  tailscalePreauthKey = import ../shared/tailscale-preauth-key.nix;
   journaldShare =
     import ../common/journald.nix { inherit (config.networking) hostName; };
 in {
   inherit users;
+
+  services.tailscale.tailnet = "dns";
 
   networking = {
     hostName = "igglybuff";
@@ -23,7 +25,7 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore tailscalePreauthKey journaldShare ];
+    shares = [ readOnlySharedStore tailscaleKey journaldShare ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -32,42 +34,17 @@ in {
     writableStoreOverlay = null;
   };
 
-  services.openssh.enable = true;
-
   services.resolved.enable = false;
 
   networking.resolvconf.extraOptions = [ "ndots:0" ];
 
-  networking.useNetworkd = true;
-
-  # systemd.network.networks."00-wired" = {
-  #   enable = true;
-  #   matchConfig.Name = "enp*";
-  #   networkConfig.DHCP = "ipv4";
-  # };
-
-  # systemd.network.networks."00-wired" = {
-  #   enable = true;
-  #   matchConfig.Name = "enp*";
-  #   networkConfig = { Address = "10.0.1.2/24"; };
-  #   routes = [{
-  #     routeConfig = {
-  #       Gateway = "10.0.1.1";
-  #       Destination = "0.0.0.0/0";
-  #     };
-  #   }];
-  # };
-
   imports = [
-    (import ../common/machine-id.nix { inherit config flake; })
+    ../common/machine-id.nix
+    ./options.nix
     ../../modules/agenix
     ../../modules/dnsmasq
     ../../modules/microvm/guest
-    ./options.nix
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "dns";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
   ];

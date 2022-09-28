@@ -44,11 +44,10 @@ in {
     serverUrl = "https://headscale.rovacsek.com";
 
     database = {
-      user = "headscale";
+      user = config.services.headscale.user;
       type = "sqlite3";
       path = "/var/lib/headscale/db.sqlite";
       name = "headscale";
-      passwordFile = config.age.secrets.headscale-db-password.path;
     };
 
     dns = {

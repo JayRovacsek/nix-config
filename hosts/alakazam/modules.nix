@@ -1,4 +1,4 @@
-{ config, pkgs, lib, flake, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -7,17 +7,13 @@
     ../../modules/gnome
     ../../modules/gnupg
     ../../modules/lorri
-    (import ../../modules/nix { inherit config flake pkgs; })
-    (import ../../modules/microvm/host { inherit config flake lib; })
+    ../../modules/nix
+    ../../modules/microvm/host
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
-    ../../modules/starship
     ../../modules/steam
-    (import ../../modules/tailscale {
-      inherit config pkgs lib;
-      tailnet = "trust";
-    })
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

@@ -8,10 +8,7 @@
     ../../modules/homebrew
     ../../modules/lorri
     ../../modules/networking
-    (import ../../modules/nix {
-      inherit config pkgs;
-      isLinux = false;
-    })
+    ../../modules/nix
     ../../modules/time
     ../../modules/yabai
     ../../modules/zsh

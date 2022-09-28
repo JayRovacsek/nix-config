@@ -149,6 +149,6 @@ in {
     address=/d1.xboxlive.com/192.168.16.2
   '';
   uid = piholeUser.uid;
-  gid = piholeUser.group.id;
+  gid = piholeUser.group.gid;
   mode = "0444";
 }

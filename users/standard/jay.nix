@@ -1,6 +1,7 @@
-{ config, pkgs, flake ? { }, ... }:
+{ config, pkgs, ... }:
 let
-  lib = pkgs.lib;
+  inherit (config) flake;
+  inherit (pkgs) lib;
   name = "jay";
   home = "/home/${name}";
 
@@ -30,8 +31,7 @@ let
   forwardAgent = "ForwardAgent yes";
   addKeysForwardAgent = ''
     ${addKeys}
-      ${forwardAgent}
-  '';
+      ${forwardAgent}'';
 
   extraHostNames = darwinHosts ++ linuxHosts;
   extraHostConfigs = builtins.map (hostName: ''
@@ -64,12 +64,6 @@ in {
         HostName github.com
         User git
         ${addKeys}
-        ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
-
-      Host gcleopard1.galahcyber.com.au
-        HostName gcleopard1.galahcyber.com.au
-        User jay
-        ${addKeysForwardAgent}
         ${if ((builtins.length userSshKeys) != 0) then identityFiles else ""}
 
       Host *.rovacsek.com.internal

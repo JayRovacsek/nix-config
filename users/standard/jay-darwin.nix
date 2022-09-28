@@ -1,5 +1,6 @@
-{ config, pkgs, flake ? { }, ... }:
+{ config, pkgs, ... }:
 let
+  inherit (config) flake;
   inherit (pkgs) lib;
   name = "jrovacsek";
   home = "/Users/${name}";
