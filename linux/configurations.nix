@@ -10,6 +10,9 @@ let
   unstable = inputs.unstable;
   nixpkgs-unstable = inputs.unstable;
 
+  # Nix User Repositories
+  nur = inputs.nur;
+
   # Pull recusrive update out to use it later
   inherit (stable.lib) recursiveUpdate;
 
@@ -19,7 +22,6 @@ let
   microvm = inputs.microvm;
   nixos-generators = inputs.nixos-generators;
   nixos-hardware = inputs.nixos-hardware;
-  nur = inputs.nur;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -70,6 +72,7 @@ in {
         microvm.nixosModules.host
         agenix.nixosModule
         referenceSelf
+        nur.nixosModules.nur
         (standardiseNix { })
       ];
     };

@@ -33,7 +33,6 @@
 
   hardware.cpu = {
     profile = {
-      # enable = true;
       cores = 8;
       speed = 2;
     };

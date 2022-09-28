@@ -42,7 +42,6 @@ in {
     package = pkgs.headscale;
     address = "0.0.0.0";
     serverUrl = "https://headscale.rovacsek.com";
-    privateKeyFile = config.age.secrets.wg-private-key.path;
 
     database = {
       user = config.services.headscale.user;
