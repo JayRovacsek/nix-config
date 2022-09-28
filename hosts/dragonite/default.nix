@@ -7,7 +7,8 @@ let
 in {
   inherit users flake;
 
-  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
+  age.identityPaths =
+    [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-headscale-primary" ];
 
   virtualisation.oci-containers.backend = "docker";
 
