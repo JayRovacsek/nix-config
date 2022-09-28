@@ -7,6 +7,8 @@ let
 in {
   inherit users flake;
 
+  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
+
   virtualisation.oci-containers.backend = "docker";
 
   services.tailscale.tailnet = "admin";
