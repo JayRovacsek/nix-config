@@ -1,1 +1,5 @@
-{ pkgs }: { oh-my-custom = pkgs.callPackage ./oh-my-custom { }; }
+{ pkgs }:
+with pkgs; {
+  amethyst = callPackage ./amethyst { };
+  oh-my-custom = callPackage ./oh-my-custom { };
+}

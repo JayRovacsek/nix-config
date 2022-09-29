@@ -6,9 +6,10 @@
       autoUpdate = true;
       cleanup = "zap";
     };
-    brews = [ "openssh" "pidof" "mas" ];
+    brews = [ "openssh" "pidof" "mas" "mingw-w64" ];
 
     casks = [
+      # "amethyst"
       "brave-browser"
       "discord"
       "eloston-chromium"

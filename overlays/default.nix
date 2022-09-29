@@ -16,6 +16,12 @@ self: super: {
     version = "9002";
   });
 
+  # rust-bin.stable.latest.default =
+  #   super.rust-bin.stable.latest.default.overrideAttrs (old: rec {
+  #     extensions = [ "rust-src" ];
+  #     targets = [ "arm-unknown-linux-gnueabihf" ];
+  #   });
+
   # Required to fix the pname being fzf-zsh-unstable and therefore causing
   # pain in oh-my-custom
   fzf-zsh = super.fzf-zsh.overrideAttrs (old: rec { pname = "fzf-zsh"; });

@@ -84,4 +84,20 @@ in {
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
+
+  victreebel = let
+    inherit (x86_64-darwin-unstable) system;
+    modules = modules-function {
+      inherit home-manager self;
+      hostname = "victreebel";
+      isLinux = false;
+      extraModules = [
+        overlayModule
+        agenix.nixosModules.age
+        (standardiseNix { })
+        referenceSelf
+      ];
+    };
+  in darwin-unstable.lib.darwinSystem { inherit system modules; };
+
 }

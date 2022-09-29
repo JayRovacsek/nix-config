@@ -26,7 +26,7 @@
     "mp_death_drop_gun"    "1"
     "mp_death_drop_grenade"    "2"
     "mp_death_drop_defuser"    "1"
-            '';
+  '';
   uid = user.uid;
   gid = user.group.id;
   mode = "0744";

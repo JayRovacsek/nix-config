@@ -10,6 +10,8 @@ let
     dragonite = "admin";
     aipom = "download";
     cloyster = "work";
+    victreebel = "work";
+    HF0013161 = "work";
     gastly = "admin";
     igglybuff = "dns";
     jigglypuff = "dns";

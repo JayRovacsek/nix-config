@@ -33,6 +33,9 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
+
+    # Required for default toolchain changes
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
   outputs = { self, flake-utils, ... }:
