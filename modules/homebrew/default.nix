@@ -9,28 +9,21 @@
     brews = [ "openssh" "pidof" "mas" "mingw-w64" ];
 
     casks = [
-      # "amethyst"
+      "amethyst"
       "brave-browser"
       "discord"
       "eloston-chromium"
       "gimp"
       "jellyfin-media-player"
       "keepassxc"
+      "nextcloud"
       "keepingyouawake"
       "microsoft-remote-desktop"
       "raycast"
       "signal"
       "slack"
-      "zoom"
     ];
 
-    masApps = {
-      "Microsoft Excel" = 462058435;
-      "Microsoft Outlook" = 985367838;
-      "Microsoft PowerPoint" = 462062816;
-      "Microsoft Word" = 462054704;
-      OneDrive = 823766827;
-      Xcode = 497799835;
-    };
+    masApps = { };
   };
 }
