@@ -2,7 +2,13 @@
 let
   inherit (pkgs.stdenv) isDarwin;
   inherit (pkgs) system;
+  inherit (config.users) users;
   inherit (config.flake.outputs.packages.${system}) oh-my-custom;
+
+  # This is bad as it only assumes a single user - TODO: fix when I have time later
+  user = builtins.getAttr (builtins.head (builtins.attrNames users)) users;
+
+  inherit (user) name;
 
   direnvInit = if config.services.lorri.enable then ''
     eval "$(direnv hook zsh)"
@@ -25,7 +31,7 @@ let
     "";
 
   starshipInit = if isDarwin
-  && config.home-manager.users.jrovacsek.programs.starship.enable then ''
+  && config.home-manager.users.${name}.programs.starship.enable then ''
     eval "$(starship init zsh)"
   '' else
     "";
@@ -62,12 +68,7 @@ let
     enableFzfCompletion = true;
   };
 
-in {
-  environment.shellAliases = shellAliases;
-
-  programs.zsh = if isDarwin then
-    darwinConfig
-  else {
+  linuxConfig = {
     inherit promptInit interactiveShellInit;
 
     enable = true;
@@ -82,4 +83,8 @@ in {
       plugins = [ "git" "fzf-zsh" ];
     };
   };
+
+in {
+  environment.shellAliases = shellAliases;
+  programs.zsh = if isDarwin then darwinConfig else linuxConfig;
 }
