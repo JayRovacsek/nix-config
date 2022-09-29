@@ -85,6 +85,8 @@ in {
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
 
+  HF0013161 = self.outputs.darwinConfigurations.victreebel;
+
   victreebel = let
     inherit (x86_64-darwin-unstable) system;
     modules = modules-function {
