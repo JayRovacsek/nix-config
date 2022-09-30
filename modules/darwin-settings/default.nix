@@ -1,4 +1,9 @@
 { pkgs, ... }: {
-  imports =
-    [ ./documentation.nix ./dock.nix ./homebrew.nix ./nsglobalDomain.nix ];
+  imports = [
+    ./dock.nix
+    ./documentation.nix
+    ./finder.nix
+    ./homebrew.nix
+    ./nsglobalDomain.nix
+  ];
 }

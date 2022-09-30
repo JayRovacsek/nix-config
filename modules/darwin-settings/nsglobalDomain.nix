@@ -14,5 +14,4 @@
     NSScrollAnimationEnabled = true;
     "com.apple.swipescrolldirection" = false;
   };
-
 }
