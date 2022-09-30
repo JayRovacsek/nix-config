@@ -2,10 +2,10 @@
   imports = [
     ../../modules/docker-darwin
     ../../modules/dockutil
+    ../../modules/darwin-settings
     ../../modules/documentation
     ../../modules/fonts
     ../../modules/gnupg
-    ../../modules/homebrew
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
