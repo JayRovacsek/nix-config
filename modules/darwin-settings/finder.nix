@@ -8,5 +8,6 @@
     QuitMenuItem = true;
     ShowPathbar = true;
     ShowStatusBar = true;
+    _FXShowPosixPathInTitle = true;
   };
 }

@@ -4,6 +4,7 @@
     ./documentation.nix
     ./finder.nix
     ./homebrew.nix
-    ./nsglobalDomain.nix
+    ./login-window.nix
+    ./ns-global-domain.nix
   ];
 }
