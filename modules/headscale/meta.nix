@@ -3,12 +3,11 @@ let
   unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
   futureMeProblem = "'2050-01-01 00:00:00.000000000+00:00'";
 
-  preauthKeys = builtins.filter (x: lib.strings.hasInfix "-preauth-key" x.name)
+  preauthKeys = builtins.filter (x: lib.strings.hasPrefix "preauth-" x.name)
     (builtins.attrValues config.age.secrets);
 
-  namespaces = lib.lists.map (v:
-    lib.strings.removePrefix "tailscale-"
-    (lib.strings.removeSuffix "-preauth-key" v.name)) preauthKeys;
+  namespaces =
+    lib.lists.map (v: lib.strings.removePrefix "preauth-" v.name) preauthKeys;
 
   # CREATE TABLE `namespaces` (`id` integer,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,`name` text UNIQUE,PRIMARY KEY (`id`));
   namespaceInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
@@ -16,8 +15,7 @@ let
       "INSERT INTO namespaces ('id','created_at','updated_at','name') VALUES (${
         builtins.toString i
       }, ${unixEpoch},${unixEpoch},'${
-        lib.strings.removePrefix "tailscale-"
-        (lib.strings.removeSuffix "-preauth-key" v.name)
+        lib.strings.removePrefix "preauth-" v.name
       }');") preauthKeys);
 
   # CREATE TABLE `pre_auth_keys` (`id` integer,`key` text,`namespace_id` integer,`reusable` numeric,`ephemeral` numeric DEFAULT false,`used` numeric DEFAULT false,`created_at` datetime,`expiration` datetime,PRIMARY KEY (`id`));
@@ -32,11 +30,11 @@ let
   # Okay, so the below is straigh pain to decipher, this is likely due to my nix 
   # capabilities but translates as follows:
   # * read the contents of our secrets directory, grabbing all file names
-  # * where the filename includes "-preauth-key" or "headscale"
+  # * where the filename starts with "preauth-"
   # * map keys to a structure of ("name" minus ".age") = set representing agenix config
   #
   # So yeah, not pretty but scales to pull in all secrets that include the 
-  # "-preauth-key" value so we can generate entries into sqlite on every rebuild
+  # "preauth-" value so we can generate entries into sqlite on every rebuild
   secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
     "${lib.strings.removeSuffix ".age" x}" = {
       file = ../../secrets/headscale/${x};
@@ -44,7 +42,8 @@ let
       owner = config.services.headscale.user;
     };
   }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
-    (builtins.attrNames (builtins.readDir ../../secrets/headscale))));
+    (builtins.attrNames (builtins.readDir ../../secrets/headscale))
+    ++ (builtins.attrNames (builtins.readDir ../../secrets/tailscale))));
 
   # The delete from all tables below could probably be done better but I can't DB :)
   # It's required to ensure we have a blank slate moving in and no residual state can be 

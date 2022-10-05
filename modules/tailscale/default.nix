@@ -20,9 +20,9 @@ let
   };
   tailnet = hostMap.${config.networking.hostName};
   authFile = if isMicrovmGuest then
-    "/run/agenix.d/tailscale-preauth-${tailnet}"
+    "/run/agenix.d/preauth-${tailnet}"
   else
-    config.age.secrets."tailscale-preauth-${tailnet}".path;
+    config.age.secrets."preauth-${tailnet}".path;
 in {
   imports = [ ../../options/tailscale ];
 
@@ -31,7 +31,7 @@ in {
     enable = true;
   };
 
-  age.secrets."tailscale-preauth-${tailnet}" = {
+  age.secrets."preauth-${tailnet}" = {
     file = ../../secrets/tailscale/preauth-${tailnet}.age;
     mode = "0400";
   };
