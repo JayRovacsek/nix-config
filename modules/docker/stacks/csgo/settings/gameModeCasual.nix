@@ -1,4 +1,6 @@
 { user }: {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "csgo-data/csgo/cfg/gamemode_casual_server.cfg";
   # Below as per: https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Dedicated_Servers#Advanced_Configuration
   text = ''
@@ -112,7 +114,5 @@
     spec_replay_enable								1
     mp_round_restart_delay								10
   '';
-  uid = user.uid;
-  gid = user.group.id;
   mode = "0744";
 }

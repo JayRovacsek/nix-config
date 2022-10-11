@@ -1,0 +1,120 @@
+["async"]
+cve = ["CVE-2021-43138"]
+comment = "False positives"
+
+["cereal"]
+cve = ["CVE-2020-11104","CVE-2020-11105"]
+comment = "False positives"
+
+["charset"]
+cve = ["CVE-2017-16098"]
+comment = "False positives"
+
+["cookie"]
+cve = ["CVE-2017-18589"]
+comment = "False positives"
+
+["git"]
+cve = ["CVE-2018-1000110","CVE-2018-1000182","CVE-2019-1003010","CVE-2020-2136","CVE-2021-21684","CVE-2022-30947","CVE-2022-30948","CVE-2022-30949","CVE-2022-36882","CVE-2022-36883","CVE-2022-36884","CVE-2022-38663"]
+comment = "False positives"
+
+["go"]
+cve = ["CVE-2021-29923","CVE-2021-38297","CVE-2021-39293","CVE-2021-41771","CVE-2021-41772","CVE-2021-44716","CVE-2021-44717","CVE-2022-1705","CVE-2022-1962","CVE-2022-23772","CVE-2022-23773","CVE-2022-23806","CVE-2022-24675","CVE-2022-24921","CVE-2022-27664","CVE-2022-28131","CVE-2022-28327","CVE-2022-29526","CVE-2022-29804","CVE-2022-30580","CVE-2022-30629","CVE-2022-30630","CVE-2022-30631","CVE-2022-30632","CVE-2022-30633","CVE-2022-30634","CVE-2022-30635","CVE-2022-32148","CVE-2022-32189"]
+comment = "False positives"
+
+["http-client"]
+cve = ["CVE-2020-11021"]
+comment = "False positives"
+
+["lapack"]
+cve = ["CVE-2021-4048"]
+comment = "Build time dependency"
+
+["lens"]
+cve = ["CVE-2021-23154","CVE-2021-44458"]
+comment = "False positives"
+
+["lua"]
+cve = ["CVE-2020-15888","CVE-2020-15945","CVE-2020-15888","CVE-2020-15945"]
+comment = "True positive, build time dependency, risk accept"
+
+["network"]
+cve = ["CVE-2021-35047","CVE-2021-35048","CVE-2021-35049","CVE-2021-35050","CVE-2022-0486","CVE-2022-0997","CVE-2022-24388","CVE-2022-24389","CVE-2022-24390","CVE-2022-24391","CVE-2022-24392","CVE-2022-24393","CVE-2022-24394"]
+comment = "False positives"
+
+["nss"]
+cve = ["CVE-2021-43527"]
+comment = "False positive - ESR version utilised"
+
+["oh-my-zsh"]
+cve = ["CVE-2021-3727"]
+comment = "False positive - Plugin not utilised"
+
+["openexr"]
+cve = ["CVE-2021-23169","CVE-2021-23215","CVE-2021-26260","CVE-2021-26945","CVE-2021-3598","CVE-2021-3605","CVE-2021-3933"]
+until = "2022-12-31"
+comment = "True positive but no fix in nixpkgs yet"
+
+["openjpeg"]
+cve = ["CVE-2021-29338","CVE-2021-3575","CVE-2022-1122"]
+until = "2022-12-31"
+comment = "True positive but no reachability / risk based on configuration"
+
+["openssl"]
+cve = ["CVE-2018-16395"]
+comment = "False positives"
+
+["p7zip"]
+cve = ["CVE-2017-17969","CVE-2018-5996"]
+comment = "True positive and low risk"
+
+["qemu"]
+cve = ["CVE-2022-2962"]
+comment = "Flaw is pertinent to un-utilised feature"
+
+["rubygems"]
+cve = ["CVE-2022-36073"]
+until = "2022-12-31"
+comment = "True positive but no information on applicable packages yet"
+
+["safe"]
+cve = ["CVE-2019-11644","CVE-2021-33594","CVE-2021-33595","CVE-2021-33596","CVE-2021-40834","CVE-2021-40835","CVE-2021-44751","CVE-2022-28868","CVE-2022-28869","CVE-2022-28870","CVE-2022-28872","CVE-2022-28873"]
+comment = "False positives"
+
+["ShellCheck"]
+cve = ["CVE-2021-28794","CVE-2018-7557"]
+comment = "Deployed extension is suitable version for shellcheck"
+
+["shellcheck"]
+cve = ["CVE-2021-28794","CVE-2018-7557"]
+comment = "Deployed extension is suitable version for shellcheck"
+
+["subversion"]
+cve = ["CVE-2017-1000085","CVE-2018-1000111","CVE-2020-2111","CVE-2020-2304","CVE-2021-21698","CVE-2022-29046","CVE-2022-29048"]
+comment = "False positives"
+
+["tcl"]
+cve = ["CVE-2021-35331"]
+until = "2022-12-31"
+comment = "Disputed CVE"
+
+["unbound"]
+cve = ["CVE-2022-3204"]
+until = "2022-12-31"
+comment = "False positive, software appears to be build-time dependency?"
+
+["unzip"]
+cve = ["CVE-2021-4217","CVE-2022-0529","CVE-2022-0530"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["wolfssl"]
+cve = ["CVE-2022-39173"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["xar"]
+cve = ["CVE-2017-11124","CVE-2017-11125"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["zlib"]
+cve = ["CVE-2018-25032","CVE-2022-37434"]
+comment = "False positive"

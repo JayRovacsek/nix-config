@@ -7,7 +7,7 @@ let
   optionalList = cond: list: if cond then list else [ ];
 
   tailscaleJoinArgsList =
-    [ "-authkey" "$(cat ${cfg.authFile})" "--login-server" cfg.loginServer ]
+    [ "-authkey $(cat ${cfg.authFile})" "--login-server" cfg.loginServer ]
     ++ (optionalList (haveElement cfg.advertiseRoutes) [
       "--advertise-routes"
       (builtins.concatStringsSep "," cfg.advertiseRoutes)

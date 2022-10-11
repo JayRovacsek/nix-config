@@ -1,4 +1,6 @@
 { user }: {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "csgo-data/csgo/gamemodes_server.txt";
   # Below as per: https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Dedicated_Servers#Advanced_Configuration
   text = ''
@@ -26,8 +28,6 @@
     "mp_death_drop_gun"    "1"
     "mp_death_drop_grenade"    "2"
     "mp_death_drop_defuser"    "1"
-            '';
-  uid = user.uid;
-  gid = user.group.id;
+  '';
   mode = "0744";
 }

@@ -12,10 +12,7 @@ in {
       file = ../../secrets/tailscale/preauth-dns.age;
       mode = "0400";
     };
-    identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
-      # "/agenix/id-ed25519-ssh-secondary"
-    ];
+    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
   services.tailscale.tailnet = "admin";

@@ -22,11 +22,16 @@ let
   # config as "flake" if used as defined below
   referenceSelf = { config._module.args.flake = self; };
 
-  standardiseNix = { stable ? false }: {
-    environment.etc."nix/inputs/nixpkgs".source =
-      if stable then nixpkgs.outPath else nixpkgs-unstable.outPath;
-    nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
-  };
+  standardiseNix = { stable ? false }:
+    let
+      darwinPinned = if stable then darwin-stable else darwin-unstable;
+      nixpkgsPinned = if stable then nixpkgs else nixpkgs-unstable;
+    in {
+      environment.etc."nix/inputs/nixpkgs".source = nixpkgsPinned.outPath;
+      environment.etc."nix/inputs/darwin".source = darwinPinned.outPath;
+      nix.nixPath =
+        [ "nixpkgs=/etc/nix/inputs/nixpkgs" "darwin=/etc/nix/inputs/darwin" ];
+    };
 
   localOverlays = import ../overlays;
   overlays = [ agenix.overlay firefox.overlay localOverlays nur.overlay ];
@@ -84,4 +89,23 @@ in {
       ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
+
+  # Hack to keep style of repository :)
+  HF0013161 = self.outputs.darwinConfigurations.victreebel;
+
+  victreebel = let
+    inherit (aarch64-darwin-unstable) system;
+    modules = modules-function {
+      inherit home-manager self;
+      hostname = "victreebel";
+      isLinux = false;
+      extraModules = [
+        overlayModule
+        agenix.nixosModules.age
+        (standardiseNix { })
+        referenceSelf
+      ];
+    };
+  in darwin-unstable.lib.darwinSystem { inherit system modules; };
+
 }

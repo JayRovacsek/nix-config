@@ -42,7 +42,7 @@ in {
     distributedBuilds = (builtins.length buildMachines) != 0;
 
     gc = {
-      automatic = true;
+      automatic = false;
       options = "--delete-older-than 7d";
     };
 
@@ -55,7 +55,7 @@ in {
         "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
         "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
       ];
-      trusted-users = [ "jay" "jrovacsek" "root" "builder" ];
+      trusted-users = [ "jay" "jrovacsek" "j.rovacsek" "root" "builder" ];
     };
 
     extraOptions = ''

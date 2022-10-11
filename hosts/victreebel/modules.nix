@@ -11,7 +11,6 @@
     ../../modules/networking
     ../../modules/nix
     ../../modules/time
-    ../../modules/yabai
     ../../modules/zsh
   ];
 }
