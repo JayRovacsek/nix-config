@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   hasMicrovm = if builtins.hasAttr "microvm" config then true else false;
 
@@ -31,8 +31,12 @@ in {
     enable = true;
   };
 
-  age.secrets."preauth-${tailnet}" = {
+  age.secrets."preauth-${tailnet}" = lib.mkForce {
     file = ../../secrets/tailscale/preauth-${tailnet}.age;
-    mode = "0400";
+    mode = "0440";
+    group = if config.services.headscale.enable then
+      config.services.headscale.group
+    else
+      "0";
   };
 }

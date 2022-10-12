@@ -31,9 +31,9 @@ let
 
         echo "Run the following command to identify and remediate vulnerabilities:"
         echo ""
-        echo "vulnix --system --json | jq -C --arg sev $SEVERITY_TOLERANCE '[.[] | select(.cvssv3_basescore | to_entries | .[].value | . >= (\$sev | tonumber))] | length' | less -R"
+        echo "vulnix -w ./.vulnix/allowlist.toml --system --json | jq -C --arg sev $SEVERITY_TOLERANCE '[.[] | select(.cvssv3_basescore | to_entries | .[].value | . >= (\$sev | tonumber))] | length' | less -R"
         echo "OR to write to a local file to review:"
-        echo "vulnix --system --json | jq --arg sev $SEVERITY_TOLERANCE '[.[] | select(.cvssv3_basescore | to_entries | .[].value | . >= (\$sev | tonumber))]' > vulns.json"
+        echo "vulnix -w ./.vulnix/allowlist.toml --system --json | jq --arg sev $SEVERITY_TOLERANCE '[.[] | select(.cvssv3_basescore | to_entries | .[].value | . >= (\$sev | tonumber))]' > vulns.json"
         exit 1
     fi;
   '';
