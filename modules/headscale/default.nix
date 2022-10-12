@@ -4,12 +4,11 @@ let
   derpServerStunPort = 3478;
   metricsPort = 9090;
   grpcPort = 50443;
+  unstablePackages =
+    config.flake.inputs.unstable.outputs.legacyPackages.${pkgs.system};
 in {
 
   imports = [ ./acl.nix ];
-
-  unstablePackages =
-    config.flake.inputs.unstable.outputs.legacyPackages.${pkgs.system};
 
   age.secrets = meta.secrets;
 
