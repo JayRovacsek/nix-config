@@ -86,6 +86,9 @@
       # YAML
       redhat.vscode-yaml
 
+      # TOML
+      tamasfe.even-better-toml
+
       # Go
       golang.go
 

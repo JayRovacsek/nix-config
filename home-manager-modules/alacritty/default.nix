@@ -36,7 +36,6 @@
           x = 0;
           y = 0;
         };
-        use_thin_strokes = true;
       };
 
       draw_bold_text_with_bright_colors = true;
