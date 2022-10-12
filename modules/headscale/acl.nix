@@ -29,13 +29,13 @@ let
       ports = [ "${x}:*" ];
     }) meta.namespaces);
 
-  allowTrustToAll = if usingNewAclFormat then [{
+  allowAdminToAll = if usingNewAclFormat then [{
     action = "accept";
-    src = [ "group:trust" ];
+    src = [ "group:admin" ];
     dst = [ "*:*" ];
   }] else [{
     action = "accept";
-    users = [ "group:trust" ];
+    users = [ "group:admin" ];
     ports = [ "*:*" ];
   }];
 
@@ -63,7 +63,7 @@ let
 
   aclConfig = {
     inherit groups;
-    acls = allowTrustToAll ++ allowAllToDNS ++ defaultNamespaceCommunication
+    acls = allowAdminToAll ++ allowAllToDNS ++ defaultNamespaceCommunication
       ++ allowAllViaExitNodes;
   };
 in {

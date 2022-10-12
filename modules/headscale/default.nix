@@ -17,7 +17,8 @@ in {
     allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
   };
 
-  environment.systemPackages = with pkgs; [ headscale sqlite-interactive ];
+  environment.systemPackages = (with pkgs; [ sqlite-interactive ])
+    ++ (with unstablePackages; [ headscale ]);
 
   systemd.services."headscale-autosetup" = {
     inherit (meta) script;
