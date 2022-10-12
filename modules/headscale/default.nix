@@ -8,6 +8,9 @@ in {
 
   imports = [ ./acl.nix ];
 
+  unstablePackages =
+    config.flake.inputs.unstable.outputs.legacyPackages.${pkgs.system};
+
   age.secrets = meta.secrets;
 
   networking.firewall = {
@@ -39,7 +42,8 @@ in {
   services.headscale = {
     enable = true;
     port = 8080;
-    package = pkgs.headscale;
+    # Required until 0.16 is stabilised
+    package = unstablePackages.headscale;
     address = "0.0.0.0";
     serverUrl = "https://headscale.rovacsek.com";
 
