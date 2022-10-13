@@ -4,6 +4,62 @@
 
 This repo contains my flake'd nix configs, it's a work in progress and currently being migrated to from [my old configs](https://github.com/JayRovacsek/dotfiles)
 
+Note that while flakes are a beautiful thing in which we could have many repositories to then bind together via inputs & make configurations
+far more contained in each repository, this is intentionally a mono-flake. It includes overlays, packages and configurations for both linux and darwin
+hosts to centralise the configuration and possibly help myself and/or viewers understand the spiderweb oh *.nix files.
+
+# Structure
+The following is a best efforts to keep up to date with the folder layout of this repo; everything intends to be self describing however this
+in practice may be hard without a brief description:
+```sh
+├── darwin                  # The main location of _how_ darwin configurations are defined
+|
+├── functions               # Helper functions used in the flake - beware this are aging 
+|                           # and are likely to be removed in favour of better constructs in  the future
+|
+├── home-manager-modules    # Modules to be loaded in config.home-manager.users.${user}.programs space - 
+|                           # not meant to be loaded directly and instead the users.nix file per host 
+|                           # should show how these are loaded
+|
+├── hosts                   # Main location of host configurations - each host has it's own folder within 
+|    |                      # this space
+|    |
+|    └── lavender-tower     # Sometimes pokemon pass on, this is a location for machines that are no 
+|                           # longer in use and/or retired
+|
+├── linux                   # The main location of _how_ linux configurations are defined
+|
+├── modules                 # Folder for all common module definitions, can be loaded directly via an 
+|                           # imports = [ ... ];
+|
+├── options                 # Custom options to be applied to configurations - most are automatically loaded via 
+|                           # their respective home-manager module and/or system module.
+|
+├── overlays                # Overlays - automatically loaded into all configurations, we might need to re-think 
+|                           # if some overlays are required on some systems but not all - there is not an example 
+|                           # of this yet
+|
+├── packages                # Holds two things: locally defined packages via callPackage {} and sets of packages 
+|                           # to be loaded into either system packages or home-manager packages
+|
+├── resources               # Non-configuration images/content
+|
+├── secrets                 # Location for secrets - this does cause longer import paths deeper in configurations 
+|                           # but centralises the secrets
+|
+├── users                   # User configurations
+│   ├── functions           # Functions related to users - to be killed in the future via options implementation
+|   |
+│   ├── groups              # Group definitions that might be shared across users
+|   |
+│   ├── service-accounts    # Service account definitions where modules/use-case doesn't currently have the 
+|   |                       # options applied
+|   |
+│   └── standard            # Interactive login candidates
+|
+└── vlans                   # VLAN configurations - to be killed in the future in favour of options
+```
+
 ## Using this/something like this
 
 Bootstrap yourself some Nix, ensure you've got flake support and then depending on if you're using Linux or Darwin modify the relevant nixosConfigurations/darwinConfigurations

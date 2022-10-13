@@ -261,8 +261,8 @@ until = "2022-12-31"
 comment = "True positive but no reachability / risk based on configuration"
 
 ["openssl"]
-cve = ["CVE-2018-16395"]
-comment = "False positives"
+cve = ["CVE-2018-16395", "CVE-2022-3358"]
+comment = "False positives and/or low risk"
 
 ["p7zip"]
 cve = ["CVE-2017-17969", "CVE-2018-5996"]
