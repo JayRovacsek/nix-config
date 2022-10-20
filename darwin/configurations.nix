@@ -94,7 +94,7 @@ in {
   HF0013161 = self.outputs.darwinConfigurations.victreebel;
 
   victreebel = let
-    inherit (aarch64-darwin-unstable) system;
+    inherit (aarch64-darwin-stable) system;
     modules = modules-function {
       inherit home-manager self;
       hostname = "victreebel";
@@ -106,6 +106,6 @@ in {
         referenceSelf
       ];
     };
-  in darwin-unstable.lib.darwinSystem { inherit system modules; };
+  in darwin-stable.lib.darwinSystem { inherit system modules; };
 
 }

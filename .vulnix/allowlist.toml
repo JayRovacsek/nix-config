@@ -134,6 +134,8 @@ cve = [
     "CVE-2022-27664",
     "CVE-2022-28131",
     "CVE-2022-28327",
+    "CVE-2022-2879",
+    "CVE-2022-2880",
     "CVE-2022-29526",
     "CVE-2022-29804",
     "CVE-2022-30580",
@@ -146,6 +148,7 @@ cve = [
     "CVE-2022-30635",
     "CVE-2022-32148",
     "CVE-2022-32189",
+    "CVE-2022-41715",
 ]
 comment = "False positives"
 
@@ -189,9 +192,23 @@ cve = ["CVE-2018-7263"]
 until = "2022-10-31"
 comment = "True positive, no upstream fixes in nixpkgs yet, minimal risk due to firewalling"
 
-
 ["libpng"]
 cve = ["CVE-2017-12652"]
+comment = "True positive, low risk"
+
+["libtiff"]
+cve = [
+    "CVE-2022-0561",
+    "CVE-2022-0562",
+    "CVE-2022-0891",
+    "CVE-2022-0908",
+    "CVE-2022-1354",
+    "CVE-2022-1355",
+    "CVE-2022-2867",
+    "CVE-2022-2868",
+    "CVE-2022-2869",
+    "CVE-2022-2953",
+]
 comment = "True positive, low risk"
 
 ["libvncserver"]
@@ -233,6 +250,10 @@ cve = [
     "CVE-2022-24394",
 ]
 comment = "False positives"
+
+["npm"]
+cve = ["CVE-2022-29244"]
+comment = "Low risk due to how npm is utilised"
 
 ["nss"]
 cve = ["CVE-2021-43527"]
@@ -281,7 +302,7 @@ cve = [
 comment = "False positives"
 
 ["qemu"]
-cve = ["CVE-2022-2962"]
+cve = ["CVE-2022-2962", "CVE-2022-3165"]
 comment = "Flaw is pertinent to un-utilised feature"
 
 ["rubygems"]
