@@ -1,6 +1,5 @@
 # config credit to https://github.com/babbaj/nix-config - thank you so much!
 driverPackage:
-
 let
   # Original definitions thanks to: https://github.com/keylase/nvidia-patch/blob/master/patch.sh
   patches = {
@@ -172,6 +171,13 @@ let
       "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
     "515.65.01" =
       "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
+    "515.76" =
+      "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
+    "520.56.06" =
+      "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
+    "520.61.05" =
+      "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
+
   };
 in driverPackage.overrideAttrs ({ version, preFixup ? "", ... }: {
   preFixup = preFixup + ''
