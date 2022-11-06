@@ -22,6 +22,7 @@ let
 
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
+      manual.manpages.enable = false;
       imports = [ ../hosts/${hostname}/user-modules.nix ];
       ## The below is rather dangeous if not called out:
       # It'll ensure a user NIX_PATH follows the input which may not align with system

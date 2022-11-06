@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-let inherit (config.nur.repos.kira-bruneau) pokemmo-installer;
+let
+  inherit (pkgs) system;
+  inherit (config.flake.unstablePackages.${system}) pokemmo-installer;
 in {
   environment.systemPackages = with pkgs; [
     # CLI

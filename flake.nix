@@ -98,9 +98,12 @@
         # Import local packages passing system relevnet pkgs through
         # for dependencies.
         localPackages = import ./packages { inherit pkgs; };
+        localUnstablePackages =
+          import ./packages/unstable.nix { pkgs = pkgsUnstable; };
         packages = flake-utils.lib.flattenTree localPackages;
+        unstablePackages = flake-utils.lib.flattenTree localUnstablePackages;
       in {
-        inherit devShell devShells packages checks;
+        inherit devShell devShells packages unstablePackages checks;
         # Normally the // pattern is a little frowned upon as it does not act
         # the way most people expect - here it's fine as we've got two sets that have no 
         # collision space:

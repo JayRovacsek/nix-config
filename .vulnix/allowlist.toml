@@ -43,6 +43,10 @@ comment = "False positives"
 cve = ["CVE-2017-18589"]
 comment = "False positives"
 
+["curl"]
+cve = ["CVE-2022-35252", "CVE-2022-42915", "CVE-2022-42916"]
+comment = "True positives, low risk of exploit"
+
 ["djvulibre"]
 cve = [
     "CVE-2021-32490",
@@ -72,6 +76,11 @@ cve = ["CVE-2022-1664"]
 until = "2022-12-31"
 comment = "True positives minimal risk due to build paradigm of nix"
 
+["exiv2"]
+cve = ["CVE-2022-3718", "CVE-2022-3719", "CVE-2022-3717"]
+until = "2022-12-31"
+comment = "True positives, low risk of exploitation: CVE-2022-3717 currently has no release candidate upstream"
+
 ["faad2"]
 cve = [
     "CVE-2021-32273",
@@ -85,12 +94,12 @@ comment = "True positives, no upstream fixes in nixpkgs yet"
 
 ["ffmpeg"]
 cve = ["CVE-2021-38291"]
-until = "2022-10-31"
-comment = "Information does not link to explicit version, requires more investigation"
+until = "2022-12-31"
+comment = "Low risk flaws & exploitation path"
 
 ["gcc"]
 cve = ["CVE-2018-12886", "CVE-2021-37322"]
-until = "2022-10-31"
+until = "2022-12-31"
 comment = "True positive, minimal risk due to build paradigm of nix"
 
 ["git"]
@@ -151,8 +160,9 @@ cve = [
     "CVE-2022-32148",
     "CVE-2022-32189",
     "CVE-2022-41715",
+    "CVE-2022-41716",
 ]
-comment = "False positives"
+comment = "False positives &/or Windows specific issues"
 
 ["gradle"]
 cve = [
@@ -185,13 +195,29 @@ cve = [
     "CVE-2021-36409",
     "CVE-2021-36410",
     "CVE-2021-36411",
+    "CVE-2022-43235",
+    "CVE-2022-43236",
+    "CVE-2022-43237",
+    "CVE-2022-43238",
+    "CVE-2022-43239",
+    "CVE-2022-43240",
+    "CVE-2022-43241",
+    "CVE-2022-43242",
+    "CVE-2022-43243",
+    "CVE-2022-43244",
+    "CVE-2022-43245",
+    "CVE-2022-43248",
+    "CVE-2022-43249",
+    "CVE-2022-43250",
+    "CVE-2022-43252",
+    "CVE-2022-43253",
 ]
-until = "2022-10-31"
+until = "2022-12-31"
 comment = "True positive, no upstream fixes in nixpkgs yet, minimal risk due to firewalling"
 
 ["libmad"]
 cve = ["CVE-2018-7263"]
-until = "2022-10-31"
+until = "2022-12-31"
 comment = "True positive, no upstream fixes in nixpkgs yet, minimal risk due to firewalling"
 
 ["libpng"]
@@ -216,6 +242,9 @@ cve = [
     "CVE-2022-3599",
     "CVE-2022-3626",
     "CVE-2022-3627",
+    "CVE-2022-2056",
+    "CVE-2022-2057",
+    "CVE-2022-2058",
 ]
 comment = "True positive, low risk"
 
@@ -298,11 +327,15 @@ until = "2022-12-31"
 comment = "True positive but no reachability / risk based on configuration"
 
 ["openssl"]
-cve = ["CVE-2018-16395", "CVE-2022-3358"]
+cve = ["CVE-2018-16395", "CVE-2022-3358", "CVE-2022-3602", "CVE-2022-3786"]
 comment = "False positives and/or low risk"
 
 ["p7zip"]
 cve = ["CVE-2017-17969", "CVE-2018-5996"]
+comment = "True positive and low risk"
+
+["pixman"]
+cve = ["CVE-2022-44638"]
 comment = "True positive and low risk"
 
 ["python"]
@@ -404,6 +437,7 @@ cve = [
     "CVE-2022-3296",
     "CVE-2022-3297",
     "CVE-2022-3324",
+    "CVE-2022-3705",
 ]
 comment = "True positive, low risk"
 

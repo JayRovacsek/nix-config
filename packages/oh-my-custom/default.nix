@@ -21,7 +21,9 @@ let
 
   # See also: https://github.com/ohmyzsh/ohmyzsh/wiki/Customization#adding-a-new-plugin
   linkPlugins = lib.concatMapStringsSep "\n" (p: ''
-    find ${p.outPath} -type f -name "*.plugin.zsh" -exec ln -s '{}' $out/plugins/${p.pname} ';' 
+    find ${p.outPath} -type f -name "*.plugin.zsh" -exec ln -s '{}' $out/plugins/${
+      builtins.replaceStrings [ "-unstable" ] [ "" ] p.pname
+    } ';' 
   '') plugins;
 
   # See also: https://github.com/ohmyzsh/ohmyzsh/wiki/Customization#overriding-and-adding-themes
