@@ -6,7 +6,7 @@
     dashboard-in-overlay = false;
     expose-group-by-app = true;
     launchanim = false;
-    minimize-to-application = true;
+    minimize-to-application = false;
     mru-spaces = false;
     orientation = "left";
     show-process-indicators = true;

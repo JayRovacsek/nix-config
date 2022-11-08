@@ -9,7 +9,6 @@
     brews = [ "openssh" "pidof" "mas" "mingw-w64" ];
 
     casks = [
-      "amethyst"
       "brave-browser"
       "discord"
       "eloston-chromium"

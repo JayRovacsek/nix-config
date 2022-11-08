@@ -60,7 +60,7 @@ let
 
 in {
   cloyster = let
-    inherit (x86_64-darwin-unstable) system;
+    inherit (x86_64-darwin-stable) system;
     modules = modules-function {
       inherit home-manager self;
       hostname = "cloyster";
@@ -72,7 +72,7 @@ in {
         referenceSelf
       ];
     };
-  in darwin-unstable.lib.darwinSystem { inherit system modules; };
+  in darwin-stable.lib.darwinSystem { inherit system modules; };
 
   ninetales = let
     inherit (aarch64-darwin-unstable) system;

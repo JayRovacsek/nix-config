@@ -172,7 +172,6 @@ in {
         "device.sensors.orientation.enabled" = false;
         "device.sensors.proximity.enabled" = false;
         "dom.battery.enabled" = false;
-        "dom.event.clipboardevents.enabled" = false;
         "dom.security.https_only_mode_ever_enabled" = true;
         "dom.security.https_only_mode" = true;
         "dom.webaudio.enabled" = false;
@@ -205,7 +204,6 @@ in {
         "network.cookie.cookieBehavior" = 1;
         "network.dns.disablePrefetch" = true;
         "network.dns.disablePrefetchFromHTTPS" = true;
-        "network.http.referer.spoofSource" = true;
         "network.http.speculative-parallel-limit" = 0;
         "network.predictor.enable-prefetch" = false;
         "network.predictor.enabled" = false;
