@@ -82,7 +82,6 @@ in {
     settings = {
       metrics_listen_addr = "127.0.0.1:${builtins.toString metricsPort}";
       grpc_listen_addr = "127.0.0.1:${builtins.toString grpcPort}";
-      #   grpc_allow_insecure = false;
       ip_prefixes = [ "100.64.0.0/10" ];
 
       # Enable headscale to act as DERP
@@ -91,7 +90,7 @@ in {
           enabled = true;
           region_id = 999;
           region_code = "rovacsek";
-          region_name = "headscale.rovacsek.com";
+          region_name = "stun.headscale.rovacsek.com";
           stun_listen_addr = "0.0.0.0:${builtins.toString derpServerStunPort}";
         };
       };

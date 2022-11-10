@@ -30,7 +30,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "stable";
+        nixpkgs.follows = "unstable";
         flake-utils.follows = "flake-utils";
       };
     };

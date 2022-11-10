@@ -340,6 +340,7 @@ comment = "True positive and low risk"
 
 ["python"]
 cve = [
+    "CVE-2015-20107",
     "CVE-2017-17522",
     "CVE-2017-18207",
     "CVE-2019-9674",
@@ -347,11 +348,12 @@ cve = [
     "CVE-2021-3733",
     "CVE-2022-0391",
     "CVE-2022-26488",
+    "CVE-2022-45061",
 ]
 comment = "False positives"
 
 ["qemu"]
-cve = ["CVE-2022-2962", "CVE-2022-3165"]
+cve = ["CVE-2022-2962", "CVE-2022-3165", "CVE-2022-3872"]
 comment = "Flaw is pertinent to un-utilised feature"
 
 ["rubygems"]
@@ -373,6 +375,7 @@ cve = [
     "CVE-2022-28870",
     "CVE-2022-28872",
     "CVE-2022-28873",
+    "CVE-2022-38164",
 ]
 comment = "False positives"
 
