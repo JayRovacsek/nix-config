@@ -22,6 +22,8 @@ let
   # config as "flake" if used as defined below
   referenceSelf = { config._module.args.flake = self; };
 
+  # A function to apply opinions on the nixpkgs pinning of a system.
+  # Absolutely required for repoducability
   standardiseNix = { stable ? false }:
     let
       darwinPinned = if stable then darwin-stable else darwin-unstable;
@@ -32,6 +34,10 @@ let
       nix.nixPath =
         [ "nixpkgs=/etc/nix/inputs/nixpkgs" "darwin=/etc/nix/inputs/darwin" ];
     };
+
+  # Stable / unstable splits of the above function so we can reduce complexity in each nixosConfiguration call below
+  stableNix = standardiseNix { stable = true; };
+  unstableNix = standardiseNix { };
 
   localOverlays = import ../overlays;
   overlays = [ agenix.overlay firefox.overlay localOverlays nur.overlay ];
@@ -65,12 +71,8 @@ in {
       inherit home-manager self;
       hostname = "cloyster";
       isLinux = false;
-      extraModules = [
-        overlayModule
-        agenix.nixosModules.age
-        (standardiseNix { })
-        referenceSelf
-      ];
+      extraModules =
+        [ overlayModule agenix.nixosModules.age stableNix referenceSelf ];
     };
   in darwin-stable.lib.darwinSystem { inherit system modules; };
 
@@ -81,12 +83,8 @@ in {
       inherit home-manager self;
       hostname = "ninetales";
       isLinux = false;
-      extraModules = [
-        overlayModule
-        agenix.nixosModules.age
-        (standardiseNix { })
-        referenceSelf
-      ];
+      extraModules =
+        [ overlayModule agenix.nixosModules.age unstableNix referenceSelf ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
 
@@ -99,12 +97,8 @@ in {
       inherit home-manager self;
       hostname = "victreebel";
       isLinux = false;
-      extraModules = [
-        overlayModule
-        agenix.nixosModules.age
-        (standardiseNix { })
-        referenceSelf
-      ];
+      extraModules =
+        [ overlayModule agenix.nixosModules.age stableNix referenceSelf ];
     };
   in darwin-stable.lib.darwinSystem { inherit system modules; };
 

@@ -376,8 +376,9 @@ cve = [
     "CVE-2022-28872",
     "CVE-2022-28873",
     "CVE-2022-38164",
+    "CVE-2022-38163",
 ]
-comment = "False positives"
+comment = "False positives and/or low risk"
 
 ["samba"]
 cve = ["CVE-2021-3670", "CVE-2022-1615", "CVE-2022-32743"]

@@ -15,9 +15,10 @@ let
   plugins = with pkgs; [ fzf-zsh ];
   themes = with pkgs; [ ];
 
-  createPluginFolders =
-    lib.concatMapStringsSep "\n" (p: "mkdir -p $out/plugins/${p.pname}")
-    plugins;
+  createPluginFolders = lib.concatMapStringsSep "\n" (p:
+    "mkdir -p $out/plugins/${
+      builtins.replaceStrings [ "-unstable" ] [ "" ] p.pname
+    }") plugins;
 
   # See also: https://github.com/ohmyzsh/ohmyzsh/wiki/Customization#adding-a-new-plugin
   linkPlugins = lib.concatMapStringsSep "\n" (p: ''

@@ -28,11 +28,17 @@ let
   # config as "flake" if used as defined below
   referenceSelf = { config._module.args.flake = self; };
 
+  # A function to apply opinions on the nixpkgs pinning of a system.
+  # Absolutely required for repoducability
   standardiseNix = { stable ? false }: {
     environment.etc."nix/inputs/nixpkgs".source =
       if stable then nixpkgs.outPath else nixpkgs-unstable.outPath;
     nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
   };
+
+  # Stable / unstable splits of the above function so we can reduce complexity in each nixosConfiguration call below
+  stableNix = standardiseNix { stable = true; };
+  unstableNix = standardiseNix { };
 
   # Load local overlays and merge with upstream options
   localOverlays = import ../overlays;
@@ -73,7 +79,7 @@ in {
         agenix.nixosModule
         referenceSelf
         nur.nixosModules.nur
-        (standardiseNix { })
+        unstableNix
       ];
     };
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
@@ -84,7 +90,7 @@ in {
     modules = modules-function {
       inherit home-manager self;
       hostname = "gastly";
-      extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
+      extraModules = [ agenix.nixosModule referenceSelf unstableNix ];
     };
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
@@ -98,7 +104,7 @@ in {
         microvm.nixosModules.host
         agenix.nixosModule
         referenceSelf
-        (standardiseNix { stable = true; })
+        stableNix
       ];
     };
   in stable.lib.nixosSystem { inherit system pkgs modules; };
@@ -109,7 +115,7 @@ in {
     modules = modules-function {
       inherit home-manager self;
       hostname = "jigglypuff";
-      extraModules = [ agenix.nixosModule referenceSelf (standardiseNix { }) ];
+      extraModules = [ agenix.nixosModule referenceSelf unstableNix ];
     };
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
@@ -123,7 +129,7 @@ in {
         nixos-hardware.nixosModules.raspberry-pi-4
         agenix.nixosModule
         referenceSelf
-        (standardiseNix { })
+        unstableNix
       ];
     };
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
@@ -138,7 +144,7 @@ in {
       ../hosts/igglybuff
       agenix.nixosModule
       referenceSelf
-      (standardiseNix { })
+      unstableNix
     ];
   };
 
@@ -150,7 +156,7 @@ in {
       ../hosts/aipom
       agenix.nixosModule
       referenceSelf
-      (standardiseNix { })
+      unstableNix
     ];
   };
 }
