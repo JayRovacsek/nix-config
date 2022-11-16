@@ -5,6 +5,7 @@
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
+      upgrade = true;
     };
     brews = [ "openssh" "pidof" "mas" "mingw-w64" ];
 
