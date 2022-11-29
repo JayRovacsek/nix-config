@@ -11,6 +11,8 @@ in {
       multi-account-containers
       noscript
       privacy-badger
+      temporary-containers
+      terms-of-service-didnt-read
       ublock-origin
       user-agent-string-switcher
     ];

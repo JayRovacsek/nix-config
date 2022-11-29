@@ -2,7 +2,9 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    stable.url = "github:nixos/nixpkgs/release-22.05";
+    # stable.url = "github:nixos/nixpkgs/release-22.05";
+    "22-05".url = "github:nixos/nixpkgs/release-22.05";
+    stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
@@ -38,22 +40,43 @@
     # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
     # Note that this is only used for the OPTIONS and the main agenix package is utilised for
     # actual actions related to agenix
-    agenix-darwin.url = "github:cmhamill/agenix";
+    agenix-darwin = {
+      url = "github:cmhamill/agenix";
+      inputs.nixpkgs.follows = "stable";
+    };
 
     # Assuming we have a standardised and flake managed nixpkgs / channel setup
     # we don't need to set the below as they'll self-correct after a second rebuild
     # when first shifting to the new structure
-    agenix.url = "github:ryantm/agenix";
-    firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "stable";
+    };
+    firefox-darwin = {
+      url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "unstable";
+    };
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:rycee/home-manager/release-22.05";
-    microvm.url = "github:astro/microvm.nix";
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    home-manager = {
+      url = "github:rycee/home-manager/release-22.11";
+      inputs.nixpkgs.follows = "stable";
+    };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "stable";
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "stable";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
 
     # Required for default toolchain changes
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "stable";
+    };
   };
 
   outputs = { self, flake-utils, ... }:
