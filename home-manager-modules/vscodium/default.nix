@@ -103,6 +103,7 @@
 
       # Rust
       matklad.rust-analyzer
+      vadimcn.vscode-lldb
 
       # Spellcheck
       streetsidesoftware.code-spell-checker
