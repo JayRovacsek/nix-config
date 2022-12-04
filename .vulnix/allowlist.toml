@@ -31,6 +31,11 @@ cve = [
 ]
 comment = "False positives"
 
+["botan"]
+cve = ["CVE-2022-43705"]
+until = "2022-12-31"
+comment = "Risk accept temporarily"
+
 ["cereal"]
 cve = ["CVE-2020-11104", "CVE-2020-11105"]
 comment = "False positives"
@@ -93,7 +98,7 @@ until = "2022-12-31"
 comment = "True positives, no upstream fixes in nixpkgs yet"
 
 ["ffmpeg"]
-cve = ["CVE-2021-38291"]
+cve = ["CVE-2021-38291", "CVE-2022-3964", "CVE-2022-3965"]
 until = "2022-12-31"
 comment = "Low risk flaws & exploitation path"
 
@@ -188,6 +193,11 @@ comment = "Build time dependency"
 cve = ["CVE-2021-23154", "CVE-2021-44458"]
 comment = "False positives"
 
+["libarchive"]
+cve = ["CVE-2022-36227"]
+until = "2022-12-31"
+comment = "Temporarily risk accept"
+
 ["libde265"]
 cve = [
     "CVE-2021-35452",
@@ -245,8 +255,10 @@ cve = [
     "CVE-2022-2056",
     "CVE-2022-2057",
     "CVE-2022-2058",
+    "CVE-2022-3970",
 ]
-comment = "True positive, low risk"
+until = "2022-12-31"
+comment = "True positive, risk accept while no upstream patches exist but source patches do"
 
 ["libtasn1"]
 cve = ["CVE-2021-46848"]
@@ -275,8 +287,15 @@ cve = [
 comment = "True positive, build time dependency, risk accept"
 
 ["mujs"]
-cve = ["CVE-2017-5627", "CVE-2017-5628", "CVE-2022-30974", "CVE-2022-30975"]
-comment = "True positive, build time dependency, risk accept"
+cve = [
+    "CVE-2017-5627",
+    "CVE-2017-5628",
+    "CVE-2022-30974",
+    "CVE-2022-30975",
+    "CVE-2022-44789",
+]
+until = "2022-12-31"
+comment = "True positive, build time dependency, risk accept temporarily"
 
 ["network"]
 cve = [
@@ -353,8 +372,8 @@ cve = [
 comment = "False positives"
 
 ["qemu"]
-cve = ["CVE-2022-2962", "CVE-2022-3165", "CVE-2022-3872"]
-comment = "Flaw is pertinent to un-utilised feature"
+cve = ["CVE-2022-2962", "CVE-2022-3165", "CVE-2022-3872", "CVE-2022-4144"]
+comment = "Flaws are pertinent to un-utilised features"
 
 ["rubygems"]
 cve = ["CVE-2022-36073"]
@@ -409,6 +428,11 @@ cve = [
 ]
 comment = "False positives"
 
+["sysstat"]
+cve = ["CVE-2022-39377"]
+until = "2022-12-31"
+comment = "Temporarily risk acccept"
+
 ["tcl"]
 cve = ["CVE-2021-35331"]
 until = "2022-12-31"
@@ -442,6 +466,7 @@ cve = [
     "CVE-2022-3297",
     "CVE-2022-3324",
     "CVE-2022-3705",
+    "CVE-2022-4141",
 ]
 comment = "True positive, low risk"
 

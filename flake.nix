@@ -32,7 +32,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "unstable";
+        nixpkgs.follows = "stable";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -121,8 +121,7 @@
         # Import local packages passing system relevnet pkgs through
         # for dependencies.
         localPackages = import ./packages { inherit pkgs; };
-        localUnstablePackages =
-          import ./packages/unstable.nix { pkgs = pkgsUnstable; };
+        localUnstablePackages = import ./packages { pkgs = pkgsUnstable; };
         packages = flake-utils.lib.flattenTree localPackages;
         unstablePackages = flake-utils.lib.flattenTree localUnstablePackages;
       in {
