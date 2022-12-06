@@ -3,7 +3,7 @@ let
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs) lib;
   batAlias = if config.programs.bat.enable then {
-    cat = "${pkgs.bat}/bin/bat --color always";
+    less = "${pkgs.bat}/bin/bat --color always";
   } else
     { };
   mergeAliases = [ batAlias ];
