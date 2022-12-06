@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   inherit (pkgs) system;
-  inherit (config.flake.unstablePackages.${system}) pokemmo-installer;
+  inherit (config.flake.packages.${system}) pokemmo-installer;
 in {
   environment.systemPackages = with pkgs; [
     # CLI
@@ -9,7 +9,6 @@ in {
     vim
     wget
     agenix
-    # pokemmo
     pokemmo-installer
   ];
 }

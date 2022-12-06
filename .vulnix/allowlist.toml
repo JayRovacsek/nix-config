@@ -467,6 +467,8 @@ cve = [
     "CVE-2022-3324",
     "CVE-2022-3705",
     "CVE-2022-4141",
+    "CVE-2022-3491",
+    "CVE-2022-3591",
 ]
 comment = "True positive, low risk"
 

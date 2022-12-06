@@ -13,7 +13,10 @@ in {
     enable = true;
     displayManager = {
       inherit autoLogin;
-      lightdm.enable = true;
+      lightdm = {
+        enable = true;
+        background = pkgs.nixos-artwork.wallpapers.simple-red.gnomeFilePath;
+      };
     };
     desktopManager.lxqt.enable = true;
   };
