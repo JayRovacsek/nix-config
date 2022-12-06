@@ -11,7 +11,6 @@
     pciutils
     zsh-autosuggestions
     nix-zsh-completions
-    jq
     oh-my-zsh
     nvidia-docker
     lm_sensors

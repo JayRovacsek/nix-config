@@ -3,7 +3,6 @@
     # CLI Utilities
     git
     htop
-    jq
     killall
     lsd
     tree

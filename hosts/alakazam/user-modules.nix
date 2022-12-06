@@ -4,8 +4,11 @@ let
   # List of home-manager modules we want for this system
   modules = [
     "alacritty"
+    "bat"
     "direnv"
     "firefox"
+    "fzf"
+    "jq"
     "git"
     "lsd"
     "rofi"

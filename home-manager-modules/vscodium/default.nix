@@ -3,7 +3,7 @@
     enable = true;
     package = pkgs.vscodium;
 
-    mutableExtensionsDir = true;
+    mutableExtensionsDir = false;
 
     userSettings = {
       "[dockercompose]" = {

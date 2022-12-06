@@ -5,7 +5,6 @@
     awscli
     git
     htop
-    jq
     # This is required as the version of SSH on darwin is garbage and doesn't support
     # yubikeys properly.
     # Adding open ssh will mean it ranks higher in path leading to a suitable SSH

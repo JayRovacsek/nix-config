@@ -6,6 +6,7 @@
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/keybase
     ../../modules/lorri
     ../../modules/nix
     ../../modules/microvm/host

@@ -18,6 +18,17 @@ in {
     ];
 
     profiles.jay = {
+      search = {
+        force = true;
+        default = "DuckDuckGo";
+        order = [ "DuckDuckGo" ];
+        engines = {
+          "Bing".metaData.hidden = true;
+          "eBay".metaData.hidden = true;
+          "Google".metaData.hidden = true;
+          "Wikipedia (en)".hidden = true;
+        };
+      };
       bookmarks = {
         "Duck Duck Go" = {
           keyword = "d";

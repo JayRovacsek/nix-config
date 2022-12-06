@@ -4,7 +4,6 @@
     exfat
     git
     htop
-    jq
     killall
     lsd
     tree
