@@ -17,8 +17,8 @@ in {
 
   # Add wireless key to identity path
   age.identityPaths = [
+    "/agenix/id-ed25519-ssh-primary"
     "/agenix/id-ed25519-wireless-primary"
-    # "/agenix/id-ed25519-wireless-secondary"
   ];
 
   networking.hostName = "wigglytuff";
