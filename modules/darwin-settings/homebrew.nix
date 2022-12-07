@@ -1,4 +1,8 @@
-{
+{ config, ... }:
+let
+  inherit (config.networking) hostName;
+  extraCasks = if hostName == "HF0013161" then [ "workplace-chat" ] else [ ];
+in {
   # I don't want to use this, but will likely need to
   homebrew = {
     enable = true;
@@ -22,7 +26,7 @@
       "raycast"
       "signal"
       "slack"
-    ];
+    ] ++ extraCasks;
 
     masApps = { };
   };
