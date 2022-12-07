@@ -6,6 +6,7 @@ let
     "alacritty"
     "bat"
     "direnv"
+    "dircolours"
     "firefox"
     "fzf"
     "jq"
@@ -18,5 +19,5 @@ let
   ];
 in {
   imports = (builtins.map (module: ./. + "${path}/${module}") modules)
-    ++ [ ../../packages/x86_64-linux.nix ];
+    ++ [ ../../packages/linux.nix ];
 }

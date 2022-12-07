@@ -4,8 +4,6 @@
     git
     htop
     killall
-    lsd
-    tree
 
     # Browsers
     brave

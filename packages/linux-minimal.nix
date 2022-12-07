@@ -4,7 +4,5 @@
     git
     htop
     killall
-    tree
-    unzip
   ];
 }
