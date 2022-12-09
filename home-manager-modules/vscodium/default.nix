@@ -5,6 +5,12 @@
 
     mutableExtensionsDir = false;
 
+    keybindings = [{
+      key = "cmd+`";
+      command = "workbench.action.terminal.toggleTerminal";
+      when = "terminal.active";
+    }];
+
     userSettings = {
       "[dockercompose]" = {
         "editor.defaultFormatter" = "ms-azuretools.vscode-docker";

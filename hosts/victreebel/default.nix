@@ -7,7 +7,7 @@ let
 in {
   inherit users flake;
 
-  imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
+  imports = [ ./modules.nix ./options.nix ./system-packages.nix ./secrets.nix ];
 
   services.nix-daemon.enable = true;
 

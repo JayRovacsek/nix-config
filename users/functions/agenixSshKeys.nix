@@ -1,6 +1,11 @@
-{ name, config, lib }:
+{ name, config, pkgs }:
 let
-  sshKeys =
-    builtins.filter (x: lib.strings.hasInfix "${name}-id-ed25519" x.name)
-    (builtins.attrValues config.age.secrets);
+  inherit (pkgs) lib stdenv;
+  inherit (lib.strings) hasInfix;
+  sshKeys = with builtins;
+    if (hasAttr "secrets" config.age) then
+      (filter (x: hasInfix "${name}-id-ed25519" x.name)
+        (attrValues config.age.secrets))
+    else
+      [ ];
 in sshKeys

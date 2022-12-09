@@ -6,7 +6,7 @@ let
   home = "/Users/${name}";
 
   userSshKeys =
-    import ../functions/agenixSshKeys.nix { inherit name config lib; };
+    import ../functions/agenixSshKeys.nix { inherit name config pkgs; };
   identityFiles = builtins.concatStringsSep "\n  "
     (builtins.map (x: "IdentityFile ${x.path}") userSshKeys);
 

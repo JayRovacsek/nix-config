@@ -80,10 +80,12 @@
   };
 
   outputs = { self, flake-utils, ... }:
+    let
+      users = { };
     # The below sets a dev shell for the flake with inputs defined in 
     # the packags section of the dev shell and shellHook running on 
     # evaluation by direnv
-    flake-utils.lib.eachSystem [
+    in flake-utils.lib.eachSystem [
       "aarch64-linux"
       "aarch64-darwin"
       "x86_64-darwin"
