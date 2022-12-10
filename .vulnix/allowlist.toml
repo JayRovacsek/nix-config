@@ -349,6 +349,11 @@ comment = "True positive but no reachability / risk based on configuration"
 cve = ["CVE-2018-16395", "CVE-2022-3358", "CVE-2022-3602", "CVE-2022-3786"]
 comment = "False positives and/or low risk"
 
+["openvpn"]
+cve = ["CVE-2020-27569"]
+until = "2022-12-31"
+comment = "Risk accept, to review in future, I believe this is unused"
+
 ["p7zip"]
 cve = ["CVE-2017-17969", "CVE-2018-5996"]
 comment = "True positive and low risk"

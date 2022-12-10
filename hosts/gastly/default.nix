@@ -7,7 +7,7 @@ let
 in {
   inherit users flake;
 
-  services.tailscale.tailnet = "admin";
+  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
   imports = [
     ./hardware-configuration.nix

@@ -6,6 +6,7 @@
     ../../modules/fonts
     ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
