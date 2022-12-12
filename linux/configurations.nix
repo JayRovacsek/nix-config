@@ -22,6 +22,7 @@ let
   microvm = inputs.microvm;
   nixos-generators = inputs.nixos-generators;
   nixos-hardware = inputs.nixos-hardware;
+  nixos-wsl = inputs.nixos-wsl;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -133,6 +134,21 @@ in {
       ];
     };
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
+
+  zubat = let
+    inherit (x86_64-linux-stable) system;
+    pkgs = x86_64-linux-stable;
+    modules = modules-function {
+      inherit home-manager self;
+      hostname = "zubat";
+      extraModules = [
+        agenix.nixosModule
+        nixos-wsl.nixosModules.wsl
+        referenceSelf
+        stableNix
+      ];
+    };
+  in stable.lib.nixosSystem { inherit system pkgs modules; };
 
   ## MICROVMS
 

@@ -2,10 +2,17 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    # stable.url = "github:nixos/nixpkgs/release-22.05";
-    "22-05".url = "github:nixos/nixpkgs/release-22.05";
+    stable-22-05.url = "github:nixos/nixpkgs/release-22.05";
     stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      inputs = {
+        nixpkgs.follows = "stable-22-05";
+        flake-utils.follows = "flake-utils";
+      };
+    };
 
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
     # therefore we can't depend on stable/unstable to handle the correct matching
