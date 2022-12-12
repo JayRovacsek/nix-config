@@ -1,24 +1,28 @@
 { config, pkgs, lib, flake, ... }:
 let
     userConfigs = import ./users.nix { inherit config pkgs flake; };
-  users = import ../../functions/map-reduce-users.nix {
+    users = import ../../functions/map-reduce-users.nix {
     inherit config pkgs lib userConfigs;
   };
+  hostName = "zubat";
 in
 {
-    inherit users flake;
+  inherit users flake;
+
+  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
   imports = [
-    # "${modulesPath}/profiles/minimal.nix"
     ./modules.nix
     ./options.nix
     ./system-packages.nix
   ];
 
+  networking = { inherit hostName; };
+
   wsl = {
     enable = true;
     automountPath = "/mnt";
-    defaultUser = "nixos";
+    defaultUser = "jay";
     startMenuLaunchers = true;
   };
 

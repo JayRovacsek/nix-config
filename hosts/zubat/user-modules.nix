@@ -11,6 +11,7 @@ let
     "git"
     "lsd"
     "starship"
+    "vscodium"
     "zsh"
   ];
 in {
