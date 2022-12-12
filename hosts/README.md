@@ -47,3 +47,14 @@ Work aarch64 Macbook;
 A raspberry pi 4 that acts as a music box over the 3.5mm headphone jack for the home gym.
 
 ![Wigglytuff](https://archives.bulbagarden.net/media/upload/5/5a/Spr_2c_040.png?raw=true)
+
+## Victreebel
+Work aarch64 Macbook; 
+
+![Victreebel](https://archives.bulbagarden.net/media/upload/5/55/Spr_5b_071.png?raw=true)
+
+## Zubat
+A configuration that is leveraged within WSL settings. Yep, everyone hates Zubat and the feeling
+isn't so far from WSL :cry:
+
+![Zubat](https://archives.bulbagarden.net/media/upload/f/f6/Spr_5b_041_f.png?raw=true)
