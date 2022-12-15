@@ -7,10 +7,12 @@
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      url =
+        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
       inputs = {
         nixpkgs.follows = "stable-22-05";
         flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -41,6 +43,17 @@
       inputs = {
         nixpkgs.follows = "stable";
         flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    vulnix-pre-commit = {
+      url = "github:jayrovacsek/vulnix-pre-commit";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -70,7 +83,10 @@
     };
     microvm = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "stable";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+      };
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -78,20 +94,14 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
-
-    # Required for default toolchain changes
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "stable";
-    };
   };
 
   outputs = { self, flake-utils, ... }:
     let
       users = { };
-    # The below sets a dev shell for the flake with inputs defined in 
-    # the packags section of the dev shell and shellHook running on 
-    # evaluation by direnv
+      # The below sets a dev shell for the flake with inputs defined in 
+      # the packags section of the dev shell and shellHook running on 
+      # evaluation by direnv
     in flake-utils.lib.eachSystem [
       "aarch64-linux"
       "aarch64-darwin"
