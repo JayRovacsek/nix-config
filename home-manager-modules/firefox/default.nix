@@ -2,20 +2,23 @@
 let
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
+
+  languagePacks = with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ];
 in {
   programs.firefox = {
     enable = true;
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      decentraleyes
-      keepassxc-browser
-      multi-account-containers
-      noscript
-      privacy-badger
-      temporary-containers
-      terms-of-service-didnt-read
-      ublock-origin
-      user-agent-string-switcher
-    ];
+    extensions = with pkgs.nur.repos.rycee.firefox-addons;
+      [
+        decentraleyes
+        keepassxc-browser
+        multi-account-containers
+        noscript
+        privacy-badger
+        temporary-containers
+        terms-of-service-didnt-read
+        ublock-origin
+        user-agent-string-switcher
+      ] ++ languagePacks;
 
     profiles.jay = {
       search = {
@@ -287,6 +290,7 @@ in {
         "signon.autofillForms" = false;
         "signon.formlessCapture.enabled" = false;
         "signon.rememberSignons" = false;
+        "spellchecker.dictionary" = "en-GB";
         "toolkit.coverage.endpoint.base" = "";
         "toolkit.coverage.opt-out" = true;
         "toolkit.telemetry.archive.enabled" = false;

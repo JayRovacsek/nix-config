@@ -1,1 +1,1 @@
-{ programs.kitty = { enable = true; }; }
+{ config, pkgs, ... }: { programs.kitty = { enable = true; }; }

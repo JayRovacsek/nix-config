@@ -1,1 +1,1 @@
-{ programs.emacs = { enable = true; }; }
+{ config, pkgs, ... }: { programs.emacs = { enable = true; }; }

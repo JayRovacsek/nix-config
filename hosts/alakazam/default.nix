@@ -1,11 +1,24 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, flake, ... }:
 let
-  userConfigs = import ./users.nix { inherit config pkgs flake; };
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake.lib) generate-user-configs;
+  inherit (flake.lib) generate-home-manager-configs;
+
+  users = generate-user-configs {
+    inherit config pkgs;
+    extraModules = [ ];
+    users = with flake.users; [ jay ];
   };
+
+  hm-modules = generate-home-manager-configs {
+    inherit config pkgs;
+    modules = with flake.home-manager-modules; [ alacritty ];
+  };
+  # userConfigs = import ./users.nix { inherit config pkgs flake; };
+  # users = import ../../functions/map-reduce-users.nix {
+  #   inherit config pkgs lib userConfigs;
+  # };
 in {
-  inherit users flake;
+  inherit flake users;
 
   age = {
     secrets."tailscale-dns-preauth-key" = {

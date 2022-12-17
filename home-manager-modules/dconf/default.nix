@@ -1,9 +1,6 @@
-# Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ lib, ... }:
-
-with lib.hm.gvariant;
-
-{
+{ config, pkgs, ... }:
+let inherit (pkgs.lib.hm) gvariant;
+in with gvariant; {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";

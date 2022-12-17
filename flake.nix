@@ -81,10 +81,10 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      users = { };
-    # The below sets a dev shell for the flake with inputs defined in 
-    # the packags section of the dev shell and shellHook running on 
-    # evaluation by direnv
+      lib = import ./lib { inherit self; };
+      # The below sets a dev shell for the flake with inputs defined in 
+      # the packags section of the dev shell and shellHook running on 
+      # evaluation by direnv
     in flake-utils.lib.eachSystem [
       "aarch64-linux"
       "aarch64-darwin"
@@ -100,17 +100,15 @@
         pkgs = self.inputs.stable.legacyPackages.${system};
         pkgsUnstable = self.inputs.unstable.legacyPackages.${system};
 
-        devShellStableDeps = with pkgs; [ nixfmt statix vulnix ];
-        devShellUnstableDeps = with pkgsUnstable; [ nil ];
-
         checks = {
           pre-commit-check = self.inputs.pre-commit-hooks.lib.${system}.run
             (import ./pre-commit-checks.nix { inherit self pkgs system; });
         };
 
-        devShell = pkgs.mkShell {
+        devShell = let packages = with pkgs; [ nixfmt statix vulnix nil ];
+        in pkgs.mkShell {
           name = "nix-config-dev-shell";
-          packages = devShellStableDeps ++ devShellUnstableDeps;
+          inherit packages;
           # Self reference to make the default shell hook that which generates
           # a suitable pre-commit hook installation
           inherit (self.checks.${system}.pre-commit-check) shellHook;
@@ -133,6 +131,8 @@
         # collision space:
         # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
       }) // {
+        inherit lib;
+        inherit (lib) users home-manager-modules;
         nixosConfigurations =
           import ./linux/configurations.nix { inherit self; };
         darwinConfigurations =

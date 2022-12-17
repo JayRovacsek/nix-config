@@ -22,10 +22,6 @@ self: super: {
   #     targets = [ "arm-unknown-linux-gnueabihf" ];
   #   });
 
-  # Required to fix the pname being fzf-zsh-unstable and therefore causing
-  # pain in oh-my-custom
-  fzf-zsh = super.fzf-zsh.overrideAttrs (old: rec { pname = "fzf-zsh"; });
-
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = x:

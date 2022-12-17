@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
+with pkgs;
 let
-  base = with pkgs; [ dwarf-fortress ];
-  mods = with pkgs.dwarf-fortress-packages; [ dwarf-therapist ];
-  themes = with pkgs.dwarf-fortress-packages; [ ];
+  base = [ dwarf-fortress ];
+  mods = with dwarf-fortress-packages; [ dwarf-therapist ];
+  themes = with dwarf-fortress-packages; [ ];
   dfPackages = base ++ mods ++ themes;
 in { home.packages = dfPackages; }

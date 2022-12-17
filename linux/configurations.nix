@@ -71,17 +71,30 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    modules = modules-function {
-      inherit home-manager self;
-      hostname = "alakazam";
-      extraModules = [
-        microvm.nixosModules.host
-        agenix.nixosModule
-        referenceSelf
-        nur.nixosModules.nur
-        unstableNix
-      ];
-    };
+    # modules = modules-function {
+    #   inherit home-manager self;
+    #   hostname = "alakazam";
+    #   extraModules = [
+    #     microvm.nixosModules.host
+    #     agenix.nixosModule
+    #     referenceSelf
+    #     nur.nixosModules.nur
+    #     unstableNix
+    #   ];
+    # };
+    modules = [
+      ../hosts/alakazam
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
+      microvm.nixosModules.host
+      agenix.nixosModule
+      referenceSelf
+      nur.nixosModules.nur
+      unstableNix
+    ];
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
   gastly = let
