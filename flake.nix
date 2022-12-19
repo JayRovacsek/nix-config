@@ -47,10 +47,14 @@
       };
     };
 
+    # Temporarily pinned to 40c6b517446510dfb238aed6b3e3f0eb81ee052c while making changes upstream:
+    # nix flake update --override-input vulnix-pre-commit github:jayrovacsek/vulnix-pre-commit/40c6b517446510dfb238aed6b3e3f0eb81ee052c
     vulnix-pre-commit = {
       url = "github:jayrovacsek/vulnix-pre-commit";
       inputs = {
         nixpkgs.follows = "stable";
+        stable.follows = "stable";
+        unstable.follows = "unstable";
         flake-utils.follows = "flake-utils";
         pre-commit-hooks.follows = "pre-commit-hooks";
         flake-compat.follows = "flake-compat";
