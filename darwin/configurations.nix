@@ -88,9 +88,6 @@ in {
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
 
-  # Hack to keep style of repository :)
-  HF0013161 = self.outputs.darwinConfigurations.victreebel;
-
   victreebel = let
     inherit (aarch64-darwin-stable) system;
     modules = modules-function {
