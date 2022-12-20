@@ -434,7 +434,7 @@
           "pre-commit-hooks"
         ],
         "stable": [
-          "stable"
+          "unstable"
         ],
         "unstable": [
           "unstable"

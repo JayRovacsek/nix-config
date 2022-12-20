@@ -52,7 +52,7 @@
     vulnix-pre-commit = {
       url = "github:jayrovacsek/vulnix-pre-commit";
       inputs = {
-        nixpkgs.follows = "stable";
+        # nixpkgs.follows = "stable";
         stable.follows = "stable";
         unstable.follows = "unstable";
         flake-utils.follows = "flake-utils";
@@ -134,7 +134,7 @@
           packages = devShellStableDeps ++ devShellUnstableDeps;
           # Self reference to make the default shell hook that which generates
           # a suitable pre-commit hook installation
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          # inherit (self.checks.${system}.pre-commit-check) shellHook;
         };
 
         # Self reference the dev shell for our system to resolve the lacking
