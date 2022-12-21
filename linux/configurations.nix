@@ -26,7 +26,8 @@ let
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
   # config as "flake" if used as defined below
-  referenceSelf = { config._module.args.flake = self; };
+  flake = self;
+  referenceSelf = { config._module.args = { inherit flake; }; };
 
   # A function to apply opinions on the nixpkgs pinning of a system.
   # Absolutely required for repoducability
@@ -67,6 +68,32 @@ let
     inherit overlays;
     config = { allowUnfree = true; };
   }) microvm.packages.aarch64-linux;
+
+  inherit (flake.common) users;
+  inherit (flake.lib) generate-user-configs;
+  # jay = users.jay { pkgs = x86_64-linux-unstable;};
+  cfg = generate-user-configs {
+    flake = self;
+    pkgs = x86_64-linux-unstable;
+    users = [ users.jay ];
+  };
+  # jay = users.jay { pkgs = x86_64-linux-unstable;};
+
+  # inherit (flake.lib) generate-user-config;
+  # inherit (flake.lib) generate-home-manager-configs;
+  # inherit (flake.users) jay;
+
+  # cfg = generate-user-config {
+  #   inherit flake;
+  #   pkgs = x86_64-linux-unstable;
+  #   userSettings = jay;
+  # };
+
+  # hm-modules = generate-home-manager-configs {
+  #   inherit config pkgs;
+  #   modules = with flake.home-manager-modules; [ alacritty ];
+  # };
+
 in {
   alakazam = let
     inherit (x86_64-linux-unstable) system;
@@ -84,11 +111,13 @@ in {
     # };
     modules = [
       ../hosts/alakazam
+      cfg
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
       }
+      # hm-modules
       microvm.nixosModules.host
       agenix.nixosModule
       referenceSelf
