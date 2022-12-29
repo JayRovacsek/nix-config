@@ -1,11 +1,11 @@
 { containerConfig, ... }: {
   "${containerConfig.serviceName}" = {
-    autoStart = containerConfig.autoStart;
-    image = containerConfig.image;
-    ports = containerConfig.ports;
-    volumes = containerConfig.volumes;
-    environment = containerConfig.environment;
-    extraOptions = containerConfig.extraOptions;
+    inherit (containerConfig) autoStart;
+    inherit (containerConfig) image;
+    inherit (containerConfig) ports;
+    inherit (containerConfig) volumes;
+    inherit (containerConfig) environment;
+    inherit (containerConfig) extraOptions;
     # user = containerConfig.user;
   };
 }

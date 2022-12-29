@@ -1,24 +1,5 @@
-{ config, pkgs, flake, ... }:
-let
-  inherit (flake.lib) generate-user-configs;
-  inherit (flake.lib) generate-home-manager-configs;
-
-  users = generate-user-configs {
-    inherit config pkgs;
-    extraModules = [ ];
-    users = with flake.users; [ jay ];
-  };
-
-  hm-modules = generate-home-manager-configs {
-    inherit config pkgs;
-    modules = with flake.home-manager-modules; [ alacritty ];
-  };
-  # userConfigs = import ./users.nix { inherit config pkgs flake; };
-  # users = import ../../functions/map-reduce-users.nix {
-  #   inherit config pkgs lib userConfigs;
-  # };
-in {
-  inherit flake users;
+{ config, pkgs, flake, ... }: {
+  inherit flake;
 
   age = {
     secrets."tailscale-dns-preauth-key" = {
@@ -42,17 +23,6 @@ in {
     hostId = "ef26b1be";
     useDHCP = false;
     interfaces.enp0s31f6.useDHCP = true;
-  };
-
-  microvm.vms = {
-    aipom = {
-      inherit flake;
-      autostart = true;
-    };
-    igglybuff = {
-      inherit flake;
-      autostart = true;
-    };
   };
 
   systemd.services."getty@tty1".enable = false;

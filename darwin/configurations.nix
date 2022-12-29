@@ -3,7 +3,7 @@ let
   modules-function = import ../functions/modules.nix;
 
   flake = self;
-  inputs = self.inputs;
+  inherit (self) inputs;
 
   # Package Sets
   nixpkgs = inputs.stable;
@@ -11,11 +11,11 @@ let
 
   # Extra modules
   agenix = inputs.agenix-darwin;
-  darwin-stable = inputs.darwin-stable;
-  darwin-unstable = inputs.darwin-unstable;
+  inherit (inputs) darwin-stable;
+  inherit (inputs) darwin-unstable;
   firefox = inputs.firefox-darwin;
-  home-manager = inputs.home-manager;
-  nur = inputs.nur;
+  inherit (inputs) home-manager;
+  inherit (inputs) nur;
 
   # This is required for any system needing to reference the flake itself from
   # within the config. It will be available as an argument to the 
@@ -87,9 +87,6 @@ in {
         [ overlayModule agenix.nixosModules.age unstableNix referenceSelf ];
     };
   in darwin-unstable.lib.darwinSystem { inherit system modules; };
-
-  # Hack to keep style of repository :)
-  HF0013161 = self.outputs.darwinConfigurations.victreebel;
 
   victreebel = let
     inherit (aarch64-darwin-stable) system;

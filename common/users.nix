@@ -15,12 +15,12 @@ let
   # nix-repl> pkgs = nixosConfigurations.alakazam.pkgs 
   # nix-repl> jay = common.users.jay { inherit pkgs; }
 
-  fn = mapAttrs (name: value:
-    (pkgs:
-      generate-user-config {
-        # TODO: figure why this is required instead of expected inherit pkgs;
-        pkgs = pkgs.pkgs;
-        flake = self;
-        userSettings = value;
-      })) base-users;
+  fn = mapAttrs (name: user-settings:
+    { pkgs, home-manager-modules ? [ ] }:
+    generate-user-config {
+      # TODO: figure why this is required instead of expected inherit pkgs;
+      inherit (pkgs) pkgs;
+      flake = self;
+      inherit home-manager-modules user-settings;
+    }) base-users;
 in fn

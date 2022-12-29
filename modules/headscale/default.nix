@@ -48,7 +48,7 @@ in {
     serverUrl = "https://headscale.rovacsek.com";
 
     database = {
-      user = config.services.headscale.user;
+      inherit (config.services.headscale) user;
       type = "sqlite3";
       path = "/var/lib/headscale/db.sqlite";
       name = "headscale";

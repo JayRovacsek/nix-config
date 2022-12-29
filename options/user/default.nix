@@ -47,7 +47,7 @@ let
 
 in {
   options.users.users = mkOption {
-    type = attrsOf (submodule ({ ... }: {
+    type = attrsOf (submodule (_: {
       options = {
         homeManagerModules = mkOption {
           type = with types;

@@ -1,6 +1,7 @@
 { self }:
 let
-  fn = { flake, pkgs, userSettings ? { }, extraModules ? [ ], ... }:
+  fn = { flake, pkgs, user-settings ? { }, home-manager-modules ? [ ]
+    , extraModules ? [ ], ... }:
     # User settings:
     # {
     #   name,
@@ -14,7 +15,7 @@ let
     let
       inherit (pkgs) lib stdenv;
       inherit (stdenv) isLinux;
-      inherit (userSettings) name;
+      inherit (user-settings) name;
       inherit (lib) recursiveUpdate;
       inherit (lib.strings) hasInfix;
       inherit (flake.inputs) home-manager;
@@ -105,17 +106,20 @@ let
           ${builtins.concatStringsSep "\n\n" extraHostConfigs}
         '';
       };
+      programs = foldl' (x: y: (recursiveUpdate x y)) { }
+        (map (mod: mod { inherit pkgs; }) home-manager-modules);
     in {
-      # home-manager.useGlobalPkgs = true;
-      # home-manager.useUserPackages = true;
+      config = {
+        users.users.${name} =
+          recursiveUpdate { shell = pkgs.zsh; } user-settings;
 
-      config.users.users.${name} =
-        (recursiveUpdate { shell = pkgs.zsh; } userSettings);
-
-      # home-manager.users.${name} = (if hasAttr "home" userSettings then {
-      #   home = (recursiveUpdate defaultHome userSettings.home);
-      # } else {
-      #   home = defaultHome;
-      # }) // (foldl' (x: y: (recursiveUpdate x y)) { } extraModules);
+        home-manager.users.${name} = (if hasAttr "home" user-settings then {
+          home = recursiveUpdate defaultHome user-settings.home;
+        } else {
+          home = defaultHome;
+        }) // {
+          inherit programs;
+        };
+      };
     };
 in fn

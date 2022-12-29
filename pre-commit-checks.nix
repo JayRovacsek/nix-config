@@ -1,9 +1,23 @@
 { self, pkgs, system }: {
   src = self;
   hooks = {
-    nixfmt = {
+    nixfmt.enable = true;
+    # Temporarily disable to resolve issues with old files
+    statix.enable = false;
+    prettier-write = {
       enable = true;
-      excludes = [ ];
+      name = "Prettier Write";
+      entry = "${pkgs.nodePackages.prettier}/bin/prettier --write .";
+      files = "\\.(js|ts|jsx|tsx|json|yml|yaml)$";
+      language = "system";
+    };
+
+    statix-write = {
+      enable = true;
+      name = "Statix Write";
+      entry = "${pkgs.statix}/bin/statix fix";
+      language = "system";
+      pass_filenames = false;
     };
   };
 }

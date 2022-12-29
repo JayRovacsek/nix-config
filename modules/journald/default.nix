@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  isArm = (lib.strings.hasInfix "aarch" config.nixpkgs.system);
+  isArm = lib.strings.hasInfix "aarch" config.nixpkgs.system;
   storage = if isArm then "Storage=volatile" else "Storage=volatile";
   systemMaxUse = if isArm then "SystemMaxUse=64M" else "SystemMaxUse=1G";
   maxRetentionSec =

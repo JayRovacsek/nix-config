@@ -2,26 +2,26 @@
 let
   modules-function = import ../functions/modules.nix;
 
-  inputs = self.inputs;
+  inherit (self) inputs;
 
   # Package Sets
-  stable = inputs.stable;
+  inherit (inputs) stable;
   nixpkgs = inputs.stable;
-  unstable = inputs.unstable;
+  inherit (inputs) unstable;
   nixpkgs-unstable = inputs.unstable;
 
   # Nix User Repositories
-  nur = inputs.nur;
+  inherit (inputs) nur;
 
   # Pull recusrive update out to use it later
   inherit (stable.lib) recursiveUpdate;
 
   # Extra modules
-  agenix = inputs.agenix;
-  home-manager = inputs.home-manager;
-  microvm = inputs.microvm;
-  nixos-generators = inputs.nixos-generators;
-  nixos-hardware = inputs.nixos-hardware;
+  inherit (inputs) agenix;
+  inherit (inputs) home-manager;
+  inherit (inputs) microvm;
+  inherit (inputs) nixos-generators;
+  inherit (inputs) nixos-hardware;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -69,55 +69,25 @@ let
     config = { allowUnfree = true; };
   }) microvm.packages.aarch64-linux;
 
-  inherit (flake.common) users;
-  inherit (flake.lib) generate-user-configs;
-  # jay = users.jay { pkgs = x86_64-linux-unstable;};
-  cfg = generate-user-configs {
-    flake = self;
+  inherit (flake.common) users home-manager-modules;
+  inherit (flake.lib) generate-user-config;
+  jay = users.jay {
     pkgs = x86_64-linux-unstable;
-    users = [ users.jay ];
+    home-manager-modules = with home-manager-modules; [ bat ];
   };
-  # jay = users.jay { pkgs = x86_64-linux-unstable;};
-
-  # inherit (flake.lib) generate-user-config;
-  # inherit (flake.lib) generate-home-manager-configs;
-  # inherit (flake.users) jay;
-
-  # cfg = generate-user-config {
-  #   inherit flake;
-  #   pkgs = x86_64-linux-unstable;
-  #   userSettings = jay;
-  # };
-
-  # hm-modules = generate-home-manager-configs {
-  #   inherit config pkgs;
-  #   modules = with flake.home-manager-modules; [ alacritty ];
-  # };
 
 in {
   alakazam = let
     inherit (x86_64-linux-unstable) system;
     pkgs = x86_64-linux-unstable;
-    # modules = modules-function {
-    #   inherit home-manager self;
-    #   hostname = "alakazam";
-    #   extraModules = [
-    #     microvm.nixosModules.host
-    #     agenix.nixosModule
-    #     referenceSelf
-    #     nur.nixosModules.nur
-    #     unstableNix
-    #   ];
-    # };
     modules = [
       ../hosts/alakazam
-      cfg
+      jay
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
       }
-      # hm-modules
       microvm.nixosModules.host
       agenix.nixosModule
       referenceSelf

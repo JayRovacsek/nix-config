@@ -11,7 +11,7 @@
     exec banned_user.cfg
     exec banned_ip.cfg
   '';
-  uid = user.uid;
+  inherit (user) uid;
   gid = user.group.id;
   mode = "0744";
 }

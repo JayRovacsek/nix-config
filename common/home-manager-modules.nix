@@ -12,9 +12,10 @@ let
 
   # With a list of directories, create a map of those being imported without
   # arguments to be loaded later.
-  module-configs = attrValues
-    (mapAttrs (name: _: { "${name}" = import "${path}/${name}/default.nix"; })
-      module-folders);
+  module-configs = attrValues (mapAttrs (name: _: {
+    "${name}" = { config, pkgs, overrides ? { } }:
+      import "${path}/${name}/default.nix" { inherit config pkgs overrides; };
+  }) module-folders);
 
   # Fold set values by the module name as the key and set as
   # the value, enabling us to expose this as a top-level 
@@ -36,6 +37,7 @@ let
   # nix-repl> :lf .
   # nix-repl> home-manager-modules.alacritty
   # «lambda @ /nix/store/g90cys2l7mc35ph6b8b0yc2crp2v7mr9-home-manager-modules/alacritty/default.nix:1:1»
-  home-manager-modules = builtins.foldl' (x: y: x // y) { } module-configs;
+  home-manager-modules =
+    builtins.foldl' (acc: module: acc // module) { } module-configs;
 
 in home-manager-modules

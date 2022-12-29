@@ -6,7 +6,7 @@ let
     let
       inherit (self.lib) generate-user-config;
       inherit (pkgs.lib.attrsets) recursiveUpdate;
-      result = foldl' (x: y: recursiveUpdate x y) { }
+      result = foldl' recursiveUpdate { }
         (map (user: generate-user-config { inherit flake pkgs user; }) users);
     in result;
 in fn

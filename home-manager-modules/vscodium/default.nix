@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, overrides ? { }, ... }:
+let inherit (pkgs.lib.attrsets) recursiveUpdate;
+in recursiveUpdate overrides {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;

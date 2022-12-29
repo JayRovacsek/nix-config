@@ -11,12 +11,11 @@ let
     ++ (optionalList (haveElement cfg.advertiseRoutes) [
       "--advertise-routes"
       (builtins.concatStringsSep "," cfg.advertiseRoutes)
-    ]) ++ (optionalList (cfg.acceptRoute) [ "--accept-routes=true" ])
-    ++ (optionalList (cfg.advertiseExitNode) [ "--advertise-exit-node=true" ])
+    ]) ++ (optionalList cfg.acceptRoute [ "--accept-routes=true" ])
+    ++ (optionalList cfg.advertiseExitNode [ "--advertise-exit-node=true" ])
     ++ cfg.extraUpArgs;
 
-  enableForwarding =
-    ((haveElement cfg.advertiseRoutes) || cfg.advertiseExitNode);
+  enableForwarding = (haveElement cfg.advertiseRoutes) || cfg.advertiseExitNode;
 
   tailscaleJoinArgsString = builtins.concatStringsSep " " tailscaleJoinArgsList;
 in {

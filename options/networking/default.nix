@@ -20,7 +20,7 @@ in {
       # This is used rather than the networking.domain option to
       # explicitly define local domains rather than general domains.
       # Overriding the original would probably not be wise.
-      default = default;
+      inherit default;
       description =
         "The domain. It can be left empty if it is auto-detected through DHCP.";
     };

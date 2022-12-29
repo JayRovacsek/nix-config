@@ -82,15 +82,13 @@
   outputs = { self, flake-utils, ... }:
     let
       lib = import ./lib { inherit self; };
+      common = import ./common { inherit self; };
+      exposedSystems =
+        [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
       # The below sets a dev shell for the flake with inputs defined in 
       # the packags section of the dev shell and shellHook running on 
       # evaluation by direnv
-    in flake-utils.lib.eachSystem [
-      "aarch64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ] (system:
+    in flake-utils.lib.eachSystem exposedSystems (system:
       let
         # Note that the below use of pkgs will by implication mean that
         # our dev dependencies for local packages as well as part of our
@@ -119,7 +117,7 @@
         devShells.default = self.outputs.devShell.${system};
 
         # Import local packages passing system relevnet pkgs through
-        # for dependencies.
+        # for dependencies
         localPackages = import ./packages { inherit pkgs; };
         localUnstablePackages = import ./packages { pkgs = pkgsUnstable; };
         packages = flake-utils.lib.flattenTree localPackages;
@@ -131,8 +129,7 @@
         # collision space:
         # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
       }) // {
-        inherit lib;
-        inherit (lib) users home-manager-modules;
+        inherit lib common exposedSystems;
         nixosConfigurations =
           import ./linux/configurations.nix { inherit self; };
         darwinConfigurations =

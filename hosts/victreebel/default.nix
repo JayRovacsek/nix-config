@@ -13,9 +13,9 @@ in {
 
   networking = {
     # RIP, need to use the below values.
-    computerName = "HF0013161";
-    hostName = "HF0013161";
-    localHostName = "HF0013161";
+    computerName = "victreebel";
+    hostName = "victreebel";
+    localHostName = "victreebel";
   };
 
   nixpkgs.config.allowUnfree = true;

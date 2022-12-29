@@ -3,10 +3,10 @@ let
   inherit (config) flake;
   meta = import ../meta.nix { inherit config flake; };
 
-  microvmHostnames = (builtins.attrNames config.microvm.vms);
+  microvmHostnames = builtins.attrNames config.microvm.vms;
 
   microvms =
-    builtins.map (x: flake.nixosConfigurations."${x}") (microvmHostnames);
+    builtins.map (x: flake.nixosConfigurations."${x}") microvmHostnames;
 
   # For each microvm, create a network described as per: https://astro.github.io/microvm.nix/simple-network.html#a-simple-network-setup
   # Iteratively creating a 10.0.X.1 interface that serves as a NAT'd bridge
@@ -54,11 +54,11 @@ let
 
   journaldRules = builtins.map (microvm:
     let
-      machineId = microvm.config.systemd.machineId;
-      hostName = microvm.config.networking.hostName;
+      inherit (microvm.config.systemd) machineId;
+      inherit (microvm.config.networking) hostName;
       # creates a symlink of each MicroVM's journal under the host's /var/log/journal
     in "L+ /var/log/journal/${machineId} - - - - /var/lib/microvms/${hostName}/journal/${machineId}")
-    (microvms);
+    microvms;
 
   externalInterface = if meta.isMicrovmHost then
     (builtins.head (builtins.filter (interface: interface.useDHCP)

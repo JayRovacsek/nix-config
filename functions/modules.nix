@@ -14,11 +14,11 @@ let
     flake = self;
   };
 
-  standardUsers = (builtins.filter (y:
+  standardUsers = builtins.filter (y:
     if builtins.hasAttr "isNormalUser" y then
       (y.isNormalUser && y.name != "builder")
     else
-      isLinux == false) systemUsers);
+      !isLinux) systemUsers;
 
   mappedUsers = builtins.map (x: {
     "${x.name}" = {
@@ -33,7 +33,7 @@ let
       else
         stateVersion;
     };
-  }) (standardUsers);
+  }) standardUsers;
   users = builtins.foldl' (x: y: x // y) { } mappedUsers;
   # Configs are generated either for linux systems or for darwin
   cfg = if isLinux then [

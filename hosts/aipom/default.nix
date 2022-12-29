@@ -3,7 +3,7 @@ let
   readOnlySharedStore = import ../shared/read-only-store.nix;
   tailscaleKey = import ../shared/tailscale-identity-key.nix;
   journaldShare =
-    import ../common/journald.nix { hostName = config.networking.hostName; };
+    import ../common/journald.nix { inherit (config.networking) hostName; };
 in {
 
   networking = {
