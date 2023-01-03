@@ -2,7 +2,6 @@
   src = self;
   hooks = {
     nixfmt.enable = true;
-    # Temporarily disable to resolve issues with old files
     statix.enable = false;
     prettier-write = {
       enable = true;

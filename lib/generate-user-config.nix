@@ -1,7 +1,6 @@
 { self }:
 let
-  fn = { flake, pkgs, user-settings ? { }, home-manager-modules ? [ ]
-    , extraModules ? [ ], ... }:
+  fn = { flake, pkgs, user-settings, overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -66,13 +65,17 @@ let
         Host ${hostName}
           HostName ${hostName}
           ${addKeysForwardAgent}
-          ${if ((length userSshKeys) != 0) then identityFiles else ""}
+          ${if ((length sshKeys) != 0) then identityFiles else ""}
       '') extraHostNames;
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
       # be available as xdg.configHome
       defaultHome = {
+        # State version here is the database layout NOT the packages version or 
+        # associated settings.
+        stateVersion = "22.05";
+
         sessionVariables.NIX_PATH = "nixpkgs=${
             config.home-manager.users."${name}".xdg.configHome
           }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
@@ -81,15 +84,11 @@ let
             HostName github.com
             User git
             ${addKeys}
-            ${
-              if ((builtins.length userSshKeys) != 0) then identityFiles else ""
-            }
+            ${if ((builtins.length sshKeys) != 0) then identityFiles else ""}
 
           Host *.rovacsek.com.internal
             ${addKeysForwardAgent}
-            ${
-              if ((builtins.length userSshKeys) != 0) then identityFiles else ""
-            }
+            ${if ((builtins.length sshKeys) != 0) then identityFiles else ""}
 
           ${if localDomain == null then
             ""
@@ -97,18 +96,16 @@ let
             Host *.${localDomain}
               ${addKeysForwardAgent}
               ${
-                if ((builtins.length userSshKeys) != 0) then
-                  identityFiles
-                else
-                  ""
+                if ((builtins.length sshKeys) != 0) then identityFiles else ""
               }''}
 
           ${builtins.concatStringsSep "\n\n" extraHostConfigs}
         '';
       };
-      programs = foldl' (x: y: (recursiveUpdate x y)) { }
-        (map (mod: mod { inherit pkgs; }) home-manager-modules);
-    in {
+    in recursiveUpdate overrides {
+      # Important to enable home-manager addition to the user submodule
+      # imports = [ ../options/user ];
+
       config = {
         users.users.${name} =
           recursiveUpdate { shell = pkgs.zsh; } user-settings;
@@ -117,9 +114,7 @@ let
           home = recursiveUpdate defaultHome user-settings.home;
         } else {
           home = defaultHome;
-        }) // {
-          inherit programs;
-        };
+        });
       };
     };
 in fn

@@ -16,12 +16,6 @@ self: super: {
     version = "9002";
   });
 
-  # rust-bin.stable.latest.default =
-  #   super.rust-bin.stable.latest.default.overrideAttrs (old: rec {
-  #     extensions = [ "rust-src" ];
-  #     targets = [ "arm-unknown-linux-gnueabihf" ];
-  #   });
-
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = x:

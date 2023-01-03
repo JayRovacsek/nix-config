@@ -16,11 +16,11 @@ let
   # nix-repl> jay = common.users.jay { inherit pkgs; }
 
   fn = mapAttrs (name: user-settings:
-    { pkgs, home-manager-modules ? [ ] }:
+    { config, pkgs, home-manager-modules ? [ ] }:
     generate-user-config {
       # TODO: figure why this is required instead of expected inherit pkgs;
       inherit (pkgs) pkgs;
       flake = self;
-      inherit home-manager-modules user-settings;
+      inherit home-manager-modules user-settings config;
     }) base-users;
 in fn

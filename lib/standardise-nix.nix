@@ -21,6 +21,8 @@ let
   #
   fn = { pkgs, stable ? false, ... }:
     let
+      inherit (pkgs.lib) recursiveUpdate;
+
       darwinPinned = if stable then
         self.inputs.darwin-stable.outPath
       else
@@ -37,5 +39,5 @@ let
       } else {
         nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
       };
-    in base // extra;
+    in recursiveUpdate base extra;
 in fn

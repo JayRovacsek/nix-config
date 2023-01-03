@@ -5,7 +5,9 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users flake;
+  inherit users;
+
+  recursive = { inherit flake; };
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 

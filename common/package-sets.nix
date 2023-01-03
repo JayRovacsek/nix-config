@@ -36,10 +36,18 @@ let
       (y: z: y // { "${system}-${z.name}" = microvm.packages.${system}; }) { }
       targetGeneration)) { } (builtins.attrNames microvm.packages);
 
+  # Done to make available the packageset identifier via the identifier attribute of
+  # the packageset. Mostly everything else will be a derivation
+  identifiers = builtins.foldl' (acc: system:
+    acc // (builtins.foldl' (y: z:
+      y // {
+        "${system}-${z.name}" = { identifier = "${system}-${z.name}"; };
+      }) { } targetGeneration)) { } exposedSystems;
+
   packageSets = builtins.foldl' (acc: system:
     acc // (builtins.foldl' (y: z:
       y // {
         "${system}-${z.name}" =
           import z.pkgs { inherit system overlays config; };
       }) { } targetGeneration)) { } exposedSystems;
-in recursiveUpdate microvmConfig packageSets
+in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)

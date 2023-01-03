@@ -1,5 +1,8 @@
-{ config, pkgs, flake, ... }: {
-  inherit flake;
+{ config, pkgs, lib, flake, ... }: {
+  recursive = {
+    inherit flake;
+    config = config // { passthru = { }; };
+  };
 
   age = {
     secrets."tailscale-dns-preauth-key" = {
@@ -11,12 +14,8 @@
 
   services.tailscale.tailnet = "admin";
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   networking = {
     hostName = "alakazam";

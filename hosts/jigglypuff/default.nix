@@ -5,7 +5,9 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users flake;
+  inherit users;
+
+  recursive = { inherit flake; };
 
   services.tailscale.tailnet = "dns";
 
