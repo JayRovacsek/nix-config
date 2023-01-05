@@ -6,5 +6,5 @@ in builtins.mapAttrs (name: value:
   let inherit (value.lib.strings) hasSuffix;
   in standardise-nix {
     pkgs = value;
-    stable = (hasSuffix "stable" name);
+    stable = hasSuffix "stable" name;
   }) package-sets

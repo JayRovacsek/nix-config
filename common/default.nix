@@ -1,4 +1,5 @@
 { self }: {
+  age = import ./age.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };

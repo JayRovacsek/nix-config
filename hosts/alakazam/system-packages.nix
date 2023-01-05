@@ -1,14 +1,14 @@
-{ config, pkgs, ... }:
-let
-  inherit (pkgs) system;
-  inherit (config.recursive.flake.packages.${system}) pokemmo-installer;
+{ pkgs, ... }:
+let inherit (config.nur.repos.kira-bruneau) pokemmo-installer;
 in {
   environment.systemPackages = with pkgs; [
     # CLI
     curl
     vim
     wget
-    # agenix
+    agenix
+
+    # NUR Packages
     pokemmo-installer
   ];
 }

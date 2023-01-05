@@ -110,11 +110,11 @@ let
         users.users.${name} =
           recursiveUpdate { shell = pkgs.zsh; } user-settings;
 
-        home-manager.users.${name} = (if hasAttr "home" user-settings then {
+        home-manager.users.${name} = if hasAttr "home" user-settings then {
           home = recursiveUpdate defaultHome user-settings.home;
         } else {
           home = defaultHome;
-        });
+        };
       };
     };
 in fn

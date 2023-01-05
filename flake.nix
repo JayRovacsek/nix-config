@@ -83,8 +83,14 @@
     let
       lib = import ./lib { inherit self; };
       common = import ./common { inherit self; };
-      exposedSystems =
-        [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
+      exposedSystems = [
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
       # The below sets a dev shell for the flake with inputs defined in 
       # the packags section of the dev shell and shellHook running on 
       # evaluation by direnv
@@ -116,14 +122,10 @@
         # devShells.${system}.default recommended structure
         devShells.default = self.outputs.devShell.${system};
 
-        # Import local packages passing system relevnet pkgs through
-        # for dependencies
-        localPackages = import ./packages { inherit pkgs; };
-        localUnstablePackages = import ./packages { pkgs = pkgsUnstable; };
-        packages = flake-utils.lib.flattenTree localPackages;
-        unstablePackages = flake-utils.lib.flattenTree localUnstablePackages;
+        formatter = pkgs.nixfmt;
+
       in {
-        inherit devShell devShells packages unstablePackages checks;
+        inherit devShell devShells checks formatter;
         # Normally the // pattern is a little frowned upon as it does not act
         # the way most people expect - here it's fine as we've got two sets that have no 
         # collision space:

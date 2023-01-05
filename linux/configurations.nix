@@ -5,18 +5,14 @@ let
   inherit (self) inputs;
 
   # Package Sets
-  inherit (inputs) stable;
-  inherit (inputs) unstable;
+  inherit (self.inputs) stable unstable;
 
   # Nix User Repositories
-  inherit (inputs) nur;
+  inherit (self.inputs) nur;
 
   # Extra modules
-  inherit (inputs) agenix;
-  inherit (inputs) home-manager;
-  inherit (inputs) microvm;
-  inherit (inputs) nixos-generators;
-  inherit (inputs) nixos-hardware;
+  inherit (self.inputs)
+    agenix home-manager microvm nixos-generators nixos-hardware;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
