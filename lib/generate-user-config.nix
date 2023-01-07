@@ -1,7 +1,6 @@
 { self }:
 let
-  fn = { flake, config, pkgs, user-settings, home-manager-modules
-    , overrides ? { }, ... }:
+  fn = { flake, config, pkgs, user-settings, modules, overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -69,9 +68,6 @@ let
           ${if ((length sshKeys) != 0) then identityFiles else ""}
       '') extraHostNames;
 
-      programs = builtins.foldl' recursiveUpdate { }
-        (builtins.map (mod: mod { inherit config pkgs; }) home-manager-modules);
-
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
       # be available as xdg.configHome
@@ -117,6 +113,8 @@ let
         home = recursiveUpdate defaultHome user-settings.home;
       } else {
         home = defaultHome;
-      }) // programs;
+      }) // {
+        imports = modules;
+      };
     };
 in fn

@@ -2,33 +2,16 @@
 
 let
   inherit (flake) common;
-  home-manager-modules = with common.home-manager-modules; [
-    alacritty
-    bat
-    dconf
-    dircolours
-    direnv
-    emacs
-    firefox
-    fzf
-    git
-    jq
-    lsd
-    man
-    rofi
-    starship
-    vscodium
-    zsh
-  ];
-  jay = common.users.jay { inherit config pkgs home-manager-modules; };
+  inherit (flake.common) desktop;
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = desktop;
+  };
 
 in {
   # TODO: wrap this far better to make it consumable.
   inherit (jay) users home-manager;
-  recursive = {
-    inherit flake;
-    config = config // { passthru = { }; };
-  };
+  recursive = { inherit flake config; };
 
   age = {
     secrets."tailscale-dns-preauth-key" = {

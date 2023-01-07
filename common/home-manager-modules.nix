@@ -13,8 +13,12 @@ let
   # With a list of directories, create a map of those being imported without
   # arguments to be loaded later.
   module-configs = attrValues (mapAttrs (name: _: {
-    "${name}" = { config, pkgs, overrides ? { } }:
-      import "${path}/${name}/default.nix" { inherit config pkgs overrides; };
+    "${name}" = { config, pkgs, lib, options, specialArgs, modulesPath
+      , nixosConfig, osConfig }:
+      import "${path}/${name}/default.nix" {
+        inherit config pkgs lib options specialArgs modulesPath nixosConfig
+          osConfig;
+      };
   }) module-folders);
 
   # Fold set values by the module name as the key and set as
@@ -26,16 +30,16 @@ let
   # home-manager modules!
   #
   # An example of the above in practice: 
-  # let cool-modules = with self.home-manager-modules [ firefox rofi ]; in ...
+  # let cool-modules = with self.common.home-manager-modules [ firefox rofi ]; in ...
   #
   # Alternatively via inherit:
-  # inherit (self.home-manager-modules) firefox rofi;
+  # inherit (self.common.home-manager-modules) firefox rofi;
   # let cool-users = [ jay ]; in ...
   # 
   # To see this more interactively use the repl:
   # $ nix repl
   # nix-repl> :lf .
-  # nix-repl> home-manager-modules.alacritty
+  # nix-repl> common.home-manager-modules.alacritty
   # «lambda @ /nix/store/g90cys2l7mc35ph6b8b0yc2crp2v7mr9-home-manager-modules/alacritty/default.nix:1:1»
   home-manager-modules =
     builtins.foldl' (acc: module: acc // module) { } module-configs;

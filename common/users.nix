@@ -16,9 +16,9 @@ let
   # nix-repl> jay = common.users.jay { inherit pkgs; }
 
   fn = mapAttrs (name: user-settings:
-    { config, pkgs, home-manager-modules ? [ ] }:
-    generate-user-config {
-      flake = self;
-      inherit pkgs home-manager-modules user-settings config;
+    { config, pkgs, modules ? [ ], overrides ? { } }:
+    let flake = self;
+    in generate-user-config {
+      inherit pkgs modules user-settings config overrides flake;
     }) base-users;
 in fn

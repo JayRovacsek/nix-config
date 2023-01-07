@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
-let inherit (pkgs.lib.hm) gvariant;
+{ lib, ... }:
+let inherit (lib.hm) gvariant;
 in with gvariant; {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
