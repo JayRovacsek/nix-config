@@ -1,4 +1,30 @@
-{ config, pkgs, lib, flake, ... }: {
+{ config, pkgs, lib, flake, ... }:
+
+let
+  inherit (flake) common;
+  home-manager-modules = with common.home-manager-modules; [
+    alacritty
+    bat
+    dconf
+    dircolours
+    direnv
+    emacs
+    firefox
+    fzf
+    git
+    jq
+    lsd
+    man
+    rofi
+    starship
+    vscodium
+    zsh
+  ];
+  jay = common.users.jay { inherit config pkgs home-manager-modules; };
+
+in {
+  # TODO: wrap this far better to make it consumable.
+  inherit (jay) users home-manager;
   recursive = {
     inherit flake;
     config = config // { passthru = { }; };

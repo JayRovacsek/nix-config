@@ -69,19 +69,13 @@ let
           ${if ((length sshKeys) != 0) then identityFiles else ""}
       '') extraHostNames;
 
-      # programs = (builtins.foldl' (accumulator: v: recursiveUpdate) { }
-      #   (builtins.map (mod: mod { inherit config pkgs; })
-      #     home-manager-modules));
-
-      programs =
-        builtins.map (mod: mod { inherit config pkgs; }) home-manager-modules;
+      programs = builtins.foldl' recursiveUpdate { }
+        (builtins.map (mod: mod { inherit config pkgs; }) home-manager-modules);
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
       # be available as xdg.configHome
       defaultHome = {
-
-        inherit programs;
 
         # State version here is the database layout NOT the packages version or 
         # associated settings.
@@ -119,10 +113,10 @@ let
 
       users.users.${name} = recursiveUpdate { shell = pkgs.zsh; } user-settings;
 
-      home-manager.users.${name} = if hasAttr "home" user-settings then {
+      home-manager.users.${name} = (if hasAttr "home" user-settings then {
         home = recursiveUpdate defaultHome user-settings.home;
       } else {
         home = defaultHome;
-      };
+      }) // programs;
     };
 in fn

@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+with pkgs;
 let
   base = [ dwarf-fortress ];
   mods = with dwarf-fortress-packages; [ dwarf-therapist ];
