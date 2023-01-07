@@ -123,9 +123,10 @@
         devShells.default = self.outputs.devShell.${system};
 
         formatter = pkgs.nixfmt;
+        packages = self.outputs.common.images;
 
       in {
-        inherit devShell devShells checks formatter;
+        inherit devShell devShells checks formatter packages;
         # Normally the // pattern is a little frowned upon as it does not act
         # the way most people expect - here it's fine as we've got two sets that have no 
         # collision space:

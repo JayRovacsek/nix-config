@@ -7,6 +7,9 @@ let
   # Package Sets
   inherit (self.inputs) stable unstable;
 
+  # Lib namespace
+  inherit (stable) lib;
+
   # Nix User Repositories
   inherit (self.inputs) nur;
 
@@ -24,7 +27,12 @@ let
   inherit (self.common.package-sets)
     x86_64-linux-stable x86_64-linux-unstable aarch64-linux-stable
     aarch64-linux-unstable;
-in {
+
+  rpi1-sd-configuration = import ../common/images/rpi1.nix { inherit self; };
+  rpi2-sd-configuration = import ../common/images/rpi2.nix { inherit self; };
+  sd-configurtations = [ rpi1-sd-configuration rpi2-sd-configuration ];
+  images = builtins.foldl' lib.recursiveUpdate { } sd-configurtations;
+in images // {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier;
     base = let base-modules = self.common.modules.${identifier};
