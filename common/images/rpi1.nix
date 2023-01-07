@@ -4,18 +4,17 @@ let
 
   inherit (self.common.system) stable-system;
 
-in {
-  rpi1 = stable-system {
-    system = "armv6l-linux";
-    modules = [
-      "${stable}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-      {
-        nixpkgs = {
-          config.allowUnsupportedSystem = true;
-          crossSystem.system = "armv6l-linux";
-        };
-        system.stateVersion = "22.11";
-      }
-    ];
-  };
+in stable-system {
+  system = "armv6l-linux";
+  modules = [
+    "${stable}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+    {
+      networking.hostName = "rpi1";
+      nixpkgs = {
+        config.allowUnsupportedSystem = true;
+        crossSystem.system = "armv6l-linux";
+      };
+      system.stateVersion = "22.11";
+    }
+  ];
 }

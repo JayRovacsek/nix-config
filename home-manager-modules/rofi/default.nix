@@ -1,6 +1,4 @@
-{ config, pkgs, overrides ? { }, ... }:
-let inherit (pkgs.lib.attrsets) recursiveUpdate;
-in recursiveUpdate overrides {
+{ config, pkgs, ... }: {
   programs.rofi = {
     enable = true;
     terminal = "${pkgs.alacritty}/bin/alacritty";

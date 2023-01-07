@@ -1,3 +1,1 @@
-{ config, pkgs, overrides ? { }, ... }:
-let inherit (pkgs.lib.attrsets) recursiveUpdate;
-in recursiveUpdate overrides { programs.emacs = { enable = true; }; }
+{ config, pkgs, ... }: { programs.emacs = { enable = true; }; }

@@ -1,9 +1,6 @@
-{ config, pkgs, overrides ? { }, ... }:
-let
-  inherit (pkgs.lib.attrsets) recursiveUpdate;
-  inherit (pkgs.lib.hm) gvariant;
-in with gvariant;
-recursiveUpdate overrides {
+{ config, pkgs, ... }:
+let inherit (pkgs.lib.hm) gvariant;
+in with gvariant; {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";

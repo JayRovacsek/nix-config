@@ -11,11 +11,8 @@ let
 
   # Extra modules
   agenix = inputs.agenix-darwin;
-  inherit (inputs) darwin-stable;
-  inherit (inputs) darwin-unstable;
   firefox = inputs.firefox-darwin;
-  inherit (inputs) home-manager;
-  inherit (inputs) nur;
+  inherit (inputs) darwin-stable darwin-unstable home-manager nur;
 
   # This is required for any system needing to reference the flake itself from
   # within the config. It will be available as an argument to the 
@@ -39,7 +36,7 @@ let
   stableNix = standardiseNix { stable = true; };
   unstableNix = standardiseNix { };
 
-  localOverlays = import ../overlays;
+  localOverlays = self.common.overlays;
   overlays = [ agenix.overlay firefox.overlay localOverlays nur.overlay ];
 
   aarch64-darwin-stable = import nixpkgs {

@@ -1,13 +1,11 @@
-{ config, pkgs, overrides ? { }, ... }:
+{ config, pkgs, ... }:
 let
-  inherit (pkgs.lib.attrsets) recursiveUpdate;
-
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
 
   languagePacks = with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ];
 
-in recursiveUpdate overrides {
+in {
   programs.firefox = {
     enable = true;
     extensions = with pkgs.nur.repos.rycee.firefox-addons;

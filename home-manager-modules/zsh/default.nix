@@ -1,14 +1,14 @@
-{ config, pkgs, overrides ? { }, ... }:
+{ config, pkgs, ... }:
 let
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.lib.attrsets) recursiveUpdate;
-  batAlias = if config.programs.bat.enable then {
+  batAlias = if (builtins.trace config config.programs.bat.enable) then {
     less = "${pkgs.bat}/bin/bat --color always";
   } else
     { };
   mergeAliases = [ batAlias ];
   shellAliases = builtins.foldl' recursiveUpdate { } mergeAliases;
-in recursiveUpdate overrides {
+in {
   programs.zsh = {
     inherit shellAliases;
     enable = true;
