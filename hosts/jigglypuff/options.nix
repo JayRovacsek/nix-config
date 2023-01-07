@@ -1,1 +1,1 @@
-{ imports = [ ../../options/recursive ../../options/hardware ]; }
+{ imports = [ ../../options/flake ../../options/hardware ]; }

@@ -91,6 +91,7 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
+      pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
       # The below sets a dev shell for the flake with inputs defined in 
       # the packags section of the dev shell and shellHook running on 
       # evaluation by direnv
@@ -104,19 +105,31 @@
         pkgs = self.inputs.stable.legacyPackages.${system};
         pkgsUnstable = self.inputs.unstable.legacyPackages.${system};
 
-        checks = {
+        checks = if builtins.elem system pre-commit-unsupported then
+          { }
+        else {
           pre-commit-check = self.inputs.pre-commit-hooks.lib.${system}.run
             (import ./pre-commit-checks.nix { inherit self pkgs system; });
         };
 
-        devShell = let packages = with pkgs; [ nixfmt statix vulnix nil ];
-        in pkgs.mkShell {
+        shell-base = let packages = with pkgs; [ nixfmt statix vulnix nil ];
+        in {
           name = "nix-config-dev-shell";
           inherit packages;
+        };
+
+        shell = (let packages = with pkgs; [ nixfmt statix vulnix nil ];
+        in if builtins.elem system pre-commit-unsupported then
+          { }
+        else {
           # Self reference to make the default shell hook that which generates
           # a suitable pre-commit hook installation
           inherit (self.checks.${system}.pre-commit-check) shellHook;
-        };
+        }) // shell-base;
+
+        # Little bit of hackery above given not many things are supported on armv6 or armv7
+        # so we remove pre-commit checks on these systems.
+        devShell = pkgs.mkShell shell;
 
         # Self reference the dev shell for our system to resolve the lacking
         # devShells.${system}.default recommended structure

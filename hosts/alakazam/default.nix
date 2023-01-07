@@ -3,15 +3,17 @@
 let
   inherit (flake) common;
   inherit (flake.common) desktop;
+  inherit (flake.lib) merge-user-config;
   jay = common.users.jay {
     inherit config pkgs;
     modules = desktop;
   };
 
+  merged = merge-user-config { users = [ jay ]; };
+
 in {
-  # TODO: wrap this far better to make it consumable.
-  inherit (jay) users home-manager;
-  recursive = { inherit flake config; };
+  inherit flake;
+  inherit (merged) users home-manager;
 
   age = {
     secrets."tailscale-dns-preauth-key" = {

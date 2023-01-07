@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../options/recursive
+    ../../options/flake
     ../../modules/docker-darwin
     ../../modules/darwin-settings
     ../../modules/dockutil

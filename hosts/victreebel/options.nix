@@ -1,4 +1,4 @@
 {
   imports =
-    [ ../../options/recursive ../../options/hardware ../../options/networking ];
+    [ ../../options/flake ../../options/hardware ../../options/networking ];
 }
