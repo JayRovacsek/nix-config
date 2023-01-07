@@ -10,7 +10,6 @@ in {
     modules = [
       "${stable}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
       {
-        networking.hostName = "rpi1-install-sd";
         nixpkgs = {
           config.allowUnsupportedSystem = true;
           crossSystem.system = "armv6l-linux";

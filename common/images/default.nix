@@ -4,10 +4,10 @@ let
   inherit (self.outputs.nixosConfigurations) rpi1 rpi2;
   sd-configurtations = [ rpi1 rpi2 ];
 
+  # Create a list of identifer to sdImage build derivations.
   built-derivations = builtins.map
-    (x: { "${x.config.networking.hostName}" = x.config.system.build.sdImage; })
+    (builtins.mapAttrs (name: value: value.config.system.build.sdImage))
     sd-configurtations;
 
-  images = builtins.foldl' recursiveUpdate { } built-derivations;
-
-in images
+  # Fold list of image name => derivation into a set rather than a list
+in builtins.foldl' recursiveUpdate { } built-derivations

@@ -1,6 +1,6 @@
 { self }:
 let
-  fn = { flake, pkgs, user-settings, overrides ? { }, ... }:
+  fn = { flake, config, pkgs, user-settings, overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -106,15 +106,12 @@ let
       # Important to enable home-manager addition to the user submodule
       # imports = [ ../options/user ];
 
-      config = {
-        users.users.${name} =
-          recursiveUpdate { shell = pkgs.zsh; } user-settings;
+      users.users.${name} = recursiveUpdate { shell = pkgs.zsh; } user-settings;
 
-        home-manager.users.${name} = if hasAttr "home" user-settings then {
-          home = recursiveUpdate defaultHome user-settings.home;
-        } else {
-          home = defaultHome;
-        };
+      home-manager.users.${name} = if hasAttr "home" user-settings then {
+        home = recursiveUpdate defaultHome user-settings.home;
+      } else {
+        home = defaultHome;
       };
     };
 in fn
