@@ -36,7 +36,7 @@ let
   stableNix = standardiseNix { stable = true; };
   unstableNix = standardiseNix { };
 
-  localOverlays = self.common.overlays;
+  localOverlays = self.overlays;
   overlays = [ agenix.overlay firefox.overlay localOverlays nur.overlay ];
 
   aarch64-darwin-stable = import nixpkgs {

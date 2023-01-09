@@ -81,8 +81,6 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      lib = import ./lib { inherit self; };
-      common = import ./common { inherit self; };
       exposedSystems = [
         "aarch64-linux"
         "aarch64-darwin"
@@ -91,64 +89,25 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
-      pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
-      # The below sets a dev shell for the flake with inputs defined in 
-      # the packags section of the dev shell and shellHook running on 
-      # evaluation by direnv
+      lib = import ./lib { inherit self; };
+      common = import ./common { inherit self; };
+      overlays = import ./overlays { inherit self; };
+      nixosConfigurations = import ./nixosConfigurations { inherit self; };
+      darwinConfigurations = import ./darwinConfigurations { inherit self; };
     in flake-utils.lib.eachSystem exposedSystems (system:
       let
-        # Note that the below use of pkgs will by implication mean that
-        # our dev dependencies for local packages as well as part of our
-        # devShell are pinned to stable - this is intended to ensure
-        # backwards compatability & reduced pain when managing deps
-        # in these spaces
-        pkgs = self.inputs.stable.legacyPackages.${system};
-        pkgsUnstable = self.inputs.unstable.legacyPackages.${system};
-
-        checks = if builtins.elem system pre-commit-unsupported then
-          { }
-        else {
-          pre-commit-check = self.inputs.pre-commit-hooks.lib.${system}.run
-            (import ./pre-commit-checks.nix { inherit self pkgs system; });
-        };
-
-        shell-base = let packages = with pkgs; [ nixfmt statix vulnix nil ];
-        in {
-          name = "nix-config-dev-shell";
-          inherit packages;
-        };
-
-        shell = (let packages = with pkgs; [ nixfmt statix vulnix nil ];
-        in if builtins.elem system pre-commit-unsupported then
-          { }
-        else {
-          # Self reference to make the default shell hook that which generates
-          # a suitable pre-commit hook installation
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-        }) // shell-base;
-
-        # Little bit of hackery above given not many things are supported on armv6 or armv7
-        # so we remove pre-commit checks on these systems.
-        devShell = pkgs.mkShell shell;
-
-        # Self reference the dev shell for our system to resolve the lacking
-        # devShells.${system}.default recommended structure
-        devShells.default = self.outputs.devShell.${system};
-
-        formatter = pkgs.nixfmt;
-        packages = self.outputs.common.images;
-
+        packages = import ./packages { inherit self system; };
+        formatter = import ./formatter { inherit self; };
+        devShells = import ./devShells { inherit self system; };
+        checks = import ./checks { inherit self system; };
       in {
-        inherit devShell devShells checks formatter packages;
+        inherit devShells checks formatter packages;
         # Normally the // pattern is a little frowned upon as it does not act
         # the way most people expect - here it's fine as we've got two sets that have no 
         # collision space:
         # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
       }) // {
-        inherit lib common exposedSystems;
-        nixosConfigurations =
-          import ./linux/configurations.nix { inherit self; };
-        darwinConfigurations =
-          import ./darwin/configurations.nix { inherit self; };
+        inherit darwinConfigurations common exposedSystems lib
+          nixosConfigurations overlays;
       };
 }

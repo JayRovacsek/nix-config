@@ -7,8 +7,8 @@
   images = import ./images { inherit self; };
   modules = import ./modules.nix { inherit self; };
   options = import ./options.nix;
-  overlays = import ./overlays.nix;
   package-sets = import ./package-sets.nix { inherit self; };
+  pre-commit-unsupported = import ./pre-commit-unsupported.nix;
   system = import ./system.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   self-reference = import ./self-reference.nix { inherit self; };

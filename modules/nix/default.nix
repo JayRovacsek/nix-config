@@ -3,7 +3,7 @@ let
   # We use the below value as it'll be available before this
   # evaluates rather than config.flake (which is available but
   # only after further evaluation)
-  inherit (config.recursive) flake;
+  inherit (config) flake;
 
   hardwareProfile = system:
     if builtins.hasAttr "profile" system.hardware.cpu then {

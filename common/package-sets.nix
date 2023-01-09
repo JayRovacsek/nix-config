@@ -27,7 +27,9 @@ let
 
   targetGeneration = [ stable unstable ];
 
-  overlays = [ nur.overlay agenix.overlay self.common.overlays ];
+  # TODO: resolve default overlay before re-adding it
+  # overlays = [ nur.overlay agenix.overlay self.overlays.default ];
+  overlays = [ nur.overlay agenix.overlay ];
 
   # Create a set that includes the microvm packages where the upstream supports
   # it only, this'll mean we can avoid adding it explicitly to systems we want to use
