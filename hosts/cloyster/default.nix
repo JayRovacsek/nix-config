@@ -5,9 +5,7 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
-
-  recursive = { inherit flake; };
+  inherit flake users;
 
   imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
 

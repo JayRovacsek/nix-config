@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common) desktop;
+  inherit (flake.common.home-manager-module-sets) desktop;
   inherit (flake.lib) merge-user-config;
   jay = common.users.jay {
     inherit config pkgs;

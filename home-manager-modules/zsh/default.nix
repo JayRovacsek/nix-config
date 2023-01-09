@@ -2,7 +2,7 @@
 let
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.lib.attrsets) recursiveUpdate;
-  batAlias = if (builtins.trace config config.programs.bat.enable) then {
+  batAlias = if config.programs.bat.enable then {
     less = "${pkgs.bat}/bin/bat --color always";
   } else
     { };
