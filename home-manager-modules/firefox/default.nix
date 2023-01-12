@@ -14,7 +14,12 @@ let
     ublock-origin
     user-agent-string-switcher
   ];
-  languagePacks = with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ];
+  # TODO: see if aarch can be supported upstream for this language set
+  languagePacks =
+    if (builtins.hasAttr "firefox-langpack-en-GB" pkgs.nur.repos.sigprof) then
+      with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ]
+    else
+      [ ];
   dictionaries = with pkgs.nur.repos.JayRovacsek; [ better-english ];
   extensions = addons ++ languagePacks ++ dictionaries;
 in {

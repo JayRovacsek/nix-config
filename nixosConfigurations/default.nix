@@ -32,76 +32,54 @@ in {
 
   # Hosts
   alakazam = let
-    inherit (x86_64-linux-unstable) system identifier;
+    inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    pkgs = x86_64-linux-unstable;
     modules = base
       ++ [ ../hosts/alakazam microvm.nixosModules.host agenix.nixosModule ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let
-    inherit (x86_64-linux-unstable) system identifier;
+    inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    pkgs = x86_64-linux-unstable;
     modules = base ++ [ ../hosts/gastly agenix.nixosModule ];
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
   dragonite = let
-    inherit (x86_64-linux-stable) system;
-    pkgs = x86_64-linux-stable;
-    modules = modules-function {
-      inherit home-manager self;
-      hostname = "dragonite";
-      extraModules =
-        [ microvm.nixosModules.host agenix.nixosModule self-reference ];
-    };
+    inherit (x86_64-linux-stable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base
+      ++ [ ../hosts/dragonite microvm.nixosModules.host agenix.nixosModule ];
   in stable.lib.nixosSystem { inherit system pkgs modules; };
 
   jigglypuff = let
-    inherit (aarch64-linux-unstable) system;
-    pkgs = aarch64-linux-unstable;
-    modules = modules-function {
-      inherit home-manager self;
-      hostname = "jigglypuff";
-      extraModules = [ agenix.nixosModule self-reference ];
-    };
-  in unstable.lib.nixosSystem { inherit system pkgs modules; };
+    inherit (aarch64-linux-stable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/jigglypuff agenix.nixosModule ];
+  in stable.lib.nixosSystem { inherit system pkgs modules; };
 
   wigglytuff = let
-    inherit (aarch64-linux-unstable) system;
-    pkgs = aarch64-linux-unstable;
-    modules = modules-function {
-      inherit home-manager self;
-      hostname = "wigglytuff";
-      extraModules = [
-        nixos-hardware.nixosModules.raspberry-pi-4
-        agenix.nixosModule
-        self-reference
-      ];
-    };
+    inherit (aarch64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [
+      ../hosts/wigglytuff
+      agenix.nixosModule
+      nixos-hardware.nixosModules.raspberry-pi-4
+    ];
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
   ## MICROVMS
 
-  igglybuff = unstable.lib.nixosSystem {
-    inherit (x86_64-linux-unstable) system;
-    pkgs = x86_64-linux-unstable;
-    modules = [
-      microvm.nixosModules.microvm
-      ../hosts/igglybuff
-      agenix.nixosModule
-      self-reference
-    ];
-  };
+  igglybuff = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base
+      ++ [ microvm.nixosModules.microvm ../hosts/igglybuff agenix.nixosModule ];
+  in unstable-system { inherit system pkgs modules; };
 
-  aipom = unstable.lib.nixosSystem {
-    inherit (x86_64-linux-unstable) system;
-    pkgs = x86_64-linux-unstable;
-    modules = [
-      microvm.nixosModules.microvm
-      ../hosts/aipom
-      agenix.nixosModule
-      self-reference
-    ];
-  };
+  aipom = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base
+      ++ [ microvm.nixosModules.microvm ../hosts/aipom agenix.nixosModule ];
+  in unstable-system { inherit system pkgs modules; };
 }

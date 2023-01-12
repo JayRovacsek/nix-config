@@ -51,7 +51,8 @@ in {
 
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
-  makeModulesClosure = final: prev:
-    prev.makeModulesClosure (final // { allowMissing = true; });
-
+  makeModulesClosure = final: prev: {
+    makeModulesClosure = x:
+      prev.makeModulesClosure (x // { allowMissing = true; });
+  };
 }

@@ -1,4 +1,6 @@
 { config, pkgs, ... }: {
+  # TODO: Figure how to filter unsupported / broken packages
+  # in a simple way here across arch
   home.packages = with pkgs; [
     # CLI Utilities
     git

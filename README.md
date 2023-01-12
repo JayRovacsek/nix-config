@@ -40,7 +40,8 @@ It seems thus far in my testing you could abuse a small amount of disk space to 
 for your work in progress, then create any number of changes. Copy the repo to another folder (to be honest this is likely possible to do in the single folder 
 and I'm just yet to read the docs far enough), checkout the work you want to compare in one folder and the original work in another then:
 ```sh
-nix store diff-closures ./nix-config#nixosConfigurations.alakazam.config.system.build.toplevel ./nix-config-tmp#nixosConfigurations.alakazam.config.system.build.toplevel --no-write-lock-file
+# Old -> New
+nix store diff-closures ../nix-config-tmp#nixosConfigurations.HOST.config.system.build.toplevel .#nixosConfigurations.HOST.config.system.build.toplevel --no-write-lock-file > output
 ```
 
 Note; if the systems utilise new package versions those of-course will be downloaded for comparison, but otherwise this should be relatively like-for-like
