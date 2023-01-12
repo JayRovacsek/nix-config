@@ -6,59 +6,7 @@ This repo contains my flake'd nix configs, it's a work in progress and currently
 
 Note that while flakes are a beautiful thing in which we could have many repositories to then bind together via inputs & make configurations
 far more contained in each repository, this is intentionally a mono-flake. It includes overlays, packages and configurations for both linux and darwin
-hosts to centralise the configuration and possibly help myself and/or viewers understand the spiderweb oh *.nix files.
-
-# Structure
-The following is a best efforts to keep up to date with the folder layout of this repo; everything intends to be self describing however this
-in practice may be hard without a brief description:
-```sh
-├── darwin                  # The main location of _how_ darwin configurations are defined
-|
-├── functions               # Helper functions used in the flake - beware this are aging 
-|                           # and are likely to be removed in favour of better constructs in  the future
-|
-├── home-manager-modules    # Modules to be loaded in config.home-manager.users.${user}.programs space - 
-|                           # not meant to be loaded directly and instead the users.nix file per host 
-|                           # should show how these are loaded
-|
-├── hosts                   # Main location of host configurations - each host has it's own folder within 
-|    |                      # this space
-|    |
-|    └── lavender-tower     # Sometimes pokemon pass on, this is a location for machines that are no 
-|                           # longer in use and/or retired
-|
-├── linux                   # The main location of _how_ linux configurations are defined
-|
-├── modules                 # Folder for all common module definitions, can be loaded directly via an 
-|                           # imports = [ ... ];
-|
-├── options                 # Custom options to be applied to configurations - most are automatically loaded via 
-|                           # their respective home-manager module and/or system module.
-|
-├── overlays                # Overlays - automatically loaded into all configurations, we might need to re-think 
-|                           # if some overlays are required on some systems but not all - there is not an example 
-|                           # of this yet
-|
-├── packages                # Holds two things: locally defined packages via callPackage {} and sets of packages 
-|                           # to be loaded into either system packages or home-manager packages
-|
-├── resources               # Non-configuration images/content
-|
-├── secrets                 # Location for secrets - this does cause longer import paths deeper in configurations 
-|                           # but centralises the secrets
-|
-├── users                   # User configurations
-│   ├── functions           # Functions related to users - to be killed in the future via options implementation
-|   |
-│   ├── groups              # Group definitions that might be shared across users
-|   |
-│   ├── service-accounts    # Service account definitions where modules/use-case doesn't currently have the 
-|   |                       # options applied
-|   |
-│   └── standard            # Interactive login candidates
-|
-└── vlans                   # VLAN configurations - to be killed in the future in favour of options
-```
+hosts to centralise the configuration and possibly help myself and/or viewers understand the spiderweb of *.nix files.
 
 ## Using this/something like this
 
@@ -83,6 +31,20 @@ nixos-rebuild test --flake .#
 # Test alakazam
 nixos-rebuild test --flake .#alakazam 
 ```
+
+## Fearless Refactor
+Historically there is a fear of updates due to how they've been breaking in various ways for a number of common systems. Generations save us here in
+this aspect, but what if I want to refactor large swathes of my nix code and be certain I haven't changed the status-quo for the most part?
+
+It seems thus far in my testing you could abuse a small amount of disk space to be _really_ confident in refactor efforts, firstly make sure you create a branch 
+for your work in progress, then create any number of changes. Copy the repo to another folder (to be honest this is likely possible to do in the single folder 
+and I'm just yet to read the docs far enough), checkout the work you want to compare in one folder and the original work in another then:
+```sh
+nix store diff-closures ./nix-config#nixosConfigurations.alakazam.config.system.build.toplevel ./nix-config-tmp#nixosConfigurations.alakazam.config.system.build.toplevel --no-write-lock-file
+```
+
+Note; if the systems utilise new package versions those of-course will be downloaded for comparison, but otherwise this should be relatively like-for-like
+if you were to not modify the flake inputs otherwise.
 
 ## Debugging
 
@@ -127,8 +89,8 @@ Current list:
 - Dig into nixos as a router ([eg](https://francis.begyn.be/blog/nixos-home-router))
 - ~Implement vGPU for nvidia~ Done in a branch, however blocked as it turns out the drivers are not publicly available so either do illegal stuffs and get that driver (yeah, nah) or pay for it :cry:
 - Look into deploying armv7 instances of nixos to:
-  - RaspberryPi Zero (w and not)
-  - RaspberryPi 2 (Igglybuff if we can get this going - get that sucker to run as an internal DNS node)
+  - ~RaspberryPi Zero (w and not)~ Done as exported package: rpi1 / rpi2
+  - ~RaspberryPi 2 (Igglybuff if we can get this going - get that sucker to run as an internal DNS node)~ ~ Done as exported package: rpi1 / rpi2
   - OrangePi Lite
   - OrangePi Plus v2
   - OrangePi Winplus

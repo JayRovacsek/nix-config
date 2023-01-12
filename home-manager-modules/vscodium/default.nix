@@ -3,7 +3,9 @@
     enable = true;
     package = pkgs.vscodium;
 
-    mutableExtensionsDir = false;
+    # Required as per: https://github.com/nix-community/home-manager/issues/3507 - once resolved will
+    # be great to set this as false again.
+    mutableExtensionsDir = true;
 
     keybindings = [{
       key = "cmd+`";

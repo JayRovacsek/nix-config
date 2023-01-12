@@ -1,4 +1,4 @@
-{ self }:
+{ self, system }:
 let
   pkgs = self.inputs.stable.legacyPackages.${system};
   pkg = pkgs.nixfmt;

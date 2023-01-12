@@ -2,14 +2,20 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) desktop;
+  inherit (flake.common.home-manager-module-sets) linux-desktop;
   inherit (flake.lib) merge-user-config;
-  jay = common.users.jay {
+
+  builder = common.users.builder {
     inherit config pkgs;
-    modules = desktop;
+    modules = [ ];
   };
 
-  merged = merge-user-config { users = [ jay ]; };
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = linux-desktop;
+  };
+
+  merged = merge-user-config { users = [ builder jay ]; };
 
 in {
   inherit flake;
@@ -23,7 +29,18 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  services.tailscale.tailnet = "admin";
+  # microvm.vms = {
+  #   aipom = {
+  #     inherit flake;
+  #     autostart = true;
+  #   };
+  #   igglybuff = {
+  #     inherit flake;
+  #     autostart = true;
+  #   };
+  # };
+
+  # services.tailscale.tailnet = "admin";
 
   imports =
     [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];

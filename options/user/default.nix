@@ -44,6 +44,5 @@ with types; {
     }));
   };
 
-  # config = (builtins.trace a { });
   inherit config;
 }

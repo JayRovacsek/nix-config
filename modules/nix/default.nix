@@ -19,7 +19,15 @@ let
     systems = [ system.nixpkgs.system ] ++ system.boot.binfmt.emulatedSystems;
     sshUser = "builder";
     sshKey = config.age.secrets."builder-id-ed25519".path;
-    inherit (system.networking) hostName;
+    # WARNING: pretty big assumption that localDomain exists on the target system plus
+    # assumption we are using "lan" as local domain identifier.
+    # This is only temporary until we get into tailscale as the transport mechanism here
+    hostName = "${system.networking.hostName}.${
+        if builtins.hasAttr "localDomain" system.networking then
+          system.networking.localDomain
+        else
+          "lan"
+      }";
     supportedFeatures = system.nix.settings.system-features;
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass

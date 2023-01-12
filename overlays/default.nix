@@ -12,13 +12,21 @@ let
   #
   # HERE BE DRAGONS! 
   #
-  default = final: prev:
-    (builtins.foldl' (accumulator: overlay:
-      (recursiveUpdate accumulator self.overlays.${overlay} {
-        inherit final prev;
-      })) { } non-default);
+  # TODO: resolve the below
+  # default = final: prev:
+  #   (builtins.foldl' (accumulator: overlay:
+  #     (builtins.trace accumulator accumulator) {
+  #       fn = self.overlays.${overlay} {
+  #         final = accumulator.final;
+  #         prev = accumulator.prev;
+  #       };
+  #     }) {
+  #       fn = (final: prev: { });
+  #       inherit final prev;
+  #     } non-default);
 in {
-  inherit default;
+  # TODO: removed until above resolved
+  # inherit default;
 
   hello = final: prev: {
     hello = prev.hello.overrideAttrs (old: rec {

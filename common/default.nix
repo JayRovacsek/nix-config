@@ -6,6 +6,7 @@
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
   images = import ./images { inherit self; };
   modules = import ./modules.nix { inherit self; };
+  nur = import ./nur.nix { inherit self; };
   options = import ./options.nix;
   package-sets = import ./package-sets.nix { inherit self; };
   pre-commit-unsupported = import ./pre-commit-unsupported.nix;

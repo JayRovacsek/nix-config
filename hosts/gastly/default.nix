@@ -5,18 +5,12 @@ let
     inherit config pkgs lib userConfigs;
   };
 in {
-  inherit users;
-
-  recursive = { inherit flake; };
+  inherit users flake;
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -27,11 +21,6 @@ in {
       enableCryptodisk = true;
       efiSupport = true;
     };
-  };
-
-  boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/21c13271-a27f-4106-87bb-2ec4c2a043dc";
-    preLVM = true;
   };
 
   networking.hostName = "gastly";

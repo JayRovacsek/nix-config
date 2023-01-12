@@ -2,8 +2,10 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    # stable.url = "github:nixos/nixpkgs/release-22.05";
+    # Kept only temporarily until no longer utilised
     "22-05".url = "github:nixos/nixpkgs/release-22.05";
+
+    # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -34,6 +36,7 @@
       inputs = {
         nixpkgs.follows = "stable";
         flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -44,43 +47,51 @@
       url = "github:cmhamill/agenix";
       inputs.nixpkgs.follows = "stable";
     };
-
-    # Assuming we have a standardised and flake managed nixpkgs / channel setup
-    # we don't need to set the below as they'll self-correct after a second rebuild
-    # when first shifting to the new structure
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "stable";
     };
+
+    # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
       inputs.nixpkgs.follows = "unstable";
     };
-    flake-utils.url = "github:numtide/flake-utils";
+
+    # Home management module
     home-manager = {
       url = "github:rycee/home-manager/release-22.11";
       inputs.nixpkgs.follows = "stable";
     };
+
+    # Microvm module, PoC state for implementation
     microvm = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "stable";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+      };
     };
+
+    # Generate system images easily
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "stable";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nur.url = "github:nix-community/NUR";
 
-    # Required for default toolchain changes
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "stable";
-    };
+    # Apply opinions on hardware that are driven by community
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Like the Arch User Repository, but better :)
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, flake-utils, ... }:
     let
+      # Systems we want to wrap all outputs below in. This is split into 
+      # two segments; those items inside the flake-utils block and those not.
+      # The flake-utils block will automatically generate the <system>
+      # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
       exposedSystems = [
         "aarch64-linux"
         "aarch64-darwin"
@@ -89,25 +100,18 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
+    in flake-utils.lib.eachSystem exposedSystems (system: {
+      checks = import ./checks { inherit self system; };
+      devShells = import ./devShells { inherit self system; };
+      formatter = import ./formatter { inherit self system; };
+      packages = import ./packages { inherit self system; };
+    }) // {
+      inherit exposedSystems;
+
       lib = import ./lib { inherit self; };
       common = import ./common { inherit self; };
       overlays = import ./overlays { inherit self; };
       nixosConfigurations = import ./nixosConfigurations { inherit self; };
       darwinConfigurations = import ./darwinConfigurations { inherit self; };
-    in flake-utils.lib.eachSystem exposedSystems (system:
-      let
-        packages = import ./packages { inherit self system; };
-        formatter = import ./formatter { inherit self; };
-        devShells = import ./devShells { inherit self system; };
-        checks = import ./checks { inherit self system; };
-      in {
-        inherit devShells checks formatter packages;
-        # Normally the // pattern is a little frowned upon as it does not act
-        # the way most people expect - here it's fine as we've got two sets that have no 
-        # collision space:
-        # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
-      }) // {
-        inherit darwinConfigurations common exposedSystems lib
-          nixosConfigurations overlays;
-      };
+    };
 }

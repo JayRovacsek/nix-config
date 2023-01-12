@@ -13,6 +13,15 @@ let
   # With a list of directories, create a map of those being imported without
   # arguments to be loaded later.
   module-configs = attrValues (mapAttrs (name: _: {
+    # WARNING! It's extremely unlikely that the argument-set expected of home-manager
+    # will change, but if a new argument is added, this WILL ERROR (will only ever)
+    # occur on an update of home-manager release: this _could_ be solved by
+    # changing each of these to a variadic function however we intentionally 
+    # so that if new arguments are added we are aware of them rahter than missing
+    # potentially important additions to the module.
+    # So; if you are getting an error future person and the trace points to just
+    # below this comment, it'll likely be an addition or removal of a argument passed
+    # by home manager.
     "${name}" = { config, pkgs, lib, options, specialArgs, modulesPath
       , nixosConfig, osConfig }:
       import "${path}/${name}/default.nix" {

@@ -3,23 +3,24 @@ let
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
 
+  addons = with pkgs.nur.repos.rycee.firefox-addons; [
+    decentraleyes
+    keepassxc-browser
+    multi-account-containers
+    noscript
+    privacy-badger
+    temporary-containers
+    terms-of-service-didnt-read
+    ublock-origin
+    user-agent-string-switcher
+  ];
   languagePacks = with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ];
-
+  dictionaries = with pkgs.nur.repos.JayRovacsek; [ better-english ];
+  extensions = addons ++ languagePacks ++ dictionaries;
 in {
   programs.firefox = {
     enable = true;
-    extensions = with pkgs.nur.repos.rycee.firefox-addons;
-      [
-        decentraleyes
-        keepassxc-browser
-        multi-account-containers
-        noscript
-        privacy-badger
-        temporary-containers
-        terms-of-service-didnt-read
-        ublock-origin
-        user-agent-string-switcher
-      ] ++ languagePacks;
+    inherit extensions;
 
     profiles.jay = {
       search = {

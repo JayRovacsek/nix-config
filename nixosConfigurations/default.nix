@@ -33,25 +33,17 @@ in {
   # Hosts
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier;
-    base = let base-modules = self.common.modules.${identifier};
-    in base-modules;
+    base = self.common.modules.${identifier};
     pkgs = x86_64-linux-unstable;
-    modules = base ++ [
-      ../hosts/alakazam
-      microvm.nixosModules.host
-      agenix.nixosModule
-      nur.nixosModules.nur
-    ];
+    modules = base
+      ++ [ ../hosts/alakazam microvm.nixosModules.host agenix.nixosModule ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let
-    inherit (x86_64-linux-unstable) system;
+    inherit (x86_64-linux-unstable) system identifier;
+    base = self.common.modules.${identifier};
     pkgs = x86_64-linux-unstable;
-    modules = modules-function {
-      inherit home-manager self;
-      hostname = "gastly";
-      extraModules = [ agenix.nixosModule self-reference ];
-    };
+    modules = base ++ [ ../hosts/gastly agenix.nixosModule ];
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
 
   dragonite = let
