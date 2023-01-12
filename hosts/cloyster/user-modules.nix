@@ -5,7 +5,6 @@ let
   # List of home-manager modules we want for this system
   modules = [
     "alacritty"
-    "dconf"
     "direnv"
     "firefox"
     "git"
