@@ -15,7 +15,9 @@ in {
     vcpu = 1;
     mem = 1024;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore tailscaleKey journaldShare ];
+    shares = [ readOnlySharedStore journaldShare ];
+    # TODO: Rethink how this is done, we need to pass the guest key as only a guest key
+    # shares = [ readOnlySharedStore tailscaleKey journaldShare ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -26,11 +28,8 @@ in {
 
   imports = [
     ../common/machine-id.nix
-    ../../modules/agenix
-    ./options.nix
     ../../modules/microvm/guest
     ../../modules/ombi
-    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
   ];

@@ -1,1 +1,9 @@
-{ imports = [ ../options/hardware ../options/networking ../options/flake ]; }
+{
+  imports = [
+    ../options/flake
+    ../options/hardware
+    ../options/networking
+    ../options/systemd
+    ../options/tailscale
+  ];
+}

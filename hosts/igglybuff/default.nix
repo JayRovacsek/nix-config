@@ -14,8 +14,6 @@ let
 in {
   inherit users;
 
-  services.tailscale.tailnet = "dns";
-
   networking = {
     hostName = "igglybuff";
     hostId = "b560563b";
@@ -25,7 +23,7 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore tailscaleKey journaldShare ];
+    shares = [ readOnlySharedStore journaldShare ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -40,11 +38,8 @@ in {
 
   imports = [
     ../common/machine-id.nix
-    ./options.nix
-    ../../modules/agenix
     ../../modules/dnsmasq
     ../../modules/microvm/guest
-    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
   ];

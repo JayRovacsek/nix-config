@@ -38,7 +38,7 @@ let
     foldl' (accumulator: system:
       accumulator // (foldl' (accumulator: target:
         accumulator // {
-          "${system}-${target.name}" = microvm.packages.${system};
+          "${system}-${target.name}".pkgs = microvm.packages.${system};
         }) { } targetGeneration)) { } (attrNames microvm.packages);
 
   # Done to make available the packageset identifier via the identifier attribute of
