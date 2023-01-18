@@ -45,12 +45,8 @@ in {
     };
   };
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;

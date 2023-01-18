@@ -14,7 +14,7 @@
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam
-    #../../modules/tailscale
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev
