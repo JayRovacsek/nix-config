@@ -1,23 +1,18 @@
 { self }:
 let
-  modules-function = import ../functions/modules.nix;
-
   inherit (self) inputs;
 
   # Package Sets
   inherit (self.inputs) stable unstable;
 
-  # Nix User Repositories
-  inherit (self.inputs) nur;
-
   # Extra modules
   inherit (self.inputs)
-    agenix home-manager microvm nixos-generators nixos-hardware nixos-wsl;
+    agenix microvm nixos-generators nixos-hardware nixos-wsl;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
   # config as "flake" if used as defined below
-  inherit (self.common) self-reference users home-manager-modules options;
+  inherit (self.common) users options;
 
   inherit (self.common.system) stable-system unstable-system;
 
