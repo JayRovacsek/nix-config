@@ -12,7 +12,7 @@ let
 
   # Extra modules
   inherit (self.inputs)
-    agenix home-manager microvm nixos-generators nixos-hardware;
+    agenix home-manager microvm nixos-generators nixos-hardware nixos-wsl;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -66,6 +66,15 @@ in {
       nixos-hardware.nixosModules.raspberry-pi-4
     ];
   in unstable.lib.nixosSystem { inherit system pkgs modules; };
+
+  ## WSL Configuration
+
+  zubat = let
+    inherit (x86_64-linux-stable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base
+      ++ [ ../hosts/zubat nixos-wsl.nixosModules.wsl agenix.nixosModule ];
+  in stable.lib.nixosSystem { inherit system pkgs modules; };
 
   ## MICROVMS
 

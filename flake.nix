@@ -9,6 +9,16 @@
     stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    nixos-wsl = {
+      url =
+        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
     # therefore we can't depend on stable/unstable to handle the correct matching
     # of stable/unstable to make a suitable decision per system
