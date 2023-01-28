@@ -4,7 +4,7 @@ let
   # any number of packagesets to be consumed without boilerplate 
   inherit (self) inputs exposedSystems;
   # Inputs that expose overlays we require
-  inherit (self.inputs) nur agenix-darwin microvm;
+  inherit (self.inputs) nur agenix-darwin microvm firefox-darwin;
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
@@ -76,7 +76,17 @@ let
   packageSets = builtins.foldl' (accumulator: system:
     accumulator // (builtins.foldl' (accumulator: target:
       accumulator // {
-        "${system}-${target.name}" =
-          import target.pkgs { inherit system overlays config; };
+        "${system}-${target.name}" = import target.pkgs {
+          inherit system config;
+          # Hack is required to contextually add overlays based.
+          # This might be better abstracted into a set that then is
+          # pulled via getAttr, but that'll be a next refactor step
+          # rather than MVP suitable.
+          overlays =
+            if target.pkgs.legacyPackages.${system}.stdenv.isDarwin then
+              overlays ++ [ firefox-darwin.overlay ]
+            else
+              overlays;
+        };
       }) { } targetGeneration)) { } exposedSystems;
 in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)
