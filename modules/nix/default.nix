@@ -3,7 +3,7 @@ let
   # We use the below value as it'll be available before this
   # evaluates rather than config.flake (which is available but
   # only after further evaluation)
-  flake = config._module.args.flake;
+  inherit (config) flake;
 
   hardwareProfile = system:
     if builtins.hasAttr "profile" system.hardware.cpu then {
@@ -19,12 +19,20 @@ let
     systems = [ system.nixpkgs.system ] ++ system.boot.binfmt.emulatedSystems;
     sshUser = "builder";
     sshKey = config.age.secrets."builder-id-ed25519".path;
-    hostName = system.networking.hostName;
+    # WARNING: pretty big assumption that localDomain exists on the target system plus
+    # assumption we are using "lan" as local domain identifier.
+    # This is only temporary until we get into tailscale as the transport mechanism here
+    hostName = "${system.networking.hostName}.${
+        if builtins.hasAttr "localDomain" system.networking then
+          system.networking.localDomain
+        else
+          "lan"
+      }";
     supportedFeatures = system.nix.settings.system-features;
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass
-    speedFactor = (builtins.mul ((hardwareProfile (system)).cores)
-      ((hardwareProfile system).speed));
+    speedFactor = builtins.mul (hardwareProfile system).cores
+      (hardwareProfile system).speed;
   };
 
   buildMachines = builtins.filter (x: x.speedFactor != 1)

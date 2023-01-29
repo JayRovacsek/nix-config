@@ -8,7 +8,7 @@ let
   isMicrovmGuest =
     if hasMicrovm then builtins.hasAttr "hypervisor" config.microvm else false;
   # there may be reason for a host to be both a guest and host
-  isRecursiveMicrovm = if isMicrovmHost && isMicrovmGuest then true else false;
+  isRecursiveMicrovm = isMicrovmHost && isMicrovmGuest;
 
   bridgeNetworks = builtins.map (x: x.netdevConfig.Name)
     (builtins.filter (x: x.netdevConfig.Kind == "bridge" && x.enable)

@@ -1,11 +1,25 @@
 { config, pkgs, lib, flake, ... }:
+
 let
-  userConfigs = import ./users.nix { inherit config pkgs flake; };
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) linux-desktop;
+  inherit (flake.lib) merge-user-config;
+
+  builder = common.users.builder {
+    inherit config pkgs;
+    modules = [ ];
   };
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = linux-desktop;
+  };
+
+  merged = merge-user-config { users = [ builder jay ]; };
+
 in {
-  inherit users flake;
+  inherit flake;
+  inherit (merged) users home-manager;
 
   age = {
     secrets."tailscale-dns-preauth-key" = {
@@ -13,22 +27,6 @@ in {
       mode = "0400";
     };
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
-  };
-
-  services.tailscale.tailnet = "admin";
-
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
-
-  networking = {
-    hostName = "alakazam";
-    hostId = "ef26b1be";
-    useDHCP = false;
-    interfaces.enp0s31f6.useDHCP = true;
   };
 
   microvm.vms = {
@@ -40,6 +38,18 @@ in {
       inherit flake;
       autostart = true;
     };
+  };
+
+  services.tailscale.tailnet = "admin";
+
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+
+  networking = {
+    hostName = "alakazam";
+    hostId = "ef26b1be";
+    useDHCP = false;
+    interfaces.enp0s31f6.useDHCP = true;
   };
 
   systemd.services."getty@tty1".enable = false;

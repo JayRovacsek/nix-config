@@ -2,20 +2,30 @@
 let
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
+
+  addons = with pkgs.nur.repos.rycee.firefox-addons; [
+    decentraleyes
+    keepassxc-browser
+    multi-account-containers
+    noscript
+    privacy-badger
+    temporary-containers
+    terms-of-service-didnt-read
+    ublock-origin
+    user-agent-string-switcher
+  ];
+  # TODO: see if aarch can be supported upstream for this language set
+  languagePacks =
+    if (builtins.hasAttr "firefox-langpack-en-GB" pkgs.nur.repos.sigprof) then
+      with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ]
+    else
+      [ ];
+  dictionaries = with pkgs.nur.repos.JayRovacsek; [ better-english ];
+  extensions = addons ++ languagePacks ++ dictionaries;
 in {
   programs.firefox = {
     enable = true;
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      decentraleyes
-      keepassxc-browser
-      multi-account-containers
-      noscript
-      privacy-badger
-      temporary-containers
-      terms-of-service-didnt-read
-      ublock-origin
-      user-agent-string-switcher
-    ];
+    inherit extensions;
 
     profiles.jay = {
       search = {
@@ -287,6 +297,7 @@ in {
         "signon.autofillForms" = false;
         "signon.formlessCapture.enabled" = false;
         "signon.rememberSignons" = false;
+        "spellchecker.dictionary" = "en-GB";
         "toolkit.coverage.endpoint.base" = "";
         "toolkit.coverage.opt-out" = true;
         "toolkit.telemetry.archive.enabled" = false;

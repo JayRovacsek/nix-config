@@ -15,7 +15,7 @@ in {
     };
 
     userSettings = mkOption {
-      type = jsonFormat.type;
+      inherit (jsonFormat) type;
       default = { };
       description = "Settings to apply to Visual Studio Code";
     };

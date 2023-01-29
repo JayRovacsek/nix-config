@@ -48,7 +48,7 @@ in {
     serverUrl = "https://headscale.rovacsek.com";
 
     database = {
-      user = config.services.headscale.user;
+      inherit (config.services.headscale) user;
       type = "sqlite3";
       path = "/var/lib/headscale/db.sqlite";
       name = "headscale";
@@ -80,6 +80,8 @@ in {
 
     # This will override settings that are not exposed as nix module options
     settings = {
+      # TODO: move this to agenix
+      noise.private_key_path = "/var/lib/headscale/noise_private.key";
       metrics_listen_addr = "127.0.0.1:${builtins.toString metricsPort}";
       grpc_listen_addr = "127.0.0.1:${builtins.toString grpcPort}";
       ip_prefixes = [ "100.64.0.0/10" ];

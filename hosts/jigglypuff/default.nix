@@ -1,21 +1,26 @@
 { config, pkgs, lib, flake, ... }:
+
 let
-  userConfigs = import ./users.nix { inherit config pkgs; };
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) cli;
+  inherit (flake.lib) merge-user-config;
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = cli;
   };
+
+  merged = merge-user-config { users = [ jay ]; };
+
 in {
-  inherit users flake;
+  inherit flake;
+  inherit (merged) users home-manager;
 
   services.tailscale.tailnet = "dns";
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-    ./vlans.nix
-  ];
+  environment.systemPackages = with pkgs; [ libraspberrypi ];
+
+  imports = [ ./hardware-configuration.nix ./modules.nix ./vlans.nix ];
 
   # Remote deploy requires passwordless root access. We can do this via --use-remote-sudo
   security.sudo.wheelNeedsPassword = false;

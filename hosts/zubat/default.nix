@@ -1,32 +1,34 @@
 { config, pkgs, lib, flake, ... }:
 let
-    userConfigs = import ./users.nix { inherit config pkgs flake; };
-    users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) cli;
+  inherit (flake.lib) merge-user-config;
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = cli;
   };
+
+  merged = merge-user-config { users = [ jay ]; };
+
   hostName = "zubat";
-in
-{
-  inherit users flake;
+in {
+  inherit flake;
+  inherit (merged) users home-manager;
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
-  imports = [
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
+  imports = [ ./modules.nix ./system-packages.nix ];
 
   networking = { inherit hostName; };
 
   wsl = {
-    enable = true;
-    automountPath = "/mnt";
     defaultUser = "jay";
+    enable = true;
     startMenuLaunchers = true;
+    wslConf.automount.root = "/mnt";
   };
 
-  # nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

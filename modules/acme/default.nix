@@ -10,7 +10,7 @@ let
     };
   }) tlds;
 
-  certs = builtins.foldl' (x: y: x // y) { } (tldCertConfigs);
+  certs = builtins.foldl' (x: y: x // y) { } tldCertConfigs;
 
   defaults = {
     inherit (config.services.nginx) group;

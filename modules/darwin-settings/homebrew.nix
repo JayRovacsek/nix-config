@@ -1,9 +1,15 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   inherit (config.networking) hostName;
-  extraCasks = if hostName == "HF0013161" then [ "workplace-chat" ] else [ ];
+  extraCasks = if hostName == "victreebel" then [ "workplace-chat" ] else [ ];
+  forceBrewInstall = name: {
+    inherit name;
+    args = [ "force" ];
+  };
 in {
-  # I don't want to use this, but will likely need to
+  # Required for homebrew on aarch64, TODO: add x86 locations
+  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -11,7 +17,8 @@ in {
       cleanup = "zap";
       upgrade = true;
     };
-    brews = [ "openssh" "pidof" "mas" "mingw-w64" ];
+    brews =
+      builtins.map forceBrewInstall [ "openssh" "pidof" "mas" "mingw-w64" ];
 
     casks = [
       "brave-browser"
@@ -28,6 +35,6 @@ in {
       "slack"
     ] ++ extraCasks;
 
-    masApps = { };
+    masApps = { "Microsoft Outlook" = 985367838; };
   };
 }

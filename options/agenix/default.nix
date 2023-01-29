@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.age;
-  ageBin = cfg.ageBin;
+  inherit (cfg) ageBin;
   newGeneration = ''
     _agenix_generation="$(basename "$(readlink ${cfg.secretsDir})" || echo 0)"
     (( ++_agenix_generation ))

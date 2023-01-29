@@ -1,20 +1,12 @@
 { config, pkgs, lib, flake, ... }:
 let
-  dnsUserConfig = import ../../users/service-accounts/dns.nix;
-
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib;
-    userConfigs = [ dnsUserConfig ];
-  };
-
   tailscaleKey = import ../shared/tailscale-identity-key.nix;
   readOnlySharedStore = import ../shared/read-only-store.nix;
   journaldShare =
     import ../common/journald.nix { inherit (config.networking) hostName; };
 in {
-  inherit users;
-
-  services.tailscale.tailnet = "dns";
+  # TODO: replace the below with a user
+  # inherit users;
 
   networking = {
     hostName = "igglybuff";
@@ -25,7 +17,7 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ readOnlySharedStore tailscaleKey journaldShare ];
+    shares = [ readOnlySharedStore journaldShare ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -40,11 +32,8 @@ in {
 
   imports = [
     ../common/machine-id.nix
-    ./options.nix
-    ../../modules/agenix
     ../../modules/dnsmasq
     ../../modules/microvm/guest
-    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
   ];

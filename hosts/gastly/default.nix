@@ -1,20 +1,25 @@
 { config, pkgs, lib, flake, ... }:
+
 let
-  userConfigs = import ./users.nix { inherit config pkgs; };
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) linux-desktop;
+  inherit (flake.lib) merge-user-config;
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = linux-desktop;
   };
+
+  merged = merge-user-config { users = [ jay ]; };
+
 in {
-  inherit users flake;
+  inherit flake;
+  inherit (merged) users home-manager;
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./options.nix
-    ./system-packages.nix
-  ];
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -25,11 +30,6 @@ in {
       enableCryptodisk = true;
       efiSupport = true;
     };
-  };
-
-  boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/21c13271-a27f-4106-87bb-2ec4c2a043dc";
-    preLVM = true;
   };
 
   networking.hostName = "gastly";

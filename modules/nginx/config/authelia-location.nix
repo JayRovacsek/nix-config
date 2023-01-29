@@ -1,8 +1,8 @@
 { config, ... }: {
   environment.etc."nginx/modules/authelia/authelia-location.conf" = {
     mode = "0444";
-    user = config.services.nginx.user;
-    group = config.services.nginx.group;
+    inherit (config.services.nginx) user;
+    inherit (config.services.nginx) group;
     text = ''
       auth_request /authelia/api/verify;
       auth_request_set $target_url $scheme://$http_host$request_uri;

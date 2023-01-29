@@ -1,7 +1,9 @@
 # Secrets - Or: "Yo, nice try boss! As if I was going to save plaintext here"
+
 So getting this setup initially busted me as I was derping hard on how to do this. But I think I've got it now and we're good to get some cool stuff going!
 
 ## Getting Agenix Locally
+
 You can follow the [tutorial](https://github.com/ryantm/agenix#tutorial) Ryan has given in the repo, but what wasn't initially obvious was that overlays are your friend here.
 
 Do it however you wish, I found the following the easiest: add agenix to your inputs:
@@ -27,9 +29,10 @@ Then add the overlay to your system overlays however you prefer, in my instance 
 }
 ```
 
-From here as long as you use either an ephemeral shell or include agenix in packages to be installed you should be :neckbeard: 
+From here as long as you use either an ephemeral shell or include agenix in packages to be installed you should be :neckbeard:
 
 ## Getting Secrets Flowin'
+
 From here just follow the tutorial linked previously, in essence:
 
 Generate some SSH keys - consider just dropping the identity associated with the key and make sure this is the single use of those keys:
@@ -47,6 +50,7 @@ agenix -e ./test.age -i /tmp/test_key
 ```
 
 ## Rolling Secrets
+
 Simply:
 
 ```sh
@@ -54,9 +58,11 @@ agenix --rekey --identity ~/.ssh/id_ed25519_agenix_secondary
 ```
 
 ## Adding Secrets To A System
+
 [tldr rtfm](https://github.com/ryantm/agenix/blob/main/modules/age.nix)
 
 At current time of writing a system can use the following options:
+
 ```nix
 {
     name = mkOption {
@@ -105,7 +111,7 @@ At current time of writing a system can use the following options:
           Group of the decrypted secret.
         '';
     };
-    
+
     symlink = mkEnableOption "symlinking secrets to their destination" // { default = true; };
 }
 ```

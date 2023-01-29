@@ -2,7 +2,10 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    stable-22-05.url = "github:nixos/nixpkgs/release-22.05";
+    # Kept only temporarily until no longer utilised
+    "22-05".url = "github:nixos/nixpkgs/release-22.05";
+
+    # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -10,7 +13,7 @@
       url =
         "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
       inputs = {
-        nixpkgs.follows = "stable-22-05";
+        nixpkgs.follows = "stable";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
@@ -47,20 +50,6 @@
       };
     };
 
-    # Temporarily pinned to 40c6b517446510dfb238aed6b3e3f0eb81ee052c while making changes upstream:
-    # nix flake update --override-input vulnix-pre-commit github:jayrovacsek/vulnix-pre-commit/40c6b517446510dfb238aed6b3e3f0eb81ee052c
-    vulnix-pre-commit = {
-      url = "github:jayrovacsek/vulnix-pre-commit";
-      inputs = {
-        # nixpkgs.follows = "stable";
-        stable.follows = "stable";
-        unstable.follows = "unstable";
-        flake-utils.follows = "flake-utils";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
     # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
     # Note that this is only used for the OPTIONS and the main agenix package is utilised for
     # actual actions related to agenix
@@ -68,23 +57,24 @@
       url = "github:cmhamill/agenix";
       inputs.nixpkgs.follows = "stable";
     };
-
-    # Assuming we have a standardised and flake managed nixpkgs / channel setup
-    # we don't need to set the below as they'll self-correct after a second rebuild
-    # when first shifting to the new structure
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "stable";
     };
+
+    # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
       inputs.nixpkgs.follows = "unstable";
     };
-    flake-utils.url = "github:numtide/flake-utils";
+
+    # Home management module
     home-manager = {
       url = "github:rycee/home-manager/release-22.11";
       inputs.nixpkgs.follows = "stable";
     };
+
+    # Microvm module, PoC state for implementation
     microvm = {
       url = "github:astro/microvm.nix";
       inputs = {
@@ -92,71 +82,46 @@
         flake-utils.follows = "flake-utils";
       };
     };
+
+    # Generate system images easily
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "stable";
     };
+
+    # Apply opinions on hardware that are driven by community
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, flake-utils, ... }:
     let
-      users = { };
-      # The below sets a dev shell for the flake with inputs defined in 
-      # the packags section of the dev shell and shellHook running on 
-      # evaluation by direnv
-    in flake-utils.lib.eachSystem [
-      "aarch64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ] (system:
-      let
-        # Note that the below use of pkgs will by implication mean that
-        # our dev dependencies for local packages as well as part of our
-        # devShell are pinned to stable - this is intended to ensure
-        # backwards compatability & reduced pain when managing deps
-        # in these spaces
-        pkgs = self.inputs.stable.legacyPackages.${system};
-        pkgsUnstable = self.inputs.unstable.legacyPackages.${system};
+      # Systems we want to wrap all outputs below in. This is split into 
+      # two segments; those items inside the flake-utils block and those not.
+      # The flake-utils block will automatically generate the <system>
+      # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
+      exposedSystems = [
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
+    in flake-utils.lib.eachSystem exposedSystems (system: {
+      checks = import ./checks { inherit self system; };
+      devShells = import ./devShells { inherit self system; };
+      formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
+      packages = import ./packages { inherit self system; };
+    }) // {
+      inherit exposedSystems;
 
-        devShellStableDeps = with pkgs; [ nixfmt statix vulnix ];
-        devShellUnstableDeps = with pkgsUnstable; [ nil ];
-
-        checks = {
-          pre-commit-check = self.inputs.pre-commit-hooks.lib.${system}.run
-            (import ./pre-commit-checks.nix { inherit self pkgs system; });
-        };
-
-        devShell = pkgs.mkShell {
-          name = "nix-config-dev-shell";
-          packages = devShellStableDeps ++ devShellUnstableDeps;
-          # Self reference to make the default shell hook that which generates
-          # a suitable pre-commit hook installation
-          # inherit (self.checks.${system}.pre-commit-check) shellHook;
-        };
-
-        # Self reference the dev shell for our system to resolve the lacking
-        # devShells.${system}.default recommended structure
-        devShells.default = self.outputs.devShell.${system};
-
-        # Import local packages passing system relevnet pkgs through
-        # for dependencies.
-        localPackages = import ./packages { inherit pkgs; };
-        localUnstablePackages = import ./packages { pkgs = pkgsUnstable; };
-        packages = flake-utils.lib.flattenTree localPackages;
-        unstablePackages = flake-utils.lib.flattenTree localUnstablePackages;
-      in {
-        inherit devShell devShells packages unstablePackages checks;
-        # Normally the // pattern is a little frowned upon as it does not act
-        # the way most people expect - here it's fine as we've got two sets that have no 
-        # collision space:
-        # { devShell } + { nixosConfigurations: { ... }, darwinConfigurations: { ... }  }
-      }) // {
-        nixosConfigurations =
-          import ./linux/configurations.nix { inherit self; };
-        darwinConfigurations =
-          import ./darwin/configurations.nix { inherit self; };
-      };
+      lib = import ./lib { inherit self; };
+      common = import ./common { inherit self; };
+      overlays = import ./overlays { inherit self; };
+      nixosConfigurations = import ./nixosConfigurations { inherit self; };
+      darwinConfigurations = import ./darwinConfigurations { inherit self; };
+    };
 }

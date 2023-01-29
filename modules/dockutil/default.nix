@@ -33,7 +33,10 @@ let
   entries = [ ] ++ (if anyUserHas "alacritty" then alacrittyEntry else [ ])
     ++ (if anyUserHas "firefox" then firefoxEntry else [ ])
     ++ (if anyUserHas "brave-browser" then braveEntry else [ ])
-    ++ (if anyUserHas "eloston-chromium" then chromiumEntry else [ ])
+    ++ (if anyUserHas "eloston-chromium" || anyUserHas "chromium" then
+      chromiumEntry
+    else
+      [ ])
     # Gross hack - TODO: fix later
     ++ (if anyUserHas "vscode" then vscodiumEntry else [ ])
     ++ (if anyUserHas "keepassxc" then keepassEntry else [ ])
@@ -41,7 +44,6 @@ let
     ++ (if anyUserHas "slack" then slackEntry else [ ]);
 
 in {
-
   imports = [ ../../options/dockutil ];
 
   dockutil = {
