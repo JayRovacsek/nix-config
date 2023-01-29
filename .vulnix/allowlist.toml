@@ -166,6 +166,8 @@ cve = [
     "CVE-2022-32189",
     "CVE-2022-41715",
     "CVE-2022-41716",
+    "CVE-2022-41717",
+    "CVE-2022-41720",
 ]
 comment = "False positives &/or Windows specific issues"
 
@@ -268,6 +270,10 @@ comment = "True positive, low risk"
 cve = ["CVE-2020-29260"]
 comment = "True positive, low risk"
 
+["libxml2"]
+cve = ["CVE-2022-40303", "CVE-2022-40304"]
+comment = "True positive, low risk"
+
 ["libX11"]
 cve = ["CVE-2022-3555"]
 comment = "True positive, low risk"
@@ -346,7 +352,13 @@ until = "2022-12-31"
 comment = "True positive but no reachability / risk based on configuration"
 
 ["openssl"]
-cve = ["CVE-2018-16395", "CVE-2022-3358", "CVE-2022-3602", "CVE-2022-3786"]
+cve = [
+    "CVE-2018-16395",
+    "CVE-2022-3358",
+    "CVE-2022-3602",
+    "CVE-2022-3786",
+    "CVE-2022-3996",
+]
 comment = "False positives and/or low risk"
 
 ["openvpn"]
@@ -420,6 +432,11 @@ comment = "Deployed extension is suitable version for shellcheck"
 ["ShellCheck"]
 cve = ["CVE-2021-28794", "CVE-2018-7557"]
 comment = "Deployed extension is suitable version for shellcheck"
+
+["sqlite"]
+cve = ["CVE-2022-46908"]
+until = "2022-12-31"
+comment = "Temporary risk accept"
 
 ["subversion"]
 cve = [

@@ -10,9 +10,9 @@
       split_ratio = "0.50";
       window_placement = "second_child";
       # Gaps
-      window_gap = 10;
-      top_padding = 16;
-      bottom_padding = 16;
+      window_gap = 5;
+      top_padding = 8;
+      bottom_padding = 8;
       left_padding = 5;
       right_padding = 5;
       # shadows and borders

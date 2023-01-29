@@ -70,7 +70,7 @@ A raspberry pi 4 that acts as a music box over the 3.5mm headphone jack for the 
 
 ## Zubat
 
-A WSL instance, everyone happens across a Zubat from time to time
-and generally wish we didn't :grin:
+A configuration that is leveraged within WSL settings. Yep, everyone hates Zubat and the feeling
+isn't so far from WSL :cry:
 
 ![Zubat](https://archives.bulbagarden.net/media/upload/b/be/Spr_4h_041_m.png?raw=true)

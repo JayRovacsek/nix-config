@@ -354,7 +354,6 @@
     },
     "root": {
       "inputs": {
-        "22-05": "22-05",
         "agenix": "agenix",
         "agenix-darwin": "agenix-darwin",
         "darwin-stable": "darwin-stable",
@@ -389,7 +388,7 @@
         "type": "github"
       }
     },
-    "unstable": {
+    "stable-22-05": {
       "locked": {
         "lastModified": 1673525234,
         "narHash": "sha256-fMP37VTeqSzC8JYoQJinLOnHfjriE5uKInLWJRz5K3E=",
@@ -417,6 +416,38 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vulnix-pre-commit": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
+        ],
+        "stable": [
+          "unstable"
+        ],
+        "unstable": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1668826967,
+        "narHash": "sha256-2JRXdpDSjj/B76/YwtIHc0y3ps3D8hhng9PRjcwKuJY=",
+        "owner": "jayrovacsek",
+        "repo": "vulnix-pre-commit",
+        "rev": "40c6b517446510dfb238aed6b3e3f0eb81ee052c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jayrovacsek",
+        "repo": "vulnix-pre-commit",
         "type": "github"
       }
     }
