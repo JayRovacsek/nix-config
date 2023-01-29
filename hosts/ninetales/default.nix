@@ -1,11 +1,17 @@
 { config, pkgs, lib, flake, ... }:
 let
-  userConfigs = import ./users.nix { inherit config pkgs flake; };
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib userConfigs;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) darwin-desktop;
+  inherit (flake.lib) merge-user-config;
+
+  jay = common.users."jrovacsek" {
+    inherit config pkgs;
+    modules = darwin-desktop;
   };
+  merged = merge-user-config { users = [ jay ]; };
 in {
-  inherit users;
+  inherit flake;
+  inherit (merged) users home-manager;
 
   imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
 
