@@ -6,7 +6,7 @@ This repo contains my flake'd nix configs, it's a work in progress and currently
 
 Note that while flakes are a beautiful thing in which we could have many repositories to then bind together via inputs & make configurations
 far more contained in each repository, this is intentionally a mono-flake. It includes overlays, packages and configurations for both linux and darwin
-hosts to centralise the configuration and possibly help myself and/or viewers understand the spiderweb of *.nix files.
+hosts to centralise the configuration and possibly help myself and/or viewers understand the spiderweb of \*.nix files.
 
 ## Using this/something like this
 
@@ -18,9 +18,9 @@ To arbitrarily test/dry-build a config you can use standard flake pathing, for e
 
 ```sh
 # Match on hostname
-nixos-rebuild dry-build --flake .# 
+nixos-rebuild dry-build --flake .#
 # Build alakazam
-nixos-rebuild dry-build --flake .#alakazam 
+nixos-rebuild dry-build --flake .#alakazam
 ```
 
 Of-course these could just be tested using the subcommand for `nixos-rebuild` of `test`.
@@ -29,16 +29,18 @@ Of-course these could just be tested using the subcommand for `nixos-rebuild` of
 # Match on hostname
 nixos-rebuild test --flake .#
 # Test alakazam
-nixos-rebuild test --flake .#alakazam 
+nixos-rebuild test --flake .#alakazam
 ```
 
 ## Fearless Refactor
+
 Historically there is a fear of updates due to how they've been breaking in various ways for a number of common systems. Generations save us here in
 this aspect, but what if I want to refactor large swathes of my nix code and be certain I haven't changed the status-quo for the most part?
 
-It seems thus far in my testing you could abuse a small amount of disk space to be _really_ confident in refactor efforts, firstly make sure you create a branch 
-for your work in progress, then create any number of changes. Copy the repo to another folder (to be honest this is likely possible to do in the single folder 
+It seems thus far in my testing you could abuse a small amount of disk space to be _really_ confident in refactor efforts, firstly make sure you create a branch
+for your work in progress, then create any number of changes. Copy the repo to another folder (to be honest this is likely possible to do in the single folder
 and I'm just yet to read the docs far enough), checkout the work you want to compare in one folder and the original work in another then:
+
 ```sh
 # Linux Old -> New
 nix store diff-closures ../nix-config-tmp#nixosConfigurations.HOST.config.system.build.toplevel .#nixosConfigurations.HOST.config.system.build.toplevel --no-write-lock-file > output
@@ -83,7 +85,7 @@ Current list:
 
 - ~Have home-manager configs generate per standard user on a system rather than binding to "jay" / "jrovacsek" based on OS type. There are already examples of this but my first attempt in grokking a scalable approach failed. As a note for future self; the following does give current users however when joined with a `home-manager.users.${x}.programs.*` it appears to suffer infiinite recursion.~ DONE
 - ~Flake my home server~ DONE
-- ~Manage secrets within the configs (gitcrypt? borg? morph? ¯\\_\(ツ)\_/¯ )~ [long live agenix!](https://github.com/JayRovacsek/nix-config/tree/main/secrets)
+- ~Manage secrets within the configs (gitcrypt? borg? morph? ¯\\\_\(ツ)\_/¯ )~ [long live agenix!](https://github.com/JayRovacsek/nix-config/tree/main/secrets)
 - Start template directory for shell.nix files to start the process of removing explicitly installed dev dependencies
 - ~SSH Management (yubikey based, get hosts to understand those juicy pub/priv keypairs without generating a trillion of them, death to password SSH)~
 - GPG signing for git automatically configured by nix across Linux and Macos

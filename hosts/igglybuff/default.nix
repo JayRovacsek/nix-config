@@ -1,18 +1,12 @@
 { config, pkgs, lib, flake, ... }:
 let
-  dnsUserConfig = import ../../users/service-accounts/dns.nix;
-
-  users = import ../../functions/map-reduce-users.nix {
-    inherit config pkgs lib;
-    userConfigs = [ dnsUserConfig ];
-  };
-
   tailscaleKey = import ../shared/tailscale-identity-key.nix;
   readOnlySharedStore = import ../shared/read-only-store.nix;
   journaldShare =
     import ../common/journald.nix { inherit (config.networking) hostName; };
 in {
-  inherit users;
+  # TODO: replace the below with a user
+  # inherit users;
 
   networking = {
     hostName = "igglybuff";

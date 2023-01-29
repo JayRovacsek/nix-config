@@ -4,8 +4,13 @@ let
 
   pkgs = self.inputs.stable.legacyPackages.${system};
 
-  shell-base = let packages = with pkgs; [ nixfmt statix vulnix nil ];
-  in { inherit name packages; };
+  base = with pkgs; [ nixfmt statix vulnix nil ];
+  nodePackages = with pkgs.nodePackages; [ prettier ];
+
+  shell-base = {
+    inherit name;
+    packages = base ++ nodePackages;
+  };
 
   shell = (let packages = with pkgs; [ nixfmt statix vulnix nil ];
   in if builtins.elem system self.common.pre-commit-unsupported then

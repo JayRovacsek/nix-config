@@ -113,7 +113,7 @@
     in flake-utils.lib.eachSystem exposedSystems (system: {
       checks = import ./checks { inherit self system; };
       devShells = import ./devShells { inherit self system; };
-      formatter = import ./formatter { inherit self system; };
+      formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
       packages = import ./packages { inherit self system; };
     }) // {
       inherit exposedSystems;
