@@ -11,5 +11,4 @@ let
 in recursiveUpdate self.outputs.common.images {
   amethyst = callPackage ./amethyst { };
   better-english = callPackage ./better-english { };
-  pokemmo-installer = callPackage ./pokemmo { };
 }

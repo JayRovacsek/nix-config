@@ -29,61 +29,76 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
-      ++ [ ../hosts/alakazam microvm.nixosModules.host agenix.nixosModule ];
+    modules = base ++ [
+      ../hosts/alakazam
+      microvm.nixosModules.host
+      agenix.nixosModules.default
+    ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/gastly agenix.nixosModule ];
-  in unstable.lib.nixosSystem { inherit system pkgs modules; };
+    modules = base ++ [ ../hosts/gastly agenix.nixosModules.default ];
+  in unstable-system { inherit system pkgs modules; };
 
   dragonite = let
     inherit (x86_64-linux-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
-      ++ [ ../hosts/dragonite microvm.nixosModules.host agenix.nixosModule ];
-  in stable.lib.nixosSystem { inherit system pkgs modules; };
+    modules = base ++ [
+      ../hosts/dragonite
+      microvm.nixosModules.host
+      agenix.nixosModules.default
+    ];
+  in stable-system { inherit system pkgs modules; };
 
   jigglypuff = let
     inherit (aarch64-linux-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/jigglypuff agenix.nixosModule ];
-  in stable.lib.nixosSystem { inherit system pkgs modules; };
+    modules = base ++ [ ../hosts/jigglypuff agenix.nixosModules.default ];
+  in stable-system { inherit system pkgs modules; };
 
   wigglytuff = let
     inherit (aarch64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [
       ../hosts/wigglytuff
-      agenix.nixosModule
+      agenix.nixosModules.default
       nixos-hardware.nixosModules.raspberry-pi-4
     ];
-  in unstable.lib.nixosSystem { inherit system pkgs modules; };
+  in unstable-system { inherit system pkgs modules; };
 
   ## WSL Configuration
 
   zubat = let
     inherit (x86_64-linux-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
-      ++ [ ../hosts/zubat nixos-wsl.nixosModules.wsl agenix.nixosModule ];
-  in stable.lib.nixosSystem { inherit system pkgs modules; };
+    modules = base ++ [
+      ../hosts/zubat
+      nixos-wsl.nixosModules.wsl
+      agenix.nixosModules.default
+    ];
+  in stable-system { inherit system pkgs modules; };
 
   ## MICROVMS
 
   igglybuff = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
-      ++ [ microvm.nixosModules.microvm ../hosts/igglybuff agenix.nixosModule ];
+    modules = base ++ [
+      microvm.nixosModules.microvm
+      ../hosts/igglybuff
+      agenix.nixosModules.default
+    ];
   in unstable-system { inherit system pkgs modules; };
 
   aipom = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
-      ++ [ microvm.nixosModules.microvm ../hosts/aipom agenix.nixosModule ];
+    modules = base ++ [
+      microvm.nixosModules.microvm
+      ../hosts/aipom
+      agenix.nixosModules.default
+    ];
   in unstable-system { inherit system pkgs modules; };
 }

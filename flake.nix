@@ -112,7 +112,7 @@
       ];
     in flake-utils.lib.eachSystem exposedSystems (system: {
       checks = import ./checks { inherit self system; };
-      devShells = import ./devShells { inherit self system; };
+      devShells = import ./shells { inherit self system; };
       formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
       packages = import ./packages { inherit self system; };
     }) // {
@@ -121,7 +121,7 @@
       lib = import ./lib { inherit self; };
       common = import ./common { inherit self; };
       overlays = import ./overlays { inherit self; };
-      nixosConfigurations = import ./nixosConfigurations { inherit self; };
-      darwinConfigurations = import ./darwinConfigurations { inherit self; };
+      nixosConfigurations = import ./linux { inherit self; };
+      darwinConfigurations = import ./darwin { inherit self; };
     };
 }
