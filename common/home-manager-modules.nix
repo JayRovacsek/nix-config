@@ -23,10 +23,10 @@ let
     # below this comment, it'll likely be an addition or removal of a argument passed
     # by home manager.
     "${name}" = { config, pkgs, lib, options, specialArgs, modulesPath
-      , nixosConfig, osConfig }:
+      , nixosConfig ? { }, osConfig, darwinConfig ? { } }:
       import "${path}/${name}/default.nix" {
         inherit config pkgs lib options specialArgs modulesPath nixosConfig
-          osConfig;
+          osConfig darwinConfig;
       };
   }) module-folders);
 

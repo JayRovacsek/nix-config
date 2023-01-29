@@ -103,6 +103,7 @@ let
           ${builtins.concatStringsSep "\n\n" extraHostConfigs}
         '';
       };
+
     in recursiveUpdate overrides {
       # Important to enable home-manager addition to the user submodule
       # imports = [ ../options/user ];

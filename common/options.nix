@@ -4,6 +4,8 @@
     ../options/hardware
     ../options/networking
     ../options/systemd
-    ../options/tailscale
+    # TODO: resolve the below being optionally included and/or 
+    # not including linux specific jazz
+    # ../options/tailscale
   ];
 }

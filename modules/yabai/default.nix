@@ -13,8 +13,8 @@
       window_gap = 10;
       top_padding = 16;
       bottom_padding = 16;
-      left_padding = 10;
-      right_padding = 10;
+      left_padding = 5;
+      right_padding = 5;
       # shadows and borders
       window_shadow = "on";
       window_border = "off";

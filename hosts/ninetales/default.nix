@@ -17,7 +17,5 @@ in {
     localHostName = "ninetales";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   system.stateVersion = 4;
 }

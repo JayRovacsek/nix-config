@@ -17,7 +17,5 @@ in {
     localHostName = "cloyster";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   system.stateVersion = 4;
 }
