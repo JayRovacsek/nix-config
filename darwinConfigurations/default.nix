@@ -26,49 +26,15 @@ in {
     modules = base ++ [ ../hosts/cloyster agenix-darwin.nixosModules.age ];
   in stable-darwin-system { inherit system pkgs modules; };
 
-  # cloyster = let
-  #   inherit (x86_64-darwin-stable) system;
-  #   modules = modules-function {
-  #     inherit home-manager self;
-  #     hostname = "cloyster";
-  #     isLinux = false;
-  #     extraModules =
-  #       [ overlayModule agenix.nixosModules.age stableNix referenceSelf ];
-  #   };
-  # in darwin-stable.lib.darwinSystem { inherit system modules; };
-
   ninetales = let
     inherit (x86_64-darwin-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/ninetales agenix-darwin.nixosModules.age ];
   in unstable-darwin-system { inherit system pkgs modules; };
 
-  # ninetales = let
-  #   inherit (aarch64-darwin-unstable) system;
-  #   pkgs = aarch64-darwin-unstable;
-  #   modules = modules-function {
-  #     inherit home-manager self;
-  #     hostname = "ninetales";
-  #     isLinux = false;
-  #     extraModules =
-  #       [ overlayModule agenix.nixosModules.age unstableNix referenceSelf ];
-  #   };
-  # in darwin-unstable.lib.darwinSystem { inherit system modules; };
-
   victreebel = let
     inherit (x86_64-darwin-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/victreebel agenix-darwin.nixosModules.age ];
   in stable-darwin-system { inherit system pkgs modules; };
-
-  # victreebel = let
-  #   inherit (aarch64-darwin-stable) system;
-  #   modules = modules-function {
-  #     inherit home-manager self;
-  #     hostname = "victreebel";
-  #     isLinux = false;
-  #     extraModules =
-  #       [ overlayModule agenix.nixosModules.age stableNix referenceSelf ];
-  #   };
-  # in darwin-stable.lib.darwinSystem { inherit system modules; };
 }
