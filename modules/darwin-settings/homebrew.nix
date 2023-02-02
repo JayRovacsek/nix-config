@@ -33,6 +33,7 @@ in {
       "raycast"
       "signal"
       "slack"
+      "zoom"
     ] ++ extraCasks;
 
     masApps = { "Microsoft Outlook" = 985367838; };
