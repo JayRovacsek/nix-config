@@ -17,4 +17,8 @@ in {
 
   # SSH key used for remote builds
   "builder-id-ed25519.age".publicKeys = sshKeys;
+
+  # SSH Signing Key
+  "git-signing-key.age".publicKeys = sshKeys;
+  "git-signing-key.pub.age".publicKeys = sshKeys;
 }
