@@ -17,7 +17,8 @@
       commit.gpgsign = true;
       gpg = {
         format = "ssh";
-        ssh.allowedSignersFile = config.home.file.".ssh/allowed_signers".text;
+        ssh.allowedSignersFile =
+          config.home.file.".ssh/allowed_signers".source.outPath;
       };
       user.signingkey = osConfig.age.secrets."git-signing-key.pub".path;
     };
