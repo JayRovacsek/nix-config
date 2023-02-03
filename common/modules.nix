@@ -1,13 +1,12 @@
 { self }:
 let
   inherit (self.common)
-    package-sets home-manager self-reference nur options standardise-nix;
+    age home-manager nur options package-sets self-reference standardise-nix;
 in builtins.mapAttrs (package-set: _:
   home-manager.${package-set} ++ [
-    standardise-nix.${package-set}
-    # TODO: rewrite options to build subproperties per supported system
-    # rahter than this hack. (options.darwin ... ) etc
-    (options { inherit self package-set; })
+    age
     nur
+    options.${package-set}
     self-reference
+    standardise-nix.${package-set}
   ]) package-sets

@@ -6,7 +6,7 @@ let
   inherit (self.inputs) stable unstable;
 
   # Extra modules
-  inherit (self.inputs) agenix-darwin home-manager firefox-darwin nur;
+  inherit (self.inputs) home-manager firefox-darwin nur;
 
   # This is required for any system needing to reference the flake itself from
   # within the nixosSystem config. It will be available as an argument to the 
@@ -23,18 +23,18 @@ in {
   cloyster = let
     inherit (x86_64-darwin-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/cloyster agenix-darwin.nixosModules.age ];
+    modules = base ++ [ ../hosts/cloyster ];
   in stable-darwin-system { inherit system pkgs modules; };
 
   ninetales = let
     inherit (aarch64-darwin-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/ninetales agenix-darwin.nixosModules.age ];
+    modules = base ++ [ ../hosts/ninetales ];
   in unstable-darwin-system { inherit system pkgs modules; };
 
   victreebel = let
     inherit (aarch64-darwin-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/victreebel agenix-darwin.nixosModules.age ];
+    modules = base ++ [ ../hosts/victreebel ];
   in stable-darwin-system { inherit system pkgs modules; };
 }

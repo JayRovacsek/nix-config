@@ -1,33 +1,26 @@
 {
-  age = {
+  # G'day future self - move this file to default location:
+  # /etc/ssh/ssh_host_ed25519_key
+  # identityPaths = [ /Users/jrovacsek/.ssh/ssh_host_ed25519_key ];
+  age.secrets = {
+    jrovacsek-id-ed25519-sk-type-a-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
+      owner = "jrovacsek";
+    };
 
-    # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
-    # The options for this may change 
-    # Note that the agenix keys can be written to either of these locations:
-    # https://github.com/montchr/agenix/blob/36d70a4a1d0f1aaab60bd70c88c9010d9cc7abe8/modules/age.nix#L191
+    jrovacsek-id-ed25519-sk-type-a-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
+      owner = "jrovacsek";
+    };
 
-    sshKeyPaths = [ /Users/jrovacsek/.ssh/ssh_host_ed25519_key ];
+    jrovacsek-id-ed25519-sk-type-c-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
+      owner = "jrovacsek";
+    };
 
-    secrets = {
-      jrovacsek-id-ed25519-sk-type-a-1 = {
-        file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
-        owner = "jrovacsek";
-      };
-
-      jrovacsek-id-ed25519-sk-type-a-2 = {
-        file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
-        owner = "jrovacsek";
-      };
-
-      jrovacsek-id-ed25519-sk-type-c-1 = {
-        file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
-        owner = "jrovacsek";
-      };
-
-      jrovacsek-id-ed25519-sk-type-c-2 = {
-        file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
-        owner = "jrovacsek";
-      };
+    jrovacsek-id-ed25519-sk-type-c-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
+      owner = "jrovacsek";
     };
   };
 }

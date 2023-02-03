@@ -7,7 +7,7 @@
   images = import ./images { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nur = import ./nur.nix { inherit self; };
-  options = import ./options.nix;
+  options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   pre-commit-unsupported = import ./pre-commit-unsupported.nix;
   self-reference = import ./self-reference.nix { inherit self; };

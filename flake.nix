@@ -50,13 +50,6 @@
       };
     };
 
-    # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
-    # Note that this is only used for the OPTIONS and the main agenix package is utilised for
-    # actual actions related to agenix
-    agenix-darwin = {
-      url = "github:cmhamill/agenix";
-      inputs.nixpkgs.follows = "stable";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "stable";
