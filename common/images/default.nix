@@ -13,6 +13,8 @@ let
   sd-configurtations = [ rpi1 rpi2 ];
   generator-formats = builtins.attrNames nixos-generators.nixosModules;
 
+  # TODO: flatten this into a "${hostname}-${format}" structure so the packages output is flattened to support
+  # nix flake show attributes
   generator-images = builtins.mapAttrs (name: value:
     builtins.foldl' (acc: format:
       {
