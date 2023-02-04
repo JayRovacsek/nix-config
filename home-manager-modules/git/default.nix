@@ -13,6 +13,8 @@
     userEmail = "jay@rovacsek.com";
     userName = "jayrovacsek";
 
+    # TODO: make the below optional for settings in which we don't want to 
+    # deploy git signing keys
     extraConfig = {
       commit.gpgsign = true;
       gpg = {

@@ -22,9 +22,18 @@ in {
   inherit (merged) users home-manager;
 
   age = {
-    secrets."tailscale-dns-preauth-key" = {
-      file = ../../secrets/tailscale/preauth-dns.age;
-      mode = "0400";
+    secrets = {
+      "git-signing-key" = rec {
+        file = ../../secrets/ssh/git-signing-key.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key";
+      };
+
+      "git-signing-key.pub" = rec {
+        file = ../../secrets/ssh/git-signing-key.pub.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key.pub";
+      };
     };
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };

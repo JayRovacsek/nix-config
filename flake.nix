@@ -2,9 +2,6 @@
   description = "NixOS/Darwin configurations";
 
   inputs = {
-    # Kept only temporarily until no longer utilised
-    "22-05".url = "github:nixos/nixpkgs/release-22.05";
-
     # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-22.11";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -79,7 +76,7 @@
     # Generate system images easily
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     # Apply opinions on hardware that are driven by community
