@@ -2,6 +2,8 @@
 { pkgs, lib, stdenv, fetchurl, autoPatchelfHook, systemd }:
 let
   inherit (pkgs) system;
+  inherit (pkgs.stdenv) isDarwin isLinux;
+  inherit (lib.lists) optional;
 
   pname = "velociraptor";
   name = pname;
@@ -12,22 +14,38 @@ let
     homepage = "https://docs.velociraptor.app/";
     description = "Velociraptor";
     license = licenses.mit;
+    platforms =
+      [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
   };
 
   hashes = {
     "x86_64-linux" = "sha256-9ORkd6WAeL1jyYKRrK0Y9SOF/XRylQb+XQvxlRL6kc8=";
     "x86_64-darwin" = lib.fakeHash;
     "aarch64-linux" = lib.fakeHash;
-    "aarch64-darwin" = lib.fakeHash;
+    "aarch64-darwin" = "sha256-L26Jm3F6wq+l8BIUdhlapPqARzDBkMXGTF4k7XUKdPM=";
+  };
+
+  archMap = {
+    "x86_64" = "amd64";
+    "aarch64" = "arm64";
+  };
+
+  latestVersionMap = {
+    # Linux
+    "linux-amd64" = "0.6.7-5";
+    "linux-arm64" = "0.6.7-4";
+    # Darwin
+    "darwin-amd64" = "0.6.7-4";
+    "darwin-arm64" = "0.6.7-4";
   };
 
   parts = builtins.filter builtins.isString (builtins.split "-" pkgs.system);
   kernel = builtins.head (builtins.tail parts);
   nixArch = builtins.head parts;
-  archMap = { "x86_64" = "amd64"; };
   arch = builtins.getAttr nixArch archMap;
 
-  filename = "${pname}-v${version}-${kernel}-${arch}";
+  latestPatch = builtins.getAttr "${kernel}-${arch}" latestVersionMap;
+  filename = "${pname}-v${latestPatch}-${kernel}-${arch}";
 
   src = fetchurl {
     url =
@@ -35,44 +53,28 @@ let
     sha256 = builtins.getAttr system hashes;
   };
 
-  linux = stdenv.mkDerivation {
-    inherit pname version src filename;
-    buildInputs = [ systemd ];
+  optionalPatchelfCommand = if isLinux then
+    ''
+      ${pkgs.patchelf} --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
+  else
+    "";
 
-    dontUnpack = true;
+in stdenv.mkDerivation {
+  inherit pname version src filename meta;
+  buildInputs = [ ] ++ optional isLinux [ systemd ];
 
-    nativeBuiltInputs = [ autoPatchelfHook ];
+  dontUnpack = true;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      cp $src $out/bin/${pname}
-    '';
+  nativeBuiltInputs = [ ] ++ optional isLinux [ autoPatchelfHook ];
 
-    postFixup = ''
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}
+  installPhase = ''
+    mkdir -p $out/bin
+    cp $src $out/bin/${pname}
+  '';
 
-      chmod +x $out/bin/${pname}
-    '';
-  };
+  postFixup = ''
+    ${optionalPatchelfCommand}
 
-  darwin = stdenv.mkDerivation {
-    inherit pname version src filename;
-    meta = meta // { platforms = [ "x86_64-darwin" "aarch64-darwin" ]; };
-    buildInputs = [ systemd ];
-
-    dontUnpack = true;
-
-    nativeBuiltInputs = [ autoPatchelfHook ];
-
-    installPhase = ''
-      mkdir -p $out/Applications
-      cp $src $out/Applications/${filename}
-    '';
-
-    postFixup = ''
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/Applications/${filename}
-
-      chmod +x $out/Applications/${filename}
-    '';
-  };
-in if stdenv.isDarwin then darwin else linux
+    chmod +x $out/bin/${pname}
+  '';
+}
