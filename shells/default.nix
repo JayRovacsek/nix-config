@@ -4,22 +4,22 @@ let
 
   pkgs = self.inputs.stable.legacyPackages.${system};
 
-  base = with pkgs; [ nixfmt statix vulnix nil ];
+  unsupportedSystem = builtins.elem system self.common.pre-commit-unsupported;
+
   nodePackages = with pkgs.nodePackages; [ prettier ];
 
-  shell-base = {
-    inherit name;
-    packages = base ++ nodePackages;
-  };
+  packages = if unsupportedSystem then
+    [ ]
+  else
+    (with pkgs; [ nixfmt statix vulnix nil ]) ++ nodePackages;
 
-  shell = (let packages = with pkgs; [ nixfmt statix vulnix nil ];
-  in if builtins.elem system self.common.pre-commit-unsupported then
-    { }
-  else {
-    # Self reference to make the default shell hook that which generates
-    # a suitable pre-commit hook installation
-    inherit (self.checks.${system}.pre-commit) shellHook;
-  }) // shell-base;
+  shellHook = if unsupportedSystem then
+    ""
+  else
+    self.checks.${system}.pre-commit.shellHook;
+
+  shell = { inherit name packages shellHook; };
+
 in {
   "${name}" = pkgs.mkShell shell;
   default = self.outputs.devShells.${system}.${name};

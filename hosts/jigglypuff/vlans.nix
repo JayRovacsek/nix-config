@@ -1,9 +1,9 @@
 { config, ... }:
 let
-  vlanFunction = import ../../functions/vlan.nix;
-  vlanConfig = import ../../vlans/dns.nix { interface = "eth0"; };
-  dns = vlanFunction { inherit vlanConfig; };
+  name = "dns";
+  interface = "eth0";
+  id = 6;
 in {
-  networking.vlans = dns.networking.vlans;
-  networking.interfaces = dns.networking.interfaces;
+  networking.vlans.${name} = { inherit interface id; };
+  networking.interfaces.${name}.useDHCP = true;
 }

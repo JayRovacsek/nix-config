@@ -20,7 +20,7 @@ let
   };
 
   hashes = {
-    "x86_64-linux" = lib.fakeHash;
+    "x86_64-linux" = "sha256-mX15u67Jpe65ko8S8QmGdJgnFUduEdFhTbvBqKQFsIM=";
     "x86_64-darwin" = lib.fakeHash;
     "aarch64-linux" = lib.fakeHash;
     "aarch64-darwin" = "sha256-UsHb/SLIf2xk07cCSfGT1gHwLCgBkaztYgGkZD+n1X4=";
@@ -47,13 +47,13 @@ let
 
   optionalPatchelfCommand = if isLinux then
     ''
-      ${pkgs.patchelf} --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
+      ${pkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
   else
     "";
 
 in stdenv.mkDerivation {
   inherit pname version src filename meta;
-  buildInputs = [ unzip ] ++ optional isLinux [ systemd ];
+  buildInputs = [ unzip ] ++ optional isLinux [ ];
 
   nativeBuiltInputs = [ ] ++ optional isLinux [ autoPatchelfHook ];
 
