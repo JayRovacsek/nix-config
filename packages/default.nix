@@ -13,6 +13,7 @@ let
     amethyst = if isDarwin then callPackage ./amethyst { } else { };
     better-english = callPackage ./better-english { };
     netextender = callPackage ./netextender { };
+    trdsql-bin = callPackage ./trdsql-bin { };
     velociraptor-bin = callPackage ./velociraptor-bin { };
     vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
   };

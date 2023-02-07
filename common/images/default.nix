@@ -3,7 +3,8 @@ let
   inherit (self) nixosConfigurations;
   inherit (self.inputs) nixos-generators;
   inherit (self.inputs.stable.lib) recursiveUpdate;
-  inherit (self.inputs.stable.lib.attrsets) filterAttrsRecursive;
+  inherit (self.inputs.stable.lib.attrsets)
+    filterAttrsRecursive foldAttrs mapAttrsToList;
   inherit (nixosConfigurations) rpi1 rpi2;
 
   inherit (self.common.package-sets)
@@ -11,21 +12,23 @@ let
     aarch64-linux-unstable;
 
   sd-configurtations = [ rpi1 rpi2 ];
-  generator-formats = builtins.attrNames nixos-generators.nixosModules;
+  generator-formats = builtins.filter (format: format != "kexec")
+    (builtins.attrNames nixos-generators.nixosModules);
 
-  # TODO: flatten this into a "${hostname}-${format}" structure so the packages output is flattened to support
-  # nix flake show attributes
-  generator-images = builtins.mapAttrs (name: value:
-    builtins.foldl' (acc: format:
-      {
-        "${format}" = nixos-generators.nixosGenerate {
-          inherit format;
-          inherit (value.pkgs.stdenv) system;
-          inherit (value._module.args) modules;
-        };
-      } // acc) { } generator-formats
+  generator-images =
+    builtins.foldl' (acc: set: (builtins.listToAttrs set) // acc) { }
+    (mapAttrsToList (name: value:
+      builtins.foldl' (acc: format:
+        [{
+          name = "${name}-${format}";
+          value = nixos-generators.nixosGenerate {
+            inherit format;
+            inherit (value.pkgs.stdenv) system;
+            inherit (value._module.args) modules;
+          };
+        }] ++ acc) [ ] generator-formats
 
-  ) nixosConfigurations;
+    ) nixosConfigurations);
 
   # Create a list of identifer to sdImage build derivations.
   built-derivations = builtins.map (image: {
