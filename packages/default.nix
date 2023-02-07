@@ -6,10 +6,11 @@ let
     self.inputs.stable.legacyPackages.${system};
 
   inherit (pkgs) callPackage;
+  inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (pkgs.lib) recursiveUpdate;
 
   packages = {
-    amethyst = callPackage ./amethyst { };
+    amethyst = if isDarwin then callPackage ./amethyst { } else { };
     better-english = callPackage ./better-english { };
     netextender = callPackage ./netextender { };
     velociraptor-bin = callPackage ./velociraptor-bin { };
