@@ -6,7 +6,8 @@ let
   meta = with lib; {
     description = "";
     platforms = platforms.unix;
-    # license = licenses.unfree;
+    license = licenses.unfree;
+    broken = true;
   };
 
 in stdenv.mkDerivation {

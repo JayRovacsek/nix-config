@@ -1,7 +1,7 @@
-{ self ? null, system ? null, pkgs ? import <nixpkgs> { } }:
+{ self ? null, system ? null, pkgs ? null }:
 let
   pkgs = if builtins.isNull self then
-    pkgs
+    import <nixpkgs> { }
   else
     self.inputs.stable.legacyPackages.${system};
 

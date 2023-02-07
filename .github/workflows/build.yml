@@ -56,7 +56,7 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
       - name: Check evaluation
         run: |
-          nix-env -f ./pkgs -qa \* --meta --xml \
+          nix-env -f ./packages -qa \* --meta --xml \
             --option restrict-eval false \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
