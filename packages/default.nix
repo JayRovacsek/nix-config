@@ -12,7 +12,6 @@ let
     amethyst = callPackage ./amethyst { };
     better-english = callPackage ./better-english { };
     netextender = callPackage ./netextender { };
-    velociraptor = callPackage ./velociraptor { };
     velociraptor-bin = callPackage ./velociraptor-bin { };
     vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
   };

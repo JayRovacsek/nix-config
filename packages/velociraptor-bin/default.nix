@@ -14,8 +14,7 @@ let
     homepage = "https://docs.velociraptor.app/";
     description = "Velociraptor";
     license = licenses.mit;
-    platforms =
-      [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
+    platforms = [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" ];
   };
 
   hashes = {
@@ -33,11 +32,12 @@ let
   latestVersionMap = {
     # Linux
     "linux-amd64" = "0.6.7-5";
-    "linux-arm64" = "0.6.7-4";
     # Darwin
     "darwin-amd64" = "0.6.7-4";
     "darwin-arm64" = "0.6.7-4";
   };
+
+  # https://github.com/Velocidex/velociraptor/releases/download/v0.6.7-5/velociraptor-v0.6.7-4-linux-arm64
 
   parts = builtins.filter builtins.isString (builtins.split "-" pkgs.system);
   kernel = builtins.head (builtins.tail parts);
@@ -55,7 +55,7 @@ let
 
   optionalPatchelfCommand = if isLinux then
     ''
-      ${pkgs.patchelf} --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
+      ${pkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
   else
     "";
 
