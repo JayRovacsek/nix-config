@@ -32,7 +32,7 @@ in {
   resource.linode_instance_disk.boot = {
     label = "boot";
     linode_id = "\${linode_instance.pidgey.id}";
-    size = 25000;
+    size = 25600;
     image = "\${linode_image.nixos.id}";
   };
 
