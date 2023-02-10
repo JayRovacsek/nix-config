@@ -51,6 +51,14 @@ in {
       ++ [ ../hosts/wigglytuff nixos-hardware.nixosModules.raspberry-pi-4 ];
   in unstable-system { inherit system pkgs modules; };
 
+  ## Cloud Base Images
+
+  pidgey = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/pidgey ];
+  in unstable-system { inherit system pkgs modules; };
+
   ## WSL Configuration
 
   zubat = let

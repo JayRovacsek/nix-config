@@ -47,9 +47,19 @@
       };
     };
 
+    # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "stable";
+    };
+
+    # Terraform via the nix language
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # Simply required for sane management of Firefox on darwin
@@ -104,7 +114,10 @@
       checks = import ./checks { inherit self system; };
       devShells = import ./shells { inherit self system; };
       formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
-      packages = import ./packages { inherit self system; };
+      packages = import ./packages {
+        inherit self system;
+        pkgs = self.inputs.stable.legacyPackages.${system};
+      };
     }) // {
       inherit exposedSystems;
 
