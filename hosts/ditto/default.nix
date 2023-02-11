@@ -1,4 +1,4 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, flake, provider, ... }:
 
 let
   inherit (flake) common;
@@ -11,7 +11,6 @@ let
   };
 
   merged = merge-user-config { users = [ jay ]; };
-
 in {
   inherit flake;
   inherit (merged) users home-manager;
@@ -33,10 +32,9 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  imports =
-    [ ./modules.nix ./hardware-configuration.nix ./system-packages.nix ];
+  imports = [ ./modules.nix ./system-packages.nix ];
 
-  networking.hostName = "pidgey";
+  networking.hostName = "ditto";
 
   system.stateVersion = "22.11";
 }

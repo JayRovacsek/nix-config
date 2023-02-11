@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+_: {
   fileSystems."/" = {
     device = "/dev/sda";
     fsType = "ext4";

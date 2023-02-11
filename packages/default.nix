@@ -26,7 +26,8 @@ let
     in {
       linode = terranix.lib.terranixConfiguration {
         inherit system;
-        modules = [ ../terranix/linode ];
+        modules =
+          [ { config._module.args = { inherit self; }; } ../terranix/linode ];
       };
     }
   else
