@@ -26,9 +26,20 @@ let
     in {
       linode = terranix.lib.terranixConfiguration {
         inherit system;
-        modules =
-          [ { config._module.args = { inherit self; }; } ../terranix/linode ];
+        modules = [
+          { config._module.args = { inherit self system; }; }
+          ../terranix/linode
+        ];
       };
+
+      linode-openvpn = terranix.lib.terranixConfiguration {
+        inherit system;
+        modules = [
+          { config._module.args = { inherit self; }; }
+          ../terranix/linode-openvpn
+        ];
+      };
+      ditto-transform = callPackage ./ditto-transform { inherit self; };
     }
   else
     {
