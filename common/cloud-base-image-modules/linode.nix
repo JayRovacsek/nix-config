@@ -19,4 +19,10 @@ _: {
 
   networking.usePredictableInterfaceNames = false;
   networking.interfaces.eth0.useDHCP = true;
+
+  # If it's in the cloud, it's a server. We disable root SSH
+  # and require strong factors for SSH auth already - make life
+  # a little easier than managing unique passwords all over the 
+  # device footprint
+  security.sudo.wheelNeedsPassword = false;
 }

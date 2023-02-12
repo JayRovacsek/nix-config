@@ -15,6 +15,9 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
+  # Once a ditto, always a ditto.
+  environment.systemPackages = [ ditto-transform git ];
+
   imports = [ ./modules.nix ];
 
   networking.hostName = "diglett";
