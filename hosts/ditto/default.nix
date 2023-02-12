@@ -1,5 +1,4 @@
 { config, pkgs, flake, provider, ... }:
-
 let
   inherit (pkgs) system;
   inherit (flake) common;
