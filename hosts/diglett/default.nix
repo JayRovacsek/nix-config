@@ -5,6 +5,8 @@ let
   inherit (flake.common.home-manager-module-sets) minimal-cli;
   inherit (flake.lib) merge-user-config;
 
+  inherit (flake.packages.${system}) ditto-transform;
+
   jay = common.users.jay {
     inherit config pkgs;
     modules = minimal-cli;
