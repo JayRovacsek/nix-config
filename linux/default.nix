@@ -33,6 +33,16 @@ in {
     modules = base ++ [ ../hosts/ditto ];
   in unstable-system { inherit system pkgs modules; };
 
+  # Cloud Instances
+
+  diglett = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    # Inject the required linode settings viathe cloud base image module
+    inherit (self.common.cloud-base-image-modules) linode;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/diglett linode ];
+  in unstable-system { inherit system pkgs modules; };
+
   # Hosts
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
