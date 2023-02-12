@@ -18,7 +18,7 @@ in {
   inherit (merged) users home-manager;
 
   # Once a ditto, always a ditto.
-  environment.systemPackages = [ ditto-transform git ];
+  environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
 
   imports = [ ./modules.nix ];
 

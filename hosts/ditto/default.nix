@@ -17,7 +17,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  environment.systemPackages = [ ditto-transform git ];
+  environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
 
   imports = [ ./modules.nix ./system-packages.nix ];
 
