@@ -58,7 +58,7 @@ let
               echo "Copying tfvars over to the stack directory!"
               ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
             fi
-            echo "Removing state in current directory!"
+            echo "Removing tfvars in current directory!"
             rm -f terraform.tfvars
           fi
 
@@ -119,7 +119,7 @@ let
               echo "Copying tfvars over to the stack directory!"
               ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
             fi
-            echo "Removing state in current directory!"
+            echo "Removing tfvars in current directory!"
             rm -f terraform.tfvars
           fi
 
@@ -180,7 +180,7 @@ let
               echo "Copying tfvars over to the stack directory!"
               ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
             fi
-            echo "Removing state in current directory!"
+            echo "Removing tfvars in current directory!"
             rm -f terraform.tfvars
           fi
 
