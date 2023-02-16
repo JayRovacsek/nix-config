@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }: {
   imports = [
-    ../../modules/agenix
     ../../modules/clamav
     ../../modules/gnupg
     ../../modules/lorri

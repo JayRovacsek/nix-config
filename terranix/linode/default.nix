@@ -23,18 +23,6 @@ in {
       file_path = "${self.packages.${system}.linode-base-image}/nixos.img.gz";
     in { inherit region label description file_path; };
 
-    # TODO: Cleanup
-    # linode_user.deployer = {
-    #   username = "deployer";
-    #   email = "deployer.linode@jay.rovacsek.com";
-    #   restricted = true;
-
-    #   global_grants = {
-    #     add_linodes = true;
-    #     add_images = true;
-    #   };
-    # };
-
     linode_stackscript.transform = {
       label = "ditto-transform";
       description = "Instructs ditto what it will transform into";
@@ -50,12 +38,6 @@ in {
         ${self.packages.${system}.ditto-transform}/bin/ditto-transform $TARGET
       '';
       images = [ "any/all" ];
-
-      user_defined_fields = {
-        label = "target";
-        name = "target";
-        example = "diglett";
-      };
     };
   };
 }
