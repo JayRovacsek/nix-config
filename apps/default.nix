@@ -23,9 +23,19 @@ let
             rm -f terraform.tfstate
           fi
 
+          if [[ -e terraform.tfvars ]]; then
+            echo "State exists in current directory, removing it!"
+            rm -f terraform.tfvars
+          fi
+
           if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
             echo "State exists in stack directory, utilising it!"
             ln ./terranix/${stack}/terraform.tfstate $(pwd)
+          fi
+
+          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
+            echo "Vars file exists in stack directory, utilising it!"
+            ln ./terranix/${stack}/terraform.tfvars $(pwd)
           fi
 
           # Run the apply
@@ -41,6 +51,15 @@ let
             fi
             echo "Removing state in current directory!"
             rm -f terraform.tfstate
+          fi
+
+          if [[ -e terraform.tfvars ]]; then
+            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
+              echo "Copying tfvars over to the stack directory!"
+              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
+            fi
+            echo "Removing state in current directory!"
+            rm -f terraform.tfvars
           fi
 
           # Remove old config.tf.json and if successful
@@ -65,12 +84,22 @@ let
             rm -f terraform.tfstate
           fi
 
+          if [[ -e terraform.tfvars ]]; then
+            echo "State exists in current directory, removing it!"
+            rm -f terraform.tfvars
+          fi
+
           if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
             echo "State exists in stack directory, utilising it!"
             ln ./terranix/${stack}/terraform.tfstate $(pwd)
           fi
 
-          # Run the apply
+          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
+            echo "Vars file exists in stack directory, utilising it!"
+            ln ./terranix/${stack}/terraform.tfvars $(pwd)
+          fi
+
+          # Run the plan
           cp ${cfg} config.tf.json \
             && ${terraform}/bin/terraform init \
             && ${terraform}/bin/terraform plan
@@ -83,6 +112,15 @@ let
             fi
             echo "Removing state in current directory!"
             rm -f terraform.tfstate
+          fi
+
+          if [[ -e terraform.tfvars ]]; then
+            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
+              echo "Copying tfvars over to the stack directory!"
+              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
+            fi
+            echo "Removing state in current directory!"
+            rm -f terraform.tfvars
           fi
 
           # Remove old config.tf.json and if successful
@@ -107,9 +145,19 @@ let
             rm -f terraform.tfstate
           fi
 
+          if [[ -e terraform.tfvars ]]; then
+            echo "State exists in current directory, removing it!"
+            rm -f terraform.tfvars
+          fi
+
           if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
             echo "State exists in stack directory, utilising it!"
             ln ./terranix/${stack}/terraform.tfstate $(pwd)
+          fi
+
+          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
+            echo "Vars file exists in stack directory, utilising it!"
+            ln ./terranix/${stack}/terraform.tfvars $(pwd)
           fi
 
           # Run the destroy
@@ -125,6 +173,15 @@ let
             fi
             echo "Removing state in current directory!"
             rm -f terraform.tfstate
+          fi
+
+          if [[ -e terraform.tfvars ]]; then
+            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
+              echo "Copying tfvars over to the stack directory!"
+              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
+            fi
+            echo "Removing state in current directory!"
+            rm -f terraform.tfvars
           fi
 
           # Remove old config.tf.json and if successful
