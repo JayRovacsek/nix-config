@@ -39,6 +39,13 @@ let
           ../terranix/linode-openvpn
         ];
       };
+
+      csgo = terranix.lib.terranixConfiguration {
+        inherit system;
+        modules =
+          [ { config._module.args = { inherit self; }; } ../terranix/csgo ];
+      };
+
       ditto-transform = callPackage ./ditto-transform { inherit self; };
     }
   else
