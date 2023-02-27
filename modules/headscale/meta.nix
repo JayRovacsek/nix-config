@@ -69,5 +69,5 @@ let
     END_SQL"
   '';
 
-  cfg = { inherit preauthKeys namespaces secrets script; };
+  cfg = { inherit preauthKeys secrets script; };
 in cfg
