@@ -33,7 +33,7 @@ let
     dst = [ "autogroup:internet:*" ];
   }];
 
-  testPolicies = allowWorkToAll;
+  testPolicies = [ ];
 
   aclConfig = {
     inherit groups;
