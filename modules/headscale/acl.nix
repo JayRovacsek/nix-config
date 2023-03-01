@@ -19,13 +19,6 @@ let
     dst = [ "*:*" ];
   }];
 
-  # Temporary change to see if headscale picks this up automagically on a rebuild
-  allowWorkToAll = [{
-    action = "accept";
-    src = [ "group:work" ];
-    dst = [ "*:*" ];
-  }];
-
   allowAllToDNS = [{
     action = "accept";
     src = [ "*" ];
