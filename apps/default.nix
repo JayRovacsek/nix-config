@@ -66,7 +66,12 @@ let
   '';
 
   runTfsec = ''
-    ${pkgs.tfsec}/bin/tfsec .
+    if [[ -e terraform.tfvars ]]; then
+      ${pkgs.tfsec}/bin/tfsec . --tfvars-file terraform.tfvars
+    else 
+      ${pkgs.tfsec}/bin/tfsec .
+    fi
+
     if [ $? -ne 0 ]; then
       echo "Tfsec returned a non-success code! Review CLI output"
       ${removeState}
