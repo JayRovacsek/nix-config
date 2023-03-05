@@ -63,6 +63,14 @@ let
     fi
   '';
 
+  gitStash = ''
+    ${pkgs.git}/bin/git stash 1> /dev/null
+  '';
+
+  gitStashPop = ''
+    ${pkgs.git}/bin/git stash pop 1> /dev/null
+  '';
+
   runTfsec = ''
     ${pkgs.tfsec}/bin/tfsec .
     if [ $? -ne 0 ]; then
@@ -70,6 +78,7 @@ let
       ${removeState}
       ${removeVars}
       ${removeConfig}
+      ${gitStashPop}
       exit 1
     fi
   '';
@@ -78,6 +87,7 @@ let
 
   terraformProgram = cfg: stack: name: command:
     builtins.toString (pkgs.writers.writeBash name ''
+      ${gitStash}
       ${removeConfig}
       ${removeState}
       ${removeVars}
@@ -98,6 +108,7 @@ let
       ${removeVars}
 
       ${removeConfig}
+      ${gitStashPop}
     '');
 
   terraform-actions = builtins.foldl' (acc: stack:
