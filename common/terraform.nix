@@ -1,5 +1,8 @@
 { self }:
 let
+  region = "ap-southeast-2";
+  account-id = 372627124797;
+
   state-bucket = "676728e1b95-terraform";
   state-path = "terraform/state";
   state-table = "terraform-state";
@@ -12,7 +15,9 @@ let
       "dynamodb:PutItem"
       "dynamodb:DeleteItem"
     ];
-    Resource = "arn:aws:dynamodb:*:*:table/${state-table}";
+    Resource = "arn:aws:dynamodb:${region}:${
+        builtins.toString account-id
+      }:table/${state-table}";
   }];
 
   s3 = [
@@ -40,7 +45,7 @@ let
     dynamo = { state = { name = state-table; }; };
     iam = { inherit state-statements; };
 
-    region = "ap-southeast-2";
+    inherit region account-id;
     tags = {
       # This is neat as it'll ensure we know what commit created the resource.
       # This will fail if the git tree is dirty, forcing us to be much better about
