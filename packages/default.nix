@@ -22,36 +22,24 @@ let
     { };
 
   flakePackages = if isFlake then
-    let inherit (self.inputs) terranix;
-    in {
-      linode = terranix.lib.terranixConfiguration {
-        inherit system;
-        modules = [
-          { config._module.args = { inherit self system; }; }
-          ../terranix/linode
-        ];
-      };
-
-      linode-openvpn = terranix.lib.terranixConfiguration {
-        inherit system;
-        modules = [
-          { config._module.args = { inherit self; }; }
-          ../terranix/linode-openvpn
-        ];
-      };
-
-      csgo = terranix.lib.terranixConfiguration {
-        inherit system;
-        modules =
-          [ { config._module.args = { inherit self; }; } ../terranix/csgo ];
-      };
-
+    let
+      inherit (self.inputs) terranix;
+      terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
+      terraform-packages = builtins.foldl' (acc: stack:
+        {
+          ${stack} = terranix.lib.terranixConfiguration {
+            inherit system;
+            modules = [
+              { config._module.args = { inherit self system; }; }
+              ../terranix/${stack}
+            ];
+          };
+        } // acc) { } terranix-stacks;
+    in recursiveUpdate terraform-packages {
       ditto-transform = callPackage ./ditto-transform { inherit self; };
     }
   else
-    {
-
-    };
+    { };
 
   extraPackages = darwinPackages // x64LinuxPackages // flakePackages;
 
