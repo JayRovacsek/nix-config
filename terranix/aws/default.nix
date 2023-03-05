@@ -1,4 +1,4 @@
-{ self, system, ... }:
+{ self, ... }:
 let
   inherit (self.common.terraform.globals) aws;
   inherit (aws) region tags;

@@ -3,6 +3,7 @@ let
   inherit (pkgs) callPackage;
   inherit (pkgs.stdenv) isLinux isDarwin isx86_64;
   inherit (pkgs.lib) recursiveUpdate;
+  inherit (pkgs.lib.attrsets) mapAttrs;
 
   isFlake = !(builtins.isNull self) && !(builtins.isNull system);
 
@@ -24,17 +25,15 @@ let
   flakePackages = if isFlake then
     let
       inherit (self.inputs) terranix;
-      terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
-      terraform-packages = builtins.foldl' (acc: stack:
-        {
-          ${stack} = terranix.lib.terranixConfiguration {
-            inherit system;
-            modules = [
-              { config._module.args = { inherit self system; }; }
-              ../terranix/${stack}
-            ];
-          };
-        } // acc) { } terranix-stacks;
+      inherit (self.common) terraform-stacks;
+      terraform-packages = mapAttrs (name: value:
+        terranix.lib.terranixConfiguration {
+          inherit system;
+          modules = [
+            { config._module.args = { inherit self system; }; }
+            ../terranix/${name}
+          ];
+        }) terraform-stacks;
     in recursiveUpdate terraform-packages {
       ditto-transform = callPackage ./ditto-transform { inherit self; };
     }

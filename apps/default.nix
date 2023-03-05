@@ -1,7 +1,9 @@
 { self, system }:
 let
   pkgs = self.inputs.unstable.legacyPackages.${system};
+  inherit (pkgs.lib.attrsets) concatMapAttrs;
   inherit (pkgs) terraform;
+  inherit (self.common) terraform-stacks;
   removeConfig = ''
     if [[ -e config.tf.json ]]; then
       rm -f config.tf.json
@@ -74,7 +76,7 @@ let
     fi
   '';
 
-  terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
+  # terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
 
   terraformProgram = cfg: stack: name: command:
     builtins.toString (pkgs.writers.writeBash name ''
@@ -100,28 +102,28 @@ let
       ${removeConfig}
     '');
 
-  terraform-actions = builtins.foldl' (acc: stack:
-    let cfg = self.packages.${system}.${stack};
+  terraform-actions = concatMapAttrs (name: value:
+    let cfg = self.packages.${system}.${name};
     in {
-      "${stack}-apply" = {
+      "${name}-apply" = {
         type = "app";
-        program = terraformProgram cfg stack "apply" "apply -auto-approve";
+        program = terraformProgram cfg name "apply" "apply -auto-approve";
       };
 
-      "${stack}-plan" = {
+      "${name}-plan" = {
         type = "app";
-        program = terraformProgram cfg stack "plan" "plan";
+        program = terraformProgram cfg name "plan" "plan";
       };
 
-      "${stack}-sync" = {
+      "${name}-sync" = {
         type = "app";
-        program = terraformProgram cfg stack "sync" "plan -refresh-only";
+        program = terraformProgram cfg name "sync" "plan -refresh-only";
       };
 
-      "${stack}-destroy" = {
+      "${name}-destroy" = {
         type = "app";
-        program = terraformProgram cfg stack "destroy" "destroy";
+        program = terraformProgram cfg name "destroy" "destroy";
       };
-    } // acc) { } terranix-stacks;
+    }) terraform-stacks;
 
 in terraform-actions
