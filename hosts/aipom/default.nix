@@ -43,6 +43,7 @@ in {
     ../common/machine-id.nix
     ../../modules/microvm/guest
     ../../modules/ombi
+    ../../modules/openssh
     ../../modules/time
     ../../modules/timesyncd
   ];

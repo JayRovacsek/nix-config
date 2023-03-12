@@ -47,6 +47,7 @@ in {
     ../common/machine-id.nix
     ../../modules/dnsmasq
     ../../modules/microvm/guest
+    ../../modules/openssh
     ../../modules/time
     ../../modules/timesyncd
   ];
