@@ -1,11 +1,26 @@
 { config, pkgs, lib, flake, ... }:
 let
-  inherit (flake.lib.microvm) generate-journald-share;
-  inherit (flake.common.microvm) read-only-store;
+  inherit (flake) common;
+  inherit (common.microvm) read-only-store;
+
+  inherit (flake.lib) merge-user-config microvm;
+  inherit (microvm) generate-journald-share;
+
   inherit (config.networking) hostName;
 
   journald-share = generate-journald-share hostName;
+
+  root = common.users.root {
+    inherit config pkgs;
+    modules = [ ];
+  };
+
+  merged = merge-user-config { users = [ root ]; };
+
 in {
+  inherit flake;
+  inherit (merged) users;
+
   networking = {
     hostName = "aipom";
     hostId = "0f5cb1b8";
