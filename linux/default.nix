@@ -64,7 +64,7 @@ in {
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/dragonite microvm.nixosModules.host ];
-  in x86_64-linux-unstable { inherit system pkgs modules; };
+  in unstable-system { inherit system pkgs modules; };
 
   jigglypuff = let
     inherit (aarch64-linux-unstable) system identifier pkgs;
