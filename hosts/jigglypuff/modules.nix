@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ../../modules/agenix
-    ../../modules/dnsmasq
+    ../../modules/blocky
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-3b-plus

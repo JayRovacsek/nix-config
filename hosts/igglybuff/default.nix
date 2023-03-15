@@ -45,7 +45,7 @@ in {
 
   imports = [
     ../common/machine-id.nix
-    ../../modules/dnsmasq
+    ../../modules/blocky
     ../../modules/microvm/guest
     ../../modules/openssh
     ../../modules/time

@@ -1,4 +1,4 @@
-_:
+{ config, ... }:
 let
   # inherit (config.services.blocky.settings.ports) dns tls https http;
   inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
@@ -260,7 +260,7 @@ in {
         # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
         downloadTimeout = "4m";
         # optional: Download attempt timeout. Default: 60s
-        downloadAttempts = "5";
+        downloadAttempts = 5;
         # optional: Time between the download attempts. Default: 1s
         downloadCooldown = "10s";
         # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
@@ -311,13 +311,14 @@ in {
         clients = {
           # laptop = [ "192.168.178.29" ]; 
         };
-        # optional: configuration for prometheus metrics endpoint
-        prometheus = {
-          # enabled if true
-          enable = false;
-          # url path, optional (default '/metrics')
-          path = "/metrics";
-        };
+      };
+
+      # optional: configuration for prometheus metrics endpoint
+      prometheus = {
+        # enabled if true
+        enable = false;
+        # url path, optional (default '/metrics')
+        path = "/metrics";
       };
 
       # optional: write query information (question, answer, client, duration etc.) to daily csv file
@@ -370,10 +371,10 @@ in {
       #certFile: server.crt
       #keyFile: server.key
       # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
-      bootstrapDns = [{
-        upstream = "" "https://1.1.1.1/dns-query" "";
+      bootstrapDns = {
+        upstream = "https://1dot1dot1dot1.cloudflare-dns.com/dns-query";
         ips = [ "1.1.1.1" ];
-      }];
+      };
 
       # optional: drop all queries with following query types. Default: empty
       filtering = { queryTypes = [ "AAAA" ]; };
@@ -390,9 +391,9 @@ in {
       #   filterLoopback = true;
       # };
       port = 53;
-      tlsPort = 53;
-      httpsPort = 53;
-      httpPort = 53;
+      tlsPort = 853;
+      httpsPort = 443;
+      httpPort = 4000;
 
       # optional: ports configuration
       # ports = {
