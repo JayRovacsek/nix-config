@@ -4,8 +4,6 @@ let
   derpServerStunPort = 3478;
   metricsPort = 9090;
   grpcPort = 50443;
-  unstablePackages =
-    config.flake.inputs.unstable.outputs.legacyPackages.${pkgs.system};
 in {
 
   imports = [ ./acl.nix ];
@@ -17,8 +15,7 @@ in {
     allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
   };
 
-  environment.systemPackages = (with pkgs; [ sqlite-interactive ])
-    ++ (with unstablePackages; [ headscale ]);
+  environment.systemPackages = with pkgs; [ sqlite-interactive headscale ];
 
   systemd.services."headscale-autosetup" = {
     inherit (meta) script;
@@ -42,8 +39,6 @@ in {
   services.headscale = {
     enable = true;
     port = 8080;
-    # Required until 0.16 is stabilised
-    package = unstablePackages.headscale;
     address = "0.0.0.0";
     serverUrl = "https://headscale.rovacsek.com";
 
