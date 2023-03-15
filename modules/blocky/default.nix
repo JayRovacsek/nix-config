@@ -1,9 +1,12 @@
 _:
-let inherit (config.services.blocky.settings.ports) dns tls https http;
+let
+  # inherit (config.services.blocky.settings.ports) dns tls https http;
+  inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
 in {
   networking.firewall = {
-    allowedTCPPorts = [ dns tls https http ];
-    allowedUDPPorts = [ dns ];
+    # allowedTCPPorts = [ dns tls https http ];
+    allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
+    allowedUDPPorts = [ port ];
   };
 
   services.blocky = {
@@ -14,11 +17,10 @@ in {
         # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
         # this configuration is mandatory, please define at least one external DNS resolver
         default = [
-          "dot.libredns.gr:853"
-          "dot.nl.ahadns.net:853"
-          "dot.la.ahadns.net:853"
-          "dot1.applied-privacy.net:853"
-          "https://doh.mullvad.net/dns-query"
+          "tcp-tls:dot.libredns.gr:853"
+          "tcp-tls:dot1.applied-privacy.net:853"
+          "tcp-tls:dot.nl.ahadns.net:853"
+          "tcp-tls:dot.la.ahadns.net:853"
           "https://doh.mullvad.net/dns-query"
           "https://doh-jp.blahdns.com/dns-query"
         ];
@@ -26,6 +28,13 @@ in {
         # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
         # or single ip address / client subnet as CIDR notation
         # "laptop*" = [ "123.123.123.123" ];
+        "192.168.4.0/24" = [
+          "https://dnsnl.alekberg.net/dns-query"
+          "https://dnsse.alekberg.net/dns-query"
+          "https://doh.dns.sb/dns-query"
+          "https://doh.sb/dns-query"
+          "https://doh.dns4all.eu/dns-query"
+        ];
       };
 
       # optional: timeout to query the upstream resolver. Default: 2s
@@ -42,29 +51,12 @@ in {
       # optional: custom IP address(es) for domain name (with all sub-domains). Multiple addresses must be separated by a comma
       # example: query "printer.lan" or "my.printer.lan" will return 192.168.178.3
       customDNS = {
-        customTTL = "1m";
+        customTTL = "1h";
         # optional: if true (default), return empty result for unmapped query types (for example TXT, MX or AAAA if only IPv4 address is defined).
         # if false, queries with unmapped types will be forwarded to the upstream resolver
         filterUnmappedTypes = true;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
         rewrite = { "example.com" = "printer.lan"; };
-        mapping = {
-          "printer.lan" =
-            "192.168.178.3,2001:0db8:85a3:08d3:1319:8a2e:0370:7344";
-        };
-      };
-
-      # optional: definition, which DNS resolver(s) should be used for queries to the domain (with all sub-domains). Multiple resolvers must be separated by a comma
-      # Example: Query client.fritz.box will ask DNS server 192.168.178.1. This is necessary for local network, to resolve clients by host name
-      conditional = {
-        # optional: if false (default), return empty result if after rewrite, the mapped resolver returned an empty answer. If true, the original query will be sent to the upstream resolver
-        # Example: The query "blog.example.com" will be rewritten to "blog.fritz.box" and also redirected to the resolver at 192.168.178.1. If not found and if `fallbackUpstream` was set to `true`, the original query "blog.example.com" will be sent upstream.
-        # Usage: One usecase when having split DNS for internal and external (internet facing) users, but not all subdomains are listed in the internal domain.
-        fallbackUpstream = false;
-        # optional: replace domain in the query with other domain before resolver lookup in the mapping
-        rewrite = {
-          # "example.com" = "fritz.box";
-        };
         mapping = {
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";
@@ -80,7 +72,6 @@ in {
           "nydus.battle.net" = "192.168.16.2";
           "edge.blizzard.top.comcast.net" = "192.168.16.2";
           "cdn.blizzard.com" = "192.168.16.2";
-          ".cdn.blizzard.com" = "192.168.16.2";
 
           # Epic
           "cdn1.epicgames.com" = "192.168.16.2";
@@ -105,10 +96,10 @@ in {
           "idbe-wup.cdn.nintendo.net.edgekey.net" = "192.168.16.2";
           "ecs-lp1.hac.shop.nintendo.net" = "192.168.16.2";
           "receive-lp1.dg.srv.nintendo.net" = "192.168.16.2";
-          ".wup.shop.nintendo.net" = "192.168.16.2";
-          ".wup.eshop.nintendo.net" = "192.168.16.2";
-          ".hac.lp1.d4c.nintendo.net" = "192.168.16.2";
-          ".hac.lp1.eshop.nintendo.net" = "192.168.16.2";
+          "wup.shop.nintendo.net" = "192.168.16.2";
+          "wup.eshop.nintendo.net" = "192.168.16.2";
+          "hac.lp1.d4c.nintendo.net" = "192.168.16.2";
+          "hac.lp1.eshop.nintendo.net" = "192.168.16.2";
 
           # Origin
           "origin-a.akamaihd.net" = "192.168.16.2";
@@ -120,7 +111,7 @@ in {
           "worldwide.l3cdn.riotgames.com" = "192.168.16.2";
           "riotgamespatcher-a.akamaihd.net" = "192.168.16.2";
           "riotgamespatcher-a.akamaihd.net.edgesuite.net" = "192.168.16.2";
-          ".dyn.riotcdn.net" = "192.168.16.2";
+          "dyn.riotcdn.net" = "192.168.16.2";
 
           # Rockstar
           "patches.rockstargames.com" = "192.168.16.2";
@@ -129,12 +120,8 @@ in {
           "gs2.ww.prod.dl.playstation.net" = "192.168.16.2";
           "gs2.sonycoment.loris-e.llnwd.net" = "192.168.16.2";
           "pls.patch.station.sony.com" = "192.168.16.2";
-          ".gs2.ww.prod.dl.playstation.net" = "192.168.16.2";
-          ".gs2.sonycoment.loris-e.llnwd.net" = "192.168.16.2";
           "gs2-ww-prod.psn.akadns.net" = "192.168.16.2";
-          ".gs2-ww-prod.psn.akadns.net" = "192.168.16.2";
           "gs2.ww.prod.dl.playstation.net.edgesuite.net" = "192.168.16.2";
-          ".gs2.ww.prod.dl.playstation.net.edgesuite.net" = "192.168.16.2";
           "playstation4.sony.akadns.net" = "192.168.16.2";
           "theia.dl.playstation.net" = "192.168.16.2";
           "tmdb.np.dl.playstation.net" = "192.168.16.2";
@@ -143,7 +130,7 @@ in {
           # Steam
           "lancache.steampowered.com" = "192.168.16.2";
           "lancache.steamcontent.com" = "192.168.16.2";
-          ".content.steampowered.com" = "192.168.16.2";
+          "content.steampowered.com" = "192.168.16.2";
           "content1.steampowered.com" = "192.168.16.2";
           "content2.steampowered.com" = "192.168.16.2";
           "content3.steampowered.com" = "192.168.16.2";
@@ -152,25 +139,22 @@ in {
           "content6.steampowered.com" = "192.168.16.2";
           "content7.steampowered.com" = "192.168.16.2";
           "content8.steampowered.com" = "192.168.16.2";
-          "cs.steampowered.com" = "192.168.16.2";
-          "steamcontent.com" = "192.168.16.2";
           "client-download.steampowered.com" = "192.168.16.2";
-          ".hsar.steampowered.com.edgesuite.net" = "192.168.16.2";
-          ".akamai.steamstatic.com" = "192.168.16.2";
+          "hsar.steampowered.com.edgesuite.net" = "192.168.16.2";
+          "akamai.steamstatic.com" = "192.168.16.2";
           "content-origin.steampowered.com" = "192.168.16.2";
           "clientconfig.akamai.steamtransparent.com" = "192.168.16.2";
           "steampipe.akamaized.net" = "192.168.16.2";
-          "edgecast.steamstatic.com" = "192.168.16.2";
           "steam.apac.qtlglb.com.mwcloudcdn.com" = "192.168.16.2";
-          ".cs.steampowered.com" = "192.168.16.2";
-          ".cm.steampowered.com" = "192.168.16.2";
-          ".edgecast.steamstatic.com" = "192.168.16.2";
-          ".steamcontent.com" = "192.168.16.2";
+          "cs.steampowered.com" = "192.168.16.2";
+          "cm.steampowered.com" = "192.168.16.2";
+          "edgecast.steamstatic.com" = "192.168.16.2";
+          "steamcontent.com" = "192.168.16.2";
           "cdn1-sea1.valve.net" = "192.168.16.2";
           "cdn2-sea1.valve.net" = "192.168.16.2";
-          ".steam-content-dnld-1.apac-1-cdn.cqloud.com" = "192.168.16.2";
-          ".steam-content-dnld-1.eu-c1-cdn.cqloud.com" = "192.168.16.2";
-          ".steam-content-dnld-1.qwilted-cds.cqloud.com" = "192.168.16.2";
+          "steam-content-dnld-1.apac-1-cdn.cqloud.com" = "192.168.16.2";
+          "steam-content-dnld-1.eu-c1-cdn.cqloud.com" = "192.168.16.2";
+          "steam-content-dnld-1.qwilted-cds.cqloud.com" = "192.168.16.2";
           "steam.apac.qtlglb.com" = "192.168.16.2";
           "edge.steam-dns.top.comcast.net" = "192.168.16.2";
           "edge.steam-dns-2.top.comcast.net" = "192.168.16.2";
@@ -196,13 +180,12 @@ in {
           "steamcdn-a.akamaihd.net" = "192.168.16.2";
 
           # Uplay
-          ".cdn.ubi.com" = "192.168.16.2";
+          "cdn.ubi.com" = "192.168.16.2";
 
           # XBox Live
           "assets1.xboxlive.com" = "192.168.16.2";
           "assets2.xboxlive.com" = "192.168.16.2";
           "xboxone.loris.llnwd.net" = "192.168.16.2";
-          ".xboxone.loris.llnwd.net" = "192.168.16.2";
           "xboxone.vo.llnwd.net" = "192.168.16.2";
           "xbox-mbr.xboxlive.com" = "192.168.16.2";
           "assets1.xboxlive.com.nsatc.net" = "192.168.16.2";
@@ -289,13 +272,13 @@ in {
         # duration how long a response must be cached (min value).
         # If <=0, use response's TTL, if >0 use this value, if TTL is smaller
         # Default: 0
-        minTime = "5m";
+        minTime = 0;
         # duration how long a response must be cached (max value).
         # If <0, do not cache responses
         # If 0, use TTL
         # If > 0, use this value, if TTL is greater
         # Default: 0
-        maxTime = "30m";
+        maxTime = 0;
         # Max number of cache entries (responses) to be kept in cache (soft limit). Useful on systems with limited amount of RAM.
         # Default (0): unlimited
         maxItemsCount = 0;
@@ -406,32 +389,36 @@ in {
       #   # optional: Whether loopback hosts addresses (127.0.0.0/8 and ::1) should be filtered or not, default: false
       #   filterLoopback = true;
       # };
+      port = 53;
+      tlsPort = 53;
+      httpsPort = 53;
+      httpPort = 53;
+
       # optional: ports configuration
-      ports = {
-        # optional: DNS listener port(s) and bind ip address(es), default 53 (UDP and TCP). Example: 53, :53, "127.0.0.1:5353,[::1]:5353"
-        dns = 53;
-        # optional: Port(s) and bind ip address(es) for DoT (DNS-over-TLS) listener. Example: 853, 127.0.0.1:853
-        tls = 853;
-        # optional: Port(s) and optional bind ip address(es) to serve HTTPS used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:443. Example: 443, :443, 127.0.0.1:443,[::1]:443
-        https = 443;
-        # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
-        http = 4000;
-      };
+      # ports = {
+      #   # optional: DNS listener port(s) and bind ip address(es), default 53 (UDP and TCP). Example: 53, :53, "127.0.0.1:5353,[::1]:5353"
+      #   dns = 53;
+      #   # optional: Port(s) and bind ip address(es) for DoT (DNS-over-TLS) listener. Example: 853, 127.0.0.1:853
+      #   tls = 853;
+      #   # optional: Port(s) and optional bind ip address(es) to serve HTTPS used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:443. Example: 443, :443, 127.0.0.1:443,[::1]:443
+      #   https = 443;
+      #   # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
+      #   http = 4000;
+      # };
+
+      logLevel = "info";
 
       # optional: logging configuration
-      log = {
-        # optional: Log level (one from debug, info, warn, error). Default: info
-        level = "info";
-        # optional: Log format (text or json). Default: text
-        format = "text";
-        # optional: log timestamps. Default: true
-        timestamp = true;
-        # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
-        privacy = false;
-      };
-
-      # optional: add EDE error codes to dns response
-      ede = { enable = true; };
+      # log = {
+      #   # optional: Log level (one from debug, info, warn, error). Default: info
+      #   level = "info";
+      #   # optional: Log format (text or json). Default: text
+      #   format = "text";
+      #   # optional: log timestamps. Default: true
+      #   timestamp = true;
+      #   # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
+      #   privacy = false;
+      # };
     };
   };
 }
