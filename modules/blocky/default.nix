@@ -27,7 +27,6 @@ in {
 
         # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
         # or single ip address / client subnet as CIDR notation
-        # "laptop*" = [ "123.123.123.123" ];
         "192.168.4.0/24" = [
           "https://dnsnl.alekberg.net/dns-query"
           "https://dnsse.alekberg.net/dns-query"
@@ -338,15 +337,8 @@ in {
 
       # optional: configuration of client name resolution
       clientLookup = {
-        # optional: this DNS resolver will be used to perform reverse DNS lookup (typically local router)
-        upstream = "192.168.6.1";
-        # optional: some routers return multiple names for client (host name and user defined name). Define which single name should be used.
-        # Example: take second name if present, if not take first name
+        upstream = "192.168.1.1";
         singleNameOrder = [ 2 1 ];
-        # optional: custom mapping of client name to IP addresses. Useful if reverse DNS does not work properly or just to have custom client names.
-        clients = {
-          # laptop = [ "192.168.178.29" ]; 
-        };
       };
 
       # optional: configuration for prometheus metrics endpoint
@@ -356,50 +348,6 @@ in {
         # url path, optional (default '/metrics')
         path = "/metrics";
       };
-
-      # optional: write query information (question, answer, client, duration etc.) to daily csv file
-      # queryLog = {
-      #   # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
-      #   type = "mysql";
-      #   # directory (should be mounted as volume in docker) for csv, db connection string for mysql/postgresql
-      #   "target" = "conn_string";
-      #   # if > 0, deletes log files which are older than ... days
-      #   logRetentionDays = 7;
-      #   # optional: Max attempts to create specific query log writer, default: 3
-      #   creationAttempts = 1;
-      #   # optional: Time between the creation attempts, default: 2s
-      #   creationCooldown = "2s";
-      #   # optional: Which fields should be logged. You can choose one or more from: clientIP, clientName, responseReason, responseAnswer, question, duration. If not defined, it logs all fields
-      #   fields = [ "clientIP" "duration" ];
-      # };
-
-      # optional: Blocky can synchronize its cache and blocking state between multiple instances through redis.
-      # redis = {
-      #   # Server address and port or master name if sentinel is used
-      #   address = "redismaster";
-      #   # Username if necessary
-      #   username = "usrname";
-      #   # Password if necessary
-      #   password = "passwd";
-      #   # Database, default: 0
-      #   database = 2;
-      #   # Connection is required for blocky to start. Default: false
-      #   required = true;
-      #   # Max connection attempts, default: 3
-      #   connectionAttempts = 10;
-      #   # Time between the connection attempts, default: 1s
-      #   connectionCooldown = "3s";
-      #   # Sentinal username if necessary
-      #   sentinelUsername = "usrname";
-      #   # Sentinal password if necessary
-      #   sentinelPassword = "passwd";
-      #   # List with address and port of sentinel hosts(sentinel is activated if at least one sentinel address is configured)
-      #   sentinelAddresses = [
-      #     "redis-sentinel1:26379"
-      #     "redis-sentinel2:26379"
-      #     "redis-sentinel3:26379"
-      #   ];
-      # };
 
       # optional: Mininal TLS version that the DoH and DoT server will use
       minTlsServeVersion = "1.2";
@@ -415,17 +363,6 @@ in {
       # optional: drop all queries with following query types. Default: empty
       filtering = { queryTypes = [ "AAAA" ]; };
 
-      # optional: if path defined, use this file for query resolution (A, AAAA and rDNS). Default: empty
-      # hostsFile = {
-      #   # optional: Path to hosts file (e.g. /etc/hosts on Linux)
-      #   filePath = "/etc/hosts";
-      #   # optional: TTL, default: 1h
-      #   hostsTTL = "60m";
-      #   # optional: Time between hosts file refresh, default: 1h
-      #   refreshPeriod = "30m";
-      #   # optional: Whether loopback hosts addresses (127.0.0.0/8 and ::1) should be filtered or not, default: false
-      #   filterLoopback = true;
-      # };
       port = 53;
       tlsPort = 853;
       httpsPort = 443;
