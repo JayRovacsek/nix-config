@@ -56,8 +56,44 @@ in {
         # if false, queries with unmapped types will be forwarded to the upstream resolver
         filterUnmappedTypes = true;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
-        rewrite = { "example.com" = "printer.lan"; };
         mapping = {
+          # Local
+          "pfsense.lan" = "192.168.1.1";
+          "ubiquiti_ap.lan" = "192.168.1.3";
+          "dragonite.lan" = "192.168.1.220";
+          "alakazam.lan" = "192.168.1.221";
+          "speedtest.lan" = "192.168.1.222";
+          "duplicati.lan" = "192.168.1.223";
+          "tv.lan" = "192.168.3.2";
+          "wigglytuff.lan" = "192.168.6.6";
+          "car_bed.lan" = "192.168.3.10";
+          "jackett.lan" = "192.168.4.129";
+          "deluge.lan" = "192.168.4.130";
+          "sonarr.lan" = "192.168.4.131";
+          "radarr.lan" = "192.168.4.132";
+          "lidarr.lan" = "192.168.4.133";
+          "ombi.lan" = "192.168.4.134";
+          "tdarr.lan" = "192.168.4.135";
+          "tdarr-node-01.lan" = "192.168.4.136";
+          "prowlarr.lan" = "192.168.4.137";
+          "flare-solverr.lan" = "192.168.4.138";
+          "swag.lan" = "192.168.5.3";
+          "jellyfin.lan" = "192.168.5.4";
+          "pihole.lan" = "192.168.6.2";
+          "stubby.lan" = "192.168.6.3";
+          "jigglypuff.lan" = "192.168.6.4";
+          "authelia.lan" = "192.168.9.2";
+          "nextcloud.lan" = "192.168.10.2";
+          "home-assistant.lan" = "192.168.12.2";
+          "cache.lan" = "192.168.16.2";
+          "minecraft.lan" = "192.168.17.5";
+          "minecraft.rovacsek.com" = "192.168.17.5";
+          "valheim.lan" = "192.168.17.3";
+          "valheim.rovacsek.com" = "192.168.17.3";
+          "terraria.lan" = "192.168.17.4";
+          "terraria.rovacsek.com" = "192.168.17.4";
+          "rovacsek.com" = "192.168.5.3";
+
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";
           "dist.blizzard.com.edgesuite.net" = "192.168.16.2";
