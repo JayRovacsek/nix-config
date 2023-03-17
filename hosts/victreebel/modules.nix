@@ -1,5 +1,6 @@
 {
   imports = [
+    ../../modules/blocky
     ../../modules/docker-darwin
     ../../modules/darwin-settings
     ../../modules/dockutil

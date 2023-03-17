@@ -5,6 +5,9 @@ let
   inherit (pkgs.lib) recursiveUpdate;
   inherit (pkgs.lib.attrsets) mapAttrs;
 
+  # Fold an array of objects together recursively
+  merge = builtins.foldl' recursiveUpdate { };
+
   isFlake = !(builtins.isNull self) && !(builtins.isNull system);
 
   # Amethyst only evaluates on darwin, because the context of this is both
@@ -25,7 +28,21 @@ let
   flakePackages = if isFlake then
     let
       inherit (self.inputs) terranix;
-      inherit (self.common) terraform-stacks;
+      inherit (self.common) terraform-stacks python-modules;
+
+      pythonModules = let inherit (pkgs) python310Packages python311Packages;
+      in builtins.foldl' (acc: package:
+        recursiveUpdate {
+          python310Packages.${package} =
+            callPackage ./python-modules/${package} {
+              python = python310Packages;
+            };
+          python311Packages.${package} =
+            callPackage ./python-modules/${package} {
+              python = python311Packages;
+            };
+        } acc) { } python-modules;
+
       terraform-packages = mapAttrs (name: value:
         terranix.lib.terranixConfiguration {
           inherit system;
@@ -34,9 +51,14 @@ let
             ../terranix/${name}
           ];
         }) terraform-stacks;
-    in recursiveUpdate terraform-packages {
-      ditto-transform = callPackage ./ditto-transform { inherit self; };
-    }
+    in merge [
+      pythonModules
+      terraform-packages
+      {
+        ditto-transform = callPackage ./ditto-transform { inherit self; };
+        plaso = callPackage ./plaso { inherit self system; };
+      }
+    ]
   else
     { };
 
