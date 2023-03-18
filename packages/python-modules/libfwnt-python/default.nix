@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchPypi, python }:
+{ self, system, lib, stdenv, fetchPypi, python }:
 let
   pname = "libfwnt-python";
   name = pname;

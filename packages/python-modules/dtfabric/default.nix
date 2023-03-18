@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchPypi, python }:
+{ self, system, lib, stdenv, fetchPypi, python }:
 let
   pname = "dtfabric";
   name = pname;
@@ -13,15 +13,15 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage pip pyyaml;
 
 in buildPythonPackage {
   inherit pname name version;
-  nativeBuildInputs = [ ];
+  propagatedBuildInputs = [ pyyaml ];
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = lib.fakeHash;
+    sha256 = "sha256-E4HOdIBj0Mcy/PNDStwXmsjwW3WpZJYmFDDWvRaTPlU=";
   };
 
   doCheck = false;

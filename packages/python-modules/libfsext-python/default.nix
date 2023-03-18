@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchPypi, python }:
+{ self, system, lib, stdenv, fetchPypi, python }:
 let
   pname = "libfsext-python";
   name = pname;

@@ -14,10 +14,14 @@ let
   pythonModules = let inherit (pkgs) python310Packages python311Packages;
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      python310Packages.${package} =
-        callPackage ./python-modules/${package} { python = python310Packages; };
-      python311Packages.${package} =
-        callPackage ./python-modules/${package} { python = python311Packages; };
+      python310Packages.${package} = callPackage ./python-modules/${package} {
+        inherit self system;
+        python = python310Packages;
+      };
+      python311Packages.${package} = callPackage ./python-modules/${package} {
+        inherit self system;
+        python = python311Packages;
+      };
     } accumulator) { } python-modules;
 
   terraform-packages = mapAttrs (name: value:

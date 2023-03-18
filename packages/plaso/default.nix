@@ -14,11 +14,12 @@ let
 
   inherit (python310Packages)
     buildPythonPackage pip pyyaml XlsxWriter cffi redis bencode-py pytz
-    opensearch-py psutil;
+    opensearch-py psutil yara-python;
 
   inherit (self.packages.${system}.python310Packages)
     acstore libbde-python libfwnt-python dfdatetime libfsxfs-python
-    libluksde-python;
+    libluksde-python libfshfs-python liblnk-python libqcow-python dfwinreg
+    libregf-python flor;
 
 in buildPythonPackage {
   inherit pname name version;
@@ -36,16 +37,23 @@ in buildPythonPackage {
     bencode-py
     cffi
     dfdatetime
+    dfwinreg
     libbde-python
-    libfwnt-python
+    libfshfs-python
     libfsxfs-python
+    libfwnt-python
+    liblnk-python
+    libluksde-python
+    libqcow-python
+    libregf-python
+    opensearch-py
     pip
+    psutil
+    pytz
     pyyaml
     redis
     XlsxWriter
-    pytz
-    opensearch-py
-    psutil
-    libluksde-python
+    yara-python
+    flor
   ];
 }

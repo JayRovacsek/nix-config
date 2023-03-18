@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfsntfs-python";
+  pname = "liblnk-python";
   name = pname;
-  version = "20221023";
+  version = "20230205";
 
   meta = with lib; {
-    description = "Python bindings module for libfsntfs";
+    description = "Python bindings module for liblnk";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfsntfs/";
-    downloadPage = "https://github.com/libyal/libfsntfs/releases";
+    homepage = "https://github.com/libyal/liblnk/";
+    downloadPage = "https://github.com/libyal/liblnk/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-tjdkHy/ttKVlGucC9/0bk9ni2J5LdvD07e/mOLX25Zg=";
+    sha256 = "sha256-kgLwfYe7MPj5AYmCJMYna+wFMo3V8A62eNVQnVU8J0k=";
   };
 
   doCheck = false;

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchPypi, python, zlib }:
+{ self, system, lib, stdenv, fetchPypi, python, zlib }:
 let
   pname = "libqcow-python";
   name = pname;
