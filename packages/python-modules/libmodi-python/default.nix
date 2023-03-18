@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfwnt-python";
+  pname = "libmodi-python";
   name = pname;
-  version = "20220922";
+  version = "20221023";
 
   meta = with lib; {
-    description = "Python bindings module for libfwnt";
+    description = "Python bindings module for libmodi";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfwnt/";
-    downloadPage = "https://github.com/libyal/libfwnt/releases";
+    homepage = "https://github.com/libyal/libmodi/";
+    downloadPage = "https://github.com/libyal/libmodi/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SCUK5cNpMNdUAj1PSXhqhgnAV8VWfDf4vYHiasmmXaE=";
+    sha256 = "sha256-Rlqj+f8NijKi30X/r3/6wcyYl301CH91njC86vF+3co=";
   };
 
   doCheck = false;

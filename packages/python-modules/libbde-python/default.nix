@@ -17,7 +17,6 @@ let
 
 in buildPythonPackage {
   inherit pname name version;
-  nativeBuildInputs = [ ];
 
   src = fetchPypi {
     inherit pname version;

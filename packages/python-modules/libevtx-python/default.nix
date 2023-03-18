@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfwnt-python";
+  pname = "libevtx-python";
   name = pname;
-  version = "20220922";
+  version = "20221101";
 
   meta = with lib; {
-    description = "Python bindings module for libfwnt";
+    description = "Python bindings module for libevtx";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfwnt/";
-    downloadPage = "https://github.com/libyal/libfwnt/releases";
+    homepage = "https://github.com/libyal/libevtx/";
+    downloadPage = "https://github.com/libyal/libevtx/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SCUK5cNpMNdUAj1PSXhqhgnAV8VWfDf4vYHiasmmXaE=";
+    sha256 = "sha256-2ABOow7Dq9W2MS4J221OQ6OX1UqQZ9reseZpu7/qDTc=";
   };
 
   doCheck = false;

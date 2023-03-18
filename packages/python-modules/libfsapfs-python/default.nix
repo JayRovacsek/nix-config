@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfwnt-python";
+  pname = "libfsapfs-python";
   name = pname;
-  version = "20220922";
+  version = "20221102";
 
   meta = with lib; {
-    description = "Python bindings module for libfwnt";
+    description = "Python bindings module for libfsapfs";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfwnt/";
-    downloadPage = "https://github.com/libyal/libfwnt/releases";
+    homepage = "https://github.com/libyal/libfsapfs/";
+    downloadPage = "https://github.com/libyal/libfsapfs/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SCUK5cNpMNdUAj1PSXhqhgnAV8VWfDf4vYHiasmmXaE=";
+    sha256 = "sha256-v6lD23VJXONC59QC2kkZ2KdThUSXuv7qBdgFXWPu3Wc=";
   };
 
   doCheck = false;

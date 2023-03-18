@@ -13,17 +13,20 @@ let
   };
 
   inherit (python310Packages)
-    buildPythonPackage pip pyyaml XlsxWriter cffi redis bencode-py pytz
-    opensearch-py psutil yara-python;
+    bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
+    lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyxattr
+    pyyaml pyzmq redis requests XlsxWriter yara-python;
 
   inherit (self.packages.${system}.python310Packages)
-    acstore libbde-python libfwnt-python dfdatetime libfsxfs-python
-    libluksde-python libfshfs-python liblnk-python libqcow-python dfwinreg
-    libregf-python flor;
+    acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
+    libesedb-python libevtx-python libewf-python libfsapfs-python
+    libfshfs-python libfsxfs-python libfwnt-python liblnk-python
+    libluksde-python libmodi-python libphdi-python libqcow-python libregf-python
+    libscca-python libsigscan-python libsmdev-python libvhdi-python
+    libvsgpt-python;
 
 in buildPythonPackage {
   inherit pname name version;
-  nativeBuildInputs = [ ];
 
   src = fetchPypi {
     inherit pname version;
@@ -34,26 +37,50 @@ in buildPythonPackage {
 
   propagatedBuildInputs = [
     acstore
+    artifacts
     bencode-py
+    certifi
     cffi
+    cryptography
+    defusedxml
     dfdatetime
+    dfvfs
     dfwinreg
+    flor
+    future
     libbde-python
+    libesedb-python
+    libevtx-python
+    libewf-python
+    libfsapfs-python
     libfshfs-python
     libfsxfs-python
     libfwnt-python
     liblnk-python
     libluksde-python
+    libmodi-python
+    libphdi-python
     libqcow-python
     libregf-python
+    libscca-python
+    libsigscan-python
+    libsmdev-python
+    libvhdi-python
+    libvsgpt-python
+    lz4
     opensearch-py
+    pefile
     pip
     psutil
+    pyparsing
+    python-dateutil
     pytz
+    pyxattr
     pyyaml
+    pyzmq
     redis
+    requests
     XlsxWriter
     yara-python
-    flor
   ];
 }

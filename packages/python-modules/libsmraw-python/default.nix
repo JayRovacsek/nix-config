@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfwnt-python";
+  pname = "libsmraw-python";
   name = pname;
-  version = "20220922";
+  version = "20221028";
 
   meta = with lib; {
-    description = "Python bindings module for libfwnt";
+    description = "Python bindings module for libsmraw";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfwnt/";
-    downloadPage = "https://github.com/libyal/libfwnt/releases";
+    homepage = "https://github.com/libyal/libsmraw/";
+    downloadPage = "https://github.com/libyal/libsmraw/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SCUK5cNpMNdUAj1PSXhqhgnAV8VWfDf4vYHiasmmXaE=";
+    sha256 = "sha256-g9Rfwie7+Q1aUmWnhc0ysscfh3ZCXpV0g0Gv1AM4cek=";
   };
 
   doCheck = false;

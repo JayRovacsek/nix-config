@@ -1,14 +1,14 @@
 { self, system, lib, stdenv, fetchPypi, python }:
 let
-  pname = "libfwnt-python";
+  pname = "libfvde-python";
   name = pname;
-  version = "20220922";
+  version = "20220915";
 
   meta = with lib; {
-    description = "Python bindings module for libfwnt";
+    description = "Python bindings module for libfvde";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfwnt/";
-    downloadPage = "https://github.com/libyal/libfwnt/releases";
+    homepage = "https://github.com/libyal/libfvde/";
+    downloadPage = "https://github.com/libyal/libfvde/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SCUK5cNpMNdUAj1PSXhqhgnAV8VWfDf4vYHiasmmXaE=";
+    sha256 = "sha256-tEmmSvcse7/oxObigJHcTl00WTDh5oQjX9qSbkomAzM=";
   };
 
   doCheck = false;
