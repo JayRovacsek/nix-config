@@ -1,7 +1,6 @@
 { config, pkgs, lib, flake, ... }: {
   imports = [
     ../../modules/agenix
-    ../../modules/blocky
     ../../modules/clamav
     ../../modules/docker
     ../../modules/docker/stacks/portainer

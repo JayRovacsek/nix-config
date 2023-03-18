@@ -14,6 +14,8 @@
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   pre-commit-unsupported = import ./pre-commit-unsupported.nix;
+  python-modules =
+    builtins.attrNames (builtins.readDir ../packages/python-modules);
   self-reference = import ./self-reference.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   system = import ./system.nix { inherit self; };

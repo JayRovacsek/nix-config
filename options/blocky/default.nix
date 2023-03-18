@@ -25,12 +25,20 @@ in with lib; {
           for details on supported values.
         '';
       };
+      logFile = mkOption {
+        type = types.nullOr types.path;
+        default = "/tmp/blocky.log";
+        example = "/var/log/blocky.log";
+        description = ''
+          The logfile to use for the blocky service.
+        '';
+      };
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = requiredPackages;
-    launchd.user.agents.docker = {
+    launchd.user.agents.blocky = {
 
       path = requiredPackages ++ [ config.environment.systemPath ];
 
@@ -41,6 +49,8 @@ in with lib; {
         AbandonProcessGroup = true;
         RunAtLoad = true;
         ExitTimeOut = 0;
+        StandardOutPath = cfg.logFile;
+        StandardErrorPath = cfg.logFile;
       };
     };
   };

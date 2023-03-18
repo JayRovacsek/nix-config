@@ -265,7 +265,6 @@ in {
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
-            "https://urlhaus.abuse.ch/downloads/hostfile"
           ];
         };
         # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked

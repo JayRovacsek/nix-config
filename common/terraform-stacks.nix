@@ -1,8 +1,8 @@
 { self }:
 let
   stacks = builtins.attrNames (builtins.readDir ../terranix);
-  cfg = builtins.foldl' (acc: stack:
+  cfg = builtins.foldl' (accumulator: stack:
     {
       ${stack} = import ../terranix/${stack} { inherit self; };
-    } // acc) { } stacks;
+    } // accumulator) { } stacks;
 in cfg

@@ -30,7 +30,7 @@ let
       nixpkgsPinned = if stable then
         self.inputs.stable.outPath
       else
-        self.inputs.unstable.outPath;
+        self.inputs.nixpkgs.outPath;
       base = { environment.etc."nix/inputs/nixpkgs".source = nixpkgsPinned; };
       extra = if pkgs.stdenv.isDarwin then {
         environment.etc."nix/inputs/darwin".source = darwinPinned;

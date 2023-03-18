@@ -16,7 +16,7 @@ let
   };
 
   unstable = {
-    pkgs = inputs.unstable;
+    pkgs = inputs.nixpkgs;
     name = "unstable";
   };
 
