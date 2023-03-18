@@ -2,7 +2,7 @@
 let
   name = "dev-shell";
 
-  pkgs = self.inputs.unstable.legacyPackages.${system};
+  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
 
   unsupportedSystem = builtins.elem system self.common.pre-commit-unsupported;
 

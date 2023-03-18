@@ -14,10 +14,10 @@ let
   sd-configurtations = [ rpi1 rpi2 ];
   cloud-formats = [ "linode" "qcow" ];
 
-  cloud-base-images =
-    builtins.foldl' (acc: set: (builtins.listToAttrs set) // acc) { }
+  cloud-base-images = builtins.foldl'
+    (accumulator: set: (builtins.listToAttrs set) // accumulator) { }
     (mapAttrsToList (name: value:
-      builtins.foldl' (acc: format:
+      builtins.foldl' (accumulator: format:
         [{
           name = "${format}-base-image";
           value = nixos-generators.nixosGenerate {
@@ -25,7 +25,7 @@ let
             inherit (value.pkgs.stdenv) system;
             inherit (value._module.args) modules;
           };
-        }] ++ acc) [ ] cloud-formats
+        }] ++ accumulator) [ ] cloud-formats
 
     ) (filterAttrs (n: v: builtins.elem n cloud-formats) nixosConfigurations));
 

@@ -1,6 +1,6 @@
 { self, system }:
 let
-  pkgs = self.inputs.unstable.legacyPackages.${system};
+  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
 
   pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
   checks = if builtins.elem system self.common.pre-commit-unsupported then

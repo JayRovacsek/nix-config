@@ -4,7 +4,7 @@
   inputs = {
     # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-22.11";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-wsl = {
       url =
@@ -24,7 +24,7 @@
       url = "github:lnl7/nix-darwin/master";
     };
     darwin-unstable = {
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin/master";
     };
 
@@ -65,7 +65,7 @@
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Home management module
@@ -86,7 +86,7 @@
     # Generate system images easily
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Apply opinions on hardware that are driven by community
@@ -126,7 +126,7 @@
       devShells = import ./shells { inherit self system; };
 
       # Formatter option for `nix fmt` - redundant via checks but nice to have
-      formatter = self.inputs.unstable.legacyPackages.${system}.nixfmt;
+      formatter = self.inputs.nixpkgs.legacyPackages.${system}.nixfmt;
 
       # Locally defined packages for flake consumption or consumption
       # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
@@ -134,7 +134,7 @@
       # construct
       packages = import ./packages {
         inherit self system;
-        pkgs = self.inputs.unstable.legacyPackages.${system};
+        pkgs = self.inputs.nixpkgs.legacyPackages.${system};
       };
     }) // {
       inherit exposedSystems;

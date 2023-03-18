@@ -51,6 +51,7 @@ let
   # nix-repl> common.home-manager-modules.alacritty
   # «lambda @ /nix/store/g90cys2l7mc35ph6b8b0yc2crp2v7mr9-home-manager-modules/alacritty/default.nix:1:1»
   home-manager-modules =
-    builtins.foldl' (acc: module: acc // module) { } module-configs;
+    builtins.foldl' (accumulator: module: accumulator // module) { }
+    module-configs;
 
 in home-manager-modules

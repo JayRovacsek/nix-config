@@ -1,6 +1,6 @@
 { self, system }:
 let
-  pkgs = self.inputs.unstable.legacyPackages.${system};
+  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
   inherit (pkgs.lib.attrsets) concatMapAttrs;
   inherit (pkgs) terraform;
   inherit (self.common) terraform-stacks;

@@ -1,7 +1,7 @@
 { self, system ? "x86_64-linux", ... }:
 let
   region = "ap-southeast";
-  pkgs = self.inputs.unstable.legacyPackages.${system};
+  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
 in {
   # Piggybacks greatly off the following repositories awesome work: https://github.com/houstdav000/terranix-linode-poc
   # Thank you original author and community for enabling this <3
