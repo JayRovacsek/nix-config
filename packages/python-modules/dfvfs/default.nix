@@ -20,7 +20,8 @@ let
     libfsntfs-python libfsxfs-python libfvde-python libfwnt-python
     libluksde-python libmodi-python libphdi-python libqcow-python
     libsigscan-python libsmdev-python libsmraw-python libvhdi-python
-    libvsgpt-python;
+    libvsgpt-python libvslvm-python libvmdk-python libvshadow-python pytsk3
+    libewf-python libfsfat-python libfsext-python;
 
 in buildPythonPackage {
   inherit pname name version;
@@ -56,5 +57,12 @@ in buildPythonPackage {
     libfvde-python
     libfsntfs-python
     libsmraw-python
+    libvslvm-python
+    libvmdk-python
+    libvshadow-python
+    pytsk3
+    libewf-python
+    libfsfat-python
+    libfsext-python
   ];
 }

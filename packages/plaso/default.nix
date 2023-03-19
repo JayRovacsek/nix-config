@@ -15,7 +15,7 @@ let
   inherit (python310Packages)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyxattr
-    pyyaml pyzmq redis requests XlsxWriter yara-python;
+    pyyaml pyzmq redis requests XlsxWriter yara-python six;
 
   inherit (self.packages.${system}.python310Packages)
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
@@ -23,7 +23,10 @@ let
     libfshfs-python libfsxfs-python libfwnt-python liblnk-python
     libluksde-python libmodi-python libphdi-python libqcow-python libregf-python
     libscca-python libsigscan-python libsmdev-python libvhdi-python
-    libvsgpt-python;
+    libvsgpt-python libfwsi-python libcreg-python libmsiecf-python
+    libfsext-python libfsfat-python libfsntfs-python libfvde-python
+    libolecf-python libsmraw-python libvmdk-python libvshadow-python
+    libevt-python libvslvm-python pytsk3;
 
 in buildPythonPackage {
   inherit pname name version;
@@ -65,10 +68,15 @@ in buildPythonPackage {
     libscca-python
     libsigscan-python
     libsmdev-python
+    pytsk3
     libvhdi-python
     libvsgpt-python
     lz4
+    libevt-python
+    libvslvm-python
+    libsmraw-python
     opensearch-py
+    libvshadow-python
     pefile
     pip
     psutil
@@ -82,5 +90,15 @@ in buildPythonPackage {
     requests
     XlsxWriter
     yara-python
+    libfwsi-python
+    six
+    libcreg-python
+    libmsiecf-python
+    libfsext-python
+    libfsfat-python
+    libfsntfs-python
+    libfvde-python
+    libolecf-python
+    libvmdk-python
   ];
 }
