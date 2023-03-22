@@ -13,7 +13,7 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version;
