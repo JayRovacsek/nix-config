@@ -16,12 +16,12 @@ let
   inherit (python) buildPythonPackage cffi cryptography pip pyxattr pyyaml;
 
   inherit (self.packages.${system}.python310Packages)
-    dfdatetime dtfabric libbde-python libfsapfs-python libfshfs-python
-    libfsntfs-python libfsxfs-python libfvde-python libfwnt-python
-    libluksde-python libmodi-python libphdi-python libqcow-python
-    libsigscan-python libsmdev-python libsmraw-python libvhdi-python
-    libvsgpt-python libvslvm-python libvmdk-python libvshadow-python pytsk3
-    libewf-python libfsfat-python libfsext-python;
+    dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
+    libfsext-python libfsfat-python libfshfs-python libfsntfs-python
+    libfsxfs-python libfvde-python libfwnt-python libluksde-python
+    libmodi-python libphdi-python libqcow-python libsigscan-python
+    libsmdev-python libsmraw-python libvhdi-python libvmdk-python
+    libvsgpt-python libvshadow-python libvslvm-python pytsk3;
 
 in buildPythonPackage {
   inherit pname name version;
@@ -34,15 +34,19 @@ in buildPythonPackage {
   doCheck = false;
 
   propagatedBuildInputs = [
-    pyyaml
     cffi
-    pyxattr
     cryptography
-
     dfdatetime
+    dtfabric
     libbde-python
+    libewf-python
+    libfsapfs-python
+    libfsext-python
+    libfsfat-python
     libfshfs-python
+    libfsntfs-python
     libfsxfs-python
+    libfvde-python
     libfwnt-python
     libluksde-python
     libmodi-python
@@ -50,19 +54,14 @@ in buildPythonPackage {
     libqcow-python
     libsigscan-python
     libsmdev-python
-    libvhdi-python
-    libfsapfs-python
-    dtfabric
-    libvsgpt-python
-    libfvde-python
-    libfsntfs-python
     libsmraw-python
-    libvslvm-python
+    libvhdi-python
     libvmdk-python
+    libvsgpt-python
     libvshadow-python
+    libvslvm-python
     pytsk3
-    libewf-python
-    libfsfat-python
-    libfsext-python
+    pyxattr
+    pyyaml
   ];
 }

@@ -15,18 +15,18 @@ let
   inherit (python310Packages)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyxattr
-    pyyaml pyzmq redis requests XlsxWriter yara-python six;
+    pyyaml pyzmq redis requests six XlsxWriter yara-python;
 
   inherit (self.packages.${system}.python310Packages)
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
-    libesedb-python libevtx-python libewf-python libfsapfs-python
-    libfshfs-python libfsxfs-python libfwnt-python liblnk-python
-    libluksde-python libmodi-python libphdi-python libqcow-python libregf-python
-    libscca-python libsigscan-python libsmdev-python libvhdi-python
-    libvsgpt-python libfwsi-python libcreg-python libmsiecf-python
-    libfsext-python libfsfat-python libfsntfs-python libfvde-python
-    libolecf-python libsmraw-python libvmdk-python libvshadow-python
-    libevt-python libvslvm-python pytsk3;
+    libcreg-python libesedb-python libevt-python libevtx-python libewf-python
+    libfsapfs-python libfsext-python libfsfat-python libfshfs-python
+    libfsntfs-python libfsxfs-python libfvde-python libfwnt-python
+    libfwsi-python liblnk-python libluksde-python libmodi-python
+    libmsiecf-python libolecf-python libphdi-python libqcow-python
+    libregf-python libscca-python libsigscan-python libsmdev-python
+    libsmraw-python libvhdi-python libvmdk-python libvsgpt-python
+    libvshadow-python libvslvm-python pytsk3;
 
 in buildPythonPackage {
   inherit pname name version;
@@ -52,53 +52,53 @@ in buildPythonPackage {
     flor
     future
     libbde-python
+    libcreg-python
     libesedb-python
+    libevt-python
     libevtx-python
     libewf-python
     libfsapfs-python
+    libfsext-python
+    libfsfat-python
     libfshfs-python
+    libfsntfs-python
     libfsxfs-python
+    libfvde-python
     libfwnt-python
+    libfwsi-python
     liblnk-python
     libluksde-python
     libmodi-python
+    libmsiecf-python
+    libolecf-python
     libphdi-python
     libqcow-python
     libregf-python
     libscca-python
     libsigscan-python
     libsmdev-python
-    pytsk3
-    libvhdi-python
-    libvsgpt-python
-    lz4
-    libevt-python
-    libvslvm-python
     libsmraw-python
-    opensearch-py
+    libvhdi-python
+    libvmdk-python
+    libvsgpt-python
     libvshadow-python
+    libvslvm-python
+    lz4
+    opensearch-py
     pefile
     pip
     psutil
     pyparsing
     python-dateutil
+    pytsk3
     pytz
     pyxattr
     pyyaml
     pyzmq
     redis
     requests
+    six
     XlsxWriter
     yara-python
-    libfwsi-python
-    six
-    libcreg-python
-    libmsiecf-python
-    libfsext-python
-    libfsfat-python
-    libfsntfs-python
-    libfvde-python
-    libolecf-python
-    libvmdk-python
   ];
 }
