@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ self, system, lib, stdenv, zlib, fetchPypi, python }:
 let
   pname = "libewf-python";
   name = pname;
@@ -12,10 +12,12 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version;
+
+  buildInputs = [ zlib ];
 
   src = fetchPypi {
     inherit pname version;

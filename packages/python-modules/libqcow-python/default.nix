@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python, zlib }:
+{ self, system, lib, stdenv, zlib, fetchPypi, python }:
 let
   pname = "libqcow-python";
   name = pname;
@@ -12,11 +12,12 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version;
-  nativeBuildInputs = [ zlib ];
+
+  buildInputs = [ zlib ];
 
   src = fetchPypi {
     inherit pname version;
