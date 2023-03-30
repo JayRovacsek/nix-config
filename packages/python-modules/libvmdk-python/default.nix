@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ self, system, lib, stdenv, zlib, fetchPypi, python }:
 let
   pname = "libvmdk-python";
   name = pname;
@@ -16,6 +16,8 @@ let
 
 in buildPythonPackage {
   inherit pname name version;
+
+  buildInputs = [ zlib ];
 
   src = fetchPypi {
     inherit pname version;

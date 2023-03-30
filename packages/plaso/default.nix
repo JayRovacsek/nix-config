@@ -14,8 +14,8 @@ let
 
   inherit (python310Packages)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
-    lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyxattr
-    pyyaml pyzmq redis requests six XlsxWriter yara-python;
+    lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
+    pyzmq redis requests six XlsxWriter yara-python;
 
   inherit (self.packages.${system}.python310Packages)
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
@@ -26,7 +26,7 @@ let
     libmsiecf-python libolecf-python libphdi-python libqcow-python
     libregf-python libscca-python libsigscan-python libsmdev-python
     libsmraw-python libvhdi-python libvmdk-python libvsgpt-python
-    libvshadow-python libvslvm-python pytsk3;
+    libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
   inherit pname name version;

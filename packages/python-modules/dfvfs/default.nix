@@ -13,7 +13,7 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage cffi cryptography pip pyxattr pyyaml;
+  inherit (python) buildPythonPackage cffi cryptography pip pyyaml;
 
   inherit (self.packages.${system}.python310Packages)
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
@@ -21,7 +21,7 @@ let
     libfsxfs-python libfvde-python libfwnt-python libluksde-python
     libmodi-python libphdi-python libqcow-python libsigscan-python
     libsmdev-python libsmraw-python libvhdi-python libvmdk-python
-    libvsgpt-python libvshadow-python libvslvm-python pytsk3;
+    libvsgpt-python libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
   inherit pname name version;
