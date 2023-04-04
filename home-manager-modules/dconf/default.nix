@@ -242,7 +242,7 @@ let
 
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
             {
-              binding = "<Primary><Shift>space";
+              binding = "<Shift><Control>space";
               command = "rofi -show drun";
               name = "Rofi Launch";
             };

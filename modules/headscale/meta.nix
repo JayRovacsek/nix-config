@@ -62,7 +62,7 @@ let
 
   script = with pkgs; ''
     bash -c "
-    sqlite3 ${config.services.headscale.database.path} <<'END_SQL'
+    sqlite3 ${config.services.headscale.settings.db_path} <<'END_SQL'
 
     ${sqlStatement}
 

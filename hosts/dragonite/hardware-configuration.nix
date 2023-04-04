@@ -30,7 +30,6 @@
     };
 
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-    # kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
   };
 
