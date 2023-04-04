@@ -10,7 +10,7 @@
       url =
         "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
       inputs = {
-        nixpkgs.follows = "stable";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
@@ -41,7 +41,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "stable";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
@@ -50,14 +50,14 @@
     # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Terraform via the nix language
     terranix = {
       url = "github:terranix/terranix";
       inputs = {
-        nixpkgs.follows = "stable";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -71,14 +71,14 @@
     # Home management module
     home-manager = {
       url = "github:rycee/home-manager/release-22.11";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Microvm module, PoC state for implementation
     microvm = {
       url = "github:astro/microvm.nix";
       inputs = {
-        nixpkgs.follows = "stable";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
     };

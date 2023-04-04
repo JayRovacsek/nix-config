@@ -17,7 +17,9 @@ let
       inherit (user-settings) name;
       inherit (lib) recursiveUpdate;
       inherit (lib.strings) hasInfix;
+      inherit (lib.attrsets) filterAttrs;
       inherit (flake.inputs) home-manager;
+      inherit (flake.common) user-attr-names;
 
       home = if isLinux then "/home/${name}" else "/Users/${name}";
 
@@ -73,14 +75,11 @@ let
 
         # State version here is the database layout NOT the packages version or 
         # associated settings.
-        stateVersion = "22.05";
+        stateVersion = "22.11";
 
         sessionVariables.NIX_PATH = "nixpkgs=${
             config.home-manager.users."${name}".xdg.configHome
           }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
-
-        file.".ssh/allowed_signers".text =
-          "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaL4kr1XUQWWuj+iFjXeIiE6zhRDQFbOs+6toGSW9+5";
 
         file.".ssh/config".text = ''
           Host github.com
@@ -106,11 +105,12 @@ let
         '';
       };
 
-    in recursiveUpdate overrides {
-      # Important to enable home-manager addition to the user submodule
-      # imports = [ ../options/user ];
+      stripped-user-settings =
+        filterAttrs (name: _: builtins.elem name user-attr-names) user-settings;
 
-      users.users.${name} = recursiveUpdate { shell = pkgs.zsh; } user-settings;
+    in recursiveUpdate overrides {
+      users.users.${name} =
+        recursiveUpdate { shell = pkgs.zsh; } stripped-user-settings;
 
       home-manager.users.${name} = (if hasAttr "home" user-settings then {
         home = recursiveUpdate defaultHome user-settings.home;
