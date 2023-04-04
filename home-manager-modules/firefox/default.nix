@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig, ... }:
 let
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
@@ -20,7 +20,8 @@ let
       with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ]
     else
       [ ];
-  dictionaries = with pkgs.nur.repos.JayRovacsek; [ better-english ];
+  dictionaries = with osConfig.flake.packages.${pkgs.system};
+    [ better-english ];
   extensions = addons ++ languagePacks ++ dictionaries;
 in {
   programs.firefox = {
