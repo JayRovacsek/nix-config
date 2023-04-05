@@ -1,6 +1,7 @@
 { self }:
 let
-  fn = { flake, config, pkgs, user-settings, modules, overrides ? { }, ... }:
+  fn = { flake, config, pkgs, user-settings, modules, stable ? false
+    , overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -108,6 +109,8 @@ let
       stripped-user-settings =
         filterAttrs (name: _: builtins.elem name user-attr-names) user-settings;
 
+      nixpkgs = if stable then flake.inputs.stable else flake.inputs.nixpkgs;
+
     in recursiveUpdate overrides {
       users.users.${name} =
         recursiveUpdate { shell = pkgs.zsh; } stripped-user-settings;
@@ -118,6 +121,7 @@ let
         home = defaultHome;
       }) // {
         imports = modules;
+        xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };
     };
 in fn
