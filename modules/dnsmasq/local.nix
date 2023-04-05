@@ -12,7 +12,7 @@ in {
     address=/speedtest.lan/192.168.1.222
     address=/duplicati.lan/192.168.1.223
     address=/tv.lan/192.168.3.2
-    address=/wigglytuff.lan/192.168.6.6
+    address=/wigglytuff.lan/192.168.3.4
     address=/car_bed.lan/192.168.3.10
     address=/jackett.lan/192.168.4.129
     address=/deluge.lan/192.168.4.130

@@ -64,7 +64,7 @@ in {
           "speedtest.lan" = "192.168.1.222";
           "duplicati.lan" = "192.168.1.223";
           "tv.lan" = "192.168.3.2";
-          "wigglytuff.lan" = "192.168.6.6";
+          "wigglytuff.lan" = "192.168.3.4";
           "car_bed.lan" = "192.168.3.10";
           "jackett.lan" = "192.168.4.129";
           "deluge.lan" = "192.168.4.130";
