@@ -28,6 +28,7 @@ let
     nur.overlay
     agenix.overlays.default
     self.overlays.makeModulesClosure
+    self.overlays.fcitx-engines
     # Only include the below to pin microvm kernel versions
     # based on our overlay configurations.
     # self.overlays.alt-microvm-kernel

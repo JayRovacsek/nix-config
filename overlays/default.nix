@@ -42,6 +42,8 @@ in {
     });
   };
 
+  fcitx-engines = final: prev: { fcitx-engines = prev.fcitx5; };
+
   # Required if we want to pin microvm kernel version, the output version
   # will follow prev.linuxPackages
   alt-microvm-kernel = final: prev: {
