@@ -10,12 +10,13 @@ let
 
   journald-share = generate-journald-share hostName;
 
-  root = common.users.root {
+  jay = common.users.jay {
     inherit config pkgs;
     modules = [ ];
+    overrides = { users.users.jay.shell = pkgs.bash; };
   };
 
-  merged = merge-user-config { users = [ root ]; };
+  merged = merge-user-config { users = [ jay ]; };
 
 in {
   inherit flake;
@@ -29,7 +30,7 @@ in {
   microvm = {
     vcpu = 1;
     mem = 1024;
-    hypervisor = "cloud-hypervisor";
+    hypervisor = "qemu";
     shares = [ read-only-store journald-share ];
     interfaces = [{
       type = "tap";

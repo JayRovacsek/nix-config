@@ -38,17 +38,6 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  microvm.vms = {
-    aipom = {
-      inherit flake;
-      autostart = true;
-    };
-    igglybuff = {
-      inherit flake;
-      autostart = true;
-    };
-  };
-
   services.tailscale.tailnet = "admin";
 
   imports =

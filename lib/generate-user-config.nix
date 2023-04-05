@@ -22,6 +22,9 @@ let
       inherit (flake.inputs) home-manager;
       inherit (flake.common) user-attr-names;
 
+      # Also described below, making the recursive update easier to follow
+      flippedRecursiveUpdate = x: y: recursiveUpdate y x;
+
       home = if isLinux then "/home/${name}" else "/Users/${name}";
 
       # For the configuration we're applying to; check if agenix is present
@@ -111,7 +114,10 @@ let
 
       nixpkgs = if stable then flake.inputs.stable else flake.inputs.nixpkgs;
 
-    in recursiveUpdate overrides {
+      # Inverting the logic on recursive update here to increase readability: otherwise 
+      # overrides would need to follow the base config leading to it hiding at the end of
+      # this file.
+    in flippedRecursiveUpdate overrides {
       users.users.${name} =
         recursiveUpdate { shell = pkgs.zsh; } stripped-user-settings;
 
