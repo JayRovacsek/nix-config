@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 # This option intends to make local domain refrences possible and
 # consistent between nixOS and macOS; currently darwin does not 
 # expose a local domain or domain equivilent option meaning 

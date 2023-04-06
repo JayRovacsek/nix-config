@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, graphicsmagick
-, writeScript, unzip }:
+{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "amethyst";

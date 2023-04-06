@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ lib, fetchPypi, python, ... }:
 let
   pname = "pytsk3";
   name = pname;
@@ -13,10 +13,10 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;

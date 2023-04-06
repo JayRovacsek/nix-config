@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ lib, stdenv, fetchPypi, python, ... }:
 let
   pname = "pyxattr";
   name = pname;
@@ -14,10 +14,10 @@ let
     license = licenses.lgpl2Plus;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 

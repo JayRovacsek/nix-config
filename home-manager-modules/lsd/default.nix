@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+_: {
   programs.lsd = {
     enable = true;
     enableAliases = true;

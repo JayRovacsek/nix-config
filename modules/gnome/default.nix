@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   tailscaleExtensions = if config.services.tailscale.enable then
     with pkgs.gnomeExtensions; [ tailscale-status ]

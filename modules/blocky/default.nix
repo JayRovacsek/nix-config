@@ -3,11 +3,11 @@ let
   # inherit (config.services.blocky.settings.ports) dns tls https http;
   inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
 in {
-  networking.firewall = {
-    # allowedTCPPorts = [ dns tls https http ];
-    allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
-    allowedUDPPorts = [ port ];
-  };
+  # networking.firewall = {
+  #   # allowedTCPPorts = [ dns tls https http ];
+  #   allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
+  #   allowedUDPPorts = [ port ];
+  # };
 
   services.blocky = {
     enable = true;

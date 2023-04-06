@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 let
   inherit (lib) version;
 
@@ -7,8 +7,6 @@ let
   } else {
     passwordAuthentication = false;
   };
-
-  agenixPresent = builtins.hasAttr "age" config;
 
   users = builtins.filter (x: x.isNormalUser)
     (builtins.attrValues config.users.users);

@@ -1,1 +1,1 @@
-{ config, pkgs, ... }: { programs.dircolors.enable = true; }
+_: { programs.dircolors.enable = true; }

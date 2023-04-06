@@ -1,4 +1,4 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, lib, osConfig, ... }:
 with pkgs;
 let
   # Hack to make home manager module that is linux

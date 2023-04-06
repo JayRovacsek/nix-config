@@ -6,7 +6,6 @@ let
   state-bucket = "676728e1b95-terraform";
   state-path = "terraform/state";
   state-table = "terraform-state";
-  iam_policy_base = { Version = "2012-10-17"; };
   ddb = [{
     Effect = "Allow";
     Action = [

@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, zlib, fetchPypi, python }:
+{ lib, zlib, fetchPypi, python, ... }:
 let
   pname = "libfsapfs-python";
   name = pname;
@@ -15,7 +15,7 @@ let
   inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   buildInputs = [ zlib ];
 

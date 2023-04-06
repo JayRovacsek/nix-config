@@ -1,7 +1,5 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let cfg = config.hardware.cpu.profile;
-in {
+{ lib, ... }:
+with lib; {
   options.hardware.cpu.profile = {
     cores = mkOption {
       type = types.int;

@@ -1,4 +1,4 @@
-{ config, ... }:
+_:
 let
   name = "dns";
   interface = "eth0";

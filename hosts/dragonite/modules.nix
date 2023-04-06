@@ -1,4 +1,4 @@
-{ config, pkgs, lib, flake, ... }: {
+{ ... }: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav

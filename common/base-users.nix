@@ -6,7 +6,7 @@ let
 
   # Filter the user standard directory for regular files
   # and consume them assuming they are sets NOT functions
-  user-files = filterAttrs (name: value: value == "regular") (readDir path);
+  user-files = filterAttrs (_: value: value == "regular") (readDir path);
 
   # Given above list of regular files, create an array of the 
   # user configs loaded as set values.

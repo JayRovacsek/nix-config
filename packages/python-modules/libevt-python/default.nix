@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ lib, fetchPypi, python, ... }:
 let
   pname = "libevt-python";
   name = pname;
@@ -12,10 +12,10 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage pip;
+  inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;

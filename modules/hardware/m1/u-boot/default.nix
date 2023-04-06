@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, pkgsCross, m1n1 }:
+{ fetchFromGitHub, pkgsCross, m1n1 }:
 (pkgsCross.aarch64-multiplatform.buildUBoot rec {
   src = fetchFromGitHub {
     # tracking branch: https://github.com/AsahiLinux/u-boot/tree/releng/installer-release
@@ -15,7 +15,7 @@
   extraConfig = ''
     CONFIG_IDENT_STRING=" ${version}"
   '';
-}).overrideAttrs (o: {
+}).overrideAttrs (_: {
   # nixos's downstream patches are not applicable
   patches = [ ];
 

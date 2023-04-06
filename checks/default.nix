@@ -9,6 +9,14 @@ let
     pre-commit = self.inputs.pre-commit-hooks.lib.${system}.run {
       src = self;
       hooks = {
+        deadnix.enable = true;
+        deadnix-write = {
+          enable = true;
+          name = "Deadnix Write";
+          entry = "${pkgs.deadnix}/bin/deadnix -eq";
+          language = "system";
+        };
+
         nixfmt.enable = true;
         statix.enable = false;
         prettier-write = {

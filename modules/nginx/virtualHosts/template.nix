@@ -1,7 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
   subdomain = "template";
-  fqdn = "${subdomain}.${tld}";
   # We assume the host we are proxying, to have a hostname matching the
   # subdomain - otherwise change this bad-boy
   target = "${subdomain}.${

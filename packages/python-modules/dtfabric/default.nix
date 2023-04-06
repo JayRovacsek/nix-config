@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ lib, fetchPypi, python, ... }:
 let
   pname = "dtfabric";
   name = pname;
@@ -13,10 +13,10 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage pip pyyaml;
+  inherit (python) buildPythonPackage pyyaml;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
   propagatedBuildInputs = [ pyyaml ];
 
   src = fetchPypi {

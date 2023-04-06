@@ -3,13 +3,8 @@ let
   inherit (self) nixosConfigurations;
   inherit (self.inputs) nixos-generators;
   inherit (self.inputs.stable.lib) recursiveUpdate;
-  inherit (self.inputs.stable.lib.attrsets)
-    filterAttrs foldAttrs mapAttrsToList;
+  inherit (self.inputs.stable.lib.attrsets) filterAttrs mapAttrsToList;
   inherit (nixosConfigurations) rpi1 rpi2;
-
-  inherit (self.common.package-sets)
-    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-stable
-    aarch64-linux-unstable;
 
   sd-configurtations = [ rpi1 rpi2 ];
   cloud-formats = [ "linode" "qcow" ];
@@ -27,7 +22,8 @@ let
           };
         }] ++ accumulator) [ ] cloud-formats
 
-    ) (filterAttrs (n: v: builtins.elem n cloud-formats) nixosConfigurations));
+    ) (filterAttrs (name: _: builtins.elem name cloud-formats)
+      nixosConfigurations));
 
   # Create a list of identifer to sdImage build derivations.
   sd-images = builtins.map (image: {

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+_: {
   users.groups = {
     users = { gid = 100; };
 

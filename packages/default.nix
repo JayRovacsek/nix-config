@@ -2,7 +2,6 @@
 let
   pkgs = self.inputs.nixpkgs.legacyPackages.${system};
   inherit (pkgs) callPackage;
-  inherit (pkgs.stdenv) isLinux isDarwin isx86_64;
   inherit (pkgs.lib) recursiveUpdate;
   inherit (pkgs.lib.attrsets) mapAttrs;
   inherit (self.inputs) terranix;
@@ -24,7 +23,7 @@ let
       };
     } accumulator) { } python-modules;
 
-  terraform-packages = mapAttrs (name: value:
+  terraform-packages = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [

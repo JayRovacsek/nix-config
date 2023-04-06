@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   hardware = {
     # Required for the Wireless firmware
     enableRedistributableFirmware = true;

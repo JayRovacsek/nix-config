@@ -1,4 +1,4 @@
-{ config, tld ? "rovacsek.com" }:
+{ tld ? "rovacsek.com" }:
 let
   subdomain = "binarycache";
   fqdn = "${subdomain}.${tld}";

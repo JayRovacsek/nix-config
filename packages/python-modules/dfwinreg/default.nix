@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ self, system, lib, fetchPypi, python }:
 let
   pname = "dfwinreg";
   name = pname;
@@ -13,12 +13,12 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage pip pyyaml;
+  inherit (python) buildPythonPackage pyyaml;
 
   inherit (self.packages.${system}.python310Packages)
     dfdatetime libregf-python libcreg-python dtfabric;
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
   propagatedBuildInputs =
     [ dfdatetime libregf-python libcreg-python pyyaml dtfabric ];
 

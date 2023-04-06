@@ -1,4 +1,4 @@
-{ self, ... }:
+_:
 let region = "ap-southeast";
 in {
   variable.LINODE_TOKEN = {

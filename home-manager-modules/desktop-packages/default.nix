@@ -1,4 +1,4 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, lib, osConfig, ... }:
 let
   inherit (lib.strings) hasInfix;
 

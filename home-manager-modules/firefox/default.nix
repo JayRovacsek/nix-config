@@ -1,4 +1,4 @@
-{ config, pkgs, osConfig, ... }:
+{ pkgs, osConfig, ... }:
 let
   packageSettings =
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };

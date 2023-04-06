@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ ... }: {
   imports = [
     ../../modules/clamav
     ../../modules/gnupg

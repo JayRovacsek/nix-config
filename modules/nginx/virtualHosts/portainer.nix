@@ -1,7 +1,6 @@
-{ config, tld ? "rovacsek.com" }:
+{ tld ? "rovacsek.com" }:
 let
   subdomain = "portainer";
-  fqdn = "${subdomain}.${tld}";
   target = "dragonite.trust.rovacsek.com.internal";
   port = 9000;
   scheme = "http";

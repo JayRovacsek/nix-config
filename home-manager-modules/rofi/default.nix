@@ -1,4 +1,4 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, lib, osConfig, ... }:
 let
   # Hack to make home manager module that is linux
   # specific not cause explosions if accidentally loaded onto

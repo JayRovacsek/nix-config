@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   inherit (config.networking) hostName;
   extraCasks = if hostName == "victreebel" then [ "workplace-chat" ] else [ ];

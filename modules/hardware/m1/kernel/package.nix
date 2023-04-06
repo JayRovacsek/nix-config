@@ -22,8 +22,7 @@ let
       echo "}" >> $out
     '').outPath;
 
-  linux_asahi_pkg =
-    { stdenv, lib, fetchFromGitHub, fetchpatch, linuxKernel, ... }@args:
+  linux_asahi_pkg = { stdenv, lib, fetchFromGitHub, linuxKernel, ... }@args:
     linuxKernel.manualConfig rec {
       inherit stdenv lib;
 

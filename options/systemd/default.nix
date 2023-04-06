@@ -1,7 +1,5 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let cfg = config.systemd;
-in {
+{ lib, ... }:
+with lib; {
   options.systemd = {
     machineId = mkOption {
       type = types.str;

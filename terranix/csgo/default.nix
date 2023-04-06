@@ -1,4 +1,4 @@
-{ self, ... }:
+_:
 let
   linodeRegion = "ap-southeast";
   awsRegion = "ap-southeast-2";

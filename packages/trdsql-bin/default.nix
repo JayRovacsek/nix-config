@@ -2,12 +2,11 @@
 { pkgs, lib, stdenv, fetchurl, unzip, autoPatchelfHook }:
 let
   inherit (pkgs) system;
-  inherit (pkgs.stdenv) isDarwin isLinux;
+  inherit (pkgs.stdenv) isLinux;
   inherit (lib.lists) optional;
 
   pname = "trdsql";
   name = pname;
-  appname = pname;
   version = "0.10.1";
 
   meta = with lib; {
@@ -52,7 +51,7 @@ let
     "";
 
 in stdenv.mkDerivation {
-  inherit pname version src filename meta;
+  inherit name pname version src filename meta;
   buildInputs = [ unzip ] ++ optional isLinux [ ];
 
   nativeBuiltInputs = [ ] ++ optional isLinux [ autoPatchelfHook ];

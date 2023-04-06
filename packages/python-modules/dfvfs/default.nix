@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ self, system, lib, fetchPypi, python }:
 let
   pname = "dfvfs";
   name = pname;
@@ -13,7 +13,7 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage cffi cryptography pip pyyaml;
+  inherit (python) buildPythonPackage cffi cryptography pyyaml;
 
   inherit (self.packages.${system}.python310Packages)
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
@@ -24,7 +24,7 @@ let
     libvsgpt-python libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;

@@ -1,1 +1,1 @@
-{ config, pkgs, ... }: { programs.bat.enable = true; }
+_: { programs.bat.enable = true; }

@@ -1,6 +1,4 @@
-let
-  portainerUser = import ../../../users/service-accounts/portainer.nix;
-  serviceName = "portainer";
+let serviceName = "portainer";
 in {
   inherit serviceName;
   autoStart = true;

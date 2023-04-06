@@ -1,7 +1,6 @@
-{ config, tld ? "rovacsek.com" }:
+{ tld ? "rovacsek.com" }:
 let
   subdomain = "pfsense";
-  fqdn = "${subdomain}.${tld}";
   # target = "${subdomain}.${
   #     if builtins.hasAttr "localDomain" config.networking then
   #       config.networking.localDomain

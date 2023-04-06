@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let secrets = builtins.fromJSON (builtins.readFile /secrets/jellyfin.json);
 in {
   services.mopidy = {

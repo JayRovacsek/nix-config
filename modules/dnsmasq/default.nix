@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
@@ -11,8 +11,6 @@ let
       local
       cache
     ];
-
-  extraConfig = "\n";
 in {
   services.dnsmasq = {
     # inherit extraConfig;

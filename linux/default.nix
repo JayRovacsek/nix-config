@@ -1,18 +1,13 @@
 { self }:
 let
-  inherit (self) inputs;
-
-  # Package Sets
-  inherit (self.inputs) stable unstable;
 
   # Extra modules
-  inherit (self.inputs) microvm nixos-generators nixos-hardware nixos-wsl;
+  inherit (self.inputs) microvm nixos-hardware nixos-wsl;
 
   inherit (self.common.system) stable-system unstable-system;
 
   inherit (self.common.package-sets)
-    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-stable
-    aarch64-linux-unstable;
+    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable;
 
 in {
   # SD Installer Images / Configs

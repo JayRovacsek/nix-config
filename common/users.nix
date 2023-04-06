@@ -15,7 +15,7 @@ let
   # nix-repl> pkgs = nixosConfigurations.alakazam.pkgs 
   # nix-repl> jay = common.users.jay { inherit pkgs; }
 
-  fn = mapAttrs (name: user-settings:
+  fn = mapAttrs (_: user-settings:
     { config, pkgs, modules ? [ ], overrides ? { } }:
     let flake = self;
     in generate-user-config {

@@ -1,6 +1,5 @@
 { self }:
 let
-  inherit (self.inputs) unstable;
   inherit (self.common.system) unstable-system;
   inherit (self.common.cloud-base-image-modules) oracle;
   inherit (self.common.package-sets) x86_64-linux-unstable;

@@ -1,7 +1,6 @@
 { config, tld ? "rovacsek.com" }:
 let
   subdomain = "nextcloud";
-  fqdn = "${subdomain}.${tld}";
   target = "${subdomain}.${
       if builtins.hasAttr "localDomain" config.networking then
         config.networking.localDomain

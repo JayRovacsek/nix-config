@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
   virtualHostConfigs = builtins.filter (x: x != "template.nix")
     (builtins.attrNames (builtins.readDir ./virtualHosts));

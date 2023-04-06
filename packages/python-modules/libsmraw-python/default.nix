@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchPypi, python }:
+{ lib, fetchPypi, python, ... }:
 let
   pname = "libsmraw-python";
   name = pname;
@@ -15,7 +15,7 @@ let
   inherit (python) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;

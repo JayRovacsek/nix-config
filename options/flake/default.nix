@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 with lib; {
   options.flake = mkOption {
     type = with types; anything;

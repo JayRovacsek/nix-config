@@ -1,1 +1,1 @@
-{ config, pkgs, ... }: { programs.kitty.enable = true; }
+_: { programs.kitty.enable = true; }

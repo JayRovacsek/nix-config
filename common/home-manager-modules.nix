@@ -7,8 +7,7 @@ let
   # Filter files within the home-manager-modules root folder for
   # only directories. Where they exist, assume the standard 
   # default.nix exists for loading.
-  module-folders =
-    filterAttrs (name: value: value == "directory") (readDir path);
+  module-folders = filterAttrs (_: value: value == "directory") (readDir path);
 
   # With a list of directories, create a map of those being imported without
   # arguments to be loaded later.

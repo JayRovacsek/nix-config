@@ -1,4 +1,4 @@
-{ self, system, lib, stdenv, fetchurl, fetchPypi, gnutar, python310Packages }:
+{ self, system, lib, fetchPypi, python310Packages }:
 let
   pname = "plaso";
   name = pname;
@@ -29,7 +29,7 @@ let
     libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
-  inherit pname name version;
+  inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;

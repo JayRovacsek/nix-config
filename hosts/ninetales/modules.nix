@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   imports = [
     ../../modules/docker-darwin
     ../../modules/dockutil

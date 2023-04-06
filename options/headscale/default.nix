@@ -1,9 +1,5 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
-  cfg = services.headscale;
-  settingsFormat = pkgs.formats.yaml { };
-in {
+{ lib, ... }:
+with lib; {
   options.services.headscale = {
     # TODO: make the below a submodule that
     # exposes name, ephemerality and 

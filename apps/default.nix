@@ -107,7 +107,7 @@ let
       ${removeConfig}
     '');
 
-  terraform-actions = concatMapAttrs (name: value:
+  terraform-actions = concatMapAttrs (name: _:
     let cfg = self.packages.${system}.${name};
     in {
       "${name}-apply" = {

@@ -1,7 +1,6 @@
-{ config, tld ? "rovacsek.com" }:
+{ tld ? "rovacsek.com" }:
 let
   subdomain = "duplicati";
-  fqdn = "${subdomain}.${tld}";
   # TODO: write this out as it's own host in the future.
   target = "dragonite.trust.rovacsek.com.internal";
   port = 8200;

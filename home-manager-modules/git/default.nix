@@ -1,4 +1,4 @@
-{ config, pkgs, osConfig, ... }: {
+{ config, osConfig, ... }: {
   programs.git = {
     enable = true;
     difftastic = {

@@ -2,12 +2,11 @@
 { pkgs, lib, stdenv, fetchurl, autoPatchelfHook, systemd }:
 let
   inherit (pkgs) system;
-  inherit (pkgs.stdenv) isDarwin isLinux;
+  inherit (pkgs.stdenv) isLinux;
   inherit (lib.lists) optional;
 
   pname = "velociraptor";
   name = pname;
-  appname = pname;
   version = "0.6.7-5";
 
   meta = with lib; {
@@ -60,7 +59,7 @@ let
     "";
 
 in stdenv.mkDerivation {
-  inherit pname version src filename meta;
+  inherit name pname version src filename meta;
   buildInputs = [ ] ++ optional isLinux [ systemd ];
 
   dontUnpack = true;
