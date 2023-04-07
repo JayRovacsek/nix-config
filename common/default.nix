@@ -8,6 +8,7 @@
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
+  hyprland = import ./hyprland.nix { inherit self; };
   i18n = import ./i18n.nix { inherit self; };
   images = import ./images { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
