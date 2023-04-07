@@ -6,14 +6,10 @@
     stable.url = "github:nixos/nixpkgs/release-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    nixos-wsl = {
-      url =
-        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
+    # Secrets Management <3
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
@@ -28,6 +24,12 @@
       url = "github:lnl7/nix-darwin/master";
     };
 
+    # Simply required for sane management of Firefox on darwin
+    firefox-darwin = {
+      url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Adds flake compatability to start removing the vestiges of 
     # shell.nix and move us towards the more modern nix develop
     # setting while tricking some services/plugins to still be able to
@@ -37,43 +39,13 @@
       flake = false;
     };
 
-    # Adds configurable pre-commit options to our flake :)
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
-    # Secrets Management <3
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Terraform via the nix language
-    terranix = {
-      url = "github:terranix/terranix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
-    # Simply required for sane management of Firefox on darwin
-    firefox-darwin = {
-      url = "github:bandithedoge/nixpkgs-firefox-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Home management module
     home-manager = {
       url = "github:rycee/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Wayland compositor & WM
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -97,8 +69,44 @@
     # Apply opinions on hardware that are driven by community
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    # Nixos modules to be used in the Windows Subsystem for Linux  
+    nixos-wsl = {
+      url =
+        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
+
+    # Adds configurable pre-commit options to our flake :)
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    # Software bill of materials package
+    sbomnix = {
+      url = "github:tiiuae/sbomnix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Terraform via the nix language
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = { self, flake-utils, ... }:
