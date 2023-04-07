@@ -15,6 +15,38 @@
 
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
+  vscodium-wayland = _final: prev: {
+    vscodium-wayland =
+
+      let
+        waylandFlags =
+          "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+      in prev.vscodium.overrideAttrs (old: rec {
+        runScript =
+          "${prev.vscodium}/bin/${old.passthru.executableName} ${waylandFlags}";
+
+        desktopItem = prev.makeDesktopItem {
+          name = old.passthru.executableName;
+          desktopName = old.passthru.longName;
+          comment = "Code Editing. Redefined.";
+          genericName = "Text Editor";
+          exec = "${old.passthru.executableName} %F ${waylandFlags}";
+          icon = "code";
+          startupNotify = true;
+          startupWMClass = old.pname;
+          categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+          mimeTypes = [ "text/plain" "inode/directory" ];
+          keywords = [ "vscode" ];
+          actions.new-empty-window = {
+            name = "New Empty Window";
+            exec =
+              "${old.passthru.executableName} --new-window %F ${waylandFlags}";
+            icon = "code";
+          };
+        };
+      });
+  };
+
   # Required if we want to pin microvm kernel version, the output version
   # will follow prev.linuxPackages
   alt-microvm-kernel = _final: prev: {

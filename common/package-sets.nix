@@ -29,6 +29,7 @@ let
     agenix.overlays.default
     self.overlays.makeModulesClosure
     self.overlays.fcitx-engines
+    self.overlays.vscodium-wayland
     # Only include the below to pin microvm kernel versions
     # based on our overlay configurations.
     # self.overlays.alt-microvm-kernel
