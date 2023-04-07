@@ -1,4 +1,4 @@
-{ self, system, lib, fetchPypi, python }:
+{ lib, fetchPypi, python, ownPython, ... }:
 let
   pname = "dfwinreg";
   name = pname;
@@ -15,8 +15,7 @@ let
 
   inherit (python) buildPythonPackage pyyaml;
 
-  inherit (self.packages.${system}.python310Packages)
-    dfdatetime libregf-python libcreg-python dtfabric;
+  inherit (ownPython) dfdatetime libregf-python libcreg-python dtfabric;
 in buildPythonPackage {
   inherit pname name version meta;
   propagatedBuildInputs =

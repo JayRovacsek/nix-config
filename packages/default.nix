@@ -1,6 +1,7 @@
 { self, system, pkgs }:
 let
   pkgs = self.inputs.nixpkgs.legacyPackages.${system};
+  selfPkgs = self.outputs.packages.${system};
   inherit (pkgs) callPackage;
   inherit (pkgs.lib) recursiveUpdate;
   inherit (pkgs.lib.attrsets) mapAttrs;
@@ -14,12 +15,12 @@ let
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
       python310Packages.${package} = callPackage ./python-modules/${package} {
-        inherit self system;
         python = python310Packages;
+        ownPython = selfPkgs.python310Packages;
       };
       python311Packages.${package} = callPackage ./python-modules/${package} {
-        inherit self system;
         python = python311Packages;
+        ownPython = selfPkgs.python311Packages;
       };
     } accumulator) { } python-modules;
 
@@ -42,7 +43,6 @@ let
       amethyst = callPackage ./amethyst { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
-      plaso = callPackage ./plaso { inherit self system; };
       trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };

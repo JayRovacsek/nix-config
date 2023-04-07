@@ -1,4 +1,4 @@
-{ self, system, lib, fetchPypi, python }:
+{ lib, fetchPypi, python, ownPython, ... }:
 let
   pname = "dfvfs";
   name = pname;
@@ -15,7 +15,7 @@ let
 
   inherit (python) buildPythonPackage cffi cryptography pyyaml;
 
-  inherit (self.packages.${system}.python310Packages)
+  inherit (ownPython)
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
     libfsext-python libfsfat-python libfshfs-python libfsntfs-python
     libfsxfs-python libfvde-python libfwnt-python libluksde-python

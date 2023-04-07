@@ -1,4 +1,4 @@
-{ self, system, lib, fetchPypi, python310Packages }:
+{ lib, fetchPypi, python, ownPython, ... }:
 let
   pname = "plaso";
   name = pname;
@@ -12,12 +12,12 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python310Packages)
+  inherit (python)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
     pyzmq redis requests six XlsxWriter yara-python;
 
-  inherit (self.packages.${system}.python310Packages)
+  inherit (ownPython)
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
     libcreg-python libesedb-python libevt-python libevtx-python libewf-python
     libfsapfs-python libfsext-python libfsfat-python libfshfs-python
