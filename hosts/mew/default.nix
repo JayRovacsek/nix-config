@@ -18,12 +18,6 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  # Enable auto-login for testing
-  services.xserver.displayManager.autoLogin = {
-    enable = true;
-    user = "test";
-  };
-
   imports = [ ./modules.nix ./system-packages.nix ];
 
   networking = {
