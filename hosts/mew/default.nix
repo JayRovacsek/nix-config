@@ -3,13 +3,11 @@
 let
   inherit (flake) common;
   inherit (flake.lib) merge-user-config;
-
-  hyprlandHmModule = flake.inputs.hyprland.homeManagerModules.default;
-  inherit (flake.common.home-manager-modules) hyprland;
+  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
 
   test = common.users.test {
     inherit config pkgs;
-    modules = [ hyprlandHmModule hyprland ];
+    modules = hyprland-desktop;
   };
 
   merged = merge-user-config { users = [ test ]; };

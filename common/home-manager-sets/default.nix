@@ -7,4 +7,7 @@
   # Both inherit from desktop, then add system specific packages on-top
   linux-desktop = import ./linux-desktop.nix { inherit self; };
   darwin-desktop = import ./darwin-desktop.nix { inherit self; };
+
+  # Linux desktop alternative utilising wayland & hyprland
+  hyprland-desktop = import ./hyprland-desktop.nix { inherit self; };
 }
