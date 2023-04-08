@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
-let inherit (config.nur.repos.kira-bruneau) pokemmo-installer;
+let
+  inherit (pkgs) system;
+  inherit (config.nur.repos.kira-bruneau) pokemmo-installer;
+  inherit (config.flake.inputs.sbomnix.packages.${system}) sbomnix;
 in {
   environment.systemPackages = with pkgs; [
     # CLI
@@ -10,5 +13,8 @@ in {
 
     # NUR Packages
     pokemmo-installer
+
+    # TEMP
+    sbomnix
   ];
 }

@@ -51,6 +51,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Modules to help you handle persistent state on systems with ephemeral root storage.
+    impermanence.url = "github:nix-community/impermanence";
+
     # Microvm module, PoC state for implementation
     microvm = {
       url = "github:astro/microvm.nix";

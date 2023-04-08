@@ -38,11 +38,10 @@ let
     pythonModules
     terraform-packages
     {
-      # Disable until I can resolve this
-      # netextender = callPackage ./netextender { };
       amethyst = callPackage ./amethyst { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
+      falcon-sensor = callPackage ./falcon-sensor { };
       trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };

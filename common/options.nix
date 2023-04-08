@@ -5,8 +5,12 @@ in builtins.mapAttrs (package-set: _:
     pkgs = self.common.package-sets.${package-set};
     inherit (pkgs.stdenv) isLinux isDarwin;
     generic = [ ../options/flake ../options/hardware ../options/networking ];
-    linux =
-      if isLinux then [ ../options/systemd ../options/tailscale ] else [ ];
+    linux = if isLinux then [
+      ../options/falcon-sensor
+      ../options/systemd
+      ../options/tailscale
+    ] else
+      [ ];
     darwin = if isDarwin then [ ../options/blocky ../options/docker ] else [ ];
     imports = generic ++ linux ++ darwin;
   in { inherit imports; }) package-sets
