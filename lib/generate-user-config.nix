@@ -1,4 +1,4 @@
-{ self }:
+_:
 let
   fn = { flake, config, pkgs, user-settings, modules, stable ? false
     , overrides ? { }, ... }:
@@ -76,7 +76,6 @@ let
       # the system nixpkgs version is - assuming it is set to
       # be available as xdg.configHome
       defaultHome = {
-
         # State version here is the database layout NOT the packages version or 
         # associated settings.
         stateVersion = "22.11";
