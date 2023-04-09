@@ -4,12 +4,11 @@ let
   signingKeyConfigured = builtins.hasAttr "age" osConfig
     && builtins.hasAttr "git-signing-key.pub" osConfig.age.secrets;
 
-  # Check if allowed signers file is configured as expected
-  allowedSignersFileConfigured =
-    builtins.hasAttr ".ssh/allowed_signers" config.home.file;
-
-  # Are both of the above true?
-  useExtraConfig = signingKeyConfigured && allowedSignersFileConfigured;
+  # Cannot use a reference below in a conditional to build our
+  # desired config as it causes infinite recursion. We'll just assume
+  # a signers file is configured in the standard location to get around
+  # this.
+  useExtraConfig = signingKeyConfigured;
 
   # Create a set with signing config present for systems that 
   # can support it

@@ -4,8 +4,8 @@
     ../../modules/clamav
     ../../modules/docker
     ../../modules/fonts
-    ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/hyprland
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix

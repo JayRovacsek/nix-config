@@ -2,12 +2,12 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) linux-desktop;
+  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
   inherit (flake.lib) merge-user-config;
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = linux-desktop;
+    modules = hyprland-desktop;
   };
 
   merged = merge-user-config { users = [ jay ]; };

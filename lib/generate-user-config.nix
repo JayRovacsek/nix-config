@@ -113,6 +113,11 @@ let
 
       nixpkgs = if stable then flake.inputs.stable else flake.inputs.nixpkgs;
 
+      optionalHome = lib.attrsets.optionalAttrs (hasAttr "home" user-settings)
+        user-settings.home;
+      accounts = lib.attrsets.optionalAttrs (hasAttr "accounts" user-settings)
+        user-settings.accounts;
+
       # Inverting the logic on recursive update here to increase readability: otherwise 
       # overrides would need to follow the base config leading to it hiding at the end of
       # this file.
@@ -120,11 +125,9 @@ let
       users.users.${name} =
         recursiveUpdate { shell = pkgs.zsh; } stripped-user-settings;
 
-      home-manager.users.${name} = (if hasAttr "home" user-settings then {
-        home = recursiveUpdate defaultHome user-settings.home;
-      } else {
-        home = defaultHome;
-      }) // {
+      home-manager.users.${name} = {
+        home = recursiveUpdate defaultHome optionalHome;
+        inherit accounts;
         imports = modules;
         xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };

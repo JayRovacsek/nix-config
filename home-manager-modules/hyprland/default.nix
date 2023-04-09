@@ -3,6 +3,9 @@ let
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
 in {
+
+  imports = [ ../waybar ../wofi ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     inherit nvidiaPatches;
@@ -120,7 +123,7 @@ in {
 
 
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-      $mainMod = SUPER
+      $mainMod = ALT
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       bind = $mainMod, Q, exec, kitty
@@ -128,7 +131,7 @@ in {
       bind = $mainMod, M, exit,
       bind = $mainMod, E, exec, dolphin
       bind = $mainMod, V, togglefloating,
-      bind = $mainMod, R, exec, wofi --show drun
+      bind = $mainMod, Space, exec, wofi --show drun
       bind = $mainMod, P, pseudo, # dwindle
       bind = $mainMod, J, togglesplit, # dwindle
 
