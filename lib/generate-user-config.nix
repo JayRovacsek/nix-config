@@ -53,7 +53,7 @@ let
       else
         [ ];
 
-      linuxHosts = if builtins.hasAttr "nixosConfigurations" flake then
+      linuxHosts = if hasAttr "nixosConfigurations" flake then
         attrNames flake.nixosConfigurations
       else
         [ ];
@@ -65,12 +65,33 @@ let
           ${forwardAgent}'';
 
       extraHostNames = darwinHosts ++ linuxHosts;
-      extraHostConfigs = map (hostName: ''
-        Host ${hostName}
-          HostName ${hostName}
-          ${addKeysForwardAgent}
-          ${if ((length sshKeys) != 0) then identityFiles else ""}
-      '') extraHostNames;
+
+      requireBuilderConfigs = (hasAttr "builder" config.users.users)
+        && (hasAttr "builder-id-ed25519" config.age.secrets);
+
+      # So for the longest time, I couldn't figure why distributed builds didn't work.
+      # Turns out it was likely because I was configuring the ssh config wrong leading to 
+      extraHostConfigs = if requireBuilderConfigs then
+        (map (hostName: ''
+          Host builder_${hostName}
+            HostName ${hostName}
+            User builder
+            ${addKeysForwardAgent}
+            IdentityFile ${config.age.secrets.builder-id-ed25519.path}
+
+          Host ${name}_${hostName}
+            HostName ${hostName}
+            User ${name}
+            ${addKeysForwardAgent}
+            ${if ((length sshKeys) != 0) then identityFiles else ""}
+        '') extraHostNames)
+      else
+        map (hostName: ''
+          Host ${hostName}
+            HostName ${hostName}
+            ${addKeysForwardAgent}
+            ${if ((length sshKeys) != 0) then identityFiles else ""}
+        '') extraHostNames;
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
@@ -89,27 +110,25 @@ let
             HostName github.com
             User git
             ${addKeys}
-            ${if ((builtins.length sshKeys) != 0) then identityFiles else ""}
+            ${if ((length sshKeys) != 0) then identityFiles else ""}
 
           Host *.rovacsek.com.internal
             ${addKeysForwardAgent}
-            ${if ((builtins.length sshKeys) != 0) then identityFiles else ""}
+            ${if ((length sshKeys) != 0) then identityFiles else ""}
 
           ${if localDomain == null then
             ""
           else ''
             Host *.${localDomain}
               ${addKeysForwardAgent}
-              ${
-                if ((builtins.length sshKeys) != 0) then identityFiles else ""
-              }''}
+              ${if ((length sshKeys) != 0) then identityFiles else ""}''}
 
-          ${builtins.concatStringsSep "\n\n" extraHostConfigs}
+          ${concatStringsSep "\n\n" extraHostConfigs}
         '';
       };
 
       stripped-user-settings =
-        filterAttrs (name: _: builtins.elem name user-attr-names) user-settings;
+        filterAttrs (name: _: elem name user-attr-names) user-settings;
 
       nixpkgs = if stable then flake.inputs.stable else flake.inputs.nixpkgs;
 
