@@ -71,6 +71,14 @@ let
 
       # So for the longest time, I couldn't figure why distributed builds didn't work.
       # Turns out it was likely because I was configuring the ssh config wrong leading to 
+      # inability to utilise SSH as the builder user.
+      # 
+      # If a system is detected as having the builder ssh key deployed and user allocated
+      # locally, we create two configs per system; one for the current user and one for 
+      # builder. Builder can utilise a key with a passphrase or hardware token for validation
+      # but these are not remembered by the build process so may require a large number of 
+      # entries to be used (probs don't apply these controls and instead limit ability for
+      # the builder user to do much beyond build)
       extraHostConfigs = if requireBuilderConfigs then
         (map (hostName: ''
           Host builder_${hostName}
