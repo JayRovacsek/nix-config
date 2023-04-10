@@ -149,8 +149,9 @@ let
       # overrides would need to follow the base config leading to it hiding at the end of
       # this file.
     in flippedRecursiveUpdate overrides {
-      users.users.${name} =
-        recursiveUpdate { shell = pkgs.zsh; } stripped-user-settings;
+      users.users.${name} = recursiveUpdate {
+        shell = if name != "builder" then pkgs.zsh else pkgs.bash;
+      } stripped-user-settings;
 
       home-manager.users.${name} = {
         home = recursiveUpdate defaultHome optionalHome;
