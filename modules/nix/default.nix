@@ -40,12 +40,6 @@ let
       (builtins.attrValues flake.nixosConfigurations));
 
 in {
-  age.secrets."builder-id-ed25519" = {
-    file = ../../secrets/ssh/builder-id-ed25519.age;
-    owner = "builder";
-    group = "nixbld";
-    mode = "0400";
-  };
 
   nix = {
     inherit buildMachines;

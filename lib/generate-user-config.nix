@@ -79,16 +79,21 @@ let
       # but these are not remembered by the build process so may require a large number of 
       # entries to be used (probs don't apply these controls and instead limit ability for
       # the builder user to do much beyond build)
-      extraHostConfigs = if requireBuilderConfigs then
+      extraHostConfigs = let
+        fqdn = hostName:
+          if localDomain == null then
+            "${hostName}"
+          else
+            "${hostName}.${localDomain}";
+      in if requireBuilderConfigs then
         (map (hostName: ''
-          Host builder_${hostName}
-            HostName ${hostName}
+          Host ${fqdn hostName}
+            HostName ${fqdn hostName}
             User builder
-            ${addKeysForwardAgent}
             IdentityFile ${config.age.secrets.builder-id-ed25519.path}
 
-          Host ${name}_${hostName}
-            HostName ${hostName}
+          Host ${fqdn hostName}
+            HostName ${fqdn hostName}
             User ${name}
             ${addKeysForwardAgent}
             ${if ((length sshKeys) != 0) then identityFiles else ""}
@@ -119,17 +124,6 @@ let
             User git
             ${addKeys}
             ${if ((length sshKeys) != 0) then identityFiles else ""}
-
-          Host *.rovacsek.com.internal
-            ${addKeysForwardAgent}
-            ${if ((length sshKeys) != 0) then identityFiles else ""}
-
-          ${if localDomain == null then
-            ""
-          else ''
-            Host *.${localDomain}
-              ${addKeysForwardAgent}
-              ${if ((length sshKeys) != 0) then identityFiles else ""}''}
 
           ${concatStringsSep "\n\n" extraHostConfigs}
         '';
