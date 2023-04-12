@@ -47,7 +47,7 @@ let
       # Settings for builtin hooks, see also: https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix
       settings = {
         deadnix.edit = true;
-        nixfmt.width = 120;
+        nixfmt.width = 80;
         prettier.write = true;
       };
     };

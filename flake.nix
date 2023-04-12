@@ -30,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Adds flake compatability to start removing the vestiges of 
+    # Adds flake compatibility to start removing the vestiges of 
     # shell.nix and move us towards the more modern nix develop
     # setting while tricking some services/plugins to still be able to
     # use the shell.nix file.
@@ -38,6 +38,8 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+
+    flake-utils.url = "github:numtide/flake-utils";
 
     # Home management module
     home-manager = {
@@ -48,11 +50,24 @@
     # Wayland compositor & WM
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        hyprland-protocols.follows = "hyprland-protocols";
+      };
+    };
+
+    hyprland-protocols = {
+      url = "github:hyprwm/hyprland-protocols";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
+
+    lib-aggregate = {
+      url = "github:nix-community/lib-aggregate";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     # Microvm module, PoC state for implementation
     microvm = {
@@ -61,6 +76,11 @@
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
+    };
+
+    nix-eval-jobs = {
+      url = "github:nix-community/nix-eval-jobs";
+      inputs = { nixpkgs.follows = "nixpkgs"; };
     };
 
     # Generate system images easily
@@ -79,6 +99,16 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        lib-aggregate.follows = "lib-aggregate";
+        nix-eval-jobs.follows = "nix-eval-jobs";
         flake-compat.follows = "flake-compat";
       };
     };
@@ -108,6 +138,14 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+      };
+    };
+
+    xdg-portal-hyprland = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        hyprland-protocols.follows = "hyprland-protocols";
       };
     };
   };

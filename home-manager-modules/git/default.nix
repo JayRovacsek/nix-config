@@ -20,6 +20,7 @@ let
         config.home.file.".ssh/allowed_signers".source.outPath;
     };
     user.signingkey = osConfig.age.secrets."git-signing-key.pub".path;
+    push.autoSetupRemote = true;
   };
 
 in {

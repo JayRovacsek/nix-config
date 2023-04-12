@@ -7,7 +7,7 @@ let
   inherit (config) flake;
 
   hardwareProfile = system:
-    if builtins.hasAttr "profile" system.hardware.cpu then {
+    if hasAttr "profile" system.hardware.cpu then {
       inherit (system.hardware.cpu.profile) cores speed;
     } else {
       cores = 1;
@@ -18,15 +18,14 @@ let
   # rather than the networking hostname
   buildSystemFunction = system: {
     systems = [ system.nixpkgs.system ] ++ system.boot.binfmt.emulatedSystems;
-    maxJobs = builtins.mul (hardwareProfile system).cores
-      (hardwareProfile system).speed;
+    maxJobs = mul (hardwareProfile system).cores (hardwareProfile system).speed;
     sshUser = "builder";
     sshKey = config.age.secrets."builder-id-ed25519".path;
     # WARNING: pretty big assumption that localDomain exists on the target system plus
     # assumption we are using "lan" as local domain identifier.
     # This is only temporary until we get into tailscale as the transport mechanism here
     hostName = "${system.networking.hostName}.${
-        if builtins.hasAttr "localDomain" system.networking then
+        if hasAttr "localDomain" system.networking then
           system.networking.localDomain
         else
           "lan"
@@ -34,13 +33,13 @@ let
     supportedFeatures = system.nix.settings.system-features;
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass
-    speedFactor = builtins.mul (hardwareProfile system).cores
-      (hardwareProfile system).speed;
+    speedFactor =
+      mul (hardwareProfile system).cores (hardwareProfile system).speed;
   };
 
-  buildMachines = builtins.filter (x: x.speedFactor != 1)
-    (builtins.map (host: buildSystemFunction host.config)
-      (builtins.attrValues flake.nixosConfigurations));
+  buildMachines = filter (x: x.speedFactor != 1)
+    (map (host: buildSystemFunction host.config)
+      (attrValues flake.nixosConfigurations));
 
   # Create a string that represents the ssh keys we identified as loaded into agenix above
   # to be utilised per known host in our configuration
@@ -95,7 +94,7 @@ in {
 
   nix = {
     inherit buildMachines;
-    distributedBuilds = (builtins.length buildMachines) != 0;
+    distributedBuilds = (length buildMachines) != 0;
 
     gc = {
       automatic = false;
