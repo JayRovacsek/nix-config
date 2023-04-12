@@ -11,6 +11,11 @@ in builtins.mapAttrs (package-set: _:
       ../options/tailscale
     ] else
       [ ];
-    darwin = if isDarwin then [ ../options/blocky ../options/docker ] else [ ];
+    darwin = if isDarwin then [
+      ../options/blocky
+      ../options/docker
+      ../options/ssh
+    ] else
+      [ ];
     imports = generic ++ linux ++ darwin;
   in { inherit imports; }) package-sets

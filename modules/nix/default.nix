@@ -111,7 +111,6 @@ in {
         "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
         "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
       ];
-      allowed-users = [ "@wheel" "builder" ];
       trusted-users = [ "@wheel" "builder" ];
     };
 

@@ -9,24 +9,14 @@ let
     pre-commit = self.inputs.pre-commit-hooks.lib.${system}.run {
       src = self;
       hooks = {
+        # Builtin hooks
         deadnix.enable = true;
-        deadnix-write = {
-          enable = true;
-          name = "Deadnix Write";
-          entry = "${pkgs.deadnix}/bin/deadnix -eq";
-          language = "system";
-        };
-
         nixfmt.enable = true;
+        prettier.enable = true;
         statix.enable = false;
-        prettier-write = {
-          enable = true;
-          name = "Prettier Write";
-          entry = "${pkgs.nodePackages.prettier}/bin/prettier --write .";
-          files = "\\.(js|ts|jsx|tsx|json|yml|yaml)$";
-          language = "system";
-        };
+        typos.enable = true;
 
+        # Custom hooks
         statix-write = {
           enable = true;
           name = "Statix Write";
@@ -52,6 +42,13 @@ let
           language = "system";
           pass_filenames = false;
         };
+      };
+
+      # Settings for builtin hooks, see also: https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix
+      settings = {
+        deadnix.edit = true;
+        nixfmt.width = 120;
+        prettier.write = true;
       };
     };
   };
