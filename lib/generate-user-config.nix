@@ -66,9 +66,6 @@ let
 
       extraHostNames = darwinHosts ++ linuxHosts;
 
-      requireBuilderConfigs = (hasAttr "builder" config.users.users)
-        && (hasAttr "builder-id-ed25519" config.age.secrets);
-
       # So for the longest time, I couldn't figure why distributed builds didn't work.
       # Turns out it was likely because I was configuring the ssh config wrong leading to 
       # inability to utilise SSH as the builder user.
@@ -85,26 +82,12 @@ let
             "${hostName}"
           else
             "${hostName}.${localDomain}";
-      in if requireBuilderConfigs then
-        (map (hostName: ''
-          Host ${fqdn hostName}
-            HostName ${fqdn hostName}
-            User builder
-            IdentityFile ${config.age.secrets.builder-id-ed25519.path}
-
-          Host ${fqdn hostName}
-            HostName ${fqdn hostName}
-            User ${name}
-            ${addKeysForwardAgent}
-            ${if ((length sshKeys) != 0) then identityFiles else ""}
-        '') extraHostNames)
-      else
-        map (hostName: ''
-          Host ${hostName}
-            HostName ${hostName}
-            ${addKeysForwardAgent}
-            ${if ((length sshKeys) != 0) then identityFiles else ""}
-        '') extraHostNames;
+      in map (hostName: ''
+        Host ${fqdn hostName}
+          HostName ${fqdn hostName}
+          ${addKeysForwardAgent}
+          ${if ((length sshKeys) != 0) then identityFiles else ""}
+      '') extraHostNames;
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to

@@ -8,7 +8,7 @@ let
     passwordAuthentication = false;
   };
 
-  users = builtins.filter (x: x.isNormalUser)
+  users = builtins.filter (x: x.isNormalUser && x.name != "builder")
     (builtins.attrValues config.users.users);
 
   sshKeys = builtins.foldl' (a: b: a // b) { } (builtins.map (user:

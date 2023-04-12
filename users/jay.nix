@@ -9,7 +9,6 @@
     "input"
     "libvirtd"
     "networkmanager"
-    "nixbld"
     "tty"
     "video"
     "wheel"
