@@ -18,7 +18,7 @@ let
 
   hashes = {
     "x86_64-linux" = lib.fakeHash;
-    "x86_64-darwin" = lib.fakeHash;
+    "x86_64-darwin" = "sha256-8E5KOKWGD9OYryV/5Gc+3NNaEHSKaQXUgG6+6ccF36E=";
     "aarch64-linux" = lib.fakeHash;
     "aarch64-darwin" = "sha256-ypqiWFa2arYs9nRGCaK6FSGf5rA12dyXPCVzNP4GhI0=";
   };
