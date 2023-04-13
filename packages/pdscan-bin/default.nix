@@ -1,5 +1,5 @@
 # https://nixos.wiki/wiki/Packaging/Binaries
-{ pkgs, lib, stdenv, fetchurl, unzip, autoPatchelfHook }:
+{ pkgs, lib, stdenv, fetchurl, unzip }:
 let
   inherit (pkgs) system;
   inherit (pkgs.stdenv) isLinux;
@@ -17,9 +17,9 @@ let
   };
 
   hashes = {
-    "x86_64-linux" = lib.fakeHash;
+    "x86_64-linux" = "sha256-Bo3UXLGsRlQUUHDmk3odhpOBt0diJ6MiS9YT1Wuv8qQ=";
     "x86_64-darwin" = "sha256-8E5KOKWGD9OYryV/5Gc+3NNaEHSKaQXUgG6+6ccF36E=";
-    "aarch64-linux" = lib.fakeHash;
+    "aarch64-linux" = "sha256-j2pasGFRg+p2pI1z+ZLJ8CnnGM4KofzZcRLRGhrTJtI=";
     "aarch64-darwin" = "sha256-ypqiWFa2arYs9nRGCaK6FSGf5rA12dyXPCVzNP4GhI0=";
   };
 
@@ -41,26 +41,17 @@ let
     sha256 = builtins.getAttr system hashes;
   };
 
-  optionalPatchelfCommand = if isLinux then
-    ''${pkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
-  else
-    "";
-
 in stdenv.mkDerivation {
   inherit name pname version src filename meta;
   buildInputs = [ unzip ] ++ optional isLinux [ ];
 
-  nativeBuiltInputs = [ ] ++ optional isLinux [ autoPatchelfHook ];
-
   installPhase = ''
-    ${pkgs.unzip}/bin/unzip $src
+    ${unzip}/bin/unzip $src
     mkdir -p $out/bin
     cp ${pname} $out/bin/${pname}
   '';
 
   postFixup = ''
-    ${optionalPatchelfCommand}
-
     chmod +x $out/bin/${pname}
   '';
 }
