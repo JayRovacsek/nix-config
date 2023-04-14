@@ -1,16 +1,20 @@
-{
+{ ... }: {
   imports = [
+    ../../modules/agenix
     ../../modules/clamav
     ../../modules/docker
     ../../modules/docker/stacks/portainer
     ../../modules/fonts
     ../../modules/gnupg
+    ../../modules/headscale
     ../../modules/libvirtd
     ../../modules/lorri
     ../../modules/nix
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh
+    ../../modules/sudo
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev

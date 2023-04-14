@@ -1,15 +1,18 @@
-let piholeUser = import ../../../../users/service-accounts/pihole.nix;
+let user = import ../../../../users/service-accounts/pihole.nix;
 in {
+  inherit (user) uid;
+  inherit (user.group) gid;
   name = "pihole/dnsmasq.d/03-local.conf";
   text = ''
     # Local Address Binds
+    address=/pfsense.lan/192.168.1.1
     address=/ubiquiti_ap.lan/192.168.1.3
     address=/dragonite.lan/192.168.1.220
     address=/alakazam.lan/192.168.1.221
     address=/speedtest.lan/192.168.1.222
     address=/duplicati.lan/192.168.1.223
     address=/tv.lan/192.168.3.2
-    address=/wigglytuff.lan/192.168.6.6
+    address=/wigglytuff.lan/192.168.3.4
     address=/car_bed.lan/192.168.3.10
     address=/jackett.lan/192.168.4.129
     address=/deluge.lan/192.168.4.130
@@ -28,7 +31,7 @@ in {
     address=/jigglypuff.lan/192.168.6.4
     address=/authelia.lan/192.168.9.2
     address=/nextcloud.lan/192.168.10.2
-    address=/homeassistant.lan/192.168.12.2
+    address=/home-assistant.lan/192.168.12.2
     address=/cache.lan/192.168.16.2
     address=/minecraft.lan/192.168.17.5
     address=/minecraft.rovacsek.com/192.168.17.5
@@ -38,7 +41,5 @@ in {
     address=/terraria.rovacsek.com/192.168.17.4
     address=/.rovacsek.com/192.168.5.3
   '';
-  uid = piholeUser.uid;
-  gid = piholeUser.group.id;
   mode = "0444";
 }

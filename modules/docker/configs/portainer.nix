@@ -1,8 +1,8 @@
-let portainerUser = import ../../../users/service-accounts/portainer.nix;
-in rec {
+let serviceName = "portainer";
+in {
+  inherit serviceName;
   autoStart = true;
   image = "portainer/portainer-ce:alpine";
-  serviceName = "portainer";
   ports = [ "0.0.0.0:9000:9000" ];
   volumes = [
     "/var/run/docker.sock:/var/run/docker.sock"
@@ -10,8 +10,6 @@ in rec {
     "/etc/passwd:/etc/passwd:ro"
   ];
   environment = { TZ = "Australia/Sydney"; };
-  # user = "${builtins.toString portainerUser.uid}:${
-  #     builtins.toString portainerUser.group.id
-  #   }";
+
   extraOptions = [ "--name=${serviceName}" "--network=bridge" ];
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+_: {
   users.groups = {
     users = { gid = 100; };
 
@@ -30,11 +30,6 @@
     authelia = {
       gid = 10006;
       members = [ "authelia" ];
-    };
-
-    nginx = {
-      gid = 10007;
-      members = [ "nginx" ];
     };
 
     home_assistant = {
@@ -137,12 +132,6 @@
       inherit isSystemUser createHome description;
       uid = 988;
       group = "nextcloud";
-    };
-
-    nginx = {
-      inherit isSystemUser createHome description;
-      uid = 987;
-      group = "nginx";
     };
 
     radarr = {

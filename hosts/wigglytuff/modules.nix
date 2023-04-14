@@ -1,6 +1,6 @@
-let mode = "desktop";
-in {
+{ ... }: {
   imports = [
+    ../../modules/agenix
     ../../modules/clamav
     ../../modules/fonts
     ../../modules/gnupg
@@ -9,7 +9,9 @@ in {
     ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
-    ../../modules/raspberry-pi/${mode}.nix
+    ../../modules/raspberry-pi/desktop.nix
+    ../../modules/sudo
+    ../../modules/tailscale
     ../../modules/time
     ../../modules/zsh
   ];

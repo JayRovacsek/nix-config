@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   hostname = config.networking.hostName;
   sambaConfig = import ./. + "/configs/${hostname}.nix";

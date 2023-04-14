@@ -1,7 +1,9 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   hardware = {
     # Required for the Wireless firmware
     enableRedistributableFirmware = true;
+
+    deviceTree.filter = "bcm2711-rpi-*.dtb";
 
     raspberry-pi."4" = {
       # Enable GPU acceleration
@@ -39,12 +41,8 @@
       [ "8250.nr_uarts=1" "console=ttyAMA0,115200" "console=tty1" "cma=128M" ];
 
     loader = {
-      raspberryPi = {
-        enable = true;
-        version = 4;
-      };
       grub.enable = false;
-      generic-extlinux-compatible.enable = false;
+      generic-extlinux-compatible.enable = true;
     };
   };
 }

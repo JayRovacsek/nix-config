@@ -1,39 +1,54 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, flake, ... }:
+
 let
-  userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
-  generatedUsers = userFunction { inherit pkgs userConfigs; };
-in {
-  ## Todo: rewrite this to add root config in a consistent way with other configs
-  users = {
-    defaultUserShell = pkgs.zsh;
-    users.root = {
-      initialHashedPassword =
-        "$6$wRRIfT/GbE4O9sCu$4SVNy.ig6x.qFiefE0y/aG4kdbKEdXF23bew7f53tn.ZxBDKra64obi0CoSnwRJBT1p5NlLEXh5m9jhX6.k3a1";
-    };
-  } // generatedUsers;
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) cli;
+  inherit (flake.lib) merge-user-config;
 
-  virtualisation.oci-containers.backend = "docker";
-
-  ## Todo: write out the below - need to rework networking module.
-  networking = {
-    wireless.enable = false;
-    hostId = "acd009f4";
-    hostName = "dragonite";
-    useDHCP = false;
-    interfaces.enp9s0.useDHCP = true;
-
-    firewall = {
-      ## Todo: remove below as they can be abstracted into microvms
-      # For reference:
-      # 5900: VNC (need to kill)
-      # 8200: Duplicati
-      allowedTCPPorts = [ 5900 8200 ];
-    };
+  builder = common.users.builder {
+    inherit config pkgs;
+    modules = [ ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = cli;
+  };
+
+  merged = merge-user-config { users = [ builder jay ]; };
+
+in {
+  inherit flake;
+  inherit (merged) users home-manager;
+
+  age = {
+    secrets = {
+      "git-signing-key" = rec {
+        file = ../../secrets/ssh/git-signing-key.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key";
+      };
+
+      "git-signing-key.pub" = rec {
+        file = ../../secrets/ssh/git-signing-key.pub.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key.pub";
+      };
+    };
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      "/agenix/id-ed25519-headscale-primary"
+    ];
+  };
+
+  services.tailscale.tailnet = "admin";
+
+  imports = [
+    ./hardware-configuration.nix
+    ./modules.nix
+    ./networking.nix
+    ./system-packages.nix
+  ];
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;

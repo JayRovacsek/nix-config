@@ -1,9 +1,19 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{ modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   powerManagement.enable = false;
 
+  hardware.cpu = {
+    profile = {
+      cores = 24;
+      speed = 4;
+    };
+    amd.updateMicrocode = true;
+  };
+
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -20,7 +30,6 @@
     };
 
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-    # kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
   };
 

@@ -1,1 +1,1 @@
-{ config, pkgs, ... }: { environment.systemPackages = with pkgs; [ vulnix ]; }
+{ pkgs, ... }: { environment.systemPackages = with pkgs; [ vulnix ]; }

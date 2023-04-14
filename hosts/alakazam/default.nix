@@ -1,52 +1,53 @@
-{ config, pkgs, flake, ... }:
-let
-  userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
-  users = userFunction { inherit pkgs userConfigs; };
-in {
-  inherit users;
+{ config, pkgs, lib, flake, ... }:
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./system-packages.nix
-    ./secrets.nix
-  ];
+let
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) linux-desktop;
+  inherit (flake.lib) merge-user-config;
+
+  builder = common.users.builder {
+    inherit config pkgs;
+    modules = [ ];
+  };
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = linux-desktop;
+  };
+
+  merged = merge-user-config { users = [ builder jay ]; };
+
+in {
+  inherit flake;
+  inherit (merged) users home-manager;
+
+  age = {
+    secrets = {
+      "git-signing-key" = rec {
+        file = ../../secrets/ssh/git-signing-key.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key";
+      };
+
+      "git-signing-key.pub" = rec {
+        file = ../../secrets/ssh/git-signing-key.pub.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key.pub";
+      };
+    };
+    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
+  };
+
+  services.tailscale.tailnet = "admin";
+
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   networking = {
     hostName = "alakazam";
     hostId = "ef26b1be";
-  };
-
-  microvm.vms.igglybuff = {
-    inherit flake;
-    autostart = true;
-  };
-
-  boot = {
-    loader = {
-      grub = {
-        enable = true;
-        version = 2;
-        device = "nodev";
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        useOSProber = true;
-        enableCryptodisk = true;
-      };
-    };
-  };
-
-  boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/7cf02c33-9404-45af-9e53-2fa65aa59027";
-    preLVM = true;
-  };
-
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport32Bit = true;
-    };
+    useDHCP = false;
+    interfaces.enp0s31f6.useDHCP = true;
   };
 
   systemd.services."getty@tty1".enable = false;

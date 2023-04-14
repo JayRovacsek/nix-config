@@ -1,67 +1,26 @@
 {
-  age = {
+  # G'day future self - move this file to default location:
+  # /etc/ssh/ssh_host_ed25519_key
+  # identityPaths = [ /Users/jrovacsek/.ssh/ssh_host_ed25519_key ];
+  age.secrets = {
+    jrovacsek-id-ed25519-sk-type-a-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
+      owner = "jrovacsek";
+    };
 
-    # This is required while https://github.com/ryantm/agenix/pull/107 is still open.
-    # The options for this may change 
-    # Note that the agenix keys can be written to either of these locations:
-    # https://github.com/montchr/agenix/blob/36d70a4a1d0f1aaab60bd70c88c9010d9cc7abe8/modules/age.nix#L191
+    jrovacsek-id-ed25519-sk-type-a-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
+      owner = "jrovacsek";
+    };
 
-    # sshKeyPaths = [ /Users/jrovacsek/.ssh/id_ed25519_sk_agenix ];
+    jrovacsek-id-ed25519-sk-type-c-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
+      owner = "jrovacsek";
+    };
 
-    secrets = {
-      id_ed25519_sk_type_a_1 = {
-        file = ../../secrets/id_ed25519_sk_type_a_1.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_a_1";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_a_1_pub = {
-        file = ../../secrets/id_ed25519_sk_type_a_1.pub.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_a_1.pub";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_a_2 = {
-        file = ../../secrets/id_ed25519_sk_type_a_2.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_a_2";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_a_2_pub = {
-        file = ../../secrets/id_ed25519_sk_type_a_2.pub.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_a_2.pub";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_c_1 = {
-        file = ../../secrets/id_ed25519_sk_type_c_1.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_c_1";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_c_1_pub = {
-        file = ../../secrets/id_ed25519_sk_type_c_1.pub.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_c_1.pub";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_c_2 = {
-        file = ../../secrets/id_ed25519_sk_type_c_2.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_c_2";
-        owner = "jrovacsek";
-      };
-
-      id_ed25519_sk_type_c_2_pub = {
-        file = ../../secrets/id_ed25519_sk_type_c_2.pub.age;
-        path = "/Users/jrovacsek/.ssh/id_ed25519_sk_type_c_2.pub";
-        owner = "jrovacsek";
-      };
-
-      jrovacsek_ssh_config = {
-        file = ../../secrets/jay_ssh_config.age;
-        path = "/Users/jrovacsek/.ssh/config";
-        owner = "jrovacsek";
-      };
+    jrovacsek-id-ed25519-sk-type-c-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
+      owner = "jrovacsek";
     };
   };
 }

@@ -1,17 +1,25 @@
-{ config, pkgs, ... }:
-let
-  userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix;
-  users = userFunction { inherit pkgs userConfigs; };
-in {
-  inherit users;
+{ config, pkgs, lib, flake, ... }:
 
-  imports = [
-    ./hardware-configuration.nix
-    ./modules.nix
-    ./system-packages.nix
-    ./secrets.nix
-  ];
+let
+  inherit (flake) common;
+  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (flake.lib) merge-user-config;
+
+  jay = common.users.jay {
+    inherit config pkgs;
+    modules = hyprland-desktop;
+  };
+
+  merged = merge-user-config { users = [ jay ]; };
+
+in {
+  inherit flake;
+  inherit (merged) users home-manager;
+
+  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
+
+  imports =
+    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -22,11 +30,6 @@ in {
       enableCryptodisk = true;
       efiSupport = true;
     };
-  };
-
-  boot.initrd.luks.devices.crypted = {
-    device = "/dev/disk/by-uuid/21c13271-a27f-4106-87bb-2ec4c2a043dc";
-    preLVM = true;
   };
 
   networking.hostName = "gastly";

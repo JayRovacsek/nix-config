@@ -148,7 +148,7 @@ in {
     address=/xvcf2.xboxlive.com/192.168.16.2
     address=/d1.xboxlive.com/192.168.16.2
   '';
-  uid = piholeUser.uid;
-  gid = piholeUser.group.id;
+  inherit (piholeUser) uid;
+  inherit (piholeUser.group) gid;
   mode = "0444";
 }

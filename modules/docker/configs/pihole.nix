@@ -1,7 +1,7 @@
 let
   piholeUserConfig = import ../../../users/service-accounts/pihole.nix;
   piholeUid = builtins.toString piholeUserConfig.uid;
-  piholeGid = builtins.toString piholeUserConfig.group.id;
+  piholeGid = builtins.toString piholeUserConfig.group.gid;
 in rec {
   autoStart = true;
   image = "pihole/pihole:latest";

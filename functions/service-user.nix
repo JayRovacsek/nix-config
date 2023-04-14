@@ -10,19 +10,15 @@ let
 in {
   extraUsers = {
     "${userConfig.name}" = {
-      uid = userConfig.uid;
+      inherit (userConfig) uid extraGroups;
       isSystemUser = true;
       createHome = false;
       description = "User account generated for running a specific service";
       group = "${userConfig.name}";
-      extraGroups = userConfig.extraGroups;
     };
   };
 
   extraGroups = {
-    "${userConfig.group.name}" = {
-      gid = userConfig.group.id;
-      members = userConfig.group.members;
-    };
+    "${userConfig.group.name}" = { inherit (userConfig.group) gid members; };
   } // extraGroupExtendedOptions;
 }
