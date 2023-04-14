@@ -41,6 +41,36 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs = { nixpkgs-lib.follows = "nixpkgs-lib"; };
+    };
+
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs = { nixpkgs.follows = "nixpkgs"; };
+    };
+
+    hercules-ci-agent = {
+      url = "github:hercules-ci/hercules-ci-agent";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nix-darwin.follows = "darwin-unstable";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks";
+
+      };
+    };
+
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        hercules-ci-agent.follows = "hercules-ci-agent";
+      };
+    };
+
     # Home management module
     home-manager = {
       url = "github:rycee/home-manager/release-22.11";
@@ -66,7 +96,10 @@
 
     lib-aggregate = {
       url = "github:nix-community/lib-aggregate";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs-lib.follows = "nixpkgs-lib";
+      };
     };
 
     # Microvm module, PoC state for implementation
@@ -78,9 +111,13 @@
       };
     };
 
-    nix-eval-jobs = {
-      url = "github:nix-community/nix-eval-jobs";
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+    nixified-ai = {
+      url = "github:nixified-ai/flake";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        hercules-ci-effects.follows = "hercules-ci-effects";
+      };
     };
 
     # Generate system images easily
@@ -103,6 +140,8 @@
       };
     };
 
+    nixpkgs-lib = { url = "github:nix-community/nixpkgs.lib"; };
+
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs = {
@@ -110,6 +149,14 @@
         lib-aggregate.follows = "lib-aggregate";
         nix-eval-jobs.follows = "nix-eval-jobs";
         flake-compat.follows = "flake-compat";
+      };
+    };
+
+    nix-eval-jobs = {
+      url = "github:nix-community/nix-eval-jobs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -123,6 +170,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
       };
     };
 
