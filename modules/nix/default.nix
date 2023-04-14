@@ -18,14 +18,14 @@ let
   # rather than the networking hostname
   buildSystemFunction = system: {
     systems = [ system.nixpkgs.system ] ++ system.boot.binfmt.emulatedSystems;
-    maxJobs = mul (hardwareProfile system).cores (hardwareProfile system).speed;
+    maxJobs = (hardwareProfile system).cores;
     sshUser = "builder";
     sshKey = config.age.secrets."builder-id-ed25519".path;
     # WARNING: pretty big assumption that localDomain exists on the target system plus
     # assumption we are using "lan" as local domain identifier.
     # This is only temporary until we get into tailscale as the transport mechanism here
     hostName = "${system.networking.hostName}.${
-        if hasAttr "localDomain" system.networking then
+        if builtins.hasAttr "localDomain" system.networking then
           system.networking.localDomain
         else
           "lan"
@@ -33,13 +33,13 @@ let
     supportedFeatures = system.nix.settings.system-features;
     # This is gross as it runs the code twice rather than once.
     # TODO: figure how to make it a single pass
-    speedFactor =
-      mul (hardwareProfile system).cores (hardwareProfile system).speed;
+    speedFactor = builtins.mul (hardwareProfile system).cores
+      (hardwareProfile system).speed;
   };
 
-  buildMachines = filter (x: x.speedFactor != 1)
-    (map (host: buildSystemFunction host.config)
-      (attrValues flake.nixosConfigurations));
+  buildMachines = builtins.filter (x: x.speedFactor != 1)
+    (builtins.map (host: buildSystemFunction host.config)
+      (builtins.attrValues flake.nixosConfigurations));
 
   # Create a string that represents the ssh keys we identified as loaded into agenix above
   # to be utilised per known host in our configuration

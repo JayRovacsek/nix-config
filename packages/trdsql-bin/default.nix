@@ -11,17 +11,15 @@ let
 
   meta = with lib; {
     homepage = "https://github.com/noborus/trdsql";
-    description =
-      "CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN.";
+    description = "CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN.";
     license = licenses.mit;
-    platforms =
-      [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
+    platforms = [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
   };
 
   hashes = {
     "x86_64-linux" = "sha256-mX15u67Jpe65ko8S8QmGdJgnFUduEdFhTbvBqKQFsIM=";
     "x86_64-darwin" = "sha256-wteKHi0U5d3sWY4rnKRKXLi+6jGWp0uHceq85AQk5lA=";
-    "aarch64-linux" = lib.fakeHash;
+    "aarch64-linux" = "sha256-j8jb9+D+VIydGONQHEfeXL8NPLaOx+bKipJq7cQOlhc=";
     "aarch64-darwin" = "sha256-UsHb/SLIf2xk07cCSfGT1gHwLCgBkaztYgGkZD+n1X4=";
   };
 
@@ -39,14 +37,12 @@ let
   zipFilename = "${filename}.zip";
 
   src = fetchurl {
-    url =
-      "https://github.com/noborus/trdsql/releases/download/v${version}/${zipFilename}";
+    url = "https://github.com/noborus/trdsql/releases/download/v${version}/${zipFilename}";
     sha256 = builtins.getAttr system hashes;
   };
 
   optionalPatchelfCommand = if isLinux then
-    ''
-      ${pkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
+    ''${pkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}''
   else
     "";
 
