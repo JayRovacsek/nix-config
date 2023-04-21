@@ -1,13 +1,17 @@
 { config, pkgs, ... }:
 let
+  inherit (pkgs) system;
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
+
+  package = config.flake.inputs.hyprland.packages.${system}.default;
 in {
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
   programs.hyprland = {
     enable = true;
-    inherit nvidiaPatches;
+    inherit nvidiaPatches package;
+    xwayland.enable = true;
   };
 
   services.dbus.enable = true;
