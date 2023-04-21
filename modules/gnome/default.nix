@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
-  tailscaleExtensions = if config.services.tailscale.enable then
-    with pkgs.gnomeExtensions; [ tailscale-status ]
-  else
-    [ ];
+  inherit (lib.lists) optionals;
+
+  tailscaleExtensions = optionals config.services.tailscale.enable
+    (with pkgs.gnomeExtensions; [ tailscale-status ]);
 
   gnomePackages = with pkgs.gnome; [
     gnome-tweaks

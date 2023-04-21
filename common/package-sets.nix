@@ -24,17 +24,19 @@ let
 
   targetGeneration = [ stable unstable ];
 
-  overlays = [
-    nur.overlay
-    agenix.overlays.default
-    self.overlays.makeModulesClosure
+  overlays = [ nur.overlay agenix.overlays.default ];
+
+  darwin-overlays = [ firefox-darwin.overlay ];
+
+  linux-overlays = [
     # Only include the below to pin microvm kernel versions
     # based on our overlay configurations.
     # self.overlays.alt-microvm-kernel
+    self.overlays.fcitx-engines
+    self.overlays.makeModulesClosure
+    self.overlays.pythonOverlays
+    self.overlays.vscodium-wayland
   ];
-
-  linux-overlays =
-    [ self.overlays.fcitx-engines self.overlays.vscodium-wayland ];
 
   # Create a set that includes the microvm packages where the upstream supports
   # it only, this'll mean we can avoid adding it explicitly to systems we want to use
@@ -81,20 +83,18 @@ let
   packageSets = builtins.foldl' (accumulator: system:
     accumulator // (builtins.foldl' (accumulator: target:
       accumulator // {
-        "${system}-${target.name}" = import target.pkgs {
+        "${system}-${target.name}" = let
+          pkgs = target.pkgs.legacyPackages.${system};
+          inherit (pkgs.stdenv) isDarwin isLinux;
+          inherit (pkgs.lib.lists) optionals;
+        in import target.pkgs {
           inherit system config;
-          inherit (target.pkgs.legacyPackages.${system}.stdenv)
-            isDarwin isLinux;
           # Hack is required to contextually add overlays based.
           # This might be better abstracted into a set that then is
           # pulled via getAttr, but that'll be a next refactor step
           # rather than MVP suitable.
-          overlays = if isDarwin then
-            overlays ++ [ firefox-darwin.overlay ]
-          else if isLinux then
-            overlays ++ linux-overlays
-          else
-            overlays;
+          overlays = overlays ++ (optionals isDarwin darwin-overlays)
+            ++ (optionals isLinux linux-overlays);
         };
       }) { } targetGeneration)) { } exposedSystems;
 in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)

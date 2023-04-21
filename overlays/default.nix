@@ -36,31 +36,25 @@
       prev.makeModulesClosure (x // { allowMissing = true; });
   };
 
-  # https://discourse.nixos.org/t/add-python-package-via-overlay/19783/5
-  python310Overlays = final: prev: {
-    python310Overlays = (prev.python310Overlays or [ ]) ++ [
-      (_python-final: _python-prev: {
-        omegaconf = prev.python310Packages.omegaconf.overrideAttrs
-          (_old: rec { doInstallCheck = false; });
+  # https://stackoverflow.com/questions/70395839/how-to-globally-override-a-pythonpackage-in-nix/74550150#74550150
+  # With slight tweaks to target versions to avoid needing to think about overrides for all recent versions of 
+  # python (though hardcoded below...)
+  #
+  # Very important note in that response: https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#interpreters-interpreters
+  # aka DONT override python3 or python2 as they are just aliases of current version (310 at time of writing.)
+  pythonOverlays = let
+    pythonVersions =
+      [ "python38" "python39" "python310" "python311" "python312" ];
+  in _final: prev:
+  prev.lib.attrsets.genAttrs pythonVersions (version:
+    prev.${version}.override {
+      packageOverrides = _python-final: python-prev: {
+        omegaconf =
+          python-prev.omegaconf.overrideAttrs (_: { doInstallCheck = false; });
 
-        pydevd = prev.python310Packages.pydevd.overrideAttrs
-          (_old: rec { meta.broken = false; });
-
-        # https://www.youtube.com/watch?v=9IG3zqvUqJY
-        tensorflow = prev.python310Packages.tensorflow.overrideAttrs
-          (_old: rec { meta.insecure = false; });
-      })
-    ];
-
-    python3 = let
-      self = prev.python3.override {
-        inherit self;
-        packageOverrides =
-          prev.lib.composeManyExtensions final.python310Overlays;
+        pydevd = python-prev.pydevd.overrideAttrs (_: { meta.broken = false; });
       };
-    in self;
-    python310Packages = final.python3.pkgs;
-  };
+    });
 
   vscodium-wayland = _final: prev: {
     vscodium-wayland =

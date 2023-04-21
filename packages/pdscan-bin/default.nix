@@ -13,7 +13,8 @@ let
     homepage = "https://github.com/ankane/pdscan";
     description = "Scan your data stores for unencrypted personal data (PII)";
     license = licenses.mit;
-    platforms = [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
+    platforms =
+      [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" "aarch64-linux" ];
   };
 
   hashes = {
@@ -37,7 +38,8 @@ let
   zipFilename = "${filename}.zip";
 
   src = fetchurl {
-    url = "https://github.com/ankane/pdscan/releases/download/v${version}/${zipFilename}";
+    url =
+      "https://github.com/ankane/pdscan/releases/download/v${version}/${zipFilename}";
     sha256 = builtins.getAttr system hashes;
   };
 
