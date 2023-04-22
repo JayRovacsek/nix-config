@@ -1,13 +1,10 @@
 { config, ... }:
-let
-  # inherit (config.services.blocky.settings.ports) dns tls https http;
-  inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
+let inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
 in {
-  # networking.firewall = {
-  #   # allowedTCPPorts = [ dns tls https http ];
-  #   allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
-  #   allowedUDPPorts = [ port ];
-  # };
+  networking.firewall = {
+    allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
+    allowedUDPPorts = [ port ];
+  };
 
   services.blocky = {
     enable = true;
@@ -34,6 +31,9 @@ in {
           "https://doh.sb/dns-query"
           "https://doh.dns4all.eu/dns-query"
         ];
+
+        "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
+        "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
       };
 
       # optional: timeout to query the upstream resolver. Default: 2s
@@ -266,6 +266,8 @@ in {
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
           ];
+
+          void = [ ];
         };
         # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
         whiteLists = { ads = [ ]; };
@@ -276,7 +278,8 @@ in {
           # use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
           # or single ip address / client subnet as CIDR notation
           # "foo*" = [ "ads" ];
-          # "192.168.178.1/24" = [ "special" ];
+          "192.168.8.11/32" = [ "void" ];
+          "192.168.8.50/32" = [ "void" ];
         };
 
         # which response will be sent, if query is blocked:
@@ -348,7 +351,7 @@ in {
         path = "/metrics";
       };
 
-      # optional: Mininal TLS version that the DoH and DoT server will use
+      # optional: Minimal TLS version that the DoH and DoT server will use
       minTlsServeVersion = "1.2";
       # if https port > 0: path to cert and key file for SSL encryption. if not set, self-signed certificate will be generated
       #certFile: server.crt
