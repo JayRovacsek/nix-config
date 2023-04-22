@@ -4,13 +4,15 @@ let
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
 
   addons = with pkgs.nur.repos.rycee.firefox-addons; [
+    clearurls
+    darkreader
     decentraleyes
+    i-dont-care-about-cookies
     keepassxc-browser
     multi-account-containers
     noscript
     privacy-badger
     temporary-containers
-    terms-of-service-didnt-read
     ublock-origin
     user-agent-string-switcher
   ];

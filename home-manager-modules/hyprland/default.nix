@@ -1,6 +1,6 @@
 { osConfig, ... }:
 let
-  inherit (osConfig.flake.lib) generate-hyprland-monitor;
+  inherit (osConfig.flake.lib) generate-hyprland-monitors;
 
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
@@ -37,7 +37,7 @@ let
   ];
 
   monitors = if osConfig.networking.hostName == "alakazam" then
-    (generate-hyprland-monitor alakazam-monitors)
+    (generate-hyprland-monitors alakazam-monitors)
   else
     "monitor=,preferred,auto,auto";
 
