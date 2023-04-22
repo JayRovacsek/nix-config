@@ -1,6 +1,8 @@
-{ osConfig, ... }:
+{ pkgs, osConfig, ... }:
 let
+  inherit (pkgs) system mpvpaper;
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
+  inherit (osConfig.flake.packages.${system}) sunset-river-pixelart-wallpaper;
 
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
@@ -21,14 +23,14 @@ let
       extra = "";
     }
     {
-      name = "DP-5";
+      name = "DP-4";
       resolution = "1920x1080";
       position = "3000x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-5";
       resolution = "1920x1080";
       position = "4920x420";
       scale = "1";
@@ -40,7 +42,6 @@ let
     (generate-hyprland-monitors alakazam-monitors)
   else
     "monitor=,preferred,auto,auto";
-
 in {
 
   imports = [ ../waybar ../wofi ];
@@ -175,17 +176,12 @@ in {
       bind = $mainMod, 9, workspace, 9
       bind = $mainMod, 0, workspace, 10
 
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      bind = $mainMod SHIFT, 1, movetoworkspace, 1
-      bind = $mainMod SHIFT, 2, movetoworkspace, 2
-      bind = $mainMod SHIFT, 3, movetoworkspace, 3
-      bind = $mainMod SHIFT, 4, movetoworkspace, 4
-      bind = $mainMod SHIFT, 5, movetoworkspace, 5
-      bind = $mainMod SHIFT, 6, movetoworkspace, 6
-      bind = $mainMod SHIFT, 7, movetoworkspace, 7
-      bind = $mainMod SHIFT, 8, movetoworkspace, 8
-      bind = $mainMod SHIFT, 9, movetoworkspace, 9
-      bind = $mainMod SHIFT, 0, movetoworkspace, 10
+      # TODO: Add mod/extra key to this to avoid
+      # using the same bind as common text editors
+      bind = CTRL SHIFT,left ,movewindow, l
+      bind = CTRL SHIFT,right ,movewindow, r
+      bind = CTRL SHIFT,up ,movewindow, u
+      bind = CTRL SHIFT,down ,movewindow, d
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
@@ -194,6 +190,10 @@ in {
       # Move/resize windows with mainMod + LMB/RMB and dragging
       bindm = $mainMod, mouse:272, movewindow
       bindm = $mainMod, mouse:273, resizewindow
+
+      exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      # The below does not work :sadpanda:
+      #exec-once=${mpvpaper}/bin/mpvpaper -sf -o "--loop --panscan=1" '*' ${sunset-river-pixelart-wallpaper}/share/wallpaper.mp4
     '';
   };
 }

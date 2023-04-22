@@ -1,40 +1,38 @@
 { pkgs, osConfig }:
 let
-  inherit (pkgs) procps system wofi;
-  inherit (osConfig.flake.packages.${system}) wofi-power;
+  inherit (pkgs) procps system wofi pamixer;
+  inherit (osConfig.flake.packages.${system}) wofi-power waybar-screenshot;
 in [{
   layer = "top";
   position = "top";
-  modules-left =
-    [ "custom/launcher" "wlr/workspaces" "temperature" "idle_inhibitor" ];
+  modules-left = [ "custom/launcher" "tray" ];
   modules-center = [ "clock" ];
   modules-right = [
+    "idle_inhibitor"
+    "custom/screenshot"
     "pulseaudio"
-    "backlight"
     "memory"
     "cpu"
     "network"
     "battery"
     "custom/powermenu"
-    "tray"
   ];
+
   "custom/launcher" = {
-    format = " ";
+    format = "  ";
     on-click = "${wofi}/bin/wofi --show drun";
     tooltip = false;
   };
-  "wlr/workspaces" = {
-    format = "{icon}";
-    on-click = "activate";
-  };
+
   idle_inhibitor = {
     format = "{icon}";
     format-icons = {
-      activated = "";
-      deactivated = "";
+      activated = "󰅶";
+      deactivated = "󰛊";
     };
     tooltip = false;
   };
+
   backlight = {
     device = "intel_backlight";
     on-scroll-up = "light -A 5";
@@ -44,14 +42,14 @@ in [{
   };
 
   pulseaudio = {
-    scroll-step = 1;
+    scroll-step = 5;
     format = "{icon} {volume}%";
     format-muted = "婢 Muted";
     format-icons = { default = [ "" "" "" ]; };
-    states = { warning = 85; };
-    on-click = "pamixer -t";
+    on-click = "${pamixer}/bin/pamixer -t";
     tooltip = false;
   };
+
   battery = {
     interval = 10;
     states = {
@@ -64,6 +62,7 @@ in [{
     format-charging = " {capacity}%";
     tooltip = false;
   };
+
   clock = {
     interval = 1;
     format = "{:%I:%M %p  %A %b %d}";
@@ -72,11 +71,13 @@ in [{
       {=%A; %d %B %Y}
       <tt>{calendar}</tt>'';
   };
+
   memory = {
     interval = 1;
-    format = "﬙ {percentage}%";
+    format = "󰘚 {used}/{total} GB ({percentage}%)";
     states = { warning = 85; };
   };
+
   cpu = {
     interval = 1;
     format = " {usage}%";
@@ -88,17 +89,24 @@ in [{
     format-ethernet = "  {ifname} ({ipaddr})";
     format-linked = "說 {essid} (No IP)";
     format-disconnected = "說 Disconnected";
-    tooltip = false;
   };
+
   temperature = {
     tooltip = false;
     format = " {temperatureC}°C";
   };
+
   "custom/powermenu" = {
-    format = "";
+    format = "   ";
     on-click = "${procps}/bin/pkill wofi || ${wofi-power}/bin/wofi-power";
     tooltip = false;
   };
+
+  "custom/screenshot" = {
+    format = "  ";
+    on-click = "${waybar-screenshot}/bin/waybar-screenshot";
+  };
+
   tray = {
     icon-size = 15;
     spacing = 5;

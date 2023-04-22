@@ -48,9 +48,12 @@ let
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
       pdscan-bin = callPackage ./pdscan-bin { };
+      sunset-river-pixelart-wallpaper =
+        callPackage ./sunset-river-pixelart-wallpaper { };
       trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
+      waybar-screenshot = callPackage ./waybar-screenshot { };
       wofi-power = callPackage ./wofi-power { };
     }
   ];

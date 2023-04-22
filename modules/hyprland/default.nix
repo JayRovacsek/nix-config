@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  inherit (pkgs) system;
+  inherit (pkgs) system lib;
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
@@ -51,6 +51,9 @@ in {
   xdg.portal = {
     enable = true;
     wlr.enable = false;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = lib.mkForce [
+      pkgs.xdg-desktop-portal-gtk
+      config.flake.inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland
+    ];
   };
 }

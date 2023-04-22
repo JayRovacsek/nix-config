@@ -8,8 +8,8 @@
   };
 
   "window#waybar" = {
-    background-color = "#122c4f";
-    color = "#ffffff";
+    background-color = "transparent";
+    color = "white";
     transition-property = "background-color";
     transition-duration = "0.5s";
   };
@@ -45,7 +45,6 @@
     background-color = "rgb(20, 30, 60)";
     color = "white";
     padding = "5px";
-    # box-shadow: inset 0 -3px rgb(255, 215, 10);
   };
 
   "#clock,#battery,#cpu,#memoryj #disk,#temperature,#backlight,#network,#bluetooth,#pulseaudio,#custom-media,#tray,#idle_inhibitor,#mpd" =
@@ -80,54 +79,15 @@
 
   "label:focus" = { background-color = "#000000"; };
 
-  "#cpu" = {
-    "background-color" = "#2ecc71";
-    "color" = "#000000";
-  };
-  "#memory" = { "background-color" = "#9b59b6"; };
-  "#disk" = { "background-color" = "#964b00"; };
-  "#backlight" = {
-    "background-color" = "rgb(255, 246, 116)";
-    "color" = "black";
-  };
-  "#network" = { "background-color" = "rgba(0, 110, 255, 0.774)"; };
-  "#network.disconnected" = {
-    "background-color" = "#f53c3c";
-    "color" = "#ff4c4c";
-  };
-  "#pulseaudio" = {
-    "background-color" = "#f1c40f";
-    "color" = "#000000";
-  };
-  "#pulseaudio.muted" = {
-    "background-color" = "#90b1b1";
-    "color" = "rgb(20, 30, 60)";
-  };
-  "#custom-media" = {
-    "background-color" = "#66cc99";
-    "color" = "#2a5c45";
-    "min-width" = "100px";
-  };
-  "#custom-media.custom-spotify" = { "background-color" = "#66cc99"; };
-  "#custom-media.custom-vlc" = { "background-color" = "#ffa000"; };
-  "#temperature" = { "background-color" = "#f0932b"; };
-  "#temperature.critical" = {
-    "color" = "#eb4d4b";
-    "background-color" = "#eb4d4b";
-  };
   "#tray" = {
     "background-color" = "#2980b9";
     "margin-right" = "20px";
   };
+
   "#tray > .passive" = { "-gtk-icon-effect" = "dim"; };
   "#tray > .needs-attention" = {
     "-gtk-icon-effect" = "highlight";
     "background-color" = "#eb4d4b";
-  };
-  "#idle_inhibitor" = { "background-color" = "#2d3436"; };
-  "#idle_inhibitor.activated" = {
-    "background-color" = "#ecf0f1";
-    "color" = "#2d3436";
   };
 
   "#language" = {
@@ -145,6 +105,7 @@
     "margin" = "0 5px";
     "min-width" = "16px";
   };
+
   "#keyboard-state > label" = { padding = "0 5px"; };
 
   "#keyboard-state > label.locked" = { background = "rgba(0, 0, 0, 0.2)"; };
