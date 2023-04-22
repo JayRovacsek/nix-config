@@ -78,7 +78,6 @@ in {
           "flare-solverr.lan" = "192.168.4.138";
           "swag.lan" = "192.168.5.3";
           "jellyfin.lan" = "192.168.5.4";
-          "pihole.lan" = "192.168.6.2";
           "stubby.lan" = "192.168.6.3";
           "jigglypuff.lan" = "192.168.6.4";
           "authelia.lan" = "192.168.9.2";
