@@ -13,7 +13,7 @@ let
   wofi-power-wrapped = pkgs.writeShellScriptBin "wofi-power" ''
     entries="⇠ Logout\n⏾ Suspend\n⭮ Reboot\n⏻ Shutdown"
 
-    selected=$(echo -e $entries|${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null | ${gawk}/bin/awk '{print tolower($2)}')
+    selected=$(echo -e $entries | ${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null | ${gawk}/bin/awk '{print tolower($2)}')
 
     case $selected in
       logout)
