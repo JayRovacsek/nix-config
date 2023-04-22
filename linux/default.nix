@@ -53,7 +53,7 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/alakazam microvm.nixosModules.host ];
+    modules = base ++ [ ../hosts/alakazam ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let
@@ -65,7 +65,7 @@ in {
   dragonite = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/dragonite microvm.nixosModules.host ];
+    modules = base ++ [ ../hosts/dragonite ];
   in unstable-system { inherit system pkgs modules; };
 
   jigglypuff = let

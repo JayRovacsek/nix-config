@@ -9,7 +9,6 @@
     ../../modules/keybase
     ../../modules/lorri
     ../../modules/nix
-    ../../modules/microvm/host
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
