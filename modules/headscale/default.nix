@@ -40,41 +40,39 @@ in {
     enable = true;
     port = 8080;
     address = "0.0.0.0";
-    serverUrl = "https://headscale.rovacsek.com";
-
-    database = {
-      inherit (config.services.headscale) user;
-      type = "sqlite3";
-      path = "/var/lib/headscale/db.sqlite";
-      name = "headscale";
-    };
-
-    dns = {
-      magicDns = true;
-      # Replace this in time with resolved magic DNS address of my DNS resolvers.
-      nameservers = [ "192.168.6.4" "192.168.6.2" ];
-      domains = [ "rovacsek.com.internal" ];
-      baseDomain = "rovacsek.com.internal";
-      # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
-    };
-
-    ## TODO: Address the below to use my own options.
-    # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
-    derp = {
-      # TODO: Remove below once I have paths correctly configured
-      # urls = [ ];
-      # paths = [ "/etc/headscale/derp-server.json" ];
-      updateFrequency = "24h";
-      autoUpdate = true;
-    };
-
-    # TODO: make this dynamic depending on a search through /etc configs for this system
-    aclPolicyFile = "/etc/headscale/acls.json";
-
-    ephemeralNodeInactivityTimeout = "5m";
 
     # This will override settings that are not exposed as nix module options
     settings = {
+      acl_policy_path = "/etc/headscale/acls.json";
+
+      ## TODO: Address the below to use my own options.
+      # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
+      derp = {
+        # TODO: Remove below once I have paths correctly configured
+        # urls = [ ];
+        # paths = [ "/etc/headscale/derp-server.json" ];
+        update_frequency = "24h";
+        auto_update_enable = true;
+      };
+
+      server_url = "https://headscale.rovacsek.com";
+
+      ephemeral_node_inactivity_timeout = "5m";
+
+      db_user = config.services.headscale.user;
+      db_type = "sqlite3";
+      db_path = "/var/lib/headscale/db.sqlite";
+      db_name = "headscale";
+
+      dns_config = {
+        magicDns = true;
+        # Replace this in time with resolved magic DNS address of my DNS resolvers.
+        nameservers = [ "192.168.6.4" "192.168.6.2" ];
+        domains = [ "rovacsek.com.internal" ];
+        baseDomain = "rovacsek.com.internal";
+        # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
+      };
+
       # TODO: move this to agenix
       noise.private_key_path = "/var/lib/headscale/noise_private.key";
       metrics_listen_addr = "127.0.0.1:${builtins.toString metricsPort}";
