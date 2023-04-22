@@ -1,6 +1,6 @@
 { self }:
 let
-  inherit (self.inputs.nixpkgs.legacyPackages.x86_64-linux) lib;
+  inherit (self.inputs.nixpkgs) lib;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.strings) concatLines;
 in attrs:

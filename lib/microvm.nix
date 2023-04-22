@@ -1,7 +1,5 @@
 { self }:
-let
-  pkgs = self.inputs.nixpkgs.legacyPackages.x86_64-linux;
-  inherit (pkgs) lib;
+let inherit (self.inputs.nixpkgs) lib;
 in {
   generate-journald-share = hostName:
     # The below is utilised to ensure our host has access to journald logs as per

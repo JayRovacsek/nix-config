@@ -1,7 +1,46 @@
 { osConfig, ... }:
 let
+  inherit (osConfig.flake.lib) generate-hyprland-monitor;
+
   nvidiaPatches = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
+
+  alakazam-monitors = [
+    {
+      name = "DVI-D-1";
+      resolution = "1920x1080";
+      position = "0x0";
+      scale = "1";
+      extra = "transform,1";
+    }
+    {
+      name = "HDMI-A-1";
+      resolution = "1920x1080";
+      position = "1080x420";
+      scale = "1";
+      extra = "";
+    }
+    {
+      name = "DP-5";
+      resolution = "1920x1080";
+      position = "3000x420";
+      scale = "1";
+      extra = "";
+    }
+    {
+      name = "DP-4";
+      resolution = "1920x1080";
+      position = "4920x420";
+      scale = "1";
+      extra = "";
+    }
+  ];
+
+  monitors = if osConfig.networking.hostName == "alakazam" then
+    (generate-hyprland-monitor alakazam-monitors)
+  else
+    "monitor=,preferred,auto,auto";
+
 in {
 
   imports = [ ../waybar ../wofi ];
@@ -15,8 +54,7 @@ in {
       # See https://wiki.hyprland.org/Configuring/Monitors/
       # See https://wiki.hyprland.org/Configuring/Keywords/
       # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
-      monitor=,preferred,auto,auto
-
+      ${monitors}
 
       env = XCURSOR_SIZE,24
       input {

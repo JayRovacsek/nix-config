@@ -4,8 +4,8 @@
     ../../modules/clamav
     ../../modules/docker
     ../../modules/fonts
-    ../../modules/gnome
     ../../modules/gnupg
+    ../../modules/hyprland
     ../../modules/keybase
     ../../modules/lorri
     ../../modules/nix
@@ -13,7 +13,6 @@
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam
-    ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev
