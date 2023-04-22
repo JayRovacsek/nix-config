@@ -51,9 +51,6 @@ in {
   xdg.portal = {
     enable = true;
     wlr.enable = false;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      config.flake.inputs.xdg-portal-hyprland.packages.${pkgs.system}.default
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 }

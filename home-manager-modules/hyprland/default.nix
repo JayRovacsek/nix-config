@@ -10,31 +10,15 @@ in {
     enable = true;
     inherit nvidiaPatches;
     extraConfig = ''
-      # This is an example Hyprland config file.
-      #
-      # Refer to the wiki for more information.
-
-      #
       # Please note not all available settings / options are set here.
       # For a full list, see the wiki
-      #
-
       # See https://wiki.hyprland.org/Configuring/Monitors/
+      # See https://wiki.hyprland.org/Configuring/Keywords/
+      # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       monitor=,preferred,auto,auto
 
 
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-      # Execute your favorite apps at launch
-      # exec-once = waybar & hyprpaper & firefox
-
-      # Source a file (multi-file configs)
-      # source = ~/.config/hypr/myColors.conf
-
-      # Some default env vars.
       env = XCURSOR_SIZE,24
-
-      # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
       input {
           kb_layout = us
           kb_variant =
@@ -123,7 +107,7 @@ in {
 
 
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-      $mainMod = ALT
+      $mainMod = SUPER
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       bind = $mainMod, Q, exec, kitty
