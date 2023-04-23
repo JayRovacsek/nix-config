@@ -36,6 +36,12 @@
       prev.makeModulesClosure (x // { allowMissing = true; });
   };
 
+  # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
+  mpvpaper = _final: prev: {
+    mpvpaper = prev.mpvpaper.overrideAttrs
+      (old: { patches = (old.patches or [ ]) ++ [ ./mpvpaper.patch ]; });
+  };
+
   # https://stackoverflow.com/questions/70395839/how-to-globally-override-a-pythonpackage-in-nix/74550150#74550150
   # With slight tweaks to target versions to avoid needing to think about overrides for all recent versions of 
   # python (though hardcoded below...)
@@ -86,5 +92,16 @@
           };
         };
       });
+  };
+
+  wayland = _final: prev: {
+    wayland = prev.wayland.overrideAttrs (old: rec {
+      version = "1.22.0";
+      src = prev.fetchurl {
+        url =
+          "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
+        hash = "sha256-FUCvHqaYpHHC2OnSiDMsfg/TYMjx0Sk267fny8JCWEI=";
+      };
+    });
   };
 }

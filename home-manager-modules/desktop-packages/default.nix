@@ -51,9 +51,6 @@ let
     ## OpenGL
     glfw
 
-    # Games
-    runelite
-
     # Communication
     discord
     signal-desktop

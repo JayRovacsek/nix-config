@@ -1,6 +1,6 @@
 { pkgs, osConfig, ... }:
 let
-  inherit (pkgs) system mpvpaper;
+  inherit (pkgs) system mpvpaper waybar;
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
   inherit (osConfig.flake.packages.${system}) sunset-river-pixelart-wallpaper;
 
@@ -60,18 +60,11 @@ in {
       env = XCURSOR_SIZE,24
       input {
           kb_layout = us
-          kb_variant =
-          kb_model =
-          kb_options =
-          kb_rules =
-
           follow_mouse = 1
-
           touchpad {
               natural_scroll = false
           }
-
-          sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+          sensitivity = 0 
       }
 
       general {
@@ -86,28 +79,24 @@ in {
           layout = dwindle
       }
 
+      # https://wiki.hyprland.org/Configuring/Variables/#decoration
       decoration {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-          rounding = 10
+          rounding = 5
           blur = true
           blur_size = 3
           blur_passes = 1
+          blur_ignore_opacity = false
           blur_new_optimizations = true
-
           drop_shadow = true
           shadow_range = 4
           shadow_render_power = 3
           col.shadow = rgba(1a1a1aee)
       }
 
+      # https://wiki.hyprland.org/Configuring/Variables/#animations
       animations {
           enabled = true
-
-          # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
           bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
           animation = windows, 1, 7, myBezier
           animation = windowsOut, 1, 7, default, popin 80%
           animation = border, 1, 10, default
@@ -116,45 +105,36 @@ in {
           animation = workspaces, 1, 6, default
       }
 
+      # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
       dwindle {
-          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = true # you probably want this
+          pseudotile = true
+          preserve_split = true
       }
 
+      # https://wiki.hyprland.org/Configuring/Master-Layout/ 
       master {
-          # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
           new_is_master = true
       }
 
+      # https://wiki.hyprland.org/Configuring/Variables/#gestures
       gestures {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
           workspace_swipe = false
       }
 
-      # Example per-device config
-      # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
-      device:epic-mouse-v1 {
-          sensitivity = -0.5
-      }
-
-      # Example windowrule v1
-      # windowrule = float, ^(kitty)$
-      # Example windowrule v2
-      # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-      # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+      # Window Rules
+      # https://wiki.hyprland.org/Configuring/Window-Rules/
+      windowrule = opacity 1.0 override 0.9 override,^(.*)$ 
 
 
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+      # https://wiki.hyprland.org/Configuring/Keywords/
       $mainMod = SUPER
 
-      # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bind = $mainMod, Q, exec, kitty
+      # Binds
+      # https://wiki.hyprland.org/Configuring/Binds/
       bind = $mainMod, C, killactive,
-      bind = $mainMod, M, exit,
-      bind = $mainMod, E, exec, dolphin
+      bind = $mainMod, M, exit,V
       bind = $mainMod, V, togglefloating,
-      bind = $mainMod, Space, exec, wofi --show drun
+      bind = CTRL SHIFT, Space, exec, wofi --show drun
       bind = $mainMod, P, pseudo, # dwindle
       bind = $mainMod, J, togglesplit, # dwindle
 
@@ -178,10 +158,10 @@ in {
 
       # TODO: Add mod/extra key to this to avoid
       # using the same bind as common text editors
-      bind = CTRL SHIFT,left ,movewindow, l
-      bind = CTRL SHIFT,right ,movewindow, r
-      bind = CTRL SHIFT,up ,movewindow, u
-      bind = CTRL SHIFT,down ,movewindow, d
+      bind = $mainMod CTRL SHIFT,left ,movewindow, l
+      bind = $mainMod CTRL SHIFT,right ,movewindow, r
+      bind = $mainMod CTRL SHIFT,up ,movewindow, u
+      bind = $mainMod CTRL SHIFT,down ,movewindow, d
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
@@ -193,7 +173,8 @@ in {
 
       exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       # The below does not work :sadpanda:
-      #exec-once=${mpvpaper}/bin/mpvpaper -sf -o "--loop --panscan=1" '*' ${sunset-river-pixelart-wallpaper}/share/wallpaper.mp4
+      exec-once=${mpvpaper}/bin/mpvpaper -sf -o "--loop --panscan=1" '*' ${sunset-river-pixelart-wallpaper}/share/wallpaper.mp4
+      exec-once=${waybar}/bin/waybar
     '';
   };
 }

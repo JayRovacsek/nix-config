@@ -34,8 +34,10 @@ let
     # self.overlays.alt-microvm-kernel
     self.overlays.fcitx-engines
     self.overlays.makeModulesClosure
+    self.overlays.mpvpaper
     self.overlays.pythonOverlays
     self.overlays.vscodium-wayland
+    # self.overlays.wayland
   ];
 
   # Create a set that includes the microvm packages where the upstream supports
