@@ -1,12 +1,16 @@
 { pkgs, osConfig, ... }:
 let
-  inherit (pkgs) system mpvpaper waybar dbus;
+  inherit (pkgs) lib system mpvpaper waybar dbus;
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
-  inherit (osConfig.flake.packages.${system}) sunset-river-pixelart-wallpaper;
+  inherit (osConfig.flake.packages.${system}.wallpapers)
+    may-sitting-near-waterfall-pokemon-emerald;
   package = osConfig.flake.inputs.hyprland.packages.${system}.default;
 
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
+
+  hardware-wallpaper =
+    lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
 
   nvidiaPatches = nvidia-present;
 
@@ -47,7 +51,7 @@ let
     "monitor=,preferred,auto,auto";
 in {
 
-  imports = [ ../gammastep ../waybar ../wofi ];
+  imports = [ ../gammastep ../mako ../waybar ../wofi ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -175,7 +179,7 @@ in {
       bindm = $mainMod, mouse:273, resizewindow
 
       exec-once=${dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      exec-once=${mpvpaper}/bin/mpvpaper -sf -o "--loop --panscan=1" '*' ${sunset-river-pixelart-wallpaper}/share/wallpaper.mp4
+      exec-once=${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4
       exec-once=${waybar}/bin/waybar
     '';
   };

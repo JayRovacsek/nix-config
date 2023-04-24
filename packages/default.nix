@@ -1,6 +1,5 @@
 { self, system, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
   selfPkgs = self.outputs.packages.${system};
   inherit (pkgs) callPackage;
   inherit (pkgs.lib) recursiveUpdate;
@@ -38,18 +37,19 @@ let
       ];
     }) terraform-stacks;
 
+  wallpapers = import ./wallpapers { inherit self system pkgs; };
+
   packages = merge [
     images
     pythonModules
     terraform-packages
+    wallpapers
     {
       amethyst = callPackage ./amethyst { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
       pdscan-bin = callPackage ./pdscan-bin { };
-      sunset-river-pixelart-wallpaper =
-        callPackage ./sunset-river-pixelart-wallpaper { };
       trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };

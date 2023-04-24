@@ -1,7 +1,7 @@
-{ stdenv, lib, fetchurl }:
+{ stdenv, lib, fetchurl, ffmpeg-headless }:
 with lib;
 let
-  name = "sunset-river-pixelart-wallpaper";
+  name = "sunset-over-river-in-the-evening-wallpaper";
   pname = name;
   version = "0.0.1";
   meta = {
@@ -21,6 +21,10 @@ in stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/share
 
-    ln -s $src $out/share/wallpaper.mp4
+    # Convert to h265 for more efficient file size and format
+    # at the cost of processing time up-front
+    # Note stripping audio from these sources seemed to be redundant and 
+    # not yield any notable filesize changes
+    ${ffmpeg-headless}/bin/ffmpeg -i $src -vcodec libx265 -crf 28 $out/share/wallpaper.mp4
   '';
 }
