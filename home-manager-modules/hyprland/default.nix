@@ -1,11 +1,14 @@
 { pkgs, osConfig, ... }:
 let
-  inherit (pkgs) system mpvpaper waybar;
+  inherit (pkgs) system mpvpaper waybar dbus;
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
   inherit (osConfig.flake.packages.${system}) sunset-river-pixelart-wallpaper;
+  package = osConfig.flake.inputs.hyprland.packages.${system}.default;
 
-  nvidiaPatches = builtins.any (driver: driver == "nvidia")
+  nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
+
+  nvidiaPatches = nvidia-present;
 
   alakazam-monitors = [
     {
@@ -25,14 +28,14 @@ let
     {
       name = "DP-4";
       resolution = "1920x1080";
-      position = "3000x420";
+      position = "4920x420";
       scale = "1";
       extra = "";
     }
     {
       name = "DP-5";
       resolution = "1920x1080";
-      position = "4920x420";
+      position = "3000x420";
       scale = "1";
       extra = "";
     }
@@ -44,11 +47,11 @@ let
     "monitor=,preferred,auto,auto";
 in {
 
-  imports = [ ../waybar ../wofi ];
+  imports = [ ../gammastep ../waybar ../wofi ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    inherit nvidiaPatches;
+    inherit nvidiaPatches package;
     extraConfig = ''
       # Please note not all available settings / options are set here.
       # For a full list, see the wiki
@@ -58,7 +61,7 @@ in {
       ${monitors}
 
       env = XCURSOR_SIZE,24
-      input {
+      input {h
           kb_layout = us
           follow_mouse = 1
           touchpad {
@@ -171,8 +174,7 @@ in {
       bindm = $mainMod, mouse:272, movewindow
       bindm = $mainMod, mouse:273, resizewindow
 
-      exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      # The below does not work :sadpanda:
+      exec-once=${dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       exec-once=${mpvpaper}/bin/mpvpaper -sf -o "--loop --panscan=1" '*' ${sunset-river-pixelart-wallpaper}/share/wallpaper.mp4
       exec-once=${waybar}/bin/waybar
     '';

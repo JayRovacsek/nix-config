@@ -4,6 +4,8 @@ let
   inherit (flake) lib;
   style = lib.toCss (import ./style.nix);
   settings = import ./settings.nix { inherit pkgs osConfig; };
+  package =
+    osConfig.flake.inputs.hyprland.packages.x86_64-linux.waybar-hyprland;
 in {
   programs.waybar = {
     enable = true;
@@ -11,6 +13,6 @@ in {
       enable = true;
       target = "graphical-session.target";
     };
-    inherit style settings;
+    inherit style settings package;
   };
 }
