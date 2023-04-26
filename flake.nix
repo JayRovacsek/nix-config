@@ -181,6 +181,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Software bill of materials package
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     # Terraform via the nix language
     terranix = {
       url = "github:terranix/terranix";

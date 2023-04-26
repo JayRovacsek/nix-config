@@ -1,5 +1,7 @@
 { self }:
-let inherit (self.common) home-manager-modules;
+let
+  inherit (self.common) home-manager-modules;
+  inherit (self.inputs.stylix.homeManagerModules) stylix;
 in with home-manager-modules; [
   alacritty
   bat
@@ -11,5 +13,6 @@ in with home-manager-modules; [
   lsd
   man
   starship
+  stylix
   zsh
 ]

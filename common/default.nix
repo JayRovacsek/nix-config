@@ -21,6 +21,7 @@
     builtins.attrNames (builtins.readDir ../packages/python-modules);
   self-reference = import ./self-reference.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
+  stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
   terraform = import ./terraform.nix { inherit self; };
   terraform-stacks = import ./terraform-stacks.nix { inherit self; };

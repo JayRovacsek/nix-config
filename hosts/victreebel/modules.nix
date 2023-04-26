@@ -10,6 +10,7 @@
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
+    ../../modules/stylix
     ../../modules/time
     ../../modules/yabai
     ../../modules/zsh

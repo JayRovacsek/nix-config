@@ -2,7 +2,7 @@
 let
   inherit (self.common)
     age home-manager hyprland impermanence i18n options package-sets
-    self-reference standardise-nix;
+    self-reference stylix standardise-nix;
   inherit (self.inputs.nur.nixosModules) nur;
 in builtins.mapAttrs (package-set: _:
   home-manager.${package-set} ++ [
@@ -14,4 +14,5 @@ in builtins.mapAttrs (package-set: _:
     options.${package-set}
     self-reference
     standardise-nix.${package-set}
+    stylix.${package-set}
   ]) package-sets

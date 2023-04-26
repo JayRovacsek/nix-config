@@ -31,5 +31,7 @@
       file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-2.age;
       owner = "j.rovacsek";
     };
+
+    "builder-id-ed25519".file = ../../secrets/ssh/builder-id-ed25519.age;
   };
 }
