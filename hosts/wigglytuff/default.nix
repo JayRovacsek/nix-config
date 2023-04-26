@@ -2,12 +2,12 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) linux-desktop;
+  inherit (flake.common.home-manager-module-sets) base linux-desktop;
   inherit (flake.lib) merge-user-config;
 
   builder = common.users.builder {
     inherit config pkgs;
-    modules = [ ];
+    modules = base;
   };
 
   jay = common.users.jay {

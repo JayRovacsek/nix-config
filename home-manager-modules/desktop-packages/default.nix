@@ -52,7 +52,7 @@ let
     glfw
 
     # Communication
-    discord
+    webcord
     signal-desktop
     thunderbird
     slack

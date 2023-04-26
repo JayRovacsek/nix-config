@@ -73,7 +73,7 @@
 
     # Home management module
     home-manager = {
-      url = "github:rycee/home-manager/release-22.11";
+      url = "github:rycee/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -1,6 +1,6 @@
 { pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system mpvpaper waybar dbus;
+  inherit (pkgs) lib system mpvpaper dbus;
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
   inherit (osConfig.flake.packages.${system}.wallpapers)
     may-sitting-near-waterfall-pokemon-emerald;
@@ -138,7 +138,7 @@ in {
 
       # Binds
       # https://wiki.hyprland.org/Configuring/Binds/
-      bind = $mainMod, C, killactive,
+      bind = $mainMod, Q, killactive,
       bind = $mainMod, M, exit,V
       bind = $mainMod, V, togglefloating,
       bind = CTRL SHIFT, Space, exec, wofi --show drun
@@ -150,18 +150,6 @@ in {
       bind = $mainMod, right, movefocus, r
       bind = $mainMod, up, movefocus, u
       bind = $mainMod, down, movefocus, d
-
-      # Switch workspaces with mainMod + [0-9]
-      bind = $mainMod, 1, workspace, 1
-      bind = $mainMod, 2, workspace, 2
-      bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, 4, workspace, 4
-      bind = $mainMod, 5, workspace, 5
-      bind = $mainMod, 6, workspace, 6
-      bind = $mainMod, 7, workspace, 7
-      bind = $mainMod, 8, workspace, 8
-      bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, 0, workspace, 10
 
       # TODO: Add mod/extra key to this to avoid
       # using the same bind as common text editors
@@ -180,7 +168,6 @@ in {
 
       exec-once=${dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
       exec-once=${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4
-      exec-once=${waybar}/bin/waybar
     '';
   };
 }

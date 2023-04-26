@@ -9,4 +9,6 @@ in builtins.mapAttrs (package-set: _:
 
     darwin-modules = lib.optional isDarwin stylix.darwinModules.stylix;
     linux-modules = lib.optional isLinux stylix.nixosModules.stylix;
-  in { imports = darwin-modules ++ linux-modules; }) package-sets
+    system-module = import ../modules/stylix;
+  in { imports = darwin-modules ++ linux-modules ++ [ system-module ]; })
+package-sets

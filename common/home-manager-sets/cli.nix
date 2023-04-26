@@ -1,9 +1,8 @@
 { self }:
 let
   inherit (self.common) home-manager-modules;
-  inherit (self.inputs.stylix.homeManagerModules) stylix;
-in with home-manager-modules; [
-  alacritty
+  inherit (self.common.home-manager-module-sets) base;
+in base ++ (with home-manager-modules; [
   bat
   dircolours
   direnv
@@ -13,6 +12,5 @@ in with home-manager-modules; [
   lsd
   man
   starship
-  stylix
   zsh
-]
+])

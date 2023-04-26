@@ -37,7 +37,7 @@ let
       ];
     }) terraform-stacks;
 
-  wallpapers = import ./wallpapers { inherit self system pkgs; };
+  wallpapers = import ./wallpapers { inherit pkgs; };
 
   packages = merge [
     images
@@ -47,6 +47,7 @@ let
     {
       amethyst = callPackage ./amethyst { };
       better-english = callPackage ./better-english { };
+      catppuccin-base16 = callPackage ./catppuccin-base16 { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
       pdscan-bin = callPackage ./pdscan-bin { };

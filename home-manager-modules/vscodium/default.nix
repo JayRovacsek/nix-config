@@ -44,9 +44,7 @@
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
       "editor.bracketPairColorization.enabled" = true;
-      "editor.fontFamily" = "Hack Nerd Font";
       "editor.fontLigatures" = true;
-      "editor.fontSize" = 14;
       "editor.formatOnSave" = true;
       "editor.guides.bracketPairs" = "active";
       "editor.maxTokenizationLineLength" = 10000;
@@ -63,7 +61,6 @@
       "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
-      "oneDarkPro.editorTheme" = "Retro";
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
@@ -73,7 +70,6 @@
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.titleBarStyle" = "custom";
-      "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
     };
 

@@ -28,9 +28,10 @@ let
 in {
   programs.firefox = {
     enable = true;
-    inherit extensions;
 
     profiles.jay = {
+      inherit extensions;
+
       search = {
         force = true;
         default = "DuckDuckGo";
