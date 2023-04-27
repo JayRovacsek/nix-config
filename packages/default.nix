@@ -37,9 +37,11 @@ let
       ];
     }) terraform-stacks;
 
+  colour-schemes = import ./colour-schemes { inherit pkgs; };
   wallpapers = import ./wallpapers { inherit pkgs; };
 
   packages = merge [
+    colour-schemes
     images
     pythonModules
     terraform-packages

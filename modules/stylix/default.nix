@@ -6,8 +6,7 @@ let
 in {
   stylix = {
     autoEnable = true;
-    base16Scheme =
-      "${base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
+    base16Scheme = "${base16-schemes}/share/themes/snazzy.yaml";
     # base16Scheme = "${catppuccin-base16}/share/base16/latte.yaml";
     fonts = {
       sansSerif = {
