@@ -38,7 +38,7 @@ in stdenv.mkDerivation {
   inherit name pname version meta phases;
 
   installPhase = ''
-    mkdir -p $out/share
-    ln -s ${content} $out/share/out.yaml
+    mkdir -p $out/share/themes
+    ln -s ${content} $out/share/themes/tomorrow-night-blue.yaml
   '';
 }

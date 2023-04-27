@@ -25,7 +25,7 @@ in stdenv.mkDerivation {
   inherit name pname version meta phases src;
 
   installPhase = ''
-    mkdir -p $out/share
-    ln -s $src/* $out/share
+    mkdir -p $out/share/themes
+    ln -s $src/base16/* $out/share/themes
   '';
 }
