@@ -1,10 +1,15 @@
 { config, pkgs, ... }:
 let
   inherit (pkgs) system lib;
-  nvidiaPatches = builtins.any (driver: driver == "nvidia")
+  nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
-  package = config.flake.inputs.hyprland.packages.${system}.default;
+  nvidiaPatches = nvidia-present;
+
+  package = if nvidia-present then
+    config.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
+  else
+    config.flake.inputs.hyprland.packages.${system}.default;
 in {
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
@@ -19,10 +24,12 @@ in {
 
   environment = {
     systemPackages = with pkgs; [
+      libsForQt5.qt5.qtwayland
+      pciutils
       pciutils
       vulkan-loader
-      vulkan-validation-layers
       vulkan-tools
+      vulkan-validation-layers
     ];
     variables = {
       NIXOS_OZONE_WL = "1";
@@ -35,6 +42,19 @@ in {
       WLR_RENDERER = "vulkan";
       WLR_NO_HARDWARE_CURSORS = "1";
       XDG_SESSION_TYPE = "wayland";
+      # Resolves jellyfin black screen under hyperland
+      # See also: https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1030690851
+      QT_QPA_PLATFORM = "xcb";
+      SDL_VIDEODRIVER = "wayland";
+      CLUTTER_BACKEND = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      LIBVA_DRIVER_NAME = "nvidia";
     };
   };
 
@@ -52,7 +72,6 @@ in {
     enable = true;
     wlr.enable = false;
     extraPortals = lib.mkForce [
-      pkgs.xdg-desktop-portal-gtk
       config.flake.inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland
     ];
   };

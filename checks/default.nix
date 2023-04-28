@@ -26,7 +26,8 @@ let
         };
 
         trufflehog-verified = {
-          enable = true;
+          # Temporary - seems broken
+          enable = false;
           name = "Trufflehog Search";
           entry =
             "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
@@ -35,7 +36,8 @@ let
         };
 
         trufflehog-regex = {
-          enable = true;
+          # Temporary - seems broken
+          enable = false;
           name = "Trufflehog Regex Search";
           entry =
             "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions";

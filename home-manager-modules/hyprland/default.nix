@@ -4,10 +4,16 @@ let
   inherit (osConfig.flake.lib) generate-hyprland-monitors;
   inherit (osConfig.flake.packages.${system}.wallpapers)
     may-sitting-near-waterfall-pokemon-emerald;
-  package = osConfig.flake.inputs.hyprland.packages.${system}.default;
+  inherit (osConfig.flake.inputs.hyprland-plugins.packages.${system})
+    csgo-vulkan-fix;
 
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
+
+  package = if nvidia-present then
+    osConfig.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
+  else
+    osConfig.flake.inputs.hyprland.packages.${system}.default;
 
   hardware-wallpaper =
     lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
@@ -51,10 +57,40 @@ let
     "monitor=,preferred,auto,auto";
 in {
 
-  imports = [ ../gammastep ../mako ../waybar ../wofi ];
+  imports = [ ../gammastep ../mako ../waybar ];
+
+  home = {
+    packages = with pkgs; [ csgo-vulkan-fix hyprpicker wofi ];
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      __GL_GSYNC_ALLOWED = "0";
+      __GL_VRR_ALLOWED = "0";
+      GDK_BACKEND = "wayland";
+      WLR_DRM_NO_ATOMIC = "1";
+      MOZ_ENABLE_WAYLAND = "1";
+      WLR_BACKEND = "vulkan";
+      WLR_RENDERER = "vulkan";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      XDG_SESSION_TYPE = "wayland";
+      # Resolves jellyfin black screen under hyperland
+      # See also: https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1030690851
+      QT_QPA_PLATFORM = "xcb";
+      SDL_VIDEODRIVER = "wayland";
+      CLUTTER_BACKEND = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      LIBVA_DRIVER_NAME = "nvidia";
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
+    recommendedEnvironment = true;
     inherit nvidiaPatches package;
     extraConfig = ''
       # Please note not all available settings / options are set here.
@@ -65,7 +101,7 @@ in {
       ${monitors}
 
       env = XCURSOR_SIZE,24
-      input {h
+      input {
           kb_layout = us
           follow_mouse = 1
           touchpad {

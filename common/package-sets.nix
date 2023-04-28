@@ -35,7 +35,7 @@ let
     self.overlays.fcitx-engines
     self.overlays.makeModulesClosure
     self.overlays.mpvpaper
-    self.overlays.pythonOverlays
+    # self.overlays.pythonOverlays
     self.overlays.vscodium-wayland
     # self.overlays.wayland
   ];

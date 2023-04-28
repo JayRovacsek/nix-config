@@ -80,11 +80,16 @@
     # Wayland compositor & WM
     hyprland = {
       # Pin required until wayland 1.22 is merged
-      url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
+      url = "github:hyprwm/Hyprland";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland-protocols.follows = "hyprland-protocols";
       };
+    };
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
 
     hyprland-protocols = {
