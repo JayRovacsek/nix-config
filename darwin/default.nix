@@ -4,7 +4,7 @@ let
   inherit (self.common.system) stable-darwin-system unstable-darwin-system;
 
   inherit (self.common.package-sets)
-    aarch64-darwin-stable aarch64-darwin-unstable x86_64-darwin-stable;
+    aarch64-darwin-unstable x86_64-darwin-stable;
 in {
   # Hosts
   cloyster = let
@@ -20,8 +20,8 @@ in {
   in unstable-darwin-system { inherit system pkgs modules; };
 
   victreebel = let
-    inherit (aarch64-darwin-stable) system identifier pkgs;
+    inherit (aarch64-darwin-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/victreebel ];
-  in stable-darwin-system { inherit system pkgs modules; };
+  in unstable-darwin-system { inherit system pkgs modules; };
 }

@@ -14,8 +14,9 @@
         };
         dynamic_title = false;
         dynamic_padding = false;
-        decorations = "full";
         startup_mode = "Windowed";
+        decorations = "none";
+        opacity = 0.95;
       };
 
       scrolling = {
@@ -24,6 +25,9 @@
       };
 
       font = {
+        normal.family = "Hack Nerd Font";
+        bold.family = "Hack Nerd Font";
+        italic.family = "Hack Nerd Font";
         offset = {
           x = 0;
           y = 0;
@@ -34,19 +38,24 @@
         };
       };
 
-      draw_bold_text_with_bright_colors = true;
-
-      bell.animation = "EaseOutExpo";
-      bell.duration = 0;
-      bell.color = "0xffffff";
+      bell = {
+        animation = "EaseOutExpo";
+        duration = 0;
+        color = "0xffffff";
+      };
 
       mouse.hide_when_typing = true;
 
-      selection.semantic_escape_chars = '',│`|:"' ()[]{}<>'';
-      selection.save_to_clipboard = false;
+      selection = {
+        semantic_escape_chars = '',│`|:"' ()[]{}<>'';
+        save_to_clipboard = false;
+      };
 
-      cursor.style = "Block";
-      cursor.unfocused_hollow = true;
+      cursor = {
+        style = "Block";
+        unfocused_hollow = true;
+      };
+
       live_config_reload = true;
     };
   };
