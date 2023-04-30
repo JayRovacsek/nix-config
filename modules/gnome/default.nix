@@ -21,15 +21,11 @@ let
       notification-banner-reloaded
     ] ++ tailscaleExtensions;
 in {
-  imports = [ ../redshift ];
+  imports = [ ../gdm ../redshift ];
 
-  services.xserver.desktopManager.gnome.enable = true;
-
-  services.xserver.enable = true;
-
-  services.xserver.displayManager.gdm = {
+  services.xserver = {
     enable = true;
-    wayland = false;
+    desktopManager.gnome.enable = true;
   };
 
   # Gnome wants this by default, I really don't need it.

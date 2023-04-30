@@ -32,7 +32,7 @@ let
   };
 
 in {
-  imports = [ ../sddm ];
+  imports = [ ../gdm ];
 
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
