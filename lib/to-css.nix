@@ -7,7 +7,7 @@ in attrs:
 concatLines (mapAttrsToList (name: value:
   if (builtins.typeOf value == "set") then ''
     ${name} {
-      ${self.lib.toCss value}
+      ${self.lib.to-css value}
     }
   '' else
     "${name}: ${builtins.toString value};") attrs)
