@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    vim
     exfat
     cifs-utils
     dnsutils

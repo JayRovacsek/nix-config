@@ -62,6 +62,24 @@
       };
     });
 
+  # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
+  ranger = _final: prev: {
+    ranger = prev.ranger.overrideAttrs (old: {
+      # This isn't 1.9.4 - we simply want to indicate we're utilising
+      # a latter version than 1.9.3 and not break logic in home-manager-modules
+      version = "1.9.4";
+      src = prev.fetchFromGitHub {
+        owner = "ranger";
+        repo = "ranger";
+        # https://github.com/ranger/ranger/commit/fe7c3b28067a00b0715399d811437545edb83e71
+        rev = "fe7c3b28067a00b0715399d811437545edb83e71";
+        sha256 = "sha256-KPCts1MimDQYljoPR4obkbfFT8gH66c542CMG9UW7O0=";
+      };
+      propagatedBuildInputs = old.propagatedBuildInputs
+        ++ (with prev.python3Packages; [ pylint ]);
+    });
+  };
+
   vscodium-wayland = _final: prev: {
     vscodium-wayland =
 

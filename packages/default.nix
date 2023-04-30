@@ -55,6 +55,7 @@ let
       trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
+      waybar-colour-picker = callPackage ./waybar-colour-picker { };
       waybar-screenshot = callPackage ./waybar-screenshot { };
       wofi-power = callPackage ./wofi-power { };
     }

@@ -1,15 +1,17 @@
 { pkgs, osConfig }:
 let
   inherit (pkgs) procps system wofi pamixer;
-  inherit (osConfig.flake.packages.${system}) wofi-power waybar-screenshot;
+  inherit (osConfig.flake.packages.${system})
+    wofi-power waybar-screenshot waybar-colour-picker;
 in [{
   layer = "top";
   position = "top";
   modules-left = [ "custom/launcher" "tray" ];
   modules-center = [ "clock" ];
   modules-right = [
-    "idle_inhibitor"
+    "custom/colour-picker"
     "custom/screenshot"
+    "idle_inhibitor"
     "pulseaudio"
     "memory"
     "cpu"
@@ -104,7 +106,16 @@ in [{
 
   "custom/screenshot" = {
     format = "  ";
+    format-icons = {
+      activated = "  ";
+      deactivated = "  ";
+    };
     on-click = "${waybar-screenshot}/bin/waybar-screenshot";
+  };
+
+  "custom/colour-picker" = {
+    format = "  ";
+    on-click = "${waybar-colour-picker}/bin/waybar-colour-picker";
   };
 
   tray = {
