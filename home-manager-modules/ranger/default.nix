@@ -1,13 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
-  # https://github.com/ranger/ranger/pull/2466 is complete and sixel is to be supported
-  # but the version of ranger currently packaged does not include these changes.
-  # See also: https://github.com/ranger/ranger/issues/2702
-  ranger-sixel-support = lib.versionAtLeast pkgs.ranger.version "1.9.4";
-  preview-method = "set preview_images_method ${
-      if ranger-sixel-support then "sixel" else "w3m"
-    }";
-
   # See also: https://github.com/ranger/ranger#optional-dependencies
   packages = with pkgs; [
     atool
@@ -25,6 +17,7 @@ let
     unrar
     unzip
     w3m
+    zathura
   ];
 in {
   imports = [ ../xdg ];
@@ -45,7 +38,7 @@ in {
     set vcs_backend_svn disabled
     set vcs_msg_length 50
     set preview_images true
-    ${preview-method}
+    set preview_images_method w3m
     set sixel_dithering FloydSteinberg
     set unicode_ellipsis false
     set bidi_support false
