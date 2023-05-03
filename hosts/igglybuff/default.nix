@@ -3,7 +3,7 @@ let
   inherit (flake) common;
   inherit (common.microvm) read-only-store;
 
-  inherit (flake.lib) merge-user-config microvm;
+  inherit (flake.lib) merge microvm;
   inherit (microvm) generate-journald-share;
 
   inherit (config.networking) hostName;
@@ -16,7 +16,7 @@ let
     overrides = { users.users.jay.shell = pkgs.bash; };
   };
 
-  merged = merge-user-config { users = [ jay ]; };
+  merged = merge { users = [ jay ]; };
 
 in {
   inherit flake;

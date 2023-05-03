@@ -3,7 +3,7 @@
 let
   inherit (flake) common;
   inherit (flake.common.home-manager-module-sets) base cli;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -15,7 +15,7 @@ let
     modules = cli;
   };
 
-  merged = merge-user-config { users = [ builder jay ]; };
+  merged = merge { users = [ builder jay ]; };
 
 in {
   inherit flake;
