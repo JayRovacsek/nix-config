@@ -26,7 +26,7 @@ let
     lib.optionals nvidia-present (with pkgs; [ libva nvidia-vaapi-driver ]);
 
   # Set some ENV variables if nvidia is present
-  optional-env-values = lib.optionals nvidia-present {
+  optional-env-values = lib.optionalAttrs nvidia-present {
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";

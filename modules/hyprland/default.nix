@@ -18,13 +18,12 @@ let
   systemPackages = (with pkgs; [
     libsForQt5.qt5.qtwayland
     pciutils
-    pciutils
     vulkan-loader
     vulkan-tools
     vulkan-validation-layers
   ]) ++ optional-packages;
 
-  optional-env-values = lib.optionals nvidia-present {
+  optional-env-values = lib.optionalAttrs nvidia-present {
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";
