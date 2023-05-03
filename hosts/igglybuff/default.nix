@@ -1,14 +1,8 @@
 { config, pkgs, lib, flake, ... }:
 let
   inherit (flake) common;
-  inherit (common.microvm) read-only-store;
-
-  inherit (flake.lib) merge microvm;
-  inherit (microvm) generate-journald-share;
-
+  inherit (flake.lib) merge;
   inherit (config.networking) hostName;
-
-  journald-share = generate-journald-share hostName;
 
   jay = common.users.jay {
     inherit config pkgs;
@@ -31,7 +25,6 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ read-only-store journald-share ];
     interfaces = [{
       type = "tap";
       id = "vm-${hostName}-01";

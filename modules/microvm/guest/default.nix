@@ -1,5 +1,17 @@
-{
+{ config, ... }:
+let inherit (config.networking) hostName;
+in {
   networking.useNetworkd = true;
+
+  microvm.shares = [{
+    # On the host
+    source = "/var/lib/microvms/${hostName}/journal";
+    # In the MicroVM
+    mountPoint = "/var/log/journal";
+    tag = "journal";
+    proto = "virtiofs";
+    socket = "journal.sock";
+  }];
 
   nix.settings = {
     substituters = [ "https://microvm.cachix.org/" ];
