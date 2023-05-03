@@ -16,7 +16,7 @@ let
     overrides = { users.users.jay.shell = pkgs.bash; };
   };
 
-  merged = merge { users = [ jay ]; };
+  merged = merge [ jay ];
 
 in {
   inherit flake;

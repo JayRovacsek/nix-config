@@ -9,7 +9,7 @@ let
     modules = cli;
   };
 
-  merged = merge { users = [ jay ]; };
+  merged = merge [ jay ];
 
   hostName = "zubat";
 in {

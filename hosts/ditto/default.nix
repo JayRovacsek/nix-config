@@ -12,7 +12,7 @@ let
     modules = cli;
   };
 
-  merged = merge { users = [ jay ]; };
+  merged = merge [ jay ];
 in {
   inherit flake;
   inherit (merged) users home-manager;

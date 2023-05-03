@@ -10,7 +10,7 @@ let
     modules = hyprland-desktop;
   };
 
-  merged = merge { users = [ jay ]; };
+  merged = merge [ jay ];
 
 in {
   inherit flake;

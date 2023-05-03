@@ -1,3 +1,3 @@
 { self }:
-let inherit (self.inputs.stable.lib) recursiveUpdate;
+let inherit (self.inputs.nixpkgs.lib) recursiveUpdate;
 in builtins.foldl' recursiveUpdate { }

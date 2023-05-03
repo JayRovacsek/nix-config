@@ -15,7 +15,7 @@ let
     modules = desktop;
   };
 
-  merged = merge { users = [ builder jay ]; };
+  merged = merge [ builder jay ];
 
 in {
   inherit flake;
