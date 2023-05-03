@@ -4,39 +4,39 @@ let
   inherit (pkgs.lib.attrsets) concatMapAttrs;
   inherit (pkgs) terraform;
   inherit (self.common) terraform-stacks;
-  removeConfig = ''
-    if [[ -e config.tf.json ]]; then
-      rm -f config.tf.json
+
+  # Commonly utilised terraform file names
+  state = "terraform.tfstate";
+  config = "config.tf.json";
+  lock = ".terraform.lock.hcl";
+  vars = "terraform.tfvars";
+
+  # Simple wrapper for removing a file in current directory
+  remove = x: ''
+    if [[ -e ${x} ]]; then
+      echo "Found ${x} to exist, removing it!"
+      rm -f ${x}
     fi
   '';
 
-  removeState = ''
-    if [[ -e terraform.tfstate ]]; then
-      echo "State exists in current directory, removing it!"
-      rm -f terraform.tfstate
+  # Curried functions handling removal of common files
+  removeConfig = remove config;
+  removeLock = remove lock;
+  removeState = remove state;
+  removeVars = remove vars;
+
+  # Simple wrapper for using a file if it exists in 
+  # stack directory
+  use = stack: x: ''
+    if [[ -e ./terranix/${stack}/${x} ]]; then
+      echo "${x} exists in stack directory, utilising it!"
+      ln ./terranix/${stack}/${x} $(pwd)
     fi
   '';
 
-  removeVars = ''
-    if [[ -e terraform.tfvars ]]; then
-      echo "State exists in current directory, removing it!"
-      rm -f terraform.tfvars
-    fi
-  '';
-
-  useState = stack: ''
-    if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
-      echo "State exists in stack directory, utilising it!"
-      ln ./terranix/${stack}/terraform.tfstate $(pwd)
-    fi
-  '';
-
-  useVars = stack: ''
-    if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
-      echo "Vars file exists in stack directory, utilising it!"
-      ln ./terranix/${stack}/terraform.tfvars $(pwd)
-    fi
-  '';
+  # Curried use functions for common files
+  useState = stack: use stack state;
+  useVars = stack: use stack vars;
 
   runTerraformCommand = command: ''
     ${terraform}/bin/terraform ${command}
@@ -47,23 +47,17 @@ let
       && ${terraform}/bin/terraform init
   '';
 
-  updateState = stack: ''
-    if [[ -e terraform.tfstate ]]; then
-      if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
-        echo "Copying state over to the stack directory!"
-        ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
+  update = stack: x: ''
+    if [[ -e ${x} ]]; then
+      if [[ ! -e ./terranix/${stack}/${x} ]]; then
+        echo "Copying ${x} over to the stack directory!"
+        ln ${x} ./terranix/${stack}/${x}
       fi
     fi
   '';
 
-  updateVars = stack: ''
-    if [[ -e terraform.tfvars ]]; then
-      if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
-        echo "Copying tfvars over to the stack directory!"
-        ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
-      fi
-    fi
-  '';
+  updateState = stack: update stack state;
+  updateVars = stack: update stack vars;
 
   runTfsec = ''
     if [[ -e terraform.tfvars ]]; then
@@ -77,17 +71,17 @@ let
       ${removeState}
       ${removeVars}
       ${removeConfig}
+      ${removeLock}
       exit 1
     fi
   '';
-
-  # terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
 
   terraformProgram = cfg: stack: name: command:
     builtins.toString (pkgs.writers.writeBash name ''
       ${removeConfig}
       ${removeState}
       ${removeVars}
+      ${removeLock}
 
       ${useState stack}
       ${useVars stack}
@@ -103,6 +97,8 @@ let
 
       ${updateVars stack}
       ${removeVars}
+
+      ${removeLock}
 
       ${removeConfig}
     '');
