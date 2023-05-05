@@ -2,7 +2,7 @@ _:
 let
   linodeRegion = "ap-southeast";
   awsRegion = "ap-southeast-2";
-  name = "csgo";
+  name = "linode-csgo";
   label = name;
   group = name;
   dns = "noobhealthyfuns.com";
@@ -56,14 +56,20 @@ in {
     };
   };
 
-  terraform.required_providers = {
-    linode = {
-      source = "linode/linode";
-      version = "1.30.0";
+  terraform = {
+    cloud = {
+      organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
+      workspaces = { inherit name; };
     };
-    aws = {
-      source = "hashicorp/aws";
-      version = "4.54.0";
+    required_providers = {
+      linode = {
+        source = "linode/linode";
+        version = "1.30.0";
+      };
+      aws = {
+        source = "hashicorp/aws";
+        version = "4.54.0";
+      };
     };
   };
 

@@ -111,6 +111,11 @@ let
         program = terraformProgram cfg name "apply" "apply -auto-approve";
       };
 
+      "${name}-init" = {
+        type = "app";
+        program = terraformProgram cfg name "init" "init";
+      };
+
       "${name}-plan" = {
         type = "app";
         program = terraformProgram cfg name "plan" "plan";

@@ -47,6 +47,8 @@ in {
     polarity = "dark";
   };
 
+  stylix.targets.grub.enable = false;
+
   home-manager.sharedModules = [ ]
     ++ (lib.optionals isDarwin [{ stylix.targets.swaylock.enable = false; }]);
 }
