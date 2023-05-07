@@ -63,8 +63,7 @@ let
 
   extraHostNames = darwinHosts ++ linuxHosts;
 
-  requireBuilderConfigs = (hasAttr "builder" config.users.users)
-    && (hasAttr "builder-id-ed25519" config.age.secrets);
+  requireBuilderConfigs = hasAttr "builder-id-ed25519" config.age.secrets;
 
   extraHostConfigs = let
     fqdn = hostName:
@@ -91,7 +90,7 @@ in {
     mode = "0400";
   };
 
-  programs.ssh.extraConfig = extraHostConfigs;
+  programs.ssh.extraConfig = concatStringsSep "\n\n" extraHostConfigs;
 
   nix = {
     inherit buildMachines;

@@ -39,7 +39,7 @@ let
   useVars = stack: use stack vars;
 
   runTerraformCommand = command: ''
-    ${terraform}/bin/terraform ${command}
+    ${terraform}/bin/terraform ${command} $@
   '';
 
   terraformInit = cfg: ''
@@ -59,11 +59,20 @@ let
   updateState = stack: update stack state;
   updateVars = stack: update stack vars;
 
+  tfsec-ignored-checks = [
+    # Kinda by descign most the time
+    "github-repositories-private"
+    # Not all repos will be suitable for this to be applied
+    "github-repositories-enable_vulnerability_alerts"
+  ];
+  tfsec-exclude-statement =
+    "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
+
   runTfsec = ''
     if [[ -e terraform.tfvars ]]; then
-      ${pkgs.tfsec}/bin/tfsec . --tfvars-file terraform.tfvars
+      ${pkgs.tfsec}/bin/tfsec . --tfvars-file terraform.tfvars ${tfsec-exclude-statement}
     else 
-      ${pkgs.tfsec}/bin/tfsec .
+      ${pkgs.tfsec}/bin/tfsec . ${tfsec-exclude-statement}
     fi
 
     if [ $? -ne 0 ]; then
@@ -129,6 +138,20 @@ let
       "${name}-destroy" = {
         type = "app";
         program = terraformProgram cfg name "destroy" "destroy";
+      };
+
+      # To utilise import, we should pass values via the argument style 
+      # described here: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-run.html#examples
+      # eg;
+      # $ nix run .#thing-import resource.name upstream-identifier
+      # OR as a very real example I utilised on implementing this:
+      # nix run .\#github-import -- github_repository.dotfiles dotfiles
+      # 
+      # This is possible thanks to the fact we're certainly running in
+      # bash in this setting and can (ab)use the $@ pattern.
+      "${name}-import" = {
+        type = "app";
+        program = terraformProgram cfg name "import" "import";
       };
     }) terraform-stacks;
 
