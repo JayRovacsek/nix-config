@@ -1,6 +1,7 @@
 { self }: {
   hyprland = import ./hyprland.nix { inherit self; };
   generate-user-config = import ./generate-user-config.nix { inherit self; };
+  github = import ./github.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   intersect-multiple-lists =
     import ./intersect-multiple-lists.nix { inherit self; };
