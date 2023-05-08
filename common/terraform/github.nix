@@ -52,7 +52,10 @@ in {
       name = "AOC-2018";
       archived = true;
     }
-    { name = "aoc-2022"; }
+    {
+      name = "aoc-2022";
+      archived = true;
+    }
     {
       name = "Aurora-Incident-Response";
       description =
@@ -71,6 +74,7 @@ in {
     {
       name = "bert";
       description = "A toy Go program";
+      archived = true;
     }
     { name = "blinky-bed"; }
     {
@@ -109,6 +113,7 @@ in {
     {
       name = "dotfiles";
       description = "A repository to manage dotfiles and config";
+      archived = true;
     }
     {
       name = "EBUS3030";
@@ -174,13 +179,18 @@ in {
     {
       name = "interrogator";
       description = "A hobby project for learning Rust a bit better";
+      archived = true;
     }
     {
       name = "jellyfin-discord-music-bot";
       description =
         "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
+      archived = true;
     }
-    { name = "jim"; }
+    {
+      name = "jim";
+      archived = true;
+    }
     {
       name = "Kansa";
       description = "A Powershell incident response framework";
@@ -189,11 +199,13 @@ in {
       name = "ncsg-presentation-feb-2021";
       description =
         "A presentation for Newcastle Cybersecurity Group, Feb 2021";
+      archived = true;
     }
     {
       name = "ncsg-presentation-feb-2022";
       description =
         "A presentation for Newcastle Cybersecurity Group, Feb 2022";
+      archived = true;
     }
     {
       name = "nix-config";
@@ -229,6 +241,7 @@ in {
     {
       name = "pf-captive-portal";
       description = "Captive Portal for Pfsense";
+      archived = true;
     }
     {
       name = "PoSh-R2";
@@ -239,6 +252,7 @@ in {
       name = "project-euler";
       description =
         "A repository to host code related to https://projecteuler.net";
+      archived = true;
     }
     {
       name = "project_alias";
@@ -248,8 +262,12 @@ in {
     {
       name = "pyautoclick";
       description = "Simple autoclicker on request for brother's use.";
+      archived = true;
     }
-    { name = "python-oreilly"; }
+    {
+      name = "python-oreilly";
+      archived = true;
+    }
     {
       name = "raspberry-pi-nix";
       description =
@@ -281,7 +299,6 @@ in {
       name = "SENG2260";
       archived = true;
     }
-    { name = "semgrep-poc"; }
     {
       name = "soe.nix";
       description = "NixOS & darwin SOE Wrapper";
@@ -327,14 +344,20 @@ in {
   ];
   private-repositories = [
 
-    { name = "calamus"; }
-    { name = "COMP1010"; }
+    {
+      name = "calamus";
+      archived = true;
+    }
+    {
+      name = "COMP1010";
+      archived = true;
+    }
     {
       name = "comparison-tool";
       description =
         "A dabble in Go, basic tool for testing regression in internal systems.";
+      archived = true;
     }
-    { name = "coolguysinc"; }
     {
       name = "documentation";
       description = "A repository to hold documentation of various items.";
@@ -348,11 +371,13 @@ in {
       name = "jsign-docker";
       description =
         "A PoC to avoid needing to use a Windows system to sign Powershell payloads";
+      archived = true;
     }
     {
       name = "maljs";
       description =
         "A repo to host some deobfustication of code found on a website";
+      archived = true;
     }
     {
       name = "ncsg-content";
@@ -364,23 +389,43 @@ in {
       name = "notes";
       description = "A repository for notes";
     }
-    { name = "py-game"; }
+    {
+      name = "py-game";
+      archived = true;
+    }
     {
       name = "py-maintain-sanity";
       description =
         "This is what happens when people don't follow naming conventions.";
+      archived = true;
     }
-    { name = "pyerrand"; }
+    {
+      name = "pyerrand";
+      archived = true;
+    }
     { name = "resume"; }
     { name = "retojaco"; }
-    { name = "rovacsek-build"; }
-    { name = "rusty-hook"; }
-    { name = "scripts"; }
+    {
+      name = "rovacsek-build";
+      archived = true;
+    }
+    {
+      name = "rusty-hook";
+      archived = true;
+    }
+    {
+      name = "scripts";
+      archived = true;
+    }
     {
       name = "Shiryoku";
       description = "Simple SPA app to create graphs";
+      archived = true;
     }
-    { name = "szemek"; }
+    {
+      name = "szemek";
+      archived = true;
+    }
     {
       name = "tf-nix-deploy-poc";
       description = "A simple example to build and deploy Terraform via nix";
@@ -388,8 +433,12 @@ in {
     {
       name = "University";
       description = "Projects for University";
+      archived = true;
     }
-    { name = "watchrs"; }
+    {
+      name = "watchrs";
+      archived = true;
+    }
   ];
 
   repositories = public-repositories ++ private-repositories;

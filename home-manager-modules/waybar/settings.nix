@@ -45,8 +45,8 @@ in [{
 
   pulseaudio = {
     scroll-step = 5;
-    format = "{icon} {volume}%";
-    format-muted = "婢 Muted";
+    format = "{icon}  {volume}%";
+    format-muted = "󰓄 Muted";
     format-icons = { default = [ "" "" "" ]; };
     on-click = "${pamixer}/bin/pamixer -t";
     tooltip = false;
@@ -76,21 +76,21 @@ in [{
 
   memory = {
     interval = 1;
-    format = "󰘚 {used}/{total} GB ({percentage}%)";
+    format = "󰘚  {used}/{total} GB ({percentage}%)";
     states = { warning = 85; };
   };
 
   cpu = {
     interval = 1;
-    format = " {usage}%";
+    format = "   {usage}%";
   };
 
   network = {
     interval = 1;
-    format-wifi = "說 {essid}";
-    format-ethernet = "  {ifname} ({ipaddr})";
-    format-linked = "說 {essid} (No IP)";
-    format-disconnected = "說 Disconnected";
+    format-wifi = "󰀂  {essid}";
+    format-ethernet = "󱫋  {ifname} ({ipaddr})";
+    format-linked = "󱫋  {essid} (No IP)";
+    format-disconnected = "󰯡  Disconnected";
   };
 
   temperature = {

@@ -2,7 +2,8 @@
 let
   inherit (self.common.terraform.globals) github;
   inherit (self.lib.github)
-    generate-public-repositories generate-private-repositories;
+    generate-public-repositories generate-private-repositories
+    generate-default-branch-rules;
 
   inherit (github) public-repositories private-repositories;
 
@@ -15,6 +16,13 @@ let
     // private-repositories-resources;
 
   name = "github";
+
+  active-public-repositories =
+    builtins.filter (x: !(builtins.hasAttr "archived" x) || !x.archived)
+    public-repositories;
+
+  github_branch_default =
+    generate-default-branch-rules active-public-repositories;
 in {
   variable.GITHUB_TOKEN = {
     type = "string";
@@ -41,5 +49,5 @@ in {
     token = "\${var.GITHUB_TOKEN}";
   };
 
-  resource = { inherit github_repository; };
+  resource = { inherit github_repository github_branch_default; };
 }
