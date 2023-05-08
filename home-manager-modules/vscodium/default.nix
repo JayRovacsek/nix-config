@@ -65,8 +65,6 @@
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
       "terminal.integrated.defaultProfile.osx" = "zsh";
-      "terminal.integrated.fontFamily" = "Hack Nerd Font";
-      "terminal.integrated.fontSize" = 12;
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.titleBarStyle" = "custom";
