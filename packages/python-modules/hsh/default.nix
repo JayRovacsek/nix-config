@@ -25,8 +25,5 @@ in buildPythonPackage {
     sha256 = "sha256-wE5DrFOP6vsCnbo8SXIgenBPX83w7icevd3QPZa134U=";
   };
 
-  doCheck = false;
-
   propagatedBuildInputs = [ commandlines ];
-
 }

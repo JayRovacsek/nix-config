@@ -22,7 +22,4 @@ in buildPythonPackage {
     inherit pname version;
     sha256 = "sha256-hrZQt4RwrJWWbXsanSFcFlkbzLNLKK4ruQJsO0Fm/WQ=";
   };
-
-  doCheck = false;
-
 }
