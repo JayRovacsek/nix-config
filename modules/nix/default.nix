@@ -63,8 +63,7 @@ let
 
   extraHostNames = darwinHosts ++ linuxHosts;
 
-  requireBuilderConfigs = (hasAttr "builder" config.users.users)
-    && (hasAttr "builder-id-ed25519" config.age.secrets);
+  requireBuilderConfigs = hasAttr "builder-id-ed25519" config.age.secrets;
 
   extraHostConfigs = let
     fqdn = hostName:
@@ -78,6 +77,7 @@ let
         HostName ${fqdn hostName}
         User builder
         IdentitiesOnly yes
+        ConnectTimeout 3
         StrictHostKeyChecking=accept-new
         IdentityFile ${config.age.secrets.builder-id-ed25519.path}
     '') extraHostNames)

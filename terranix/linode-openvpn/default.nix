@@ -1,5 +1,7 @@
 _:
-let region = "ap-southeast";
+let
+  region = "ap-southeast";
+  name = "linode-openvpn";
 in {
   variable.LINODE_TOKEN = {
     type = "string";
@@ -8,7 +10,13 @@ in {
     sensitive = true;
   };
 
-  terraform.required_providers.linode.source = "linode/linode";
+  terraform = {
+    cloud = {
+      organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
+      workspaces = { inherit name; };
+    };
+    required_providers.linode.source = "linode/linode";
+  };
 
   provider.linode.token = "\${ var.LINODE_TOKEN }";
 

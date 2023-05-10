@@ -48,11 +48,12 @@ let
     tags = {
       # This is neat as it'll ensure we know what commit created the resource.
       # This will fail if the git tree is dirty, forcing us to be much better about
-      # ensuring code is commited or removed :)
+      # ensuring code is committed or removed :)
       # If you're seeing a failure here, it's because your git tree is
       # dirty. Solve that and no more errors.
       build = self.common.self.rev;
     };
   };
   oci = { region = "ap-sydney-1"; };
-in { globals = { inherit aws oci; }; }
+  github = import ./github.nix { inherit self; };
+in { globals = { inherit aws github oci; }; }

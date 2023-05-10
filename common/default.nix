@@ -23,7 +23,7 @@
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
-  terraform = import ./terraform.nix { inherit self; };
+  terraform = import ./terraform { inherit self; };
   terraform-stacks = import ./terraform-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   users = import ./users.nix { inherit self; };

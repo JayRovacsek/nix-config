@@ -2,6 +2,7 @@
 let
   region = "ap-southeast";
   pkgs = self.inputs.nixpkgs.legacyPackages.${system};
+  name = "linode-ami";
 in {
   # Piggybacks greatly off the following repositories awesome work: https://github.com/houstdav000/terranix-linode-poc
   # Thank you original author and community for enabling this <3
@@ -12,7 +13,13 @@ in {
     sensitive = true;
   };
 
-  terraform.required_providers.linode.source = "linode/linode";
+  terraform = {
+    cloud = {
+      organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
+      workspaces = { inherit name; };
+    };
+    required_providers.linode.source = "linode/linode";
+  };
 
   provider.linode.token = "\${ var.LINODE_TOKEN }";
 
