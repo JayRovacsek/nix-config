@@ -30,7 +30,7 @@
     };
   };
 
-  firewall = {
+  networking.firewall = {
     allowedTCPPorts = [ 139 445 ];
     allowedUDPPorts = [ 137 138 ];
   };
