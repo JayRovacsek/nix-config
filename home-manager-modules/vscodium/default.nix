@@ -94,9 +94,6 @@
       # Go
       golang.go
 
-      # Python
-      ms-python.python
-
       # Terraform
       hashicorp.terraform
 

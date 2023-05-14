@@ -21,6 +21,11 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "jay";
+  };
+
   imports = [ ./hardware-configuration.nix ./modules.nix ./wireless.nix ];
 
   environment.systemPackages = with pkgs; [ libraspberrypi ];

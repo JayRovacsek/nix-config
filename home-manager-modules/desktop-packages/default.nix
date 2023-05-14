@@ -30,37 +30,16 @@ let
     htop
     killall
 
-    # Browsers
-    brave
-
     # Productivity
     keepassxc
-    libvirt
-    gimp
-    jellyfin-media-player
     nextcloud-client
-
-    ## X Utils
-    libpng
-    libxkbcommon
-    xorg.libX11.dev
-    xorg.libXtst
-    xorg.xcbutil
-    xorg.xcbutilkeysyms
-
-    ## OpenGL
-    glfw
 
     # Communication
     webcord
-    signal-desktop
-    thunderbird
-    slack
 
     ## Misc
     hunspell
     hunspellDicts.en-au
-    pkg-config
   ];
 
   # TODO: refactor this into a getAttr rather than if statement.
