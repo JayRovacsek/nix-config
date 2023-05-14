@@ -1,11 +1,12 @@
 { config, ... }:
-let wayland = config.programs.hyprland.enable;
+let
+  wayland = config.programs.hyprland.enable;
+  enable = true;
 in {
   services.xserver = {
-    enable = true;
+    inherit enable;
     displayManager.gdm = {
-      enable = true;
-      inherit wayland;
+      inherit enable wayland;
       autoSuspend = true;
     };
   };

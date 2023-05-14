@@ -12,6 +12,7 @@
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire
+    ../../modules/sddm
     ../../modules/steam
     ../../modules/time
     ../../modules/timesyncd

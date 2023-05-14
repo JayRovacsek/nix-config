@@ -31,8 +31,6 @@ let
   };
 
 in {
-  imports = [ ../sddm ];
-
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
   programs.hyprland = {
@@ -65,7 +63,6 @@ in {
       XDG_SESSION_DESKTOP = "Hyprland";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      QT_QPA_PLATFORMTHEME = "qt5ct";
     } // optional-env-values;
   };
 

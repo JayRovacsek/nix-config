@@ -1,4 +1,10 @@
-_: {
+{ config, pkgs, ... }:
+let
+  inherit (pkgs) system;
+  inherit (config.flake.packages.${system}.sddm-themes) chili;
+  inherit (pkgs.libsForQt5.qt5) qtgraphicaleffects;
+in {
+  environment.systemPackages = [ chili qtgraphicaleffects ];
   services.xserver = {
     enable = true;
     displayManager.sddm = {
@@ -11,6 +17,7 @@ _: {
 
         Wayland = { CompositorCommand = ""; };
       };
+      theme = "chili";
     };
   };
 }

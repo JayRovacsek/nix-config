@@ -34,6 +34,9 @@ let
     # self.overlays.alt-microvm-kernel
     self.overlays.fcitx-engines
     self.overlays.makeModulesClosure
+
+    self.overlays.moonlight-wayland
+
     self.overlays.mpvpaper
     # self.overlays.pythonOverlays
     self.overlays.ranger

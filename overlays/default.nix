@@ -36,6 +36,28 @@
       prev.makeModulesClosure (x // { allowMissing = true; });
   };
 
+  moonlight-wayland = _final: prev: {
+    moonlight-qt-wayland =
+
+      let waylandFlags = "QT_QPA_PLATFORM=wayland";
+      in prev.moonlight-qt.overrideAttrs (old: rec {
+        runScript = "${waylandFlags} ${prev.moonlight-qt}/bin/${old.pname}";
+
+        desktopItem = prev.makeDesktopItem {
+          name = old.pname;
+          desktopName = old.pname;
+          comment = "Play your PC games on almost any device";
+          genericName = "Game Streaming";
+          exec = "${waylandFlags} ${prev.moonlight-qt}/bin/${old.pname}";
+          # icon = "code";
+          startupNotify = true;
+          startupWMClass = old.pname;
+          categories = [ "Utility" "Game" ];
+          keywords = [ "moonlight" ];
+        };
+      });
+  };
+
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   mpvpaper = _final: prev: {
     mpvpaper = prev.mpvpaper.overrideAttrs

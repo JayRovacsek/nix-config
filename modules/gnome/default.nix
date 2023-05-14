@@ -21,7 +21,7 @@ let
       notification-banner-reloaded
     ] ++ tailscaleExtensions;
 in {
-  imports = [ ../gdm ../redshift ];
+  imports = [ ../redshift ];
 
   services.xserver = {
     enable = true;
