@@ -12,22 +12,6 @@
       guest account = nobody
       map to guest = bad user
     '';
-    shares = {
-      isos = {
-        path = "/mnt/zfs/isos";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public ISO Share";
-      };
-      downloads = {
-        path = "/mnt/zfs/downloads";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public Download Share";
-      };
-    };
   };
 
   networking.firewall = {

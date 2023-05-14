@@ -44,9 +44,12 @@ in {
   services.tailscale.tailnet = "admin";
 
   imports = [
+    ./filesystems.nix
     ./hardware-configuration.nix
     ./modules.nix
     ./networking.nix
+    ./old-users.nix
+    ./samba.nix
     ./system-packages.nix
   ];
 
