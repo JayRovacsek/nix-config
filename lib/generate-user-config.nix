@@ -14,7 +14,7 @@ let
     with builtins;
     let
       inherit (pkgs) lib stdenv;
-      inherit (stdenv) isLinux;
+      inherit (stdenv) isLinux isDarwin;
       inherit (user-settings) name;
       inherit (lib) recursiveUpdate;
       inherit (lib.strings) hasInfix;
@@ -128,6 +128,7 @@ let
     in flippedRecursiveUpdate overrides {
       users.users.${name} = recursiveUpdate {
         shell = if name != "builder" then pkgs.zsh else pkgs.bash;
+        home = if isDarwin then "/Users/${name}" else "/home/${name}";
       } stripped-user-settings;
 
       home-manager.users.${name} = {

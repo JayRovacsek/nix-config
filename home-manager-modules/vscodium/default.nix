@@ -5,7 +5,7 @@
 
     # Required as per: https://github.com/nix-community/home-manager/issues/3507 - once resolved will
     # be great to set this as false again.
-    mutableExtensionsDir = true;
+    mutableExtensionsDir = false;
 
     keybindings = [{
       key = "cmd+`";
