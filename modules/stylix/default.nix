@@ -49,6 +49,6 @@ in {
     polarity = "dark";
   };
 
-  home-manager.sharedModules = [ ]
+  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }]
     ++ (lib.optionals isDarwin [{ stylix.targets.swaylock.enable = false; }]);
 }

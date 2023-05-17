@@ -68,6 +68,7 @@
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.titleBarStyle" = "custom";
+      "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
     };
 

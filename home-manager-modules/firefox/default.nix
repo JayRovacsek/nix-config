@@ -48,8 +48,13 @@ in {
           keyword = "d";
           url = "https://duckduckgo.com/?q=%s";
         };
-        "Google Search" = {
+        "Brave Search" = {
           keyword = "g";
+          url = "https://search.brave.com/search?q=%s";
+        };
+        # Get wrecked, force myself to not use the googs
+        "Google Search" = {
+          keyword = "google";
           url = "https://www.google.com/search?q=%s";
         };
         "Google AU Search" = {
@@ -60,14 +65,9 @@ in {
           keyword = "y";
           url = "https://www.youtube.com/results?search_query=%s";
         };
-        "Github Search" = {
-          keyword = "gh";
-          url = "https://github.com/search?q=%s";
-        };
-        "Github Search for Nix" = {
-          keyword = "ghn";
-          url =
-            "https://github.com/search?q=%s+language%3ANix&type=Code&ref=advsearch&l=Nix&l=";
+        "Noogle" = {
+          keyword = "noo";
+          url = "https://noogle.dev/?term=%22%s%22";
         };
         "Github Code Search" = {
           keyword = "cs";
@@ -111,10 +111,14 @@ in {
           keyword = "ngh";
           url = "https://github.com/nib-group?q=%s&type=&language=";
         };
-        OSRSWiki = {
-          keyword = "osrs";
+        "nib Monday Search" = {
+          keyword = "m";
           url =
-            "https://oldschool.runescape.wiki/?search=%s&title=Special%3ASearch&fulltext=Search";
+            "https://nib-group.monday.com/boards/1933538575/views/65368537?term=%s";
+        };
+        "Terraform Search" = {
+          keyword = "t";
+          url = "https://registry.terraform.io/search/providers?q=%s";
         };
       };
 
