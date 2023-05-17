@@ -10,6 +10,7 @@ _: {
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
+    ../../modules/nixinate
     ../../modules/openssh
     ../../modules/sudo
     ../../modules/tailscale

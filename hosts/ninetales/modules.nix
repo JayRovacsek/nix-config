@@ -9,6 +9,7 @@
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
+    ../../modules/nixinate
     ../../modules/time
     ../../modules/yabai
     ../../modules/zsh

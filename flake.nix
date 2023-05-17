@@ -9,7 +9,10 @@
     # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
@@ -124,6 +127,11 @@
         nixpkgs.follows = "nixpkgs";
         hercules-ci-effects.follows = "hercules-ci-effects";
       };
+    };
+
+    nixinate = {
+      url = "github:matthewcroughan/nixinate";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Generate system images easily

@@ -10,6 +10,7 @@
     ../../modules/headscale
     ../../modules/lorri
     ../../modules/nix
+    ../../modules/nixinate
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh
