@@ -14,7 +14,7 @@ let
         nixfmt.enable = true;
         prettier.enable = true;
         statix.enable = false;
-        typos.enable = true;
+        typos.enable = false;
 
         # Custom hooks
         statix-write = {

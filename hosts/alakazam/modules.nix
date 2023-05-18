@@ -9,6 +9,7 @@
     ../../modules/keybase
     ../../modules/lorri
     ../../modules/nix
+    ../../modules/ntfs
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/pipewire

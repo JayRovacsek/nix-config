@@ -50,8 +50,12 @@ in {
 
   services.tailscale.tailnet = "admin";
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [
+    ./containers.nix
+    ./hardware-configuration.nix
+    ./modules.nix
+    ./system-packages.nix
+  ];
 
   networking = {
     hostName = "alakazam";
