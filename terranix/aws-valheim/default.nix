@@ -45,6 +45,8 @@ in {
 
       # Ensure the EC2 instance is stopped initially
       lifecycle = { prevent_destroy = true; };
+
+      metadata_options.http_tokens = "required";
     };
 
     # Create a CloudWatch Event Rule to trigger the start action
