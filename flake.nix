@@ -19,6 +19,7 @@
       inputs.nixpkgs.follows = "stable";
       url = "github:lnl7/nix-darwin/master";
     };
+
     darwin-unstable = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin/master";
@@ -194,6 +195,12 @@
         home-manager.follows = "home-manager";
         flake-compat.follows = "flake-compat";
       };
+    };
+
+    # Pure nix static site generator
+    styx = {
+      url = "github:styx-static/styx";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Terraform via the nix language
