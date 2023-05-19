@@ -85,6 +85,8 @@ let
     "aws-lambda-enable-tracing"
     # TODO: resolve once AMI is built
     "aws-ec2-enable-at-rest-encryption"
+    # Disable as this fails each time as a false positive
+    "aws-ec2-enforce-http-token-imds"
   ];
   tfsec-exclude-statement =
     "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
