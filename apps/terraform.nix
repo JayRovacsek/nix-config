@@ -79,6 +79,12 @@ let
     "github-repositories-private"
     # Not all repos will be suitable for this to be applied
     "github-repositories-enable_vulnerability_alerts"
+
+    # AWS
+    # Not worth the extra cost for toy repos
+    "aws-lambda-enable-tracing"
+    # TODO: resolve once AMI is built
+    "aws-ec2-enable-at-rest-encryption"
   ];
   tfsec-exclude-statement =
     "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
