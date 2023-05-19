@@ -49,7 +49,6 @@ let
     terraform-packages
     wallpapers
     {
-      amethyst = callPackage ./amethyst { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };

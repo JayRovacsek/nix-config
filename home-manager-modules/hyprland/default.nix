@@ -40,7 +40,7 @@ let
 
 in {
 
-  imports = [ ../gammastep ../mako ../ranger ../waybar ../wofi ];
+  imports = [ ../mako ../ranger ../waybar ../wofi ];
 
   home = {
     inherit packages;

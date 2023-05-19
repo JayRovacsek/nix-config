@@ -130,5 +130,47 @@ in {
         "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole";
     };
 
+    # Create an S3 bucket to store the custom AMI
+    aws_s3_bucket.ami_bucket = {
+      bucket = "custom-ami-bucket"; # Update with a unique bucket name
+      acl = "private";
+    };
+
+    # Upload the custom AMI to the S3 bucket
+    aws_s3_bucket_object.ami_object = {
+      bucket = aws_s3_bucket.ami_bucket.id;
+      key = "my-custom-ami.vhd"; # Update with the name of your custom AMI file
+      source =
+        "/path/to/custom-ami.vhd"; # Update with the local path to your custom AMI file
+    };
+
+    # Register the custom AMI from the S3 bucket
+    aws_ami.custom_ami = {
+      name = "my-custom-ami";
+      description = "My Custom AMI";
+      architecture = "x86_64";
+      root_device_name = "/dev/sda1";
+      virtualization_type = "hvm";
+      sriov_net_support = "simple";
+
+      # Specify the EBS snapshot and the S3 bucket object as the source
+      ebs_block_device = {
+        snapshot_id = aws_ebs_snapshot.ami_snapshot.id;
+        volume_size = 20;
+        volume_type = "gp2";
+        delete_on_termination = true;
+      };
+
+      import = {
+        file_format = "vmdk";
+        disk_containers = {
+          description = "My Custom AMI";
+          user_bucket = {
+            s3_bucket = aws_s3_bucket.ami_bucket.id;
+            s3_key = aws_s3_bucket_object.ami_object.id;
+          };
+        };
+      };
+    };
   };
 }

@@ -15,6 +15,7 @@ in {
   rpi2 = import ../common/images/rpi2.nix { inherit self; };
 
   # Cloud Base Images
+  amazon = import ../common/images/amazon.nix { inherit self; };
   linode = import ../common/images/linode.nix { inherit self; };
   oracle = import ../common/images/oracle.nix { inherit self; };
   # Oracle required format differs from what is exposed as a format in
@@ -35,10 +36,18 @@ in {
   # Cloud Instances
   diglett = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
-    # Inject the required linode settings viathe cloud base image module
+    # Inject the required linode settings via the cloud base image module
     inherit (self.common.cloud-base-image-modules) linode;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/diglett linode ];
+  in unstable-system { inherit system pkgs modules; };
+
+  butterfree = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    # Inject the required linode settings viathe cloud base image module
+    inherit (self.common.cloud-base-image-modules) amazon;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/butterfree amazon ];
   in unstable-system { inherit system pkgs modules; };
 
   # Testing Instances
