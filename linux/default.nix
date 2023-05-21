@@ -53,7 +53,7 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/alakazam ];
+    modules = base ++ [ microvm.nixosModules.host ../hosts/alakazam ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let

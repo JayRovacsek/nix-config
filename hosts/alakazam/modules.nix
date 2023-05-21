@@ -8,6 +8,7 @@
     ../../modules/hyprland
     ../../modules/keybase
     ../../modules/lorri
+    ../../modules/microvm/host
     ../../modules/nix
     ../../modules/nvidia
     ../../modules/openssh

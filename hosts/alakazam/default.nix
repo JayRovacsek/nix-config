@@ -48,6 +48,17 @@ in {
     ];
   };
 
+  microvm.vms = {
+    aipom = {
+      inherit flake;
+      autostart = true;
+    };
+    igglybuff = {
+      inherit flake;
+      autostart = true;
+    };
+  };
+
   services.tailscale.tailnet = "admin";
 
   imports =
