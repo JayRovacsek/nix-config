@@ -1,8 +1,8 @@
 {
   imports = [
     ../../modules/blocky
-    ../../modules/docker-darwin
     ../../modules/darwin-settings
+    ../../modules/docker-darwin
     ../../modules/dockutil
     ../../modules/documentation
     ../../modules/fonts
@@ -10,6 +10,7 @@
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
+    ../../modules/skhd
     ../../modules/time
     ../../modules/yabai
     ../../modules/zsh

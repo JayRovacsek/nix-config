@@ -5,7 +5,7 @@ let
   pname = name;
   version = "0.0.1";
   meta = {
-    description = "Soothing pastel theme for base16 (WIP) ";
+    description = "Soothing pastel theme for base16 ";
     platforms = platforms.all;
     homepage = "https://github.com/catppuccin/base16";
     downloadPage = "https://github.com/catppuccin/base16";

@@ -12,38 +12,22 @@ let
   };
 
   theme = generators.toYAML { } {
-    # Black
-    base00 = "1d1f21";
-    # Pink
-    base01 = "ff9da4";
-    # Dark Green/Blue
-    base02 = "373b41";
-    # Light Green
-    base03 = "d1f1a9";
-    # Light Blue
-    base04 = "bbdaff";
-    # Lavender
-    base05 = "ebbbff";
-    # Grey
+    base00 = "002451";
+    base01 = "001733";
+    base02 = "003f8e";
+    base03 = "7285b7";
+    base04 = "949494";
+    base05 = "ffffff";
     base06 = "e0e0e0";
-    # White
     base07 = "ffffff";
-    # Dark Pink/Red
-    base08 = "cc6666";
-    # Orange
-    base09 = "de935f";
-    # Light Orange
-    base0A = "f0c674";
-    # Dark Green
-    base0B = "b5bd68";
-    # Dark Aqua
-    base0C = "8abeb7";
-    # Blue
-    base0D = "81a2be";
-    # Dark Lavendar
-    base0E = "b294bb";
-    # Brown
-    base0F = "a3685a";
+    base08 = "a92049";
+    base09 = "ff9da4";
+    base0A = "ffeead";
+    base0B = "d1f1a9";
+    base0C = "ffffff";
+    base0D = "ffc58f";
+    base0E = "d778ff";
+    base0F = "cd9731";
   };
 
   content = writeText "out.yaml" theme;

@@ -2,11 +2,13 @@
 let
   inherit (pkgs) system stdenv;
   inherit (stdenv) isDarwin;
-  inherit (config.flake.inputs.nixpkgs.legacyPackages.${system}) base16-schemes;
+  inherit (config.flake.packages.${system}.colour-schemes)
+    tomorrow-night-blue-base16;
 in {
   stylix = {
     autoEnable = true;
-    base16Scheme = "${base16-schemes}/share/themes/tokyo-night-storm.yaml";
+    base16Scheme =
+      "${tomorrow-night-blue-base16}/share/themes/tomorrow-night-blue.yaml";
     fonts = {
       sansSerif = {
         package = pkgs.ibm-plex;
@@ -47,8 +49,6 @@ in {
     polarity = "dark";
   };
 
-  stylix.targets.grub.enable = false;
-
-  home-manager.sharedModules = [ ]
+  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }]
     ++ (lib.optionals isDarwin [{ stylix.targets.swaylock.enable = false; }]);
 }
