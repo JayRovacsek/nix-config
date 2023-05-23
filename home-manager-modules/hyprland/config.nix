@@ -133,7 +133,7 @@ in generate-config {
     "$mainMod, Q, killactive,"
     "$mainMod, M, exit,V"
     "$mainMod, V, togglefloating,"
-    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun"
+    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun --insensitive"
     "$mainMod, P, pseudo, # dwindle"
     "$mainMod, J, togglesplit, # dwindle"
 

@@ -14,7 +14,7 @@ let
   waybar-screenshot-wrapped = pkgs.writeShellScriptBin "waybar-screenshot" ''
     entries="󰄀 Screenshot\n Record"
 
-    selected=$(echo -e $entries | ${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null | ${gawk}/bin/awk '{print tolower($2)}')
+    selected=$(echo -e $entries | ${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null --insensitive | ${gawk}/bin/awk '{print tolower($2)}')
 
     case $selected in
       screenshot)
