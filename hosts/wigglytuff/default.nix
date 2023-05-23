@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base desktop;
+  inherit (flake.common.home-manager-module-sets) base hyprland-desktop-minimal;
   inherit (flake.lib) merge;
 
   builder = common.users.builder {
@@ -12,7 +12,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = desktop;
+    modules = hyprland-desktop-minimal;
   };
 
   merged = merge [ builder jay ];

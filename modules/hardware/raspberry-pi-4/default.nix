@@ -1,7 +1,5 @@
 { pkgs, ... }: {
   hardware = {
-    deviceTree.filter = "bcm2711-rpi-*.dtb";
-
     # Required for the Wireless firmware
     enableRedistributableFirmware = true;
 
@@ -15,13 +13,13 @@
     };
 
     raspberry-pi."4" = {
-      audio.enable = true;
-      dwc2.enable = false;
+      # The below seem broken as of recent. See also: https://github.com/NixOS/nixos-hardware/issues/631
+      # audio.enable = true;
       # Enable GPU acceleration
-      fkms-3d = {
-        enable = true;
-        cma = 1024;
-      };
+      # fkms-3d = {
+      #   enable = true;
+      #   cma = 1024;
+      # };
       poe-hat.enable = false;
       pwm0.enable = false;
       tc358743.enable = false;
@@ -43,11 +41,6 @@
     loader = {
       generic-extlinux-compatible.enable = true;
       grub.enable = false;
-    };
-
-    tmp = {
-      cleanOnBoot = true;
-      useTmpfs = true;
     };
   };
 }
