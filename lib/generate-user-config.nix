@@ -21,6 +21,7 @@ let
       inherit (lib.attrsets) filterAttrs;
       inherit (flake.inputs) home-manager;
       inherit (flake.common) user-attr-names;
+      inherit (flake.lib.ssh) generate-ssh-config;
 
       # Also described below, making the recursive update easier to follow
       flippedRecursiveUpdate = x: y: recursiveUpdate y x;
@@ -38,56 +39,12 @@ let
 
       # Create a string that represents the ssh keys we identified as loaded into agenix above
       # to be utilised per known host in our configuration
-      identityFiles =
-        concatStringsSep "\n  " (map (x: "IdentityFile ${x.path}") sshKeys);
-
-      # Pull the localdomain on the configured machine, as I have added an extra configuration
-      # option for machines of "localDomain"
-      localDomain = if hasAttr "localDomain" config.networking then
-        config.networking.localDomain
+      identity-files = if (length sshKeys != 0) then
+        concatStringsSep "\n  " (map (x: "IdentityFile ${x.path}") sshKeys)
       else
-        config.networking.domain;
+        "";
 
-      darwinHosts = if hasAttr "darwinConfigurations" flake then
-        attrNames flake.darwinConfigurations
-      else
-        [ ];
-
-      linuxHosts = if hasAttr "nixosConfigurations" flake then
-        attrNames flake.nixosConfigurations
-      else
-        [ ];
-
-      addKeys = "AddKeysToAgent yes";
-      forwardAgent = "ForwardAgent yes";
-      addKeysForwardAgent = ''
-        ${addKeys}
-          ${forwardAgent}'';
-
-      extraHostNames = darwinHosts ++ linuxHosts;
-
-      # So for the longest time, I couldn't figure why distributed builds didn't work.
-      # Turns out it was likely because I was configuring the ssh config wrong leading to 
-      # inability to utilise SSH as the builder user.
-      # 
-      # If a system is detected as having the builder ssh key deployed and user allocated
-      # locally, we create two configs per system; one for the current user and one for 
-      # builder. Builder can utilise a key with a passphrase or hardware token for validation
-      # but these are not remembered by the build process so may require a large number of 
-      # entries to be used (probs don't apply these controls and instead limit ability for
-      # the builder user to do much beyond build)
-      extraHostConfigs = let
-        fqdn = hostName:
-          if localDomain == null then
-            "${hostName}"
-          else
-            "${hostName}.${localDomain}";
-      in map (hostName: ''
-        Host ${fqdn hostName}
-          HostName ${fqdn hostName}
-          ${addKeysForwardAgent}
-          ${if ((length sshKeys) != 0) then identityFiles else ""}
-      '') extraHostNames;
+      extraHostConfigs = generate-ssh-config name identity-files;
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
@@ -105,8 +62,8 @@ let
           Host github.com
             HostName github.com
             User git
-            ${addKeys}
-            ${if ((length sshKeys) != 0) then identityFiles else ""}
+            AddKeysToAgent yes
+            ${if ((length sshKeys) != 0) then identity-files else ""}
 
           ${concatStringsSep "\n\n" extraHostConfigs}
         '';

@@ -1,0 +1,158 @@
+[
+  {
+    "hostName": "aipom.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "alakazam.lan",
+    "maxJobs": 8,
+    "speedFactor": 16,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+  },
+  {
+    "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "butterfree.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "diglett.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "dragonite.lan",
+    "maxJobs": 24,
+    "speedFactor": 96,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+  },
+  {
+    "hostName": "gastly.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "igglybuff.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "jigglypuff.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": [
+      "nixos-test",
+      "benchmark",
+      "big-parallel",
+      "kvm",
+      "gccarch-armv8-a"
+    ],
+    "systems": ["aarch64-linux"]
+  },
+  {
+    "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "mew.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "wigglytuff.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": [
+      "nixos-test",
+      "benchmark",
+      "big-parallel",
+      "kvm",
+      "gccarch-armv8-a"
+    ],
+    "systems": ["aarch64-linux"]
+  },
+  {
+    "hostName": "zubat.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "cloyster.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": [],
+    "systems": ["x86_64-darwin"]
+  },
+  {
+    "hostName": "ninetales.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": [],
+    "systems": ["aarch64-darwin"]
+  },
+  {
+    "hostName": "victreebel.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": [],
+    "systems": ["aarch64-darwin"]
+  }
+]
