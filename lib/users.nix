@@ -1,7 +1,7 @@
 _:
 let
-  fn = { flake, config, pkgs, user-settings, modules, stable ? false
-    , overrides ? { }, ... }:
+  generate-config = { flake, config, pkgs, user-settings, modules
+    , stable ? false, overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -95,4 +95,4 @@ let
         xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };
     };
-in fn
+in { inherit generate-config; }
