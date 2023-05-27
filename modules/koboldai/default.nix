@@ -1,5 +1,7 @@
-_: {
-  networking.firewall = { allowedTCPPorts = [ 5000 ]; };
+{ config, ... }: {
+  networking.firewall = {
+    allowedTCPPorts = [ config.services.koboldai.port ];
+  };
 
   nix.settings = {
     substituters = [ "https://ai.cachix.org/" ];
@@ -10,5 +12,6 @@ _: {
   services.koboldai = {
     enable = true;
     host = true;
+    port = 5001;
   };
 }
