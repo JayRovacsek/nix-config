@@ -12,6 +12,7 @@
   impermanence = import ./impermanence.nix { inherit self; };
   i18n = import ./i18n.nix { inherit self; };
   images = import ./images { inherit self; };
+  metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   options = import ./options.nix { inherit self; };

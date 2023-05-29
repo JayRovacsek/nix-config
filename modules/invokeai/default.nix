@@ -6,9 +6,6 @@ let
     config.services.xserver.videoDrivers;
 
 in with lib; {
-  nixpkgs.overlays =
-    optional nvidiaPresent config.flake.overlays.pythonOverlays;
-
   # TODO: write this into a basic systemd module; that way we can run it as
   # a service on a remote host pretty nicely
   environment.systemPackages = optional nvidiaPresent invokeai-nvidia;
