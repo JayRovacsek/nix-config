@@ -1,9 +1,6 @@
 {
   age = {
-    identityPaths = [
-      "/private/var/agenix/id-ed25519-ssh-primary"
-      "/private/var/agenix/id-ed25519-terraform-primary"
-    ];
+    identityPaths = [ "/private/var/agenix/id-ed25519-ssh-primary" ];
     secrets = let owner = "j.rovacsek";
     in {
       "git-signing-key" = {
@@ -37,15 +34,6 @@
         inherit owner;
         file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-2.age;
       };
-
-      "terraform-api-key" = {
-        inherit owner;
-        file = ../../secrets/terraform/terraform-api-key.age;
-        mode = "400";
-        path = "/Users/${owner}/.terraform.d/credentials.tfrc.json";
-      };
-
-      "builder-id-ed25519".file = ../../secrets/ssh/builder-id-ed25519.age;
     };
   };
 }
