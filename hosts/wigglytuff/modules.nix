@@ -10,7 +10,7 @@ _: {
     ../../modules/nix
     ../../modules/nixinate
     ../../modules/openssh
-    ../../modules/sddm
+    ../../modules/lightdm
     ../../modules/sudo
     ../../modules/tailscale
     ../../modules/time
