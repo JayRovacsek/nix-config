@@ -22,7 +22,7 @@ in [{
 
   "custom/launcher" = {
     format = "  ";
-    on-click = "${wofi}/bin/wofi --show drun";
+    on-click = "${wofi}/bin/wofi --show drun --insensitive";
     tooltip = false;
   };
 

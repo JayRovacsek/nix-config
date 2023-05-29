@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib, wofi, gawk, systemd }:
+{ stdenv, pkgs, lib, wofi, gawk, systemd, hyprland }:
 with lib;
 let
   name = "wofi-power";
@@ -13,12 +13,11 @@ let
   wofi-power-wrapped = pkgs.writeShellScriptBin "wofi-power" ''
     entries="⇠ Logout\n⏾ Suspend\n⭮ Reboot\n⏻ Shutdown"
 
-    selected=$(echo -e $entries | ${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null | ${gawk}/bin/awk '{print tolower($2)}')
+    selected=$(echo -e $entries | ${wofi}/bin/wofi --width 250 --height 210 --dmenu --cache-file /dev/null --insensitive | ${gawk}/bin/awk '{print tolower($2)}')
 
     case $selected in
       logout)
-        # TODO: resolve the BELOW - we're not using SWAY
-        swaymsg exit;;
+        ${hyprland}/bin/hyprctl dispatch exit;;
       suspend)
         ${systemd}/bin/systemctl suspend;;
       reboot)

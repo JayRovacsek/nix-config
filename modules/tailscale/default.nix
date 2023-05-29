@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  hasMicrovm = if builtins.hasAttr "microvm" config then true else false;
+  has-microvm = if builtins.hasAttr "microvm" config then true else false;
 
-  isMicrovmGuest =
-    if hasMicrovm then builtins.hasAttr "hypervisor" config.microvm else false;
+  is-microvm-guest =
+    if has-microvm then builtins.hasAttr "hypervisor" config.microvm else false;
 
   hostMap = {
     alakazam = "admin";
@@ -18,7 +18,7 @@ let
     wigglytuff = "general";
   };
   tailnet = hostMap.${config.networking.hostName};
-  authFile = if isMicrovmGuest then
+  authFile = if is-microvm-guest then
     "/run/agenix.d/preauth-${tailnet}"
   else
     config.age.secrets."preauth-${tailnet}".path;
