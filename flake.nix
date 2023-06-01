@@ -16,6 +16,14 @@
       };
     };
 
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
     # therefore we can't depend on stable/unstable to handle the correct matching
     # of stable/unstable to make a suitable decision per system
@@ -43,7 +51,10 @@
       flake = false;
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "nix-systems";
+    };
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -62,7 +73,6 @@
         nix-darwin.follows = "darwin-unstable";
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks";
-
       };
     };
 
@@ -175,6 +185,8 @@
       };
     };
 
+    nix-systems = { url = "github:nix-systems/default"; };
+
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 
@@ -186,6 +198,15 @@
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
         gitignore.follows = "gitignore";
+      };
+    };
+
+    robotnix = {
+      url = "github:danielfullmer/robotnix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgsUnstable.follows = "unstable";
+        androidPkgs.follows = "android-nixpkgs";
       };
     };
 
@@ -276,6 +297,7 @@
       overlays = import ./overlays { inherit self; };
 
       # System configurations
+      androidConfigurations = import ./android { inherit self; };
       nixosConfigurations = import ./linux { inherit self; };
       darwinConfigurations = import ./darwin { inherit self; };
     };
