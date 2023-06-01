@@ -3,9 +3,8 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-22.11";
-    nixpkgs.url = "github:nixos/nixpkgs/release-23.05";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/release-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # Secrets Management <3
     agenix = {
@@ -47,7 +46,7 @@
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs = { nixpkgs-lib.follows = "nixpkgs-lib"; };
+      # inputs = { nixpkgs-lib.follows = "nixpkgs-lib"; };
     };
 
     gitignore = {
@@ -108,7 +107,7 @@
       url = "github:nix-community/lib-aggregate";
       inputs = {
         flake-utils.follows = "flake-utils";
-        nixpkgs-lib.follows = "nixpkgs-lib";
+        # nixpkgs-lib.follows = "nixpkgs-lib";
       };
     };
 
@@ -155,7 +154,7 @@
       };
     };
 
-    nixpkgs-lib = { url = "github:nix-community/nixpkgs.lib"; };
+    # nixpkgs-lib = { url = "github:nix-community/nixpkgs.lib"; };
 
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
