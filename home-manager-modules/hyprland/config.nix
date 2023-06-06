@@ -35,14 +35,14 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-2";
       resolution = "1920x1080";
       position = "4920x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-5";
+      name = "DP-3";
       resolution = "1920x1080";
       position = "3000x420";
       scale = "1";
@@ -59,7 +59,8 @@ in generate-config {
 
   exec-once = [
     ''
-      ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4''
+      ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4
+    ''
     "${systemd}/bin/systemctl --user restart waybar.service"
   ];
 
