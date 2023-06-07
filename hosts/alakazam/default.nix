@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-desktop;
+  inherit (flake.common.home-manager-module-sets) base hyprland-games-desktop;
   inherit (flake.lib) merge;
 
   builder = common.users.builder {
@@ -12,7 +12,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-games-desktop;
   };
 
   merged = merge [ builder jay ];
@@ -20,6 +20,8 @@ let
 in {
   inherit flake;
   inherit (merged) users home-manager;
+
+  hardware.opengl.driSupport32Bit = true;
 
   age = {
     secrets = {
@@ -46,17 +48,6 @@ in {
       "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-terraform-primary"
     ];
-  };
-
-  microvm.vms = {
-    aipom = {
-      inherit flake;
-      autostart = true;
-    };
-    igglybuff = {
-      inherit flake;
-      autostart = true;
-    };
   };
 
   services.tailscale.tailnet = "admin";

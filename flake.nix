@@ -45,10 +45,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs = { nixpkgs-lib.follows = "nixpkgs-lib"; };
-    };
+    flake-parts = { url = "github:hercules-ci/flake-parts"; };
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
@@ -106,10 +103,7 @@
 
     lib-aggregate = {
       url = "github:nix-community/lib-aggregate";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs-lib.follows = "nixpkgs-lib";
-      };
+      inputs = { flake-utils.follows = "flake-utils"; };
     };
 
     # Microvm module, PoC state for implementation
@@ -154,8 +148,6 @@
         flake-compat.follows = "flake-compat";
       };
     };
-
-    nixpkgs-lib = { url = "github:nix-community/nixpkgs.lib"; };
 
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";

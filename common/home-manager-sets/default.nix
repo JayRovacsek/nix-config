@@ -1,6 +1,7 @@
 { self }: {
   base = import ./base.nix { inherit self; };
   cli = import ./cli.nix { inherit self; };
+  games = import ./games.nix { inherit self; };
 
   # Desktop shares modules with both linux and darwin
   desktop = import ./desktop.nix { inherit self; };
@@ -15,4 +16,8 @@
   # Minimal Linux desktop alternatives
   hyprland-desktop-minimal =
     import ./hyprland-desktop-minimal.nix { inherit self; };
+
+  # Linux desktop + games
+  hyprland-games-desktop = self.common.home-manager-module-sets.hyprland-desktop
+    ++ self.common.home-manager-module-sets.games;
 }
