@@ -3,9 +3,8 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-22.11";
-    nixpkgs.url = "github:nixos/nixpkgs/release-23.05";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/release-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # Secrets Management <3
     agenix = {

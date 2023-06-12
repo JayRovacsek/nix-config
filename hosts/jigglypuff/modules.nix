@@ -11,7 +11,6 @@
     ../../modules/nixinate
     ../../modules/openssh
     ../../modules/sudo
-    ../../modules/systemd-networkd
     ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd
