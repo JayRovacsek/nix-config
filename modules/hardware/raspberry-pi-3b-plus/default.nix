@@ -7,8 +7,6 @@
   ];
 
   boot = {
-    tmpOnTmpfs = true;
-
     kernelPackages = pkgs.linuxPackages_rpi3;
     kernelParams = [ "cma=128M" ];
 

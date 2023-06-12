@@ -9,12 +9,6 @@ let
     "${modifier}+Shift+x" =
       "exec sh -c '${pkgs.i3lock}/bin/i3lock -c 222222 & sleep 5 && xset dpms force of'";
 
-    # Focus
-    # "${modifier}+j" = "focus left";
-    # "${modifier}+k" = "focus down";
-    # "${modifier}+l" = "focus up";
-    # "${modifier}+semicolon" = "focus right";
-
     # Move
     "${modifier}+Shift+Control+left" = "move left";
     "${modifier}+Shift+Control+down" = "move down";

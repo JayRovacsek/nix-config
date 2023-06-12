@@ -7,11 +7,11 @@
     ../../modules/hardware/raspberry-pi-3b-plus
     ../../modules/journald
     ../../modules/lorri
-    ../../modules/networking
     ../../modules/nix
     ../../modules/nixinate
     ../../modules/openssh
     ../../modules/sudo
+    ../../modules/systemd-networkd
     ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd

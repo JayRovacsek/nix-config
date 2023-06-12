@@ -246,7 +246,6 @@ in {
             "https://v.firebog.net/hosts/static/w3kbl.txt"
             "https://adaway.org/hosts.txt"
             "https://v.firebog.net/hosts/AdguardDNS.txt"
-            "https://v.firebog.net/hosts/Admiral.txt"
             "https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt"
             "https://v.firebog.net/hosts/Easylist.txt"
             "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext"
@@ -261,7 +260,6 @@ in {
             "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt"
             "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Risk/hosts"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
-            "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
           ];
