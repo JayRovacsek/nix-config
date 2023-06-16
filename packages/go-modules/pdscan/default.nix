@@ -1,5 +1,4 @@
-# https://nixos.wiki/wiki/Packaging/Binaries
-{ pkgs, lib, stdenv, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule }:
 let
   pname = "pdscan";
   version = "0.1.8";

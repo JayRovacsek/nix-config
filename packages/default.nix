@@ -6,7 +6,8 @@ let
   inherit (pkgs.lib.attrsets) mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    terraform-stacks python-modules node-modules go-modules images;
+    terraform-stacks python-modules node-modules go-modules dotnet-modules
+    images;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -41,6 +42,11 @@ let
       goModules.${package} = callPackage ./go-modules/${package} { };
     } accumulator) { } go-modules;
 
+  dotnetModules = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      dotnetModules.${package} = callPackage ./dotnet-modules/${package} { };
+    } accumulator) { } dotnet-modules;
+
   terraform-packages = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
@@ -56,20 +62,18 @@ let
 
   packages = merge [
     colour-schemes
-    images
+    dotnetModules
     goModules
+    images
     nodeModules
     pythonModules
     sddm-themes
     terraform-packages
     wallpapers
     {
-      battlenet-lancache-prefill = callPackage ./battlenet-lancache-prefill { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
-      epic-lancache-prefill = callPackage ./epic-lancache-prefill { };
       falcon-sensor = callPackage ./falcon-sensor { };
-      steam-lancache-prefill = callPackage ./steam-lancache-prefill { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };

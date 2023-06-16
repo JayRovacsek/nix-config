@@ -5,6 +5,8 @@
   base-users = import ./base-users.nix { inherit self; };
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
+  dotnet-modules =
+    builtins.attrNames (builtins.readDir ../packages/dotnet-modules);
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
