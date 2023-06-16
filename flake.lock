@@ -630,11 +630,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1686885751,
-        "narHash": "sha256-KcbYp2KuKbXgNaYVziwKUc6AKRhgJ1G8Qq5gjAbQ3uw=",
+        "lastModified": 1686828063,
+        "narHash": "sha256-Cv0Sx1N5+3xBDF5OnmFU3Qoh9OqZmXDBKg1fgXlXTWs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "aa4b53f79d961a7cbba0b24f791401a34c18011a",
+        "rev": "683f2f5ba2ea54abb633d0b17bc9f7f6dede5799",
         "type": "github"
       },
       "original": {
@@ -826,11 +826,11 @@
     },
     "stable": {
       "locked": {
-        "lastModified": 1686874566,
-        "narHash": "sha256-iDp/r5MAA/8+cAY8u3JEMN8GV7ZDl7Z8tNpRKLpUFs8=",
+        "lastModified": 1686885751,
+        "narHash": "sha256-KcbYp2KuKbXgNaYVziwKUc6AKRhgJ1G8Qq5gjAbQ3uw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "45f77daca90530e6bced1027bf40b31c8afe00ff",
+        "rev": "aa4b53f79d961a7cbba0b24f791401a34c18011a",
         "type": "github"
       },
       "original": {
@@ -920,22 +920,6 @@
       "original": {
         "owner": "terranix",
         "repo": "terranix-examples",
-        "type": "github"
-      }
-    },
-    "unstable": {
-      "locked": {
-        "lastModified": 1686828063,
-        "narHash": "sha256-Cv0Sx1N5+3xBDF5OnmFU3Qoh9OqZmXDBKg1fgXlXTWs=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "683f2f5ba2ea54abb633d0b17bc9f7f6dede5799",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
