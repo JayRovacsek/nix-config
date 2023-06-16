@@ -5,7 +5,7 @@ let
   inherit (pkgs.lib) recursiveUpdate;
   inherit (pkgs.lib.attrsets) mapAttrs;
   inherit (self.inputs) terranix;
-  inherit (self.common) terraform-stacks python-modules images;
+  inherit (self.common) terraform-stacks python-modules node-modules images;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -28,6 +28,13 @@ let
         };
       } accumulator) { } python-modules;
 
+  nodeModules = let inherit (pkgs) nodejs_20;
+  in builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      nodePackages.${package} =
+        callPackage ./node-modules/${package} { nodejs = nodejs_20; };
+    } accumulator) { } node-modules;
+
   terraform-packages = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
@@ -44,6 +51,7 @@ let
   packages = merge [
     colour-schemes
     images
+    nodeModules
     pythonModules
     sddm-themes
     terraform-packages

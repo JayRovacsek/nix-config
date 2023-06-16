@@ -16,6 +16,7 @@
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
+  node-modules = builtins.attrNames (builtins.readDir ../packages/node-modules);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
