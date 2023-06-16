@@ -1,10 +1,6 @@
 # https://nixos.wiki/wiki/Packaging/Binaries
 { pkgs, lib, stdenv, fetchFromGitHub, buildGoModule }:
 let
-  inherit (pkgs) system;
-  inherit (pkgs.stdenv) isLinux;
-  inherit (lib.lists) optional;
-
   pname = "trdsql";
   version = "0.11.1";
 

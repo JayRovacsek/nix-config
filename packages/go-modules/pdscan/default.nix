@@ -1,12 +1,7 @@
 # https://nixos.wiki/wiki/Packaging/Binaries
 { pkgs, lib, stdenv, fetchFromGitHub, buildGoModule }:
 let
-  inherit (pkgs) system;
-  inherit (pkgs.stdenv) isLinux;
-  inherit (lib.lists) optional;
-
   pname = "pdscan";
-  name = pname;
   version = "0.1.8";
 
   meta = with lib; {

@@ -2,7 +2,7 @@
 let
 
   # Extra modules
-  inherit (self.inputs) microvm nixos-hardware nixos-wsl;
+  inherit (self.inputs) nixos-hardware nixos-wsl;
 
   inherit (self.common.system) stable-system unstable-system;
 

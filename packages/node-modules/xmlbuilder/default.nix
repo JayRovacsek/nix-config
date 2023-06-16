@@ -1,8 +1,5 @@
 { pkgs, lib, fetchurl, buildNpmPackage, nodejs }:
 let
-  inherit (pkgs) system;
-  inherit (pkgs.stdenv) isLinux;
-  inherit (lib.lists) optional;
 
   pname = "xmlbuilder";
   name = pname;
