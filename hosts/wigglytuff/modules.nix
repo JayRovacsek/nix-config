@@ -4,7 +4,7 @@ _: {
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-4
-    ../../modules/hyprland
+    ../../modules/i3
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix

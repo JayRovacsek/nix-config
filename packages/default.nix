@@ -64,9 +64,12 @@ let
     terraform-packages
     wallpapers
     {
+      battlenet-lancache-prefill = callPackage ./battlenet-lancache-prefill { };
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
+      epic-lancache-prefill = callPackage ./epic-lancache-prefill { };
       falcon-sensor = callPackage ./falcon-sensor { };
+      steam-lancache-prefill = callPackage ./steam-lancache-prefill { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };
