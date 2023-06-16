@@ -639,7 +639,7 @@
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-23.05",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -800,7 +800,6 @@
         "stable": "stable",
         "stylix": "stylix",
         "terranix": "terranix",
-        "unstable": "unstable",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
     },
@@ -836,7 +835,7 @@
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-22.11",
+        "ref": "release-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }

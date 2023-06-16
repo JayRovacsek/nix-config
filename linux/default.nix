@@ -97,15 +97,15 @@ in {
 
   ## MicroVMs
 
-  igglybuff = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ microvm.nixosModules.microvm ../hosts/igglybuff ];
-  in unstable-system { inherit system pkgs modules; };
+  # igglybuff = let
+  #   inherit (x86_64-linux-unstable) system identifier pkgs;
+  #   base = self.common.modules.${identifier};
+  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/igglybuff ];
+  # in unstable-system { inherit system pkgs modules; };
 
-  aipom = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ microvm.nixosModules.microvm ../hosts/aipom ];
-  in unstable-system { inherit system pkgs modules; };
+  # aipom = let
+  #   inherit (x86_64-linux-unstable) system identifier pkgs;
+  #   base = self.common.modules.${identifier};
+  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/aipom ];
+  # in unstable-system { inherit system pkgs modules; };
 }

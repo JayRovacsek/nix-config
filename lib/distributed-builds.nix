@@ -1,23 +1,21 @@
 { self }:
 let
   inherit (self) nixosConfigurations darwinConfigurations;
+  inherit (self.common.metadata) darwin-host-identifiers linux-host-identifiers;
   inherit (self.inputs.nixpkgs) lib;
-
-  linux-hosts = lib.attrNames nixosConfigurations;
 
   linux-suitable-hosts = builtins.filter (hostname:
     builtins.hasAttr "profile"
-    nixosConfigurations.${hostname}.config.hardware.cpu) linux-hosts;
+    nixosConfigurations.${hostname}.config.hardware.cpu) linux-host-identifiers;
 
   linux-base-configs =
     builtins.map (host: generate-base-config host nixosConfigurations)
     linux-suitable-hosts;
 
-  darwin-hosts = lib.attrNames darwinConfigurations;
-
   darwin-suitable-hosts = builtins.filter (hostname:
     builtins.hasAttr "profile"
-    darwinConfigurations.${hostname}.config.hardware.cpu) darwin-hosts;
+    darwinConfigurations.${hostname}.config.hardware.cpu)
+    darwin-host-identifiers;
 
   darwin-base-configs =
     builtins.map (host: generate-base-config host darwinConfigurations)

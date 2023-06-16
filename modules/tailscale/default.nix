@@ -1,27 +1,10 @@
 { config, lib, ... }:
 let
-  has-microvm = if builtins.hasAttr "microvm" config then true else false;
+  inherit (config.flake.lib.tailscale) lookup-tailnet;
+  inherit (config.networking) hostName;
 
-  is-microvm-guest =
-    if has-microvm then builtins.hasAttr "hypervisor" config.microvm else false;
-
-  hostMap = {
-    alakazam = "admin";
-    dragonite = "admin";
-    aipom = "download";
-    cloyster = "work";
-    victreebel = "work";
-    gastly = "admin";
-    igglybuff = "dns";
-    jigglypuff = "dns";
-    ninetales = "work";
-    wigglytuff = "general";
-  };
-  tailnet = hostMap.${config.networking.hostName};
-  authFile = if is-microvm-guest then
-    "/run/agenix.d/preauth-${tailnet}"
-  else
-    config.age.secrets."preauth-${tailnet}".path;
+  tailnet = lookup-tailnet hostName;
+  authFile = config.age.secrets."preauth-${tailnet}".path;
 in {
   imports = [ ../../options/tailscale ];
 
@@ -30,7 +13,7 @@ in {
     enable = true;
   };
 
-  age.secrets."preauth-${tailnet}" = lib.mkForce {
+  age.secrets."preauth-${tailnet}" = {
     file = ../../secrets/tailscale/preauth-${tailnet}.age;
     mode = "0440";
     group = if config.services.headscale.enable then
