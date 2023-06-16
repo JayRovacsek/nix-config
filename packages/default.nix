@@ -5,7 +5,8 @@ let
   inherit (pkgs.lib) recursiveUpdate;
   inherit (pkgs.lib.attrsets) mapAttrs;
   inherit (self.inputs) terranix;
-  inherit (self.common) terraform-stacks python-modules node-modules images;
+  inherit (self.common)
+    terraform-stacks python-modules node-modules go-modules images;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -35,6 +36,11 @@ let
         callPackage ./node-modules/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-modules;
 
+  goModules = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      goModules.${package} = callPackage ./go-modules/${package} { };
+    } accumulator) { } go-modules;
+
   terraform-packages = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
@@ -51,6 +57,7 @@ let
   packages = merge [
     colour-schemes
     images
+    goModules
     nodeModules
     pythonModules
     sddm-themes
@@ -60,8 +67,6 @@ let
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
-      pdscan-bin = callPackage ./pdscan-bin { };
-      trdsql-bin = callPackage ./trdsql-bin { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };

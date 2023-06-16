@@ -17,6 +17,7 @@
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   node-modules = builtins.attrNames (builtins.readDir ../packages/node-modules);
+  go-modules = builtins.attrNames (builtins.readDir ../packages/go-modules);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
