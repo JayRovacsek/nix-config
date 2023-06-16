@@ -64,26 +64,6 @@
       (old: { patches = (old.patches or [ ]) ++ [ ./mpvpaper.patch ]; });
   };
 
-  # https://stackoverflow.com/questions/70395839/how-to-globally-override-a-pythonpackage-in-nix/74550150#74550150
-  # With slight tweaks to target versions to avoid needing to think about overrides for all recent versions of 
-  # python (though hardcoded below...)
-  #
-  # Very important note in that response: https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#interpreters-interpreters
-  # aka DONT override python3 or python2 as they are just aliases of current version (310 at time of writing.)
-  pythonOverlays = let
-    pythonVersions =
-      [ "python38" "python39" "python310" "python311" "python312" ];
-  in _final: prev:
-  prev.lib.attrsets.genAttrs pythonVersions (version:
-    prev.${version}.override {
-      packageOverrides = _python-final: python-prev: {
-        omegaconf =
-          python-prev.omegaconf.overrideAttrs (_: { doInstallCheck = false; });
-
-        pydevd = python-prev.pydevd.overrideAttrs (_: { meta.broken = false; });
-      };
-    });
-
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   ranger = _final: prev: {
     ranger = prev.ranger.overrideAttrs (old: {

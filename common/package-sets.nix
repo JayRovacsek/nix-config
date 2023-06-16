@@ -38,7 +38,6 @@ let
     self.overlays.moonlight-wayland
 
     self.overlays.mpvpaper
-    # self.overlays.pythonOverlays
     self.overlays.ranger
     self.overlays.vscodium-wayland
     # self.overlays.wayland

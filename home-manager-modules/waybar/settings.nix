@@ -1,8 +1,8 @@
 { pkgs, osConfig }:
 let
-  inherit (pkgs) procps system wofi pamixer;
+  inherit (pkgs) procps system wofi pamixer wlogout;
   inherit (osConfig.flake.packages.${system})
-    wofi-power waybar-screenshot waybar-colour-picker;
+    waybar-screenshot waybar-colour-picker;
 in [{
   layer = "top";
   position = "top";
@@ -22,7 +22,7 @@ in [{
 
   "custom/launcher" = {
     format = "  ";
-    on-click = "${wofi}/bin/wofi --show drun";
+    on-click = "${wofi}/bin/wofi --show drun --insensitive";
     tooltip = false;
   };
 
@@ -100,7 +100,7 @@ in [{
 
   "custom/powermenu" = {
     format = "   ";
-    on-click = "${procps}/bin/pkill wofi || ${wofi-power}/bin/wofi-power";
+    on-click = "${procps}/bin/pkill wlogout || ${wlogout}/bin/wlogout";
     tooltip = false;
   };
 

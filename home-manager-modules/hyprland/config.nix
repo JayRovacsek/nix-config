@@ -7,8 +7,17 @@ let
 
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
-  hardware-wallpaper =
+
+  rpi-present = (builtins.hasAttr "raspberry-pi" osConfig.hardware)
+    && osConfig.hardware.raspberry-pi."4".fkms-3d.enable;
+
+  nvidia-hardware-flags =
     lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
+
+  rpi-hardware-flags = lib.optionalString rpi-present "--opengl-glfinish=yes";
+
+  hardware-wallpaper =
+    lib.concatStringsSep " " [ nvidia-hardware-flags rpi-hardware-flags ];
 
   alakazam-monitors = [
     {
@@ -26,14 +35,14 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-2";
       resolution = "1920x1080";
       position = "4920x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-5";
+      name = "DP-3";
       resolution = "1920x1080";
       position = "3000x420";
       scale = "1";
@@ -124,7 +133,7 @@ in generate-config {
     "$mainMod, Q, killactive,"
     "$mainMod, M, exit,V"
     "$mainMod, V, togglefloating,"
-    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun"
+    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun --insensitive"
     "$mainMod, P, pseudo, # dwindle"
     "$mainMod, J, togglesplit, # dwindle"
 

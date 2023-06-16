@@ -4,7 +4,9 @@
     ../../modules/clamav
     ../../modules/docker
     ../../modules/fonts
+    ../../modules/generations
     ../../modules/gnupg
+    ../../modules/gnome
     ../../modules/hyprland
     ../../modules/keybase
     ../../modules/lorri
