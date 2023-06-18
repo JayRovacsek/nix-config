@@ -11,4 +11,6 @@ let
     knownNetworkServices = [ "Wi-Fi" "USB 10/100/1000 LAN" ];
   };
 
-in linux-settings // darwin-settings
+  cfg.networking = linux-settings // darwin-settings;
+
+in cfg
