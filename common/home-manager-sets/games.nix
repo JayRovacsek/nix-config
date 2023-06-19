@@ -1,3 +1,3 @@
 { self }:
 let inherit (self.common) home-manager-modules;
-in with home-manager-modules; [ home-manager ]
+in with home-manager-modules; [ lutris ]

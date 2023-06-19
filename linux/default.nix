@@ -2,7 +2,7 @@
 let
 
   # Extra modules
-  inherit (self.inputs) microvm nixos-hardware nixos-wsl;
+  inherit (self.inputs) nixos-hardware nixos-wsl;
 
   inherit (self.common.system) stable-system unstable-system;
 
@@ -59,7 +59,7 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ microvm.nixosModules.host ../hosts/alakazam ];
+    modules = base ++ [ ../hosts/alakazam ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let

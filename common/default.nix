@@ -5,6 +5,8 @@
   base-users = import ./base-users.nix { inherit self; };
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
+  dotnet-modules =
+    builtins.attrNames (builtins.readDir ../packages/dotnet-modules);
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
@@ -16,6 +18,8 @@
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
+  node-modules = builtins.attrNames (builtins.readDir ../packages/node-modules);
+  go-modules = builtins.attrNames (builtins.readDir ../packages/go-modules);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };

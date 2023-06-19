@@ -259,7 +259,6 @@ in {
             "https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt"
             "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Risk/hosts"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
-            "https://raw.githubusercontent.com/blocklistproject/Lists/master/malware.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
           ];

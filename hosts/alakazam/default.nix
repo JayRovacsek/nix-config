@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-desktop;
+  inherit (flake.common.home-manager-module-sets) base hyprland-games-desktop;
   inherit (flake.lib) merge;
 
   builder = common.users.builder {
@@ -12,7 +12,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-games-desktop;
   };
 
   merged = merge [ builder jay ];
@@ -20,6 +20,8 @@ let
 in {
   inherit flake;
   inherit (merged) users home-manager;
+
+  hardware.opengl.driSupport32Bit = true;
 
   age = {
     secrets = {
@@ -46,49 +48,6 @@ in {
       "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-terraform-primary"
     ];
-  };
-
-  microvm.vms = {
-    # aipom = {
-    #   # The package set to use for the microvm. This also determines the microvm's architecture.
-    #   # Defaults to the host system's package set if not given.
-    #   inherit pkgs;
-
-    #   # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
-    #   #specialArgs = {};
-
-    #   # The configuration for the MicroVM.
-    #   # Multiple definitions will be merged as expected.
-    #   config = {
-    #     imports = [ flake.inputs.microvm.nixosModules.microvm ];
-
-    #     # It is highly recommended to share the host's nix-store
-    #     # with the VMs to prevent building huge images.
-    #     microvm.shares = [{
-    #       source = "/nix/store";
-    #       mountPoint = "/nix/.ro-store";
-    #       tag = "ro-store";
-    #       proto = "virtiofs";
-    #     }];
-
-    #     # This is necessary to import the host's nix-store database
-    #     microvm.writableStoreOverlay = true;
-
-    #     # Any other configuration for your MicroVM
-    #     #...
-    #   };
-    # };
-    aipom = import ../aipom { inherit pkgs flake; };
-    # igglybuff = import ../igglybuff;
-    # inherit aipom igglybuff;
-    # aipom = {
-    #   inherit flake;
-    #   autostart = true;
-    # };
-    # igglybuff = {
-    #   inherit flake;
-    #   autostart = true;
-    # };
   };
 
   services.tailscale.tailnet = "admin";
