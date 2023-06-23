@@ -302,6 +302,7 @@ in {
         "security.ssl.treat_unsafe_negotiation_as_broken" = true;
         "security.tls.enable_0rtt_data" = false;
         "security.tls.version.enable-deprecated" = false;
+        "security.webauthn.ctap2" = false;
         "services.sync.prefs.sync-seen.browser.search.update" = true;
         "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" =
           false;
