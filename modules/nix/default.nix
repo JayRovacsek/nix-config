@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 with builtins;
 let
   # We use the below value as it'll be available before this
@@ -16,8 +16,30 @@ let
     (cfg: { sshKey = config.age.secrets."builder-id-ed25519".path; } // cfg)
     fast-configs;
 
+  distributedBuilds = (length buildMachines) != 0;
+
   extraConfig = generate-system-ssh-extra-config fast-configs
     config.age.secrets.builder-id-ed25519.path;
+
+  gc = {
+    automatic = false;
+    options = "--delete-older-than 7d";
+  };
+
+  settings = {
+    auto-optimise-store = true;
+    sandbox = true;
+    substituters = [ "https://binarycache.rovacsek.com/" ];
+    trusted-public-keys = [
+      "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
+    ];
+    trusted-users = [ "@wheel" "builder" ];
+  };
+
+  extraOptions = ''
+    experimental-features = nix-command flakes
+    builders-use-substitutes = true
+  '';
 
 in {
   age.secrets."builder-id-ed25519" = {
@@ -27,28 +49,7 @@ in {
 
   programs.ssh = { inherit extraConfig; };
 
-  nix = {
-    inherit buildMachines;
-    distributedBuilds = (length buildMachines) != 0;
+  environment.systemPackages = with pkgs; [ nix ];
 
-    gc = {
-      automatic = false;
-      options = "--delete-older-than 7d";
-    };
-
-    settings = {
-      auto-optimise-store = true;
-      sandbox = true;
-      substituters = [ "https://binarycache.rovacsek.com/" ];
-      trusted-public-keys = [
-        "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
-      ];
-      trusted-users = [ "@wheel" "builder" ];
-    };
-
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      builders-use-substitutes = true
-    '';
-  };
+  nix = { inherit buildMachines distributedBuilds gc settings extraOptions; };
 }

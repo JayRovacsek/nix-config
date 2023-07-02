@@ -15,6 +15,8 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
+  imports = [ ./hardware-configuration.nix ./modules.nix ./network.nix ];
+
   age = {
     secrets = {
       "git-signing-key" = rec {
@@ -32,15 +34,5 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  services.tailscale.tailnet = "dns";
-
-  environment.systemPackages = with pkgs; [ libraspberrypi ];
-
-  imports = [ ./hardware-configuration.nix ./modules.nix ./vlans.nix ];
-
-  virtualisation.oci-containers.backend = "docker";
-
-  networking.hostName = "jigglypuff";
-  networking.hostId = "d2a7f613";
   system.stateVersion = "22.05";
 }
