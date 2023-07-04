@@ -1,7 +1,6 @@
 { ... }: {
   imports = [
     ../../modules/agenix
-    ../../modules/fonts
     ../../modules/hyprland
     ../../modules/lorri
     ../../modules/nix

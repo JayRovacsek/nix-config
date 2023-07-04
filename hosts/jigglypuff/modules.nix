@@ -2,7 +2,6 @@
   imports = [
     ../../modules/agenix
     ../../modules/blocky
-    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hardware/raspberry-pi-3b-plus
     ../../modules/journald

@@ -24,9 +24,6 @@
       };
 
       font = {
-        normal.family = "Hack Nerd Font";
-        bold.family = "Hack Nerd Font";
-        italic.family = "Hack Nerd Font";
         offset = {
           x = 0;
           y = 0;

@@ -16,17 +16,17 @@ in {
         # the same font package between sansSerif and serif to resolve this 
         # but it may cause wonkiness in some settings re; fonts
         package = pkgs.dejavu_fonts;
-        name = "IBM Plex Serif";
+        name = "DejaVu Sans";
       };
 
       serif = {
         package = pkgs.dejavu_fonts;
-        name = "IBM Plex Serif";
+        name = "DejaVu Serif";
       };
 
       monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
-        name = "Hack Nerd Font";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans Mono";
       };
 
       emoji = {

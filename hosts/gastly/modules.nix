@@ -3,7 +3,6 @@
     ../../modules/agenix
     ../../modules/clamav
     ../../modules/docker
-    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/hyprland
     ../../modules/lorri
