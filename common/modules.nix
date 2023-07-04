@@ -7,7 +7,7 @@ let
 in builtins.mapAttrs (package-set: _:
   home-manager.${package-set} ++ [
     age
-    generations
+    generations.${package-set}
     hyprland.${package-set}
     i18n.${package-set}
     impermanence.${package-set}
