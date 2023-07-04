@@ -7,6 +7,7 @@
     import ./cloud-base-image-modules { inherit self; };
   dotnet-modules =
     builtins.attrNames (builtins.readDir ../packages/dotnet-modules);
+  generations = import ./generations.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
