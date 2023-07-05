@@ -74,6 +74,7 @@ let
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
+      self-signed-certificate = callPackage ./self-signed-certificate { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };

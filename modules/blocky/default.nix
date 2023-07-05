@@ -56,6 +56,9 @@ in {
         filterUnmappedTypes = true;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
         mapping = {
+          # Local Testing
+          "test.rovacsek.com" = "127.0.0.1";
+
           # Local
           "pfsense.lan" = "192.168.1.1";
           "ubiquiti_ap.lan" = "192.168.1.3";

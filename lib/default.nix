@@ -1,4 +1,5 @@
 { self }: {
+  certificates = import ./certificates.nix { inherit self; };
   distributed-builds = import ./distributed-builds.nix { inherit self; };
   github = import ./github.nix { inherit self; };
   hostnames = import ./hostnames.nix { inherit self; };
