@@ -4,6 +4,7 @@
     ../../modules/darwin-settings
     ../../modules/dockutil
     ../../modules/documentation
+    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/networking

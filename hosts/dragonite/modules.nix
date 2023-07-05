@@ -5,6 +5,7 @@
     ../../modules/clamav
     ../../modules/docker
     ../../modules/docker/stacks/portainer
+    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/headscale
     ../../modules/koboldai

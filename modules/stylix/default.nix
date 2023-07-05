@@ -4,6 +4,8 @@ let
   inherit (stdenv) isDarwin;
   inherit (config.flake.packages.${system}.colour-schemes)
     tomorrow-night-blue-base16;
+
+  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {
   stylix = {
     autoEnable = true;
@@ -25,8 +27,8 @@ in {
       };
 
       monospace = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans Mono";
+        package = hack-font;
+        name = "Hack Nerd Font";
       };
 
       emoji = {

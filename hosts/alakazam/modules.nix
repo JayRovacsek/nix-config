@@ -3,6 +3,7 @@
     ../../modules/agenix
     ../../modules/clamav
     ../../modules/docker
+    ../../modules/fonts
     ../../modules/generations
     ../../modules/gnupg
     ../../modules/gnome

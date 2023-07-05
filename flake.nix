@@ -70,14 +70,13 @@
 
     # Home management module
     home-manager = {
-      url = "github:rycee/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Wayland compositor & WM
     hyprland = {
-      # Pin required until https://github.com/hyprwm/Hyprland/issues/2580#issue-1772674581 is fixed
-      url = "github:hyprwm/Hyprland/69fae18e636ed154798c21ed5c1127672127c6ac";
+      url = "github:hyprwm/Hyprland";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland-protocols.follows = "hyprland-protocols";

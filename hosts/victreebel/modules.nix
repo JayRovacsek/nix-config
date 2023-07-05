@@ -5,6 +5,7 @@
     ../../modules/docker-darwin
     ../../modules/dockutil
     ../../modules/documentation
+    ../../modules/fonts
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/networking
