@@ -1,114 +1,111 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
+  inherit (config.flake.lib) certificates;
+
+  certificate-lib = certificates pkgs;
+
+  inherit (certificate-lib) generate-self-signed;
+
+  self-signed-certificate = generate-self-signed "test.rovacsek.com";
+
+  # Catch for testing spaces
+  testing = config.networking.hostName == "alakazam";
+
   virtualHostConfigs = builtins.filter (x: x != "template.nix")
     (builtins.attrNames (builtins.readDir ./virtualHosts));
 
-  extraConfigs = builtins.map (x: (import ./config/${x} { inherit config; }))
-    (builtins.attrNames (builtins.readDir ./config));
+  tld = if testing then "test.rovacsek.com" else "rovacsek.com";
 
-  subdomains = builtins.attrNames config.services.nginx.virtualHosts;
+  virtualHosts = builtins.foldl' (x: y: x // y) { } (builtins.map (x:
+    let
+      overrides =
+        if testing then { sslCertificate = self-signed-certificate; } else { };
+    in import ./virtualHosts/${x} { inherit config tld overrides; })
+    virtualHostConfigs);
 
-  tld = "rovacsek.com";
+  port = 443;
 
-  virtualHosts = builtins.foldl' (x: y: x // y) { }
-    (builtins.map (x: (import ./virtualHosts/${x} { inherit config tld; }))
-      virtualHostConfigs);
 in {
-  # Require TLS certs
-  imports = [
-    (import ../acme {
-      inherit subdomains config;
-      primaryDomain = tld;
-    })
-    # Load all *.nix files from the config directory
-  ] ++ extraConfigs;
+  networking.firewall.allowedTCPPorts = [ port ];
 
-  ## TODO: read into: https://github.com/kreativmonkey/nixos-config/blob/c5c543a07d75a53df251631cec7d47a4390aaebc/modules/authentik.nix
+  # testing imports TODO: remove
+  imports = [ ../download-utilities ];
 
   services.nginx = {
     enable = true;
-
-    inherit virtualHosts;
-
-    config = ''
-      pcre_jit on;
-
-      include /etc/nginx/modules/*.conf;
-
-      events {
-          # The maximum number of simultaneous connections that can be opened by
-          # a worker process.
-          worker_connections 1024;
-          # multi_accept on;
-      }
-
-      http {
-          default_type application/octet-stream;
-
-          server_tokens off;
-
-          client_max_body_size 0;
-
-          sendfile on;
-
-          tcp_nopush on;
-
-          # Helper variable for proxying websockets.
-          map $http_upgrade $connection_upgrade {
-              default upgrade;
-              \'\' close;
-          }
-
-          client_body_buffer_size 128k;
-          keepalive_timeout 65;
-          large_client_header_buffers 4 16k;
-          send_timeout 5m;
-          tcp_nodelay on;
-          types_hash_max_size 2048;
-          variables_hash_max_size 2048;
-          # server_names_hash_bucket_size 64;
-          # server_name_in_redirect off;
-
-          gzip on;
-          gzip_disable "msie6";
-      }
-    '';
-
-    # DNS Resolution
-    resolver = {
-      ipv6 = false;
-      # The below shouldn't be required as 
-      addresses = [ "192.168.6.1" ];
-    };
-    proxyResolveWhileRunning = true;
-
-    proxyTimeout = "10s";
-
-    # Apply recommended TLS settings
+    enableReload = true;
     recommendedTlsSettings = true;
-
-    # Apply recommended optimisation settings
+    recommendedZstdSettings = true;
     recommendedOptimisation = true;
-
-    # Apply recommended proxy settings if a vhost does not specify the option manually
+    recommendedGzipSettings = true;
     recommendedProxySettings = true;
+    recommendedBrotliSettings = true;
 
-    # Config to define http common settings
-    # commonHttpConfig = ''
-    #   resolver 127.0.0.1 valid=5s;
+    virtualHosts = {
+      default = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "_";
+        locations."/" = { return = "404"; };
+      };
 
-    #   log_format myformat '$remote_addr - $remote_user [$time_local] '
-    #                       '"$request" $status $body_bytes_sent '
-    #                       '"$http_referer" "$http_user_agent"';
-    # '';
+      jellyseerr = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "jellyseerr.test.rovacsek.com";
+        locations."/" = {
+          proxyPass = "http://localhost:${
+              builtins.toString config.services.jellyseerr.port
+            }";
+          recommendedProxySettings = true;
+        };
+      };
 
-    # Unused unless we want to proxy games/stream items via nginx
-    # streamConfig = ''
-    #   server {
-    #     listen 127.0.0.1:53 udp reuseport;
-    #     proxy_timeout 20s;
-    #     proxy_pass 192.168.0.1:53535;
-    #   }
-    # '';
+      lidarr = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "lidarr.test.rovacsek.com";
+        locations."/" = {
+          proxyPass = "http://localhost:8686";
+          recommendedProxySettings = true;
+        };
+      };
+
+      prowlarr = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "prowlarr.test.rovacsek.com";
+        locations."/" = {
+          proxyPass = "http://localhost:9696";
+          recommendedProxySettings = true;
+        };
+      };
+
+      radarr = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "radarr.test.rovacsek.com";
+        locations."/" = {
+          proxyPass = "http://localhost:7878";
+          recommendedProxySettings = true;
+        };
+      };
+
+      sonarr = {
+        onlySSL = true;
+        sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
+        sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
+        serverName = "sonarr.test.rovacsek.com";
+        locations."/" = {
+          proxyPass = "http://localhost:8989";
+          recommendedProxySettings = true;
+        };
+      };
+    };
   };
 }

@@ -366,7 +366,7 @@ in {
 
       port = 53;
       tlsPort = 853;
-      httpsPort = 443;
+      httpsPort = 444;
       httpPort = 4000;
 
       # optional: ports configuration

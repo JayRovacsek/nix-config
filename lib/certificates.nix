@@ -1,12 +1,9 @@
-{ self }:
+_:
 let
   fn = { pkgs, ... }:
-    let
-      inherit (pkgs) system;
-      inherit (self.packages.${system}) self-signed-certificate;
-
+    let inherit (pkgs) callPackage;
     in {
       generate-self-signed = domain:
-        self-signed-certificate { inherit domain; };
+        callPackage ../packages/self-signed-certificate { inherit domain; };
     };
 in fn
