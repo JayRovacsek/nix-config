@@ -34,7 +34,7 @@ in with lib; {
 
     logLevel = mkOption {
       type = with types; enum [ "fatal" "error" "warn" "info" "debug" ];
-      default = 9898;
+      default = "info";
       description = "";
     };
 
