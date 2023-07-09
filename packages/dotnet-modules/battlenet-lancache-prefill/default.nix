@@ -19,8 +19,7 @@ let
     hash = "sha256-rv03vPr1PtlK83OvnGJVo5nHMfZnEJtZcQ03vLLq75s=";
   };
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime;
+  patches = [ ./no-appcontext.patch ];
 
   projectFile = [
     "BattleNetPrefill/BattleNetPrefill.csproj"
@@ -29,5 +28,6 @@ in buildDotnetModule {
 
   nugetDeps = ./deps.nix;
 
-  packNupkg = true;
+in buildDotnetModule {
+  inherit pname version meta src dotnet-runtime patches projectFile nugetDeps;
 }
