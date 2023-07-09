@@ -19,8 +19,7 @@ let
     hash = "sha256-YvaZ1MDGb2XEs2bh6EdtXIAdXu8YrvBjtuGHNXsmvlM=";
   };
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime;
+  patches = [ ./no-appcontext.patch ];
 
   projectFile = [
     "EpicPrefill/EpicPrefill.csproj"
@@ -29,5 +28,6 @@ in buildDotnetModule {
 
   nugetDeps = ./deps.nix;
 
-  packNupkg = true;
+in buildDotnetModule {
+  inherit pname version meta src dotnet-runtime projectFile nugetDeps patches;
 }
