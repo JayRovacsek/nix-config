@@ -15,6 +15,7 @@
     ../../modules/nixinate
     ../../modules/nvidia
     ../../modules/openssh
+    ../../modules/openvscode-server
     ../../modules/pipewire
     ../../modules/sddm
     ../../modules/steam

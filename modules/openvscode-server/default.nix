@@ -1,7 +1,13 @@
 { config, ... }: {
 
+  age.secrets.openvscode-serverConnectionTokenFile = {
+    file = ../../secrets/openvscode-server/connection-token-file.age;
+    owner = config.services.openvscode-server.user;
+    inherit (config.services.openvscode-server) group;
+  };
+
   networking.firewall = {
-    allowedTCPPorts = [ services.openvscode-server.port ];
+    allowedTCPPorts = [ config.services.openvscode-server.port ];
   };
 
   services.openvscode-server = {
