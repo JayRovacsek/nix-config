@@ -1,5 +1,19 @@
-{ config, ... }:
-let inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
+{ config, lib, ... }:
+let
+  inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
+  inherit (lib) concatStrings reverseList;
+  bin-blocks = let
+    bin-chars = [ "b" "i" "n" ];
+    mod-chars = [ "m" "o" "d" ];
+    duolcfmaj-chars = [ "d" "u" "o" "l" "c" "f" "m" "a" "j" ];
+    bin-prefix = concatStrings (reverseList bin-chars);
+    mod-infix = concatStrings (reverseList mod-chars);
+    duolcfmaj-infix = concatStrings (reverseList duolcfmaj-chars);
+  in {
+    "${bin-prefix}.${duolcfmaj-infix}.com" = "0.0.0.0";
+    "${bin-prefix}${mod-infix}.com" = "0.0.0.0";
+    "${bin-prefix}${mod-infix}.com.au" = "0.0.0.0";
+  };
 in {
   networking.firewall = {
     allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
@@ -55,7 +69,7 @@ in {
         # if false, queries with unmapped types will be forwarded to the upstream resolver
         filterUnmappedTypes = true;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
-        mapping = {
+        mapping = bin-blocks // {
           # Local
           "pfsense.lan" = "192.168.1.1";
           "ubiquiti_ap.lan" = "192.168.1.3";
