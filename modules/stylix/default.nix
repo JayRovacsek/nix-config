@@ -4,6 +4,8 @@ let
   inherit (stdenv) isDarwin;
   inherit (config.flake.packages.${system}.colour-schemes)
     tomorrow-night-blue-base16;
+
+  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {
   stylix = {
     autoEnable = true;
@@ -11,17 +13,21 @@ in {
       "${tomorrow-night-blue-base16}/share/themes/tomorrow-night-blue.yaml";
     fonts = {
       sansSerif = {
-        package = pkgs.ibm-plex;
-        name = "IBM Plex Sans";
+        # So the below is super wonky - on aarch64 builds for the rpi3 it'll
+        # receive a invalid shasum, but no other time. For now we'll utilise
+        # the same font package between sansSerif and serif to resolve this 
+        # but it may cause wonkiness in some settings re; fonts
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
       };
 
       serif = {
         package = pkgs.dejavu_fonts;
-        name = "IBM Plex Serif";
+        name = "DejaVu Serif";
       };
 
       monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+        package = hack-font;
         name = "Hack Nerd Font";
       };
 

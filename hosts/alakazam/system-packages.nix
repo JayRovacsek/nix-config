@@ -1,8 +1,7 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    # CLI
-    curl
-    wget
-    agenix
-  ];
+{ config, pkgs, ... }:
+let
+  inherit (pkgs) system;
+  inherit (config.flake.packages.${system}.goModules) trdsql;
+in {
+  environment.systemPackages = (with pkgs; [ curl wget agenix ]) ++ [ trdsql ];
 }

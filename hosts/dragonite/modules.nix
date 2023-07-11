@@ -8,7 +8,6 @@
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/headscale
-    ../../modules/koboldai
     ../../modules/lorri
     ../../modules/nix
     ../../modules/nix-serve

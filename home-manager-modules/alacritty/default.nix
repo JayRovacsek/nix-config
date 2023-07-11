@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+let hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+in {
+  home.packages = [ hack-font ];
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -24,9 +28,7 @@
       };
 
       font = {
-        normal.family = "Hack Nerd Font";
-        bold.family = "Hack Nerd Font";
-        italic.family = "Hack Nerd Font";
+        normal = { family = lib.mkForce "Hack Nerd Font"; };
         offset = {
           x = 0;
           y = 0;

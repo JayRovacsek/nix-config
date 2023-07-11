@@ -18,8 +18,7 @@ let
     hash = "sha256-ZdmPbir2KRSKXtYfn05V9+Y2e8HW4mXhfHlMdVy8oMI=";
   };
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime;
+  patches = [ ./no-appcontext.patch ];
 
   projectFile = [
     "SteamPrefill/SteamPrefill.csproj"
@@ -28,5 +27,6 @@ in buildDotnetModule {
 
   nugetDeps = ./deps.nix;
 
-  packNupkg = true;
+in buildDotnetModule {
+  inherit pname version meta src dotnet-runtime projectFile nugetDeps patches;
 }

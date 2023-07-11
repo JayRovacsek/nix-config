@@ -208,6 +208,13 @@ in {
       archived = true;
     }
     {
+      name = "ncsg-presentation-june-2023";
+      description =
+        "A presentation for Newcastle Cybersecurity Group, June 2023";
+
+      pages.build_type = "workflow";
+    }
+    {
       name = "nix-config";
       description = "My nix configs";
     }
