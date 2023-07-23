@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
-  inherit (pkgs) system stdenv;
-  inherit (stdenv) isDarwin;
+  inherit (pkgs) system;
   inherit (config.flake.packages.${system}.colour-schemes)
     tomorrow-night-blue-base16;
 
@@ -55,6 +54,6 @@ in {
     polarity = "dark";
   };
 
-  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }]
-    ++ (lib.optionals isDarwin [{ stylix.targets.swaylock.enable = false; }]);
+  home-manager.sharedModules =
+    [{ stylix.targets = { vscode.enable = false; }; }];
 }
