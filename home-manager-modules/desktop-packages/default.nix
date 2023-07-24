@@ -34,9 +34,6 @@ let
     keepassxc
     nextcloud-client
 
-    # Communication
-    webcord
-
     ## Misc
     hunspell
     hunspellDicts.en-au
