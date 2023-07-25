@@ -195,6 +195,7 @@
       inputs = {
         home-manager.follows = "home-manager";
         flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
