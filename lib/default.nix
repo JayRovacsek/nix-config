@@ -1,6 +1,7 @@
 { self }: {
   distributed-builds = import ./distributed-builds.nix { inherit self; };
   docker = import ./docker.nix { inherit self; };
+  etc = import ./etc.nix { inherit self; };
   github = import ./github.nix { inherit self; };
   hostnames = import ./hostnames.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
