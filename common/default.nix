@@ -3,6 +3,7 @@
 
   age = import ./age.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
+  colour-schemes = import ./colour-schemes { inherit self; };
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
   dotnet-modules =

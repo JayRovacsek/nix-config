@@ -56,12 +56,10 @@ let
       ];
     }) terraform-stacks;
 
-  colour-schemes = import ./colour-schemes { inherit pkgs; };
   sddm-themes = import ./sddm-themes { inherit pkgs; };
   wallpapers = import ./wallpapers { inherit pkgs; };
 
   packages = merge [
-    colour-schemes
     dotnetModules
     goModules
     images
