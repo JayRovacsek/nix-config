@@ -1,15 +1,13 @@
 { config, ... }:
 let
-  inherit (config.flake.lib) docker;
+  inherit (config.flake.lib) docker user;
 
   portainerUserConfig = import ../../../../users/service-accounts/portainer.nix;
   portainerDockerConfig = import ../../configs/portainer.nix;
 
-  # Helper functions for generating correct nix configs
-  userFunction = import ../../../../functions/service-user.nix;
-
   # Actual constructs used to generate useful config
-  portainerUser = userFunction { userConfig = portainerUserConfig; };
+  portainerUser =
+    user.generate-service-user { userConfig = portainerUserConfig; };
   portainer = docker { containerConfig = portainerDockerConfig; };
 
 in {

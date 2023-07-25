@@ -1,12 +1,9 @@
 { config, ... }:
 let
-  inherit (config.flake.lib) docker etc;
+  inherit (config.flake.lib) docker etc user;
 
   piholeUserConfig = import ../../../../users/service-accounts/pihole.nix;
   piholeDockerConfig = import ../../configs/pihole.nix;
-
-  # Helper functions for generating correct nix configs
-  userFunction = import ../../../../functions/service-user.nix;
 
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
@@ -20,7 +17,7 @@ let
     ];
 
   # Actual constructs used to generate useful config
-  piholeUser = userFunction { userConfig = piholeUserConfig; };
+  piholeUser = user.generate-service-user { userConfig = piholeUserConfig; };
   pihole = docker { containerConfig = piholeDockerConfig; };
 in {
   virtualisation.oci-containers.containers = pihole;

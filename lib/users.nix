@@ -95,4 +95,33 @@ let
         xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };
     };
-in { inherit generate-config; }
+
+  # TODO: clean up the below - it's old as heck and
+  # makes me sad.
+  generate-service-user = { userConfig, ... }:
+    let
+      extraGroupExtendedOptions =
+        if userConfig.name == userConfig.group.name then
+          { }
+        else {
+          "${userConfig.name}" = { };
+        };
+
+    in {
+      extraUsers = {
+        "${userConfig.name}" = {
+          inherit (userConfig) uid extraGroups;
+          isSystemUser = true;
+          createHome = false;
+          description = "User account generated for running a specific service";
+          group = "${userConfig.name}";
+        };
+      };
+
+      extraGroups = {
+        "${userConfig.group.name}" = {
+          inherit (userConfig.group) gid members;
+        };
+      } // extraGroupExtendedOptions;
+    };
+in { inherit generate-config generate-service-user; }
