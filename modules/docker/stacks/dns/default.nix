@@ -1,23 +1,23 @@
 { config, ... }:
 let
-  inherit (config.flake.lib) docker;
+  inherit (config.flake.lib) docker etc;
 
   piholeUserConfig = import ../../../../users/service-accounts/pihole.nix;
   piholeDockerConfig = import ../../configs/pihole.nix;
 
   # Helper functions for generating correct nix configs
   userFunction = import ../../../../functions/service-user.nix;
-  etcFunction = import ../../../../functions/etc.nix;
 
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
   cache = import ./cache.nix;
 
   # Files to write to etc
-  etcConfigs = builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [
-    local
-    cache
-  ];
+  etcConfigs =
+    builtins.foldl' (x: y: x // (etc.generate-file { config = y; })) { } [
+      local
+      cache
+    ];
 
   # Actual constructs used to generate useful config
   piholeUser = userFunction { userConfig = piholeUserConfig; };
