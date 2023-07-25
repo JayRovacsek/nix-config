@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
+  inherit (config.services.blocky.settings.ports) dns tls http https;
   inherit (lib) concatStrings reverseList;
   bin-blocks = let
     bin-chars = [ "b" "i" "n" ];
@@ -16,8 +16,8 @@ let
   };
 in {
   networking.firewall = {
-    allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
-    allowedUDPPorts = [ port ];
+    allowedTCPPorts = [ dns tls http https ];
+    allowedUDPPorts = [ dns ];
   };
 
   services.blocky = {
