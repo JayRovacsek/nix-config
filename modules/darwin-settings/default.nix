@@ -6,6 +6,7 @@
     ./homebrew.nix
     ./keyboard.nix
     ./login-window.nix
+    ./networking.nix
     ./ns-global-domain.nix
   ];
 }
