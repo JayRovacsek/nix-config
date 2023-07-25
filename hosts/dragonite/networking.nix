@@ -6,6 +6,7 @@
     hostName = "dragonite";
     useDHCP = false;
     interfaces.enp9s0.useDHCP = true;
+    nameservers = [ "127.0.0.1" ];
 
     firewall = {
       ## Todo: remove below as they can be abstracted into microvms

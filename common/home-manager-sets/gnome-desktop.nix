@@ -2,4 +2,5 @@
 let
   inherit (self.common) home-manager-modules;
   inherit (self.common.home-manager-module-sets) desktop;
-in desktop ++ (with home-manager-modules; [ dconf desktop-packages-extra rofi ])
+in desktop
+++ (with home-manager-modules; [ dconf desktop-packages-extra rofi webcord ])

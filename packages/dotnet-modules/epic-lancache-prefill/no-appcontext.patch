@@ -1,0 +1,25 @@
+From 567e4b2a22ca320431e363f2c9bd32094a0bd5c7 Mon Sep 17 00:00:00 2001
+From: Jay Rovacsek <jay@rovacsek.com>
+Date: Mon, 10 Jul 2023 08:22:35 +1000
+Subject: [PATCH] no-appcontext
+
+---
+ EpicPrefill/Settings/AppConfig.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/EpicPrefill/Settings/AppConfig.cs b/EpicPrefill/Settings/AppConfig.cs
+index a58ef39..26a52a6 100644
+--- a/EpicPrefill/Settings/AppConfig.cs
++++ b/EpicPrefill/Settings/AppConfig.cs
+@@ -24,7 +24,7 @@ namespace EpicPrefill.Settings
+         /// <summary>
+         /// Contains user configuration.  Should not be deleted, doing so will reset the app back to defaults.
+         /// </summary>
+-        public static readonly string ConfigDir = Path.Combine(AppContext.BaseDirectory, "Config");
++        public static readonly string ConfigDir = Path.Combine(CacheDir, "Config");
+ 
+         //TODO comment
+         public static int MaxConcurrentRequests => 30;
+-- 
+2.41.0
+

@@ -29,6 +29,10 @@
     });
   };
 
+  grub2 = _final: prev: {
+    inherit (self.inputs.grub.legacyPackages.${prev.system}) grub2;
+  };
+
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {

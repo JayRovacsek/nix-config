@@ -2,7 +2,6 @@
   "*" = {
     border = "none";
     border-radius = 0;
-    font-family = "Hack Nerd Font";
     font-size = "13px";
     min-height = 0;
   };

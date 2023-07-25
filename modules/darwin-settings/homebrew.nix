@@ -39,6 +39,7 @@ in {
     masApps = {
       "Microsoft Outlook" = 985367838;
       "Tailscale" = 1475387142;
+      "Xcode" = 497799835;
     };
   };
 }

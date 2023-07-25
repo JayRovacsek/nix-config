@@ -6,6 +6,12 @@
     stable.url = "github:nixos/nixpkgs/release-23.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    # Pinned packages/inputs
+    # Breaks booting based on update from 2.06 -> 2.12
+    # fix applied downstream via grub2 overlay which simply points
+    # grub at the stable version.
+    grub.url = "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
+
     # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";
@@ -70,13 +76,12 @@
 
     # Home management module
     home-manager = {
-      url = "github:rycee/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Wayland compositor & WM
     hyprland = {
-      # Pin required until wayland 1.22 is merged
       url = "github:hyprwm/Hyprland";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -187,7 +192,6 @@
     stylix = {
       url = "github:danth/stylix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         flake-compat.follows = "flake-compat";
       };

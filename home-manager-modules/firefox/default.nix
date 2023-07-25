@@ -107,6 +107,11 @@ in {
           url =
             "https://confluence.nib.com.au/dosearchsite.action?cql=siteSearch+~+%22%s%22&queryString=%s";
         };
+        "nib Jira V2 Search" = {
+          keyword = "jj";
+          url =
+            "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+        };
         "nib Github Search" = {
           keyword = "ngh";
           url = "https://github.com/nib-group?q=%s&type=&language=";
@@ -297,6 +302,7 @@ in {
         "security.ssl.treat_unsafe_negotiation_as_broken" = true;
         "security.tls.enable_0rtt_data" = false;
         "security.tls.version.enable-deprecated" = false;
+        "security.webauthn.ctap2" = false;
         "services.sync.prefs.sync-seen.browser.search.update" = true;
         "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" =
           false;

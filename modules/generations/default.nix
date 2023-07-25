@@ -1,1 +1,9 @@
-_: { boot.loader.systemd-boot.configurationLimit = 20; }
+_: {
+  boot.loader = {
+    systemd-boot.configurationLimit = 25;
+    raspberryPi.uboot.configurationLimit = 20;
+    grub.configurationLimit = 25;
+    generic-extlinux-compatible.configurationLimit = 20;
+  };
+}
+

@@ -10,6 +10,7 @@
     ../../modules/hyprland
     ../../modules/keybase
     ../../modules/lorri
+    ../../modules/microvm/simple
     ../../modules/nix
     ../../modules/nixinate
     ../../modules/nvidia

@@ -35,6 +35,8 @@ let
     self.overlays.fcitx-engines
     self.overlays.makeModulesClosure
 
+    self.overlays.grub2
+
     self.overlays.moonlight-wayland
 
     self.overlays.mpvpaper

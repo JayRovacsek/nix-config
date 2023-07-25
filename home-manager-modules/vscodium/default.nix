@@ -3,8 +3,8 @@
     enable = true;
     package = pkgs.vscodium;
 
-    # Required as per: https://github.com/nix-community/home-manager/issues/3507 - once resolved will
-    # be great to set this as false again.
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
     mutableExtensionsDir = false;
 
     keybindings = [{
@@ -44,7 +44,8 @@
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
       "editor.bracketPairColorization.enabled" = true;
-      "editor.fontLigatures" = true;
+      "editor.fontFamily" = "Hack Nerd Font Mono";
+      "editor.fontLigatures" = false;
       "editor.formatOnSave" = true;
       "editor.guides.bracketPairs" = "active";
       "editor.maxTokenizationLineLength" = 10000;
@@ -64,6 +65,7 @@
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
+      "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
       "terminal.integrated.defaultProfile.osx" = "zsh";
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
@@ -103,7 +105,6 @@
 
       # Rust
       matklad.rust-analyzer
-      vadimcn.vscode-lldb
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

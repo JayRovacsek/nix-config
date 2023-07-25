@@ -1,6 +1,5 @@
 { ... }: {
   imports = [
-    ../../modules/fonts
     ../../modules/lorri
     ../../modules/nix
     ../../modules/time
