@@ -30,7 +30,7 @@
   };
 
   grub2 = _final: prev: {
-    inherit (self.inputs.grub-pin.legacyPackages.${prev.system}) grub2;
+    inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
   # Useful for SBCs when they will be missing modules that upstream definitions
@@ -64,8 +64,9 @@
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   mpvpaper = _final: prev: {
-    mpvpaper = prev.mpvpaper.overrideAttrs
-      (old: { patches = (old.patches or [ ]) ++ [ ./mpvpaper.patch ]; });
+    mpvpaper = prev.mpvpaper.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./patches/mpvpaper.patch ];
+    });
   };
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9

@@ -10,7 +10,8 @@
     # Breaks booting based on update from 2.06 -> 2.12
     # fix applied downstream via grub2 overlay which simply points
     # grub at the stable version.
-    grub.url = "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
+    "grub-2.06".url =
+      "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
 
     # Secrets Management <3
     agenix = {

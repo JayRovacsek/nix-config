@@ -29,17 +29,16 @@
         "fromYaml": "fromYaml"
       },
       "locked": {
-        "lastModified": 1687651793,
-        "narHash": "sha256-AjV/f/grsR4y6t0aUviXxjeLAEYmpE/4XE08IIPhHag=",
+        "lastModified": 1689633990,
+        "narHash": "sha256-iwvQg2Vx0IIDWZaKo8Xmzxlv1YPHg+Kp/QSv8dRv0RY=",
         "owner": "SenchoPens",
         "repo": "base16.nix",
-        "rev": "f493d8a8a6b4c1d814790e2189f26d4bcf433185",
+        "rev": "dddf2e1c04845d43c89a8e9e37d574519649a404",
         "type": "github"
       },
       "original": {
         "owner": "SenchoPens",
         "repo": "base16.nix",
-        "rev": "f493d8a8a6b4c1d814790e2189f26d4bcf433185",
         "type": "github"
       }
     },
@@ -247,7 +246,7 @@
         "type": "github"
       }
     },
-    "grub": {
+    "grub-2.06": {
       "locked": {
         "lastModified": 1688667311,
         "narHash": "sha256-CGlINESJ7mYDQ42dMA/eycD46gr68O7Q0swl07b6Cvo=",
@@ -823,7 +822,7 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "gitignore": "gitignore",
-        "grub": "grub",
+        "grub-2.06": "grub-2.06",
         "hercules-ci-agent": "hercules-ci-agent",
         "hercules-ci-effects": "hercules-ci-effects",
         "home-manager": "home-manager",
@@ -899,17 +898,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1689765751,
-        "narHash": "sha256-fYOZ4hzadEy9d1vNqkNUYL+JW+zRZsb3Dtzj3RY4NGA=",
+        "lastModified": 1690028952,
+        "narHash": "sha256-r/1ywiJzbyXq2OQEHs8tYFlcViL0IOruxovrYqO08y4=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "1f38acba9999f1b15c62bf7272f388b59563972a",
+        "rev": "34a6d389f34b2548b3ae9fad77508620a0358817",
         "type": "github"
       },
       "original": {
         "owner": "danth",
         "repo": "stylix",
-        "rev": "1f38acba9999f1b15c62bf7272f388b59563972a",
         "type": "github"
       }
     },
