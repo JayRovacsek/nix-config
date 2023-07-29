@@ -117,6 +117,15 @@
       };
     };
 
+    neovim-flake = {
+      url = "github:notashelf/neovim-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     nixified-ai = {
       url = "github:nixified-ai/flake";
       inputs = {

@@ -13,6 +13,7 @@
   ssh = import ./ssh.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
+  terraform = import ./terraform.nix { inherit self; };
   to-css = import ./to-css.nix { inherit self; };
   users = import ./users.nix { inherit self; };
 }
