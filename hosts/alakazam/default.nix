@@ -52,18 +52,15 @@ in {
 
   services.tailscale.tailnet = "admin";
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
 
   networking = {
     hostName = "alakazam";
     hostId = "ef26b1be";
     useDHCP = false;
-    interfaces.enp0s31f6.useDHCP = true;
   };
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
-
   system.stateVersion = "22.11";
 }

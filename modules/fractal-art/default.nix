@@ -1,1 +1,1 @@
-{ services.fractalart.enable = true; }
+_: { services.fractalart.enable = true; }

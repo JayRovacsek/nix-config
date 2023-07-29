@@ -1,4 +1,4 @@
-{ pkgs, osConfig, ... }:
+{ pkgs, osConfig, lib, ... }:
 let
   settings = import ./settings.nix { inherit pkgs osConfig; };
   enable = true;

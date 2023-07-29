@@ -1,1 +1,1 @@
-{ services.flatpak.enable = true; }
+_: { services.flatpak.enable = true; }
