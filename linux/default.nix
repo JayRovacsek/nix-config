@@ -9,6 +9,8 @@ let
   inherit (self.common.package-sets)
     x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable;
 
+  inherit (self.nixosModules) gnome;
+
 in {
   # SD Installer Images / Configs
   rpi1 = import ../common/images/rpi1.nix { inherit self; };
@@ -59,7 +61,7 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/alakazam ];
+    modules = base ++ [ gnome ../hosts/alakazam ];
   in unstable-system { inherit system pkgs modules; };
 
   gastly = let

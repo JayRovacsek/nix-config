@@ -1,6 +1,6 @@
-{ pkgs, osConfig, ... }:
+{ config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system mpvpaper systemd wofi;
+  inherit (pkgs) lib system mpvpaper systemd wofi nextcloud-client;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
   inherit (osConfig.flake.packages.${system}.wallpapers)
     may-sitting-near-waterfall-pokemon-emerald;
@@ -54,14 +54,21 @@ let
   else
     [ ",preferred,auto,auto" ];
 
-in generate-config {
-  inherit monitor;
+  mpvpaper-exec = ''
+    ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4'';
 
-  exec-once = [
-    ''
-      ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4''
-    "${systemd}/bin/systemctl --user restart waybar.service"
-  ];
+  waybar-exec = "${systemd}/bin/systemctl --user start waybar.service";
+
+  nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
+    config.home.packages;
+
+  nextcloud-exec =
+    lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
+
+  exec-once = [ mpvpaper-exec waybar-exec ] ++ nextcloud-exec;
+
+in generate-config {
+  inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";
   input = {

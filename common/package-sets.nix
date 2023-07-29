@@ -2,7 +2,8 @@
 let
   # The intention of this construct is to expose a flake-level generation of 
   # any number of packagesets to be consumed without boilerplate 
-  inherit (self) inputs exposedSystems;
+  inherit (self) inputs;
+  inherit (self.common) exposed-systems;
   # Inputs that expose overlays we require
   inherit (self.inputs) nur agenix microvm firefox-darwin;
   # Required to fold sets together where shared keys exist
@@ -29,20 +30,13 @@ let
   darwin-overlays = [ firefox-darwin.overlay ];
 
   linux-overlays = [
-    # Only include the below to pin microvm kernel versions
-    # based on our overlay configurations.
-    # self.overlays.alt-microvm-kernel
     self.overlays.fcitx-engines
-    self.overlays.makeModulesClosure
-
     self.overlays.grub2
-
+    self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
-
     self.overlays.mpvpaper
     self.overlays.ranger
-    self.overlays.vscodium-wayland
-    # self.overlays.wayland
+    self.overlays.waybar-hyprland
   ];
 
   # Create a set that includes the microvm packages where the upstream supports
@@ -63,7 +57,7 @@ let
         "${system}-${target.name}" = {
           identifier = "${system}-${target.name}";
         };
-      }) { } targetGeneration)) { } exposedSystems;
+      }) { } targetGeneration)) { } exposed-systems;
 
   # Take both of the above and then merge them plus the load of nixpkgs for
   # the input.
@@ -103,5 +97,5 @@ let
           overlays = overlays ++ (optionals isDarwin darwin-overlays)
             ++ (optionals isLinux linux-overlays);
         };
-      }) { } targetGeneration)) { } exposedSystems;
+      }) { } targetGeneration)) { } exposed-systems;
 in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)

@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   imports = [
     ../../modules/agenix
     ../../modules/clamav
@@ -6,11 +6,11 @@
     ../../modules/fonts
     ../../modules/generations
     ../../modules/gnupg
-    ../../modules/gnome
     ../../modules/hyprland
     ../../modules/keybase
     ../../modules/lorri
     ../../modules/microvm/simple
+    ../../modules/nextcloud-client
     ../../modules/nix
     ../../modules/nixinate
     ../../modules/nvidia

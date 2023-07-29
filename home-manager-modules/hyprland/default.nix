@@ -1,4 +1,4 @@
-{ pkgs, osConfig, ... }:
+{ config, pkgs, osConfig, ... }:
 let
   inherit (pkgs) lib system;
   inherit (osConfig.flake.inputs.hyprland-plugins.packages.${system})
@@ -36,7 +36,7 @@ let
   # 
   packages = (with pkgs; [ csgo-vulkan-fix hyprpicker ]) ++ optional-packages;
 
-  extraConfig = import ./config.nix { inherit pkgs osConfig; };
+  extraConfig = import ./config.nix { inherit config pkgs osConfig; };
 
 in {
 
