@@ -9,7 +9,7 @@ let
     platforms = platforms.all;
     homepage = "https://github.com/DCSO/flor";
     downloadPage = "https://github.com/DCSO/flor/releases";
-    # license = licenses.lgpl3Plus;
+    license = licenses.bsd3;
   };
 
   inherit (python) buildPythonPackage;
