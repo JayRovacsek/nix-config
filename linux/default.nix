@@ -62,16 +62,22 @@ in {
     modules = base ++ [ ../hosts/alakazam ] ++ test;
   in unstable-system { inherit system pkgs modules; };
 
-  gastly = let
+  cloyster = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/gastly ];
+    modules = base ++ [ ../hosts/cloyster-linux ];
   in unstable-system { inherit system pkgs modules; };
 
   dragonite = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/dragonite ];
+  in unstable-system { inherit system pkgs modules; };
+
+  gastly = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/gastly ];
   in unstable-system { inherit system pkgs modules; };
 
   jigglypuff = let
