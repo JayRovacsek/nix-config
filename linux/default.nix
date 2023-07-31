@@ -65,7 +65,8 @@ in {
   cloyster = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/cloyster-linux ];
+    modules = base
+      ++ [ ../hosts/cloyster-linux nixos-hardware.nixosModules.apple-t2 ];
   in unstable-system { inherit system pkgs modules; };
 
   dragonite = let
