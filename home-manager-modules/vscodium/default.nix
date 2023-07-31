@@ -62,6 +62,7 @@
       "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
+      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
