@@ -7,7 +7,7 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     terraform-stacks python-modules node-modules go-modules dotnet-modules
-    images;
+    images vscode-extensions;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -47,6 +47,12 @@ let
       dotnetModules.${package} = callPackage ./dotnet-modules/${package} { };
     } accumulator) { } dotnet-modules;
 
+  vscodeExtensions = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      vscodeExtensions.${package} =
+        callPackage ./vscode-extensions/${package} { };
+    } accumulator) { } vscode-extensions;
+
   terraform-packages = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
@@ -68,6 +74,7 @@ let
     sddm-themes
     terraform-packages
     wallpapers
+    vscodeExtensions
     {
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
