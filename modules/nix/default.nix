@@ -49,7 +49,8 @@ in {
 
   programs.ssh = { inherit extraConfig; };
 
-  environment.systemPackages = with pkgs; [ nix ];
-
-  nix = { inherit buildMachines distributedBuilds gc settings extraOptions; };
+  nix = {
+    inherit buildMachines distributedBuilds gc settings extraOptions;
+    package = pkgs.nix-monitored;
+  };
 }

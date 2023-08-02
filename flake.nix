@@ -178,6 +178,11 @@
       };
     };
 
+    nix-monitored = {
+      url = "github:ners/nix-monitored";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 

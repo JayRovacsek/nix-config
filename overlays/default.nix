@@ -69,6 +69,16 @@
     });
   };
 
+  nix-monitored = _final: prev:
+    let
+      nix-monitored = self.inputs.nix-monitored.packages.${prev.system}.default;
+      nix = nix-monitored;
+    in {
+      inherit nix-monitored;
+      nixos-rebuild = prev.nixos-rebuild.override { inherit nix; };
+      nix-direnv = prev.nix-direnv.override { inherit nix; };
+    };
+
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   ranger = _final: prev: {
     ranger = prev.ranger.overrideAttrs (old: {
