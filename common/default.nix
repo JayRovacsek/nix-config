@@ -47,4 +47,6 @@
   terraform-stacks = import ./terraform-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   users = import ./users.nix { inherit self; };
+  vscode-extensions =
+    builtins.attrNames (builtins.readDir ../packages/vscode-extensions);
 }
