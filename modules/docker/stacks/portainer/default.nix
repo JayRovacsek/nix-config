@@ -1,14 +1,15 @@
 { config, ... }:
 let
-  inherit (config.flake.lib) docker user;
+  inherit (config.flake.lib) docker users;
 
   portainerUserConfig = import ../../../../users/service-accounts/portainer.nix;
   portainerDockerConfig = import ../../configs/portainer.nix;
 
   # Actual constructs used to generate useful config
   portainerUser =
-    user.generate-service-user { userConfig = portainerUserConfig; };
-  portainer = docker { containerConfig = portainerDockerConfig; };
+    users.generate-service-user { userConfig = portainerUserConfig; };
+  portainer =
+    docker.generate-config { containerConfig = portainerDockerConfig; };
 
 in {
   virtualisation.oci-containers = { containers = portainer; };
