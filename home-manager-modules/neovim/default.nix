@@ -1,6 +1,8 @@
 # All options can be found in the following appendix:
 # https://notashelf.github.io/neovim-flake/options.html
 _: {
+  home.sessionVariables.EDITOR = "vim";
+
   programs.neovim-flake = {
     # Everything goes inside the settings braces
     enable = true;
