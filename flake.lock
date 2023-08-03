@@ -1385,6 +1385,42 @@
         "type": "github"
       }
     },
+    "nix-filter": {
+      "locked": {
+        "lastModified": 1687178632,
+        "narHash": "sha256-HS7YR5erss0JCaUijPeyg2XrisEb959FIct3n2TMGbE=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "d90c75e8319d0dd9be67d933d8eb9d0894ec9174",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "type": "github"
+      }
+    },
+    "nix-monitored": {
+      "inputs": {
+        "nix-filter": "nix-filter",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1690287972,
+        "narHash": "sha256-9Q0iS6/N1RXGL9aw7eXNFkThK6vN/NWKxmX5qWkAVJA=",
+        "owner": "ners",
+        "repo": "nix-monitored",
+        "rev": "77889529646db6024594c521abea08689313cfc1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ners",
+        "repo": "nix-monitored",
+        "type": "github"
+      }
+    },
     "nixified-ai": {
       "inputs": {
         "flake-parts": [
@@ -2253,6 +2289,7 @@
         "microvm": "microvm",
         "neovim-flake": "neovim-flake",
         "nix-eval-jobs": "nix-eval-jobs",
+        "nix-monitored": "nix-monitored",
         "nixified-ai": "nixified-ai",
         "nixinate": "nixinate",
         "nixos-generators": "nixos-generators",

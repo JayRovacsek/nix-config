@@ -25,7 +25,8 @@ let
 
   targetGeneration = [ stable unstable ];
 
-  overlays = [ nur.overlay agenix.overlays.default ];
+  overlays =
+    [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
 
   darwin-overlays = [ firefox-darwin.overlay ];
 
