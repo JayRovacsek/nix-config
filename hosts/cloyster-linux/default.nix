@@ -33,18 +33,7 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
-
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "nodev";
-      enableCryptodisk = true;
-      efiSupport = true;
-    };
-  };
+  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
 
   networking.hostName = "cloyster";
 

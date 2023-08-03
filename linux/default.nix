@@ -58,14 +58,16 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    test = import ../hosts/alakazam/modules.nix { inherit self; };
-    modules = base ++ [ ../hosts/alakazam ] ++ test;
+    extra-modules = import ../hosts/alakazam/modules.nix { inherit self; };
+    modules = base ++ [ ../hosts/alakazam ] ++ extra-modules;
   in unstable-system { inherit system pkgs modules; };
 
   cloyster = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base
+    extra-modules =
+      import ../hosts/cloyster-linux/modules.nix { inherit self; };
+    modules = base ++ extra-modules
       ++ [ ../hosts/cloyster-linux nixos-hardware.nixosModules.apple-t2 ];
   in unstable-system { inherit system pkgs modules; };
 
