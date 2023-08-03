@@ -1,16 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
-  inherit (pkgs) system stdenv;
-  inherit (stdenv) isDarwin;
-  inherit (config.flake.packages.${system}.colour-schemes)
-    tomorrow-night-blue-base16;
+  inherit (config.flake.common.colour-schemes) tomorrow-night-blue-base16;
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {
   stylix = {
     autoEnable = true;
-    base16Scheme =
-      "${tomorrow-night-blue-base16}/share/themes/tomorrow-night-blue.yaml";
+    base16Scheme = tomorrow-night-blue-base16;
     fonts = {
       sansSerif = {
         # So the below is super wonky - on aarch64 builds for the rpi3 it'll
@@ -55,6 +51,6 @@ in {
     polarity = "dark";
   };
 
-  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }]
-    ++ (lib.optionals isDarwin [{ stylix.targets.swaylock.enable = false; }]);
+  home-manager.sharedModules =
+    [{ stylix.targets = { vscode.enable = false; }; }];
 }

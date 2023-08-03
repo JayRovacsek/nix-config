@@ -10,7 +10,7 @@ in {
   cloyster = let
     inherit (x86_64-darwin-stable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/cloyster ];
+    modules = base ++ [ ../hosts/cloyster-macos ];
   in stable-darwin-system { inherit system pkgs modules; };
 
   ninetales = let

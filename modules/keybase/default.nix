@@ -1,1 +1,1 @@
-{ services.keybase.enable = true; }
+_: { services.keybase.enable = true; }

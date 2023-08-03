@@ -8,7 +8,6 @@ let
 
   inherit (self.common.package-sets)
     x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable;
-
 in {
   # SD Installer Images / Configs
   rpi1 = import ../common/images/rpi1.nix { inherit self; };
@@ -59,19 +58,29 @@ in {
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/alakazam ];
+    extra-modules = import ../hosts/alakazam/modules.nix { inherit self; };
+    modules = base ++ [ ../hosts/alakazam ] ++ extra-modules;
   in unstable-system { inherit system pkgs modules; };
 
-  gastly = let
+  cloyster = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/gastly ];
+    extra-modules =
+      import ../hosts/cloyster-linux/modules.nix { inherit self; };
+    modules = base ++ extra-modules
+      ++ [ ../hosts/cloyster-linux nixos-hardware.nixosModules.apple-t2 ];
   in unstable-system { inherit system pkgs modules; };
 
   dragonite = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/dragonite ];
+  in unstable-system { inherit system pkgs modules; };
+
+  gastly = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/gastly ];
   in unstable-system { inherit system pkgs modules; };
 
   jigglypuff = let

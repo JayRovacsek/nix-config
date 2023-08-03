@@ -66,12 +66,8 @@ in [{
   };
 
   clock = {
-    interval = 1;
-    format = "{:%I:%M %p  %A %b %d}";
-    tooltip = true;
-    tooltip-format = ''
-      {=%A; %d %B %Y}
-      <tt>{calendar}</tt>'';
+    interval = 60;
+    format = "{:%I:%M %p %a %b %d, %G}";
   };
 
   memory = {

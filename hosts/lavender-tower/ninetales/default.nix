@@ -1,10 +1,4 @@
-{ config, pkgs, ... }:
-let
-  userFunction = import ../../functions/map-reduce-users.nix;
-  userConfigs = import ./users.nix { inherit config pkgs; };
-  users = userFunction { inherit userConfigs; };
-in {
-  inherit users;
+_: {
   imports =
     [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
 

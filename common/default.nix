@@ -3,10 +3,19 @@
 
   age = import ./age.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
+  colour-schemes = import ./colour-schemes { inherit self; };
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
   dotnet-modules =
     builtins.attrNames (builtins.readDir ../packages/dotnet-modules);
+  exposed-systems = [
+    "aarch64-linux"
+    "aarch64-darwin"
+    "x86_64-darwin"
+    "x86_64-linux"
+    "armv6l-linux"
+    "armv7l-linux"
+  ];
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
@@ -20,6 +29,7 @@
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
+  nixos-modules = builtins.attrNames (builtins.readDir ../modules);
   node-modules = builtins.attrNames (builtins.readDir ../packages/node-modules);
   go-modules = builtins.attrNames (builtins.readDir ../packages/go-modules);
   nixified-ai = import ./nixified-ai.nix { inherit self; };

@@ -29,13 +29,11 @@ in {
     };
   };
 
-  provider = {
-    aws = {
-      inherit region;
-      default_tags = { inherit tags; };
-      access_key = "\${var.AWS_ACCESS_KEY}";
-      secret_key = "\${var.AWS_SECRET_KEY}";
-    };
+  provider.aws = {
+    inherit region;
+    default_tags = { inherit tags; };
+    access_key = "\${var.AWS_ACCESS_KEY}";
+    secret_key = "\${var.AWS_SECRET_KEY}";
   };
 
   resource = {

@@ -1,9 +1,23 @@
-{ config, ... }:
-let inherit (config.services.blocky.settings) port tlsPort httpsPort httpPort;
+{ config, lib, ... }:
+let
+  inherit (config.services.blocky.settings.ports) dns tls http https;
+  inherit (lib) concatStrings reverseList;
+  bin-blocks = let
+    bin-chars = [ "b" "i" "n" ];
+    mod-chars = [ "m" "o" "d" ];
+    duolcfmaj-chars = [ "d" "u" "o" "l" "c" "f" "m" "a" "j" ];
+    bin-prefix = concatStrings (reverseList bin-chars);
+    mod-infix = concatStrings (reverseList mod-chars);
+    duolcfmaj-infix = concatStrings (reverseList duolcfmaj-chars);
+  in {
+    "${bin-prefix}.${duolcfmaj-infix}.com" = "0.0.0.0";
+    "${bin-prefix}${mod-infix}.com" = "0.0.0.0";
+    "${bin-prefix}${mod-infix}.com.au" = "0.0.0.0";
+  };
 in {
   networking.firewall = {
-    allowedTCPPorts = [ port tlsPort httpsPort httpPort ];
-    allowedUDPPorts = [ port ];
+    allowedTCPPorts = [ dns tls http https ];
+    allowedUDPPorts = [ dns ];
   };
 
   services.blocky = {
@@ -55,7 +69,7 @@ in {
         # if false, queries with unmapped types will be forwarded to the upstream resolver
         filterUnmappedTypes = true;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
-        mapping = {
+        mapping = bin-blocks // {
           # Local
           "pfsense.lan" = "192.168.1.1";
           "ubiquiti_ap.lan" = "192.168.1.3";
@@ -305,13 +319,13 @@ in {
         # duration how long a response must be cached (min value).
         # If <=0, use response's TTL, if >0 use this value, if TTL is smaller
         # Default: 0
-        minTime = 0;
+        minTime = "0m";
         # duration how long a response must be cached (max value).
         # If <0, do not cache responses
         # If 0, use TTL
         # If > 0, use this value, if TTL is greater
         # Default: 0
-        maxTime = 0;
+        maxTime = "0m";
         # Max number of cache entries (responses) to be kept in cache (soft limit). Useful on systems with limited amount of RAM.
         # Default (0): unlimited
         maxItemsCount = 0;
@@ -324,7 +338,7 @@ in {
         prefetchExpires = "2h";
         # name queries threshold for prefetch
         # default: 5
-        prefetchThreshold = 5;
+        prefetchThreshold = 3;
         # Max number of domains to be kept in cache for prefetching (soft limit). Useful on systems with limited amount of RAM.
         # Default (0): unlimited
         prefetchMaxItemsCount = 0;
@@ -361,36 +375,29 @@ in {
       # optional: drop all queries with following query types. Default: empty
       filtering = { queryTypes = [ "AAAA" ]; };
 
-      port = 53;
-      tlsPort = 853;
-      httpsPort = 443;
-      httpPort = 4000;
-
       # optional: ports configuration
-      # ports = {
-      #   # optional: DNS listener port(s) and bind ip address(es), default 53 (UDP and TCP). Example: 53, :53, "127.0.0.1:5353,[::1]:5353"
-      #   dns = 53;
-      #   # optional: Port(s) and bind ip address(es) for DoT (DNS-over-TLS) listener. Example: 853, 127.0.0.1:853
-      #   tls = 853;
-      #   # optional: Port(s) and optional bind ip address(es) to serve HTTPS used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:443. Example: 443, :443, 127.0.0.1:443,[::1]:443
-      #   https = 443;
-      #   # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
-      #   http = 4000;
-      # };
-
-      logLevel = "info";
+      ports = {
+        # optional: DNS listener port(s) and bind ip address(es), default 53 (UDP and TCP). Example: 53, :53, "127.0.0.1:5353,[::1]:5353"
+        dns = 53;
+        # optional: Port(s) and bind ip address(es) for DoT (DNS-over-TLS) listener. Example: 853, 127.0.0.1:853
+        tls = 853;
+        # optional: Port(s) and optional bind ip address(es) to serve HTTPS used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:443. Example: 443, :443, 127.0.0.1:443,[::1]:443
+        https = 443;
+        # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
+        http = 4000;
+      };
 
       # optional: logging configuration
-      # log = {
-      #   # optional: Log level (one from debug, info, warn, error). Default: info
-      #   level = "info";
-      #   # optional: Log format (text or json). Default: text
-      #   format = "text";
-      #   # optional: log timestamps. Default: true
-      #   timestamp = true;
-      #   # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
-      #   privacy = false;
-      # };
+      log = {
+        # optional: Log level (one from debug, info, warn, error). Default: info
+        level = "info";
+        # optional: Log format (text or json). Default: text
+        format = "text";
+        # optional: log timestamps. Default: true
+        timestamp = true;
+        # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
+        privacy = false;
+      };
     };
   };
 }

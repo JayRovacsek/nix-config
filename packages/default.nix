@@ -56,12 +56,10 @@ let
       ];
     }) terraform-stacks;
 
-  colour-schemes = import ./colour-schemes { inherit pkgs; };
   sddm-themes = import ./sddm-themes { inherit pkgs; };
   wallpapers = import ./wallpapers { inherit pkgs; };
 
   packages = merge [
-    colour-schemes
     dotnetModules
     goModules
     images
@@ -74,6 +72,7 @@ let
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       falcon-sensor = callPackage ./falcon-sensor { };
+      t2-firmware = callPackage ./t2-firmware { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };

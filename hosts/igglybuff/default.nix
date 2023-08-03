@@ -36,7 +36,6 @@ in {
   services.resolved.enable = false;
 
   imports = [
-    ../common/machine-id.nix
     ../../modules/blocky
     ../../modules/microvm/guest
     ../../modules/openssh

@@ -33,6 +33,8 @@ let
 in {
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
+  services.xserver.displayManager.defaultSession = "hyprland";
+
   programs.hyprland = {
     enable = true;
     inherit nvidiaPatches package;

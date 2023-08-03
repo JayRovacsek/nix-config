@@ -29,6 +29,10 @@
     });
   };
 
+  grub2 = _final: prev: {
+    inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
+  };
+
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {
@@ -60,9 +64,20 @@
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   mpvpaper = _final: prev: {
-    mpvpaper = prev.mpvpaper.overrideAttrs
-      (old: { patches = (old.patches or [ ]) ++ [ ./mpvpaper.patch ]; });
+    mpvpaper = prev.mpvpaper.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./patches/mpvpaper.patch ];
+    });
   };
+
+  nix-monitored = _final: prev:
+    let
+      nix-monitored = self.inputs.nix-monitored.packages.${prev.system}.default;
+      nix = nix-monitored;
+    in {
+      inherit nix-monitored;
+      nixos-rebuild = prev.nixos-rebuild.override { inherit nix; };
+      nix-direnv = prev.nix-direnv.override { inherit nix; };
+    };
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   ranger = _final: prev: {
@@ -82,46 +97,7 @@
     });
   };
 
-  vscodium-wayland = _final: prev: {
-    vscodium-wayland =
-
-      let
-        waylandFlags =
-          "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-      in prev.vscodium.overrideAttrs (old: rec {
-        runScript =
-          "${prev.vscodium}/bin/${old.passthru.executableName} ${waylandFlags}";
-
-        desktopItem = prev.makeDesktopItem {
-          name = old.passthru.executableName;
-          desktopName = old.passthru.longName;
-          comment = "Code Editing. Redefined.";
-          genericName = "Text Editor";
-          exec = "${old.passthru.executableName} %F ${waylandFlags}";
-          icon = "code";
-          startupNotify = true;
-          startupWMClass = old.pname;
-          categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-          mimeTypes = [ "text/plain" "inode/directory" ];
-          keywords = [ "vscode" ];
-          actions.new-empty-window = {
-            name = "New Empty Window";
-            exec =
-              "${old.passthru.executableName} --new-window %F ${waylandFlags}";
-            icon = "code";
-          };
-        };
-      });
-  };
-
-  wayland = _final: prev: {
-    wayland = prev.wayland.overrideAttrs (old: rec {
-      version = "1.22.0";
-      src = prev.fetchurl {
-        url =
-          "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${old.pname}-${version}.tar.xz";
-        hash = "sha256-FUCvHqaYpHHC2OnSiDMsfg/TYMjx0Sk267fny8JCWEI=";
-      };
-    });
+  waybar-hyprland = _final: prev: {
+    inherit (self.inputs.hyprland.packages.${prev.system}) waybar-hyprland;
   };
 }

@@ -1,12 +1,55 @@
-{ lib, ... }: {
+{ config, lib, ... }:
+let
+  phys0Exists = builtins.hasAttr "10-phys0" config.systemd.network.links;
+
+  # The below variables are inherited by both wired and wireless
+  # configs.
+  networkConfig = {
+    # Only configure DHCP via ipv4 
+    DHCP = "ipv4";
+    # Include the configured localDomain if one exists
+    Domains = [ config.networking.localDomain ];
+  };
+  dns = [ "127.0.0.1" ];
+
+in {
+  # Ensure the networking options as well as blocky module is
+  # included to localise DNS for end-to-end encrypted DNS.
+  imports = [ ../blocky ../../options/networking ];
+
   networking = {
-    useNetworkd = true;
     dhcpcd.enable = false;
+    networkmanager.enable = false;
+    useNetworkd = true;
   };
 
-  networking.networkmanager.enable = false;
+  services.resolved.enable = false;
 
-  imports = [ ./networks.nix ];
+  systemd = {
+    services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
-  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
+    network.networks = {
+      "00-wired" = {
+        inherit dns networkConfig;
+
+        matchConfig.Name = if phys0Exists then "phys0" else "en*";
+
+        # The kernel's route metric (same as configured with ip) decides which route to use for outgoing packets, in cases when several match. This will be the case when both wireless and wired devices on the system have active connections. To break the tie, the kernel uses the metric. If one of the connections is terminated, the other automatically wins without there being a gap with nothing configured (ongoing transfers may still not deal with this nicely but that is at a different OSI layer). 
+        # Above as per: https://wiki.archlinux.org/title/Systemd-networkd
+        # TLDR: prefer wired connections
+        dhcpV4Config.RouteMetric = 10;
+      };
+
+      "10-wireless" = {
+        inherit dns networkConfig;
+
+        matchConfig.Name = "wl*";
+
+        # The kernel's route metric (same as configured with ip) decides which route to use for outgoing packets, in cases when several match. This will be the case when both wireless and wired devices on the system have active connections. To break the tie, the kernel uses the metric. If one of the connections is terminated, the other automatically wins without there being a gap with nothing configured (ongoing transfers may still not deal with this nicely but that is at a different OSI layer). 
+        # Above as per: https://wiki.archlinux.org/title/Systemd-networkd
+        # TLDR: prefer wired connections
+        dhcpV4Config.RouteMetric = 20;
+      };
+    };
+  };
 }
