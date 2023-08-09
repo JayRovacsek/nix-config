@@ -13,6 +13,8 @@
     "grub-2.06".url =
       "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
 
+    "linux_rpi4".url = "github:yu-re-ka/nixpkgs/rpi4-no-kunit";
+
     # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";

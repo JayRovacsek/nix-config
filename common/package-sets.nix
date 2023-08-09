@@ -33,6 +33,7 @@ let
   linux-overlays = [
     self.overlays.fcitx-engines
     self.overlays.grub2
+    self.overlays.linux_rpi4
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
