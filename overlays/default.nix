@@ -33,11 +33,6 @@
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
-  linux_rpi4 = _final: prev: {
-    inherit (self.inputs."linux_rpi4".legacyPackages.${prev.system})
-      linuxPackages_rpi4;
-  };
-
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {

@@ -21,9 +21,14 @@ let
     name = "unstable";
   };
 
+  bleeding-edge = {
+    pkgs = inputs.bleeding-edge;
+    name = "bleeding-edge";
+  };
+
   config = { allowUnfree = true; };
 
-  targetGeneration = [ stable unstable ];
+  targetGeneration = [ stable unstable bleeding-edge ];
 
   overlays =
     [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
@@ -33,7 +38,6 @@ let
   linux-overlays = [
     self.overlays.fcitx-engines
     self.overlays.grub2
-    self.overlays.linux_rpi4
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper

@@ -5,6 +5,7 @@
     # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-23.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    bleeding-edge.url = "github:nixos/nixpkgs";
 
     # Pinned packages/inputs
     # Breaks booting based on update from 2.06 -> 2.12
@@ -12,8 +13,6 @@
     # grub at the stable version.
     "grub-2.06".url =
       "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
-
-    "linux_rpi4".url = "github:yu-re-ka/nixpkgs/rpi4-no-kunit";
 
     # Secrets Management <3
     agenix = {
