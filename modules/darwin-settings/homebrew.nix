@@ -38,6 +38,7 @@ in {
 
     masApps = {
       "Microsoft Outlook" = 985367838;
+      "Microsoft Remote Desktop" = 1295203466;
       "Tailscale" = 1475387142;
       "Xcode" = 497799835;
     };
