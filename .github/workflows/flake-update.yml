@@ -1,7 +1,7 @@
 name: Automated Flake Input Updates
 on:
   schedule:
-    - cron: "30 12 1/3 * *"
+    - cron: "0 9 7 * *"
 
 jobs:
   flake-updates:
