@@ -1,4 +1,4 @@
-{ osConfig, ... }:
+{ config, osConfig, ... }:
 let
   enable = true;
   enableBashIntegration = config.programs.bash.enable
