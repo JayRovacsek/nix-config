@@ -35,7 +35,7 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-2";
       resolution = "1920x1080";
       position = "4920x420";
       scale = "1";
@@ -92,11 +92,6 @@ in generate-config {
   # https://wiki.hyprland.org/Configuring/Variables/#decoration
   decoration = {
     rounding = 5;
-    blur = true;
-    blur_size = 3;
-    blur_passes = 1;
-    blur_ignore_opacity = false;
-    blur_new_optimizations = true;
     drop_shadow = true;
     shadow_range = 4;
     shadow_render_power = 3;

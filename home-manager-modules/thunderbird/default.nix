@@ -1,6 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, osConfig, ... }:
 let
-  inherit (pkgs.stdenv) isLinux;
+  inherit (lib.strings) hasInfix;
+  isLinux = hasInfix "linux" osConfig.nixpkgs.system;
 
   cfg = lib.optionalAttrs isLinux {
     programs.thunderbird = {
