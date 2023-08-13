@@ -4,10 +4,12 @@ let
   # Extra modules
   inherit (self.inputs) nixos-hardware nixos-wsl;
 
-  inherit (self.common.system) stable-system unstable-system;
+  inherit (self.common.system)
+    stable-system unstable-system bleeding-edge-system;
 
   inherit (self.common.package-sets)
-    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable;
+    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable
+    aarch64-linux-bleeding-edge;
 in {
   # SD Installer Images / Configs
   rpi1 = import ../common/images/rpi1.nix { inherit self; };
@@ -90,11 +92,11 @@ in {
   in unstable-system { inherit system pkgs modules; };
 
   wigglytuff = let
-    inherit (aarch64-linux-unstable) system identifier pkgs;
+    inherit (aarch64-linux-bleeding-edge) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base
       ++ [ ../hosts/wigglytuff nixos-hardware.nixosModules.raspberry-pi-4 ];
-  in unstable-system { inherit system pkgs modules; };
+  in bleeding-edge-system { inherit system pkgs modules; };
 
   ## WSL Configuration
 

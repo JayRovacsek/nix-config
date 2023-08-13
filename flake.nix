@@ -5,6 +5,7 @@
     # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-23.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    bleeding-edge.url = "github:nixos/nixpkgs";
 
     # Pinned packages/inputs
     # Breaks booting based on update from 2.06 -> 2.12
