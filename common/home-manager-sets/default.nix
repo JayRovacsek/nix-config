@@ -4,6 +4,7 @@
   games = import ./games.nix { inherit self; };
 
   # Desktop shares modules with both linux and darwin
+  desktop-minimal = import ./desktop-minimal.nix { inherit self; };
   desktop = import ./desktop.nix { inherit self; };
 
   # Inherit from desktop, then add system specific packages on-top

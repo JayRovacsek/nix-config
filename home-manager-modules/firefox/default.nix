@@ -30,6 +30,7 @@ in {
     enable = true;
 
     profiles.jay = {
+      id = 0;
       inherit extensions;
 
       search = {
