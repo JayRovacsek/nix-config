@@ -4,7 +4,7 @@ let
   nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
-  nvidiaPatches = nvidia-present;
+  enableNvidiaPatches = nvidia-present;
 
   package = if nvidia-present then
     config.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
@@ -37,7 +37,7 @@ in {
 
   programs.hyprland = {
     enable = true;
-    inherit nvidiaPatches package;
+    inherit enableNvidiaPatches package;
     xwayland.enable = true;
   };
 

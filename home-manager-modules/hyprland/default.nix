@@ -18,7 +18,7 @@ let
   # If nvidia present, add hardware decoding capabilities
 
   # Apply nvidia patches if available and required
-  nvidiaPatches = nvidia-present;
+  enableNvidiaPatches = nvidia-present;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   # Add vaapi drivers if nvidia is present
@@ -70,6 +70,6 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     recommendedEnvironment = true;
-    inherit nvidiaPatches package extraConfig;
+    inherit enableNvidiaPatches package extraConfig;
   };
 }
