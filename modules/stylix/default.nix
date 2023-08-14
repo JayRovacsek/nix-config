@@ -34,11 +34,11 @@ in {
 
       sizes = let
         small = 10;
-        large = 14;
+        medium = 10;
       in {
-        desktop = large;
+        desktop = medium;
         applications = small;
-        terminal = large;
+        terminal = medium;
         popups = small;
       };
     };

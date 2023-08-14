@@ -1,23 +1,7 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system mpvpaper systemd wofi nextcloud-client;
+  inherit (pkgs) lib systemd wofi nextcloud-client;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
-  inherit (osConfig.flake.packages.${system}.wallpapers)
-    may-sitting-near-waterfall-pokemon-emerald;
-
-  nvidia-present = builtins.any (driver: driver == "nvidia")
-    osConfig.services.xserver.videoDrivers;
-
-  rpi-present = (builtins.hasAttr "raspberry-pi" osConfig.hardware)
-    && osConfig.hardware.raspberry-pi."4".fkms-3d.enable;
-
-  nvidia-hardware-flags =
-    lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
-
-  rpi-hardware-flags = lib.optionalString rpi-present "--opengl-glfinish=yes";
-
-  hardware-wallpaper =
-    lib.concatStringsSep " " [ nvidia-hardware-flags rpi-hardware-flags ];
 
   alakazam-monitors = [
     {
@@ -54,9 +38,6 @@ let
   else
     [ ",preferred,auto,auto" ];
 
-  mpvpaper-exec = ''
-    ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4'';
-
   waybar-exec = "${systemd}/bin/systemctl --user start waybar.service";
 
   nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
@@ -65,7 +46,7 @@ let
   nextcloud-exec =
     lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = [ mpvpaper-exec waybar-exec ] ++ nextcloud-exec;
+  exec-once = [ waybar-exec ] ++ nextcloud-exec;
 
 in generate-config {
   inherit exec-once monitor;
