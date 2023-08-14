@@ -199,6 +199,10 @@ let
       "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x00\\x72\\x08\\x48/";
     "535.86.05" =
       "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x01\\x90\\x90\\x48/";
+    "535.86.10" =
+      "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x01\\x90\\x90\\x48/";
+    "535.98" =
+      "s/\\x83\\xfe\\x01\\x73\\x08\\x48/\\x83\\xfe\\x01\\x90\\x90\\x48/";
   };
 in driverPackage.overrideAttrs ({ version, preFixup ? "", ... }: {
   preFixup = preFixup + ''
