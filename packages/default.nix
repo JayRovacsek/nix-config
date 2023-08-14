@@ -6,48 +6,55 @@ let
   inherit (pkgs.lib.attrsets) mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    terraform-stacks python-modules node-modules go-modules dotnet-modules
-    images;
+    terraform-stacks python-packages node-packages go-packages dotnet-packages
+    rust-packages images;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
 
-  pythonModules =
+  dotnet = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      dotnet-packages.${package} = callPackage ./dotnet-packages/${package} { };
+    } accumulator) { } dotnet-packages;
+
+  go = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      go-packages.${package} = callPackage ./go-packages/${package} { };
+    } accumulator) { } go-packages;
+
+  node = let inherit (pkgs) nodejs_20;
+  in builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      node-packages.${package} =
+        callPackage ./node-packages/${package} { nodejs = nodejs_20; };
+    } accumulator) { } node-packages;
+
+  python =
     let inherit (pkgs) python39Packages python310Packages python311Packages;
     in builtins.foldl' (accumulator: package:
       recursiveUpdate {
-        python39Packages.${package} = callPackage ./python-modules/${package} {
+        python39Packages.${package} = callPackage ./python-packages/${package} {
           python = python39Packages;
           ownPython = selfPkgs.python39Packages;
         };
-        python310Packages.${package} = callPackage ./python-modules/${package} {
-          python = python310Packages;
-          ownPython = selfPkgs.python310Packages;
-        };
-        python311Packages.${package} = callPackage ./python-modules/${package} {
-          python = python311Packages;
-          ownPython = selfPkgs.python311Packages;
-        };
-      } accumulator) { } python-modules;
+        python310Packages.${package} =
+          callPackage ./python-packages/${package} {
+            python = python310Packages;
+            ownPython = selfPkgs.python310Packages;
+          };
+        python311Packages.${package} =
+          callPackage ./python-packages/${package} {
+            python = python311Packages;
+            ownPython = selfPkgs.python311Packages;
+          };
+      } accumulator) { } python-packages;
 
-  nodeModules = let inherit (pkgs) nodejs_20;
-  in builtins.foldl' (accumulator: package:
+  rust = builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      nodePackages.${package} =
-        callPackage ./node-modules/${package} { nodejs = nodejs_20; };
-    } accumulator) { } node-modules;
+      rust-packages.${package} = callPackage ./rust-packages/${package} { };
+    } accumulator) { } rust-packages;
 
-  goModules = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      goModules.${package} = callPackage ./go-modules/${package} { };
-    } accumulator) { } go-modules;
-
-  dotnetModules = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      dotnetModules.${package} = callPackage ./dotnet-modules/${package} { };
-    } accumulator) { } dotnet-modules;
-
-  terraform-packages = mapAttrs (name: _:
+  terraform = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
@@ -60,13 +67,14 @@ let
   wallpapers = import ./wallpapers { inherit pkgs; };
 
   packages = merge [
-    dotnetModules
-    goModules
+    dotnet
+    go
     images
-    nodeModules
-    pythonModules
+    node
+    python
+    rust
     sddm-themes
-    terraform-packages
+    terraform
     wallpapers
     {
       better-english = callPackage ./better-english { };

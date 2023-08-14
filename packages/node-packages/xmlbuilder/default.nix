@@ -1,4 +1,4 @@
-{ pkgs, lib, fetchurl, buildNpmPackage, nodejs }:
+{ lib, fetchurl, buildNpmPackage, nodejs }:
 let
 
   pname = "xmlbuilder";

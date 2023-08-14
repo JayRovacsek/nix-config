@@ -6,8 +6,8 @@
   colour-schemes = import ./colour-schemes { inherit self; };
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
-  dotnet-modules =
-    builtins.attrNames (builtins.readDir ../packages/dotnet-modules);
+  dotnet-packages =
+    builtins.attrNames (builtins.readDir ../packages/dotnet-packages);
   exposed-systems = [
     "aarch64-linux"
     "aarch64-darwin"
@@ -30,14 +30,17 @@
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
-  node-modules = builtins.attrNames (builtins.readDir ../packages/node-modules);
-  go-modules = builtins.attrNames (builtins.readDir ../packages/go-modules);
+  node-packages =
+    builtins.attrNames (builtins.readDir ../packages/node-packages);
+  go-packages = builtins.attrNames (builtins.readDir ../packages/go-packages);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   pre-commit-unsupported = import ./pre-commit-unsupported.nix;
-  python-modules =
-    builtins.attrNames (builtins.readDir ../packages/python-modules);
+  python-packages =
+    builtins.attrNames (builtins.readDir ../packages/python-packages);
+  rust-packages =
+    builtins.attrNames (builtins.readDir ../packages/rust-packages);
   self-reference = import ./self-reference.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
