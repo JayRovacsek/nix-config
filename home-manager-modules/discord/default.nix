@@ -1,6 +1,7 @@
 { pkgs, lib, osConfig, ... }:
 let
   inherit (pkgs) webcord-vencord discord;
+  inherit (pkgs.stdenv) isAarch64 isLinux;
 
   # Check if hyprland property exists on host programs, if it doesnt
   # don't attempt to check if enabled otherwise we'd error
@@ -13,9 +14,12 @@ let
     withVencord = true;
   };
 
-  # If we're on hyprland (and can assume wayland), use the 
+  useWebcord = isHyprland || (isAarch64 && isLinux);
+  useDiscord = !useWebcord;
+
+  # If we're on hyprland (and can assume wayland) or aarch64-linux, use the 
   # webcord-vencord package otherwise use discord override 
-  packages = (lib.optional isHyprland webcord-vencord)
-    ++ (lib.optional (!isHyprland) discord-override);
+  packages = (lib.optional useWebcord webcord-vencord)
+    ++ (lib.optional useDiscord discord-override);
 
 in { home = { inherit packages; }; }

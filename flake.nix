@@ -52,7 +52,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    flake-parts = { url = "github:hercules-ci/flake-parts"; };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";

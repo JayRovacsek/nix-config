@@ -2,6 +2,7 @@
   inherit self;
 
   age = import ./age.nix { inherit self; };
+  assertions = import ./assertions.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
   cloud-base-image-modules =

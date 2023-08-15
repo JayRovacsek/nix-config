@@ -3,13 +3,12 @@ let
 
   # Extra modules
   inherit (self.inputs) nixos-hardware nixos-wsl;
+  inherit (self.common.assertions) disable-assertions;
 
-  inherit (self.common.system)
-    stable-system unstable-system bleeding-edge-system;
+  inherit (self.common.system) unstable-system bleeding-edge-system;
 
   inherit (self.common.package-sets)
-    x86_64-linux-stable x86_64-linux-unstable aarch64-linux-unstable
-    aarch64-linux-bleeding-edge;
+    x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
 in {
   # SD Installer Images / Configs
   rpi1 = import ../common/images/rpi1.nix { inherit self; };
@@ -28,7 +27,7 @@ in {
   ditto = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/ditto ];
+    modules = base ++ [ disable-assertions ../hosts/ditto ];
   in unstable-system { inherit system pkgs modules; };
 
   # Cloud Instances
@@ -45,7 +44,7 @@ in {
     # Inject the required linode settings viathe cloud base image module
     inherit (self.common.cloud-base-image-modules) amazon;
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/butterfree amazon ];
+    modules = base ++ [ disable-assertions ../hosts/butterfree amazon ];
   in unstable-system { inherit system pkgs modules; };
 
   # Testing Instances
@@ -53,7 +52,7 @@ in {
     inherit (x86_64-linux-unstable) system identifier pkgs;
     # Inject the required linode settings viathe cloud base image module
     base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/mew ];
+    modules = base ++ [ disable-assertions ../hosts/mew ];
   in unstable-system { inherit system pkgs modules; };
 
   # Hosts
@@ -101,10 +100,10 @@ in {
   ## WSL Configuration
 
   zubat = let
-    inherit (x86_64-linux-stable) system identifier pkgs;
+    inherit (x86_64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/zubat nixos-wsl.nixosModules.wsl ];
-  in stable-system { inherit system pkgs modules; };
+  in unstable-system { inherit system pkgs modules; };
 
   ## MicroVMs
 
