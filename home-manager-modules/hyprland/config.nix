@@ -1,6 +1,6 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib systemd wofi nextcloud-client;
+  inherit (pkgs) lib systemd fuzzel nextcloud-client;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
 
   alakazam-monitors = [
@@ -116,7 +116,7 @@ in generate-config {
     "$mainMod, Q, killactive,"
     "$mainMod, M, exit,V"
     "$mainMod, V, togglefloating,"
-    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun --insensitive"
+    "CTRL SHIFT, Space, exec, ${fuzzel}/bin/fuzzel --vertical-pad 50 --horizontal-pad 100 --show-actions --lines 20 --width 80"
     "$mainMod, P, pseudo, # dwindle"
     "$mainMod, J, togglesplit, # dwindle"
 
