@@ -3,8 +3,8 @@
 let
   inherit (python)
     brotli brotlicffi buildPythonPackage certifi cryptography fetchPypi idna
-    isPyPy mock pyopenssl pysocks pytest-freezegun pytest-timeout
-    pytestCheckHook python-dateutil tornado trustme hatchling;
+    isPyPy mock pyopenssl pysocks freezegun pytest-timeout pytestCheckHook
+    python-dateutil tornado trustme hatchling pythonOlder;
 
 in buildPythonPackage rec {
   pname = "urllib3";
@@ -23,7 +23,7 @@ in buildPythonPackage rec {
   nativeCheckInputs = [
     python-dateutil
     mock
-    pytest-freezegun
+    freezegun
     pytest-timeout
     pytestCheckHook
     tornado
@@ -42,6 +42,8 @@ in buildPythonPackage rec {
   # When CI is in the env LONG_TIMEOUT will be significantly increased.
   # Still failures can occur and for that reason tests are disabled.
   doCheck = false;
+
+  diabled = pythonOlder "3.7";
 
   preCheck = ''
     export CI # Increases LONG_TIMEOUT
@@ -62,6 +64,5 @@ in buildPythonPackage rec {
     changelog =
       "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
   };
 }

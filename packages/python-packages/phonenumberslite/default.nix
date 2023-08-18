@@ -1,7 +1,7 @@
 { lib, fetchPypi, python, ... }:
 let
   pname = "phonenumberslite";
-  version = "8.13.18";
+  version = "8.13.17";
 
   meta = with lib; {
     description = "phonenumbers Python Library";
@@ -17,7 +17,7 @@ let
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-oyHw3s8+TggPAF/aP7paeR2dFKPKIXl0NF/0UpI8MeI=";
+    hash = "sha256-V0HeS3epY/M1hesOj/omMuqZh9blCjisZ/RB5JQi3mk=";
   };
 
   doCheck = false;

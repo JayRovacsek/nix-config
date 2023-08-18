@@ -26,6 +26,5 @@ in buildPythonPackage rec {
     changelog =
       "https://github.com/JoshData/python-email-validator/releases/tag/v${version}";
     license = licenses.cc0;
-    maintainers = with maintainers; [ siddharthist ];
   };
 }

@@ -51,6 +51,5 @@ in buildPythonPackage rec {
       utility libraries.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
   };
 }

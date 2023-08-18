@@ -41,6 +41,5 @@ in buildPythonPackage rec {
     homepage = "https://pypi.org/project/Flask-Security-Too/";
     description = "Simple security for Flask apps (fork)";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
   };
 }

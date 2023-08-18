@@ -105,15 +105,6 @@ let
     };
   });
 
-  importlib-resources = python.importlib-resources.overrideAttrs (_old: rec {
-    version = "6.0.0";
-    src = fetchPypi {
-      pname = "importlib_resources";
-      inherit version;
-      hash = lib.fakeHash;
-    };
-  });
-
   mongoengine = python.mongoengine.overrideAttrs (old: rec {
     version = "0.27.0";
     src = fetchFromGitHub {
@@ -175,7 +166,6 @@ let
     charset-normalizer
     dnspython
     flask-sqlalchemy
-    importlib-resources
     mongoengine
     pydantic
     pymongo
@@ -231,7 +221,6 @@ let
     six
     smmap
     speaklater
-    sqlalchemy-utils
     typing-extensions
     webencodings
     wtforms
@@ -243,7 +232,9 @@ let
     email-validator
     flask-security
     flask-security-too
+    importlib-resources
     phonenumberslite
+    sqlalchemy-utils
     urllib3
     werkzeug
   ]) ++ overridden-packages;
