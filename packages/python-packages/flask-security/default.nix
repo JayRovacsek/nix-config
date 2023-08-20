@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ... }:
+{ lib, fetchPypi, python3Packages, ... }:
 let
   pname = "Flask-Security";
   version = "3.0.0";
@@ -12,9 +12,9 @@ let
     license = licenses.mit;
   };
 
-  inherit (python) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage;
 
-  propagatedBuildInputs = with python; [
+  propagatedBuildInputs = with python3Packages; [
     Babel
     flask
     flask_mail

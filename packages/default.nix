@@ -29,25 +29,18 @@ let
         callPackage ./node-packages/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
 
-  python =
-    let inherit (pkgs) python39Packages python310Packages python311Packages;
-    in builtins.foldl' (accumulator: package:
-      recursiveUpdate {
-        python39Packages.${package} = callPackage ./python-packages/${package} {
-          python = python39Packages;
-          ownPython = selfPkgs.python39Packages;
-        };
-        python310Packages.${package} =
-          callPackage ./python-packages/${package} {
-            python = python310Packages;
-            ownPython = selfPkgs.python310Packages;
-          };
-        python311Packages.${package} =
-          callPackage ./python-packages/${package} {
-            python = python311Packages;
-            ownPython = selfPkgs.python311Packages;
-          };
-      } accumulator) { } python-packages;
+  python = let
+    python-overlay-pkgs = import self.inputs.nixpkgs {
+      inherit system;
+      overlays = self.overlays.python;
+    };
+  in builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      python3Packages.${package} = callPackage ./python-packages/${package} {
+        ownPython = selfPkgs.python3Packages;
+        pkgs = python-overlay-pkgs;
+      };
+    } accumulator) { } python-packages;
 
   rust = builtins.foldl' (accumulator: package:
     recursiveUpdate {
