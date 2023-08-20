@@ -88,10 +88,10 @@
       "python312"
     ] (version:
       prev.${version}.override {
-        packageOverrides = _python-final: python-prev: {
+        packageOverrides = python-final: python-prev: {
           anyio = python-prev.anyio.overrideAttrs (old: rec {
             version = "3.7.1";
-            src = fetchFromGitHub {
+            src = prev.fetchFromGitHub {
               owner = "agronholm";
               repo = old.pname;
               rev = version;
@@ -101,7 +101,7 @@
 
           blinker = python-prev.blinker.overrideAttrs (old: rec {
             version = "1.6.2";
-            src = fetchPypi {
+            src = prev.fetchPypi {
               inherit version;
               inherit (old) pname;
               hash = "sha256-Sv095m7zqfgGdVn7ehy+VVwX3L4VlxsF0bYlw+er4hM=";
@@ -110,7 +110,7 @@
 
           certifi = python-prev.certifi.overrideAttrs (old: rec {
             version = "2023.7.22";
-            src = fetchFromGitHub {
+            src = prev.fetchFromGitHub {
               owner = old.pname;
               repo = "python-certifi";
               rev = "8fb96ed81f71e7097ed11bc4d9b19afd7ea5c909";
@@ -121,7 +121,7 @@
           charset-normalizer = python-prev.charset-normalizer.overrideAttrs
             (_old: rec {
               version = "3.2.0";
-              src = fetchFromGitHub {
+              src = prev.fetchFromGitHub {
                 owner = "Ousret";
                 repo = "charset_normalizer";
                 rev = "refs/tags/${version}";
@@ -136,7 +136,7 @@
               inherit version;
               hash = "sha256-dY5pHbtFTVzPThsVShnlKEf3niGkL+8XuWkUSvKaTmw=";
             };
-            propagatedBuildInputs = (with python; [ sniffio ]) ++ [ httpcore ];
+            propagatedBuildInputs = with python-final; [ sniffio httpcore ];
           });
 
           email-validator = python-prev.email-validator.overrideAttrs
@@ -169,7 +169,7 @@
                 hash = "sha256-xXZeWMoUVAG1IQbA9GF4VpJDxdolVWviwjHsxghnxbE=";
               };
               propagatedBuildInputs = old.propagatedBuildInputs
-                ++ (with python; [ flit-core ]);
+                ++ (with python-final; [ flit-core ]);
             });
 
           httpcore = python-prev.httpcore.overrideAttrs (old: rec {
@@ -185,7 +185,7 @@
           importlib-resources = python-prev.importlib-resources.overrideAttrs
             (_old: rec {
               version = "6.0.0";
-              src = fetchPypi {
+              src = prev.fetchPypi {
                 pname = "importlib_resources";
                 inherit version;
                 hash = "sha256-TPlIdag2i9iVMadW35qevh8VDg+IUDC0YSN7x/LZBfI=";
@@ -215,12 +215,25 @@
           });
 
           pymongo = python-prev.pymongo.overrideAttrs (old: rec {
-            inherit (old) pname;
             version = "4.4.1";
             src = prev.fetchPypi {
-              inherit pname version;
+              inherit version;
+              inherit (old) pname;
               hash = "sha256-pN+H270DrGNy0k8qgFS03DPeSX1SJ7UOxkn0Nq1XQoQ=";
             };
+          });
+
+          pyxattr = python-prev.pyxattr.overrideAttrs (old: rec {
+            version = "4.4.1";
+            src = prev.fetchPypi {
+              inherit version;
+              inherit (old) pname;
+              hash = "sha256-pN+H270DrGNy0k8qgFS03DPeSX1SJ7UOxkn0Nq1XQoQ=";
+            };
+
+            hardeningDisable =
+              prev.lib.optionals prev.stdenv.isDarwin [ "strictoverflow" ];
+
           });
 
           sqlalchemy = python-prev.sqlalchemy.overrideAttrs (_old: rec {
@@ -238,29 +251,29 @@
           sqlalchemy-utils = python-prev.sqlalchemy-utils.overrideAttrs
             (_old: rec {
               version = "0.41.1";
-              src = fetchPypi {
+              src = prev.fetchPypi {
                 inherit version;
                 pname = "SQLAlchemy-Utils";
                 hash = "sha256-ohgb/wHuuER544Vx0sBxjrUgQvmv2MGU0NAod+hLfXQ=";
               };
             });
 
-          webauthn = python-prev.webauthn.overrideAttrs (old: rec {
+          webauthn = python-prev.webauthn.overrideAttrs (_old: rec {
             version = "1.9.0";
-            src = fetchFromGitHub {
+            src = prev.fetchFromGitHub {
               owner = "duo-labs";
               repo = "py_webauthn";
               rev = "refs/tags/v${version}";
               hash = "sha256-bcAAoaa2E6BzqaiEBOE+AGDSg3P9uqEoiqeT4FBjZcs=";
             };
 
-            propagatedBuildInputs = (builtins.filter (x: x.pname != "pydantic")
-              old.propagatedBuildInputs) ++ [ pydantic ];
+            # propagatedBuildInputs = (builtins.filter (x: x.pname != "pydantic")
+            #   old.propagatedBuildInputs) ++ [ pydantic ];
           });
 
           urllib3 = python-prev.urllib3.overrideAttrs (old: rec {
             version = "2.0.4";
-            src = fetchPypi {
+            src = prev.fetchPypi {
               inherit version;
               inherit (old) pname;
               hash = "sha256-jSL4aq6O9eQQ1PU5/enOayEToAG7TRieCu1wZC1gKxE=";
@@ -269,7 +282,7 @@
 
           werkzeug = python-prev.werkzeug.overrideAttrs (_old: rec {
             version = "2.3.6";
-            src = fetchPypi {
+            src = prev.fetchPypi {
               pname = "Werkzeug";
               inherit version;
               hash = "sha256-mMd03y+RsFVQB4iR3uXw6wy3l6Uix1eiRSuc7lsgIzA=";

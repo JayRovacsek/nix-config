@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ... }:
+{ lib, fetchPypi, python3Packages, ... }:
 let
   pname = "commandlines";
   name = pname;
@@ -13,7 +13,7 @@ let
     license = licenses.mit;
   };
 
-  inherit (python) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version meta;

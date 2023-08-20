@@ -1,4 +1,4 @@
-{ lib, zlib, fetchPypi, python, ... }:
+{ lib, zlib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsapfs-python";
   name = pname;
@@ -12,7 +12,7 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version meta;

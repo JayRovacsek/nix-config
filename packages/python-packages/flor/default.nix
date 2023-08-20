@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ... }:
+{ lib, fetchPypi, python3Packages, ... }:
 let
   pname = "Flor";
   name = pname;
@@ -12,7 +12,7 @@ let
     license = licenses.bsd3;
   };
 
-  inherit (python) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage;
 
 in buildPythonPackage {
   inherit pname name version meta;

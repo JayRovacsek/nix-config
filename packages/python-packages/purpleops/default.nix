@@ -50,6 +50,7 @@ let
     Babel
     bcrypt
     bleach
+    blinker
     cbor2
     certifi
     cffi
@@ -57,6 +58,7 @@ let
     click
     cryptography
     dnspython
+    email-validator
     et_xmlfile
     exceptiongroup
     flask
@@ -66,6 +68,7 @@ let
     flask-login
     flask-mailman
     flask-mongoengine
+    flask-security-too
     flask-sqlalchemy
     flask-wtf
     gitdb
@@ -76,13 +79,13 @@ let
     httpcore
     idna
     importlib-metadata
+    importlib-resources
     itsdangerous
     jinja2
     lxml
     markupsafe
     mkdocs-material-extensions
     mongoengine
-    blinker
     openpyxl
     passlib
     pycparser
@@ -102,17 +105,14 @@ let
     smmap
     speaklater
     sqlalchemy
+    sqlalchemy-utils
     typing-extensions
     urllib3
     webauthn
     webencodings
-    wtforms
-    email-validator
-    importlib-resources
-    zipp
-    flask-security-too
-    sqlalchemy-utils
     werkzeug
+    wtforms
+    zipp
   ]) ++ (with ownPython; [
     docxcompose
     docxtpl

@@ -32,7 +32,7 @@ let
   python = let
     python-overlay-pkgs = import self.inputs.nixpkgs {
       inherit system;
-      overlays = self.overlays.python;
+      overlays = [ self.overlays.python ];
     };
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
