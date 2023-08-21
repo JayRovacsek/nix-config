@@ -40,7 +40,7 @@ let
 
 in {
 
-  imports = [ ../mako ../ranger ../waybar ../wofi ];
+  imports = [ ../mako ../waybar ];
 
   home = {
     inherit packages;
