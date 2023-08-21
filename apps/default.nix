@@ -8,7 +8,8 @@ let
   # easily to enable much faster evaluation of the configuration at build times.
   distributed-builds = import ./distributed-builds.nix { inherit self system; };
 
+  nixci = import ./nixci.nix { inherit self system; };
   nixinate = import ./nixinate.nix { inherit self system; };
   terraform = import ./terraform.nix { inherit self system; };
 
-in merge [ distributed-builds nixinate terraform ]
+in merge [ distributed-builds nixci nixinate terraform ]

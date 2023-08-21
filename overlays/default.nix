@@ -96,8 +96,4 @@
         ++ (with prev.python3Packages; [ pylint ]);
     });
   };
-
-  waybar-hyprland = _final: prev: {
-    inherit (self.inputs.hyprland.packages.${prev.system}) waybar-hyprland;
-  };
 }

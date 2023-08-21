@@ -42,7 +42,6 @@ let
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
     self.overlays.ranger
-    self.overlays.waybar-hyprland
   ];
 
   # Create a set that includes the microvm packages where the upstream supports

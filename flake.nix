@@ -18,8 +18,8 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -56,7 +56,7 @@
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hercules-ci-agent = {
@@ -86,8 +86,8 @@
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         hyprland-protocols.follows = "hyprland-protocols";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -106,24 +106,32 @@
 
     lib-aggregate = {
       url = "github:nix-community/lib-aggregate";
-      inputs = { flake-utils.follows = "flake-utils"; };
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     # Microvm module, PoC state for implementation
     microvm = {
       url = "github:astro/microvm.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
         flake-parts.follows = "flake-parts";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    nixci = {
+      url = "github:srid/nixci";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -131,8 +139,8 @@
       url = "github:nixified-ai/flake";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
         hercules-ci-effects.follows = "hercules-ci-effects";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -155,27 +163,27 @@
       url =
         "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         lib-aggregate.follows = "lib-aggregate";
         nix-eval-jobs.follows = "nix-eval-jobs";
-        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     nix-eval-jobs = {
       url = "github:nix-community/nix-eval-jobs";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -191,10 +199,10 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
         gitignore.follows = "gitignore";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -208,8 +216,8 @@
     stylix = {
       url = "github:danth/stylix";
       inputs = {
-        home-manager.follows = "home-manager";
         flake-compat.follows = "flake-compat";
+        home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -218,16 +226,16 @@
     terranix = {
       url = "github:terranix/terranix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     xdg-portal-hyprland = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         hyprland-protocols.follows = "hyprland-protocols";
+        nixpkgs.follows = "nixpkgs";
       };
     };
   };
