@@ -224,16 +224,15 @@
           });
 
           pyxattr = python-prev.pyxattr.overrideAttrs (old: rec {
-            version = "4.4.1";
-            src = prev.fetchPypi {
-              inherit version;
-              inherit (old) pname;
-              hash = "sha256-pN+H270DrGNy0k8qgFS03DPeSX1SJ7UOxkn0Nq1XQoQ=";
+            buildInputs = prev.lib.optionals prev.stdenv.isLinux prev.attr;
+
+            meta = prev.lib.recursiveUpdate old.meta {
+              platforms = old.meta.platforms
+                ++ [ "aarch64-darwin" "x86_64-darwin" ];
             };
 
             hardeningDisable =
               prev.lib.optionals prev.stdenv.isDarwin [ "strictoverflow" ];
-
           });
 
           sqlalchemy = python-prev.sqlalchemy.overrideAttrs (_old: rec {
@@ -271,13 +270,16 @@
             #   old.propagatedBuildInputs) ++ [ pydantic ];
           });
 
-          urllib3 = python-prev.urllib3.overrideAttrs (old: rec {
+          urllib3 = python-prev.urllib3.overridePythonAttrs (old: rec {
             version = "2.0.4";
+            format = "pyproject";
             src = prev.fetchPypi {
               inherit version;
               inherit (old) pname;
               hash = "sha256-jSL4aq6O9eQQ1PU5/enOayEToAG7TRieCu1wZC1gKxE=";
             };
+            propagatedBuildInputs = old.propagatedBuildInputs
+              ++ (with prev.python3Packages; [ hatchling setuptools ]);
           });
 
           werkzeug = python-prev.werkzeug.overrideAttrs (_old: rec {
