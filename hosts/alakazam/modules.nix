@@ -5,7 +5,6 @@ with self.nixosModules; [
   docker
   fonts
   generations
-  gnome
   gnupg
   hyprland
   keybase

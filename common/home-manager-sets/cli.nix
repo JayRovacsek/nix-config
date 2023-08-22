@@ -12,6 +12,7 @@ in base ++ (with home-manager-modules; [
   lsd
   man
   neovim
+  nix-index
   starship
   zsh
 ]) ++ [ neovim-flake.homeManagerModules.default ]

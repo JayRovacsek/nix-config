@@ -79,7 +79,6 @@ in {
 
   xdg.portal = {
     enable = true;
-    wlr.enable = false;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 }

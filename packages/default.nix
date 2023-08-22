@@ -5,7 +5,7 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     terraform-stacks python-packages node-packages go-packages dotnet-packages
-    rust-packages images;
+    rust-packages images wallpaper-packages;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -52,8 +52,9 @@ let
       ];
     }) terraform-stacks;
 
-  sddm-themes = import ./sddm-themes { inherit pkgs; };
-  wallpapers = import ./wallpapers { inherit pkgs; };
+  wallpapers = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
+    accumulator) { } wallpaper-packages;
 
   packages = merge [
     dotnet
@@ -62,7 +63,6 @@ let
     node
     python
     rust
-    sddm-themes
     terraform
     wallpapers
     {
