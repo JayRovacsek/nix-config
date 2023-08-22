@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ownPython, ... }:
+{ lib, fetchPypi, python3Packages, ownPython, ... }:
 let
   pname = "backgroundremover";
   name = pname;
@@ -13,7 +13,7 @@ let
     license = licenses.mit;
   };
 
-  inherit (python)
+  inherit (python3Packages)
     buildPythonPackage numpy certifi charset-normalizer filelock idna pysocks
     six urllib3 torch torchvision waitress tqdm requests scipy filetype
     more-itertools moviepy pillow ffmpeg-python scikitimage gdown;

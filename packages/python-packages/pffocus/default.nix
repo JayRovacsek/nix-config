@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python, ... }:
+{ lib, fetchFromGitHub, python3Packages, ... }:
 let
   pname = "pfFocus";
   name = pname;
@@ -12,7 +12,7 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python) buildPythonPackage defusedxml pyyaml;
+  inherit (python3Packages) buildPythonPackage defusedxml pyyaml;
 
 in buildPythonPackage {
   inherit pname name version meta;

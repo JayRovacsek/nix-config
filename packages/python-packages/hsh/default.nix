@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ownPython, ... }:
+{ lib, fetchPypi, python3Packages, ownPython, ... }:
 let
   pname = "hsh";
   name = pname;
@@ -13,7 +13,7 @@ let
     license = licenses.mit;
   };
 
-  inherit (python) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage;
 
   inherit (ownPython) commandlines;
 

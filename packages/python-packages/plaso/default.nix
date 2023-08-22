@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ownPython, ... }:
+{ lib, fetchPypi, python3Packages, ownPython, ... }:
 let
   pname = "plaso";
   name = pname;
@@ -12,10 +12,10 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python)
+  inherit (python3Packages)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
-    pyzmq redis requests six XlsxWriter yara-python;
+    pyzmq pyxattr redis requests six XlsxWriter yara-python;
 
   inherit (ownPython)
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
@@ -26,7 +26,7 @@ let
     libmsiecf-python libolecf-python libphdi-python libqcow-python
     libregf-python libscca-python libsigscan-python libsmdev-python
     libsmraw-python libvhdi-python libvmdk-python libvsgpt-python
-    libvshadow-python libvslvm-python pytsk3 pyxattr;
+    libvshadow-python libvslvm-python pytsk3;
 
 in buildPythonPackage {
   inherit pname name version meta;

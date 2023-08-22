@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ... }:
+{ lib, fetchPypi, python3Packages, ... }:
 let
   pname = "PyMatting";
   name = pname;
@@ -12,7 +12,7 @@ let
     license = licenses.mit;
   };
 
-  inherit (python) buildPythonPackage numpy pillow numba scipy;
+  inherit (python3Packages) buildPythonPackage numpy pillow numba scipy;
 
 in buildPythonPackage {
   inherit pname name version meta;

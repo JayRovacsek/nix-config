@@ -1,4 +1,4 @@
-{ lib, fetchPypi, python, ownPython, ... }:
+{ lib, fetchPypi, python3Packages, ownPython, ... }:
 let
   pname = "dfwinreg";
   name = pname;
@@ -13,7 +13,7 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python) buildPythonPackage pyyaml;
+  inherit (python3Packages) buildPythonPackage pyyaml;
 
   inherit (ownPython) dfdatetime libregf-python libcreg-python dtfabric;
 in buildPythonPackage {
