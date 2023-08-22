@@ -62,7 +62,7 @@ in {
 
       # Specify the EBS snapshot and the S3 bucket object as the source
       ebs_block_device = {
-        snapshot_id = aws_ebs_snapshot.ami_snapshot.id;
+        snapshot_id = "\${aws_ebs_snapshot.ami_snapshot.id}";
         volume_size = 20;
         volume_type = "gp2";
         delete_on_termination = true;
