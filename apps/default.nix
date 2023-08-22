@@ -1,6 +1,7 @@
 { self, pkgs }:
 let
   inherit (self.lib) merge;
+  act = import ./act.nix { inherit self pkgs; };
 
   # Previously I had configured this to evaluate at system evaluation time.
   # this is costly as heck when more machines, so this should give an escape
@@ -11,4 +12,4 @@ let
   nixci = import ./nixci.nix { inherit self pkgs; };
   terraform = import ./terraform.nix { inherit self pkgs; };
 
-in merge [ distributed-builds nixci terraform ]
+in merge [ act distributed-builds nixci terraform ]
