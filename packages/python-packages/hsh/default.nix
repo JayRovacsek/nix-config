@@ -1,5 +1,7 @@
-{ lib, fetchPypi, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
 let
+  inherit (pkgs) system;
+
   pname = "hsh";
   name = pname;
   version = "1.1.0";
@@ -15,7 +17,7 @@ let
 
   inherit (python3Packages) buildPythonPackage;
 
-  inherit (ownPython) commandlines;
+  inherit (self.packages.${system}) commandlines;
 
 in buildPythonPackage {
   inherit pname name version meta;

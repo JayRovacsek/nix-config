@@ -7,25 +7,22 @@ let
     terraform-stacks python-packages node-packages go-packages dotnet-packages
     rust-packages images;
 
-  selfPkgs = self.outputs.packages.${system};
-
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
 
   dotnet = builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      dotnet-packages.${package} = callPackage ./dotnet-packages/${package} { };
+      ${package} = callPackage ./dotnet-packages/${package} { };
     } accumulator) { } dotnet-packages;
 
   go = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      go-packages.${package} = callPackage ./go-packages/${package} { };
-    } accumulator) { } go-packages;
+    recursiveUpdate { ${package} = callPackage ./go-packages/${package} { }; }
+    accumulator) { } go-packages;
 
   node = let inherit (pkgs) nodejs_20;
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      node-packages.${package} =
+      ${package} =
         callPackage ./node-packages/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
 
@@ -36,16 +33,15 @@ let
     };
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      python3Packages.${package} = callPackage ./python-packages/${package} {
-        ownPython = selfPkgs.python3Packages;
+      ${package} = callPackage ./python-packages/${package} {
+        inherit self;
         pkgs = python-overlay-pkgs;
       };
     } accumulator) { } python-packages;
 
   rust = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      rust-packages.${package} = callPackage ./rust-packages/${package} { };
-    } accumulator) { } rust-packages;
+    recursiveUpdate { ${package} = callPackage ./rust-packages/${package} { }; }
+    accumulator) { } rust-packages;
 
   terraform = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {

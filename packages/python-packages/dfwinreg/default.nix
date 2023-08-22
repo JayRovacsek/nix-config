@@ -1,5 +1,7 @@
-{ lib, fetchPypi, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
 let
+  inherit (pkgs) system;
+
   pname = "dfwinreg";
   name = pname;
   version = "20221218";
@@ -15,7 +17,8 @@ let
 
   inherit (python3Packages) buildPythonPackage pyyaml;
 
-  inherit (ownPython) dfdatetime libregf-python libcreg-python dtfabric;
+  inherit (self.packages.${system})
+    dfdatetime libregf-python libcreg-python dtfabric;
 in buildPythonPackage {
   inherit pname name version meta;
   propagatedBuildInputs =

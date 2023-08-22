@@ -1,5 +1,7 @@
-{ lib, fetchPypi, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
 let
+  inherit (pkgs) system;
+
   pname = "docxtpl";
   version = "0.16.7";
 
@@ -11,11 +13,11 @@ let
     license = licenses.lgpl21;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage six python-docx jinja2 lxml;
 
-  propagatedBuildInputs =
-    (with python3Packages; [ six python-docx jinja2 lxml ])
-    ++ (with ownPython; [ docxcompose ]);
+  inherit (self.packages.${system}) docxcompose;
+
+  propagatedBuildInputs = [ six python-docx jinja2 lxml docxcompose ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,5 +1,7 @@
-{ lib, fetchPypi, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
 let
+  inherit (pkgs) system;
+
   pname = "dfvfs";
   name = pname;
   version = "20221224";
@@ -15,7 +17,7 @@ let
 
   inherit (python3Packages) buildPythonPackage cffi cryptography pyyaml pyxattr;
 
-  inherit (ownPython)
+  inherit (self.packages.${system})
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
     libfsext-python libfsfat-python libfshfs-python libfsntfs-python
     libfsxfs-python libfvde-python libfwnt-python libluksde-python

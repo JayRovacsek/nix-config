@@ -1,5 +1,7 @@
-{ lib, fetchPypi, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
 let
+  inherit (pkgs) system;
+
   pname = "plaso";
   name = pname;
   version = "20230311";
@@ -17,7 +19,7 @@ let
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
     pyzmq pyxattr redis requests six XlsxWriter yara-python;
 
-  inherit (ownPython)
+  inherit (self.packages.${system})
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
     libcreg-python libesedb-python libevt-python libevtx-python libewf-python
     libfsapfs-python libfsext-python libfsfat-python libfshfs-python
