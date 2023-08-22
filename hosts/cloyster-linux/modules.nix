@@ -10,7 +10,6 @@ with self.nixosModules; [
   lorri
   nextcloud-client
   nix
-  nixinate
   openssh
   pipewire
   sddm

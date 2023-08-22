@@ -9,7 +9,6 @@ let
   distributed-builds = import ./distributed-builds.nix { inherit self pkgs; };
 
   nixci = import ./nixci.nix { inherit self pkgs; };
-  nixinate = import ./nixinate.nix { inherit self pkgs; };
   terraform = import ./terraform.nix { inherit self pkgs; };
 
-in merge [ distributed-builds nixci nixinate terraform ]
+in merge [ distributed-builds nixci terraform ]

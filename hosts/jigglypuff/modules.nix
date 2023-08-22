@@ -8,7 +8,6 @@
     ../../modules/journald
     ../../modules/lorri
     ../../modules/nix
-    ../../modules/nixinate
     ../../modules/openssh
     ../../modules/sudo
     ../../modules/systemd-networkd

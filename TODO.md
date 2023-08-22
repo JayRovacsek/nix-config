@@ -14,7 +14,6 @@ serve me well.
 - Look into ryujinx
 - Fix suspend on hyprland losing user session (windows gone etc etc)
 - Declaratively manage keepass (https://github.com/kira-bruneau/home-config/tree/main/package/keepassxc)
-- Utilise/add nixinate (https://github.com/MatthewCroughan/nixinate) to assist remote deployments
 - Reevaluate how SSH configs are generated + remote builds - they're slow AF currently due to the need to evaluate all system configs
 - styx implementation for documentation
 - agenix move some secrets into home module

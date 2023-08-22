@@ -12,7 +12,6 @@ with self.nixosModules; [
   lorri
   nextcloud-client
   nix
-  nixinate
   nvidia
   openssh
   pipewire

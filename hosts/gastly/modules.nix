@@ -9,7 +9,6 @@
     ../../modules/lorri
     ../../modules/networking
     ../../modules/nix
-    ../../modules/nixinate
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/steam

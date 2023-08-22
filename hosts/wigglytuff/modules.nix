@@ -4,7 +4,6 @@ _: {
     ../../modules/gnupg
     ../../modules/lorri
     ../../modules/nix
-    ../../modules/nixinate
     ../../modules/openssh
     ../../modules/sddm
     ../../modules/sudo

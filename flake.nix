@@ -144,11 +144,6 @@
       };
     };
 
-    nixinate = {
-      url = "github:matthewcroughan/nixinate";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Generate system images easily
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
