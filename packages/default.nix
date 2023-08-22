@@ -69,7 +69,6 @@ let
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
       t2-firmware = callPackage ./t2-firmware { };
-      velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
       waybar-colour-picker = callPackage ./waybar-colour-picker { };
       waybar-screenshot = callPackage ./waybar-screenshot { };

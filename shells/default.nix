@@ -8,7 +8,8 @@ let
   nodePackages = with pkgs.nodePackages; [ prettier ];
 
   packages = with pkgs;
-    lib.optionals supported-system ([ nixfmt statix nil ] ++ nodePackages);
+    lib.optionals supported-system
+    ([ deadnix nixfmt statix nil ] ++ nodePackages);
 
   shellHook = lib.optionalString supported-system
     self.checks.${system}.pre-commit.shellHook;
