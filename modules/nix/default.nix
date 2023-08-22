@@ -51,6 +51,9 @@ in {
 
   nix = {
     inherit buildMachines distributedBuilds gc settings extraOptions;
-    package = pkgs.nix-monitored;
+    package = if builtins.hasAttr "nix-monitored" pkgs then
+      pkgs.nix-monitored
+    else
+      pkgs.nix;
   };
 }
