@@ -68,7 +68,6 @@ let
     {
       better-english = callPackage ./better-english { };
       ditto-transform = callPackage ./ditto-transform { inherit self; };
-      falcon-sensor = callPackage ./falcon-sensor { };
       t2-firmware = callPackage ./t2-firmware { };
       velociraptor-bin = callPackage ./velociraptor-bin { };
       vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
