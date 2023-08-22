@@ -104,7 +104,6 @@ in {
           "valheim.rovacsek.com" = "192.168.17.3";
           "terraria.lan" = "192.168.17.4";
           "terraria.rovacsek.com" = "192.168.17.4";
-          "rovacsek.com" = "192.168.5.3";
 
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";

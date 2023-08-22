@@ -22,7 +22,6 @@ in {
 
     casks = [
       "brave-browser"
-      "discord"
       "eloston-chromium"
       "gimp"
       "jellyfin-media-player"
