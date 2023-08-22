@@ -1,7 +1,6 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-
+  inherit (pkgs) system;
   pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
   checks = if builtins.elem system self.common.pre-commit-unsupported then
     { }
@@ -26,8 +25,7 @@ let
         };
 
         trufflehog-verified = {
-          # Temporary - seems broken
-          enable = false;
+          enable = true;
           name = "Trufflehog Search";
           entry =
             "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
@@ -36,8 +34,7 @@ let
         };
 
         trufflehog-regex = {
-          # Temporary - seems broken
-          enable = false;
+          enable = true;
           name = "Trufflehog Regex Search";
           entry =
             "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions";

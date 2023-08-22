@@ -1,7 +1,6 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-  inherit (pkgs) lib;
+  inherit (pkgs) lib system;
 
   name = "dev-shell";
   supported-system = !(builtins.elem system self.common.pre-commit-unsupported);

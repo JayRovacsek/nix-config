@@ -1,7 +1,7 @@
-{ self, system ? "x86_64-linux", ... }:
+{ self, pkgs, ... }:
 let
+  inherit (pkgs) system;
   region = "ap-southeast";
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
   name = "linode-ami";
 in {
   # Piggybacks greatly off the following repositories awesome work: https://github.com/houstdav000/terranix-linode-poc

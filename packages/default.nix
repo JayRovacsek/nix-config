@@ -1,13 +1,13 @@
-{ self, system, pkgs }:
+{ self, pkgs }:
 let
-  selfPkgs = self.outputs.packages.${system};
-  inherit (pkgs) callPackage;
-  inherit (pkgs.lib) recursiveUpdate;
-  inherit (pkgs.lib.attrsets) mapAttrs;
+  inherit (pkgs) lib system callPackage;
+  inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
     terraform-stacks python-packages node-packages go-packages dotnet-packages
     rust-packages images;
+
+  selfPkgs = self.outputs.packages.${system};
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -58,7 +58,7 @@ let
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
-        { config._module.args = { inherit self system; }; }
+        { config._module.args = { inherit self system pkgs; }; }
         ../terranix/${name}
       ];
     }) terraform-stacks;

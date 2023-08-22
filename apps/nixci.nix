@@ -1,6 +1,5 @@
-{ self, system }:
+{ pkgs, ... }:
 let
-  pkgs = import self.inputs.nixpkgs { inherit system; };
   inherit (pkgs) nixci;
 
   program = builtins.toString (pkgs.writers.writeBash "run-nixci" ''

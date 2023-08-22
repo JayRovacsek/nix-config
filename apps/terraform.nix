@@ -1,8 +1,7 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-  inherit (pkgs.lib.attrsets) concatMapAttrs;
-  inherit (pkgs) terraform;
+  inherit (pkgs) lib system terraform;
+  inherit (lib) concatMapAttrs;
   inherit (self.common) terraform-stacks;
 
   # Commonly utilised terraform file names
