@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        os: [x64, arm64]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
