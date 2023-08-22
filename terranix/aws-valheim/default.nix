@@ -73,8 +73,8 @@ in {
         disk_containers = {
           description = "My Custom AMI";
           user_bucket = {
-            s3_bucket = aws_s3_bucket.ami_bucket.id;
-            s3_key = aws_s3_bucket_object.ami_object.id;
+            s3_bucket = "\${aws_s3_bucket.ami_bucket.id}";
+            s3_key = "\${aws_s3_bucket.ami_bucket.id}";
           };
         };
       };
