@@ -1,6 +1,6 @@
-{ lib, fetchFromGitHub, python3Packages, ownPython, ... }:
+{ pkgs, lib, fetchFromGitHub, python3Packages, self, ... }:
 let
-  inherit (python3Packages) buildPythonPackage;
+  inherit (pkgs) system;
 
   pname = "PurpleOps";
   version = "7792663bca75f5aa75f96801228f92660d946d66";
@@ -44,7 +44,22 @@ let
 
   doCheck = false;
 
-  propagatedBuildInputs = (with python3Packages; [
+  inherit (self.packages.${system})
+    docxcompose docxtpl flask-security phonenumberslite;
+
+  inherit (python3Packages)
+    buildPythonPackage anyio asn1crypto Babel bcrypt bleach blinker cbor2
+    certifi cffi charset-normalizer click cryptography dnspython email-validator
+    et_xmlfile exceptiongroup flask flask_mail flask_principal flask-babelex
+    flask-login flask-mailman flask-mongoengine flask-security-too
+    flask-sqlalchemy flask-wtf gitdb GitPython greenlet gunicorn h11 httpcore
+    idna importlib-metadata importlib-resources itsdangerous jinja2 lxml
+    markupsafe mkdocs-material-extensions mongoengine openpyxl passlib pycparser
+    pydantic pymongo pyopenssl pypng python-docx python-dotenv pytz pyyaml
+    qrcode requests six smmap speaklater sqlalchemy sqlalchemy-utils
+    typing-extensions urllib3 webauthn webencodings werkzeug wtforms zipp;
+
+  propagatedBuildInputs = [
     anyio
     asn1crypto
     Babel
@@ -58,6 +73,8 @@ let
     click
     cryptography
     dnspython
+    docxcompose
+    docxtpl
     email-validator
     et_xmlfile
     exceptiongroup
@@ -68,6 +85,7 @@ let
     flask-login
     flask-mailman
     flask-mongoengine
+    flask-security
     flask-security-too
     flask-sqlalchemy
     flask-wtf
@@ -88,8 +106,8 @@ let
     mongoengine
     openpyxl
     passlib
+    phonenumberslite
     pycparser
-    pydantic
     pydantic
     pymongo
     pymongo
@@ -113,12 +131,7 @@ let
     werkzeug
     wtforms
     zipp
-  ]) ++ (with ownPython; [
-    docxcompose
-    docxtpl
-    flask-security
-    phonenumberslite
-  ]);
+  ];
 
   postPatch = ''
     printf %s "$setupPy" > setup.py
