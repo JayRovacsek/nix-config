@@ -230,14 +230,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    xdg-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs = {
-        hyprland-protocols.follows = "hyprland-protocols";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
   };
 
   outputs = { self, flake-utils, ... }:

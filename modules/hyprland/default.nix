@@ -80,8 +80,6 @@ in {
   xdg.portal = {
     enable = true;
     wlr.enable = false;
-    extraPortals = lib.mkForce [
-      config.flake.inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland
-    ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
   };
 }
