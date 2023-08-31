@@ -35,10 +35,21 @@
       url = "github:lnl7/nix-darwin/master";
     };
 
+    dream2nix = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        nix-unit.follows = "nix-unit";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+      url = "github:nix-community/dream2nix";
+    };
+
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
-      url = "github:bandithedoge/nixpkgs-firefox-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:bandithedoge/nixpkgs-firefox-darwin";
     };
 
     # Adds flake compatibility to start removing the vestiges of 
@@ -46,108 +57,129 @@
     # setting while tricking some services/plugins to still be able to
     # use the shell.nix file.
     flake-compat = {
-      url = "github:edolstra/flake-compat";
       flake = false;
+      url = "github:edolstra/flake-compat";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      inputs.systems.follows = "systems";
+      url = "github:numtide/flake-utils";
+    };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hercules-ci/gitignore.nix";
     };
 
     hercules-ci-agent = {
-      url = "github:hercules-ci/hercules-ci-agent";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:hercules-ci/hercules-ci-agent";
     };
 
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
         hercules-ci-agent.follows = "hercules-ci-agent";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     # Home management module
     home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
     };
 
     # Wayland compositor & WM
     hyprland = {
-      url = "github:hyprwm/Hyprland";
       inputs = {
         hyprland-protocols.follows = "hyprland-protocols";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
+      url = "github:hyprwm/Hyprland";
     };
 
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
+      url = "github:hyprwm/hyprland-plugins";
     };
 
     hyprland-protocols = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
       url = "github:hyprwm/hyprland-protocols";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
 
     lib-aggregate = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs-lib.follows = "nixpkgs";
+      };
       url = "github:nix-community/lib-aggregate";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     # Microvm module, PoC state for implementation
     microvm = {
-      url = "github:astro/microvm.nix";
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:astro/microvm.nix";
     };
 
     neovim-flake = {
-      url = "github:notashelf/neovim-flake";
       inputs = {
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
+        rnix-lsp.follows = "rnix-lsp";
+        tidalcycles.follows = "tidalcycles";
+        zig.follows = "zig";
       };
+      url = "github:notashelf/neovim-flake";
     };
 
     nixci = {
-      url = "github:srid/nixci";
       inputs = {
+        dream2nix.follows = "dream2nix";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
       };
+      url = "github:srid/nixci";
+    };
+
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixified-ai = {
-      url = "github:nixified-ai/flake";
       inputs = {
         flake-parts.follows = "flake-parts";
         hercules-ci-effects.follows = "hercules-ci-effects";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:nixified-ai/flake";
     };
 
     # Generate system images easily
     nixos-generators = {
-      url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixos-generators";
     };
 
     # Apply opinions on hardware that are driven by community
@@ -155,36 +187,56 @@
 
     # Nixos modules to be used in the Windows Subsystem for Linux  
     nixos-wsl = {
-      url =
-        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
+      url =
+        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
     };
 
     nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
       inputs = {
         flake-compat.follows = "flake-compat";
         lib-aggregate.follows = "lib-aggregate";
         nix-eval-jobs.follows = "nix-eval-jobs";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:nix-community/nixpkgs-wayland";
     };
 
     nix-eval-jobs = {
-      url = "github:nix-community/nix-eval-jobs";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
       };
+      url = "github:nix-community/nix-eval-jobs";
+    };
+
+    nix-filter = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-filter.follows = "nix-filter";
+      };
+      url = "github:ners/nix-monitored";
     };
 
     nix-monitored = {
+      inputs = {
+        nix-filter.follows = "nix-filter";
+        nixpkgs.follows = "nixpkgs";
+      };
       url = "github:ners/nix-monitored";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-unit = {
+      inputs = {
+        nix-filter.follows = "nix-filter";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:ners/nix-monitored";
     };
 
     # Like the Arch User Repository, but better :)
@@ -192,38 +244,71 @@
 
     # Adds configurable pre-commit options to our flake :)
     pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         gitignore.follows = "gitignore";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:cachix/pre-commit-hooks.nix";
+    };
+
+    rnix-lsp = {
+      url = "github:nix-community/rnix-lsp";
+      inputs = {
+        naersk.follows = "naersk";
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
     };
 
     # Software bill of materials package
     sbomnix = {
-      url = "github:tiiuae/sbomnix/main";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:tiiuae/sbomnix/main";
     };
 
     # Software bill of materials package
     stylix = {
-      url = "github:danth/stylix";
       inputs = {
         flake-compat.follows = "flake-compat";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:danth/stylix";
     };
+
+    systems.url = "github:nix-systems/default";
 
     # Terraform via the nix language
     terranix = {
-      url = "github:terranix/terranix";
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:terranix/terranix";
+    };
+
+    tidalcycles = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
+      url = "github:mitchmindtree/tidalcycles.nix";
+    };
+
+    treefmt-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/treefmt-nix";
+    };
+
+    zig = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:mitchellh/zig-overlay";
     };
   };
 
