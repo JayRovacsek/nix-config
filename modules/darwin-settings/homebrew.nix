@@ -31,7 +31,6 @@ in {
       "nextcloud"
       "raycast"
       "signal"
-      "slack"
       "zoom"
     ] ++ extraCasks;
 
