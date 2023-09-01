@@ -215,13 +215,7 @@
       url = "github:nix-community/nix-eval-jobs";
     };
 
-    nix-filter = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix-filter.follows = "nix-filter";
-      };
-      url = "github:ners/nix-monitored";
-    };
+    nix-filter.url = "github:numtide/nix-filter";
 
     nix-monitored = {
       inputs = {

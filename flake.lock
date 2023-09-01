@@ -1415,21 +1415,17 @@
       }
     },
     "nix-filter": {
-      "inputs": {
-        "nix-filter": ["nix-filter"],
-        "nixpkgs": ["nixpkgs"]
-      },
       "locked": {
-        "lastModified": 1692605628,
-        "narHash": "sha256-jBasvDCk9V32JuwtPy1G4KyVAc2eaBSf2X5eRNQgIkY=",
-        "owner": "ners",
-        "repo": "nix-monitored",
-        "rev": "6be92b0c1eca7ef501b4f92735885e7cb4db414b",
+        "lastModified": 1687178632,
+        "narHash": "sha256-HS7YR5erss0JCaUijPeyg2XrisEb959FIct3n2TMGbE=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "d90c75e8319d0dd9be67d933d8eb9d0894ec9174",
         "type": "github"
       },
       "original": {
-        "owner": "ners",
-        "repo": "nix-monitored",
+        "owner": "numtide",
+        "repo": "nix-filter",
         "type": "github"
       }
     },
