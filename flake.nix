@@ -61,6 +61,8 @@
       url = "github:edolstra/flake-compat";
     };
 
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+
     flake-utils = {
       inputs.systems.follows = "systems";
       url = "github:numtide/flake-utils";
@@ -317,9 +319,6 @@
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };
 
-        # Overlays for when stuff really doesn't fit in the round hole
-        overlays = import ./overlays { inherit self; };
-
         # System modules for system consumption
         nixosModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {
@@ -329,6 +328,11 @@
                 inherit config pkgs lib options specialArgs modulesPath;
               };
           } accumulator) { } self.common.nixos-modules;
+
+        # Overlays for when stuff really doesn't fit in the round hole
+        overlays = import ./overlays { inherit self; };
+
+        schemas = (import ./schemas) // self.inputs.flake-schemas.schemas;
 
         # System configurations
         nixosConfigurations = import ./linux { inherit self; };
