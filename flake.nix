@@ -23,6 +23,16 @@
       };
     };
 
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
     # We need to wrap darwin as it exposes darwin.lib.darwinSystem
     # therefore we can't depend on stable/unstable to handle the correct matching
     # of stable/unstable to make a suitable decision per system
@@ -145,6 +155,7 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
+        nil.follows = "nil";
         nixpkgs.follows = "nixpkgs";
         rnix-lsp.follows = "rnix-lsp";
         tidalcycles.follows = "tidalcycles";
@@ -155,9 +166,10 @@
 
     nixci = {
       inputs = {
-        dream2nix.follows = "dream2nix";
+        crane.follows = "crane";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -167,6 +179,15 @@
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nil = {
+      url = "github:oxalica/nil";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
 
     nixified-ai = {
@@ -255,6 +276,14 @@
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         utils.follows = "flake-utils";
+      };
+    };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
