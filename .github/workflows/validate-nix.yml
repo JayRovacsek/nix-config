@@ -6,32 +6,13 @@ on:
       - main
 
 jobs:
-  build:
+  validate-nix:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [x64, arm64]
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
-
-      - run: nix flake check
-
-      - name: PR Check
-        if: github.event_name == 'pull_request'
-        run: echo "PR nix flake checks passed successfully!"
-
-  build-macos:
-    runs-on: macos-latest
-
-    strategy:
-      matrix:
-        os: [x64, arm64]
+        arch: [x64, arm64]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout Repository
@@ -47,9 +28,9 @@ jobs:
         run: echo "PR nix flake checks passed successfully!"
 
   merge:
-    needs: [build, build-macos]
+    needs: [validate-nix]
     runs-on: ubuntu-latest
     steps:
       - name: Merge PR
-        if: needs.build.result == 'success' && needs.build-macos.result == 'success'
+        if: needs.validate-nix.result == 'success'
         run: echo "All PR checks passed successfully and can be merged!"

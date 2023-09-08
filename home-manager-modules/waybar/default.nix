@@ -6,8 +6,7 @@ let
     enable = true;
     target = "display-manager.service";
   };
-  package = pkgs.waybar-hyprland;
 in {
-  programs.waybar = { inherit enable systemd settings package; };
+  programs.waybar = { inherit enable systemd settings; };
   systemd.user.services.waybar.Service.Restart = lib.mkForce "always";
 }

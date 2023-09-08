@@ -34,7 +34,7 @@ in {
 
       sizes = let
         small = 10;
-        medium = 10;
+        medium = 12;
       in {
         desktop = medium;
         applications = small;
@@ -51,6 +51,5 @@ in {
     polarity = "dark";
   };
 
-  home-manager.sharedModules =
-    [{ stylix.targets = { vscode.enable = false; }; }];
+  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }];
 }
