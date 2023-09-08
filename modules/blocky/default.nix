@@ -22,6 +22,9 @@ in {
 
   services.blocky = {
     enable = true;
+    #
+    # SEE ALSO: https://0xerr0r.github.io/blocky/latest/configuration/#logging-configuration
+    #
     settings = {
 
       # optional: use black and white lists to block queries (for example ads, trackers, adult pages etc.)
@@ -68,7 +71,7 @@ in {
           refreshPeriod = "4h";
 
           # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
-          startStrategy = "failOnError";
+          strategy = "failOnError";
 
           downloads = {
             # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
@@ -384,6 +387,8 @@ in {
           "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
           "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
         };
+        # Blocky supports different upstream strategies (default parallel_best) that determine how and to which upstream DNS servers requests are forwarded.
+        strategy = "parallel_best";
 
         # optional: timeout to query the upstream resolver. Default: 2s
         timeout = "2s";
