@@ -12,13 +12,14 @@ jobs:
     strategy:
       matrix:
         arch: [x64, arm64]
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Install Nix
+        if: ${{ !env.ACT }}
         uses: cachix/install-nix-action@v22
 
       - run: nix flake check
