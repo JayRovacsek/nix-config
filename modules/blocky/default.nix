@@ -23,35 +23,37 @@ in {
   services.blocky = {
     enable = true;
     settings = {
-      upstream = {
-        # these external DNS resolvers will be used. Blocky picks 2 random resolvers from the list for each query
-        # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
-        # this configuration is mandatory, please define at least one external DNS resolver
-        default = [
-          "tcp-tls:dot.libredns.gr:853"
-          "tcp-tls:dot1.applied-privacy.net:853"
-          "tcp-tls:dot.nl.ahadns.net:853"
-          "tcp-tls:dot.la.ahadns.net:853"
-          "https://doh.mullvad.net/dns-query"
-          "https://doh-jp.blahdns.com/dns-query"
-        ];
+      upstreams = {
+        groups = {
+          # these external DNS resolvers will be used. Blocky picks 2 random resolvers from the list for each query
+          # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
+          # this configuration is mandatory, please define at least one external DNS resolver
+          default = [
+            "tcp-tls:dot.libredns.gr:853"
+            "tcp-tls:dot1.applied-privacy.net:853"
+            "tcp-tls:dot.nl.ahadns.net:853"
+            "tcp-tls:dot.la.ahadns.net:853"
+            "https://doh.mullvad.net/dns-query"
+            "https://doh-jp.blahdns.com/dns-query"
+          ];
 
-        # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
-        # or single ip address / client subnet as CIDR notation
-        "192.168.4.0/24" = [
-          "https://dnsnl.alekberg.net/dns-query"
-          "https://dnsse.alekberg.net/dns-query"
-          "https://doh.dns.sb/dns-query"
-          "https://doh.sb/dns-query"
-          "https://doh.dns4all.eu/dns-query"
-        ];
+          # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
+          # or single ip address / client subnet as CIDR notation
+          "192.168.4.0/24" = [
+            "https://dnsnl.alekberg.net/dns-query"
+            "https://dnsse.alekberg.net/dns-query"
+            "https://doh.dns.sb/dns-query"
+            "https://doh.sb/dns-query"
+            "https://doh.dns4all.eu/dns-query"
+          ];
 
-        "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
-        "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
+          "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
+          "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
+        };
+
+        # optional: timeout to query the upstream resolver. Default: 2s
+        timeout = "2s";
       };
-
-      # optional: timeout to query the upstream resolver. Default: 2s
-      upstreamTimeout = "2s";
 
       # optional: If true, blocky will fail to start unless at least one upstream server per group is reachable. Default: false
       startVerifyUpstream = true;
@@ -278,18 +280,25 @@ in {
         # optional: TTL for answers to blocked domains
         # default: 6h
         blockTTL = "6h";
-        # optional: automatically list refresh period (in duration format). Default: 4h.
-        # Negative value -> deactivate automatically refresh.
-        # 0 value -> use default
-        refreshPeriod = "4h";
-        # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
-        downloadTimeout = "4m";
-        # optional: Download attempt timeout. Default: 60s
-        downloadAttempts = 5;
-        # optional: Time between the download attempts. Default: 1s
-        downloadCooldown = "10s";
-        # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
-        startStrategy = "failOnError";
+
+        loading = {
+          # optional: automatically list refresh period (in duration format). Default: 4h.
+          # Negative value -> deactivate automatically refresh.
+          # 0 value -> use default
+          refreshPeriod = "4h";
+
+          # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
+          startStrategy = "failOnError";
+
+          downloads = {
+            # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
+            timeout = "60s";
+            # optional: Number of download attempts.
+            attempts = 5;
+            # optional: Time between the download attempts. Default: 1s
+            cooldown = "10s";
+          };
+        };
       };
 
       # optional: configuration for caching of DNS responses
