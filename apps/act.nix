@@ -2,7 +2,7 @@
 let
   inherit (pkgs) act;
 
-  args = [ "-P ubuntu-latest=alpine:latest" "-j validate-nix" ];
+  args = [ "-P ubuntu-latest=nixpkgs/nix-flakes" "-j validate-nix" ];
 
   program = builtins.toString (pkgs.writers.writeBash "run-act" ''
     ${act}/bin/act ${builtins.concatStringsSep " " args}
