@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib }:
+{ stdenv, pkgs, lib, ... }:
 with lib;
 let
   name = "vulnix-pre-commit";

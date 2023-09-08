@@ -5,7 +5,7 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     terraform-stacks python-packages node-packages go-packages dotnet-packages
-    rust-packages images wallpaper-packages;
+    rust-packages images wallpaper-packages shell-packages;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
@@ -25,6 +25,11 @@ let
       ${package} =
         callPackage ./node-packages/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
+
+  shell = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./shell-packages/${package} { inherit self; };
+    } accumulator) { } shell-packages;
 
   python = let
     python-overlay-pkgs = import self.inputs.nixpkgs {
@@ -63,16 +68,12 @@ let
     node
     python
     rust
+    shell
     terraform
     wallpapers
     {
       better-english = callPackage ./better-english { };
-      ditto-transform = callPackage ./ditto-transform { inherit self; };
       t2-firmware = callPackage ./t2-firmware { };
-      vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
-      waybar-colour-picker = callPackage ./waybar-colour-picker { };
-      waybar-screenshot = callPackage ./waybar-screenshot { };
-      wofi-power = callPackage ./wofi-power { };
     }
   ];
 

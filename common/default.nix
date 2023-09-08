@@ -43,6 +43,8 @@
   rust-packages =
     builtins.attrNames (builtins.readDir ../packages/rust-packages);
   self-reference = import ./self-reference.nix { inherit self; };
+  shell-packages =
+    builtins.attrNames (builtins.readDir ../packages/shell-packages);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };

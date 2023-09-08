@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib, grim, slurp, wofi, wf-recorder, gawk }:
+{ stdenv, pkgs, lib, grim, slurp, wofi, wf-recorder, gawk, ... }:
 with lib;
 let
   name = "waybar-screenshot";

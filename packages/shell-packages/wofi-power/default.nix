@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib, wofi, gawk, systemd, hyprland }:
+{ stdenv, pkgs, lib, wofi, gawk, systemd, hyprland, ... }:
 with lib;
 let
   name = "wofi-power";

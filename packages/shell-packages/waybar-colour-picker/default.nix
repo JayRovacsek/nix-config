@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib, hyprpicker, wl-clipboard }:
+{ stdenv, pkgs, lib, hyprpicker, wl-clipboard, ... }:
 with lib;
 let
   name = "waybar-colour-picker";
