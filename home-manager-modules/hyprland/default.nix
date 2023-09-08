@@ -1,8 +1,6 @@
 { config, pkgs, osConfig, ... }:
 let
   inherit (pkgs) lib system;
-  inherit (osConfig.flake.inputs.hyprland-plugins.packages.${system})
-    csgo-vulkan-fix;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
@@ -33,7 +31,7 @@ let
   };
 
   # 
-  packages = (with pkgs; [ csgo-vulkan-fix hyprpicker ]) ++ optional-packages;
+  packages = (with pkgs; [ hyprpicker ]) ++ optional-packages;
 
   extraConfig = import ./config.nix { inherit config pkgs osConfig; };
 
