@@ -23,40 +23,108 @@ in {
   services.blocky = {
     enable = true;
     settings = {
-      upstreams = {
-        groups = {
-          # these external DNS resolvers will be used. Blocky picks 2 random resolvers from the list for each query
-          # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
-          # this configuration is mandatory, please define at least one external DNS resolver
-          default = [
-            "tcp-tls:dot.libredns.gr:853"
-            "tcp-tls:dot1.applied-privacy.net:853"
-            "tcp-tls:dot.nl.ahadns.net:853"
-            "tcp-tls:dot.la.ahadns.net:853"
-            "https://doh.mullvad.net/dns-query"
-            "https://doh-jp.blahdns.com/dns-query"
+
+      # optional: use black and white lists to block queries (for example ads, trackers, adult pages etc.)
+      blocking = {
+        # definition of blacklist groups. Can be external link (http/https) or local file
+        blackLists = {
+          ads = [
+            "https://adaway.org/hosts.txt"
+            "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
+            "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
+            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
           ];
 
-          # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
+          void = [ ];
+        };
+        # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
+        whiteLists.ads = [ ];
+        # definition: which groups should be applied for which client
+        clientGroupsBlock = {
+          # default will be used, if no special definition for a client name exists
+          default = [ "ads" ];
+          # use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
           # or single ip address / client subnet as CIDR notation
-          "192.168.4.0/24" = [
-            "https://dnsnl.alekberg.net/dns-query"
-            "https://dnsse.alekberg.net/dns-query"
-            "https://doh.dns.sb/dns-query"
-            "https://doh.sb/dns-query"
-            "https://doh.dns4all.eu/dns-query"
-          ];
-
-          "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
-          "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
+          # "foo*" = [ "ads" ];
+          "192.168.8.11/32" = [ "void" ];
+          "192.168.8.50/32" = [ "void" ];
         };
 
-        # optional: timeout to query the upstream resolver. Default: 2s
-        timeout = "2s";
+        # which response will be sent, if query is blocked:
+        # zeroIp: 0.0.0.0 will be returned (default)
+        # nxDomain: return NXDOMAIN as return code
+        # comma separated list of destination IP addresses (for example: 192.100.100.15, 2001:0db8:85a3:08d3:1319:8a2e:0370:7344). Should contain ipv4 and ipv6 to cover all query types. Useful with running web server on this address to display the "blocked" page.
+        blockType = "zeroIp";
+        # optional: TTL for answers to blocked domains
+        # default: 6h
+        blockTTL = "6h";
+
+        loading = {
+          # optional: automatically list refresh period (in duration format). Default: 4h.
+          # Negative value -> deactivate automatically refresh.
+          # 0 value -> use default
+          refreshPeriod = "4h";
+
+          # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
+          startStrategy = "failOnError";
+
+          downloads = {
+            # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
+            timeout = "60s";
+            # optional: Number of download attempts.
+            attempts = 5;
+            # optional: Time between the download attempts. Default: 1s
+            cooldown = "10s";
+          };
+        };
       };
 
-      # optional: If true, blocky will fail to start unless at least one upstream server per group is reachable. Default: false
-      startVerifyUpstream = true;
+      # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
+      bootstrapDns = {
+        upstream = "https://1dot1dot1dot1.cloudflare-dns.com/dns-query";
+        ips = [ "1.1.1.1" ];
+      };
+
+      # optional: configuration for caching of DNS responses
+      caching = {
+        # duration how long a response must be cached (min value).
+        # If <=0, use response's TTL, if >0 use this value, if TTL is smaller
+        # Default: 0
+        minTime = "0m";
+        # duration how long a response must be cached (max value).
+        # If <0, do not cache responses
+        # If 0, use TTL
+        # If > 0, use this value, if TTL is greater
+        # Default: 0
+        maxTime = "0m";
+        # Max number of cache entries (responses) to be kept in cache (soft limit). Useful on systems with limited amount of RAM.
+        # Default (0): unlimited
+        maxItemsCount = 0;
+        # if true, will preload DNS results for often used queries (default: names queried more than 5 times in a 2-hour time window)
+        # this improves the response time for often used queries, but significantly increases external traffic
+        # default: false
+        prefetching = true;
+        # prefetch track time window (in duration format)
+        # default: 120
+        prefetchExpires = "2h";
+        # name queries threshold for prefetch
+        # default: 5
+        prefetchThreshold = 3;
+        # Max number of domains to be kept in cache for prefetching (soft limit). Useful on systems with limited amount of RAM.
+        # Default (0): unlimited
+        prefetchMaxItemsCount = 0;
+        # Time how long negative results (NXDOMAIN response or empty result) are cached. A value of -1 will disable caching for negative results.
+        # Default: 30m
+        cacheTimeNegative = "30m";
+      };
+
+      # optional: configuration of client name resolution
+      clientLookup = {
+        upstream = "192.168.1.1";
+        singleNameOrder = [ 2 1 ];
+      };
 
       # optional: Determines how blocky will create outgoing connections. This impacts both upstreams, and lists.
       # accepted: dual, v4, v6
@@ -244,108 +312,19 @@ in {
         };
       };
 
-      # optional: use black and white lists to block queries (for example ads, trackers, adult pages etc.)
-      blocking = {
-        # definition of blacklist groups. Can be external link (http/https) or local file
-        blackLists = {
-          ads = [
-            "https://adaway.org/hosts.txt"
-            "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
-            "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
-            "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
-            "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
-            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-          ];
+      # optional: drop all queries with following query types. Default: empty
+      filtering = { queryTypes = [ "AAAA" ]; };
 
-          void = [ ];
-        };
-        # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
-        whiteLists.ads = [ ];
-        # definition: which groups should be applied for which client
-        clientGroupsBlock = {
-          # default will be used, if no special definition for a client name exists
-          default = [ "ads" ];
-          # use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
-          # or single ip address / client subnet as CIDR notation
-          # "foo*" = [ "ads" ];
-          "192.168.8.11/32" = [ "void" ];
-          "192.168.8.50/32" = [ "void" ];
-        };
-
-        # which response will be sent, if query is blocked:
-        # zeroIp: 0.0.0.0 will be returned (default)
-        # nxDomain: return NXDOMAIN as return code
-        # comma separated list of destination IP addresses (for example: 192.100.100.15, 2001:0db8:85a3:08d3:1319:8a2e:0370:7344). Should contain ipv4 and ipv6 to cover all query types. Useful with running web server on this address to display the "blocked" page.
-        blockType = "zeroIp";
-        # optional: TTL for answers to blocked domains
-        # default: 6h
-        blockTTL = "6h";
-
-        loading = {
-          # optional: automatically list refresh period (in duration format). Default: 4h.
-          # Negative value -> deactivate automatically refresh.
-          # 0 value -> use default
-          refreshPeriod = "4h";
-
-          # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
-          startStrategy = "failOnError";
-
-          downloads = {
-            # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
-            timeout = "60s";
-            # optional: Number of download attempts.
-            attempts = 5;
-            # optional: Time between the download attempts. Default: 1s
-            cooldown = "10s";
-          };
-        };
-      };
-
-      # optional: configuration for caching of DNS responses
-      caching = {
-        # duration how long a response must be cached (min value).
-        # If <=0, use response's TTL, if >0 use this value, if TTL is smaller
-        # Default: 0
-        minTime = "0m";
-        # duration how long a response must be cached (max value).
-        # If <0, do not cache responses
-        # If 0, use TTL
-        # If > 0, use this value, if TTL is greater
-        # Default: 0
-        maxTime = "0m";
-        # Max number of cache entries (responses) to be kept in cache (soft limit). Useful on systems with limited amount of RAM.
-        # Default (0): unlimited
-        maxItemsCount = 0;
-        # if true, will preload DNS results for often used queries (default: names queried more than 5 times in a 2-hour time window)
-        # this improves the response time for often used queries, but significantly increases external traffic
-        # default: false
-        prefetching = true;
-        # prefetch track time window (in duration format)
-        # default: 120
-        prefetchExpires = "2h";
-        # name queries threshold for prefetch
-        # default: 5
-        prefetchThreshold = 3;
-        # Max number of domains to be kept in cache for prefetching (soft limit). Useful on systems with limited amount of RAM.
-        # Default (0): unlimited
-        prefetchMaxItemsCount = 0;
-        # Time how long negative results (NXDOMAIN response or empty result) are cached. A value of -1 will disable caching for negative results.
-        # Default: 30m
-        cacheTimeNegative = "30m";
-      };
-
-      # optional: configuration of client name resolution
-      clientLookup = {
-        upstream = "192.168.1.1";
-        singleNameOrder = [ 2 1 ];
-      };
-
-      # optional: configuration for prometheus metrics endpoint
-      prometheus = {
-        # enabled if true
-        enable = false;
-        # url path, optional (default '/metrics')
-        path = "/metrics";
+      # optional: logging configuration
+      log = {
+        # optional: Log level (one from debug, info, warn, error). Default: info
+        level = "info";
+        # optional: Log format (text or json). Default: text
+        format = "text";
+        # optional: log timestamps. Default: true
+        timestamp = true;
+        # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
+        privacy = false;
       };
 
       # optional: Minimal TLS version that the DoH and DoT server will use
@@ -353,14 +332,6 @@ in {
       # if https port > 0: path to cert and key file for SSL encryption. if not set, self-signed certificate will be generated
       #certFile: server.crt
       #keyFile: server.key
-      # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
-      bootstrapDns = {
-        upstream = "https://1dot1dot1dot1.cloudflare-dns.com/dns-query";
-        ips = [ "1.1.1.1" ];
-      };
-
-      # optional: drop all queries with following query types. Default: empty
-      filtering = { queryTypes = [ "AAAA" ]; };
 
       # optional: ports configuration
       ports = {
@@ -374,16 +345,47 @@ in {
         http = 4000;
       };
 
-      # optional: logging configuration
-      log = {
-        # optional: Log level (one from debug, info, warn, error). Default: info
-        level = "info";
-        # optional: Log format (text or json). Default: text
-        format = "text";
-        # optional: log timestamps. Default: true
-        timestamp = true;
-        # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
-        privacy = false;
+      # optional: configuration for prometheus metrics endpoint
+      prometheus = {
+        # enabled if true
+        enable = false;
+        # url path, optional (default '/metrics')
+        path = "/metrics";
+      };
+
+      # optional: If true, blocky will fail to start unless at least one upstream server per group is reachable. Default: false
+      startVerifyUpstream = true;
+
+      upstreams = {
+        groups = {
+          # these external DNS resolvers will be used. Blocky picks 2 random resolvers from the list for each query
+          # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
+          # this configuration is mandatory, please define at least one external DNS resolver
+          default = [
+            "tcp-tls:dot.libredns.gr:853"
+            "tcp-tls:dot1.applied-privacy.net:853"
+            "tcp-tls:dot.nl.ahadns.net:853"
+            "tcp-tls:dot.la.ahadns.net:853"
+            "https://doh.mullvad.net/dns-query"
+            "https://doh-jp.blahdns.com/dns-query"
+          ];
+
+          # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
+          # or single ip address / client subnet as CIDR notation
+          "192.168.4.0/24" = [
+            "https://dnsnl.alekberg.net/dns-query"
+            "https://dnsse.alekberg.net/dns-query"
+            "https://doh.dns.sb/dns-query"
+            "https://doh.sb/dns-query"
+            "https://doh.dns4all.eu/dns-query"
+          ];
+
+          "192.168.8.11/32" = [ "https://cloudflare-dns.com/dns-query" ];
+          "192.168.8.50/32" = [ "https://cloudflare-dns.com/dns-query" ];
+        };
+
+        # optional: timeout to query the upstream resolver. Default: 2s
+        timeout = "2s";
       };
     };
   };
