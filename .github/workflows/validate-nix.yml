@@ -8,6 +8,7 @@ on:
 jobs:
   validate-nix:
     runs-on: ubuntu-latest
+    container: nixpkgs/nix-flakes
 
     strategy:
       matrix:
@@ -18,11 +19,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Nix
-        if: ${{ !env.ACT }}
-        uses: cachix/install-nix-action@v22
-
-      - run: nix flake check
+      - run: nix flake check -Lv
 
       - name: PR Check
         if: github.event_name == 'pull_request'
