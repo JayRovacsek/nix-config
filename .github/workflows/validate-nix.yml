@@ -10,11 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     container: nixpkgs/nix-flakes
 
+    strategy:
+      matrix:
+        arch: [x64, arm64]
+        os: [ubuntu-latest]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - run: nix flake check -Lv --all-systems
+      - run: nix flake check -Lv
 
       - name: PR Check
         if: github.event_name == 'pull_request'
