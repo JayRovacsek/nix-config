@@ -10,7 +10,7 @@ let
 
   # Create a overridden derivation of discord that cuts the garbage out
   discord-override = discord.override {
-    withOpenASAR = true;
+    withOpenASAR = false;
     withVencord = true;
   };
 
