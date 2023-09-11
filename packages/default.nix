@@ -5,25 +5,23 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     terraform-stacks python-packages node-packages go-packages dotnet-packages
-    rust-packages images wallpaper-packages shell-packages;
+    resource-packages rust-packages images shell-packages wallpaper-packages;
 
   # Fold an array of objects together recursively
   merge = builtins.foldl' recursiveUpdate { };
 
   dotnet = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      ${package} = callPackage ./dotnet-packages/${package} { };
-    } accumulator) { } dotnet-packages;
+    recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
+    accumulator) { } dotnet-packages;
 
   go = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./go-packages/${package} { }; }
+    recursiveUpdate { ${package} = callPackage ./go/${package} { }; }
     accumulator) { } go-packages;
 
   node = let inherit (pkgs) nodejs_20;
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      ${package} =
-        callPackage ./node-packages/${package} { nodejs = nodejs_20; };
+      ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
 
   shell = builtins.foldl' (accumulator: package:
@@ -38,14 +36,18 @@ let
     };
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      ${package} = callPackage ./python-packages/${package} {
+      ${package} = callPackage ./python/${package} {
         inherit self;
         pkgs = python-overlay-pkgs;
       };
     } accumulator) { } python-packages;
 
+  resources = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./resources/${package} { }; }
+    accumulator) { } resource-packages;
+
   rust = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./rust-packages/${package} { }; }
+    recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
     accumulator) { } rust-packages;
 
   terraform = mapAttrs (name: _:
@@ -67,6 +69,7 @@ let
     images
     node
     python
+    resources
     rust
     shell
     terraform
