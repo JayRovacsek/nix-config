@@ -13,7 +13,7 @@ jobs:
           ref: "staging"
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v22
+        uses: cachix/install-nix-action@v23
 
       - run: nix flake update
         with:
