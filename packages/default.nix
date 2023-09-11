@@ -6,9 +6,7 @@ let
   inherit (self.common)
     terraform-stacks python-packages node-packages go-packages dotnet-packages
     resource-packages rust-packages images shell-packages wallpaper-packages;
-
-  # Fold an array of objects together recursively
-  merge = builtins.foldl' recursiveUpdate { };
+  inherit (self.lib) merge;
 
   dotnet = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
