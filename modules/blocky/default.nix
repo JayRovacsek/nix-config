@@ -71,7 +71,7 @@ in {
           refreshPeriod = "4h";
 
           # optional: if failOnError, application startup will fail if at least one list can't be downloaded / opened. Default: blocking
-          strategy = "failOnError";
+          strategy = "fast";
 
           downloads = {
             # optional: timeout for list download (each url). Default: 60s. Use large values for big lists or slow internet connections
