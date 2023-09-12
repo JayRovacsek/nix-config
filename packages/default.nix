@@ -24,7 +24,7 @@ let
 
   shell = builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      ${package} = callPackage ./shell-packages/${package} { inherit self; };
+      ${package} = callPackage ./shell/${package} { inherit self; };
     } accumulator) { } shell-packages;
 
   python = let
