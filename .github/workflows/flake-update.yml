@@ -6,14 +6,13 @@ on:
 jobs:
   flake-updates:
     runs-on: ubuntu-latest
+    container: nixpkgs/nix-flakes
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: "staging"
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
 
       - run: nix flake update
         with:
