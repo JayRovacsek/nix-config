@@ -4,8 +4,9 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    terraform-stacks python-packages node-packages go-packages dotnet-packages
-    resource-packages rust-packages images shell-packages wallpaper-packages;
+    images dotnet-packages go-packages node-packages python-packages
+    resource-packages rust-packages shell-packages terraform-stacks
+    wallpaper-packages;
   inherit (self.lib) merge;
 
   dotnet = builtins.foldl' (accumulator: package:

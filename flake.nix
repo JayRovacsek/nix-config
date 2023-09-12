@@ -372,34 +372,32 @@
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
-      flake-utils-output =
-        flake-utils.lib.eachSystem standard-outputs.common.exposed-systems
-        (system:
-          let pkgs = import self.inputs.nixpkgs { inherit system; };
-          in {
-            # Space in which exposed derivations can be ran via
-            # nix run .#foo - handy in the future for stuff like deploying
-            # via terraform or automation tasks that are relatively 
-            # procedural 
-            apps = import ./apps { inherit self pkgs; };
+      flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
+        let pkgs = import self.inputs.nixpkgs { inherit system; };
+        in {
+          # Space in which exposed derivations can be ran via
+          # nix run .#foo - handy in the future for stuff like deploying
+          # via terraform or automation tasks that are relatively 
+          # procedural 
+          apps = import ./apps { inherit self pkgs; };
 
-            # Pre-commit hooks to enforce formatting, lining, find 
-            # antipatterns and ensure they don't reach upstream
-            checks = import ./checks { inherit self pkgs; };
+          # Pre-commit hooks to enforce formatting, lining, find 
+          # antipatterns and ensure they don't reach upstream
+          checks = import ./checks { inherit self pkgs; };
 
-            # Shell environments (applied to both nix develop and nix-shell via
-            # shell.nix in top level directory)
-            devShells = import ./shells { inherit self pkgs; };
+          # Shell environments (applied to both nix develop and nix-shell via
+          # shell.nix in top level directory)
+          devShells = import ./shells { inherit self pkgs; };
 
-            # Formatter option for `nix fmt` - redundant via checks but nice to have
-            formatter = pkgs.nixfmt;
+          # Formatter option for `nix fmt` - redundant via checks but nice to have
+          formatter = pkgs.nixfmt;
 
-            # Locally defined packages for flake consumption or consumption
-            # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
-            # (all systems in this flake apply this opinion via the common.modules)
-            # construct
-            packages = import ./packages { inherit self pkgs; };
-          });
+          # Locally defined packages for flake consumption or consumption
+          # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
+          # (all systems in this flake apply this opinion via the common.modules)
+          # construct
+          packages = import ./packages { inherit self pkgs; };
+        });
 
     in flake-utils-output // standard-outputs;
 }

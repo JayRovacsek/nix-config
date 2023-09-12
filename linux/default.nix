@@ -11,8 +11,9 @@ let
     x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
 in {
   # SD Installer Images / Configs
-  rpi1 = import ../common/images/rpi1.nix { inherit self; };
-  rpi2 = import ../common/images/rpi2.nix { inherit self; };
+  # TEMPORARILY DISABLED
+  # rpi1 = import ../common/images/rpi1.nix { inherit self; };
+  # rpi2 = import ../common/images/rpi2.nix { inherit self; };
 
   # Cloud Base Images
   amazon = import ../common/images/amazon.nix { inherit self; };

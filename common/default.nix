@@ -8,14 +8,6 @@
   cloud-base-image-modules =
     import ./cloud-base-image-modules { inherit self; };
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
-  exposed-systems = [
-    "aarch64-linux"
-    "aarch64-darwin"
-    "x86_64-darwin"
-    "x86_64-linux"
-    "armv6l-linux"
-    "armv7l-linux"
-  ];
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
@@ -35,7 +27,6 @@
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
-  pre-commit-unsupported = import ./pre-commit-unsupported.nix;
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   resource-packages =
     builtins.attrNames (builtins.readDir ../packages/resources);

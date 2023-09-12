@@ -1,10 +1,7 @@
 { self, pkgs }:
 let
   inherit (pkgs) system;
-  pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
-  checks = if builtins.elem system self.common.pre-commit-unsupported then
-    { }
-  else {
+  checks = {
     pre-commit = self.inputs.pre-commit-hooks.lib.${system}.run {
       src = self;
       hooks = {

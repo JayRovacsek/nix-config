@@ -3,9 +3,9 @@ let
   inherit (self.lib) merge;
   inherit (self) nixosConfigurations;
   inherit (self.inputs) nixos-generators;
-  inherit (nixosConfigurations) rpi1 rpi2;
+  # inherit (nixosConfigurations) rpi1 rpi2;
 
-  sd-configurtations = [ rpi1 rpi2 ];
+  # sd-configurtations = [ rpi1 rpi2 ];
 
   amazon-base-image = let
     inherit (self.nixosConfigurations) amazon;
@@ -34,14 +34,15 @@ let
     format = "qcow";
   };
 
-  sd-images = builtins.map (image: {
-    "${image.config.networking.hostName}" = image.config.system.build.sdImage;
-  }) sd-configurtations;
+  # sd-images = builtins.map (image: {
+  #   "${image.config.networking.hostName}" = image.config.system.build.sdImage;
+  # }) sd-configurtations;
 
   cloud-images = {
     inherit amazon-base-image linode-base-image oracle-base-image;
   };
 
-  images = [ cloud-images ] ++ sd-images;
+  # images = [ cloud-images ] ++ sd-images;
+  images = [ cloud-images ];
 
 in merge images

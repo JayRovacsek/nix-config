@@ -1,19 +1,13 @@
 { self, pkgs }:
 let
-  inherit (pkgs) lib system;
-
+  inherit (pkgs) system;
   name = "dev-shell";
-  supported-system = !(builtins.elem system self.common.pre-commit-unsupported);
-
-  nodePackages = with pkgs.nodePackages; [ prettier ];
-
-  packages = with pkgs;
-    lib.optionals supported-system
-    ([ deadnix nixfmt statix nil ] ++ nodePackages);
-
-  shellHook = lib.optionalString supported-system
-    self.checks.${system}.pre-commit.shellHook;
+  node-deps = with pkgs.nodePackages; [ prettier ];
+  packages = (with pkgs; [ deadnix nixfmt statix nil ]) ++ node-deps;
 in {
-  "${name}" = pkgs.mkShell { inherit name packages shellHook; };
+  "${name}" = pkgs.mkShell {
+    inherit name packages;
+    inherit (self.checks.${system}.pre-commit) shellHook;
+  };
   default = self.outputs.devShells.${system}.${name};
 }
