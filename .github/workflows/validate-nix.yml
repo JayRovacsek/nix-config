@@ -8,7 +8,6 @@ on:
 jobs:
   validate-nix:
     runs-on: ubuntu-latest
-    container: nixpkgs/nix-flakes
 
     strategy:
       matrix:
@@ -16,6 +15,9 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 

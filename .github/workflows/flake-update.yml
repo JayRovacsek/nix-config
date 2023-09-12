@@ -6,9 +6,11 @@ on:
 jobs:
   flake-updates:
     runs-on: ubuntu-latest
-    container: nixpkgs/nix-flakes
 
     steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
