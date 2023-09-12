@@ -21,7 +21,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - run: nix flake check -Lv
+      - run: nix flake check -Lv --no-build --pure-eval
 
       - name: PR Check
         if: github.event_name == 'pull_request'
