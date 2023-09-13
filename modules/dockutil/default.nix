@@ -28,7 +28,7 @@ let
   outlookEntry = [{ path = "/Applications/Microsoft Outlook.app"; }];
   slackEntry = [{ path = "${pkgs.slack}/Applications/Slack.app"; }];
 
-  entries = [ ] ++ (if anyUserHas "alacritty" then alacrittyEntry else [ ])
+  entries = (if anyUserHas "alacritty" then alacrittyEntry else [ ])
     ++ (if anyUserHas "firefox" then firefoxEntry else [ ])
     ++ (if anyUserHas "brave-browser" then braveEntry else [ ])
     ++ (if anyUserHas "eloston-chromium" || anyUserHas "chromium" then

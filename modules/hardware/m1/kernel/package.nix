@@ -37,7 +37,7 @@ let
         hash = "sha256-oHEy0QS7RkhR9Av68rqAAmR8kXi0ZR4yot0uGWfJOzw=";
       };
 
-      kernelPatches = [ ] ++ lib.optionals (!_16KBuild) [
+      kernelPatches = lib.optionals (!_16KBuild) [
         # thanks to Sven Peter
         # https://lore.kernel.org/linux-iommu/20211019163737.46269-1-sven@svenpeter.dev/
         {
