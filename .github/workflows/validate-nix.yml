@@ -16,12 +16,14 @@ jobs:
 
     steps:
       - name: Install Nix
+        if: ${{ !env.ACT }}
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - run: nix flake check -Lv --no-build --pure-eval
+      - name: Validate flake
+        run: nix flake check -Lv --no-build
 
       - name: PR Check
         if: github.event_name == 'pull_request'
