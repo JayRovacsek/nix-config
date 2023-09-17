@@ -33,18 +33,6 @@
       };
     };
 
-    # We need to wrap darwin as it exposes darwin.lib.darwinSystem
-    # therefore we can't depend on stable/unstable to handle the correct matching
-    # of stable/unstable to make a suitable decision per system
-    darwin-stable = {
-      inputs.nixpkgs.follows = "stable";
-      url = "github:lnl7/nix-darwin/master";
-    };
-    darwin-unstable = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:lnl7/nix-darwin/master";
-    };
-
     dream2nix = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -106,29 +94,6 @@
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
-    };
-
-    # Wayland compositor & WM
-    hyprland = {
-      inputs = {
-        hyprland-protocols.follows = "hyprland-protocols";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      url = "github:hyprwm/Hyprland";
-    };
-
-    hyprland-plugins = {
-      inputs.hyprland.follows = "hyprland";
-      url = "github:hyprwm/hyprland-plugins";
-    };
-
-    hyprland-protocols = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      url = "github:hyprwm/hyprland-protocols";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.
@@ -229,6 +194,11 @@
       url = "github:nix-community/nixpkgs-wayland";
     };
 
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lnl7/nix-darwin/master";
+    };
+
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -265,6 +235,7 @@
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         gitignore.follows = "gitignore";
+        nixpkgs-stable.follows = "stable";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/pre-commit-hooks.nix";

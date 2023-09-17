@@ -2,6 +2,8 @@
 let
   inherit (pkgs) lib system;
 
+  enable = true;
+
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
   nvidia-present = builtins.any (driver: driver == "nvidia")
@@ -65,8 +67,6 @@ in {
   };
 
   wayland.windowManager.hyprland = {
-    enable = true;
-    recommendedEnvironment = true;
-    inherit enableNvidiaPatches package extraConfig;
+    inherit enable enableNvidiaPatches package extraConfig;
   };
 }
