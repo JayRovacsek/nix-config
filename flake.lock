@@ -412,44 +412,6 @@
         "type": "github"
       }
     },
-    "darwin-stable": {
-      "inputs": {
-        "nixpkgs": ["stable"]
-      },
-      "locked": {
-        "lastModified": 1694497842,
-        "narHash": "sha256-z03v/m0OwcLBok97KcUgMl8ZFw5Xwsi2z+n6nL7JdXY=",
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "rev": "4496ab26628c5f43d2a5c577a06683c753e32fe2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lnl7",
-        "ref": "master",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
-    "darwin-unstable": {
-      "inputs": {
-        "nixpkgs": ["nixpkgs"]
-      },
-      "locked": {
-        "lastModified": 1694497842,
-        "narHash": "sha256-z03v/m0OwcLBok97KcUgMl8ZFw5Xwsi2z+n6nL7JdXY=",
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "rev": "4496ab26628c5f43d2a5c577a06683c753e32fe2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lnl7",
-        "ref": "master",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
     "dashboard-nvim": {
       "flake": false,
       "locked": {
@@ -1415,6 +1377,25 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1694810318,
+        "narHash": "sha256-LuvrVj2oj9TzdnnwtQUClqcXjpgwCP01FFVBM7azGV8=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "80bb201f4925cdda5a7a3c7b1900fb26bb2af2e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nix-eval-jobs": {
       "inputs": {
         "flake-parts": ["flake-parts"],
@@ -1637,22 +1618,6 @@
         "dir": "lib",
         "owner": "NixOS",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-stable": {
-      "locked": {
-        "lastModified": 1685801374,
-        "narHash": "sha256-otaSUoFEMM+LjBI1XL/xGB5ao6IwnZOXc47qhIgJe8U=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c37ca420157f4abc31e26f436c1145f8951ff373",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -2163,7 +2128,7 @@
         "flake-utils": ["flake-utils"],
         "gitignore": ["gitignore"],
         "nixpkgs": ["nixpkgs"],
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": ["stable"]
       },
       "locked": {
         "lastModified": 1694364351,
@@ -2267,8 +2232,6 @@
         "agenix": "agenix",
         "bleeding-edge": "bleeding-edge",
         "crane": "crane",
-        "darwin-stable": "darwin-stable",
-        "darwin-unstable": "darwin-unstable",
         "dream2nix": "dream2nix",
         "firefox-darwin": "firefox-darwin",
         "flake-compat": "flake-compat",
@@ -2289,6 +2252,7 @@
         "naersk": "naersk",
         "neovim-flake": "neovim-flake",
         "nil": "nil",
+        "nix-darwin": "nix-darwin",
         "nix-eval-jobs": "nix-eval-jobs",
         "nix-filter": "nix-filter",
         "nix-monitored": "nix-monitored",
