@@ -1,6 +1,6 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system;
+  inherit (pkgs) lib;
 
   enable = true;
 
@@ -9,13 +9,7 @@ let
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
 
-  # Use the nvidia package if nvidia drivers present
-  package = if nvidia-present then
-    osConfig.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
-  else
-    osConfig.flake.inputs.hyprland.packages.${system}.default;
-
-  # If nvidia present, add hardware decoding capabilities
+  package = pkgs.hyprland;
 
   # Apply nvidia patches if available and required
   enableNvidiaPatches = nvidia-present;

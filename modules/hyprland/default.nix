@@ -1,15 +1,12 @@
 { config, pkgs, ... }:
 let
-  inherit (pkgs) system lib;
+  inherit (pkgs) lib;
   nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
   enableNvidiaPatches = nvidia-present;
 
-  package = if nvidia-present then
-    config.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
-  else
-    config.flake.inputs.hyprland.packages.${system}.default;
+  package = pkgs.hyprland;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   optional-packages =
