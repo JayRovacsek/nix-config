@@ -37,10 +37,16 @@ in builtins.mapAttrs (name: value:
     }]) ++ (lib.optionals isStable [{
       name = "nixpkgs";
       source = self.inputs.stable;
-    }]) ++ (lib.optionals isDarwin [{
-      name = "darwin";
-      source = self.inputs.nix-darwin;
-    }]);
+    }]) ++ (lib.optionals isDarwin [
+      {
+        name = "darwin";
+        source = self.inputs.nix-darwin;
+      }
+      {
+        name = "darwin-config";
+        source = self;
+      }
+    ]);
   }
 
 ) package-sets

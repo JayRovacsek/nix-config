@@ -54,9 +54,7 @@ let
         # associated settings.
         stateVersion = "22.11";
 
-        sessionVariables.NIX_PATH = "nixpkgs=${
-            config.home-manager.users."${name}".xdg.configHome
-          }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
+        sessionVariables.NIX_PATH = "nixpkgs=${builtins.toString pkgs.path}";
 
         file.".ssh/config".text = ''
           Host github.com
