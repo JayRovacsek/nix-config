@@ -6,5 +6,6 @@ in builtins.mapAttrs (package-set: _:
     inherit (pkgs) lib;
     inherit (pkgs.stdenv) isLinux;
     inherit (self.inputs) impermanence;
-  in { imports = lib.optional isLinux impermanence.nixosModules.impermanence; })
-package-sets
+  in {
+    imports = lib.optionals isLinux [ impermanence.nixosModules.impermanence ];
+  }) package-sets
