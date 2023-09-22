@@ -20,7 +20,13 @@ in {
     allowedUDPPorts = [ dns ];
   };
 
-  systemd.services.blocky.wants = [ "network-online.target" ];
+  systemd.services.blocky = {
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+
+    startLimitIntervalSec = 1;
+    startLimitBurst = 50;
+  };
 
   services.blocky = {
     enable = true;
