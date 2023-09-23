@@ -77,8 +77,7 @@
               # NixOS options - note this is a footgun
               # where a host has new or differing options
               # to that the current host has.
-              installable =
-                "${osConfig.flake}#nixosConfigurations.${osConfig.networking.hostName}.options";
+              installable = "${osConfig.flake}#options";
             };
           };
         };

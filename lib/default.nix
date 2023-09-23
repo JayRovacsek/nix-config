@@ -10,6 +10,7 @@
     import ./intersect-multiple-lists.nix { inherit self; };
   merge = import ./merge.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
+  options = import ./options.nix { inherit self; };
   ssh = import ./ssh.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   terraform = import ./terraform.nix { inherit self; };

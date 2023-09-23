@@ -329,6 +329,8 @@
               };
           } accumulator) { } self.common.nixos-modules;
 
+        options = self.outputs.lib.options.declarations;
+
         # Overlays for when stuff really doesn't fit in the round hole
         overlays = import ./overlays { inherit self; };
 
