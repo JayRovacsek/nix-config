@@ -11,6 +11,7 @@
     ../../modules/nix
     ../../modules/openssh
     ../../modules/pipewire
+    ../../modules/sddm
     ../../modules/steam
     ../../modules/tailscale
     ../../modules/time
