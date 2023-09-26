@@ -7,13 +7,12 @@
     ../../modules/gnupg
     ../../modules/hyprland
     ../../modules/lorri
-    ../../modules/networking
     ../../modules/nix
     ../../modules/openssh
     ../../modules/pipewire
     ../../modules/sddm
     ../../modules/steam
-    ../../modules/tailscale
+    ../../modules/systemd-networkd
     ../../modules/time
     ../../modules/timesyncd
     ../../modules/udev
