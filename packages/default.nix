@@ -1,64 +1,81 @@
-{ self, system, pkgs }:
+{ self, pkgs }:
 let
-  selfPkgs = self.outputs.packages.${system};
-  inherit (pkgs) callPackage;
-  inherit (pkgs.lib) recursiveUpdate;
-  inherit (pkgs.lib.attrsets) mapAttrs;
+  inherit (pkgs) lib system callPackage;
+  inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
-  inherit (self.common) terraform-stacks python-modules images;
+  inherit (self.common)
+    images dotnet-packages go-packages node-packages python-packages
+    resource-packages rust-packages shell-packages terraform-stacks
+    wallpaper-packages;
+  inherit (self.lib) merge;
 
-  # Fold an array of objects together recursively
-  merge = builtins.foldl' recursiveUpdate { };
+  dotnet = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
+    accumulator) { } dotnet-packages;
 
-  pythonModules =
-    let inherit (pkgs) python39Packages python310Packages python311Packages;
-    in builtins.foldl' (accumulator: package:
-      recursiveUpdate {
-        python39Packages.${package} = callPackage ./python-modules/${package} {
-          python = python39Packages;
-          ownPython = selfPkgs.python39Packages;
-        };
-        python310Packages.${package} = callPackage ./python-modules/${package} {
-          python = python310Packages;
-          ownPython = selfPkgs.python310Packages;
-        };
-        python311Packages.${package} = callPackage ./python-modules/${package} {
-          python = python311Packages;
-          ownPython = selfPkgs.python311Packages;
-        };
-      } accumulator) { } python-modules;
+  go = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./go/${package} { }; }
+    accumulator) { } go-packages;
 
-  terraform-packages = mapAttrs (name: _:
+  node = let inherit (pkgs) nodejs_20;
+  in builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
+    } accumulator) { } node-packages;
+
+  shell = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./shell/${package} { inherit self; };
+    } accumulator) { } shell-packages;
+
+  python = let
+    python-overlay-pkgs = import self.inputs.nixpkgs {
+      inherit system;
+      overlays = [ self.overlays.python ];
+    };
+  in builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./python/${package} {
+        inherit self;
+        pkgs = python-overlay-pkgs;
+      };
+    } accumulator) { } python-packages;
+
+  resources = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./resources/${package} { }; }
+    accumulator) { } resource-packages;
+
+  rust = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
+    accumulator) { } rust-packages;
+
+  terraform = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
         { config._module.args = { inherit self system; }; }
-        ../terranix/${name}
+        ./terranix/${name}
       ];
     }) terraform-stacks;
 
-  colour-schemes = import ./colour-schemes { inherit pkgs; };
-  sddm-themes = import ./sddm-themes { inherit pkgs; };
-  wallpapers = import ./wallpapers { inherit pkgs; };
+  wallpapers = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
+    accumulator) { } wallpaper-packages;
 
   packages = merge [
-    colour-schemes
+    dotnet
+    go
     images
-    pythonModules
-    sddm-themes
-    terraform-packages
+    node
+    python
+    resources
+    rust
+    shell
+    terraform
     wallpapers
     {
       better-english = callPackage ./better-english { };
-      ditto-transform = callPackage ./ditto-transform { inherit self; };
-      falcon-sensor = callPackage ./falcon-sensor { };
-      pdscan-bin = callPackage ./pdscan-bin { };
-      trdsql-bin = callPackage ./trdsql-bin { };
-      velociraptor-bin = callPackage ./velociraptor-bin { };
-      vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
-      waybar-colour-picker = callPackage ./waybar-colour-picker { };
-      waybar-screenshot = callPackage ./waybar-screenshot { };
-      wofi-power = callPackage ./wofi-power { };
+      t2-firmware = callPackage ./t2-firmware { };
     }
   ];
 

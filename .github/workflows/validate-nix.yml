@@ -1,0 +1,38 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-nix:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        arch: [x64, arm64]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Install Nix
+        if: ${{ !env.ACT }}
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate flake
+        run: nix flake check -Lv --no-build
+
+      - name: PR Check
+        if: github.event_name == 'pull_request'
+        run: echo "PR nix flake checks passed successfully!"
+
+  merge:
+    needs: [validate-nix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge PR
+        if: needs.validate-nix.result == 'success'
+        run: echo "All PR checks passed successfully and can be merged!"

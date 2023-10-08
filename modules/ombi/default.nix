@@ -1,4 +1,4 @@
-{
+_: {
   users.groups = { download = { }; };
 
   services.ombi = {

@@ -1,7 +1,7 @@
 { self }:
 let
   inherit (self.inputs.nixpkgs) lib;
-  pkgs = self.inputs.nixpkgs.legacyPackages.x86_64-linux;
+  pkgs = import self.inputs.nixpkgs { system = "x86_64-linux"; };
 in {
   boot.kernelPackages = pkgs.linuxPackages_6_1_hardened;
 

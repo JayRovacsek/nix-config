@@ -1,4 +1,4 @@
-{
+_: {
   location.latitude = -32.917;
   location.longitude = 151.8;
 

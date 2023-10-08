@@ -2,6 +2,7 @@ let serviceName = "portainer";
 in {
   inherit serviceName;
   autoStart = true;
+  user = null;
   image = "portainer/portainer-ce:alpine";
   ports = [ "0.0.0.0:9000:9000" ];
   volumes = [

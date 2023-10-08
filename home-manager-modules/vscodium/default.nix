@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{ osConfig, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
 
-    # Required as per: https://github.com/nix-community/home-manager/issues/3507 - once resolved will
-    # be great to set this as false again.
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
     mutableExtensionsDir = false;
 
     keybindings = [{
@@ -44,7 +44,8 @@
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
       "editor.bracketPairColorization.enabled" = true;
-      "editor.fontLigatures" = true;
+      "editor.fontFamily" = "Hack Nerd Font Mono";
+      "editor.fontLigatures" = false;
       "editor.formatOnSave" = true;
       "editor.guides.bracketPairs" = "active";
       "editor.maxTokenizationLineLength" = 10000;
@@ -61,23 +62,44 @@
       "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
+
+      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
+      "nix.enableLanguageServer" = true;
+      "nix.serverSettings" = {
+        nixd = {
+          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
+          options = {
+            enable = true;
+            target = {
+              args = [ ];
+              # NixOS options - note this is a footgun
+              # where a host has new or differing options
+              # to that the current host has.
+              installable = "${osConfig.flake}#options";
+            };
+          };
+        };
+      };
+
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
+      "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
       "terminal.integrated.defaultProfile.osx" = "zsh";
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.titleBarStyle" = "custom";
       "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
+      "workbench.settings.editor" = "json";
     };
 
     extensions = with pkgs.vscode-extensions; [
 
       # Nix
-      bbenoist.nix
       jnoortheen.nix-ide
-      brettm12345.nixfmt-vscode
       arrterian.nix-env-selector
 
       # JS/TS
@@ -103,7 +125,6 @@
 
       # Rust
       matklad.rust-analyzer
-      vadimcn.vscode-lldb
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

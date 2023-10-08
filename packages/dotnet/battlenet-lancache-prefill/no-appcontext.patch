@@ -1,0 +1,28 @@
+From c4cc52b33a6022e59ae464b8a9b25fad7c7b712e Mon Sep 17 00:00:00 2001
+From: Jay Rovacsek <jay@rovacsek.com>
+Date: Mon, 10 Jul 2023 08:08:44 +1000
+Subject: [PATCH] no-appcontext
+
+---
+ BattleNetPrefill/AppConfig.cs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/BattleNetPrefill/AppConfig.cs b/BattleNetPrefill/AppConfig.cs
+index b1eb032..3618097 100644
+--- a/BattleNetPrefill/AppConfig.cs
++++ b/BattleNetPrefill/AppConfig.cs
+@@ -23,9 +23,9 @@
+         /// <summary>
+         /// Contains user configuration.  Should not be deleted, doing so will reset the app back to defaults.
+         /// </summary>
+-        private static readonly string ConfigDir = Path.Combine(AppContext.BaseDirectory, "Config");
++        private static readonly string ConfigDir = Path.Combine(CacheDir, "Config");
+ 
+-        public static readonly string UserSelectedAppsPath = Path.Combine(ConfigDir, "selectedAppsToPrefill.json");
++        public static readonly string UserSelectedAppsPath = Path.Combine(CacheDir, "selectedAppsToPrefill.json");
+ 
+         public static readonly string LogFileBasePath = @$"{DirectorySearch.TryGetSolutionDirectory()}/Logs";
+         private static bool _compareAgainstRealRequests;
+-- 
+2.41.0
+

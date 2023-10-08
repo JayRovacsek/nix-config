@@ -1,15 +1,12 @@
-{ pkgs, osConfig, ... }:
+{ pkgs, osConfig, lib, ... }:
 let
   settings = import ./settings.nix { inherit pkgs osConfig; };
-  package =
-    osConfig.flake.inputs.hyprland.packages.x86_64-linux.waybar-hyprland;
-in {
-  programs.waybar = {
+  enable = true;
+  systemd = {
     enable = true;
-    systemd = {
-      enable = true;
-      target = "graphical-session.target";
-    };
-    inherit settings package;
+    target = "display-manager.service";
   };
+in {
+  programs.waybar = { inherit enable systemd settings; };
+  systemd.user.services.waybar.Service.Restart = lib.mkForce "always";
 }

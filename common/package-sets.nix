@@ -2,9 +2,9 @@
 let
   # The intention of this construct is to expose a flake-level generation of 
   # any number of packagesets to be consumed without boilerplate 
-  inherit (self) inputs exposedSystems;
+  inherit (self) inputs;
   # Inputs that expose overlays we require
-  inherit (self.inputs) nur agenix microvm firefox-darwin;
+  inherit (self.inputs) nur agenix firefox-darwin flake-utils;
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
@@ -20,38 +20,28 @@ let
     name = "unstable";
   };
 
+  bleeding-edge = {
+    pkgs = inputs.bleeding-edge;
+    name = "bleeding-edge";
+  };
+
   config = { allowUnfree = true; };
 
-  targetGeneration = [ stable unstable ];
+  targetGeneration = [ stable unstable bleeding-edge ];
 
-  overlays = [ nur.overlay agenix.overlays.default ];
+  overlays =
+    [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
 
   darwin-overlays = [ firefox-darwin.overlay ];
 
   linux-overlays = [
-    # Only include the below to pin microvm kernel versions
-    # based on our overlay configurations.
-    # self.overlays.alt-microvm-kernel
     self.overlays.fcitx-engines
+    self.overlays.grub2
     self.overlays.makeModulesClosure
-
     self.overlays.moonlight-wayland
-
     self.overlays.mpvpaper
     self.overlays.ranger
-    self.overlays.vscodium-wayland
-    # self.overlays.wayland
   ];
-
-  # Create a set that includes the microvm packages where the upstream supports
-  # it only, this'll mean we can avoid adding it explicitly to systems we want to use
-  # it on, but not break stuff like darwin systems.
-  microvmConfig = with builtins;
-    foldl' (accumulator: system:
-      accumulator // (foldl' (accumulator: target:
-        accumulator // {
-          "${system}-${target.name}".pkgs = microvm.packages.${system};
-        }) { } targetGeneration)) { } (attrNames microvm.packages);
 
   # Done to make available the packageset identifier via the identifier attribute of
   # the packageset. Mostly everything else will be a derivation
@@ -61,7 +51,7 @@ let
         "${system}-${target.name}" = {
           identifier = "${system}-${target.name}";
         };
-      }) { } targetGeneration)) { } exposedSystems;
+      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
 
   # Take both of the above and then merge them plus the load of nixpkgs for
   # the input.
@@ -101,5 +91,5 @@ let
           overlays = overlays ++ (optionals isDarwin darwin-overlays)
             ++ (optionals isLinux linux-overlays);
         };
-      }) { } targetGeneration)) { } exposedSystems;
-in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)
+      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
+in recursiveUpdate identifiers packageSets

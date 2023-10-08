@@ -1,24 +1,18 @@
-{ pkgs, osConfig, ... }:
+{ config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system;
-  inherit (osConfig.flake.inputs.hyprland-plugins.packages.${system})
-    csgo-vulkan-fix;
+  inherit (pkgs) lib;
+
+  enable = true;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
 
-  # Use the nvidia package if nvidia drivers present
-  package = if nvidia-present then
-    osConfig.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
-  else
-    osConfig.flake.inputs.hyprland.packages.${system}.default;
-
-  # If nvidia present, add hardware decoding capabilities
+  package = pkgs.hyprland;
 
   # Apply nvidia patches if available and required
-  nvidiaPatches = nvidia-present;
+  enableNvidiaPatches = nvidia-present;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   # Add vaapi drivers if nvidia is present
@@ -30,17 +24,16 @@ let
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   # 
-  packages = (with pkgs; [ csgo-vulkan-fix hyprpicker ]) ++ optional-packages;
+  packages = (with pkgs; [ hyprpicker ]) ++ optional-packages;
 
-  extraConfig = import ./config.nix { inherit pkgs osConfig; };
+  extraConfig = import ./config.nix { inherit config pkgs osConfig; };
 
 in {
 
-  imports = [ ../mako ../ranger ../waybar ../wofi ];
+  imports = [ ../mako ../waybar ];
 
   home = {
     inherit packages;
@@ -68,8 +61,6 @@ in {
   };
 
   wayland.windowManager.hyprland = {
-    enable = true;
-    recommendedEnvironment = true;
-    inherit nvidiaPatches package extraConfig;
+    inherit enable enableNvidiaPatches package extraConfig;
   };
 }

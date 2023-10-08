@@ -1,17 +1,34 @@
 { config, ... }:
 let inherit (config.networking) hostName;
 in {
+  systemd.machineId = builtins.hashString "md5" config.networking.hostName;
+
+  environment.etc."machine-id" = {
+    mode = "0644";
+    text = ''
+      ${config.systemd.machineId}
+    '';
+  };
+
   networking.useNetworkd = true;
 
-  microvm.shares = [{
-    # On the host
-    source = "/var/lib/microvms/${hostName}/journal";
-    # In the MicroVM
-    mountPoint = "/var/log/journal";
-    tag = "journal";
-    proto = "virtiofs";
-    socket = "journal.sock";
-  }];
+  microvm.shares = [
+    {
+      # On the host
+      source = "/var/lib/microvms/${hostName}/journal";
+      # In the MicroVM
+      mountPoint = "/var/log/journal";
+      tag = "journal";
+      proto = "virtiofs";
+      socket = "journal.sock";
+    }
+    {
+      source = "/nix/store";
+      mountPoint = "/nix/.ro-store";
+      tag = "ro-store";
+      proto = "virtiofs";
+    }
+  ];
 
   nix.settings = {
     substituters = [ "https://microvm.cachix.org/" ];

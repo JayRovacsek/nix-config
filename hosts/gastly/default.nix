@@ -56,7 +56,29 @@ in {
     };
   };
 
-  networking.hostName = "gastly";
+  networking = {
+    hostName = "gastly";
+    useDHCP = true;
+    wireless = {
+      enable = true;
+      # TODO agenix when I get a moment
+      environmentFile = "/secrets/wpa.conf";
+      interfaces = [ "wlp58s0" ];
+      networks = {
+        "@HOME_SSID@" = {
+          psk = "@HOME_PSK@";
+          priority = 10;
+          authProtocols = [ "WPA-PSK" ];
+        };
+
+        "@HOTSPOT_SSID@" = {
+          psk = "@HOTSPOT_PSK@";
+          priority = 50;
+          authProtocols = [ "WPA-PSK" ];
+        };
+      };
+    };
+  };
 
   system.stateVersion = "22.11";
 }

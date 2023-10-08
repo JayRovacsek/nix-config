@@ -8,11 +8,9 @@
     ../../modules/fonts
     ../../modules/gnupg
     ../../modules/headscale
-    ../../modules/koboldai
     ../../modules/lorri
     ../../modules/nix
     ../../modules/nix-serve
-    ../../modules/nixinate
     ../../modules/nvidia
     ../../modules/openssh
     ../../modules/samba

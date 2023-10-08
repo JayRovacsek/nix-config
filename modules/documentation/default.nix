@@ -1,1 +1,1 @@
-{ documentation.man.enable = true; }
+_: { documentation.man.enable = true; }

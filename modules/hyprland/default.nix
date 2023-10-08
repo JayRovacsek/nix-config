@@ -1,15 +1,12 @@
 { config, pkgs, ... }:
 let
-  inherit (pkgs) system lib;
+  inherit (pkgs) lib;
   nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
-  nvidiaPatches = nvidia-present;
+  enableNvidiaPatches = nvidia-present;
 
-  package = if nvidia-present then
-    config.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
-  else
-    config.flake.inputs.hyprland.packages.${system}.default;
+  package = pkgs.hyprland;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   optional-packages =
@@ -33,9 +30,11 @@ let
 in {
   nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
 
+  services.xserver.displayManager.defaultSession = "hyprland";
+
   programs.hyprland = {
     enable = true;
-    inherit nvidiaPatches package;
+    inherit enableNvidiaPatches package;
     xwayland.enable = true;
   };
 
@@ -75,11 +74,5 @@ in {
     pulseaudio.support32Bit = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = false;
-    extraPortals = lib.mkForce [
-      config.flake.inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland
-    ];
-  };
+  xdg.portal.enable = true;
 }

@@ -1,4 +1,4 @@
-{
+_: {
   services.grafana = {
     protocol = "http";
     # protocol = "https";

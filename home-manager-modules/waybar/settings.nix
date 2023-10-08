@@ -1,15 +1,13 @@
 { pkgs, osConfig }:
 let
-  inherit (pkgs) procps system wofi pamixer wlogout;
-  inherit (osConfig.flake.packages.${system})
-    waybar-screenshot waybar-colour-picker;
+  inherit (pkgs) procps system pamixer wlogout;
+  inherit (osConfig.flake.packages.${system}) waybar-screenshot;
 in [{
   layer = "top";
   position = "top";
-  modules-left = [ "custom/launcher" "tray" ];
+  modules-left = [ "tray" ];
   modules-center = [ "clock" ];
   modules-right = [
-    "custom/colour-picker"
     "custom/screenshot"
     "idle_inhibitor"
     "pulseaudio"
@@ -19,12 +17,6 @@ in [{
     "battery"
     "custom/powermenu"
   ];
-
-  "custom/launcher" = {
-    format = "  ";
-    on-click = "${wofi}/bin/wofi --show drun --insensitive";
-    tooltip = false;
-  };
 
   idle_inhibitor = {
     format = "{icon}";
@@ -66,12 +58,8 @@ in [{
   };
 
   clock = {
-    interval = 1;
-    format = "{:%I:%M %p  %A %b %d}";
-    tooltip = true;
-    tooltip-format = ''
-      {=%A; %d %B %Y}
-      <tt>{calendar}</tt>'';
+    interval = 60;
+    format = "{:%I:%M %p %a %b %d, %G}";
   };
 
   memory = {
@@ -111,11 +99,6 @@ in [{
       deactivated = "  ";
     };
     on-click = "${waybar-screenshot}/bin/waybar-screenshot";
-  };
-
-  "custom/colour-picker" = {
-    format = "  ";
-    on-click = "${waybar-colour-picker}/bin/waybar-colour-picker";
   };
 
   tray = {

@@ -1,8 +1,7 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-  inherit (pkgs.lib.attrsets) concatMapAttrs;
-  inherit (pkgs) terraform;
+  inherit (pkgs) lib system terraform;
+  inherit (lib) concatMapAttrs;
   inherit (self.common) terraform-stacks;
 
   # Commonly utilised terraform file names
@@ -30,9 +29,9 @@ let
   # Simple wrapper for using a file if it exists in 
   # stack directory
   use = stack: x: ''
-    if [[ -e ./terranix/${stack}/${x} ]]; then
+    if [[ -e ./packages/terranix/${stack}/${x} ]]; then
       echo "${x} exists in stack directory, utilising it!"
-      ${pkgs.coreutils}/bin/ln ./terranix/${stack}/${x} $(pwd)
+      ${pkgs.coreutils}/bin/ln ./packages/terranix/${stack}/${x} $(pwd)
     fi
   '';
 
@@ -52,17 +51,17 @@ let
 
   update = stack: x: ''
     if [[ -e ${x} ]]; then
-      if [[ ! -e ./terranix/${stack}/${x} ]]; then
+      if [[ ! -e ./packages/terranix/${stack}/${x} ]]; then
         echo "Copying ${x} over to the stack directory!"
-        ${pkgs.coreutils}/bin/ln ${x} ./terranix/${stack}/${x}
+        ${pkgs.coreutils}/bin/ln ${x} ./packages/terranix/${stack}/${x}
       fi
     fi
   '';
 
   renameReadme = stack: ''
-    if [[ -e ./terranix/${stack}/${readme} ]]; then
+    if [[ -e ./packages/terranix/${stack}/${readme} ]]; then
       echo "Renaming readme for ${stack}!"
-      ${pkgs.coreutils}/bin/mv ./terranix/${stack}/${readme} ./terranix/${stack}/README.md
+      ${pkgs.coreutils}/bin/mv ./packages/terranix/${stack}/${readme} ./packages/terranix/${stack}/README.md
     fi
   '';
 

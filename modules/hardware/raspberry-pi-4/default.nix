@@ -1,5 +1,7 @@
 { pkgs, ... }: {
   hardware = {
+    deviceTree.filter = "bcm2711-rpi-4*.dtb";
+
     # Required for the Wireless firmware
     enableRedistributableFirmware = true;
 
@@ -35,8 +37,13 @@
     kernelPackages = pkgs.linuxPackages_rpi4;
 
     # ttyAMA0 is the serial console broken out to the GPIO
-    kernelParams =
-      [ "cma=128M" "console=tty1" "console=ttyAMA0,115200" "8250.nr_uarts=1" ];
+    kernelParams = [
+      "kunit.enable=0"
+      "cma=128M"
+      "console=tty1"
+      "console=ttyAMA0,115200"
+      "8250.nr_uarts=1"
+    ];
 
     loader = {
       generic-extlinux-compatible.enable = true;
