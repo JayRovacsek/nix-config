@@ -31,7 +31,7 @@ let
         };
 
         trufflehog-regex = {
-          enable = false;
+          enable = true;
           name = "Trufflehog Regex Search";
           entry =
             "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions  --no-update";
