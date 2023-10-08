@@ -54,7 +54,7 @@ let
       inherit system;
       modules = [
         { config._module.args = { inherit self system; }; }
-        ../terranix/${name}
+        ./terranix/${name}
       ];
     }) terraform-stacks;
 

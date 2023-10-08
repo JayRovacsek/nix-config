@@ -33,7 +33,6 @@ in {
   };
 
   private-repository-settings.visibility = "private";
-
   public-repositories = [
     {
       name = "after-dark";
@@ -47,14 +46,30 @@ in {
       name = "AOC";
       archived = true;
       description = "Advent of Code Repository";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "AOC-2018";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "aoc-2022";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
+    }
+    {
+      name = "aoc-2023";
+      description = "Advent of code solutions for 2023";
     }
     {
       name = "Aurora-Incident-Response";
@@ -75,6 +90,10 @@ in {
       name = "bert";
       description = "A toy Go program";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     { name = "blinky-bed"; }
     {
@@ -88,11 +107,19 @@ in {
       name = "COMP3260A1";
       archived = true;
       description = "COMP3260 Assignment 1";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "COMP3260A2";
       archived = true;
       description = "Git repo for COMP3260 A2";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "dev-templates";
@@ -114,10 +141,18 @@ in {
       name = "dotfiles";
       description = "A repository to manage dotfiles and config";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "EBUS3030";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "envytools";
@@ -141,55 +176,99 @@ in {
       name = "INFT1004";
       archived = true;
       description = "INFT1004 Assignment";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT1150";
       archived = true;
       description = "Group Assignment For INFT1150";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT2012";
       archived = true;
       description = "INFT2012 Assignment";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT3970";
       archived = true;
       description = "Git repository for INFT3970";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT3970-Individual-Report";
       archived = true;
       description =
         "An individual report created for the INFT3970 course at UoN on secure coding practices.";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT3970-DB";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT3970-Public";
       archived = true;
       description = "A public copy of our INFT3970 Solution";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "INFT3970-Sensors";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "interrogator";
       description = "A hobby project for learning Rust a bit better";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "jellyfin-discord-music-bot";
       description =
         "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "jim";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "Kansa";
@@ -200,18 +279,25 @@ in {
       description =
         "A presentation for Newcastle Cybersecurity Group, Feb 2021";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "ncsg-presentation-feb-2022";
       description =
         "A presentation for Newcastle Cybersecurity Group, Feb 2022";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "ncsg-presentation-june-2023";
       description =
         "A presentation for Newcastle Cybersecurity Group, June 2023";
-
       pages.build_type = "workflow";
     }
     {
@@ -249,6 +335,10 @@ in {
       name = "pf-captive-portal";
       description = "Captive Portal for Pfsense";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "PoSh-R2";
@@ -260,6 +350,10 @@ in {
       description =
         "A repository to host code related to https://projecteuler.net";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "project_alias";
@@ -270,10 +364,18 @@ in {
       name = "pyautoclick";
       description = "Simple autoclicker on request for brother's use.";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "python-oreilly";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "raspberry-pi-nix";
@@ -297,14 +399,26 @@ in {
       name = "SENG1050Assignment2";
       archived = true;
       description = "Assignment Part 2 SENG1050";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "SENG1050";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "SENG2260";
       archived = true;
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "soe.nix";
@@ -314,6 +428,10 @@ in {
       name = "speedtestcli-periodic";
       archived = true;
       description = "Temporary application to assist with troubleshooting";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "stubby-docker";
@@ -325,6 +443,10 @@ in {
       archived = true;
       description =
         "Firefox privacy, security and anti-fingerprinting: a comprehensive user.js template for configuration and hardening";
+      security_and_analysis = {
+        secret_scanning_push_protection.status = "disabled";
+        secret_scanning.status = "disabled";
+      };
     }
     {
       name = "u-boot";
@@ -350,7 +472,6 @@ in {
     }
   ];
   private-repositories = [
-
     {
       name = "calamus";
       archived = true;
@@ -447,6 +568,5 @@ in {
       archived = true;
     }
   ];
-
   repositories = public-repositories ++ private-repositories;
 }

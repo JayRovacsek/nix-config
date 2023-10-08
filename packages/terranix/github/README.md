@@ -10,7 +10,7 @@
 
 | Name                                                      | Version |
 | --------------------------------------------------------- | ------- |
-| <a name="provider_github"></a> [github](#provider_github) | 5.25.0  |
+| <a name="provider_github"></a> [github](#provider_github) | 5.39.0  |
 
 ## Modules
 
@@ -26,6 +26,7 @@ No modules.
 | [github_branch_default.PoSh-R2](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                        | resource |
 | [github_branch_default.after-dark](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                     | resource |
 | [github_branch_default.agenix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                         | resource |
+| [github_branch_default.aoc-2023](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                       | resource |
 | [github_branch_default.automatic1111-webui-nix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)        | resource |
 | [github_branch_default.aws-incident-response-runbooks](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default) | resource |
 | [github_branch_default.blinky-bed](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                     | resource |
@@ -36,6 +37,7 @@ No modules.
 | [github_branch_default.fireship-io](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                    | resource |
 | [github_branch_default.forty](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                          | resource |
 | [github_branch_default.headscale](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                      | resource |
+| [github_branch_default.ncsg-presentation-june-2023](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)    | resource |
 | [github_branch_default.nix-config](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                     | resource |
 | [github_branch_default.nix-lib-html-reference](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)         | resource |
 | [github_branch_default.nixos-m1](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                       | resource |
@@ -80,6 +82,7 @@ No modules.
 | [github_repository.after-dark](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                             | resource |
 | [github_repository.agenix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                 | resource |
 | [github_repository.aoc-2022](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                               | resource |
+| [github_repository.aoc-2023](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                               | resource |
 | [github_repository.automatic1111-webui-nix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                | resource |
 | [github_repository.aws-incident-response-runbooks](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)         | resource |
 | [github_repository.bert](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                   | resource |
@@ -104,6 +107,7 @@ No modules.
 | [github_repository.ncsg-poc](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                               | resource |
 | [github_repository.ncsg-presentation-feb-2021](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)             | resource |
 | [github_repository.ncsg-presentation-feb-2022](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)             | resource |
+| [github_repository.ncsg-presentation-june-2023](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)            | resource |
 | [github_repository.nix-config](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                             | resource |
 | [github_repository.nix-lib-html-reference](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                 | resource |
 | [github_repository.nixos-m1](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                               | resource |
