@@ -5,6 +5,9 @@ let
   inherit (nixpkgs.lib) nixosSystem;
   inherit (nix-darwin.lib) darwinSystem;
   inherit (home-manager.lib) homeManagerConfiguration;
+  inherit (self.inputs.robotnix.lib) robotnixSystem;
+
+  android-stub = robotnixSystem { };
 
   # System differences (options) between arch shouldn't exist, but
   # that's going to remain an assumption for now
@@ -57,6 +60,10 @@ let
   };
 
 in {
-  declarations =
-    merge [ nix-stub.options darwin-stub.options home-manager-stub.options ];
+  declarations = merge [
+    android-stub.options
+    darwin-stub.options
+    home-manager-stub.options
+    nix-stub.options
+  ];
 }
