@@ -1,6 +1,6 @@
 { pkgs, osConfig }:
 let
-  inherit (pkgs) procps system pamixer wlogout;
+  inherit (pkgs) brightnessctl procps system pamixer wlogout;
   inherit (osConfig.flake.packages.${system}) waybar-screenshot;
 in [{
   layer = "top";
@@ -14,6 +14,7 @@ in [{
     "memory"
     "cpu"
     "network"
+    "backlight"
     "battery"
     "custom/powermenu"
   ];
@@ -29,10 +30,10 @@ in [{
 
   backlight = {
     device = "intel_backlight";
-    on-scroll-up = "light -A 5";
-    on-scroll-down = "light -U 5";
+    on-scroll-up = "${brightnessctl}/bin/brightnessctl s 5%+";
+    on-scroll-down = "${brightnessctl}/bin/brightnessctl s 5%-";
     format = "{icon} {percent}%";
-    format-icons = [ "" "" "" "" ];
+    format-icons = [ "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
   };
 
   pulseaudio = {
@@ -45,15 +46,15 @@ in [{
   };
 
   battery = {
-    interval = 10;
+    interval = 20;
     states = {
       warning = 20;
       critical = 10;
     };
-    format = "{icon} {capacity}%";
-    format-icons = [ "" "" "" "" "" "" "" "" "" ];
+    format = "{icon}   {capacity}%";
+    format-icons = [ "" "" "" "" "" "" ];
     format-full = "{icon} {capacity}%";
-    format-charging = " {capacity}%";
+    format-charging = "󰂄 {capacity}%";
     tooltip = false;
   };
 
