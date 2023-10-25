@@ -68,6 +68,14 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    gbar = {
+      url = "github:scorpion-26/gBar";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";

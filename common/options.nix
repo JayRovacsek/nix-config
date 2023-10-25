@@ -15,6 +15,7 @@ in builtins.mapAttrs (package-set: _:
       ../options/docker
       ../options/networking/darwin.nix
       ../options/ssh
+      ../options/systemd/darwin.nix
     ];
 
     imports = generic ++ linux ++ darwin;

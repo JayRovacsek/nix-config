@@ -715,6 +715,25 @@
         "type": "github"
       }
     },
+    "gbar": {
+      "inputs": {
+        "flake-utils": ["flake-utils"],
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1697905971,
+        "narHash": "sha256-dCex+kGzWQGnzc67bzbcckkW7WT26mZb09f3s4W/B/Y=",
+        "owner": "scorpion-26",
+        "repo": "gBar",
+        "rev": "996a6611ad19ee13fd8d75637d69ab1c33effe5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "scorpion-26",
+        "repo": "gBar",
+        "type": "github"
+      }
+    },
     "gesture-nvim": {
       "flake": false,
       "locked": {
@@ -2196,6 +2215,7 @@
         "flake-parts": "flake-parts",
         "flake-schemas": "flake-schemas",
         "flake-utils": "flake-utils",
+        "gbar": "gbar",
         "gitignore": "gitignore",
         "grub-2.06": "grub-2.06",
         "hercules-ci-agent": "hercules-ci-agent",

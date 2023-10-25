@@ -27,14 +27,10 @@ let
   };
 
   # 
-  packages = (with pkgs; [ hyprpicker ]) ++ optional-packages;
+  packages = optional-packages;
 
   extraConfig = import ./config.nix { inherit config pkgs osConfig; };
-
 in {
-
-  imports = [ ../mako ../waybar ];
-
   home = {
     inherit packages;
     sessionVariables = {
