@@ -2,12 +2,11 @@ _: {
   androidVersion = 13;
 
   apps = {
-    bromite.enable = true;
     fdroid.enable = true;
     seedvault.enable = true;
-    updater.enable = true;
+    # updater.enable = true;
     updater.flavor = "grapheneos";
-    vanadium.enable = true;
+    vanadium.enable = false;
   };
 
   buildNumber = "2023100300";
@@ -15,13 +14,13 @@ _: {
   ccache.enable = true;
 
   channel = "stable";
-  device = "cheetah-factory";
+  device = "cheetah";
   deviceDisplayName = "rapidash";
   flavor = "grapheneos";
   incremental = true;
   microg.enable = true;
-  pixel.useUpstreamDriverBinaries = true;
-  signing.enable = true;
+  # pixel.useUpstreamDriverBinaries = true;
+  # signing.enable = true;
   useReproducibilityFixes = true;
   variant = "user";
 }

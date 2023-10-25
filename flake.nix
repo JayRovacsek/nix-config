@@ -269,10 +269,10 @@
     };
 
     robotnix = {
-      url = "github:danielfullmer/robotnix";
+      url = "github:nix-community/robotnix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgsUnstable.follows = "nixpkgs";
+        # nixpkgs.follows = "nixpkgs";
+        # nixpkgsUnstable.follows = "nixpkgs";
         androidPkgs.follows = "android-nixpkgs";
       };
     };
