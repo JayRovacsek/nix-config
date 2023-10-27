@@ -62,6 +62,23 @@
       });
   };
 
+  signal-desktop-wayland = _final: prev: {
+    signal-desktop-wayland =
+
+      let
+        wayland-flags =
+          "--no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --use-tray-icon %U";
+      in prev.signal-desktop.overrideAttrs (old: rec {
+        preFixup = ''
+          ${old.preFixup}
+
+          # Provide suitable wayland launch flags
+          substituteInPlace $out/share/applications/${old.pname}.desktop \
+            --replace "--no-sandbox %U" "${wayland-flags}"
+        '';
+      });
+  };
+
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   mpvpaper = _final: prev: {
     mpvpaper = prev.mpvpaper.overrideAttrs (old: {

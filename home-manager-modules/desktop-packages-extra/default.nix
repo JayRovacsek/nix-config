@@ -14,7 +14,6 @@ let
     nextcloud-client
 
     # Communication
-    signal-desktop
     thunderbird
   ];
 
