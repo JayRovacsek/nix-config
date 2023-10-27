@@ -67,7 +67,7 @@
 
       let
         wayland-flags =
-          "--no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --use-tray-icon %U";
+          "--no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu --use-tray-icon %U";
       in prev.signal-desktop.overrideAttrs (old: rec {
         preFixup = ''
           ${old.preFixup}
