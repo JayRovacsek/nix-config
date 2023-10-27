@@ -6,6 +6,10 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  ags-config = _final: prev: {
+    inherit (self.inputs.ags-config.packages.${prev.system}) ags-config;
+  };
+
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
   hello = _final: prev: {

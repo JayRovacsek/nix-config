@@ -23,6 +23,22 @@
       };
     };
 
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags-config = {
+      url = "github:JayRovacsek/ags-config";
+      inputs = {
+        dream2nix.follows = "dream2nix";
+        gitignore.follows = "gitignore";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     crane = {
       url = "github:ipetkov/crane";
       inputs = {

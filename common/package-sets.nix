@@ -35,6 +35,7 @@ let
   darwin-overlays = [ firefox-darwin.overlay ];
 
   linux-overlays = [
+    self.overlays.ags-config
     self.overlays.fcitx-engines
     self.overlays.grub2
     self.overlays.makeModulesClosure
