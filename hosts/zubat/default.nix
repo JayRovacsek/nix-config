@@ -18,7 +18,11 @@ in {
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
-  imports = [ ./modules.nix ./system-packages.nix ];
+  environment.systemPackages = with pkgs; [
+    # CLI
+    curl
+    wget
+  ];
 
   networking = { inherit hostName; };
 

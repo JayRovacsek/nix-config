@@ -1,13 +1,12 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/clamav
-    ../../modules/gnupg
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/openssh
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/zsh
-  ];
-}
+{ self }:
+let inherit (self.common.assertions) disable-assertions;
+in (with self.nixosModules; [
+  clamav
+  gnupg
+  lorri
+  nix
+  openssh
+  time
+  timesyncd
+  zsh
+]) ++ [ disable-assertions ]

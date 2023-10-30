@@ -43,8 +43,7 @@ in {
     ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
 
   boot.loader.efi.canTouchEfiVariables = true;
 

@@ -1,22 +1,21 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/clamav
-    ../../modules/docker
-    ../../modules/fonts
-    ../../modules/gnupg
-    ../../modules/grub
-    ../../modules/hyprland
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/openssh
-    ../../modules/pipewire
-    ../../modules/sddm
-    ../../modules/steam
-    ../../modules/systemd-networkd
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/udev
-    ../../modules/zsh
-  ];
-}
+{ self }:
+with self.nixosModules; [
+  agenix
+  clamav
+  docker
+  fonts
+  gnupg
+  grub
+  hyprland
+  lorri
+  nix
+  openssh
+  pipewire
+  sddm
+  steam
+  systemd-networkd
+  time
+  timesyncd
+  udev
+  zsh
+]

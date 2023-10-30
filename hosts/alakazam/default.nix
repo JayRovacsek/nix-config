@@ -5,6 +5,9 @@ let
   inherit (flake.common.home-manager-module-sets) base hyprland-games-desktop;
   inherit (flake.lib) merge;
 
+  inherit (pkgs) system;
+  inherit (config.flake.packages.${system}) trdsql;
+
   builder = common.users.builder {
     inherit config pkgs;
     modules = base;
@@ -20,8 +23,6 @@ let
 in {
   inherit flake;
   inherit (merged) users home-manager;
-
-  hardware.opengl.driSupport32Bit = true;
 
   age = {
     secrets = {
@@ -50,15 +51,19 @@ in {
     ];
   };
 
-  services.tailscale.tailnet = "admin";
+  environment.systemPackages = (with pkgs; [ curl wget agenix ]) ++ [ trdsql ];
 
-  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
+  hardware.opengl.driSupport32Bit = true;
+
+  imports = [ ./hardware-configuration.nix ];
 
   networking = {
-    hostName = "alakazam";
     hostId = "ef26b1be";
+    hostName = "alakazam";
     useDHCP = false;
   };
+
+  services.tailscale.tailnet = "admin";
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
