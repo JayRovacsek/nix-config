@@ -5,6 +5,7 @@
     ../../modules/docker
     ../../modules/fonts
     ../../modules/gnupg
+    ../../modules/grub
     ../../modules/hyprland
     ../../modules/lorri
     ../../modules/nix

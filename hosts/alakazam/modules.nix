@@ -6,6 +6,7 @@ with self.nixosModules; [
   fonts
   generations
   gnupg
+  grub
   hyprland
   keybase
   lorri
