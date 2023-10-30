@@ -4,7 +4,6 @@ with self.nixosModules; [
   blocky
   clamav
   docker
-  portainer
   fonts
   gnupg
   headscale
@@ -13,6 +12,7 @@ with self.nixosModules; [
   nix-serve
   nvidia
   openssh
+  portainer
   samba
   sudo
   tailscale
