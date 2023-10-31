@@ -1,6 +1,5 @@
 { self }:
 let
-
   # Required build functions
   inherit (self.common.system) unstable-system bleeding-edge-system;
 
@@ -36,7 +35,7 @@ in {
 
   # Hosts
   alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
-  cloyster = make-host x86_64-linux-unstable "cloyster-linux" unstable-system;
+  cloyster = make-host x86_64-linux-unstable "cloyster" unstable-system;
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;

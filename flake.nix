@@ -25,12 +25,7 @@
 
     crane = {
       url = "github:ipetkov/crane";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dream2nix = {
@@ -73,19 +68,10 @@
       url = "github:hercules-ci/gitignore.nix";
     };
 
-    hercules-ci-agent = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:hercules-ci/hercules-ci-agent";
-    };
-
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
       inputs = {
         flake-parts.follows = "flake-parts";
-        hercules-ci-agent.follows = "hercules-ci-agent";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -123,6 +109,7 @@
         nil.follows = "nil";
         nixpkgs.follows = "nixpkgs";
         rnix-lsp.follows = "rnix-lsp";
+        systems.follows = "systems";
         tidalcycles.follows = "tidalcycles";
         zig.follows = "zig";
       };

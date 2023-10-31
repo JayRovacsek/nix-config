@@ -33,7 +33,14 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
+  environment.systemPackages = with pkgs; [
+    # CLI
+    curl
+    wget
+    agenix
+  ];
+
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "cloyster";
 
