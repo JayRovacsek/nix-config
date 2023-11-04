@@ -58,6 +58,7 @@ in {
 
   terraform = {
     cloud = {
+      hostname = "app.terraform.io";
       organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
       workspaces = { inherit name; };
     };

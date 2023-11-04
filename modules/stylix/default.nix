@@ -51,5 +51,8 @@ in {
     polarity = "dark";
   };
 
-  home-manager.sharedModules = [{ stylix.targets.vscode.enable = false; }];
+  home-manager.sharedModules = [
+    { stylix.targets.hyprland.enable = false; }
+    { stylix.targets.vscode.enable = false; }
+  ];
 }

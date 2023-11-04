@@ -2,7 +2,8 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-games-desktop;
+  inherit (flake.common.home-manager-module-sets)
+    base hyprland-waybar-desktop games;
   inherit (flake.lib) merge;
 
   inherit (pkgs) system;
@@ -15,7 +16,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-games-desktop;
+    modules = hyprland-waybar-desktop ++ games;
   };
 
   merged = merge [ builder jay ];

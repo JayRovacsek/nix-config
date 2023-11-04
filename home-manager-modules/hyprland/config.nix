@@ -1,6 +1,7 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) system mpvpaper lib systemd fuzzel nextcloud-client;
+  inherit (pkgs)
+    grim slurp swappy system mpvpaper lib systemd fuzzel nextcloud-client;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
 
   inherit (osConfig.flake.packages.${system})
@@ -149,6 +150,10 @@ in generate-config {
     # Scroll through existing workspaces with mainMod + scroll
     "$mainMod, mouse_down, workspace, e+1"
     "$mainMod, mouse_up, workspace, e-1"
+
+    # Print Screen
+    ''
+      , code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging

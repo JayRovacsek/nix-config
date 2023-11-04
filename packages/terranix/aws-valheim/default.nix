@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  inherit (self.common.terraform.globals) aws;
+  inherit (self.common.tofu.globals) aws;
   inherit (aws) region tags;
 in {
   variable = {

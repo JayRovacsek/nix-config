@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  inherit (self.common.terraform.globals) oci;
+  inherit (self.common.tofu.globals) oci;
   inherit (oci) region;
 in {
   variable = { };

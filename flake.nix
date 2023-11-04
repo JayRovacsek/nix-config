@@ -263,7 +263,7 @@
 
     systems.url = "github:nix-systems/default";
 
-    # Terraform via the nix language
+    # Opentofu via the nix language
     terranix = {
       inputs = {
         flake-utils.follows = "flake-utils";
