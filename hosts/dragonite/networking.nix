@@ -9,11 +9,10 @@
     nameservers = [ "127.0.0.1" ];
 
     firewall = {
-      ## Todo: remove below as they can be abstracted into microvms
+      ## TODO: remove below as they can be abstracted into microvms
       # For reference:
-      # 5900: VNC (need to kill)
       # 8200: Duplicati
-      allowedTCPPorts = [ 5900 8200 ];
+      allowedTCPPorts = [ 8200 ];
     };
   };
 }
