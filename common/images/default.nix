@@ -1,48 +1,51 @@
 { self }:
 let
   inherit (self.lib) merge;
-  inherit (self) nixosConfigurations;
   inherit (self.inputs) nixos-generators;
-  # inherit (nixosConfigurations) rpi1 rpi2;
 
-  # sd-configurtations = [ rpi1 rpi2 ];
+  # SD Installer Images / Configs
+  rpi1 = import ./rpi1.nix { inherit self; };
+  rpi2 = import ./rpi2.nix { inherit self; };
 
-  amazon-base-image = let
-    inherit (self.nixosConfigurations) amazon;
-    inherit (amazon._module.args) modules;
+  # Cloud Base Images
+  amazon-cfg = import ./amazon.nix { inherit self; };
+  linode-cfg = import ./linode.nix { inherit self; };
+  oracle-cfg = import ./oracle.nix { inherit self; };
+
+  amazon = let inherit (amazon-cfg._module.args) modules;
   in nixos-generators.nixosGenerate {
     system = "x86_64-linux";
     modules = modules ++ [{ amazonImage.sizeMB = 16 * 1024; }];
     format = "amazon";
   };
 
-  linode-base-image = let
-    inherit (self.nixosConfigurations) linode;
-    inherit (linode._module.args) modules;
+  linode = let inherit (linode-cfg._module.args) modules;
   in nixos-generators.nixosGenerate {
     system = "x86_64-linux";
     inherit modules;
     format = "linode";
   };
 
-  oracle-base-image = let
-    inherit (self.nixosConfigurations) oracle;
-    inherit (oracle._module.args) modules;
+  oracle = let inherit (oracle-cfg._module.args) modules;
   in nixos-generators.nixosGenerate {
     system = "x86_64-linux";
     inherit modules;
     format = "qcow";
   };
 
-  # sd-images = builtins.map (image: {
-  #   "${image.config.networking.hostName}" = image.config.system.build.sdImage;
-  # }) sd-configurtations;
-
-  cloud-images = {
-    inherit amazon-base-image linode-base-image oracle-base-image;
+  cfgs = {
+    configurations = {
+      amazon = amazon-cfg;
+      linode = linode-cfg;
+      oracle = oracle-cfg;
+      inherit rpi1 rpi2;
+    };
   };
 
-  # images = [ cloud-images ] ++ sd-images;
-  images = [ cloud-images ];
+  sd-images = builtins.map (image: {
+    "${image.config.networking.hostName}" = image.config.system.build.sdImage;
+  }) [ rpi1 rpi2 ];
 
-in merge images
+  cloud-images = { inherit amazon linode oracle; };
+
+in merge ([ cloud-images cfgs ] ++ sd-images)

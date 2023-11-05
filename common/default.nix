@@ -5,8 +5,6 @@
   assertions = import ./assertions.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
-  cloud-base-image-modules =
-    import ./cloud-base-image-modules { inherit self; };
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };

@@ -1,6 +1,4 @@
-{ self }:
-let inherit (self.inputs.nixpkgs) lib;
-in {
+{ lib, ... }: {
   boot = {
     kernelParams = [ "console=ttyS0,19200n8" ];
     loader = {

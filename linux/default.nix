@@ -10,14 +10,12 @@ let
   inherit (self.lib.host) make-host;
 in {
   # SD Installer Images / Configs
-  # TEMPORARILY DISABLED
-  # rpi1 = import ../common/images/rpi1.nix { inherit self; };
-  # rpi2 = import ../common/images/rpi2.nix { inherit self; };
+  inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
 
   # Cloud Base Images
-  amazon = import ../common/images/amazon.nix { inherit self; };
-  linode = import ../common/images/linode.nix { inherit self; };
-  oracle = import ../common/images/oracle.nix { inherit self; };
+  # amazon = import ../common/images/amazon.nix { inherit self; };
+  # linode = import ../common/images/linode.nix { inherit self; };
+  # oracle = import ../common/images/oracle.nix { inherit self; };
 
   # Base Configuration Hosts
   # Above cloud base images all inherit from this configuration effectively 
