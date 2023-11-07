@@ -229,23 +229,5 @@ _: {
       uid = 971;
       group = "media";
     };
-
-    elastic = {
-      inherit isSystemUser createHome description;
-      uid = 970;
-      group = "logs";
-    };
-
-    kibana = {
-      inherit isSystemUser createHome description;
-      uid = 969;
-      group = "logs";
-    };
-
-    logstash = {
-      inherit isSystemUser createHome description;
-      uid = 968;
-      group = "logs";
-    };
   };
 }
