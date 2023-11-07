@@ -4,6 +4,7 @@ with self.nixosModules; [
   blocky
   clamav
   docker
+  elasticsearch
   fonts
   gnupg
   headscale
