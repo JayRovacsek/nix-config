@@ -25,24 +25,7 @@
 
     crane = {
       url = "github:ipetkov/crane";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-
-    # We need to wrap darwin as it exposes darwin.lib.darwinSystem
-    # therefore we can't depend on stable/unstable to handle the correct matching
-    # of stable/unstable to make a suitable decision per system
-    darwin-stable = {
-      inputs.nixpkgs.follows = "stable";
-      url = "github:lnl7/nix-darwin/master";
-    };
-    darwin-unstable = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:lnl7/nix-darwin/master";
     };
 
     dream2nix = {
@@ -85,19 +68,10 @@
       url = "github:hercules-ci/gitignore.nix";
     };
 
-    hercules-ci-agent = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:hercules-ci/hercules-ci-agent";
-    };
-
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
       inputs = {
         flake-parts.follows = "flake-parts";
-        hercules-ci-agent.follows = "hercules-ci-agent";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -106,29 +80,6 @@
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
-    };
-
-    # Wayland compositor & WM
-    hyprland = {
-      inputs = {
-        hyprland-protocols.follows = "hyprland-protocols";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      url = "github:hyprwm/Hyprland";
-    };
-
-    hyprland-plugins = {
-      inputs.hyprland.follows = "hyprland";
-      url = "github:hyprwm/hyprland-plugins";
-    };
-
-    hyprland-protocols = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-      url = "github:hyprwm/hyprland-protocols";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.
@@ -158,6 +109,7 @@
         nil.follows = "nil";
         nixpkgs.follows = "nixpkgs";
         rnix-lsp.follows = "rnix-lsp";
+        systems.follows = "systems";
         tidalcycles.follows = "tidalcycles";
         zig.follows = "zig";
       };
@@ -229,6 +181,11 @@
       url = "github:nix-community/nixpkgs-wayland";
     };
 
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lnl7/nix-darwin/master";
+    };
+
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -265,6 +222,7 @@
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         gitignore.follows = "gitignore";
+        nixpkgs-stable.follows = "stable";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/pre-commit-hooks.nix";
@@ -305,7 +263,7 @@
 
     systems.url = "github:nix-systems/default";
 
-    # Terraform via the nix language
+    # Opentofu via the nix language
     terranix = {
       inputs = {
         flake-utils.follows = "flake-utils";
@@ -358,6 +316,8 @@
               };
           } accumulator) { } self.common.nixos-modules;
 
+        options = self.outputs.lib.options.declarations;
+
         # Overlays for when stuff really doesn't fit in the round hole
         overlays = import ./overlays { inherit self; };
 
@@ -372,34 +332,32 @@
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
-      flake-utils-output =
-        flake-utils.lib.eachSystem standard-outputs.common.exposed-systems
-        (system:
-          let pkgs = import self.inputs.nixpkgs { inherit system; };
-          in {
-            # Space in which exposed derivations can be ran via
-            # nix run .#foo - handy in the future for stuff like deploying
-            # via terraform or automation tasks that are relatively 
-            # procedural 
-            apps = import ./apps { inherit self pkgs; };
+      flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
+        let pkgs = import self.inputs.nixpkgs { inherit system; };
+        in {
+          # Space in which exposed derivations can be ran via
+          # nix run .#foo - handy in the future for stuff like deploying
+          # via terraform or automation tasks that are relatively 
+          # procedural 
+          apps = import ./apps { inherit self pkgs; };
 
-            # Pre-commit hooks to enforce formatting, lining, find 
-            # antipatterns and ensure they don't reach upstream
-            checks = import ./checks { inherit self pkgs; };
+          # Pre-commit hooks to enforce formatting, lining, find 
+          # antipatterns and ensure they don't reach upstream
+          checks = import ./checks { inherit self pkgs; };
 
-            # Shell environments (applied to both nix develop and nix-shell via
-            # shell.nix in top level directory)
-            devShells = import ./shells { inherit self pkgs; };
+          # Shell environments (applied to both nix develop and nix-shell via
+          # shell.nix in top level directory)
+          devShells = import ./shells { inherit self pkgs; };
 
-            # Formatter option for `nix fmt` - redundant via checks but nice to have
-            formatter = pkgs.nixfmt;
+          # Formatter option for `nix fmt` - redundant via checks but nice to have
+          formatter = pkgs.nixfmt;
 
-            # Locally defined packages for flake consumption or consumption
-            # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
-            # (all systems in this flake apply this opinion via the common.modules)
-            # construct
-            packages = import ./packages { inherit self pkgs; };
-          });
+          # Locally defined packages for flake consumption or consumption
+          # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
+          # (all systems in this flake apply this opinion via the common.modules)
+          # construct
+          packages = import ./packages { inherit self pkgs; };
+        });
 
     in flake-utils-output // standard-outputs;
 }

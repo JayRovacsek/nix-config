@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ osConfig, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -31,7 +31,7 @@
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
       "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
+      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
@@ -62,7 +62,27 @@
       "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
+
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
+      "nix.enableLanguageServer" = true;
+      "nix.serverSettings" = {
+        nixd = {
+          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
+          options = {
+            enable = true;
+            target = {
+              args = [ ];
+              # NixOS options - note this is a footgun
+              # where a host has new or differing options
+              # to that the current host has.
+              installable = "${osConfig.flake}#options";
+            };
+          };
+        };
+      };
+
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
@@ -73,14 +93,13 @@
       "window.titleBarStyle" = "custom";
       "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
+      "workbench.settings.editor" = "json";
     };
 
     extensions = with pkgs.vscode-extensions; [
 
       # Nix
-      bbenoist.nix
       jnoortheen.nix-ide
-      brettm12345.nixfmt-vscode
       arrterian.nix-env-selector
 
       # JS/TS

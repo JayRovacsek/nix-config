@@ -11,13 +11,10 @@ let
   wine-wayland-compatible =
     builtins.elem system pkgs.wine-wayland.meta.platforms;
 
-  lutris =
-    if (builtins.all (x: x) [ wayland-present wine-wayland-compatible ]) then
-      pkgs.lutris.override {
-        extraPkgs = _pkgs:
-          [ (lutris.override { extraPkgs = pkgs: [ pkgs.wine-wayland ]; }) ];
-      }
-    else
-      pkgs.lutris;
+  use-wayland = wayland-present && wine-wayland-compatible;
 
-in { home.packages = [ lutris ]; }
+in {
+  home.packages = with pkgs;
+    [ lutris ] ++ (lib.optional use-wayland wine-wayland)
+    ++ (lib.optional (!use-wayland) wine);
+}

@@ -41,17 +41,24 @@ in {
     ];
   };
 
-  services.tailscale.tailnet = "admin";
+  environment.systemPackages = with pkgs; [
+    cifs-utils
+    dnsutils
+    exfat
+    hddtemp
+    lm_sensors
+    pciutils
+  ];
 
   imports = [
     ./filesystems.nix
     ./hardware-configuration.nix
-    ./modules.nix
     ./networking.nix
     ./old-users.nix
     ./samba.nix
-    ./system-packages.nix
   ];
+
+  services.tailscale.tailnet = "admin";
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;

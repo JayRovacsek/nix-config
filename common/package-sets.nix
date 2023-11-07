@@ -3,9 +3,8 @@ let
   # The intention of this construct is to expose a flake-level generation of 
   # any number of packagesets to be consumed without boilerplate 
   inherit (self) inputs;
-  inherit (self.common) exposed-systems;
   # Inputs that expose overlays we require
-  inherit (self.inputs) nur agenix microvm firefox-darwin;
+  inherit (self.inputs) nur agenix firefox-darwin flake-utils;
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
@@ -44,16 +43,6 @@ let
     self.overlays.ranger
   ];
 
-  # Create a set that includes the microvm packages where the upstream supports
-  # it only, this'll mean we can avoid adding it explicitly to systems we want to use
-  # it on, but not break stuff like darwin systems.
-  microvmConfig = with builtins;
-    foldl' (accumulator: system:
-      accumulator // (foldl' (accumulator: target:
-        accumulator // {
-          "${system}-${target.name}".pkgs = microvm.packages.${system};
-        }) { } targetGeneration)) { } (attrNames microvm.packages);
-
   # Done to make available the packageset identifier via the identifier attribute of
   # the packageset. Mostly everything else will be a derivation
   identifiers = builtins.foldl' (accumulator: system:
@@ -62,7 +51,7 @@ let
         "${system}-${target.name}" = {
           identifier = "${system}-${target.name}";
         };
-      }) { } targetGeneration)) { } exposed-systems;
+      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
 
   # Take both of the above and then merge them plus the load of nixpkgs for
   # the input.
@@ -102,5 +91,5 @@ let
           overlays = overlays ++ (optionals isDarwin darwin-overlays)
             ++ (optionals isLinux linux-overlays);
         };
-      }) { } targetGeneration)) { } exposed-systems;
-in recursiveUpdate identifiers (recursiveUpdate microvmConfig packageSets)
+      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
+in recursiveUpdate identifiers packageSets

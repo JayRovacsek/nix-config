@@ -1,7 +1,6 @@
-{ pkgs, lib, osConfig, ... }:
+{ pkgs, lib, ... }:
 let
-  # TODO: rewrite this garbage
-  enable = !(lib.hasInfix "aarch" osConfig.nixpkgs.system);
+  enable = with pkgs.stdenv; !(isLinux && isAarch64);
 
   packages = lib.optionals enable (with pkgs; [ slack ]);
 in { home = { inherit packages; }; }

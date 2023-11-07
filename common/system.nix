@@ -1,7 +1,5 @@
 { self }:
-let
-  inherit (self.inputs)
-    stable nixpkgs darwin-stable darwin-unstable bleeding-edge;
+let inherit (self.inputs) bleeding-edge nixpkgs nix-darwin stable;
 in {
   # Note that this does not mean a system that utilises unstable-system
   # is purely unstable, it can utilise stable package-sets for home-manager 
@@ -11,7 +9,5 @@ in {
   unstable-system = nixpkgs.lib.nixosSystem;
   bleeding-edge-system = bleeding-edge.lib.nixosSystem;
 
-  # Darwin binds also
-  stable-darwin-system = darwin-stable.lib.darwinSystem;
-  unstable-darwin-system = darwin-unstable.lib.darwinSystem;
+  darwin-system = nix-darwin.lib.darwinSystem;
 }

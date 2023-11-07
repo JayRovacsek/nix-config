@@ -4,27 +4,29 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    terraform-stacks python-packages node-packages go-packages dotnet-packages
-    rust-packages images wallpaper-packages;
-
-  # Fold an array of objects together recursively
-  merge = builtins.foldl' recursiveUpdate { };
+    images dotnet-packages go-packages node-packages python-packages
+    resource-packages rust-packages shell-packages tofu-stacks
+    wallpaper-packages;
+  inherit (self.lib) merge;
 
   dotnet = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      ${package} = callPackage ./dotnet-packages/${package} { };
-    } accumulator) { } dotnet-packages;
+    recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
+    accumulator) { } dotnet-packages;
 
   go = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./go-packages/${package} { }; }
+    recursiveUpdate { ${package} = callPackage ./go/${package} { }; }
     accumulator) { } go-packages;
 
   node = let inherit (pkgs) nodejs_20;
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      ${package} =
-        callPackage ./node-packages/${package} { nodejs = nodejs_20; };
+      ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
+
+  shell = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./shell/${package} { inherit self; };
+    } accumulator) { } shell-packages;
 
   python = let
     python-overlay-pkgs = import self.inputs.nixpkgs {
@@ -33,24 +35,28 @@ let
     };
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      ${package} = callPackage ./python-packages/${package} {
+      ${package} = callPackage ./python/${package} {
         inherit self;
         pkgs = python-overlay-pkgs;
       };
     } accumulator) { } python-packages;
 
+  resources = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./resources/${package} { }; }
+    accumulator) { } resource-packages;
+
   rust = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./rust-packages/${package} { }; }
+    recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
     accumulator) { } rust-packages;
 
-  terraform = mapAttrs (name: _:
+  tofu = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
         { config._module.args = { inherit self system; }; }
-        ../terranix/${name}
+        ./terranix/${name}
       ];
-    }) terraform-stacks;
+    }) tofu-stacks;
 
   wallpapers = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
@@ -62,17 +68,14 @@ let
     images
     node
     python
+    resources
     rust
-    terraform
+    shell
+    tofu
     wallpapers
     {
       better-english = callPackage ./better-english { };
-      ditto-transform = callPackage ./ditto-transform { inherit self; };
       t2-firmware = callPackage ./t2-firmware { };
-      vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
-      waybar-colour-picker = callPackage ./waybar-colour-picker { };
-      waybar-screenshot = callPackage ./waybar-screenshot { };
-      wofi-power = callPackage ./wofi-power { };
     }
   ];
 

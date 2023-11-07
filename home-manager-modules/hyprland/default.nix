@@ -1,19 +1,15 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system;
+  inherit (pkgs) lib;
+
+  enable = true;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
   nvidia-present = builtins.any (driver: driver == "nvidia")
     osConfig.services.xserver.videoDrivers;
 
-  # Use the nvidia package if nvidia drivers present
-  package = if nvidia-present then
-    osConfig.flake.inputs.hyprland.packages.${system}.hyprland-nvidia
-  else
-    osConfig.flake.inputs.hyprland.packages.${system}.default;
-
-  # If nvidia present, add hardware decoding capabilities
+  package = pkgs.hyprland;
 
   # Apply nvidia patches if available and required
   enableNvidiaPatches = nvidia-present;
@@ -36,9 +32,6 @@ let
   extraConfig = import ./config.nix { inherit config pkgs osConfig; };
 
 in {
-
-  imports = [ ../mako ../waybar ];
-
   home = {
     inherit packages;
     sessionVariables = {
@@ -65,8 +58,6 @@ in {
   };
 
   wayland.windowManager.hyprland = {
-    enable = true;
-    recommendedEnvironment = true;
-    inherit enableNvidiaPatches package extraConfig;
+    inherit enable enableNvidiaPatches package extraConfig;
   };
 }
