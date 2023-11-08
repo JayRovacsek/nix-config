@@ -303,6 +303,9 @@
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
 
+        # Automated build configuration for local packages
+        hydraJobs = { inherit (self) packages; };
+
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };
 
