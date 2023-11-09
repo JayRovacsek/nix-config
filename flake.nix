@@ -304,7 +304,12 @@
         common = import ./common { inherit self; };
 
         # Automated build configuration for local packages
-        hydraJobs = { inherit (self) packages; };
+        hydraJobs = {
+          packages = builtins.removeAttrs self.packages [
+            "aarch64-darwin"
+            "x86_64-darwin"
+          ];
+        };
 
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };
