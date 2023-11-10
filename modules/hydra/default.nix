@@ -11,7 +11,7 @@
   # doesn't care about the 400 permission.
   age.secrets."builder-id-ed25519" = lib.mkForce {
     file = ../../secrets/ssh/builder-id-ed25519.age;
-    owner = config.users.users.hydra.name;
+    owner = config.users.users.hydra-queue-runner.name;
     mode = "0400";
   };
 
