@@ -309,8 +309,14 @@
           # hydra evaluation.
           packages = with builtins;
             mapAttrs (_: value:
-              removeAttrs value [ "amazon" "linode" "linode-ami" "oracle" ])
-            self.packages;
+              removeAttrs value [
+                "amazon"
+                "linode"
+                "linode-ami"
+                "oracle"
+                "rpi1-sdImage"
+                "rpi2-sdImage"
+              ]) self.packages;
         };
 
         # Useful functions to use throughout the flake
