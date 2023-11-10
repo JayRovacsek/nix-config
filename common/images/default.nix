@@ -43,7 +43,8 @@ let
   };
 
   sd-images = builtins.map (image: {
-    "${image.config.networking.hostName}" = image.config.system.build.sdImage;
+    "${image.config.networking.hostName}-sdImage" =
+      image.config.system.build.sdImage;
   }) [ rpi1 rpi2 ];
 
   cloud-images = { inherit amazon linode oracle; };
