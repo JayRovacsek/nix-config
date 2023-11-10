@@ -308,8 +308,8 @@
           # Strip out below known issue packages when it comes to 
           # hydra evaluation.
           packages = with builtins;
-            mapAttrs
-            (_: value: removeAttrs value [ "amazon" "linode" "oracle" ])
+            mapAttrs (_: value:
+              removeAttrs value [ "amazon" "linode" "linode-ami" "oracle" ])
             self.packages;
         };
 
