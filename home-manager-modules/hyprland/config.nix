@@ -31,16 +31,16 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-5";
       resolution = "1920x1080";
-      position = "4920x420";
+      position = "3000x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-3";
+      name = "DP-4";
       resolution = "1920x1080";
-      position = "3000x420";
+      position = "4920x420";
       scale = "1";
       extra = "";
     }
