@@ -305,10 +305,12 @@
 
         # Automated build configuration for local packages
         hydraJobs = {
-          packages = builtins.removeAttrs self.packages [
-            "aarch64-darwin"
-            "x86_64-darwin"
-          ];
+          # Strip out below known issue packages when it comes to 
+          # hydra evaluation.
+          packages = with builtins;
+            mapAttrs
+            (_: value: removeAttrs value [ "amazon" "linode" "oracle" ])
+            self.packages;
         };
 
         # Useful functions to use throughout the flake
