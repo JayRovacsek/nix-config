@@ -304,11 +304,15 @@
         common = import ./common { inherit self; };
 
         # Automated build configuration for local packages
-        hydraJobs = {
-          # Strip out below known issue packages when it comes to 
-          # hydra evaluation.
-          packages = with builtins;
-            mapAttrs (_: value:
+        hydraJobs = with builtins;
+          let
+            # Strip out unsupportable systems.
+            supported-packages =
+              removeAttrs self.packages [ "aarch64-darwin" "x86_64-darwin" ];
+          in {
+            # Strip out below known issue packages when it comes to 
+            # hydra evaluation.
+            packages = mapAttrs (_: value:
               removeAttrs value [
                 "amazon"
                 "linode"
@@ -316,8 +320,8 @@
                 "oracle"
                 "rpi1-sdImage"
                 "rpi2-sdImage"
-              ]) self.packages;
-        };
+              ]) supported-packages;
+          };
 
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };
