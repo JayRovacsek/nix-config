@@ -1,8 +1,8 @@
 { self, pkgs }:
 let
-  inherit (pkgs) lib system terraform;
+  inherit (pkgs) coreutils lib opentofu system terraform-docs tfsec;
   inherit (lib) concatMapAttrs;
-  inherit (self.common) terraform-stacks;
+  inherit (self.common) tofu-stacks;
 
   # Commonly utilised terraform file names
   state = "terraform.tfstate";
@@ -31,7 +31,7 @@ let
   use = stack: x: ''
     if [[ -e ./packages/terranix/${stack}/${x} ]]; then
       echo "${x} exists in stack directory, utilising it!"
-      ${pkgs.coreutils}/bin/ln ./packages/terranix/${stack}/${x} $(pwd)
+      ${coreutils}/bin/ln ./packages/terranix/${stack}/${x} $(pwd)
     fi
   '';
 
@@ -41,19 +41,19 @@ let
   useReadme = stack: use stack readme;
 
   runTerraformCommand = command: ''
-    ${terraform}/bin/terraform ${command} $@
+    ${opentofu}/bin/tofu ${command} $@
   '';
 
   terraformInit = cfg: ''
     cp ${cfg} config.tf.json \
-      && ${terraform}/bin/terraform init
+      && ${opentofu}/bin/tofu init
   '';
 
   update = stack: x: ''
     if [[ -e ${x} ]]; then
       if [[ ! -e ./packages/terranix/${stack}/${x} ]]; then
         echo "Copying ${x} over to the stack directory!"
-        ${pkgs.coreutils}/bin/ln ${x} ./packages/terranix/${stack}/${x}
+        ${coreutils}/bin/ln ${x} ./packages/terranix/${stack}/${x}
       fi
     fi
   '';
@@ -61,7 +61,7 @@ let
   renameReadme = stack: ''
     if [[ -e ./packages/terranix/${stack}/${readme} ]]; then
       echo "Renaming readme for ${stack}!"
-      ${pkgs.coreutils}/bin/mv ./packages/terranix/${stack}/${readme} ./packages/terranix/${stack}/README.md
+      ${coreutils}/bin/mv ./packages/terranix/${stack}/${readme} ./packages/terranix/${stack}/README.md
     fi
   '';
 
@@ -70,7 +70,7 @@ let
   updateReadme = stack: update stack readme;
 
   run-tfdoc = ''
-    ${pkgs.terraform-docs}/bin/terraform-docs markdown table --output-file stack-readme.md --output-mode inject .
+    ${terraform-docs}/bin/terraform-docs markdown table --output-file stack-readme.md --output-mode inject .
   '';
 
   tfsec-ignored-checks = [
@@ -92,9 +92,9 @@ let
 
   run-tfsec = ''
     if [[ -e terraform.tfvars ]]; then
-      ${pkgs.tfsec}/bin/tfsec . --tfvars-file terraform.tfvars ${tfsec-exclude-statement}
+      ${tfsec}/bin/tfsec . --tfvars-file terraform.tfvars ${tfsec-exclude-statement}
     else 
-      ${pkgs.tfsec}/bin/tfsec . ${tfsec-exclude-statement}
+      ${tfsec}/bin/tfsec . ${tfsec-exclude-statement}
     fi
 
     if [ $? -ne 0 ]; then
@@ -143,7 +143,7 @@ let
       ${removeConfig}
     '');
 
-  terraform-actions = concatMapAttrs (name: _:
+  tofu-actions = concatMapAttrs (name: _:
     let cfg = self.packages.${system}.${name};
     in {
       "${name}-apply" = {
@@ -184,6 +184,6 @@ let
         type = "app";
         program = terraformProgram cfg name "import" "import";
       };
-    }) terraform-stacks;
+    }) tofu-stacks;
 
-in terraform-actions
+in tofu-actions

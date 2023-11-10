@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  inherit (self.common.terraform.globals) github;
+  inherit (self.common.tofu.globals) github;
   inherit (self.lib.github)
     generate-public-repositories generate-private-repositories
     generate-default-branch-rules;
@@ -33,6 +33,7 @@ in {
 
   terraform = {
     cloud = {
+      hostname = "app.terraform.io";
       organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
       workspaces = { inherit name; };
     };

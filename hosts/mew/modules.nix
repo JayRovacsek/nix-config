@@ -1,12 +1,12 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/hyprland
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/pipewire
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/zsh
-  ];
-}
+{ self }:
+let inherit (self.common.assertions) disable-assertions;
+in (with self.nixosModules; [
+  agenix
+  hyprland
+  lorri
+  nix
+  pipewire
+  time
+  timesyncd
+  zsh
+]) ++ [ disable-assertions ]

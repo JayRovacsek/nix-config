@@ -31,7 +31,7 @@
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
       "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
+      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };

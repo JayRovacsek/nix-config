@@ -4,8 +4,8 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    images dotnet-packages go-packages node-packages python-packages
-    resource-packages rust-packages shell-packages terraform-stacks
+    dotnet-packages images go-packages node-packages python-packages
+    resource-packages rust-packages shell-packages tofu-stacks
     wallpaper-packages;
   inherit (self.lib) merge;
 
@@ -49,14 +49,14 @@ let
     recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
     accumulator) { } rust-packages;
 
-  terraform = mapAttrs (name: _:
+  tofu = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
         { config._module.args = { inherit self system; }; }
         ./terranix/${name}
       ];
-    }) terraform-stacks;
+    }) tofu-stacks;
 
   wallpapers = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
@@ -65,13 +65,13 @@ let
   packages = merge [
     dotnet
     go
-    images
+    (builtins.removeAttrs images [ "configurations" ])
     node
     python
     resources
     rust
     shell
-    terraform
+    tofu
     wallpapers
     {
       better-english = callPackage ./better-english { };

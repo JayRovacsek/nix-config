@@ -96,30 +96,24 @@ let
 
   # TODO: clean up the below - it's old as heck and
   # makes me sad.
-  generate-service-user = { userConfig, ... }:
+  generate-service-user = cfg:
     let
       extraGroupExtendedOptions =
-        if userConfig.name == userConfig.group.name then
-          { }
-        else {
-          "${userConfig.name}" = { };
-        };
+        if cfg.name == cfg.group.name then { } else { "${cfg.name}" = { }; };
 
     in {
       extraUsers = {
-        "${userConfig.name}" = {
-          inherit (userConfig) uid extraGroups;
+        "${cfg.name}" = {
+          inherit (cfg) uid extraGroups;
           isSystemUser = true;
           createHome = false;
           description = "User account generated for running a specific service";
-          group = "${userConfig.name}";
+          group = "${cfg.name}";
         };
       };
 
       extraGroups = {
-        "${userConfig.group.name}" = {
-          inherit (userConfig.group) gid members;
-        };
+        "${cfg.group.name}" = { inherit (cfg.group) gid members; };
       } // extraGroupExtendedOptions;
     };
 in { inherit generate-config generate-service-user; }

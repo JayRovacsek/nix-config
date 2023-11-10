@@ -5,8 +5,6 @@
   assertions = import ./assertions.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
-  cloud-base-image-modules =
-    import ./cloud-base-image-modules { inherit self; };
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
@@ -38,8 +36,8 @@
   stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
-  terraform = import ./terraform { inherit self; };
-  terraform-stacks = import ./terraform-stacks.nix { inherit self; };
+  tofu = import ./tofu { inherit self; };
+  tofu-stacks = import ./tofu-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   users = import ./users.nix { inherit self; };
   wallpaper-packages =

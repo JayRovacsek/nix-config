@@ -1,8 +1,4 @@
-{ self }:
-let
-  inherit (self.inputs.nixpkgs) lib;
-  pkgs = import self.inputs.nixpkgs { system = "x86_64-linux"; };
-in {
+{ pkgs, lib, ... }: {
   boot.kernelPackages = pkgs.linuxPackages_6_1_hardened;
 
   boot.loader.grub.forceInstall = true;

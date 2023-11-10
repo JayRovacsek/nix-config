@@ -43,18 +43,9 @@ in {
     ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "nodev";
-      enableCryptodisk = true;
-      efiSupport = true;
-    };
-  };
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
     hostName = "gastly";
