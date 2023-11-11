@@ -297,7 +297,7 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      inherit (self.inputs.nixpkgs.lib) recursiveUpdate;
+      inherit (self.inputs.nixpkgs.lib) filterAttrs recursiveUpdate;
 
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
@@ -309,12 +309,9 @@
             unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
             # Strip out unsupportable systems.
             supported-packages = removeAttrs self.packages unsupported-systems;
-          in {
-            checks = removeAttrs self.checks unsupported-systems;
-            devShells = removeAttrs self.devShells unsupported-systems;
-            # Strip out below known issue packages when it comes to 
-            # hydra evaluation.
-            packages = mapAttrs (_: value:
+
+            # Strip items that hydra just cannot handle
+            non-problematic-packages = mapAttrs (_: value:
               removeAttrs value [
                 "amazon"
                 "linode"
@@ -323,6 +320,18 @@
                 "rpi1-sdImage"
                 "rpi2-sdImage"
               ]) supported-packages;
+
+            # Strip broken packages as they just cause eval errors
+            non-broken-packages =
+              mapAttrs (_: value: filterAttrs (_: v: (!v.meta.broken)) value)
+              non-problematic-packages;
+          in {
+            checks = removeAttrs self.checks unsupported-systems;
+            devShells = removeAttrs self.devShells unsupported-systems;
+
+            # Strip out below known issue packages when it comes to 
+            # hydra evaluation.
+            packages = non-broken-packages;
           };
 
         # Useful functions to use throughout the flake
