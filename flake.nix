@@ -329,6 +329,9 @@
             checks = removeAttrs self.checks unsupported-systems;
             devShells = removeAttrs self.devShells unsupported-systems;
 
+            alakazam =
+              self.nixosConfigurations.alakazam.config.system.build.toplevel;
+
             # Strip out below known issue packages when it comes to 
             # hydra evaluation.
             packages = non-broken-packages;
