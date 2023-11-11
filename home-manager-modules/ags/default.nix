@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.ags = {
     enable = true;
-    configDir = pkgs.ags-config + "/share";
+    configDir = pkgs.ags-config + "/lib/node_modules/ags-config";
   };
 
   home.packages = with pkgs; [

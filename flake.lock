@@ -25,11 +25,11 @@
         "nixpkgs": ["nixpkgs"]
       },
       "locked": {
-        "lastModified": 1698279263,
-        "narHash": "sha256-NVtdt2F1Hcd0g76wj1fgcsyRV6KCHrVyDKAI8a0sKlU=",
+        "lastModified": 1699571683,
+        "narHash": "sha256-3KxKTB1CJJ4x1hcpSygK2jAcr93C+PXN8V4MSX5jQ7Q=",
         "owner": "Aylur",
         "repo": "ags",
-        "rev": "59377ec1eb48887a41b596f9ecf125013f213383",
+        "rev": "75edd513b1f7ef08c9c1134acba73d965facc1dc",
         "type": "github"
       },
       "original": {
@@ -42,18 +42,17 @@
       "inputs": {
         "dream2nix": ["dream2nix"],
         "flake-compat": ["flake-compat"],
-        "flake-parts": "flake-parts",
         "flake-utils": ["flake-utils"],
         "gitignore": ["gitignore"],
         "nixpkgs": ["nixpkgs"],
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1698449515,
-        "narHash": "sha256-qtvof3wWb830/OP/XFFWDd9V5x0i+1j8UbSwr9O6Ni4=",
+        "lastModified": 1699656102,
+        "narHash": "sha256-0T+XQYuD3aK6afpw1RjHFvcOewINIgvP0N9NTZZSkRE=",
         "owner": "JayRovacsek",
         "repo": "ags-config",
-        "rev": "0219a70c62e79500e1e801a9566cf213f24d2675",
+        "rev": "e5c25331e8ac695b8faa0442fbcf87674b4d1b3f",
         "type": "github"
       },
       "original": {
@@ -2383,7 +2382,7 @@
         "dream2nix": "dream2nix",
         "firefox-darwin": "firefox-darwin",
         "flake-compat": "flake-compat",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts",
         "flake-schemas": "flake-schemas",
         "flake-utils": "flake-utils",
         "gitignore": "gitignore",
