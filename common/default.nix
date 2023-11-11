@@ -26,9 +26,6 @@
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
-  resource-packages =
-    builtins.attrNames (builtins.readDir ../packages/resources);
-
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
   self-reference = import ./self-reference.nix { inherit self; };
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
