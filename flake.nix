@@ -306,12 +306,12 @@
         # Automated build configuration for local packages
         hydraJobs = with builtins;
           let
+            unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
             # Strip out unsupportable systems.
-            supported-packages =
-              removeAttrs self.packages [ "aarch64-darwin" "x86_64-darwin" ];
+            supported-packages = removeAttrs self.packages unsupported-systems;
           in {
-            checks =
-              removeAttrs self.checks [ "aarch64-darwin" "x86_64-darwin" ];
+            checks = removeAttrs self.checks unsupported-systems;
+            devShells = removeAttrs self.devShells unsupported-systems;
             # Strip out below known issue packages when it comes to 
             # hydra evaluation.
             packages = mapAttrs (_: value:
