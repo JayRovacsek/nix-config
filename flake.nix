@@ -310,6 +310,8 @@
             supported-packages =
               removeAttrs self.packages [ "aarch64-darwin" "x86_64-darwin" ];
           in {
+            checks =
+              removeAttrs self.checks [ "aarch64-darwin" "x86_64-darwin" ];
             # Strip out below known issue packages when it comes to 
             # hydra evaluation.
             packages = mapAttrs (_: value:
