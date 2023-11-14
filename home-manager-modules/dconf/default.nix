@@ -9,30 +9,10 @@ let
       dconf = {
         enable = true;
         settings = {
-          "org/gnome/desktop/background" = {
-            color-shading-type = "solid";
-            picture-options = "zoom";
-            picture-uri =
-              "file:///run/current-system/sw/share/backgrounds/gnome/adwaita-l.webp";
-            picture-uri-dark =
-              "file:///run/current-system/sw/share/backgrounds/gnome/adwaita-d.webp";
-            primary-color = "#3071AE";
-            secondary-color = "#000000";
-          };
-
           "org/gnome/desktop/input-sources" = {
             per-window = false;
             sources = [ (mkTuple [ "xkb" "us" ]) ];
             xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:ralt_switch" ];
-          };
-
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-            font-antialiasing = "grayscale";
-            font-hinting = "slight";
-            gtk-im-module = "gtk-im-context-simple";
-            gtk-theme = "Adwaita-dark";
-            icon-theme = "Adwaita";
           };
 
           "org/gnome/desktop/notifications" = {

@@ -2,15 +2,16 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (flake.common.home-manager-module-sets) gnome-desktop games;
   inherit (flake.lib) merge;
 
-  jay = common.users.jay {
-    inherit config pkgs;
-    modules = hyprland-desktop;
-  };
+  modules = gnome-desktop ++ games;
 
-  merged = merge [ jay ];
+  jay = common.users.jay { inherit config pkgs modules; };
+
+  sarah = common.users.sarah { inherit config pkgs modules; };
+
+  merged = merge [ jay sarah ];
 
 in {
   inherit flake;

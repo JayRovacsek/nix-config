@@ -43,7 +43,6 @@ in {
     gnome.cheese
     gnome-photos
     gnome.gnome-music
-    gnome.gedit
     epiphany
     evince
     gnome.gnome-characters
