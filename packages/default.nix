@@ -4,9 +4,13 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    dotnet-packages images go-packages node-packages python-packages
-    rust-packages shell-packages tofu-stacks wallpaper-packages;
+    cpp-packages dotnet-packages images go-packages node-packages
+    python-packages rust-packages shell-packages tofu-stacks wallpaper-packages;
   inherit (self.lib) merge;
+
+  cpp = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./cpp/${package} { }; }
+    accumulator) { } cpp-packages;
 
   dotnet = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
@@ -58,6 +62,7 @@ let
     accumulator) { } wallpaper-packages;
 
   packages = merge [
+    cpp
     dotnet
     go
     (builtins.removeAttrs images [ "configurations" ])
