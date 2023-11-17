@@ -16,7 +16,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./modules.nix ./system-packages.nix ];
+  environment.systemPackages = with pkgs; [ curl wget ];
 
   networking = {
     hostName = "mew";

@@ -17,11 +17,9 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
-
-  imports = [ ./modules.nix ./system-packages.nix ];
+  environment.systemPackages = [ ditto-transform ]
+    ++ (with pkgs; [ curl git wget ]);
 
   networking.hostName = "ditto";
-
   system.stateVersion = "22.11";
 }

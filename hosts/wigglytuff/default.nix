@@ -24,18 +24,20 @@ in {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ./hardware-configuration.nix
-    ./modules.nix
     ./wireless.nix
   ];
 
   age.identityPaths =
     [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-wireless-primary" ];
 
-  networking.hostName = "wigglytuff";
-  networking.hostId = "d2a7b80b";
-  system.stateVersion = "23.11";
-
   environment.systemPackages = with pkgs; [ jellyfin-media-player ];
+
+  networking = {
+    hostName = "wigglytuff";
+    hostId = "d2a7b80b";
+  };
+
+  system.stateVersion = "23.11";
 
   # Hide Builder user from SDDM login
   services.xserver.displayManager.sddm.settings.Users.HideUsers = "builder";

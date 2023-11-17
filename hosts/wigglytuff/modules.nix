@@ -1,16 +1,16 @@
-_: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/gnupg
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/openssh
-    ../../modules/sddm
-    ../../modules/sudo
-    ../../modules/systemd-networkd
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/xfce
-    ../../modules/zsh
-  ];
-}
+{ self }:
+let inherit (self.inputs.nixos-hardware.nixosModules) raspberry-pi-4;
+in (with self.nixosModules; [
+  agenix
+  gnupg
+  lorri
+  nix
+  openssh
+  sddm
+  sudo
+  systemd-networkd
+  time
+  timesyncd
+  xfce
+  zsh
+]) ++ [ raspberry-pi-4 ]

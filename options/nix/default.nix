@@ -38,8 +38,9 @@ in {
 
     # Build a list of strings pointing to the above etc entries.
     # These need to exclude disabled values hence the filter
-    nix.nixPath = builtins.map (c: "${c.name}=/etc/nix/inputs/${c.name}")
-      (builtins.filter (c: c.enable) cfg);
+    nix.nixPath = lib.mkForce
+      (builtins.map (c: "${c.name}=/etc/nix/inputs/${c.name}")
+        (builtins.filter (c: c.enable) cfg));
 
     # If we have an entry or more, create the downstream values as defined above.
   in mkIf ((builtins.length cfg) != 0) { inherit environment nix; };

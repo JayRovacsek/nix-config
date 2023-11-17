@@ -43,20 +43,33 @@ in {
     ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking = {
+    hostName = "gastly";
+    useDHCP = true;
+    wireless = {
       enable = true;
-      device = "nodev";
-      enableCryptodisk = true;
-      efiSupport = true;
+      # TODO agenix when I get a moment
+      environmentFile = "/secrets/wpa.conf";
+      interfaces = [ "wlp58s0" ];
+      networks = {
+        "@HOME_SSID@" = {
+          psk = "@HOME_PSK@";
+          priority = 10;
+          authProtocols = [ "WPA-PSK" ];
+        };
+
+        "@HOTSPOT_SSID@" = {
+          psk = "@HOTSPOT_PSK@";
+          priority = 50;
+          authProtocols = [ "WPA-PSK" ];
+        };
+      };
     };
   };
-
-  networking.hostName = "gastly";
 
   system.stateVersion = "22.11";
 }

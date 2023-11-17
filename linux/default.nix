@@ -1,112 +1,45 @@
 { self }:
 let
-
-  # Extra modules
-  inherit (self.inputs) nixos-hardware nixos-wsl;
-  inherit (self.common.assertions) disable-assertions;
-
+  # Required build functions
   inherit (self.common.system) unstable-system bleeding-edge-system;
 
+  # Required package-sets
   inherit (self.common.package-sets)
     x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
-in {
-  # SD Installer Images / Configs
-  # TEMPORARILY DISABLED
-  # rpi1 = import ../common/images/rpi1.nix { inherit self; };
-  # rpi2 = import ../common/images/rpi2.nix { inherit self; };
 
-  # Cloud Base Images
-  amazon = import ../common/images/amazon.nix { inherit self; };
-  linode = import ../common/images/linode.nix { inherit self; };
-  oracle = import ../common/images/oracle.nix { inherit self; };
+  inherit (self.lib.host) make-host;
+in {
+  # Cloud and hardware specific configurations
+  inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
 
   # Base Configuration Hosts
   # Above cloud base images all inherit from this configuration effectively 
   # so exposure here is more to give a consistent base and be enabled to add tweaks
   # at a level in which it is inherited from all base-images
   # This host otherwise is simply a very base headless install
-  ditto = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ disable-assertions ../hosts/ditto ];
-  in unstable-system { inherit system pkgs modules; };
+  ditto = make-host x86_64-linux-unstable "ditto" unstable-system;
 
   # Cloud Instances
-  diglett = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    # Inject the required linode settings via the cloud base image module
-    inherit (self.common.cloud-base-image-modules) linode;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/diglett linode ];
-  in unstable-system { inherit system pkgs modules; };
-
-  butterfree = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    # Inject the required linode settings viathe cloud base image module
-    inherit (self.common.cloud-base-image-modules) amazon;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ disable-assertions ../hosts/butterfree amazon ];
-  in unstable-system { inherit system pkgs modules; };
+  diglett = make-host x86_64-linux-unstable "diglett" unstable-system;
+  butterfree = make-host x86_64-linux-unstable "butterfree" unstable-system;
 
   # Testing Instances
-  mew = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    # Inject the required linode settings viathe cloud base image module
-    base = self.common.modules.${identifier};
-    modules = base ++ [ disable-assertions ../hosts/mew ];
-  in unstable-system { inherit system pkgs modules; };
+  mew = make-host x86_64-linux-unstable "mew" unstable-system;
 
   # Hosts
-  alakazam = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    extra-modules = import ../hosts/alakazam/modules.nix { inherit self; };
-    modules = base ++ [ ../hosts/alakazam ] ++ extra-modules;
-  in unstable-system { inherit system pkgs modules; };
-
-  cloyster = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    extra-modules =
-      import ../hosts/cloyster-linux/modules.nix { inherit self; };
-    modules = base ++ extra-modules
-      ++ [ ../hosts/cloyster-linux nixos-hardware.nixosModules.apple-t2 ];
-  in unstable-system { inherit system pkgs modules; };
-
-  dragonite = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/dragonite ];
-  in unstable-system { inherit system pkgs modules; };
-
-  gastly = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/gastly ];
-  in unstable-system { inherit system pkgs modules; };
-
-  jigglypuff = let
-    inherit (aarch64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/jigglypuff ];
-  in unstable-system { inherit system pkgs modules; };
-
-  wigglytuff = let
-    inherit (aarch64-linux-bleeding-edge) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base
-      ++ [ ../hosts/wigglytuff nixos-hardware.nixosModules.raspberry-pi-4 ];
-  in bleeding-edge-system { inherit system pkgs modules; };
+  alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
+  cloyster = make-host x86_64-linux-unstable "cloyster" unstable-system;
+  dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
+  gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
+  jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
+  wigglytuff =
+    make-host aarch64-linux-bleeding-edge "wigglytuff" bleeding-edge-system;
 
   ## WSL Configuration
-
-  zubat = let
-    inherit (x86_64-linux-unstable) system identifier pkgs;
-    base = self.common.modules.${identifier};
-    modules = base ++ [ ../hosts/zubat nixos-wsl.nixosModules.wsl ];
-  in unstable-system { inherit system pkgs modules; };
+  zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
   ## MicroVMs
+  ## TEMPORARILY DISABLED
 
   # igglybuff = let
   #   inherit (x86_64-linux-unstable) system identifier pkgs;
