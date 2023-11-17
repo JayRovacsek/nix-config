@@ -65,6 +65,12 @@ in {
 
         "@HOTSPOT_SSID@" = {
           psk = "@HOTSPOT_PSK@";
+          priority = 20;
+          authProtocols = [ "WPA-PSK" ];
+        };
+
+        "@SARAH_HOTSPOT_SSID@" = {
+          psk = "@SARAH_HOTSPOT_PSK@";
           priority = 50;
           authProtocols = [ "WPA-PSK" ];
         };

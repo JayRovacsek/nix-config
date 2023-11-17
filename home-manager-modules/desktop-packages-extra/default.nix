@@ -1,5 +1,6 @@
 { pkgs, lib, osConfig, ... }:
 let
+  inherit (pkgs) system;
   inherit (lib.strings) hasInfix;
 
   darwin-packages = [ ];
@@ -12,10 +13,13 @@ let
     gimp
     jellyfin-media-player
     nextcloud-client
+    netflix
 
     # Communication
     signal-desktop
     thunderbird
+
+    osConfig.flake.packages.${system}.dwarf-therapist
   ];
 
   # TODO: refactor this into a getAttr rather than if statement.
