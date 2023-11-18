@@ -34,53 +34,5 @@ in {
         [ "/var/lib/sddm" ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
     files = [ "/etc/machine-id" ];
-
-    # TODO: Look into if inf recursion can be avoided here: 
-    # doing this per user is kinda :sad-panda:
-
-    # users = builtins.mapAttrs (_: _: {
-    #   directories = [
-    #     "dev"
-    #     "Nextcloud"
-    #     "Pictures"
-    #     "Videos"
-    #     {
-    #       directory = ".gnupg";
-    #       mode = "0700";
-    #     }
-    #     {
-    #       directory = ".ssh";
-    #       mode = "0700";
-    #     }
-    #     {
-    #       directory = ".local/share/keyrings";
-    #       mode = "0700";
-    #     }
-    #     ".local/share/direnv"
-    #   ];
-    # }) normal-users;
-
-    # As an MVP example
-    users.jay = {
-      directories = [
-        "dev"
-        "Nextcloud"
-        "Pictures"
-        "Videos"
-        {
-          directory = ".gnupg";
-          mode = "0700";
-        }
-        {
-          directory = ".ssh";
-          mode = "0700";
-        }
-        {
-          directory = ".local/share/keyrings";
-          mode = "0700";
-        }
-        ".local/share/direnv"
-      ];
-    };
   };
 }
