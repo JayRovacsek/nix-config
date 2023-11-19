@@ -307,6 +307,7 @@
         hydraJobs = with builtins;
           let
             unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
+            unsupported-hosts = [ "diglett" "butterfree" ];
             # Strip out unsupportable systems.
             supported-packages = removeAttrs self.packages unsupported-systems;
 
@@ -334,7 +335,7 @@
             # create a binary-cache entry for all shared elements.
             nixosConfigurations =
               builtins.mapAttrs (_: v: v.config.system.build.toplevel)
-              self.nixosConfigurations;
+              (removeAttrs self.nixosConfigurations unsupported-hosts);
 
             # Strip out below known issue packages when it comes to 
             # hydra evaluation.
