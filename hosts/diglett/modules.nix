@@ -1,6 +1,6 @@
 { self }:
 let
-  inherit (self.common.cloud-base-image-modules) linode;
+  inherit (self.common.images.configurations) linode;
   inherit (self.common.assertions) disable-assertions;
 in (with self.nixosModules; [
   clamav
@@ -11,4 +11,4 @@ in (with self.nixosModules; [
   time
   timesyncd
   zsh
-]) ++ [ linode disable-assertions ]
+]) ++ [ linode._module.args.modules disable-assertions ]

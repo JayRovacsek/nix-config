@@ -50,12 +50,5 @@ in {
   iam = { inherit state-statements; };
 
   inherit region account-id;
-  tags = {
-    # This is neat as it'll ensure we know what commit created the resource.
-    # This will fail if the git tree is dirty, forcing us to be much better about
-    # ensuring code is committed or removed :)
-    # If you're seeing a failure here, it's because your git tree is
-    # dirty. Solve that and no more errors.
-    build = self.common.self.rev;
-  };
+  tags = { build = self.common.self.rev or self.common.self.dirtyRev; };
 }
