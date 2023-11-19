@@ -329,8 +329,12 @@
             checks = removeAttrs self.checks unsupported-systems;
             devShells = removeAttrs self.devShells unsupported-systems;
 
-            alakazam =
-              self.nixosConfigurations.alakazam.config.system.build.toplevel;
+            # Wrap nixos configuration testing via the system.build.toplevel 
+            # attribute which which ensure both build suitability as well as
+            # create a binary-cache entry for all shared elements.
+            nixosConfigurations =
+              builtins.mapAttrs (_: v: v.config.system.build.toplevel)
+              self.nixosConfigurations;
 
             # Strip out below known issue packages when it comes to 
             # hydra evaluation.
