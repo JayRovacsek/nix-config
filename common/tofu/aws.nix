@@ -50,5 +50,7 @@ in {
   iam = { inherit state-statements; };
 
   inherit region account-id;
-  tags = { build = self.common.self.rev or self.common.self.dirtyRev; };
+  tags = {
+    build = self.common.self.rev or self.common.self.dirtyRev or "orphaned";
+  };
 }

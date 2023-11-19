@@ -1,14 +1,13 @@
 { self }:
-let
-  inherit (self.common.images.configurations) linode;
-  inherit (self.common.assertions) disable-assertions;
+let inherit (self.common.assertions) disable-assertions;
 in (with self.nixosModules; [
   clamav
   gnupg
+  linode-image
   lorri
   nix
   openssh
   time
   timesyncd
   zsh
-]) ++ [ linode._module.args.modules disable-assertions ]
+]) ++ [ disable-assertions ]
