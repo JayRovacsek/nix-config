@@ -1,8 +1,7 @@
 { self }:
-let
-  inherit (self.common.cloud-base-image-modules) amazon;
-  inherit (self.common.assertions) disable-assertions;
+let inherit (self.common.assertions) disable-assertions;
 in (with self.nixosModules; [
+  amazon-image
   clamav
   gnupg
   lorri
@@ -12,4 +11,4 @@ in (with self.nixosModules; [
   time
   timesyncd
   zsh
-]) ++ [ amazon disable-assertions ]
+]) ++ [ disable-assertions ]
