@@ -15,6 +15,10 @@
     mode = "0400";
   };
 
+  nix.extraOptions = ''
+    extra-allowed-uris = https://gitlab.com/api/v4/projects/rycee%2Fnmd https://git.sr.ht/~rycee/nmd
+  '';
+
   services.hydra = {
     enable = true;
     extraConfig = ''
