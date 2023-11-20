@@ -2,6 +2,7 @@
   base = import ./base.nix { inherit self; };
   cli = import ./cli.nix { inherit self; };
   games = import ./games.nix { inherit self; };
+  streaming = import ./streaming.nix { inherit self; };
 
   # Desktop shares modules with both linux and darwin
   desktop-minimal = import ./desktop-minimal.nix { inherit self; };

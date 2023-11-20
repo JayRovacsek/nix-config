@@ -17,6 +17,7 @@ with self.nixosModules; [
   pipewire
   sddm
   steam
+  sunshine
   systemd-networkd
   time
   timesyncd
