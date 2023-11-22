@@ -1,8 +1,13 @@
-{ config, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 let
   inherit (config.xdg) configHome;
+
+  nvidia-present = builtins.any (driver: driver == "nvidia")
+    osConfig.services.xserver.videoDrivers;
+
   cfg = {
     address_family = "ipv4";
+    encoder = lib.optionalString nvidia-present "nvenc";
     origin_web_ui_allowed = "lan";
     port = 47989;
     resolutions = [
@@ -18,26 +23,41 @@ let
   };
 
   apps-cfg = {
-    env = { "PATH" = "$(PATH)=$(HOME)/.local/bin"; };
+    env.PATH = config.home.path;
+
     apps = [
       {
-        "name" = "Desktop";
-        "image-path" = "desktop.png";
+        name = "Desktop";
+        image-path = "desktop.png";
       }
       {
-        "name" = "Steam Big Picture";
-        "detached" = [ "setsid steam steam=//open/bigpicture" ];
-        "image-path" = "steam.png";
+        name = "Steam Big Picture";
+        detached = [
+          "${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam=//open/bigpicture"
+        ];
+        # TODO: correct the image to be reproducible via a derivation
+        image-path = "steam.png";
       }
       {
-        "name" = "Codium";
-        "output" = "";
-        "cmd" = "${pkgs.vscodium}/bin/codium";
-        "exclude-global-prep-cmd" = "false";
-        "elevated" = "false";
-        "auto-detach" = "true";
-        "image-path" = "";
-        "working-dir" = "~/dev/personal/nix-config";
+        name = "Codium";
+        output = "";
+        cmd = "${pkgs.vscodium}/bin/codium";
+        exclude-global-prep-cmd = false;
+        elevated = false;
+        auto-detach = true;
+        # TODO: correct the image to be reproducible via a derivation
+        image-path = "";
+        working-dir = "~/dev/personal/nix-config";
+      }
+      {
+        name = "Firefox";
+        output = "";
+        cmd = "${pkgs.firefox}/bin/firefox";
+        exclude-global-prep-cmd = false;
+        elevated = false;
+        auto-detach = true;
+        # TODO: correct the image to be reproducible via a derivation
+        image-path = "";
       }
     ];
   };
