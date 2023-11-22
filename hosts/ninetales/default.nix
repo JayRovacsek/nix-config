@@ -13,7 +13,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
+  imports = [ ./system-packages.nix ./secrets.nix ];
 
   services.nix-daemon.enable = true;
 

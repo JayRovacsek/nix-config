@@ -5,6 +5,7 @@
   assertions = import ./assertions.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
+  cpp-packages = builtins.attrNames (builtins.readDir ../packages/cpp);
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
@@ -26,9 +27,6 @@
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
-  resource-packages =
-    builtins.attrNames (builtins.readDir ../packages/resources);
-
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
   self-reference = import ./self-reference.nix { inherit self; };
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);

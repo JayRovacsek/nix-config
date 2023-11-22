@@ -314,31 +314,15 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      inherit (self.inputs.nixpkgs.lib) recursiveUpdate;
+      inherit (self.inputs.nixpkgs) lib;
+      inherit (lib) recursiveUpdate;
 
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
 
         # Automated build configuration for local packages
-        hydraJobs = with builtins;
-          let
-            # Strip out unsupportable systems.
-            supported-packages =
-              removeAttrs self.packages [ "aarch64-darwin" "x86_64-darwin" ];
-          in {
-            # Strip out below known issue packages when it comes to 
-            # hydra evaluation.
-            packages = mapAttrs (_: value:
-              removeAttrs value [
-                "amazon"
-                "linode"
-                "linode-ami"
-                "oracle"
-                "rpi1-sdImage"
-                "rpi2-sdImage"
-              ]) supported-packages;
-          };
+        hydraJobs = import ./hydra { inherit self lib; };
 
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };

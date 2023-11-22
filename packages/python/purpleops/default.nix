@@ -3,10 +3,12 @@ let
   inherit (pkgs) system;
 
   pname = "PurpleOps";
-  version = "7792663bca75f5aa75f96801228f92660d946d66";
+  version = "356802d8d4ad26ef15d3c50cd2219a104d63142b";
 
   meta = with lib; {
     inherit version;
+
+    broken = true;
     description =
       "An open-source self-hosted purple team management web application";
     platforms = platforms.all;
@@ -39,7 +41,7 @@ let
     owner = "CyberCX-STA";
     repo = pname;
     rev = meta.version;
-    hash = "sha256-ygsLvrWYJeEHFttmKjgIwv9bswHcANOi/jxN3H+mId0=";
+    hash = "sha256-6Cm6X6PXxsIvQRJjZh87/UQhg68ZXuZj0lCCcqFj/NA=";
   };
 
   doCheck = false;
