@@ -17,4 +17,5 @@
   terraform = import ./terraform.nix { inherit self; };
   to-css = import ./to-css.nix { inherit self; };
   users = import ./users.nix { inherit self; };
+  xml = import ./xml.nix { inherit self; };
 }
