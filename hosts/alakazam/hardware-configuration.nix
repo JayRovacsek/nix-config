@@ -1,5 +1,7 @@
 { lib, ... }: {
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+    extraModulePackages = [ ];
     initrd = {
       availableKernelModules =
         [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -10,27 +12,27 @@
       };
     };
     kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
-
-    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
   };
 
   hardware.cpu = {
+    intel.updateMicrocode = true;
     profile = {
       cores = 8;
       speed = 2;
     };
-    intel.updateMicrocode = true;
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e78b4f61-9844-4cb3-a144-ff8f8dd37154";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3BA7-CA2B";
-    fsType = "vfat";
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-uuid/3BA7-CA2B";
+      fsType = "vfat";
+      neededForBoot = true;
+    };
+    "/persistent" = {
+      device = "/dev/disk/by-uuid/e78b4f61-9844-4cb3-a144-ff8f8dd37154";
+      fsType = "ext4";
+      neededForBoot = true;
+    };
   };
 
   swapDevices =

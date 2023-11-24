@@ -11,12 +11,29 @@ let
   # normal-users = lib.filterAttrs (n: v: v.isNormalUser) config.users.users;
 
 in {
+  fileSystems."/" = {
+    device = "none";
+    fsType = "tmpfs";
+    neededForBoot = true;
+    options = [ "defaults" "size=2G" "mode=755" ];
+  };
+
+  boot.tmp = {
+    useTmpfs = true;
+    cleanOnBoot = true;
+  };
+
   environment.persistence."/persistent" = {
     hideMounts = true;
     directories =
       # Default inclusions
       [
+        "/etc/adjtime"
+        "/etc/passwd"
+        "/etc/shadow"
+        "/nix"
         "/var/log"
+        "/var/tmp"
         "/var/lib/nixos"
         "/var/lib/private"
         "/var/lib/systemd"
@@ -28,8 +45,7 @@ in {
       ++ (lib.optionals config.services.xserver.displayManager.lightdm.enable [
         "/var/lib/lightdm"
         "/var/lib/lightdm-data"
-      ]) ++ (lib.optional config.virtualisation.docker.enable "/var/lib/docker")
-      ++ (lib.optional persist-microvm "/var/lib/microvms")
+      ]) ++ (lib.optional persist-microvm "/var/lib/microvms")
       ++ (lib.optionals config.services.xserver.displayManager.sddm.enable
         [ "/var/lib/sddm" ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
