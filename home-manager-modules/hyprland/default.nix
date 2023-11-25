@@ -1,8 +1,10 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib;
+  inherit (pkgs) lib system;
 
   enable = true;
+
+  inherit (osConfig.flake.packages.${system}) mario-homelab-pixelart-wallpaper;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
@@ -27,11 +29,16 @@ let
   };
 
   # 
-  packages = (with pkgs; [ hyprpicker ]) ++ optional-packages;
+  packages = (with pkgs; [ hyprpicker hyprpaper ]) ++ optional-packages;
 
   extraConfig = import ./config.nix { inherit config pkgs osConfig; };
 
 in {
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = ${mario-homelab-pixelart-wallpaper}/share/wallpaper.jpg
+    wallpaper = ,${mario-homelab-pixelart-wallpaper}/share/wallpaper.jpg
+  '';
+
   home = {
     inherit packages;
     sessionVariables = {
