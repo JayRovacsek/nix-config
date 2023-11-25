@@ -876,40 +876,42 @@ in {
       };
     };
 
-    environment.etc."jellyfin/config/system.xml" = {
-      inherit (cfg) user group;
-      text = to-basic-xml cfg.system-settings;
-      mode = "640";
-    };
+    environment.etc = {
+      "jellyfin/config/system.xml" = {
+        inherit (cfg) user group;
+        text = to-basic-xml cfg.system-settings;
+        mode = "640";
+      };
 
-    environment.etc."jellyfin/config/encoding.xml" = {
-      inherit (cfg) user group;
-      text = to-basic-xml cfg.encoding-settings;
-      mode = "640";
-    };
+      "jellyfin/config/encoding.xml" = {
+        inherit (cfg) user group;
+        text = to-basic-xml cfg.encoding-settings;
+        mode = "640";
+      };
 
-    environment.etc."jellyfin/config/network.xml" = {
-      inherit (cfg) user group;
-      text = to-basic-xml cfg.network-settings;
-      mode = "640";
-    };
+      "jellyfin/config/network.xml" = {
+        inherit (cfg) user group;
+        text = to-basic-xml cfg.network-settings;
+        mode = "640";
+      };
 
-    environment.etc."jellyfin/config/notifications.xml" = {
-      inherit (cfg) user group;
-      text = to-basic-xml cfg.notification-settings;
-      mode = "640";
-    };
+      "jellyfin/config/notifications.xml" = {
+        inherit (cfg) user group;
+        text = to-basic-xml cfg.notification-settings;
+        mode = "640";
+      };
 
-    environment.etc."jellyfin/config/dlna.xml" = {
-      inherit (cfg) user group;
-      text = to-basic-xml cfg.dlna-settings;
-      mode = "640";
-    };
+      "jellyfin/config/dlna.xml" = {
+        inherit (cfg) user group;
+        text = to-basic-xml cfg.dlna-settings;
+        mode = "640";
+      };
 
-    environment.etc."jellyfin/config/logging-default.json" = {
-      inherit (cfg) user group;
-      text = builtins.toJSON cfg.logging-settings;
-      mode = "640";
+      "jellyfin/config/logging-default.json" = {
+        inherit (cfg) user group;
+        text = builtins.toJSON cfg.logging-settings;
+        mode = "640";
+      };
     };
 
     systemd.tmpfiles.rules = let
