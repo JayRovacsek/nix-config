@@ -49,161 +49,160 @@ in {
           name = "ServerConfiguration";
           props = ''
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
-
-          children = [
+          value = [
             {
               name = "LogFileRetentionDays";
-              children = 3;
+              value = 14;
             }
             {
               name = "IsStartupWizardCompleted";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableMetrics";
-              children = "false";
+              value = false;
             }
             {
               name = "EnableNormalizedItemByNameIds";
-              children = "true";
+              value = true;
             }
             {
               name = "IsPortAuthorized";
-              children = "true";
+              value = true;
             }
             {
               name = "AutoRunWebApp";
-              children = "true";
+              value = true;
             }
             {
               name = "QuickConnectAvailable";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableCaseSensitiveItemIds";
-              children = "true";
+              value = true;
             }
             {
               name = "DisableLiveTvChannelUserDataName";
-              children = "true";
+              value = true;
             }
             {
               name = "MetadataPath";
-              children = cfg.metadata-dir;
+              value = cfg.metadata-dir;
             }
             { name = "MetadataNetworkPath"; }
             {
               name = "PreferredMetadataLanguage";
-              children = "en";
+              value = "en";
             }
             {
               name = "MetadataCountryCode";
-              children = "AU";
+              value = "AU";
             }
             {
               name = "SortReplaceCharacters";
-              children = [
+              value = [
                 {
                   name = "string";
-                  children = ".";
+                  value = ".";
                 }
                 {
                   name = "string";
-                  children = "+";
+                  value = "+";
                 }
                 {
                   name = "string";
-                  children = "%";
+                  value = "%";
                 }
               ];
             }
             {
               name = "SortRemoveCharacters";
-              children = [
+              value = [
                 {
                   name = "string";
-                  children = ",";
+                  value = ",";
                 }
                 {
                   name = "string";
-                  children = "&amp;";
+                  value = "&amp;";
                 }
                 {
                   name = "string";
-                  children = "-";
+                  value = "-";
                 }
                 {
                   name = "string";
-                  children = "{";
+                  value = "{";
                 }
                 {
                   name = "string";
-                  children = "}";
+                  value = "}";
                 }
                 {
                   name = "string";
-                  children = "'";
+                  value = "'";
                 }
               ];
             }
             {
               name = "SortRemoveWords";
-              children = [
+              value = [
                 {
                   name = "string";
-                  children = "the";
+                  value = "the";
                 }
                 {
                   name = "string";
-                  children = "a";
+                  value = "a";
                 }
                 {
                   name = "string";
-                  children = "an";
+                  value = "an";
                 }
               ];
             }
             {
               name = "MinResumePct";
-              children = 5;
+              value = 5;
             }
             {
               name = "MaxResumePct";
-              children = 90;
+              value = 90;
             }
             {
               name = "MinResumeDurationSeconds";
-              children = 300;
+              value = 300;
             }
             {
               name = "MinAudiobookResume";
-              children = 5;
+              value = 5;
             }
             {
               name = "MaxAudiobookResume";
-              children = 5;
+              value = 5;
             }
             {
               name = "LibraryMonitorDelay";
-              children = 60;
+              value = 60;
             }
             {
               name = "EnableDashboardResponseCaching";
-              children = "true";
+              value = true;
             }
             {
               name = "ImageSavingConvention";
-              children = "Compatible";
+              value = "Compatible";
             }
             {
               name = "MetadataOptions";
-              children = [
+              value = [
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "Book";
+                      value = "Book";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
@@ -215,10 +214,10 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "Movie";
+                      value = "Movie";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
@@ -230,26 +229,26 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "MusicVideo";
+                      value = "MusicVideo";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "The Open Movie Database";
+                        value = "The Open Movie Database";
                       }];
                     }
                     { name = "MetadataFetcherOrder"; }
                     {
                       name = "DisabledImageFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "The Open Movie Database";
+                        value = "The Open Movie Database";
                       }];
                     }
                     { name = "ImageFetcherOrder"; }
@@ -257,26 +256,26 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "Series";
+                      value = "Series";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "TheMovieDb";
+                        value = "TheMovieDb";
                       }];
                     }
                     { name = "MetadataFetcherOrder"; }
                     {
                       name = "DisabledImageFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "TheMovieDb";
+                        value = "TheMovieDb";
                       }];
                     }
                     { name = "ImageFetcherOrder"; }
@@ -284,18 +283,18 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "MusicAlbum";
+                      value = "MusicAlbum";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "TheAudioDB";
+                        value = "TheAudioDB";
                       }];
                     }
                     { name = "MetadataFetcherOrder"; }
@@ -305,18 +304,18 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "MusicArtist";
+                      value = "MusicArtist";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "TheAudioDB";
+                        value = "TheAudioDB";
                       }];
                     }
                     { name = "MetadataFetcherOrder"; }
@@ -326,10 +325,10 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "BoxSet";
+                      value = "BoxSet";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
@@ -341,18 +340,18 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "Season";
+                      value = "Season";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [{
+                      value = [{
                         name = "string";
-                        children = "TheMovieDb";
+                        value = "TheMovieDb";
                       }];
                     }
                     { name = "MetadataFetcherOrder"; }
@@ -362,37 +361,37 @@ in {
                 }
                 {
                   name = "MetadataOptions";
-                  children = [
+                  value = [
                     {
                       name = "ItemType";
-                      children = "Episode";
+                      value = "Episode";
                     }
                     { name = "DisabledMetadataSavers"; }
                     { name = "LocalMetadataReaderOrder"; }
                     {
                       name = "DisabledMetadataFetchers";
-                      children = [
+                      value = [
                         {
                           name = "string";
-                          children = "The Open Movie Database";
+                          value = "The Open Movie Database";
                         }
                         {
                           name = "string";
-                          children = "TheMovieDb";
+                          value = "TheMovieDb";
                         }
                       ];
                     }
                     { name = "MetadataFetcherOrder"; }
                     {
                       name = "DisabledImageFetchers";
-                      children = [
+                      value = [
                         {
                           name = "string";
-                          children = "The Open Movie Database";
+                          value = "The Open Movie Database";
                         }
                         {
                           name = "string";
-                          children = "TheMovieDb";
+                          value = "TheMovieDb";
                         }
                       ];
                     }
@@ -403,50 +402,50 @@ in {
             }
             {
               name = "SkipDeserializationForBasicTypes";
-              children = "true";
+              value = true;
             }
             {
               name = "ServerName";
-              children = config.networking.hostName;
+              value = config.networking.hostName;
             }
             {
               name = "UICulture";
-              children = "en-GB";
+              value = "en-GB";
             }
             {
               name = "SaveMetadataHidden";
-              children = "false";
+              value = false;
             }
             { name = "ContentTypes"; }
             {
               name = "RemoteClientBitrateLimit";
-              children = 20000000;
+              value = 20000000;
             }
             {
               name = "EnableFolderView";
-              children = "false";
+              value = false;
             }
             {
               name = "EnableGroupingIntoCollections";
-              children = "false";
+              value = false;
             }
             {
               name = "DisplaySpecialsWithinSeasons";
-              children = "true";
+              value = true;
             }
             { name = "CodecsUsed"; }
             {
               name = "PluginRepositories";
-              children = [{
+              value = [{
                 name = "RepositoryInfo";
-                children = [
+                value = [
                   {
                     name = "Name";
-                    children = "Jellyfin Stable";
+                    value = "Jellyfin Stable";
                   }
                   {
                     name = "Url";
-                    children =
+                    value =
                       "https://repo.jellyfin.org/releases/plugin/manifest-stable.json";
                   }
                 ];
@@ -454,20 +453,20 @@ in {
             }
             {
               name = "EnableExternalContentInSuggestions";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableNewOmdbSupport";
-              children = "true";
+              value = true;
             }
             {
               name = "ImageExtractionTimeoutMs";
-              children = 0;
+              value = 0;
             }
             { name = "PathSubstitutions"; }
             {
               name = "EnableSimpleArtistDetection";
-              children = "true";
+              value = true;
             }
             { name = "UninstalledPlugins"; }
           ];
@@ -482,88 +481,92 @@ in {
           props = ''
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
 
-          children = [
+          value = [
             {
               name = "EncodingThreadCount";
-              children = 0;
+              value = 0;
             }
             { name = "TranscodingTempPath"; }
             {
               name = "DownMixAudioBoost";
-              children = 2;
+              value = 2;
             }
             {
               name = "EnableThrottling";
-              children = "true";
+              value = true;
             }
             {
               name = "ThrottleDelaySeconds";
-              children = 180;
+              value = 180;
             }
             {
               name = "HardwareAccelerationType";
               # TODO: make this dynamic depending on system capabilities
-              children = "nvenc";
+              value = "nvenc";
             }
             {
               name = "H264Crf";
-              children = 23;
+              value = 23;
             }
             {
               name = "H265Crf";
-              children = 28;
+              value = 28;
             }
             { name = "EncoderPreset"; }
             {
               name = "DeinterlaceMethod";
-              children = "yadif";
+              value = "yadif";
             }
             {
               name = "EnableDecodingColorDepth10Hevc";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableDecodingColorDepth10Vp9";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableHardwareEncoding";
-              children = "true";
+              value = true;
+            }
+            {
+              name = "AllowHevcEncoding";
+              value = true;
             }
             {
               name = "EnableSubtitleExtraction";
-              children = "true";
+              value = true;
             }
             {
               name = "HardwareDecodingCodecs";
-              children = [
+              value = [
                 {
                   name = "string";
-                  children = "h264";
+                  value = "h264";
                 }
                 {
                   name = "string";
-                  children = "hevc";
+                  value = "hevc";
                 }
                 {
                   name = "string";
-                  children = "mpeg2video";
+                  value = "mpeg2video";
                 }
                 {
                   name = "string";
-                  children = "mpeg4";
+                  value = "mpeg4";
                 }
                 {
                   name = "string";
-                  children = "vc1";
+                  value = "vc1";
                 }
                 {
                   name = "string";
-                  children = "vp8";
+                  value = "vp8";
                 }
                 {
                   name = "string";
-                  children = "vp9";
+                  value = "vp9";
                 }
               ];
             }
@@ -579,129 +582,129 @@ in {
           props = ''
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
 
-          children = [
+          value = [
             {
               name = "RequireHttps";
-              children = "false";
+              value = false;
             }
             { name = "CertificatePath"; }
             { name = "CertificatePassword"; }
             { name = "BaseUrl"; }
             {
               name = "PublicHttpsPort";
-              children = cfg.https-port;
+              value = cfg.https-port;
             }
             {
               name = "HttpServerPortNumber";
-              children = cfg.http-port;
+              value = cfg.http-port;
             }
             {
               name = "HttpsPortNumber";
-              children = cfg.https-port;
+              value = cfg.https-port;
             }
             {
               name = "EnableHttps";
-              children = "true";
+              value = true;
             }
             {
               name = "PublicPort";
-              children = cfg.http-port;
+              value = cfg.http-port;
             }
             {
               name = "UPnPCreateHttpPortMap";
-              children = "false";
+              value = false;
             }
             { name = "UDPPortRange"; }
             {
               name = "EnableIPV6";
-              children = "false";
+              value = false;
             }
             {
               name = "EnableIPV6";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableSSDPTracing";
-              children = "false";
+              value = false;
             }
             { name = "SSDPTracingFilter"; }
             {
               name = "UDPSendCount";
-              children = 2;
+              value = 2;
             }
             {
               name = "UDPSendCount";
-              children = 100;
+              value = 100;
             }
             {
               name = "IgnoreVirtualInterfaces";
-              children = "true";
+              value = true;
             }
             {
               name = "VirtualInterfaceNames";
-              children = "vEthernet*";
+              value = "vEthernet*";
             }
             {
               name = "GatewayMonitorPeriod";
-              children = 60;
+              value = 60;
             }
             {
               name = "TrustAllIP6Interfaces";
-              children = "false";
+              value = false;
             }
             { name = "HDHomerunPortRange"; }
             { name = "PublishedServerUriBySubnet"; }
             {
               name = "IgnoreVirtualInterfaces";
-              children = "false";
+              value = false;
             }
             {
               name = "AutoDiscoveryTracing";
-              children = "false";
+              value = false;
             }
             {
               name = "AutoDiscovery";
-              children = "false";
+              value = false;
             }
             { name = "RemoteIPFilter"; }
             {
               name = "IsRemoteIPFilterBlacklist";
-              children = "true";
+              value = true;
             }
             {
               name = "EnableUPnP";
-              children = "false";
+              value = false;
             }
             {
               name = "EnableRemoteAccess";
-              children = "true";
+              value = true;
             }
             {
               name = "LocalNetworkSubnets";
-              children = [
+              value = [
                 {
                   name = "string";
-                  children = "192.168.1.0/24";
+                  value = "192.168.1.0/24";
                 }
                 {
                   name = "string";
-                  children = "192.168.2.0/24";
+                  value = "192.168.2.0/24";
                 }
                 {
                   name = "string";
-                  children = "192.168.3.0/24";
+                  value = "192.168.3.0/24";
                 }
                 {
                   name = "string";
-                  children = "192.168.5.0/24";
+                  value = "192.168.5.0/24";
                 }
                 {
                   name = "string";
-                  children = "192.168.7.0/24";
+                  value = "192.168.7.0/24";
                 }
                 {
                   name = "string";
-                  children = "192.168.8.0/24";
+                  value = "192.168.8.0/24";
                 }
               ];
             }
@@ -709,11 +712,141 @@ in {
             { name = "KnownProxies"; }
             {
               name = "EnablePublishedServerUriByRequest";
-              children = "false";
+              value = false;
             }
           ];
         };
         description = lib.mdDoc "Networking settings for Jellyfin.";
+      };
+
+      notification-settings = mkOption {
+        type = types.attrs;
+        default = {
+          name = "NotificationOptions";
+          props = ''
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
+
+          value = [{
+            name = "Options";
+            value = builtins.map (x: {
+              name = x;
+              value = [
+                {
+                  name = "Type";
+                  value = "TaskFailed";
+                }
+                { name = "DisabledMonitorUsers"; }
+                { name = "SendToUsers"; }
+                {
+                  name = "Enabled";
+                  value = true;
+                }
+                { name = "DisabledServices"; }
+                {
+                  name = "SendToUserMode";
+                  value = "Admins";
+                }
+              ];
+            }) [
+              "TaskFailed"
+              "ServerRestartRequired"
+              "ApplicationUpdateAvailable"
+              "ApplicationUpdateInstalled"
+              "PluginUpdateInstalled"
+              "PluginUninstalled"
+              "InstallationFailed"
+              "PluginInstalled"
+              "PluginError"
+              "UserLockedOut"
+              "VideoPlayback"
+            ];
+          }];
+        };
+        description = lib.mdDoc "Notification settings for Jellyfin.";
+      };
+
+      logging-settings = mkOption {
+        type = types.attrs;
+        default = {
+          Serilog = {
+            MinimumLevel = {
+              Default = "Information";
+              Override = {
+                Microsoft = "Warning";
+                System = "Warning";
+              };
+            };
+            WriteTo = [
+              {
+                Name = "Console";
+                Args = {
+                  outputTemplate =
+                    "[{Timestamp:HH:mm:ss}] [{Level:u3}] [{ThreadId}] {SourceContext}= {Message:lj}{NewLine}{Exception}";
+                };
+              }
+              {
+                Name = "Async";
+                Args = {
+                  configure = [{
+                    Name = "File";
+                    Args = {
+                      path = "%JELLYFIN_LOG_DIR%//log_.log";
+                      rollingInterval = "Day";
+                      retainedFileCountLimit = 3;
+                      rollOnFileSizeLimit = true;
+                      fileSizeLimitBytes = 100000000;
+                      outputTemplate =
+                        "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] [{Level:u3}] [{ThreadId}] {SourceContext}= {Message}{NewLine}{Exception}";
+                    };
+                  }];
+                };
+              }
+            ];
+            Enrich = [ "FromLogContext" "WithThreadId" ];
+          };
+        };
+        description = lib.mdDoc "Logging settings for Jellyfin.";
+      };
+
+      dlna-settings = mkOption {
+        type = types.attrs;
+        default = {
+          name = "DlnaOptions";
+          props = ''
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
+
+          value = [
+            {
+              name = "EnablePlayTo";
+              value = false;
+            }
+            {
+              name = "EnableServer";
+              value = false;
+            }
+            {
+              name = "EnableDebugLog";
+              value = false;
+            }
+            {
+              name = "BlastAliveMessages";
+              value = false;
+            }
+            {
+              name = "SendOnlyMatchedHost";
+              value = true;
+            }
+            {
+              name = "ClientDiscoveryIntervalSeconds";
+              value = 60;
+            }
+            {
+              name = "BlastAliveMessageIntervalSeconds";
+              value = 1800;
+            }
+          ];
+        };
+        description = lib.mdDoc "DLNA settings for Jellyfin.";
       };
     };
   };
@@ -746,19 +879,37 @@ in {
     environment.etc."jellyfin/config/system.xml" = {
       inherit (cfg) user group;
       text = to-basic-xml cfg.system-settings;
-      mode = "660";
+      mode = "640";
     };
 
     environment.etc."jellyfin/config/encoding.xml" = {
       inherit (cfg) user group;
       text = to-basic-xml cfg.encoding-settings;
-      mode = "660";
+      mode = "640";
     };
 
     environment.etc."jellyfin/config/network.xml" = {
       inherit (cfg) user group;
       text = to-basic-xml cfg.network-settings;
-      mode = "660";
+      mode = "640";
+    };
+
+    environment.etc."jellyfin/config/notifications.xml" = {
+      inherit (cfg) user group;
+      text = to-basic-xml cfg.notification-settings;
+      mode = "640";
+    };
+
+    environment.etc."jellyfin/config/dlna.xml" = {
+      inherit (cfg) user group;
+      text = to-basic-xml cfg.dlna-settings;
+      mode = "640";
+    };
+
+    environment.etc."jellyfin/config/logging-default.json" = {
+      inherit (cfg) user group;
+      text = builtins.toJSON cfg.logging-settings;
+      mode = "640";
     };
 
     systemd.tmpfiles.rules = let
@@ -767,9 +918,12 @@ in {
       else
         "${cfg.data-dir}/config";
     in [
-      "L+ ${config-dir}/system.xml - - - - /etc/jellyfin/config/system.xml"
+      "L+ ${config-dir}/dlna.xml - - - - /etc/jellyfin/config/dlna.xml"
       "L+ ${config-dir}/encoding.xml - - - - /etc/jellyfin/config/encoding.xml"
+      "L+ ${config-dir}/logging-default.json - - - - /etc/jellyfin/config/logging-default.json"
       "L+ ${config-dir}/network.xml - - - - /etc/jellyfin/config/network.xml"
+      "L+ ${config-dir}/notifications.xml - - - - /etc/jellyfin/config/notifications.xml"
+      "L+ ${config-dir}/system.xml - - - - /etc/jellyfin/config/system.xml"
     ];
   };
 }
