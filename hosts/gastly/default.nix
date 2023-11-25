@@ -2,12 +2,13 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (flake.common.home-manager-module-sets) hyprland-waybar-desktop;
+
   inherit (flake.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-waybar-desktop;
   };
 
   merged = merge [ jay ];
@@ -43,34 +44,9 @@ in {
     ];
   };
 
-  imports = [ ./hardware-configuration.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./wireless.nix ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking = {
-    hostName = "gastly";
-    useDHCP = true;
-    wireless = {
-      enable = true;
-      # TODO agenix when I get a moment
-      environmentFile = "/secrets/wpa.conf";
-      interfaces = [ "wlp58s0" ];
-      networks = {
-        "@HOME_SSID@" = {
-          psk = "@HOME_PSK@";
-          priority = 10;
-          authProtocols = [ "WPA-PSK" ];
-        };
-
-        "@HOTSPOT_SSID@" = {
-          psk = "@HOTSPOT_PSK@";
-          priority = 50;
-          authProtocols = [ "WPA-PSK" ];
-        };
-      };
-    };
-  };
+  environment.systemPackages = with pkgs; [ curl wget agenix ];
 
   system.stateVersion = "22.11";
 }
-

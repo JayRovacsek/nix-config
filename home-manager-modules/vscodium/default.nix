@@ -106,7 +106,7 @@
       dbaeumer.vscode-eslint
 
       # XML
-      dotjoshjohnson.xml
+      redhat.vscode-xml
 
       # YAML
       redhat.vscode-yaml
