@@ -10,6 +10,6 @@
   networking.wireless = {
     enable = true;
     interfaces = [ "wlan0" ];
-    networks."@IOT_SSID@".psk = "@IOT_PSK@";
+    networks."@SSID@".psk = "@PSK@";
   };
 }
