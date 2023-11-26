@@ -9,10 +9,9 @@
         splashImage = lib.mkForce null;
       };
     };
-
-    networking = {
-      interfaces.eth0.useDHCP = true;
-      usePredictableInterfaceNames = false;
-    };
+  };
+  networking = {
+    interfaces.eth0.useDHCP = true;
+    usePredictableInterfaceNames = false;
   };
 }
