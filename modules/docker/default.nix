@@ -1,5 +1,6 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
+  inherit (lib) optionals;
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
 
@@ -9,26 +10,18 @@ let
   enableNvidia =
     builtins.any (x: x == "nvidia") config.services.xserver.videoDrivers;
 
-  systemdUnitConfigs = {
-    systemd.services.docker.after =
-      if zfsBootSupported || zfsServiceSupported then
-        [ "zfs-mount.service" ]
-      else
-        [ ];
-
-    systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
+in {
+  virtualisation = {
+    oci-containers.backend = "docker";
+    docker = {
+      inherit enableNvidia;
+      enable = true;
+      rootless.enable = true;
+      autoPrune.enable = true;
+    };
   };
 
-  cfg = {
-    virtualisation = {
-      oci-containers.backend = "docker";
-      docker = {
-        inherit enableNvidia;
-        enable = true;
-        rootless.enable = true;
-        autoPrune.enable = true;
-      };
-    };
-  } // systemdUnitConfigs;
-
-in cfg
+  systemd.services.docker.after =
+    optionals (zfsBootSupported || zfsServiceSupported) [ "zfs-mount.service" ];
+  systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
+}

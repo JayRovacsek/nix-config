@@ -49,7 +49,11 @@ in {
 
   programs.ssh = { inherit extraConfig; };
 
-  environment.systemPackages = with pkgs; [ nix ];
-
-  nix = { inherit buildMachines distributedBuilds gc settings extraOptions; };
+  nix = {
+    inherit buildMachines distributedBuilds gc settings extraOptions;
+    package = if builtins.hasAttr "nix-monitored" pkgs then
+      pkgs.nix-monitored
+    else
+      pkgs.nix;
+  };
 }

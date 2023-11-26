@@ -1,1 +1,1 @@
-{ security.sudo.wheelNeedsPassword = false; }
+_: { security.sudo.wheelNeedsPassword = false; }

@@ -1,23 +1,8 @@
-{ pkgs, osConfig, ... }:
+{ config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib system mpvpaper systemd wofi;
+  inherit (pkgs)
+    grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
-  inherit (osConfig.flake.packages.${system}.wallpapers)
-    may-sitting-near-waterfall-pokemon-emerald;
-
-  nvidia-present = builtins.any (driver: driver == "nvidia")
-    osConfig.services.xserver.videoDrivers;
-
-  rpi-present = (builtins.hasAttr "raspberry-pi" osConfig.hardware)
-    && osConfig.hardware.raspberry-pi."4".fkms-3d.enable;
-
-  nvidia-hardware-flags =
-    lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
-
-  rpi-hardware-flags = lib.optionalString rpi-present "--opengl-glfinish=yes";
-
-  hardware-wallpaper =
-    lib.concatStringsSep " " [ nvidia-hardware-flags rpi-hardware-flags ];
 
   alakazam-monitors = [
     {
@@ -35,16 +20,16 @@ let
       extra = "";
     }
     {
-      name = "DP-2";
+      name = "DP-5";
       resolution = "1920x1080";
-      position = "4920x420";
+      position = "3000x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-3";
+      name = "DP-4";
       resolution = "1920x1080";
-      position = "3000x420";
+      position = "4920x420";
       scale = "1";
       extra = "";
     }
@@ -54,14 +39,20 @@ let
   else
     [ ",preferred,auto,auto" ];
 
-in generate-config {
-  inherit monitor;
+  waybar-exec = "${systemd}/bin/systemctl --user start waybar.service";
 
-  exec-once = [
-    ''
-      ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4''
-    "${systemd}/bin/systemctl --user restart waybar.service"
-  ];
+  nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
+    config.home.packages;
+
+  wallpaper-exec = "${hyprpaper}/bin/hyprpaper";
+
+  nextcloud-exec =
+    lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
+
+  exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
+
+in generate-config {
+  inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";
   input = {
@@ -85,11 +76,6 @@ in generate-config {
   # https://wiki.hyprland.org/Configuring/Variables/#decoration
   decoration = {
     rounding = 5;
-    blur = true;
-    blur_size = 3;
-    blur_passes = 1;
-    blur_ignore_opacity = false;
-    blur_new_optimizations = true;
     drop_shadow = true;
     shadow_range = 4;
     shadow_render_power = 3;
@@ -133,7 +119,7 @@ in generate-config {
     "$mainMod, Q, killactive,"
     "$mainMod, M, exit,V"
     "$mainMod, V, togglefloating,"
-    "CTRL SHIFT, Space, exec, ${wofi}/bin/wofi --show drun --insensitive"
+    "CTRL SHIFT, Space, exec, ${fuzzel}/bin/fuzzel --vertical-pad 50 --horizontal-pad 100 --show-actions --lines 20 --width 80"
     "$mainMod, P, pseudo, # dwindle"
     "$mainMod, J, togglesplit, # dwindle"
 
@@ -152,6 +138,10 @@ in generate-config {
     # Scroll through existing workspaces with mainMod + scroll
     "$mainMod, mouse_down, workspace, e+1"
     "$mainMod, mouse_up, workspace, e-1"
+
+    # Print Screen
+    ''
+      , code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging

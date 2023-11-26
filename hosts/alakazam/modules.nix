@@ -1,26 +1,27 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/clamav
-    ../../modules/docker
-    ../../modules/fonts
-    ../../modules/generations
-    ../../modules/gnupg
-    ../../modules/gnome
-    ../../modules/hyprland
-    ../../modules/keybase
-    ../../modules/lorri
-    ../../modules/microvm/simple
-    ../../modules/nix
-    ../../modules/nixinate
-    ../../modules/nvidia
-    ../../modules/openssh
-    ../../modules/pipewire
-    ../../modules/sddm
-    ../../modules/steam
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/udev
-    ../../modules/zsh
-  ];
-}
+{ self }:
+with self.nixosModules; [
+  agenix
+  clamav
+  docker
+  fonts
+  generations
+  gnupg
+  grub
+  hyprland
+  jellyfin
+  keybase
+  lorri
+  nextcloud-client
+  nix
+  nvidia
+  openssh
+  pipewire
+  sddm
+  steam
+  systemd-networkd
+  time
+  timesyncd
+  udev
+  zsh
+]
+

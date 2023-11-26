@@ -1,6 +1,5 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
   inherit (pkgs) coreutils git;
   inherit (self.lib.distributed-builds) base-configs;
 

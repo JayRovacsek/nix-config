@@ -1,0 +1,21 @@
+From a1fdd6a1fe4b2d42f972af7a943188f9fa75c0c2 Mon Sep 17 00:00:00 2001
+From: Jay Rovacsek <jay@rovacsek.com>
+Date: Sun, 30 Jul 2023 09:34:53 +1000
+Subject: [PATCH] Bump dependencies
+
+---
+ requirements.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/requirements.txt b/requirements.txt
+index 3c9cd21..df87feb 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,2 +1,2 @@
+-defusedxml==0.5.0
+-pyyaml==5.4
++defusedxml==0.7.1
++pyyaml==6.0
+-- 
+2.41.0
+

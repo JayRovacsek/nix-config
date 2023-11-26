@@ -5,6 +5,8 @@ let
 
   tailnet = lookup-tailnet hostName;
   authFile = config.age.secrets."preauth-${tailnet}".path;
+
+  headscale-present = config.services.headscale.enable;
 in {
   imports = [ ../../options/tailscale ];
 
@@ -15,10 +17,7 @@ in {
 
   age.secrets."preauth-${tailnet}" = {
     file = ../../secrets/tailscale/preauth-${tailnet}.age;
-    mode = "0440";
-    group = if config.services.headscale.enable then
-      config.services.headscale.group
-    else
-      "0";
+    mode = if headscale-present then lib.mkForce "0440" else "0400";
+    group = if headscale-present then config.services.headscale.group else "0";
   };
 }

@@ -54,9 +54,7 @@ let
         # associated settings.
         stateVersion = "22.11";
 
-        sessionVariables.NIX_PATH = "nixpkgs=${
-            config.home-manager.users."${name}".xdg.configHome
-          }/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
+        sessionVariables.NIX_PATH = "nixpkgs=${builtins.toString pkgs.path}";
 
         file.".ssh/config".text = ''
           Host github.com
@@ -95,4 +93,27 @@ let
         xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };
     };
-in { inherit generate-config; }
+
+  # TODO: clean up the below - it's old as heck and
+  # makes me sad.
+  generate-service-user = cfg:
+    let
+      extraGroupExtendedOptions =
+        if cfg.name == cfg.group.name then { } else { "${cfg.name}" = { }; };
+
+    in {
+      extraUsers = {
+        "${cfg.name}" = {
+          inherit (cfg) uid extraGroups;
+          isSystemUser = true;
+          createHome = false;
+          description = "User account generated for running a specific service";
+          group = "${cfg.name}";
+        };
+      };
+
+      extraGroups = {
+        "${cfg.group.name}" = { inherit (cfg.group) gid members; };
+      } // extraGroupExtendedOptions;
+    };
+in { inherit generate-config generate-service-user; }

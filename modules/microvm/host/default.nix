@@ -114,6 +114,7 @@ in {
   };
 
   networking = {
+    firewall.allowedUDPPorts = [ 67 ];
     nat = {
       inherit enable;
       enableIPv6 = enable;
@@ -122,9 +123,9 @@ in {
     };
   };
 
-  systemd.network.networks = microvmNetworks;
-  systemd.network.netdevs = microvmNetdevs;
-  systemd.tmpfiles.rules = journaldRules;
-
-  networking.firewall.allowedUDPPorts = [ 67 ];
+  systemd.network = {
+    networks = microvmNetworks;
+    netdevs = microvmNetdevs;
+    tmpfiles.rules = journaldRules;
+  };
 }

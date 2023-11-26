@@ -30,6 +30,7 @@ in {
     enable = true;
 
     profiles.jay = {
+      id = 0;
       inherit extensions;
 
       search = {
@@ -100,17 +101,12 @@ in {
         "nib Jira Search" = {
           keyword = "j";
           url =
-            "https://jira.nib.com.au/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+            "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
         };
         "nib Confluence Search" = {
           keyword = "c";
-          url =
-            "https://confluence.nib.com.au/dosearchsite.action?cql=siteSearch+~+%22%s%22&queryString=%s";
-        };
-        "nib Jira V2 Search" = {
-          keyword = "jj";
-          url =
-            "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+          url = "https://nibgroup.atlassian.net/wiki/search/?text=%s";
+
         };
         "nib Github Search" = {
           keyword = "ngh";

@@ -8,11 +8,7 @@ in builtins.mapAttrs (package-set: _:
 
     generic = [ ../options/flake ../options/hardware ../options/networking ];
 
-    linux = optionals isLinux [
-      ../options/falcon-sensor
-      ../options/systemd
-      ../options/tailscale
-    ];
+    linux = optionals isLinux [ ../options/systemd ../options/tailscale ];
 
     darwin = optionals isDarwin [
       ../options/blocky

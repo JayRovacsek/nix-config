@@ -1,4 +1,4 @@
-{ self }: {
+_: {
   read-only-store = {
     proto = "virtiofs";
     tag = "ro-store";
