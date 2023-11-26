@@ -51,6 +51,34 @@
       value = "bt2390";
     }
     {
+      name = "TonemappingMode";
+      value = "auto";
+    }
+    {
+      name = "TonemappingRange";
+      value = "auto";
+    }
+    {
+      name = "TonemappingDesat";
+      value = 0;
+    }
+    {
+      name = "TonemappingPeak";
+      value = 100;
+    }
+    {
+      name = "TonemappingParam";
+      value = 0;
+    }
+    {
+      name = "VppTonemappingBrightness";
+      value = 16;
+    }
+    {
+      name = "VppTonemappingContrast";
+      value = 1;
+    }
+    {
       name = "H264Crf";
       value = 23;
     }
@@ -59,6 +87,10 @@
       value = 28;
     }
     { name = "EncoderPreset"; }
+    {
+      name = "DeinterlaceDoubleRate";
+      value = false;
+    }
     {
       name = "DeinterlaceMethod";
       value = "yadif";
@@ -70,6 +102,31 @@
     {
       name = "EnableDecodingColorDepth10Vp9";
       value = true;
+    }
+
+    {
+      name = "EnableDecodingColorDepth10Hevc";
+      value = true;
+    }
+    {
+      name = "EnableDecodingColorDepth10Vp9";
+      value = true;
+    }
+    {
+      name = "EnableEnhancedNvdecDecoder";
+      value = true;
+    }
+    {
+      name = "PreferSystemNativeHwDecoder";
+      value = true;
+    }
+    {
+      name = "EnableIntelLowPowerH264HwEncoder";
+      value = false;
+    }
+    {
+      name = "EnableIntelLowPowerHevcHwEncoder";
+      value = false;
     }
     {
       name = "EnableHardwareEncoding";
@@ -115,6 +172,13 @@
           value = "vp9";
         }
       ];
+    }
+    {
+      name = "AllowOnDemandMetadataBasedKeyframeExtractionForExtensions";
+      value = [{
+        name = "string";
+        value = "mkv";
+      }];
     }
   ];
 }
