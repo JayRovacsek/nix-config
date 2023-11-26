@@ -159,7 +159,7 @@ in {
         mode = "640";
       };
 
-      "jellyfin/config/logging-default.json" =
+      "jellyfin/config/logging.default.json" =
         mkIf (cfg.logging-settings != null) {
           inherit (cfg) user group;
           text = let
@@ -180,7 +180,7 @@ in {
       in [
         "L+ ${config-dir}/dlna.xml - - - - /etc/jellyfin/config/dlna.xml"
         "L+ ${config-dir}/encoding.xml - - - - /etc/jellyfin/config/encoding.xml"
-        "L+ ${config-dir}/logging-default.json - - - - /etc/jellyfin/config/logging-default.json"
+        "L+ ${config-dir}/logging.default.json - - - - /etc/jellyfin/config/logging.default.json"
         "L+ ${config-dir}/network.xml - - - - /etc/jellyfin/config/network.xml"
         "L+ ${config-dir}/notifications.xml - - - - /etc/jellyfin/config/notifications.xml"
         "L+ ${config-dir}/system.xml - - - - /etc/jellyfin/config/system.xml"
