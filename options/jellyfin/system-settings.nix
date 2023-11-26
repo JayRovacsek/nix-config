@@ -145,7 +145,7 @@
     }
     {
       name = "ImageSavingConvention";
-      value = "Compatible";
+      value = "Legacy";
     }
     {
       name = "MetadataOptions";
@@ -409,10 +409,6 @@
       value = true;
     }
     {
-      name = "EnableNewOmdbSupport";
-      value = true;
-    }
-    {
       name = "ImageExtractionTimeoutMs";
       value = 0;
     }
@@ -447,6 +443,10 @@
     {
       name = "RemoveOldPlugins";
       value = false;
+    }
+    {
+      name = "AllowClientLogUpload";
+      value = true;
     }
   ];
 }
