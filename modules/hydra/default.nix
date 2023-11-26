@@ -5,7 +5,7 @@
   # to enable remote builds. However we need to force ownership of the key
   # to hydra so that it may evaluate remote builds correctly also otherwise
   # it will be refused access to the SSH key.
-  # The permission sets are equivilent between hydra and builder given
+  # The permission sets are equivalent between hydra and builder given
   # both have access to the nix store. This doesn't really reduce security even
   # if it looks wonky - root still is assumed in the build process and therefore
   # doesn't care about the 400 permission.

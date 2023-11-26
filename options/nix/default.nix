@@ -6,7 +6,7 @@ let
 
   # Submodule of source requires fields name and source,
   # and optionally enable if we have a reason to stop
-  # the propogation of a select source
+  # the propagation of a select source
   source = {
     options = {
       # Assume true - opt in for false to explicitly disable a source

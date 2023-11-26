@@ -19,7 +19,7 @@ _: {
       icons = {
         when = "auto";
         theme = "fancy";
-        seperator = " ";
+        separator = " ";
       };
 
       sorting = {
