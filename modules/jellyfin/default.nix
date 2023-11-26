@@ -15,5 +15,6 @@
     # network-settings = { };
     # notification-settings = { };
     # system-settings = { };
+    use-declarative-settings = true;
   };
 }
