@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.jellyfin;
   CacheDirectory = "jellyfin";
-  inherit (config.flake.lib.xml) to-basic-xml;
+  inherit (config.flake.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
 in {
   options = {
@@ -118,7 +118,7 @@ in {
         text = let
           default-settings =
             import ./system-settings.nix { inherit cfg config; };
-        in to-basic-xml (recursiveUpdate default-settings cfg.system-settings);
+        in to-xml (recursiveUpdate default-settings cfg.system-settings);
         mode = "640";
       };
 
@@ -126,8 +126,7 @@ in {
         inherit (cfg) user group;
         text = let
           default-settings = import ./encoding-settings.nix { inherit pkgs; };
-        in to-basic-xml
-        (recursiveUpdate default-settings cfg.encoding-settings);
+        in to-xml (recursiveUpdate default-settings cfg.encoding-settings);
         mode = "640";
       };
 
@@ -136,7 +135,7 @@ in {
         text = let
           default-settings =
             import ./network-settings.nix { inherit cfg config; };
-        in to-basic-xml (recursiveUpdate default-settings cfg.network-settings);
+        in to-xml (recursiveUpdate default-settings cfg.network-settings);
         mode = "640";
       };
 
@@ -146,7 +145,7 @@ in {
           text = let
             default-settings =
               import ./notification-settings.nix { inherit cfg config; };
-          in to-basic-xml
+          in to-xml
           (recursiveUpdate default-settings cfg.notification-settings);
           mode = "640";
         };
@@ -155,7 +154,7 @@ in {
         inherit (cfg) user group;
         text = let
           default-settings = import ./dlna-settings.nix { inherit cfg config; };
-        in to-basic-xml (recursiveUpdate default-settings cfg.dlna-settings);
+        in to-xml (recursiveUpdate default-settings cfg.dlna-settings);
         mode = "640";
       };
 

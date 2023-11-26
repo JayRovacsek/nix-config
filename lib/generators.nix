@@ -3,21 +3,32 @@ let
   inherit (self.inputs.nixpkgs) lib;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.strings) concatLines;
+  inherit (lib) foldl' optionalString;
+
+  bool-to-string = x: if x then "true" else "false";
+
   to-css = attrs:
     concatLines (mapAttrsToList (name: value:
       if (builtins.typeOf value == "set") then ''
         ${name} {
-          ${self.lib.generators.to-css value}
+          ${to-css value}
         }
       '' else
         "${name}: ${builtins.toString value};") attrs);
 
-  # TODO: handle arrays
-  to-xml = attrs:
-    concatLines (mapAttrsToList (name: value:
-      if (builtins.typeOf value == "set") then ''
-        <${name}>${self.lib.generators.to-xml value}</${name}>
-      '' else
-        "<${name}>${builtins.toString value}</${name}>") attrs);
+  to-xml = { name, value ? null, props ? null, ... }: ''
+    <?xml version="1.0" encoding="utf-8"?>
+    ${if value == null then
+      "<${name}${optionalString (props != null) " ${props}"} />"
+    else
+      "<${name}${optionalString (props != null) " ${props}"}>${
+        if builtins.typeOf value == "list" then
+          (foldl' (acc: x: "${acc}${to-xml x}") "" value)
+        else if builtins.typeOf value == "bool" then
+          bool-to-string value
+        else
+          builtins.toString value
+      }</${name}>"}
+  '';
 
 in { inherit to-css to-xml; }

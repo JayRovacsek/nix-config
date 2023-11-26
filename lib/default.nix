@@ -3,6 +3,7 @@
   distributed-builds = import ./distributed-builds.nix { inherit self; };
   docker = import ./docker.nix { inherit self; };
   etc = import ./etc.nix { inherit self; };
+  generators = import ./generators.nix { inherit self; };
   github = import ./github.nix { inherit self; };
   host = import ./host.nix { inherit self; };
   hostnames = import ./hostnames.nix { inherit self; };
@@ -16,7 +17,5 @@
   ssh = import ./ssh.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   terraform = import ./terraform.nix { inherit self; };
-  to-css = import ./to-css.nix { inherit self; };
   users = import ./users.nix { inherit self; };
-  xml = import ./xml.nix { inherit self; };
 }
