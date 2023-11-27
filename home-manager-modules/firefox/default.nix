@@ -297,6 +297,7 @@ in {
         "security.ssl.require_safe_negotiation" = true;
         "security.ssl.treat_unsafe_negotiation_as_broken" = true;
         "security.tls.enable_0rtt_data" = false;
+        "security.tls.insecure_fallback_hosts" = "localhost";
         "security.tls.version.enable-deprecated" = false;
         "security.webauthn.ctap2" = false;
         "services.sync.prefs.sync-seen.browser.search.update" = true;

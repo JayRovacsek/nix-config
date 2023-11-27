@@ -43,7 +43,7 @@ in {
 
     virtualHosts = {
       default = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "_";
@@ -51,7 +51,7 @@ in {
       };
 
       jellyseerr = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "jellyseerr.test.rovacsek.com";
@@ -64,7 +64,7 @@ in {
       };
 
       lidarr = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "lidarr.test.rovacsek.com";
@@ -75,7 +75,7 @@ in {
       };
 
       prowlarr = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "prowlarr.test.rovacsek.com";
@@ -86,7 +86,7 @@ in {
       };
 
       radarr = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "radarr.test.rovacsek.com";
@@ -97,7 +97,7 @@ in {
       };
 
       sonarr = {
-        onlySSL = true;
+        forceSSL = true;
         sslCertificate = "${self-signed-certificate}/share/self-signed.crt";
         sslCertificateKey = "${self-signed-certificate}/share/privkey.key";
         serverName = "sonarr.test.rovacsek.com";

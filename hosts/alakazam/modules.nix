@@ -8,7 +8,7 @@ with self.nixosModules; [
   gnupg
   grub
   hyprland
-  jellyfin
+  nginx
   keybase
   lorri
   nextcloud-client

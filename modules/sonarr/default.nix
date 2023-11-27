@@ -2,19 +2,49 @@
 let
 
   cfg = {
-    Config = {
-      LogLevel = config.services.sonarr.logLevel;
-      EnableSsl = if config.services.sonarr.enableSsl then "True" else "False";
-      Port = config.services.sonarr.port;
-      SslPort = config.services.sonarr.sslPort;
-      BindAddress = "*";
-      # The below is not a live key. It will be changed prior to deploy
-      ApiKey = "85e1526d459348f8a92d3b1a7f67286f";
-      AuthenticationMethod = config.services.sonarr.authenticationMethod;
-      UpdateMechanism = "BuiltIn";
-      Branch = "main";
-      InstanceName = "Sonarr";
-    };
+    name = "Config";
+    value = [
+      {
+        name = "LogLevel";
+        value = config.services.sonarr.logLevel;
+      }
+      {
+        name = "EnableSsl";
+        value = if config.services.sonarr.enableSsl then "True" else "False";
+      }
+      {
+        name = "Port";
+        value = config.services.sonarr.port;
+      }
+      {
+        name = "SslPort";
+        value = config.services.sonarr.sslPort;
+      }
+      {
+        name = "BindAddress";
+        value = "*";
+      }
+      {
+        name = "ApiKey";
+        value = "85e1526d459348f8a92d3b1a7f67286f";
+      }
+      {
+        name = "AuthenticationMethod";
+        value = config.services.sonarr.authenticationMethod;
+      }
+      {
+        name = "UpdateMechanism";
+        value = "BuiltIn";
+      }
+      {
+        name = "Branch";
+        value = "main";
+      }
+      {
+        name = "InstanceName";
+        value = "Sonarr";
+      }
+    ];
   };
 
   cfg-text = config.flake.lib.generators.to-xml cfg;
@@ -23,7 +53,6 @@ in {
 
   services.sonarr = {
     enable = true;
-    dataDir = "/etc/sonarr";
     openPort = true;
     port = 9999;
   };
@@ -33,4 +62,8 @@ in {
     text = cfg-text;
     mode = "0750";
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ ${config.services.sonarr.dataDir}/dlna.xml - - - - /etc/sonarr/config/config.xml"
+  ];
 }

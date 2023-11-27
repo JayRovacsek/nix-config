@@ -186,6 +186,16 @@
       url = "github:lnl7/nix-darwin/master";
     };
 
+    nix-options = {
+      inputs = {
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+      url = "github:JayRovacsek/nix-options/init";
+    };
+
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
