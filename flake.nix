@@ -193,7 +193,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
-      url = "github:JayRovacsek/nix-options/init";
+      url = "github:JayRovacsek/nix-options";
     };
 
     nix-eval-jobs = {
