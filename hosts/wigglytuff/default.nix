@@ -30,6 +30,9 @@ in {
   age.identityPaths =
     [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-wireless-primary" ];
 
+  services.timesyncd.servers =
+    lib.mkForce [ "129.6.15.28" "129.6.15.29" "129.6.15.30" ];
+
   environment.systemPackages = with pkgs; [ jellyfin-media-player ];
 
   networking = {

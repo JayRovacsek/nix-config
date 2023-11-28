@@ -34,7 +34,7 @@
   };
 
   hardware = {
-    # Filter for just pi4 replated device drivers
+    # Filter for just pi4 related device drivers
     deviceTree.filter = "bcm2711-rpi-4*.dtb";
 
     # Audio settings to ensure the headphones are the default
