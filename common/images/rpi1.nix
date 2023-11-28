@@ -5,14 +5,46 @@ let
 in unstable-system {
   system = "armv6l-linux";
   modules = [
-    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-    {
+    "${nixpkgs}/nixos/modules/profiles/base.nix"
+    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image.nix"
+    ({ config, lib, pkgs, ... }: {
+      boot = {
+        consoleLogLevel = lib.mkDefault 7;
+
+        # prevent `modprobe: FATAL: Module ahci not found`
+        initrd.availableKernelModules = pkgs.lib.mkForce [ "mmc_block" ];
+
+        kernelPackages = lib.mkDefault pkgs.linuxPackages_rpi1;
+
+        loader = {
+          grub.enable = false;
+          raspberryPi = {
+            enable = true;
+            version = 1;
+            firmwareConfig = ''
+              dtparam=i2c=on
+            '';
+          };
+        };
+      };
+
       networking.hostName = "rpi1";
+
       nixpkgs = {
         config.allowUnsupportedSystem = true;
-        crossSystem.system = "armv6l-linux";
+        crossSystem =
+          lib.systems.elaborate lib.systems.examples.armv7l-hf-multiplatform;
       };
-      system.stateVersion = "22.11";
-    }
+      system.stateVersion = "24.05";
+
+      sdImage = {
+        imageBaseName = "nixos-raspberry-pi-1";
+        populateRootCommands = "";
+        populateFirmwareCommands = with config.system.build; ''
+          ${installBootLoader} ${toplevel} -d ./firmware
+        '';
+        firmwareSize = 64;
+      };
+    })
   ];
 }

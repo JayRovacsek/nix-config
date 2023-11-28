@@ -8,8 +8,14 @@ let
 
   unsupported-configurations = [ "rpi1" "rpi2" ];
 
-  problematic-packages =
-    [ "amazon" "linode" "linode-ami" "oracle" "rpi1-sdImage" "rpi2-sdImage" ];
+  problematic-packages = [
+    "amazon"
+    "linode"
+    "linode-ami"
+    "oracle"
+    # "rpi1-sdImage"
+    # "rpi2-sdImage" 
+  ];
 
   # Strip items that hydra just cannot handle
   non-problematic-packages =
