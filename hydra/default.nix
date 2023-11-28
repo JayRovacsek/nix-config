@@ -1,6 +1,7 @@
 { self, lib }:
 let
   inherit (lib) filterAttrs mapAttrs;
+  inherit (self.common) images;
 
   unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
   # Strip out unsupportable systems.
@@ -8,14 +9,8 @@ let
 
   unsupported-configurations = [ "rpi1" "rpi2" ];
 
-  problematic-packages = [
-    "amazon"
-    "linode"
-    "linode-ami"
-    "oracle"
-    # "rpi1-sdImage"
-    # "rpi2-sdImage" 
-  ];
+  problematic-packages =
+    [ "amazon" "linode" "linode-ami" "oracle" "rpi1-sdImage" "rpi2-sdImage" ];
 
   # Strip items that hydra just cannot handle
   non-problematic-packages =
@@ -29,6 +24,8 @@ let
 in {
   checks = removeAttrs self.checks unsupported-systems;
   devShells = removeAttrs self.devShells unsupported-systems;
+
+  images = { inherit (self.common.images) rpi1-sdImage rpi2-sdImage; };
 
   # Wrap nixos configuration testing via the system.build.toplevel 
   # attribute which which ensure both build suitability as well as
