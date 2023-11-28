@@ -16,8 +16,9 @@ let
       '' else
         "${name}: ${builtins.toString value};") attrs);
 
-  to-xml = { name, value ? null, props ? null, ... }: ''
-    <?xml version="1.0" encoding="utf-8"?>
+  to-xml = { name, value ? null, props ? null, include-header ? false, ... }: ''
+    ${lib.optionalString include-header
+    ''<?xml version="1.0" encoding="utf-8"?>''}
     ${if value == null then
       "<${name}${optionalString (props != null) " ${props}"} />"
     else

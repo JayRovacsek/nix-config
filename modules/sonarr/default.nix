@@ -1,7 +1,9 @@
 { config, ... }:
 let
+  inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
 
   cfg = {
+    include-header = false;
     name = "Config";
     value = [
       {
@@ -48,13 +50,37 @@ let
   };
 
   cfg-text = config.flake.lib.generators.to-xml cfg;
-in {
-  imports = [ ../../options/sonarr ];
 
-  services.sonarr = {
-    enable = true;
-    openPort = true;
-    port = 9999;
+  inherit (config.services.sonarr) port;
+
+  service-name = "sonarr";
+
+  domains = generate-domains { inherit config service-name; };
+
+  overrides = {
+    locations."~ (/sonarr)?/api" = {
+      proxyPass = "http://localhost:${builtins.toString port}";
+      recommendedProxySettings = true;
+    };
+  };
+
+  virtualHosts =
+    generate-vhosts { inherit config service-name port overrides; };
+in {
+  # Extended options for nginx and sonarr
+  imports = [ ../../options/nginx ../../options/sonarr ];
+
+  services = {
+    sonarr = {
+      enable = true;
+      openPort = true;
+      port = 9999;
+    };
+
+    nginx = {
+      test = { inherit domains; };
+      inherit virtualHosts;
+    };
   };
 
   environment.etc."sonarr/config.xml" = {
@@ -64,6 +90,6 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "L+ ${config.services.sonarr.dataDir}/dlna.xml - - - - /etc/sonarr/config/config.xml"
+    "L+ ${config.services.sonarr.dataDir}/config.xml - - - - /etc/sonarr/config.xml"
   ];
 }

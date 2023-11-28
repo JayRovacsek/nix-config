@@ -10,14 +10,16 @@ let
 in {
   options = {
     services.jellyfin = {
-      http-port = mkOption {
-        type = types.port;
-        default = 8096;
-      };
+      ports = {
+        http = mkOption {
+          type = types.port;
+          default = 8096;
+        };
 
-      https-port = mkOption {
-        type = types.port;
-        default = 8920;
+        https = mkOption {
+          type = types.port;
+          default = 8920;
+        };
       };
 
       data-dir = mkOption {
@@ -92,7 +94,7 @@ in {
     networking.firewall = mkIf cfg.openFirewall {
       # from https://jellyfin.org/docs/general/networking/#port-bindings
       # we've simply made the http/https options configurable via code
-      allowedTCPPorts = [ cfg.http-port cfg.https-port ];
+      allowedTCPPorts = [ cfg.ports.http cfg.ports.https ];
     };
 
     systemd.services.jellyfin = {

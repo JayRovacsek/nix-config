@@ -16,6 +16,7 @@ in builtins.mapAttrs (package-set: _:
     linux = optionals isLinux [
       ../options/headscale
       ../options/jellyfin
+      ../options/nginx
       ../options/sonarr
       ../options/systemd
       ../options/tailscale

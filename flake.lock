@@ -3036,16 +3036,15 @@
         "pre-commit-hooks": ["pre-commit-hooks"]
       },
       "locked": {
-        "lastModified": 1701051070,
-        "narHash": "sha256-YG5ij45yHBNdnh8m3C9AuNTNKkvwK++Xg178aGA2Klg=",
+        "lastModified": 1701053452,
+        "narHash": "sha256-zqtduuEYdUSBvjkJaUy2Wuju6Sds4aj62+ntGcHtofo=",
         "owner": "JayRovacsek",
         "repo": "nix-options",
-        "rev": "755f9b756efb46cedfff94a8a16311ef98414ed8",
+        "rev": "feaf58f79168d376a474b2a2ea851c4ce2b7d6b1",
         "type": "github"
       },
       "original": {
         "owner": "JayRovacsek",
-        "ref": "init",
         "repo": "nix-options",
         "type": "github"
       }

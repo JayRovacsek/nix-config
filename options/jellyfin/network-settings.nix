@@ -13,15 +13,15 @@
     { name = "BaseUrl"; }
     {
       name = "PublicHttpsPort";
-      value = cfg.https-port;
+      value = cfg.ports.https;
     }
     {
       name = "HttpServerPortNumber";
-      value = cfg.http-port;
+      value = cfg.ports.http;
     }
     {
       name = "HttpsPortNumber";
-      value = cfg.https-port;
+      value = cfg.ports.https;
     }
     {
       name = "EnableHttps";
@@ -29,7 +29,7 @@
     }
     {
       name = "PublicPort";
-      value = cfg.http-port;
+      value = cfg.ports.http;
     }
     {
       name = "UPnPCreateHttpPortMap";

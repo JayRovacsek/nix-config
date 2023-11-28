@@ -15,8 +15,19 @@ let
   # Ensure deterministic values for common non-deterministic ones.
   template = writeTextFile {
     name = "cert.cfg";
+    # Serial here needs to be unlikely to match with another certificate.
+    # There's likely better ways to achieve this here, but for now all we're
+    # going to do is split domain into chars, pull their ASCII value, sum
+    # the values and then stringify it to get this effect to an extent while staying deterministic in output.
+    # 
+    # As these certificates are only ever for testing purposes, seems completely
+    # reasonable.
     text = ''
-      serial = 1
+      serial = ${
+        builtins.toString (builtins.foldl' (acc: x: acc + x) 0
+          (builtins.map (char: lib.strings.charToInt char)
+            (lib.stringToCharacters domain)))
+      }
       activation_date = "0000-01-01 00:00:00 UTC"
       expiration_date = "9999-12-31 23:59:59 UTC"
       dns_name = "*.${builtins.toString domain}"
