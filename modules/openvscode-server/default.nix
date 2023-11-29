@@ -1,9 +1,13 @@
 { config, ... }: {
 
-  age.secrets.openvscode-serverConnectionTokenFile = {
-    file = ../../secrets/openvscode-server/connection-token-file.age;
-    owner = config.services.openvscode-server.user;
-    inherit (config.services.openvscode-server) group;
+  age = {
+    identityPaths = [ "/agenix/id-ed25519-openvscode-server-primary" ];
+
+    secrets.openvscode-serverConnectionTokenFile = {
+      file = ../../secrets/openvscode-server/connection-token-file.age;
+      owner = config.services.openvscode-server.user;
+      inherit (config.services.openvscode-server) group;
+    };
   };
 
   networking.firewall = {
