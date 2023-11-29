@@ -18,6 +18,8 @@
     enable = true;
     telemetryLevel = "off";
     host = "0.0.0.0";
+    # Change default as it collides with default hydra port also
+    port = 3001;
     connectionTokenFile =
       config.age.secrets.openvscode-serverConnectionTokenFile.path;
   };
