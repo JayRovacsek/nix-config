@@ -1,1 +1,1 @@
-{ virtualisation.docker.enable = true; }
+_: { virtualisation.docker.enable = true; }

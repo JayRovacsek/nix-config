@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
-let hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+let
+  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+  inherit (pkgs.stdenv) isDarwin;
+
 in {
   home.packages = [ hack-font ];
 
@@ -13,13 +16,13 @@ in {
           lines = 0;
         };
         padding = {
-          x = 2;
-          y = 2;
+          x = 7;
+          y = 7;
         };
         dynamic_title = false;
         dynamic_padding = false;
         startup_mode = "Windowed";
-        decorations = "none";
+        decorations = if isDarwin then "buttonless" else "None";
       };
 
       scrolling = {

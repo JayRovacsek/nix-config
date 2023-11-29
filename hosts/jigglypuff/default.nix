@@ -15,7 +15,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./hardware-configuration.nix ./modules.nix ./network.nix ];
+  imports = [ ./network.nix ];
 
   age = {
     secrets = {
@@ -33,6 +33,33 @@ in {
     };
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_rpi3;
+    kernelParams = [ "cma=128M" ];
+
+    initrd.availableKernelModules =
+      [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
+
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+    };
+  };
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
+    };
+  };
+
+  hardware.enableRedistributableFirmware = true;
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
 
   system.stateVersion = "22.05";
 }

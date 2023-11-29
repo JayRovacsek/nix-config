@@ -20,9 +20,6 @@ in {
   # Once a ditto, always a ditto.
   environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
 
-  imports = [ ./modules.nix ];
-
   networking.hostName = "diglett";
-
   system.stateVersion = "22.11";
 }

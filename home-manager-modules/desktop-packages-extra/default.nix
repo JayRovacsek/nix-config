@@ -16,7 +16,6 @@ let
     # Communication
     signal-desktop
     thunderbird
-    slack
   ];
 
   # TODO: refactor this into a getAttr rather than if statement.

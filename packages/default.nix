@@ -1,84 +1,80 @@
-{ self, system, pkgs }:
+{ self, pkgs }:
 let
-  selfPkgs = self.outputs.packages.${system};
-  inherit (pkgs) callPackage;
-  inherit (pkgs.lib) recursiveUpdate;
-  inherit (pkgs.lib.attrsets) mapAttrs;
+  inherit (pkgs) lib system callPackage;
+  inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    terraform-stacks python-modules node-modules go-modules dotnet-modules
-    images;
+    cpp-packages dotnet-packages images go-packages node-packages
+    python-packages rust-packages shell-packages tofu-stacks wallpaper-packages;
+  inherit (self.lib) merge;
 
-  # Fold an array of objects together recursively
-  merge = builtins.foldl' recursiveUpdate { };
+  cpp = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./cpp/${package} { }; }
+    accumulator) { } cpp-packages;
 
-  pythonModules =
-    let inherit (pkgs) python39Packages python310Packages python311Packages;
-    in builtins.foldl' (accumulator: package:
-      recursiveUpdate {
-        python39Packages.${package} = callPackage ./python-modules/${package} {
-          python = python39Packages;
-          ownPython = selfPkgs.python39Packages;
-        };
-        python310Packages.${package} = callPackage ./python-modules/${package} {
-          python = python310Packages;
-          ownPython = selfPkgs.python310Packages;
-        };
-        python311Packages.${package} = callPackage ./python-modules/${package} {
-          python = python311Packages;
-          ownPython = selfPkgs.python311Packages;
-        };
-      } accumulator) { } python-modules;
+  dotnet = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
+    accumulator) { } dotnet-packages;
 
-  nodeModules = let inherit (pkgs) nodejs_20;
+  go = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./go/${package} { }; }
+    accumulator) { } go-packages;
+
+  node = let inherit (pkgs) nodejs_20;
   in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      nodePackages.${package} =
-        callPackage ./node-modules/${package} { nodejs = nodejs_20; };
-    } accumulator) { } node-modules;
+      ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
+    } accumulator) { } node-packages;
 
-  goModules = builtins.foldl' (accumulator: package:
+  shell = builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      goModules.${package} = callPackage ./go-modules/${package} { };
-    } accumulator) { } go-modules;
+      ${package} = callPackage ./shell/${package} { inherit self; };
+    } accumulator) { } shell-packages;
 
-  dotnetModules = builtins.foldl' (accumulator: package:
+  python = let
+    python-overlay-pkgs = import self.inputs.nixpkgs {
+      inherit system;
+      overlays = [ self.overlays.python ];
+    };
+  in builtins.foldl' (accumulator: package:
     recursiveUpdate {
-      dotnetModules.${package} = callPackage ./dotnet-modules/${package} { };
-    } accumulator) { } dotnet-modules;
+      ${package} = callPackage ./python/${package} {
+        inherit self;
+        pkgs = python-overlay-pkgs;
+      };
+    } accumulator) { } python-packages;
 
-  terraform-packages = mapAttrs (name: _:
+  rust = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
+    accumulator) { } rust-packages;
+
+  tofu = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
       inherit system;
       modules = [
         { config._module.args = { inherit self system; }; }
-        ../terranix/${name}
+        ./terranix/${name}
       ];
-    }) terraform-stacks;
+    }) tofu-stacks;
 
-  colour-schemes = import ./colour-schemes { inherit pkgs; };
-  sddm-themes = import ./sddm-themes { inherit pkgs; };
-  wallpapers = import ./wallpapers { inherit pkgs; };
+  wallpapers = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
+    accumulator) { } wallpaper-packages;
 
   packages = merge [
-    colour-schemes
-    dotnetModules
-    goModules
-    images
-    nodeModules
-    pythonModules
-    sddm-themes
-    terraform-packages
+    cpp
+    dotnet
+    go
+    (builtins.removeAttrs images [ "configurations" ])
+    node
+    python
+    rust
+    shell
+    tofu
     wallpapers
     {
       better-english = callPackage ./better-english { };
-      ditto-transform = callPackage ./ditto-transform { inherit self; };
-      falcon-sensor = callPackage ./falcon-sensor { };
-      velociraptor-bin = callPackage ./velociraptor-bin { };
-      vulnix-pre-commit = callPackage ./vulnix-pre-commit { };
-      waybar-colour-picker = callPackage ./waybar-colour-picker { };
-      waybar-screenshot = callPackage ./waybar-screenshot { };
-      wofi-power = callPackage ./wofi-power { };
+      t2-firmware = callPackage ./t2-firmware { };
     }
   ];
 

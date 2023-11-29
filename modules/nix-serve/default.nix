@@ -6,7 +6,7 @@
 # chown nix-serve cache-priv-key.pem
 # chmod 600 cache-priv-key.pem
 # cat cache-pub-key.pem
-{
+_: {
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";

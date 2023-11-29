@@ -1,6 +1,6 @@
 { self, ... }:
 let
-  inherit (self.common.terraform.globals) github;
+  inherit (self.common.tofu.globals) github;
   inherit (github)
     default-repository-settings public-repository-settings
     private-repository-settings;

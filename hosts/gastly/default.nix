@@ -2,12 +2,13 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (flake.common.home-manager-module-sets) hyprland-waybar-desktop;
+
   inherit (flake.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-waybar-desktop;
   };
 
   merged = merge [ jay ];
@@ -43,21 +44,9 @@ in {
     ];
   };
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [ ./hardware-configuration.nix ./wireless.nix ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "nodev";
-      enableCryptodisk = true;
-      efiSupport = true;
-    };
-  };
-
-  networking.hostName = "gastly";
+  environment.systemPackages = with pkgs; [ curl wget agenix ];
 
   system.stateVersion = "22.11";
 }
-

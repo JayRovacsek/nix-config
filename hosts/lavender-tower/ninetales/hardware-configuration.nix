@@ -6,19 +6,25 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "usb_storage" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ed6692c5-d0ff-44df-8611-b51ee53c05d7";
-    fsType = "ext4";
+  boot = {
+    extraModulePackages = [ ];
+    kernelModules = [ ];
+    initrd = {
+      availableKernelModules = [ "usb_storage" ];
+      initrd.kernelModules = [ ];
+    };
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/AD9C-14E6";
-    fsType = "vfat";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/ed6692c5-d0ff-44df-8611-b51ee53c05d7";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/AD9C-14E6";
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [ ];

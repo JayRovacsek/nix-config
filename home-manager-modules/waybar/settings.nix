@@ -1,30 +1,23 @@
 { pkgs, osConfig }:
 let
-  inherit (pkgs) procps system wofi pamixer wlogout;
-  inherit (osConfig.flake.packages.${system})
-    waybar-screenshot waybar-colour-picker;
+  inherit (pkgs) brightnessctl procps system pamixer wlogout;
+  inherit (osConfig.flake.packages.${system}) waybar-screenshot;
 in [{
   layer = "top";
   position = "top";
-  modules-left = [ "custom/launcher" "tray" ];
+  modules-left = [ "tray" ];
   modules-center = [ "clock" ];
   modules-right = [
-    "custom/colour-picker"
     "custom/screenshot"
     "idle_inhibitor"
     "pulseaudio"
     "memory"
     "cpu"
     "network"
+    "backlight"
     "battery"
     "custom/powermenu"
   ];
-
-  "custom/launcher" = {
-    format = "  ";
-    on-click = "${wofi}/bin/wofi --show drun --insensitive";
-    tooltip = false;
-  };
 
   idle_inhibitor = {
     format = "{icon}";
@@ -37,10 +30,10 @@ in [{
 
   backlight = {
     device = "intel_backlight";
-    on-scroll-up = "light -A 5";
-    on-scroll-down = "light -U 5";
+    on-scroll-up = "${brightnessctl}/bin/brightnessctl s 5%+";
+    on-scroll-down = "${brightnessctl}/bin/brightnessctl s 5%-";
     format = "{icon} {percent}%";
-    format-icons = [ "" "" "" "" ];
+    format-icons = [ "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
   };
 
   pulseaudio = {
@@ -53,25 +46,21 @@ in [{
   };
 
   battery = {
-    interval = 10;
+    interval = 20;
     states = {
       warning = 20;
       critical = 10;
     };
-    format = "{icon} {capacity}%";
-    format-icons = [ "" "" "" "" "" "" "" "" "" ];
+    format = "{icon}   {capacity}%";
+    format-icons = [ "" "" "" "" "" "" ];
     format-full = "{icon} {capacity}%";
-    format-charging = " {capacity}%";
+    format-charging = "󰂄 {capacity}%";
     tooltip = false;
   };
 
   clock = {
-    interval = 1;
-    format = "{:%I:%M %p  %A %b %d}";
-    tooltip = true;
-    tooltip-format = ''
-      {=%A; %d %B %Y}
-      <tt>{calendar}</tt>'';
+    interval = 60;
+    format = "{:%I:%M %p %a %b %d, %G}";
   };
 
   memory = {
@@ -111,11 +100,6 @@ in [{
       deactivated = "  ";
     };
     on-click = "${waybar-screenshot}/bin/waybar-screenshot";
-  };
-
-  "custom/colour-picker" = {
-    format = "  ";
-    on-click = "${waybar-colour-picker}/bin/waybar-colour-picker";
   };
 
   tray = {

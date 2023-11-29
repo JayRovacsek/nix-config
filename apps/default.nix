@@ -1,14 +1,15 @@
-{ self, system }:
+{ self, pkgs }:
 let
   inherit (self.lib) merge;
+  act = import ./act.nix { inherit self pkgs; };
 
   # Previously I had configured this to evaluate at system evaluation time.
   # this is costly as heck when more machines, so this should give an escape
   # hatch to generate a suitable JSON blob that can be stored and regenerated
   # easily to enable much faster evaluation of the configuration at build times.
-  distributed-builds = import ./distributed-builds.nix { inherit self system; };
+  distributed-builds = import ./distributed-builds.nix { inherit self pkgs; };
 
-  nixinate = import ./nixinate.nix { inherit self system; };
-  terraform = import ./terraform.nix { inherit self system; };
+  nixci = import ./nixci.nix { inherit self pkgs; };
+  tofu = import ./tofu.nix { inherit self pkgs; };
 
-in merge [ distributed-builds nixinate terraform ]
+in merge [ act distributed-builds nixci tofu ]

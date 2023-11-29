@@ -70,8 +70,7 @@ nixosConfigurations.jigglypuff.options.networking.vlans.value
 { dns = { ... }; }
 
 # Delving deeper on this is easy as using shell history and tabbing for auto-complete
-nixosConfigurations.jigglypuff.options.networking.vlans.v
-alue.dns.interface
+nixosConfigurations.jigglypuff.options.networking.vlans.value.dns.interface
 
 # For darwin configs, example of exploring the options applied against cloyster:
 darwinConfigurations.cloyster.options
