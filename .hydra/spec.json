@@ -1,30 +1,30 @@
 {
-  "enabled": 1,
-  "hidden": false,
-  "description": "system flake",
-  "nixexprinput": "nixexpr",
-  "nixexprpath": ".hydra/jobsets.nix",
-  "checkinterval": 3600,
-  "schedulingshares": 100,
-  "enableemail": false,
+  "checkinterval": 60,
+  "description": "nix-config auto-generated",
   "emailoverride": "",
-  "keepnr": 3,
-  "type": 0,
+  "enabled": 1,
+  "enableemail": false,
+  "hidden": false,
   "inputs": {
     "nixexpr": {
-      "value": "https://github.com/JayRovacsek/nix-config main",
+      "emailresponsible": false,
       "type": "git",
-      "emailresponsible": false
+      "value": "https://github.com/JayRovacsek/nix-config main"
     },
     "nixpkgs": {
-      "value": "/nix/store/18xn68cwb7l4sva7hzhwhxmrm0012abg-source",
+      "emailresponsible": false,
       "type": "path",
-      "emailresponsible": false
+      "value": "/nix/store/9lriws7wmqqbz1x1hnv4nanbmmqhkfq8-source"
     },
     "pulls": {
+      "emailresponsible": false,
       "type": "githubpulls",
-      "value": "JayRovacsek nix-config",
-      "emailresponsible": false
+      "value": "JayRovacsek nix-config"
     }
-  }
+  },
+  "keepnr": 3,
+  "nixexprinput": "nixexpr",
+  "nixexprpath": ".hydra/jobsets.nix",
+  "schedulingshares": 100,
+  "type": 0
 }
