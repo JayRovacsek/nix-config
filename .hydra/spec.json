@@ -16,11 +16,6 @@
       "type": "git",
       "emailresponsible": false
     },
-    "stable": {
-      "value": "https://github.com/NixOS/nixpkgs 057f9aecfb71c4437d2b27d3323df7f93c010b7e",
-      "type": "git",
-      "emailresponsible": false
-    },
     "nixpkgs": {
       "value": "https://github.com/NixOS/nixpkgs 010c7296f3b19a58b206fdf7d68d75a5b0a09e9e",
       "type": "git",
