@@ -11,8 +11,8 @@ let
 
   program = builtins.toString (pkgs.writers.writeBash "generate-spec" ''
     ${coreutils}/bin/mkdir -p ./static/
-    ${coreutils}/bin/cp ${spec} ./.hydra/spec.json
-    ${git}/bin/git add ./.hydra/spec.json
+    ${coreutils}/bin/cp ${spec} ./hydra/spec.json
+    ${git}/bin/git add ./hydra/spec.json
   '');
 
   type = "app";
