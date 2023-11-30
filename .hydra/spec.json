@@ -1,0 +1,30 @@
+{
+  "checkinterval": 60,
+  "description": "nix-config auto-generated",
+  "emailoverride": "",
+  "enabled": 1,
+  "enableemail": false,
+  "hidden": false,
+  "inputs": {
+    "nixexpr": {
+      "emailresponsible": false,
+      "type": "git",
+      "value": "https://github.com/JayRovacsek/nix-config main"
+    },
+    "nixpkgs": {
+      "emailresponsible": false,
+      "type": "path",
+      "value": "/nix/store/9lriws7wmqqbz1x1hnv4nanbmmqhkfq8-source"
+    },
+    "pulls": {
+      "emailresponsible": false,
+      "type": "githubpulls",
+      "value": "JayRovacsek nix-config"
+    }
+  },
+  "keepnr": 3,
+  "nixexprinput": "nixexpr",
+  "nixexprpath": ".hydra/jobsets.nix",
+  "schedulingshares": 100,
+  "type": 0
+}
