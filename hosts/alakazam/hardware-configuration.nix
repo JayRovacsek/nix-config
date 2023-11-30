@@ -12,7 +12,7 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
-    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
   };
 
   hardware.cpu = {
