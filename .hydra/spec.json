@@ -17,8 +17,8 @@
       "emailresponsible": false
     },
     "nixpkgs": {
-      "value": "https://github.com/NixOS/nixpkgs 010c7296f3b19a58b206fdf7d68d75a5b0a09e9e",
-      "type": "git",
+      "value": "/nix/store/18xn68cwb7l4sva7hzhwhxmrm0012abg-source",
+      "type": "path",
       "emailresponsible": false
     },
     "pulls": {
