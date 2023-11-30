@@ -3,6 +3,7 @@ let
   pkgs = import nixpkgs { };
 
   prs = builtins.fromJSON (builtins.readFile pulls);
+
   prJobsets = pkgs.lib.mapAttrs (num: info: {
     enabled = 1;
     hidden = false;
@@ -15,6 +16,7 @@ let
     type = 1;
     flake = "github:JayRovacsek/nix-config/pull/${num}/head";
   }) prs;
+
   mkFlakeJobset = branch: {
     description = "Build ${branch}";
     checkinterval = "3600";
@@ -34,6 +36,7 @@ let
     pulls = prs;
     jobsets = desc;
   };
+
 in {
   jobsets = pkgs.runCommand "spec-jobsets.json" { } ''
     cat >$out <<EOF

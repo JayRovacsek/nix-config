@@ -8,6 +8,7 @@
   host = import ./host.nix { inherit self; };
   hostnames = import ./hostnames.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
+  hydra = import ./hydra.nix { inherit self; };
   hyprland = import ./hyprland.nix { inherit self; };
   intersect-multiple-lists =
     import ./intersect-multiple-lists.nix { inherit self; };

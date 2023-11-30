@@ -6,7 +6,6 @@ with self.nixosModules; [
   docker
   fonts
   gnupg
-  headscale
   hydra
   jellyfin
   lorri
