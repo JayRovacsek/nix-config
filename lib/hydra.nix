@@ -7,7 +7,7 @@ let
     hidden = false;
     description = "nix-config auto-generated";
     nixexprinput = "nixexpr";
-    nixexprpath = ".hydra/jobsets.nix";
+    nixexprpath = "hydra/jobsets.nix";
     checkinterval = 60;
     schedulingshares = 100;
     enableemail = false;

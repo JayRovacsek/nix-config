@@ -30,7 +30,11 @@ let
     flake = "github:JayRovacsek/nix-config/${branch}";
   };
 
-  desc = prJobsets // { "main" = mkFlakeJobset "main"; };
+  desc = prJobsets // {
+    main = mkFlakeJobset "main";
+    staging = mkFlakeJobset "staging";
+    testing = mkFlakeJobset "testing";
+  };
 
   log = {
     pulls = prs;

@@ -14,7 +14,7 @@
     "nixpkgs": {
       "emailresponsible": false,
       "type": "path",
-      "value": "/nix/store/9lriws7wmqqbz1x1hnv4nanbmmqhkfq8-source"
+      "value": "/nix/store/19kjl5p3hx3l51yfnii653a3qzm4l6hf-source"
     },
     "pulls": {
       "emailresponsible": false,
@@ -24,7 +24,7 @@
   },
   "keepnr": 3,
   "nixexprinput": "nixexpr",
-  "nixexprpath": ".hydra/jobsets.nix",
+  "nixexprpath": "hydra/jobsets.nix",
   "schedulingshares": 100,
   "type": 0
 }
