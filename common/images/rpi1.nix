@@ -32,8 +32,7 @@ in unstable-system {
 
       nixpkgs = {
         config.allowUnsupportedSystem = true;
-        crossSystem =
-          lib.systems.elaborate lib.systems.examples.armv7l-hf-multiplatform;
+        crossSystem = lib.systems.elaborate lib.systems.examples.raspberryPi;
       };
       system.stateVersion = "24.05";
 
