@@ -33,6 +33,7 @@ in unstable-system {
       nixpkgs = {
         config.allowUnsupportedSystem = true;
         crossSystem = lib.systems.elaborate lib.systems.examples.raspberryPi;
+        overlays = [ self.overlays.diffutils ];
       };
       system.stateVersion = "24.05";
 

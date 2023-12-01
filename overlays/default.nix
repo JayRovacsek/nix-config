@@ -6,6 +6,10 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  diffutils = _final: prev: {
+    diffutils = prev.diffutils.overrideAttrs (_: { doCheck = false; });
+  };
+
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
   hello = _final: prev: {

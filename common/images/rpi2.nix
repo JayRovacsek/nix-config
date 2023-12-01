@@ -32,6 +32,7 @@ in unstable-system {
         config.allowUnsupportedSystem = true;
         crossSystem =
           lib.systems.elaborate lib.systems.examples.armv7l-hf-multiplatform;
+        overlays = [ self.overlays.diffutils ];
       };
       system.stateVersion = "24.05";
 
