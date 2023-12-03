@@ -29,6 +29,13 @@
     });
   };
 
+  hydra = _final: prev: {
+    hydra_unstable = prev.hydra_unstable.overrideAttrs (old: {
+      doCheck = false;
+      patches = (old.patches or [ ]) ++ [ ./patches/hydra.patch ];
+    });
+  };
+
   grub2 = _final: prev: {
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };

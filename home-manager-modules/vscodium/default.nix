@@ -74,10 +74,7 @@
             enable = true;
             target = {
               args = [ ];
-              # NixOS options - note this is a footgun
-              # where a host has new or differing options
-              # to that the current host has.
-              installable = "${osConfig.flake}#options";
+              installable = "${osConfig.flake.inputs.nix-options}#options";
             };
           };
         };
@@ -106,7 +103,7 @@
       dbaeumer.vscode-eslint
 
       # XML
-      dotjoshjohnson.xml
+      redhat.vscode-xml
 
       # YAML
       redhat.vscode-yaml

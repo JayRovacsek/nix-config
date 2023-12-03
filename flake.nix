@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-23.05";
+    stable.url = "github:nixos/nixpkgs/release-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
 
@@ -186,6 +186,16 @@
       url = "github:lnl7/nix-darwin/master";
     };
 
+    nix-options = {
+      inputs = {
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+      url = "github:JayRovacsek/nix-options";
+    };
+
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -297,11 +307,15 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      inherit (self.inputs.nixpkgs.lib) recursiveUpdate;
+      inherit (self.inputs.nixpkgs) lib;
+      inherit (lib) recursiveUpdate;
 
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
+
+        # Automated build configuration for local packages
+        hydraJobs = import ./hydra { inherit self lib; };
 
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };

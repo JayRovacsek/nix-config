@@ -1,26 +1,29 @@
-{ config, primaryDomain ? "rovacsek.com", tlds ? [ primaryDomain ], ... }:
+{ config, lib, ... }:
 let
+  inherit (config.flake.lib) merge;
+
   port = 10080;
 
-  tldCertConfigs = builtins.map (tld: {
+  certs = merge (builtins.map (tld: {
     "${tld}" = {
       extraDomainNames = [ "*.${tld}" ];
       listenHTTP = ":${builtins.toString port}";
       reloadServices = [ "nginx" ];
     };
-  }) tlds;
+  }) config.services.nginx.domains);
 
-  certs = builtins.foldl' (x: y: x // y) { } tldCertConfigs;
-
-  defaults = {
-    inherit (config.services.nginx) group;
-    email = "acme@${primaryDomain}";
-  };
+  prod = !config.services.nginx.test.enable;
 in {
-  networking.firewall.allowedTCPPorts = [ port ];
+  networking.firewall.allowedTCPPorts = lib.mkIf prod [ port ];
 
-  security.acme = {
-    inherit certs defaults;
+  security.acme = lib.mkIf prod {
     acceptTerms = true;
+
+    inherit certs;
+
+    defaults = {
+      inherit (config.services.nginx) group;
+      email = "acme@rovacsek.com";
+    };
   };
 }

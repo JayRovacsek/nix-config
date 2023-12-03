@@ -1,13 +1,5 @@
 [
   {
-    "hostName": "aipom.lan",
-    "maxJobs": 1,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
     "hostName": "alakazam.lan",
     "maxJobs": 8,
     "speedFactor": 16,
@@ -25,6 +17,14 @@
   },
   {
     "hostName": "butterfree.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "cloyster.lan",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -57,14 +57,6 @@
   },
   {
     "hostName": "gastly.lan",
-    "maxJobs": 1,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "igglybuff.lan",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -130,14 +122,6 @@
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
     "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "cloyster.lan",
-    "maxJobs": 1,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": [],
-    "systems": ["x86_64-darwin"]
   },
   {
     "hostName": "ninetales.lan",

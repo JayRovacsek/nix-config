@@ -7,7 +7,8 @@ with self.nixosModules; [
   elasticsearch
   fonts
   gnupg
-  headscale
+  hydra
+  jellyfin
   lorri
   nix
   nix-serve

@@ -4,7 +4,7 @@ let
   # on expected or required attributes for user definitions
   # based on our host configuration.
   #
-  # TODO: revist this some time in the future to validate there
+  # TODO: revisit this some time in the future to validate there
   # isn't an obvious way.
   attr-names = [
     "name"

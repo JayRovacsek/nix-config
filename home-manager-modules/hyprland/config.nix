@@ -1,19 +1,8 @@
 { config, pkgs, osConfig, ... }:
 let
   inherit (pkgs)
-    grim slurp swappy system mpvpaper lib systemd fuzzel nextcloud-client;
+    grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
   inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
-
-  inherit (osConfig.flake.packages.${system})
-    may-sitting-near-waterfall-pokemon-emerald;
-
-  nvidia-present = builtins.any (driver: driver == "nvidia")
-    osConfig.services.xserver.videoDrivers;
-
-  nvidia-hardware-flags =
-    lib.optionalString nvidia-present "--vo=gpu --hwdec=nvdec-copy";
-
-  hardware-wallpaper = lib.concatStringsSep " " [ nvidia-hardware-flags ];
 
   alakazam-monitors = [
     {
@@ -31,16 +20,16 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-5";
       resolution = "1920x1080";
-      position = "4920x420";
+      position = "3000x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-3";
+      name = "DP-4";
       resolution = "1920x1080";
-      position = "3000x420";
+      position = "4920x420";
       scale = "1";
       extra = "";
     }
@@ -55,13 +44,12 @@ let
   nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
     config.home.packages;
 
-  mpvexec = ''
-    ${mpvpaper}/bin/mpvpaper -sf -o "no-audio --loop --panscan=1 ${hardware-wallpaper}" '*' ${may-sitting-near-waterfall-pokemon-emerald}/share/wallpaper.mp4'';
+  wallpaper-exec = "${hyprpaper}/bin/hyprpaper";
 
   nextcloud-exec =
     lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = [ waybar-exec mpvexec ] ++ nextcloud-exec;
+  exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
 
 in generate-config {
   inherit exec-once monitor;

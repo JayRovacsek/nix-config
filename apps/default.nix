@@ -9,7 +9,8 @@ let
   # easily to enable much faster evaluation of the configuration at build times.
   distributed-builds = import ./distributed-builds.nix { inherit self pkgs; };
 
+  hydra = import ./hydra.nix { inherit self pkgs; };
   nixci = import ./nixci.nix { inherit self pkgs; };
   tofu = import ./tofu.nix { inherit self pkgs; };
 
-in merge [ act distributed-builds nixci tofu ]
+in merge [ act distributed-builds nixci hydra tofu ]

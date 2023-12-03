@@ -25,6 +25,12 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
+  # REMOVE BEFORE DEPLOY
+  services.nginx = {
+    domains = [ "rovacsek.com" ];
+    test.enable = true;
+  };
+
   age = {
     secrets = {
       "git-signing-key" = rec {

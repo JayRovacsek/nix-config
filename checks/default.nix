@@ -9,8 +9,8 @@ let
         deadnix.enable = true;
         nixfmt.enable = true;
         prettier.enable = true;
-        statix.enable = false;
-        typos.enable = false;
+        statix.enable = true;
+        typos.enable = true;
 
         # Custom hooks
         statix-write = {

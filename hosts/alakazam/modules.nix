@@ -8,6 +8,7 @@ with self.nixosModules; [
   gnupg
   grub
   hyprland
+  nginx
   keybase
   lorri
   nextcloud-client

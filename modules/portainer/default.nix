@@ -20,13 +20,11 @@ in {
   virtualisation.oci-containers.containers = docker.generate-config {
     serviceName = name;
     autoStart = true;
-    user = null;
+    user = builtins.toString config.users.users.${name}.uid;
     image = "${name}/${name}-ce:alpine";
     ports = [ "0.0.0.0:9000:9000" ];
-    volumes = [
-      "/var/run/docker.sock:/var/run/docker.sock"
-      "/mnt/zfs/containers/${name}:/data"
-    ];
+    volumes =
+      [ "/var/run/docker.sock:/var/run/docker.sock" "/var/lib/${name}:/data" ];
     environment.TZ = "Australia/Sydney";
 
     extraOptions = [ "--name=${name}" "--network=bridge" ];
