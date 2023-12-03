@@ -1,1 +1,3 @@
+modules/hydra/default.nix
+overlays/patches/hydra.patch
 terranix/oracle/default.nix
