@@ -1,6 +1,7 @@
 { config, ... }:
 let
   inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (config.flake.lib.authelia) generate-access-rules;
 
   cfg = {
     include-header = false;
@@ -25,10 +26,6 @@ let
       {
         name = "BindAddress";
         value = "*";
-      }
-      {
-        name = "ApiKey";
-        value = "85e1526d459348f8a92d3b1a7f67286f";
       }
       {
         name = "AuthenticationMethod";
@@ -71,15 +68,18 @@ in {
   imports = [ ../../options/nginx ../../options/sonarr ];
 
   services = {
-    sonarr = {
-      enable = true;
-      openPort = true;
-      port = 9999;
-    };
+    authelia.instances =
+      generate-access-rules config.services.nginx.domains service-name;
 
     nginx = {
       test = { inherit domains; };
       inherit virtualHosts;
+    };
+
+    sonarr = {
+      enable = true;
+      openPort = true;
+      port = 9999;
     };
   };
 

@@ -1,6 +1,7 @@
 { config, ... }:
 let
   inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (config.flake.lib.authelia) generate-access-rules;
 
   service-name = "radarr";
 
@@ -16,6 +17,9 @@ in {
   # TODO: map radarr settings to custom options
   imports = [ ../../options/nginx ];
   services = {
+    authelia.instances =
+      generate-access-rules config.services.nginx.domains service-name;
+
     nginx = {
       test = { inherit domains; };
       inherit virtualHosts;
