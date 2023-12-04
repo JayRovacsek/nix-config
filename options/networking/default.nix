@@ -1,7 +1,7 @@
 { lib, config, ... }:
-# This option intends to make local domain refrences possible and
+# This option intends to make local domain references possible and
 # consistent between nixOS and macOS; currently darwin does not 
-# expose a local domain or domain equivilent option meaning 
+# expose a local domain or domain equivalent option meaning 
 # settings dependent on this knowledge are broken.
 with lib;
 let

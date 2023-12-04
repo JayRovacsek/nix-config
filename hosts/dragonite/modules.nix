@@ -7,7 +7,7 @@ with self.nixosModules; [
   fonts
   gnupg
   hydra
-  headscale
+  jellyfin
   lorri
   nix
   nix-serve

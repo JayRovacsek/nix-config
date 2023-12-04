@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-23.05";
+    stable.url = "github:nixos/nixpkgs/release-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
 
@@ -184,6 +184,16 @@
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin/master";
+    };
+
+    nix-options = {
+      inputs = {
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+      url = "github:JayRovacsek/nix-options";
     };
 
     nix-eval-jobs = {

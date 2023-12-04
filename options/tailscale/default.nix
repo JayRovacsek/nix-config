@@ -52,7 +52,7 @@ in {
       acceptRoute = mkOption {
         type = types.bool;
         default = false;
-        description = "Accept route when join netowrk";
+        description = "Accept route when join network";
       };
 
       advertiseExitNode = mkOption {

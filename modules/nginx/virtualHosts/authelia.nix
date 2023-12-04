@@ -1,4 +1,4 @@
-{ config, tld ? "rovacsek.com" }:
+{ config, tld ? "rovacsek.com", overrides ? { } }:
 let
   subdomain = "authelia";
   fqdn = "${subdomain}.${tld}";
@@ -18,5 +18,5 @@ in {
       proxyPass = "${scheme}://${target}:${builtins.toString port}";
       recommendedProxySettings = true;
     };
-  };
+  } // overrides;
 }
