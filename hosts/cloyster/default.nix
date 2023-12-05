@@ -1,27 +1,49 @@
 { config, pkgs, lib, flake, ... }:
+
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (flake.lib) merge;
 
-  jay = common.users."jrovacsek" {
+  jay = common.users.jay {
     inherit config pkgs;
-    modules = darwin-desktop;
+    modules = hyprland-desktop;
   };
-  merged = merge-user-config { users = [ jay ]; };
+
+  merged = merge [ jay ];
+
 in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
+  age = {
+    secrets = {
+      "git-signing-key" = rec {
+        file = ../../secrets/ssh/git-signing-key.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key";
+      };
 
-  services.nix-daemon.enable = true;
-
-  networking = {
-    computerName = "cloyster";
-    hostName = "cloyster";
-    localHostName = "cloyster";
+      "git-signing-key.pub" = rec {
+        file = ../../secrets/ssh/git-signing-key.pub.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        path = "/home/${owner}/.ssh/git-signing-key.pub";
+      };
+    };
+    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  system.stateVersion = 4;
+  environment.systemPackages = with pkgs; [
+    # CLI
+    curl
+    wget
+    agenix
+  ];
+
+  imports = [ ./hardware-configuration.nix ];
+
+  networking.hostName = "cloyster";
+
+  system.stateVersion = "23.11";
 }
+

@@ -4,13 +4,15 @@ let
     if pkgs.stdenv.isDarwin then { package = pkgs.firefox-bin; } else { };
 
   addons = with pkgs.nur.repos.rycee.firefox-addons; [
+    clearurls
+    darkreader
     decentraleyes
+    i-dont-care-about-cookies
     keepassxc-browser
     multi-account-containers
     noscript
     privacy-badger
     temporary-containers
-    terms-of-service-didnt-read
     ublock-origin
     user-agent-string-switcher
   ];
@@ -26,9 +28,11 @@ let
 in {
   programs.firefox = {
     enable = true;
-    inherit extensions;
 
     profiles.jay = {
+      id = 0;
+      inherit extensions;
+
       search = {
         force = true;
         default = "DuckDuckGo";
@@ -45,8 +49,13 @@ in {
           keyword = "d";
           url = "https://duckduckgo.com/?q=%s";
         };
-        "Google Search" = {
+        "Brave Search" = {
           keyword = "g";
+          url = "https://search.brave.com/search?q=%s";
+        };
+        # Get wrecked, force myself to not use the googs
+        "Google Search" = {
+          keyword = "google";
           url = "https://www.google.com/search?q=%s";
         };
         "Google AU Search" = {
@@ -57,14 +66,9 @@ in {
           keyword = "y";
           url = "https://www.youtube.com/results?search_query=%s";
         };
-        "Github Search" = {
-          keyword = "gh";
-          url = "https://github.com/search?q=%s";
-        };
-        "Github Search for Nix" = {
-          keyword = "ghn";
-          url =
-            "https://github.com/search?q=%s+language%3ANix&type=Code&ref=advsearch&l=Nix&l=";
+        "Noogle" = {
+          keyword = "noo";
+          url = "https://noogle.dev/?term=%22%s%22";
         };
         "Github Code Search" = {
           keyword = "cs";
@@ -97,21 +101,25 @@ in {
         "nib Jira Search" = {
           keyword = "j";
           url =
-            "https://jira.nib.com.au/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+            "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
         };
         "nib Confluence Search" = {
           keyword = "c";
-          url =
-            "https://confluence.nib.com.au/dosearchsite.action?cql=siteSearch+~+%22%s%22&queryString=%s";
+          url = "https://nibgroup.atlassian.net/wiki/search/?text=%s";
+
         };
         "nib Github Search" = {
           keyword = "ngh";
           url = "https://github.com/nib-group?q=%s&type=&language=";
         };
-        OSRSWiki = {
-          keyword = "osrs";
+        "nib Monday Search" = {
+          keyword = "m";
           url =
-            "https://oldschool.runescape.wiki/?search=%s&title=Special%3ASearch&fulltext=Search";
+            "https://nib-group.monday.com/boards/1933538575/views/65368537?term=%s";
+        };
+        "Terraform Search" = {
+          keyword = "t";
+          url = "https://registry.terraform.io/search/providers?q=%s";
         };
       };
 
@@ -289,7 +297,9 @@ in {
         "security.ssl.require_safe_negotiation" = true;
         "security.ssl.treat_unsafe_negotiation_as_broken" = true;
         "security.tls.enable_0rtt_data" = false;
+        "security.tls.insecure_fallback_hosts" = "localhost";
         "security.tls.version.enable-deprecated" = false;
+        "security.webauthn.ctap2" = false;
         "services.sync.prefs.sync-seen.browser.search.update" = true;
         "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" =
           false;

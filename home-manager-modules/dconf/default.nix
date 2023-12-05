@@ -154,10 +154,6 @@ let
             application-id = "org.polymc.PolyMC.desktop";
           };
 
-          "org/gnome/desktop/notifications/application/runelite" = {
-            application-id = "RuneLite.desktop";
-          };
-
           "org/gnome/desktop/notifications/application/signal-desktop" = {
             application-id = "signal-desktop.desktop";
           };

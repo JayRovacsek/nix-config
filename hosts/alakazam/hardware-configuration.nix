@@ -1,21 +1,5 @@
-{ lib, modulesPath, ... }:
-
-{
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
+{ lib, ... }: {
   boot = {
-    loader = {
-      grub = {
-        enable = true;
-        version = 2;
-        device = "nodev";
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        useOSProber = true;
-        enableCryptodisk = true;
-      };
-    };
-
     initrd = {
       availableKernelModules =
         [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -28,7 +12,7 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
-    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
   };
 
   hardware.cpu = {

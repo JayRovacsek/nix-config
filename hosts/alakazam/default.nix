@@ -2,24 +2,34 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) linux-desktop;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.common.home-manager-module-sets)
+    base hyprland-waybar-desktop games;
+  inherit (flake.lib) merge;
+
+  inherit (pkgs) system;
+  inherit (config.flake.packages.${system}) trdsql;
 
   builder = common.users.builder {
     inherit config pkgs;
-    modules = [ ];
+    modules = base;
   };
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = linux-desktop;
+    modules = hyprland-waybar-desktop ++ games;
   };
 
-  merged = merge-user-config { users = [ builder jay ]; };
+  merged = merge [ builder jay ];
 
 in {
   inherit flake;
   inherit (merged) users home-manager;
+
+  # REMOVE BEFORE DEPLOY
+  services.nginx = {
+    domains = [ "rovacsek.com" ];
+    test.enable = true;
+  };
 
   age = {
     secrets = {
@@ -34,24 +44,35 @@ in {
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
+
+      "terraform-api-key" = rec {
+        file = ../../secrets/terraform/terraform-api-key.age;
+        owner = builtins.head (builtins.attrNames jay.users.users);
+        mode = "400";
+        path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
+      };
     };
-    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      "/agenix/id-ed25519-terraform-primary"
+    ];
+  };
+
+  environment.systemPackages = (with pkgs; [ curl wget agenix ]) ++ [ trdsql ];
+
+  hardware.opengl.driSupport32Bit = true;
+
+  imports = [ ./hardware-configuration.nix ];
+
+  networking = {
+    hostId = "ef26b1be";
+    hostName = "alakazam";
+    useDHCP = false;
   };
 
   services.tailscale.tailnet = "admin";
 
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
-
-  networking = {
-    hostName = "alakazam";
-    hostId = "ef26b1be";
-    useDHCP = false;
-    interfaces.enp0s31f6.useDHCP = true;
-  };
-
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
-
   system.stateVersion = "22.11";
 }

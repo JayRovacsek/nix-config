@@ -2,18 +2,18 @@
 let
   inherit (flake) common;
   inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.lib) merge;
 
   jay = common.users."jrovacsek" {
     inherit config pkgs;
     modules = darwin-desktop;
   };
-  merged = merge-user-config { users = [ jay ]; };
+  merged = merge [ jay ];
 in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
+  imports = [ ./system-packages.nix ./secrets.nix ];
 
   services.nix-daemon.enable = true;
 

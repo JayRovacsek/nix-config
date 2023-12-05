@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ osConfig, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
 
-    # Required as per: https://github.com/nix-community/home-manager/issues/3507 - once resolved will
-    # be great to set this as false again.
-    mutableExtensionsDir = true;
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
+    mutableExtensionsDir = false;
 
     keybindings = [{
       key = "cmd+`";
@@ -31,7 +31,7 @@
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
       "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "brettm12345.nixfmt-vscode"; };
+      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
@@ -44,9 +44,8 @@
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
       "editor.bracketPairColorization.enabled" = true;
-      "editor.fontFamily" = "Hack Nerd Font";
-      "editor.fontLigatures" = true;
-      "editor.fontSize" = 14;
+      "editor.fontFamily" = "Hack Nerd Font Mono";
+      "editor.fontLigatures" = false;
       "editor.formatOnSave" = true;
       "editor.guides.bracketPairs" = "active";
       "editor.maxTokenizationLineLength" = 10000;
@@ -63,33 +62,48 @@
       "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
-      "oneDarkPro.editorTheme" = "Retro";
+
+      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
+      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
+      "nix.enableLanguageServer" = true;
+      "nix.serverSettings" = {
+        nixd = {
+          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
+          options = {
+            enable = true;
+            target = {
+              args = [ ];
+              installable = "${osConfig.flake.inputs.nix-options}#options";
+            };
+          };
+        };
+      };
+
       "redhat.telemetry.enabled" = false;
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.defaultProfile.linux" = "zsh";
+      "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
       "terminal.integrated.defaultProfile.osx" = "zsh";
-      "terminal.integrated.fontFamily" = "Hack Nerd Font";
-      "terminal.integrated.fontSize" = 12;
       "terminal.integrated.shellIntegration.enabled" = false;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.titleBarStyle" = "custom";
       "workbench.colorTheme" = "Tomorrow Night Blue";
       "workbench.iconTheme" = "material-icon-theme";
+      "workbench.settings.editor" = "json";
     };
 
     extensions = with pkgs.vscode-extensions; [
 
       # Nix
-      bbenoist.nix
       jnoortheen.nix-ide
-      brettm12345.nixfmt-vscode
       arrterian.nix-env-selector
 
       # JS/TS
       dbaeumer.vscode-eslint
 
       # XML
-      dotjoshjohnson.xml
+      redhat.vscode-xml
 
       # YAML
       redhat.vscode-yaml
@@ -100,9 +114,6 @@
       # Go
       golang.go
 
-      # Python
-      ms-python.python
-
       # Terraform
       hashicorp.terraform
 
@@ -111,7 +122,6 @@
 
       # Rust
       matklad.rust-analyzer
-      vadimcn.vscode-lldb
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

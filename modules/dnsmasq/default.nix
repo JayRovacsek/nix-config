@@ -1,16 +1,15 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
+  inherit (config.flake.lib) etc;
+
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;
   cache = import ./cache.nix;
 
-  etcFunction = import ../../functions/etc.nix;
   # Files to write to etc
-  etcConfigs =
-    builtins.foldl' (acc: config: acc // etcFunction { inherit config; }) { } [
-      local
-      cache
-    ];
+  etcConfigs = builtins.foldl'
+    (acc: config: acc // (etc.generate-file { inherit config; }))
+    { } [ local cache ];
 in {
   services.dnsmasq = {
     # inherit extraConfig;

@@ -9,7 +9,6 @@ in {
   programs.rofi = {
     inherit enable;
     terminal = "${pkgs.alacritty}/bin/alacritty";
-    theme = ./themes/launchpad.rasi;
     extraConfig.modi = "drun";
   };
 }

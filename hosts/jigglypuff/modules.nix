@@ -1,19 +1,19 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/blocky
-    ../../modules/fonts
-    ../../modules/gnupg
-    ../../modules/hardware/raspberry-pi-3b-plus
-    ../../modules/journald
-    ../../modules/lorri
-    ../../modules/networking
-    ../../modules/nix
-    ../../modules/openssh
-    ../../modules/sudo
-    ../../modules/tailscale
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/zsh
-  ];
-}
+{ self }:
+with self.nixosModules; [
+  agenix
+  blocky
+  fonts
+  gnupg
+  journald
+  lorri
+  nix
+  openssh
+  sudo
+  systemd-networkd
+  # Disabled while I dig into issues around this
+  # plus blocky on the localhost
+  # tailscale
+  time
+  timesyncd
+  zsh
+]

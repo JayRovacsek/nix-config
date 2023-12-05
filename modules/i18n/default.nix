@@ -1,1 +1,1 @@
-{ i18n.defaultLocale = "en_AU.utf8"; }
+_: { i18n.defaultLocale = "en_AU.utf8"; }

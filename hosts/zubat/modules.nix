@@ -1,10 +1,3 @@
-{ ... }: {
-  imports = [
-    ../../modules/fonts
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/zsh
-  ];
-}
+{ self }:
+let inherit (self.inputs.nixos-wsl.nixosModules) wsl;
+in (with self.nixosModules; [ lorri nix time timesyncd zsh ]) ++ [ wsl ]

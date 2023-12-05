@@ -1,7 +1,7 @@
 { self }:
 with builtins;
 let
-  inherit (self.lib) generate-user-config;
+  inherit (self.lib.users) generate-config;
   inherit (self.common) base-users;
   # The below will create a flake accessible lambda per user
   # that requires input of the packageset so that
@@ -18,7 +18,7 @@ let
   fn = mapAttrs (_: user-settings:
     { config, pkgs, modules ? [ ], overrides ? { } }:
     let flake = self;
-    in generate-user-config {
+    in generate-config {
       inherit pkgs modules user-settings config overrides flake;
     }) base-users;
 in fn

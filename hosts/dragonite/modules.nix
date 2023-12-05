@@ -1,26 +1,25 @@
-{ ... }: {
-  imports = [
-    ../../modules/agenix
-    ../../modules/clamav
-    ../../modules/docker
-    ../../modules/docker/stacks/portainer
-    ../../modules/fonts
-    ../../modules/gnupg
-    ../../modules/headscale
-    ../../modules/libvirtd
-    ../../modules/lorri
-    ../../modules/nix
-    ../../modules/nix-serve
-    ../../modules/nvidia
-    ../../modules/openssh
-    ../../modules/sudo
-    ../../modules/tailscale
-    ../../modules/time
-    ../../modules/timesyncd
-    ../../modules/udev
-    ../../modules/zfs
-    ../../modules/zsh
-    ./old-users.nix
-    ./filesystems.nix
-  ];
-}
+{ self }:
+with self.nixosModules; [
+  agenix
+  blocky
+  clamav
+  docker
+  fonts
+  gnupg
+  hydra
+  jellyfin
+  lorri
+  nix
+  nix-serve
+  nvidia
+  openssh
+  portainer
+  samba
+  sudo
+  tailscale
+  time
+  timesyncd
+  udev
+  zfs
+  zsh
+]

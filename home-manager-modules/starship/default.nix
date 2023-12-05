@@ -1,6 +1,16 @@
-_: {
+{ config, osConfig, ... }:
+let
+  enable = true;
+  enableBashIntegration = config.programs.bash.enable
+    && osConfig.programs.bash.enable;
+  enableFishIntegration = config.programs.fish.enable
+    && osConfig.programs.fish.enable;
+  enableZshIntegration = config.programs.zsh.enable
+    && osConfig.programs.zsh.enable;
+in {
   programs.starship = {
-    enable = true;
+    inherit enable enableBashIntegration enableFishIntegration
+      enableZshIntegration;
     settings = {
       add_newline = false;
       directory.read_only = "🔒";

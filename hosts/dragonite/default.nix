@@ -2,12 +2,12 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.common.home-manager-module-sets) base cli;
+  inherit (flake.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
-    modules = [ ];
+    modules = base;
   };
 
   jay = common.users.jay {
@@ -15,7 +15,7 @@ let
     modules = cli;
   };
 
-  merged = merge-user-config { users = [ builder jay ]; };
+  merged = merge [ builder jay ];
 
 in {
   inherit flake;
@@ -41,14 +41,24 @@ in {
     ];
   };
 
-  services.tailscale.tailnet = "admin";
+  environment.systemPackages = with pkgs; [
+    cifs-utils
+    dnsutils
+    exfat
+    hddtemp
+    lm_sensors
+    pciutils
+  ];
 
   imports = [
+    ./filesystems.nix
     ./hardware-configuration.nix
-    ./modules.nix
     ./networking.nix
-    ./system-packages.nix
+    ./old-users.nix
+    ./samba.nix
   ];
+
+  services.tailscale.tailnet = "admin";
 
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;

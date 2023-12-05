@@ -1,14 +1,5 @@
 { pkgs, ... }: {
-  nixpkgs.overlays = [
-    (_: super: {
-      makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
-    })
-  ];
-
   boot = {
-    tmpOnTmpfs = true;
-
     kernelPackages = pkgs.linuxPackages_rpi3;
     kernelParams = [ "cma=128M" ];
 

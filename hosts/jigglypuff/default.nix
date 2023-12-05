@@ -3,17 +3,19 @@
 let
   inherit (flake) common;
   inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
     modules = cli;
   };
 
-  merged = merge-user-config { users = [ jay ]; };
+  merged = merge [ jay ];
 in {
   inherit flake;
   inherit (merged) users home-manager;
+
+  imports = [ ./network.nix ];
 
   age = {
     secrets = {
@@ -32,15 +34,32 @@ in {
     identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
-  services.tailscale.tailnet = "dns";
+  boot = {
+    kernelPackages = pkgs.linuxPackages_rpi3;
+    kernelParams = [ "cma=128M" ];
 
-  environment.systemPackages = with pkgs; [ libraspberrypi ];
+    initrd.availableKernelModules =
+      [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
 
-  imports = [ ./hardware-configuration.nix ./modules.nix ./vlans.nix ];
+    loader = {
+      grub.enable = false;
+      generic-extlinux-compatible.enable = true;
+    };
+  };
 
-  virtualisation.oci-containers.backend = "docker";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
+    };
+  };
 
-  networking.hostName = "jigglypuff";
-  networking.hostId = "d2a7f613";
+  hardware.enableRedistributableFirmware = true;
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
+
   system.stateVersion = "22.05";
 }

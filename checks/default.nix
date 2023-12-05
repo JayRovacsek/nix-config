@@ -1,11 +1,7 @@
-{ self, system }:
+{ self, pkgs }:
 let
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-
-  pre-commit-unsupported = [ "armv6l-linux" "armv7l-linux" ];
-  checks = if builtins.elem system self.common.pre-commit-unsupported then
-    { }
-  else {
+  inherit (pkgs) system;
+  checks = {
     pre-commit = self.inputs.pre-commit-hooks.lib.${system}.run {
       src = self;
       hooks = {
@@ -13,7 +9,7 @@ let
         deadnix.enable = true;
         nixfmt.enable = true;
         prettier.enable = true;
-        statix.enable = false;
+        statix.enable = true;
         typos.enable = true;
 
         # Custom hooks
@@ -29,7 +25,7 @@ let
           enable = true;
           name = "Trufflehog Search";
           entry =
-            "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
+            "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
           language = "system";
           pass_filenames = false;
         };
@@ -38,7 +34,7 @@ let
           enable = true;
           name = "Trufflehog Regex Search";
           entry =
-            "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions";
+            "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions  --no-update";
           language = "system";
           pass_filenames = false;
         };
@@ -47,7 +43,7 @@ let
       # Settings for builtin hooks, see also: https://github.com/cachix/pre-commit-hooks.nix/blob/master/modules/hooks.nix
       settings = {
         deadnix.edit = true;
-        nixfmt.width = 120;
+        nixfmt.width = 80;
         prettier.write = true;
       };
     };

@@ -1,6 +1,8 @@
 _: {
   programs.man = {
-    enable = true;
-    generateCaches = true;
+    enable = false;
+    generateCaches = false;
   };
+
+  manual.manpages.enable = false;
 }

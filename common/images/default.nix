@@ -1,34 +1,52 @@
 { self }:
 let
-  inherit (self) nixosConfigurations;
+  inherit (self.lib) merge;
   inherit (self.inputs) nixos-generators;
-  inherit (self.inputs.stable.lib) recursiveUpdate;
-  inherit (self.inputs.stable.lib.attrsets) filterAttrs mapAttrsToList;
-  inherit (nixosConfigurations) rpi1 rpi2;
 
-  sd-configurtations = [ rpi1 rpi2 ];
-  cloud-formats = [ "linode" "qcow" ];
+  # SD Installer Images / Configs
+  rpi1 = import ./rpi1.nix { inherit self; };
+  rpi2 = import ./rpi2.nix { inherit self; };
 
-  cloud-base-images = builtins.foldl'
-    (accumulator: set: (builtins.listToAttrs set) // accumulator) { }
-    (mapAttrsToList (name: value:
-      builtins.foldl' (accumulator: format:
-        [{
-          name = "${format}-base-image";
-          value = nixos-generators.nixosGenerate {
-            inherit format;
-            inherit (value.pkgs.stdenv) system;
-            inherit (value._module.args) modules;
-          };
-        }] ++ accumulator) [ ] cloud-formats
+  # Cloud Base Images
+  amazon-cfg = import ./amazon.nix { inherit self; };
+  linode-cfg = import ./linode.nix { inherit self; };
+  oracle-cfg = import ./oracle.nix { inherit self; };
 
-    ) (filterAttrs (name: _: builtins.elem name cloud-formats)
-      nixosConfigurations));
+  amazon = let inherit (amazon-cfg._module.args) modules;
+  in nixos-generators.nixosGenerate {
+    system = "x86_64-linux";
+    modules = modules ++ [{ amazonImage.sizeMB = 16 * 1024; }];
+    format = "amazon";
+  };
 
-  # Create a list of identifer to sdImage build derivations.
+  linode = let inherit (linode-cfg._module.args) modules;
+  in nixos-generators.nixosGenerate {
+    system = "x86_64-linux";
+    inherit modules;
+    format = "linode";
+  };
+
+  oracle = let inherit (oracle-cfg._module.args) modules;
+  in nixos-generators.nixosGenerate {
+    system = "x86_64-linux";
+    inherit modules;
+    format = "qcow";
+  };
+
+  cfgs = {
+    configurations = {
+      amazon = amazon-cfg;
+      linode = linode-cfg;
+      oracle = oracle-cfg;
+      inherit rpi1 rpi2;
+    };
+  };
+
   sd-images = builtins.map (image: {
-    "${image.config.networking.hostName}" = image.config.system.build.sdImage;
-  }) sd-configurtations;
+    "${image.config.networking.hostName}-sdImage" =
+      image.config.system.build.sdImage;
+  }) [ rpi1 rpi2 ];
 
-  # Fold list of image name => derivation into a set rather than a list
-in builtins.foldl' recursiveUpdate cloud-base-images sd-images
+  cloud-images = { inherit amazon linode oracle; };
+
+in merge ([ cloud-images cfgs ] ++ sd-images)

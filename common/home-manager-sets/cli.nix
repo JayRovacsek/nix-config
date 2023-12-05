@@ -1,15 +1,18 @@
 { self }:
-let inherit (self.common) home-manager-modules;
-in with home-manager-modules; [
-  alacritty
+let
+  inherit (self.inputs) neovim-flake;
+  inherit (self.common) home-manager-modules;
+  inherit (self.common.home-manager-module-sets) base;
+in base ++ (with home-manager-modules; [
   bat
-  dircolours
   direnv
   fzf
   git
   jq
   lsd
   man
+  neovim
+  nix-index
   starship
   zsh
-]
+]) ++ [ neovim-flake.homeManagerModules.default ]

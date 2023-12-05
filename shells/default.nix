@@ -1,26 +1,13 @@
-{ self, system }:
+{ self, pkgs }:
 let
+  inherit (pkgs) system;
   name = "dev-shell";
-
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-
-  unsupportedSystem = builtins.elem system self.common.pre-commit-unsupported;
-
-  nodePackages = with pkgs.nodePackages; [ prettier ];
-
-  packages = if unsupportedSystem then
-    [ ]
-  else
-    (with pkgs; [ nixfmt statix nil ]) ++ nodePackages;
-
-  shellHook = if unsupportedSystem then
-    ""
-  else
-    self.checks.${system}.pre-commit.shellHook;
-
-  shell = { inherit name packages shellHook; };
-
+  node-deps = with pkgs.nodePackages; [ prettier ];
+  packages = (with pkgs; [ deadnix nixfmt statix nil ]) ++ node-deps;
 in {
-  "${name}" = pkgs.mkShell shell;
+  "${name}" = pkgs.mkShell {
+    inherit name packages;
+    inherit (self.checks.${system}.pre-commit) shellHook;
+  };
   default = self.outputs.devShells.${system}.${name};
 }

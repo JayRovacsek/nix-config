@@ -26,7 +26,6 @@ in {
     address=/flare-solverr.lan/192.168.4.138
     address=/swag.lan/192.168.5.3
     address=/jellyfin.lan/192.168.5.4
-    address=/pihole.lan/192.168.6.2
     address=/stubby.lan/192.168.6.3
     address=/jigglypuff.lan/192.168.6.4
     address=/authelia.lan/192.168.9.2

@@ -1,1 +1,1 @@
-{ services.falcon.enable = true; }
+_: { services.falcon.enable = true; }

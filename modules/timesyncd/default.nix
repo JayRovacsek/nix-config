@@ -1,4 +1,4 @@
-{
+_: {
   services.timesyncd = {
     servers = [
       "0.au.pool.ntp.org"

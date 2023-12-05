@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.lib) merge;
   inherit (flake.common.home-manager-module-sets) hyprland-desktop;
 
   test = common.users.test {
@@ -10,13 +10,13 @@ let
     modules = hyprland-desktop;
   };
 
-  merged = merge-user-config { users = [ test ]; };
+  merged = merge [ test ];
 
 in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./modules.nix ./system-packages.nix ];
+  environment.systemPackages = with pkgs; [ curl wget ];
 
   networking = {
     hostName = "mew";

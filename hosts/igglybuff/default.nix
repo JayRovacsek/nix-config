@@ -1,14 +1,8 @@
 { config, pkgs, lib, flake, ... }:
 let
   inherit (flake) common;
-  inherit (common.microvm) read-only-store;
-
-  inherit (flake.lib) merge-user-config microvm;
-  inherit (microvm) generate-journald-share;
-
+  inherit (flake.lib) merge;
   inherit (config.networking) hostName;
-
-  journald-share = generate-journald-share hostName;
 
   jay = common.users.jay {
     inherit config pkgs;
@@ -16,7 +10,7 @@ let
     overrides = { users.users.jay.shell = pkgs.bash; };
   };
 
-  merged = merge-user-config { users = [ jay ]; };
+  merged = merge [ jay ];
 
 in {
   inherit flake;
@@ -31,7 +25,6 @@ in {
     vcpu = 1;
     mem = 2048;
     hypervisor = "qemu";
-    shares = [ read-only-store journald-share ];
     interfaces = [{
       type = "tap";
       id = "vm-${hostName}-01";
@@ -43,7 +36,6 @@ in {
   services.resolved.enable = false;
 
   imports = [
-    ../common/machine-id.nix
     ../../modules/blocky
     ../../modules/microvm/guest
     ../../modules/openssh

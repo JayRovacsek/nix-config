@@ -1,35 +1,44 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, modulesPath, flake, ... }:
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) linux-desktop;
-  inherit (flake.lib) merge-user-config;
+  inherit (flake.common.home-manager-module-sets) base desktop;
+  inherit (flake.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
-    modules = [ ];
+    modules = base;
   };
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = linux-desktop;
+    modules = desktop;
   };
 
-  merged = merge-user-config { users = [ builder jay ]; };
+  merged = merge [ builder jay ];
 
 in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./hardware-configuration.nix ./modules.nix ./wireless.nix ];
+  imports = [
+    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    ./hardware-configuration.nix
+    ./wireless.nix
+  ];
 
-  environment.systemPackages = with pkgs; [ libraspberrypi ];
-
-  # Add wireless key to identity path
   age.identityPaths =
     [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-wireless-primary" ];
 
-  networking.hostName = "wigglytuff";
-  networking.hostId = "d2a7b80b";
-  system.stateVersion = "22.05";
+  environment.systemPackages = with pkgs; [ jellyfin-media-player ];
+
+  networking = {
+    hostName = "wigglytuff";
+    hostId = "d2a7b80b";
+  };
+
+  system.stateVersion = "23.11";
+
+  # Hide Builder user from SDDM login
+  services.xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
 }

@@ -1,9 +1,16 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
-  configs = {
-    aarch64-darwin = import ./aarch64-darwin.nix;
-    x86_64-darwin = import ./x86_64-darwin.nix;
-    aarch64-linux = import ./aarch64-linux.nix { inherit config; };
-    x86_64-linux = import ./x86_64-linux.nix;
+  inherit (pkgs.stdenv) isLinux isDarwin;
+
+  linux-settings = lib.optionalAttrs isLinux {
+    useDHCP = false;
+    networkmanager.enable = true;
   };
-in { networking = configs.${pkgs.system}; }
+
+  darwin-settings = lib.optionalAttrs isDarwin {
+    knownNetworkServices = [ "Wi-Fi" "USB 10/100/1000 LAN" ];
+  };
+
+  cfg.networking = linux-settings // darwin-settings;
+
+in cfg
