@@ -26,11 +26,6 @@ let
       ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
     } accumulator) { } node-packages;
 
-  shell = builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      ${package} = callPackage ./shell/${package} { inherit self; };
-    } accumulator) { } shell-packages;
-
   python = let
     python-overlay-pkgs = import self.inputs.nixpkgs {
       inherit system;
@@ -47,6 +42,13 @@ let
   rust = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
     accumulator) { } rust-packages;
+
+  sbom = import ./sbom { inherit self pkgs; };
+
+  shell = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./shell/${package} { inherit self; };
+    } accumulator) { } shell-packages;
 
   tofu = mapAttrs (name: _:
     terranix.lib.terranixConfiguration {
@@ -69,6 +71,7 @@ let
     node
     python
     rust
+    sbom
     shell
     tofu
     wallpapers

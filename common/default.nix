@@ -33,6 +33,7 @@
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
+  systems = import ./systems.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   tofu = import ./tofu { inherit self; };
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
