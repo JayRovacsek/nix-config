@@ -6,9 +6,18 @@ let
   # Required package-sets
   inherit (self.common.package-sets) aarch64-darwin-unstable;
 
-  inherit (self.lib.host) make-host;
+  inherit (self.lib.host) mkHost;
 in {
   # Hosts
-  ninetales = make-host aarch64-darwin-unstable "ninetales" darwin-system;
-  victreebel = make-host aarch64-darwin-unstable "victreebel" darwin-system;
+  ninetales = mkHost {
+    builder = darwin-system;
+    name = "ninetales";
+    package-set = aarch64-darwin-unstable;
+  };
+
+  victreebel = mkHost {
+    builder = darwin-system;
+    name = "victreebel";
+    package-set = aarch64-darwin-unstable;
+  };
 }

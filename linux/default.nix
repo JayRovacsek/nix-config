@@ -18,84 +18,73 @@ in {
   # at a level in which it is inherited from all base-images
   # This host otherwise is simply a very base headless install
   ditto = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "ditto";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "ditto";
+    package-set = x86_64-linux-unstable;
   };
 
   # Cloud Instances
   diglett = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "diglett";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "diglett";
+    package-set = x86_64-linux-unstable;
   };
 
   butterfree = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "butterfree";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "butterfree";
+    package-set = x86_64-linux-unstable;
   };
 
   # Testing Instances
   mew = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "mew";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "mew";
+    package-set = x86_64-linux-unstable;
   };
 
   # Hosts
   alakazam = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "alakazam";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "alakazam";
+    package-set = x86_64-linux-unstable;
   };
 
   cloyster = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "cloyster";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "cloyster";
+    package-set = x86_64-linux-unstable;
   };
 
   dragonite = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "dragonite";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "dragonite";
+    package-set = x86_64-linux-unstable;
   };
 
   gastly = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "gastly";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "gastly";
+    package-set = x86_64-linux-unstable;
   };
 
   jigglypuff = mkHost {
-    package-set = aarch64-linux-unstable;
-    name = "jigglypuff";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "jigglypuff";
+    package-set = aarch64-linux-unstable;
   };
 
   wigglytuff = mkHost {
-    package-set = aarch64-linux-bleeding-edge;
-    name = "wigglytuff";
     builder = bleeding-edge-system;
-    extra-modules = [ ];
+    name = "wigglytuff";
+    package-set = aarch64-linux-bleeding-edge;
   };
 
   ## WSL Configuration
   zubat = mkHost {
-    package-set = x86_64-linux-unstable;
-    name = "zubat";
     builder = unstable-system;
-    extra-modules = [ ];
+    name = "zubat";
+    package-set = x86_64-linux-unstable;
   };
 
   ## MicroVMs
