@@ -62,9 +62,6 @@ in {
       enable = true;
       # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
       extraConfig = ''
-        evaluator_max_memory_size = 4096
-        evaluator_workers = 8
-        max_concurrent_evals = 2
         compress_build_logs = 1
         <githubstatus>
           jobs = .*
