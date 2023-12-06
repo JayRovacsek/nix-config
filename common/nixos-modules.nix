@@ -22,7 +22,7 @@ let
     # below this comment, it'll likely be an addition or removal of a argument passed
     # by home manager.
     "${name}" = { config, pkgs, lib, options, specialArgs, modulesPath }:
-      import ./modules/${module} {
+      import ../modules/${name} {
         inherit config pkgs lib options specialArgs modulesPath;
       };
   }) module-folders);

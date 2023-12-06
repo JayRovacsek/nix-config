@@ -23,11 +23,11 @@ let
   # or from nix-darwin:
   # pkgs.lib.darwinSystem
 
-  make-host = package-set: name: system-builder:
+  mkHost = { package-set, name, builder, extra-modules ? [ ] }:
     let
       inherit (package-set) system identifier pkgs;
       base = self.common.modules.${identifier} ++ [ ../hosts/${name} ];
-      extra-modules = import ../hosts/${name}/modules.nix { inherit self; };
-      modules = base ++ extra-modules;
-    in system-builder { inherit system pkgs modules; };
-in { inherit make-host; }
+      host-modules = import ../hosts/${name}/modules.nix { inherit self; };
+      modules = base ++ host-modules ++ extra-modules;
+    in builder { inherit system pkgs modules; };
+in { inherit mkHost; }

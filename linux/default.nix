@@ -7,7 +7,7 @@ let
   inherit (self.common.package-sets)
     x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
 
-  inherit (self.lib.host) make-host;
+  inherit (self.lib.host) mkHost;
 in {
   # Cloud and hardware specific configurations
   inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
@@ -17,26 +17,86 @@ in {
   # so exposure here is more to give a consistent base and be enabled to add tweaks
   # at a level in which it is inherited from all base-images
   # This host otherwise is simply a very base headless install
-  ditto = make-host x86_64-linux-unstable "ditto" unstable-system;
+  ditto = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "ditto";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
 
   # Cloud Instances
-  diglett = make-host x86_64-linux-unstable "diglett" unstable-system;
-  butterfree = make-host x86_64-linux-unstable "butterfree" unstable-system;
+  diglett = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "diglett";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  butterfree = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "butterfree";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
 
   # Testing Instances
-  mew = make-host x86_64-linux-unstable "mew" unstable-system;
+  mew = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "mew";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
 
   # Hosts
-  alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
-  cloyster = make-host x86_64-linux-unstable "cloyster" unstable-system;
-  dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
-  gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
-  jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
-  wigglytuff =
-    make-host aarch64-linux-bleeding-edge "wigglytuff" bleeding-edge-system;
+  alakazam = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "alakazam";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  cloyster = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "cloyster";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  dragonite = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "dragonite";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  gastly = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "gastly";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  jigglypuff = mkHost {
+    package-set = aarch64-linux-unstable;
+    name = "jigglypuff";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
+
+  wigglytuff = mkHost {
+    package-set = aarch64-linux-bleeding-edge;
+    name = "wigglytuff";
+    builder = bleeding-edge-system;
+    extra-modules = [ ];
+  };
 
   ## WSL Configuration
-  zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
+  zubat = mkHost {
+    package-set = x86_64-linux-unstable;
+    name = "zubat";
+    builder = unstable-system;
+    extra-modules = [ ];
+  };
 
   ## MicroVMs
   ## TEMPORARILY DISABLED
