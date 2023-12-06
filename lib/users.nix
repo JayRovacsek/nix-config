@@ -1,4 +1,4 @@
-_:
+{ self }:
 let
   generate-config = { flake, config, pkgs, user-settings, modules
     , stable ? false, overrides ? { }, ... }:
@@ -115,4 +115,14 @@ let
         "${cfg.group.name}" = { inherit (cfg.group) gid members; };
       } // extraGroupExtendedOptions;
     };
-in { inherit generate-config generate-service-user; }
+
+  mkUser = { package-set, name, extra-modules ? [ ] }:
+    let
+      inherit (package-set) pkgs;
+      user-modules = import ../users/${name}/modules.nix { inherit self; };
+      modules = user-modules ++ extra-modules;
+    in self.inputs.home-manager.lib.homeManagerConfiguration {
+      inherit pkgs modules;
+    };
+
+in { inherit generate-config generate-service-user mkUser; }
