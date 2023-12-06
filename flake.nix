@@ -323,7 +323,7 @@
         nixosModules = self.common.nixos-modules;
 
         # Home manager user definitions for system consumption
-        homeManagerConfiguration = import ./users { inherit self; };
+        homeManagerConfigurations = import ./users { inherit self; };
 
         # Home manager modules for user consumption
         homeManagerModules = self.common.home-manager-modules;
