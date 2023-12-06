@@ -49,7 +49,7 @@ let
     pkgs = import nixpkgs { inherit system; };
     modules = [{
       home = {
-        stateVersion = "23.11";
+        stateVersion = "24.05";
         username = "stub";
         homeDirectory = "/";
       };

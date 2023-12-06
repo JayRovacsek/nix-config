@@ -308,7 +308,6 @@
   outputs = { self, flake-utils, ... }:
     let
       inherit (self.inputs.nixpkgs) lib;
-      inherit (lib) recursiveUpdate;
 
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
@@ -321,14 +320,10 @@
         lib = import ./lib { inherit self; };
 
         # System modules for system consumption
-        nixosModules = builtins.foldl' (accumulator: module:
-          recursiveUpdate {
-            ${module} =
-              { config, pkgs, lib, options, specialArgs, modulesPath }:
-              import ./modules/${module} {
-                inherit config pkgs lib options specialArgs modulesPath;
-              };
-          } accumulator) { } self.common.nixos-modules;
+        nixosModules = self.common.nixos-modules;
+
+        # Home manager modules for user consumption
+        homeManagerModules = self.common.home-manager-modules;
 
         options = self.outputs.lib.options.declarations;
 

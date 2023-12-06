@@ -20,7 +20,7 @@
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
-  nixos-modules = builtins.attrNames (builtins.readDir ../modules);
+  nixos-modules = import ./nixos-modules.nix { inherit self; };
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
