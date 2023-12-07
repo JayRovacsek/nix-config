@@ -317,4 +317,9 @@
         ++ (with prev.python-prev; [ pylint ]);
     });
   };
+
+  sunshine-nightly = _final: prev: {
+    sunshine-nightly =
+      self.inputs.bleeding-edge.legacyPackages.${prev.system}.sunshine;
+  };
 }

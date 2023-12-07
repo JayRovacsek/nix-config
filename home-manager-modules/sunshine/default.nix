@@ -71,7 +71,7 @@ in {
     Install.WantedBy = [ "graphical-session.target" ];
 
     Service = {
-      ExecStart = "${pkgs.sunshine}/bin/sunshine";
+      ExecStart = "${pkgs.sunshine-nightly}/bin/sunshine";
       Restart = "on-failure";
       RestartSec = "5s";
     };
