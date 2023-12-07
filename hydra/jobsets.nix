@@ -8,7 +8,7 @@ let
     enabled = 1;
     hidden = false;
     description = "PR ${num}: ${info.title}";
-    checkinterval = 60;
+    checkinterval = 240;
     schedulingshares = 20;
     enableemail = false;
     emailoverride = "";

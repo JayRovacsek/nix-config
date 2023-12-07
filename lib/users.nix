@@ -100,7 +100,6 @@ let
     let
       extraGroupExtendedOptions =
         if cfg.name == cfg.group.name then { } else { "${cfg.name}" = { }; };
-
     in {
       extraUsers = {
         "${cfg.name}" = {
