@@ -20,6 +20,7 @@ with self.nixosModules; [
   time
   timesyncd
   udev
+  ups
   zfs
   zsh
 ]
