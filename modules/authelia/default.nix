@@ -1,72 +1,66 @@
 { config, lib, ... }:
 let
   inherit (config.services) nginx;
-  inherit (lib) overrideExisting;
+  inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (lib) recursiveUpdate;
 
-  production = {
-    enable = true;
+  service-name = "authelia";
+
+  port = 9091;
+
+  overrides = {
+    default = true;
+    # TODO: in the future having dynamic evaluation based - depends
+    # on microvm & tailscale / overlay network
+    locations."/api/verify".extraConfig = ''
+      proxy_pass http://localhost:${builtins.toString port};
+    '';
+  };
+
+  domains = generate-domains { inherit config service-name; };
+
+  virtualHosts =
+    generate-vhosts { inherit config overrides port service-name; };
+
+  production = let domain = "rovacsek.com";
+  in {
+    enable = !nginx.test.enable;
+
+    settingsFiles = [ config.age.secrets.authelia-notifier-config.path ];
+
     secrets = {
       jwtSecretFile = config.age.secrets.authelia-jwt-secret-key.path;
-      sessionSecretFile = config.age.authelia-session-secret-key.path;
+      sessionSecretFile = config.age.secrets.authelia-session-secret-key.path;
       storageEncryptionKeyFile =
         config.age.secrets.authelia-storage-encryption-key.path;
     };
+
     settings = {
       access_control = {
         default_policy = "deny";
         rules = [
           {
-            domain = "duplicati.rovacsek.com";
+            domain = "duplicati.${domain}";
             policy = "two_factor";
             subject = "group:duplicati";
           }
           {
-            domain = "homeassistant.rovacsek.com";
+            domain = "homeassistant.${domain}";
             policy = "two_factor";
             subject = "group:homeassistant";
           }
           {
-            domain = "lidarr.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:lidarr";
-          }
-          {
-            domain = "ombi.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:ombi";
-          }
-          {
-            domain = "pfsense.rovacsek.com";
+            domain = "pfsense.${domain}";
             policy = "two_factor";
             subject = "group:pfsense";
           }
           {
-            domain = "portainer.rovacsek.com";
+            domain = "portainer.${domain}";
             policy = "two_factor";
             subject = "group:portainer";
           }
           {
-            domain = "prowlarr.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:prowlarr";
-          }
-          {
-            domain = "radarr.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:radarr";
-          }
-          {
-            domain = "sonarr.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:sonarr";
-          }
-          {
-            domain = "tdarr.rovacsek.com";
-            policy = "two_factor";
-            subject = "group:tdarr";
-          }
-          {
-            domain = "tdarr.rovacsek.com";
+            domain = "tdarr.${domain}";
             policy = "two_factor";
             subject = "group:tdarr";
           }
@@ -77,31 +71,30 @@ let
         password_reset.disable = false;
         refresh_interval = "5m";
         file = {
-          # TODO: create declarative option for this
-          path = "/config/users_database.yml";
+          inherit (config.age.secrets.authelia-users) path;
+          # As per: https://www.authelia.com/reference/cli/authelia/authelia_crypto_hash_generate_argon2/
           password = {
             algorithm = "argon2id";
-            iterations = 1;
+            iterations = 3;
             key_length = 32;
             salt_length = 16;
-            memory = 1024;
+            memory = 65536;
             parallelism = 8;
           };
         };
       };
 
       default_2fa_method = "totp";
-      default_redirection_url = "https://authelia.rovacsek.com";
+      default_redirection_url = "https://authelia.${domain}";
 
       log = {
-        file_path = "/var/log/authelia/authelia.log";
         format = "json";
         keep_stdout = false;
         level = "debug";
       };
 
       session = {
-        domain = "rovacsek.com";
+        inherit domain;
         expiration = "1h";
         inactivity = "5m";
         remember_me_duration = "1M";
@@ -114,8 +107,10 @@ let
         };
         path = "authelia";
         host = "localhost";
-        port = 9091;
+        inherit port;
       };
+
+      storage.local.path = "/var/lib/authelia-production/authelia.sqlite";
 
       telemetry = {
         metrics = {
@@ -127,16 +122,23 @@ let
       theme = "dark";
 
       totp = {
-        issuer = "rovacsek.com";
+        issuer = domain;
         period = 30;
         skew = 1;
       };
     };
   };
 
-  test = overrideExisting production {
+  test = let domain = "test.rovacsek.com";
+  in recursiveUpdate production {
     inherit (nginx.test) enable;
-    settings.log.level = "debug";
+    settings = {
+      log.level = "debug";
+      default_redirection_url = "https://authelia.${domain}";
+      notifier.disable_startup_check = false;
+      storage.local.path = "/var/lib/authelia-test/authelia.sqlite";
+      totp.issuer = domain;
+    };
   };
 in {
   age = {
@@ -144,15 +146,23 @@ in {
     secrets = {
       authelia-jwt-secret-key = {
         file = ../../secrets/authelia/jwt-secret-key.age;
-        owner = config.services.authelia.instances.production.user;
+        owner = config.services.authelia.instances.test.user;
       };
       authelia-session-secret-key = {
         file = ../../secrets/authelia/session-secret-key.age;
-        owner = config.services.authelia.instances.production.user;
+        owner = config.services.authelia.instances.test.user;
       };
       authelia-storage-encryption-key = {
         file = ../../secrets/authelia/storage-encryption-key.age;
-        owner = config.services.authelia.instances.production.user;
+        owner = config.services.authelia.instances.test.user;
+      };
+      authelia-notifier-config = {
+        file = ../../secrets/authelia/notifier-config.age;
+        owner = config.services.authelia.instances.test.user;
+      };
+      authelia-users = {
+        file = ../../secrets/authelia/users.age;
+        owner = config.services.authelia.instances.test.user;
       };
     };
   };
@@ -160,5 +170,12 @@ in {
   networking.firewall.allowedTCPPorts =
     [ config.services.authelia.instances.production.settings.server.port ];
 
-  services.authelia.instances = { inherit production test; };
+  services = {
+    authelia.instances = { inherit production test; };
+
+    nginx = {
+      test = { inherit domains; };
+      inherit virtualHosts;
+    };
+  };
 }
