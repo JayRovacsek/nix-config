@@ -2,7 +2,7 @@
 let
   pname = "libvsgpt-python";
   name = pname;
-  version = "20221029";
+  version = "20231122";
 
   meta = with lib; {
     description = "Python bindings module for libvsgpt";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-2GipPvRMA0viWQKIBCnp+PiLLpo4F0OeuNm0zMQ/SSU=";
+    sha256 = "sha256-bFiM5FXllS9GR+XPc+dQCJ7aGV0EKmnPv4hB0UUDzcU=";
   };
 
   doCheck = false;

@@ -2,7 +2,7 @@
 let
   pname = "libmodi-python";
   name = pname;
-  version = "20221023";
+  version = "20231123";
 
   meta = with lib; {
     description = "Python bindings module for libmodi";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Rlqj+f8NijKi30X/r3/6wcyYl301CH91njC86vF+3co=";
+    sha256 = "sha256-EknrAFpLCTz3z08Bn1KCwPByBF+8vP+dWiCqJFbb51k=";
   };
 
   doCheck = false;

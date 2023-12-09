@@ -2,7 +2,7 @@
 let
   pname = "libevt-python";
   name = pname;
-  version = "20221022";
+  version = "20231121";
 
   meta = with lib; {
     description = "Python bindings module for libevt";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-mzPp2iFc8e60V4oEacai9V0H/xnNzoqMgGTtA9Rkvyc=";
+    sha256 = "sha256-8TVAWaPx+QNHg+/m+7OXuZ201nBnym7Kxa8HnmtMkF0=";
   };
 
   doCheck = false;

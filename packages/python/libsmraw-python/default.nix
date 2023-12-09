@@ -2,7 +2,7 @@
 let
   pname = "libsmraw-python";
   name = pname;
-  version = "20221028";
+  version = "20231127";
 
   meta = with lib; {
     description = "Python bindings module for libsmraw";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-g9Rfwie7+Q1aUmWnhc0ysscfh3ZCXpV0g0Gv1AM4cek=";
+    sha256 = "sha256-CUJlZCXjIDGnoOGwx0hqgDrMsLDcElBaB7bb/vOwfWo=";
   };
 
   doCheck = false;

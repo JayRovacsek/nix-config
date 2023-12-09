@@ -2,7 +2,7 @@
 let
   pname = "pytsk3";
   name = pname;
-  version = "20230125";
+  version = "20231007";
 
   meta = with lib; {
     description =
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-RAaohJCvzGSc1Eqj6L1eiwdngiwXxQz2xomPu5YFrEI=";
+    sha256 = "sha256-uPE5ytLj+sv/fp1AYjwIdrHLRQU/EVnDZQEGwcK6T/g=";
   };
 
   doCheck = false;
