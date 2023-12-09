@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime }:
 let
   pname = "steam-lancache-prefill";
-  version = "2.1.4";
+  version = "2.3.1";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/steam-lancache-prefill";
@@ -15,7 +15,7 @@ let
     repo = "steam-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-ZdmPbir2KRSKXtYfn05V9+Y2e8HW4mXhfHlMdVy8oMI=";
+    hash = "sha256-iYtZ+Iu3gXBY4rbSeCKLwDF/Mez6o8uLwFdnceXptXo=";
   };
 
   patches = [ ./no-appcontext.patch ];
