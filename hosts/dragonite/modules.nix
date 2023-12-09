@@ -1,6 +1,7 @@
 { self }:
 with self.nixosModules; [
   agenix
+  auto-upgrade
   blocky
   clamav
   docker
