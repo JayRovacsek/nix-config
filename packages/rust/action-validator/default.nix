@@ -2,7 +2,7 @@
 let
   inherit (rustPlatform) buildRustPackage;
   pname = "action-validator";
-  version = "0.5.3";
+  version = "0.5.4";
 
   meta = with lib; {
     homepage = "https://github.com/mpalmer/action-validator";
@@ -15,9 +15,9 @@ let
     repo = "action-validator";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-22oYPYGnNp4K68pbNMolGcIGDYqjT/3FibO/jv3IEvg=";
+    hash = "sha256-roWmks+AgRf2ACoI7Vc/QEyqgQ0bR/XhRwLk9VaLEdY=";
   };
 
-  cargoSha256 = "sha256-CVDqXuAxI1vCZV4w8DS3fOrsYFvJoI35fbe+hnSahLc=";
+  cargoSha256 = "sha256-WUtFWuk2y/xXe39doMqANaIr0bbxmLDpT4/H2GRGH6k=";
 
 in buildRustPackage { inherit pname version src meta cargoSha256; }

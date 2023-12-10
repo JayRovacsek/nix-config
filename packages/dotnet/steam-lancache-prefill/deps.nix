@@ -73,6 +73,11 @@
     sha256 = "0h51vdcz6pkv4ky2ygba4vks56rskripqb3fjz95ym0l0xg20s1a";
   })
   (fetchNuGet {
+    pname = "Microsoft.NET.ILLink.Tasks";
+    version = "8.0.0";
+    sha256 = "13y3bilk9rrrgsk9abks7xvpwp12zw150xcyi0diig2hqswys1h4";
+  })
+  (fetchNuGet {
     pname = "Microsoft.NETCore.Platforms";
     version = "1.1.0";
     sha256 = "08vh1r12g6ykjygq5d3vq09zylgb84l63k49jc4v8faw9g93iqqm";
@@ -161,11 +166,6 @@
     pname = "System.Runtime";
     version = "4.3.0";
     sha256 = "066ixvgbf2c929kgknshcxqj6539ax7b9m570cp8n179cpfkapz7";
-  })
-  (fetchNuGet {
-    pname = "System.Runtime.CompilerServices.Unsafe";
-    version = "6.0.0";
-    sha256 = "0qm741kh4rh57wky16sq4m0v05fxmkjjr87krycf5vp9f0zbahbc";
   })
   (fetchNuGet {
     pname = "System.Security.AccessControl";
