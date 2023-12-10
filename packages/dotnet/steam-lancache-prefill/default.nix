@@ -24,7 +24,7 @@ let
 
   projectFile = [
     "SteamPrefill/SteamPrefill.csproj"
-    "LancachePrefill.Common/LancachePrefill.Common.csproj"
+    "LancachePrefill.Common/dotnet/LancachePrefill.Common.csproj"
   ];
 
   nugetDeps = ./deps.nix;
