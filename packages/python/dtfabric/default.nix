@@ -2,7 +2,7 @@
 let
   pname = "dtfabric";
   name = pname;
-  version = "20221218";
+  version = "20230520";
 
   meta = with lib; {
     description =
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-E4HOdIBj0Mcy/PNDStwXmsjwW3WpZJYmFDDWvRaTPlU=";
+    sha256 = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
   };
 
   doCheck = false;

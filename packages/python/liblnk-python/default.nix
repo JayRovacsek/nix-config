@@ -2,7 +2,7 @@
 let
   pname = "liblnk-python";
   name = pname;
-  version = "20230205";
+  version = "20231120";
 
   meta = with lib; {
     description = "Python bindings module for liblnk";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-kgLwfYe7MPj5AYmCJMYna+wFMo3V8A62eNVQnVU8J0k=";
+    sha256 = "sha256-uRZ0TyEWrgxOpNwDuZA5iGIvh0QG+nO4sGqK5K54e+w=";
   };
 
   doCheck = false;

@@ -2,7 +2,7 @@
 let
   pname = "libfsext-python";
   name = pname;
-  version = "20220829";
+  version = "20231129";
 
   meta = with lib; {
     description = "Python bindings module for libfsext";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-uldQDxEpImrl5oDw3Sy9Axj+oveqx6jhrS4HMeI/R5M=";
+    sha256 = "sha256-Ijhu/0QzRVzrJQTU5UsPMfRauzaeK6maR3Vdo2k80UI=";
   };
 
   doCheck = false;

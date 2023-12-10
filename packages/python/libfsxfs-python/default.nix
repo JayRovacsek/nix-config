@@ -2,7 +2,7 @@
 let
   pname = "libfsxfs-python";
   name = pname;
-  version = "20220829";
+  version = "20231124";
 
   meta = with lib; {
     description = "Python bindings module for libfsxfs";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-mNvSLO/B69zQILEcVTTbL3YXJJJOm0o74SG2HZ0+U0M=";
+    sha256 = "sha256-h8Cn/0rI7tYYxKgX2pt9/96f9XOiGiOk9gI9i+KeLxc=";
   };
 
   doCheck = false;
