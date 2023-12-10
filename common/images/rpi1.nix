@@ -35,7 +35,7 @@ in unstable-system {
         crossSystem = lib.systems.elaborate lib.systems.examples.raspberryPi;
         overlays = [
           self.overlays.boehmgc-no-check
-          self.overlays.diffutils
+          self.overlays.diffutils-no-check
           self.overlays.gnugrep-no-check
         ];
       };

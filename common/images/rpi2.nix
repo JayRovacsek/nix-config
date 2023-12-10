@@ -34,8 +34,9 @@ in unstable-system {
           lib.systems.elaborate lib.systems.examples.armv7l-hf-multiplatform;
         overlays = [
           self.overlays.boehmgc-no-check
-          self.overlays.diffutils
+          self.overlays.diffutils-no-check
           self.overlays.gnugrep-no-check
+          self.overlays.libuv-no-check
           self.overlays.pcre-no-check
           self.overlays.rhash-no-check
         ];

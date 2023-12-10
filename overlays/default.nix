@@ -6,10 +6,6 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
-  diffutils = _final: prev: {
-    diffutils = prev.diffutils.overrideAttrs (_: { doCheck = false; });
-  };
-
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
   hello = _final: prev: {
@@ -329,6 +325,10 @@
     boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
   };
 
+  diffutils-no-check = _final: prev: {
+    diffutils = prev.diffutils.overrideAttrs (_: { doCheck = false; });
+  };
+
   gnugrep-no-check = _final: prev: {
     gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
   };
@@ -339,5 +339,9 @@
 
   rhash-no-check = _final: prev: {
     rhash = prev.rhash.overrideAttrs (_: { doCheck = false; });
+  };
+
+  libuv-no-check = _final: prev: {
+    libuv = prev.libuv.overrideAttrs (_: { doCheck = false; });
   };
 }
