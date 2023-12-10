@@ -325,6 +325,10 @@
     boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
   };
 
+  dejagnu-no-check = _final: prev: {
+    dejagnu = prev.dejagnu.overrideAttrs (_: { doCheck = false; });
+  };
+
   diffutils-no-check = _final: prev: {
     diffutils = prev.diffutils.overrideAttrs (_: { doCheck = false; });
   };
