@@ -332,4 +332,8 @@
   gnugrep-no-check = _final: prev: {
     gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
   };
+
+  pcre-no-check = _final: prev: {
+    pcre = prev.pcre.overrideAttrs (_: { doCheck = false; });
+  };
 }

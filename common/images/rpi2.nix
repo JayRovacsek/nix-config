@@ -36,6 +36,7 @@ in unstable-system {
           self.overlays.boehmgc-no-check
           self.overlays.diffutils
           self.overlays.gnugrep-no-check
+          self.overlays.pcre-no-check
         ];
       };
       system.stateVersion = "24.05";
