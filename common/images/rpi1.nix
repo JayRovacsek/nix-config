@@ -37,6 +37,7 @@ in unstable-system {
           self.overlays.boehmgc-no-check
           self.overlays.diffutils-no-check
           self.overlays.gnugrep-no-check
+          self.overlays.pcre-no-check
           self.overlays.rhash-no-check
         ];
       };
