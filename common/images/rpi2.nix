@@ -37,6 +37,7 @@ in unstable-system {
           self.overlays.diffutils
           self.overlays.gnugrep-no-check
           self.overlays.pcre-no-check
+          self.overlays.rhash-no-check
         ];
       };
       system.stateVersion = "24.05";

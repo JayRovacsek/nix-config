@@ -336,4 +336,8 @@
   pcre-no-check = _final: prev: {
     pcre = prev.pcre.overrideAttrs (_: { doCheck = false; });
   };
+
+  rhash-no-check = _final: prev: {
+    rhash = prev.rhash.overrideAttrs (_: { doCheck = false; });
+  };
 }
