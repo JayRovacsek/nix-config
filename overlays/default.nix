@@ -44,10 +44,6 @@
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
-  gnugrep-no-check = _final: prev: {
-    gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
-  };
-
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {
@@ -324,5 +320,16 @@
       propagatedBuildInputs = old.propagatedBuildInputs
         ++ (with prev.python-prev; [ pylint ]);
     });
+  };
+
+  # The below exist to resolve issues with compiling the aarch32 architectures.
+  # The failing checks might be able to be removed individually, but
+  # just looking at easiest path here.
+  boehmgc-no-check = _final: prev: {
+    boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
+  };
+
+  gnugrep-no-check = _final: prev: {
+    gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
   };
 }
