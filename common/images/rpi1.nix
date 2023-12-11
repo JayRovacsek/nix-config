@@ -34,9 +34,12 @@ in unstable-system {
         config.allowUnsupportedSystem = true;
         crossSystem = lib.systems.elaborate lib.systems.examples.raspberryPi;
         overlays = [
+          self.overlays.aarch32-python
           self.overlays.boehmgc-no-check
+          self.overlays.dejagnu-no-check
           self.overlays.diffutils-no-check
           self.overlays.gnugrep-no-check
+          self.overlays.libuv-no-check
           self.overlays.pcre-no-check
           self.overlays.rhash-no-check
         ];

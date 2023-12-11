@@ -348,4 +348,21 @@
   libuv-no-check = _final: prev: {
     libuv = prev.libuv.overrideAttrs (_: { doCheck = false; });
   };
+
+  aarch32-python = _final: prev:
+    prev.lib.attrsets.genAttrs [
+      "python38"
+      "python39"
+      "python310"
+      "python311"
+      "python312"
+    ] (version:
+      prev.${version}.override {
+        packageOverrides = _: python-prev: {
+          psutil = python-prev.psutil.overrideAttrs (old: {
+            disabledTests = old.disabledTests
+              ++ [ "test_net_if_addrs" "test_net_if_stats" ];
+          });
+        };
+      });
 }
