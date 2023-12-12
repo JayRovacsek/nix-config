@@ -87,7 +87,7 @@
     };
 
   python = _final: prev:
-    prev.lib.attrsets.genAttrs [
+    prev.lib.genAttrs [
       "python38"
       "python39"
       "python310"
@@ -321,70 +321,50 @@
   # The below exist to resolve issues with compiling the aarch32 architectures.
   # The failing checks might be able to be removed individually, but
   # just looking at easiest path here.
-  aarch32-bind = _final: prev: {
-    bind = prev.bind.overrideAttrs (_: {
-      cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
-      configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
+  armv6l-fixes = _final: prev:
+    let
+      aws-sdk-cpp-reduced-apis = {
+        aws-sdk-cpp = prev.aws-sdk-cpp.override { apis = [ "s3" ]; };
+      };
 
-      NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
-    });
-  };
+      disabled-checks = prev.lib.genAttrs [
+        "boehmgc"
+        "dejagnu"
+        "diffutils"
+        "git"
+        "gnugrep"
+        "libseccomp"
+        "libuv"
+        "pcre"
+        "rhash"
+      ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
 
-  aarch32-kbd = _final: prev: {
-    kbd = prev.kbd.overrideAttrs (_: {
-      cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
-      configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
+      d-file-offset-fixes = prev.lib.genAttrs [ "bind" "kbd" ] (name:
+        prev.${name}.overrideAttrs (_: {
+          cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
+          configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
 
-      NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
-    });
-  };
+          NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
+        }));
 
-  boehmgc-no-check = _final: prev: {
-    boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
-  };
+      python-fixes = prev.lib.genAttrs [
+        "python38"
+        "python39"
+        "python310"
+        "python311"
+        "python312"
+      ] (version:
+        prev.${version}.override {
+          packageOverrides = _: python-prev: {
+            psutil = python-prev.psutil.overrideAttrs (old: {
+              disabledTests = old.disabledTests
+                ++ [ "test_net_if_addrs" "test_net_if_stats" ];
+            });
+          };
+        });
+    in disabled-checks // d-file-offset-fixes // python-fixes
+    // aws-sdk-cpp-reduced-apis;
 
-  dejagnu-no-check = _final: prev: {
-    dejagnu = prev.dejagnu.overrideAttrs (_: { doCheck = false; });
-  };
+  armv7l-fixes = self.overlays.armv6l-fixes;
 
-  diffutils-no-check = _final: prev: {
-    diffutils = prev.diffutils.overrideAttrs (_: { doCheck = false; });
-  };
-
-  gnugrep-no-check = _final: prev: {
-    gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
-  };
-
-  libseccomp-no-check = _final: prev: {
-    libseccomp = prev.libseccomp.overrideAttrs (_: { doCheck = false; });
-  };
-
-  pcre-no-check = _final: prev: {
-    pcre = prev.pcre.overrideAttrs (_: { doCheck = false; });
-  };
-
-  rhash-no-check = _final: prev: {
-    rhash = prev.rhash.overrideAttrs (_: { doCheck = false; });
-  };
-
-  libuv-no-check = _final: prev: {
-    libuv = prev.libuv.overrideAttrs (_: { doCheck = false; });
-  };
-
-  aarch32-python = _final: prev:
-    prev.lib.attrsets.genAttrs [
-      "python38"
-      "python39"
-      "python310"
-      "python311"
-      "python312"
-    ] (version:
-      prev.${version}.override {
-        packageOverrides = _: python-prev: {
-          psutil = python-prev.psutil.overrideAttrs (old: {
-            disabledTests = old.disabledTests
-              ++ [ "test_net_if_addrs" "test_net_if_stats" ];
-          });
-        };
-      });
 }
