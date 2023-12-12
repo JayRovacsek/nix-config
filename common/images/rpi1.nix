@@ -35,6 +35,7 @@ in unstable-system {
         crossSystem = lib.systems.elaborate lib.systems.examples.raspberryPi;
         overlays = [
           self.overlays.aarch32-bind
+          self.overlays.aarch32-kbd
           self.overlays.aarch32-python
           self.overlays.boehmgc-no-check
           self.overlays.dejagnu-no-check

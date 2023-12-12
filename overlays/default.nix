@@ -330,6 +330,15 @@
     });
   };
 
+  aarch32-kbd = _final: prev: {
+    kbd = prev.kbd.overrideAttrs (_: {
+      cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
+      configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
+
+      NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
+    });
+  };
+
   boehmgc-no-check = _final: prev: {
     boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
   };
