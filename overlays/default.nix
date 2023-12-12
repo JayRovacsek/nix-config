@@ -355,6 +355,10 @@
     gnugrep = prev.gnugrep.overrideAttrs (_: { doCheck = false; });
   };
 
+  libseccomp-no-check = _final: prev: {
+    libseccomp = prev.libseccomp.overrideAttrs (_: { doCheck = false; });
+  };
+
   pcre-no-check = _final: prev: {
     pcre = prev.pcre.overrideAttrs (_: { doCheck = false; });
   };

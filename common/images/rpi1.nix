@@ -41,6 +41,7 @@ in unstable-system {
           self.overlays.dejagnu-no-check
           self.overlays.diffutils-no-check
           self.overlays.gnugrep-no-check
+          self.overlays.libseccomp-no-check
           self.overlays.libuv-no-check
           self.overlays.pcre-no-check
           self.overlays.rhash-no-check
