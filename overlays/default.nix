@@ -332,12 +332,17 @@
         "dejagnu"
         "diffutils"
         "git"
+        "gitMinimal"
         "gnugrep"
         "libseccomp"
         "libuv"
         "pcre"
         "rhash"
-      ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
+      ] (name:
+        prev.${name}.overrideAttrs (_: {
+          preInstallCheck = "";
+          doCheck = false;
+        }));
 
       d-file-offset-fixes = prev.lib.genAttrs [ "bind" "kbd" ] (name:
         prev.${name}.overrideAttrs (_: {
