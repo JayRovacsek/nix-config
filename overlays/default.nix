@@ -331,18 +331,15 @@
         "boehmgc"
         "dejagnu"
         "diffutils"
-        "git"
-        "gitMinimal"
         "gnugrep"
         "libseccomp"
         "libuv"
         "pcre"
         "rhash"
-      ] (name:
-        prev.${name}.overrideAttrs (_: {
-          preInstallCheck = "";
-          doCheck = false;
-        }));
+      ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
+
+      disabled-install-checks = prev.lib.genAttrs [ "tpm2-tss" ]
+        (name: prev.${name}.overrideAttrs (_: { doInstallCheck = false; }));
 
       d-file-offset-fixes = prev.lib.genAttrs [ "bind" "kbd" ] (name:
         prev.${name}.overrideAttrs (_: {
@@ -367,8 +364,12 @@
             });
           };
         });
-    in disabled-checks // d-file-offset-fixes // python-fixes
-    // aws-sdk-cpp-reduced-apis;
+
+      removed-pre-install-check = prev.lib.genAttrs [ "git" "gitMinimal" ]
+        (name: prev.${name}.overrideAttrs (_: { preInstallCheck = ""; }));
+
+    in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
+    // d-file-offset-fixes // python-fixes // removed-pre-install-check;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
