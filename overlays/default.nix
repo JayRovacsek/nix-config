@@ -321,6 +321,15 @@
   # The below exist to resolve issues with compiling the aarch32 architectures.
   # The failing checks might be able to be removed individually, but
   # just looking at easiest path here.
+  aarch32-bind = _final: prev: {
+    bind = prev.bind.overrideAttrs (_: {
+      cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
+      configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
+
+      NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
+    });
+  };
+
   boehmgc-no-check = _final: prev: {
     boehmgc = prev.boehmgc.overrideAttrs (_: { doCheck = false; });
   };
