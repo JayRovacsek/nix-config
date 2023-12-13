@@ -100,11 +100,30 @@ in generate-config {
     preserve_split = true;
   };
 
+  plugin = {
+    hy3 = {
+      no_gaps_when_only = false;
+
+      group_inset = 1;
+      tabs = {
+        height = 5;
+        padding = 8;
+        render_text = false;
+      };
+
+      autotile = {
+        enable = true;
+        trigger_width = 800;
+        trigger_height = 500;
+      };
+    };
+  };
+
   # https://wiki.hyprland.org/Configuring/Master-Layout/ 
-  master = { new_is_master = true; };
+  master.new_is_master = true;
 
   # https://wiki.hyprland.org/Configuring/Variables/#gestures
-  gestures = { workspace_swipe = false; };
+  gestures.workspace_swipe = false;
 
   # Window Rules
   # https://wiki.hyprland.org/Configuring/Window-Rules/

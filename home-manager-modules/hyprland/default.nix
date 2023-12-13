@@ -66,5 +66,6 @@ in {
 
   wayland.windowManager.hyprland = {
     inherit enable enableNvidiaPatches package extraConfig;
+    plugins = [ osConfig.flake.packages.${system}.hy3 ];
   };
 }
