@@ -22,6 +22,7 @@
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
+  game-packages = builtins.attrNames (builtins.readDir ../packages/games);
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
   nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
