@@ -348,8 +348,10 @@
         "dejagnu"
         "diffutils"
         "gnugrep"
+        "libllvm"
         "libseccomp"
         "libuv"
+        "openssh"
         "pcre"
         "rhash"
       ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
