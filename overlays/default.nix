@@ -324,7 +324,23 @@
   armv6l-fixes = _final: prev:
     let
       aws-sdk-cpp-reduced-apis = {
-        aws-sdk-cpp = prev.aws-sdk-cpp.override { apis = [ "s3" ]; };
+        # For the aws cpp sdk, we need to reduce the apis included for 32 bit systems
+        # as well as remove testing capabilities due to test failures introduced by running
+        # on a 32 bit arch.
+        aws-sdk-cpp = (prev.aws-sdk-cpp.override {
+          apis = [ "s3" ];
+          customMemoryManagement = false;
+        }).overrideAttrs (old: {
+          doCheck = false;
+          postPatch = ''
+            ${old.postPatch}
+            substituteInPlace CMakeLists.txt \
+              --replace 'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" ON)' \
+              'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" OFF)' \
+              --replace 'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" ON)' \
+              'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" OFF)'
+          '';
+        });
       };
 
       disabled-checks = prev.lib.genAttrs [
