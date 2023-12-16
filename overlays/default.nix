@@ -367,6 +367,26 @@
           NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
         }));
 
+      libllvm-fixes = {
+        # For the aws cpp sdk, we need to reduce the apis included for 32 bit systems
+        # as well as remove testing capabilities due to test failures introduced by running
+        # on a 32 bit arch.
+        libllvm = prev.libllvm.overrideAttrs (old: {
+          doCheck = false;
+          postPatch = ''
+            ${old.postPatch}
+            substituteInPlace CMakeLists.txt \
+              --replace 'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" ON)' \
+              'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" OFF)' \
+              --replace 'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" ON)' \
+              'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" OFF)'
+
+            substituteInPlace unittests/ExecutionEngine/Orc/CMakeLists.txt \
+              --replace '  OrcCAPITest.cpp' ""
+          '';
+        });
+      };
+
       python-fixes = prev.lib.genAttrs [
         "python38"
         "python39"
@@ -393,8 +413,8 @@
         (name: prev.${name}.overrideAttrs (_: { preInstallCheck = ""; }));
 
     in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
-    // d-file-offset-fixes // python-fixes // tpm2-tss-extra-deps
-    // removed-pre-install-check;
+    // d-file-offset-fixes // libllvm-fixes // python-fixes
+    // tpm2-tss-extra-deps // removed-pre-install-check;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
