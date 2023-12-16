@@ -383,11 +383,18 @@
           };
         });
 
+      tpm2-tss-extra-deps = {
+        tpm2-tss = prev.tpm2-tss.overrideAttrs (old: {
+          nativeBuildInputs = old.nativeBuildInputs ++ [ prev.iproute2 ];
+        });
+      };
+
       removed-pre-install-check = prev.lib.genAttrs [ "git" "gitMinimal" ]
         (name: prev.${name}.overrideAttrs (_: { preInstallCheck = ""; }));
 
     in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
-    // d-file-offset-fixes // python-fixes // removed-pre-install-check;
+    // d-file-offset-fixes // python-fixes // tpm2-tss-extra-deps
+    // removed-pre-install-check;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
