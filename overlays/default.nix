@@ -387,6 +387,13 @@
         });
       };
 
+      llvm-fixes = let
+        llvm = prev.llvmPackages.llvm.overrideAttrs (_: { doCheck = false; });
+      in {
+        llvmPackages =
+          prev.lib.recursiveUpdate prev.llvmPackages { inherit llvm; };
+      };
+
       python-fixes = prev.lib.genAttrs [
         "python38"
         "python39"
@@ -413,7 +420,7 @@
         (name: prev.${name}.overrideAttrs (_: { preInstallCheck = ""; }));
 
     in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
-    // d-file-offset-fixes // libllvm-fixes // python-fixes
+    // d-file-offset-fixes // llvm-fixes // libllvm-fixes // python-fixes
     // tpm2-tss-extra-deps // removed-pre-install-check;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
