@@ -42,6 +42,7 @@ let
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
     self.overlays.ranger
+    self.overlays.vscodium
   ];
 
   # Done to make available the packageset identifier via the identifier attribute of
