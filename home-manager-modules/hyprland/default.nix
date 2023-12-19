@@ -13,9 +13,6 @@ let
 
   package = pkgs.hyprland;
 
-  # Apply nvidia patches if available and required
-  enableNvidiaPatches = nvidia-present;
-
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   # Add vaapi drivers if nvidia is present
   optional-packages =
@@ -64,7 +61,5 @@ in {
     } // optional-env-values;
   };
 
-  wayland.windowManager.hyprland = {
-    inherit enable enableNvidiaPatches package extraConfig;
-  };
+  wayland.windowManager.hyprland = { inherit enable package extraConfig; };
 }

@@ -19,6 +19,11 @@ _: {
         enableFormat = true;
         enableLSP = true;
 
+        markdown = {
+          enable = true;
+          glow.enable = true; # Markdown previews
+        };
+
         nix = {
           enable = true;
           format = {
@@ -26,11 +31,8 @@ _: {
             type = "nixpkgs-fmt";
           };
         };
+
         ts.enable = true;
-        markdown = {
-          enable = true;
-          glow.enable = true; # Markdown previews
-        };
       };
 
       # Cheatsheet
@@ -91,7 +93,6 @@ _: {
         nvimWebDevicons.enable = true;
         smoothScroll.enable = true;
         scrollBar.enable = true;
-        indentBlankline.useTreesitter.enable = true;
         fidget-nvim.enable = true;
       };
 

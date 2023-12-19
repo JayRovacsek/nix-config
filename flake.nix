@@ -23,22 +23,6 @@
       };
     };
 
-    crane = {
-      url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dream2nix = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        nix-unit.follows = "nix-unit";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-      url = "github:nix-community/dream2nix";
-    };
-
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,14 +50,6 @@
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
-    };
-
-    hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
 
     # Home management module
@@ -116,18 +92,6 @@
       url = "github:notashelf/neovim-flake";
     };
 
-    nixci = {
-      inputs = {
-        crane.follows = "crane";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-        systems.follows = "systems";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      url = "github:srid/nixci";
-    };
-
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -140,15 +104,6 @@
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
       };
-    };
-
-    nixified-ai = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        hercules-ci-effects.follows = "hercules-ci-effects";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:nixified-ai/flake";
     };
 
     # Generate system images easily
@@ -171,51 +126,14 @@
         "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
     };
 
-    nixpkgs-wayland = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        lib-aggregate.follows = "lib-aggregate";
-        nix-eval-jobs.follows = "nix-eval-jobs";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:nix-community/nixpkgs-wayland";
-    };
-
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin/master";
     };
 
-    nix-options = {
-      inputs = {
-        home-manager.follows = "home-manager";
-        nix-darwin.follows = "nix-darwin";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-      url = "github:JayRovacsek/nix-options";
-    };
-
-    nix-eval-jobs = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      url = "github:nix-community/nix-eval-jobs";
-    };
-
     nix-filter.url = "github:numtide/nix-filter";
 
     nix-monitored = {
-      inputs = {
-        nix-filter.follows = "nix-filter";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:ners/nix-monitored";
-    };
-
-    nix-unit = {
       inputs = {
         nix-filter.follows = "nix-filter";
         nixpkgs.follows = "nixpkgs";
@@ -257,7 +175,12 @@
 
     # Software bill of materials package
     sbomnix = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       url = "github:tiiuae/sbomnix/main";
     };
 
