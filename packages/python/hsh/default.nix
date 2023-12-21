@@ -17,7 +17,11 @@ let
 
   inherit (python3Packages) buildPythonPackage;
 
-  inherit (self.packages.${system}) commandlines;
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
+    commandlines;
 
 in buildPythonPackage {
   inherit pname name version meta;

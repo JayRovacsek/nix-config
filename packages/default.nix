@@ -4,9 +4,13 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    cpp-packages dotnet-packages images go-packages node-packages
+    c-packages cpp-packages dotnet-packages images go-packages node-packages
     python-packages rust-packages shell-packages tofu-stacks wallpaper-packages;
   inherit (self.lib) merge;
+
+  c = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./c/${package} { }; }
+    accumulator) { } c-packages;
 
   cpp = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./cpp/${package} { }; }
@@ -31,18 +35,33 @@ let
       ${package} = callPackage ./shell/${package} { inherit self; };
     } accumulator) { } shell-packages;
 
+  # Python packages that require upstream packages to have changes made
+  # as could be done via an overlay are intentionally not done
+  # via an overlay to avoid a messy instance where some python overlays
+  # need to be consumed, but not all. This could be worked around if
+  # needed, but allows us to remove a lot of code from our overlays 
+  # definitions for now.
   python = let
-    python-overlay-pkgs = import self.inputs.nixpkgs {
-      inherit system;
-      overlays = [ self.overlays.python ];
-    };
-  in builtins.foldl' (accumulator: package:
-    recursiveUpdate {
-      ${package} = callPackage ./python/${package} {
-        inherit self;
-        pkgs = python-overlay-pkgs;
-      };
-    } accumulator) { } python-packages;
+    # For all upstream python3Packages versions, build a dedicated
+    # version of this package.
+    python-package-versions =
+      builtins.filter (x: (builtins.match "python3[0-9]{1,2}Packages" x) == [ ])
+      (builtins.attrNames pkgs);
+    # For each upstream python3Packages version, generate a set of 
+    # derivations that align with upstream version.
+  in lib.genAttrs python-package-versions (version:
+    builtins.foldl' (accumulator: package:
+      recursiveUpdate {
+        ${package} = callPackage ./python/${package} {
+          inherit pkgs self;
+          # Pass the python3Packages version explicitly 
+          # so we can ensure the correct version is utilised
+          # Note downstream we need to reflect on the version of
+          # python passed to then consume dependencies that may only
+          # be defined in this flake (such as dfvfs)
+          python3Packages = pkgs.${version};
+        };
+      } accumulator) { } python-packages);
 
   rust = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./rust/${package} { }; }
@@ -62,6 +81,7 @@ let
     accumulator) { } wallpaper-packages;
 
   packages = merge [
+    c
     cpp
     dotnet
     go

@@ -17,7 +17,10 @@ let
 
   inherit (python3Packages) buildPythonPackage cffi cryptography pyyaml pyxattr;
 
-  inherit (self.packages.${system})
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
     libfsext-python libfsfat-python libfshfs-python libfsntfs-python
     libfsxfs-python libfvde-python libfwnt-python libluksde-python

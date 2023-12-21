@@ -46,7 +46,10 @@ let
 
   doCheck = false;
 
-  inherit (self.packages.${system})
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
     docxcompose docxtpl flask-security phonenumberslite;
 
   inherit (python3Packages)

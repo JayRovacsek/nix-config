@@ -17,8 +17,12 @@ let
 
   inherit (python3Packages) buildPythonPackage pyyaml;
 
-  inherit (self.packages.${system})
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
     dfdatetime libregf-python libcreg-python dtfabric;
+
 in buildPythonPackage {
   inherit pname name version meta;
   propagatedBuildInputs =

@@ -15,7 +15,11 @@ let
 
   inherit (python3Packages) buildPythonPackage six python-docx jinja2 lxml;
 
-  inherit (self.packages.${system}) docxcompose;
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
+    docxcompose;
 
   propagatedBuildInputs = [ six python-docx jinja2 lxml docxcompose ];
 

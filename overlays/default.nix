@@ -60,7 +60,6 @@
           comment = "Play your PC games on almost any device";
           genericName = "Game Streaming";
           exec = "${waylandFlags} ${prev.moonlight-qt}/bin/${old.pname}";
-          # icon = "code";
           startupNotify = true;
           startupWMClass = old.pname;
           categories = [ "Utility" "Game" ];
@@ -95,143 +94,10 @@
       "python312"
     ] (version:
       prev.${version}.override {
-        packageOverrides = python-final: python-prev: {
-          anyio = python-prev.anyio.overrideAttrs (old: rec {
-            version = "3.7.1";
-            src = prev.fetchFromGitHub {
-              owner = "agronholm";
-              repo = old.pname;
-              rev = version;
-              hash = "sha256-9/pAcVTzw9v57E5l4d8zNyBJM+QNGEuLKrQ0WUBW5xw=";
-            };
-          });
-
-          blinker = python-prev.blinker.overrideAttrs (old: rec {
-            version = "1.6.2";
-            src = prev.fetchPypi {
-              inherit version;
-              inherit (old) pname;
-              hash = "sha256-Sv095m7zqfgGdVn7ehy+VVwX3L4VlxsF0bYlw+er4hM=";
-            };
-          });
-
-          certifi = python-prev.certifi.overrideAttrs (old: rec {
-            version = "2023.7.22";
-            src = prev.fetchFromGitHub {
-              owner = old.pname;
-              repo = "python-certifi";
-              rev = "8fb96ed81f71e7097ed11bc4d9b19afd7ea5c909";
-              hash = "sha256-V3bptJDNMGXlCMg6GHj792IrjfsG9+F/UpQKxeM0QOc=";
-            };
-          });
-
-          charset-normalizer = python-prev.charset-normalizer.overrideAttrs
-            (_old: rec {
-              version = "3.2.0";
-              src = prev.fetchFromGitHub {
-                owner = "Ousret";
-                repo = "charset_normalizer";
-                rev = "refs/tags/${version}";
-                hash = "sha256-CfL5rlrwJs9453z+1xPUzs1B3OyjFBaU6klzY7gJCzA=";
-              };
-            });
-
-          dnspython = python-prev.dnspython.overrideAttrs (old: rec {
-            version = "2.4.0";
-            src = prev.fetchPypi {
-              inherit (old) pname;
-              inherit version;
-              hash = "sha256-dY5pHbtFTVzPThsVShnlKEf3niGkL+8XuWkUSvKaTmw=";
-            };
-            propagatedBuildInputs = with python-final; [ sniffio httpcore ];
-          });
-
-          email-validator = python-prev.email-validator.overrideAttrs
-            (old: rec {
-              version = "2.0.0";
-              src = prev.fetchFromGitHub {
-                owner = "JoshData";
-                repo = "python-${old.pname}";
-                rev = "refs/tags/v${version}";
-                hash = "sha256-o7UREa+IBiFjmqx0p+4XJCcoHQ/R6r2RtoezEcWvgbg=";
-              };
-            });
-
-          flask-security-too = python-prev.flask-security-too.overrideAttrs
-            (_old: rec {
-              version = "5.0.2";
-              src = prev.fetchPypi {
-                pname = "Flask-Security-Too";
-                inherit version;
-                sha256 = "sha256-Nv7g2l0bPSEcrydFU7d1NHjCCJl8Ykq7hOu6QmHeZcI=";
-              };
-            });
-
-          flask-sqlalchemy = python-prev.flask-sqlalchemy.overrideAttrs
-            (old: rec {
-              version = "3.0.5";
-              src = prev.fetchPypi {
-                pname = "flask_sqlalchemy";
-                inherit version;
-                hash = "sha256-xXZeWMoUVAG1IQbA9GF4VpJDxdolVWviwjHsxghnxbE=";
-              };
-              propagatedBuildInputs = old.propagatedBuildInputs
-                ++ (with python-final; [ flit-core ]);
-            });
-
-          httpcore = python-prev.httpcore.overrideAttrs (old: rec {
-            version = "0.17.3";
-            src = prev.fetchFromGitHub {
-              owner = "encode";
-              repo = old.pname;
-              rev = "refs/tags/${version}";
-              hash = "sha256-ZNtJnlLNBM6dEk7GBW5yAcAE4+3Q4TISHlBEApiM7IY=";
-            };
-          });
-
-          importlib-resources = python-prev.importlib-resources.overrideAttrs
-            (_old: rec {
-              version = "6.0.0";
-              src = prev.fetchPypi {
-                pname = "importlib_resources";
-                inherit version;
-                hash = "sha256-TPlIdag2i9iVMadW35qevh8VDg+IUDC0YSN7x/LZBfI=";
-              };
-            });
-
-          mongoengine = python-prev.mongoengine.overrideAttrs (old: rec {
-            version = "0.27.0";
-            src = prev.fetchFromGitHub {
-              owner = "MongoEngine";
-              repo = old.pname;
-              rev = "refs/tags/v${version}";
-              hash = "sha256-UCd7RpsSNDKh3vgVRYrFYWYVLQuK7WI0n/Moukhq5dM=";
-            };
-          });
-
-          pydantic = python-prev.pydantic.overrideAttrs (old: rec {
-            version = "1.10.11";
-            src = prev.fetchFromGitHub {
-              owner = old.pname;
-              repo = old.pname;
-              rev = "refs/tags/v${version}";
-              hash = "sha256-WxAM/RG69iBIYpq4EbHadRp5dFiXk4G9bVCaYNrp16s=";
-            };
-
-            patches = [ ];
-          });
-
-          pymongo = python-prev.pymongo.overrideAttrs (old: rec {
-            version = "4.4.1";
-            src = prev.fetchPypi {
-              inherit version;
-              inherit (old) pname;
-              hash = "sha256-pN+H270DrGNy0k8qgFS03DPeSX1SJ7UOxkn0Nq1XQoQ=";
-            };
-          });
+        packageOverrides = _: python-prev: {
 
           pyxattr = python-prev.pyxattr.overrideAttrs (old: rec {
-            buildInputs = prev.lib.optionals prev.stdenv.isLinux prev.attr;
+            buildInputs = prev.lib.optional prev.stdenv.isLinux prev.attr;
 
             meta = prev.lib.recursiveUpdate old.meta {
               platforms = old.meta.platforms
@@ -240,62 +106,6 @@
 
             hardeningDisable =
               prev.lib.optionals prev.stdenv.isDarwin [ "strictoverflow" ];
-          });
-
-          sqlalchemy = python-prev.sqlalchemy.overrideAttrs (_old: rec {
-            version = "2.0.19";
-            src = prev.fetchFromGitHub {
-              owner = "sqlalchemy";
-              repo = "sqlalchemy";
-              rev = "refs/tags/rel_${
-                  prev.lib.replaceStrings [ "." ] [ "_" ] version
-                }";
-              hash = "sha256-97q04wQVtlV2b6VJHxvnQ9ep76T5umn1KI3hXh6a8kU=";
-            };
-          });
-
-          sqlalchemy-utils = python-prev.sqlalchemy-utils.overrideAttrs
-            (_old: rec {
-              version = "0.41.1";
-              src = prev.fetchPypi {
-                inherit version;
-                pname = "SQLAlchemy-Utils";
-                hash = "sha256-ohgb/wHuuER544Vx0sBxjrUgQvmv2MGU0NAod+hLfXQ=";
-              };
-            });
-
-          webauthn = python-prev.webauthn.overrideAttrs (_old: rec {
-            version = "1.9.0";
-            src = prev.fetchFromGitHub {
-              owner = "duo-labs";
-              repo = "py_webauthn";
-              rev = "refs/tags/v${version}";
-              hash = "sha256-bcAAoaa2E6BzqaiEBOE+AGDSg3P9uqEoiqeT4FBjZcs=";
-            };
-
-            # propagatedBuildInputs = (builtins.filter (x: x.pname != "pydantic")
-            #   old.propagatedBuildInputs) ++ [ pydantic ];
-          });
-
-          urllib3 = python-prev.urllib3.overridePythonAttrs (old: rec {
-            version = "2.0.4";
-            format = "pyproject";
-            src = prev.fetchPypi {
-              inherit version;
-              inherit (old) pname;
-              hash = "sha256-jSL4aq6O9eQQ1PU5/enOayEToAG7TRieCu1wZC1gKxE=";
-            };
-            propagatedBuildInputs = old.propagatedBuildInputs
-              ++ (with prev.python3Packages; [ hatchling setuptools ]);
-          });
-
-          werkzeug = python-prev.werkzeug.overrideAttrs (_old: rec {
-            version = "2.3.6";
-            src = prev.fetchPypi {
-              pname = "Werkzeug";
-              inherit version;
-              hash = "sha256-mMd03y+RsFVQB4iR3uXw6wy3l6Uix1eiRSuc7lsgIzA=";
-            };
           });
         };
       });

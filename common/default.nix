@@ -5,6 +5,7 @@
   assertions = import ./assertions.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
+  c-packages = builtins.attrNames (builtins.readDir ../packages/c);
   cpp-packages = builtins.attrNames (builtins.readDir ../packages/cpp);
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };

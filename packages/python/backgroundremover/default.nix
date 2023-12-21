@@ -20,7 +20,11 @@ let
     six urllib3 torch torchvision waitress tqdm requests scipy filetype
     more-itertools moviepy pillow ffmpeg-python scikitimage gdown;
 
-  inherit (self.packages.${system}) hsh pymatting;
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
+    hsh pymatting;
 
 in buildPythonPackage {
   inherit pname name version meta;

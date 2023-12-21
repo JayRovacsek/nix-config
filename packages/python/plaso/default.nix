@@ -19,7 +19,10 @@ let
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
     pyzmq pyxattr redis requests six XlsxWriter yara-python;
 
-  inherit (self.packages.${system})
+  self-python-version = lib.concatStrings
+    (builtins.splitVersion python3Packages.python.pythonVersion);
+
+  inherit (self.packages.${system}."python${self-python-version}Packages")
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
     libcreg-python libesedb-python libevt-python libevtx-python libewf-python
     libfsapfs-python libfsext-python libfsfat-python libfshfs-python
