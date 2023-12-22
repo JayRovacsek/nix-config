@@ -8,7 +8,10 @@ in {
 
   imports = [ ./acl.nix ];
 
-  age.secrets = meta.secrets;
+  age = {
+    inherit (meta) secrets;
+    identityPaths = [ "/agenix/id-ed25519-headscale-primary" ];
+  };
 
   networking.firewall = {
     allowedTCPPorts = [ config.services.headscale.port grpcPort metricsPort ];

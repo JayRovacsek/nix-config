@@ -5,14 +5,18 @@ let
 
   service-name = "lidarr";
 
+  port = 8686;
+
   domains = generate-domains { inherit config service-name; };
 
-  overrides = { locations."~ (/lidarr)?/api".extraConfig = ""; };
+  overrides.locations."~ (/lidarr)?/api" = {
+    extraConfig = "";
+    proxyPass = "http://localhost:${builtins.toString port}";
+  };
 
   virtualHosts = generate-vhosts {
-    inherit config overrides service-name;
+    inherit config overrides port service-name;
     # port = config.services.lidarr.ports.http;
-    port = 8686;
   };
 in {
   # Extended options for nginx

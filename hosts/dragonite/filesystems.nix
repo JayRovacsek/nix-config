@@ -63,6 +63,13 @@
       inherit fsType options;
     };
 
+    # https://www.howtoforge.com/tutorial/how-to-use-snapshots-clones-and-replication-in-zfs-on-linux/
+    "/var/lib/nextcloud" = {
+      device = "tank/nextcloud";
+      inherit fsType options;
+      depends = [ "/" ];
+    };
+
     "/mnt/zfs/music" = {
       device = "tank/music";
       inherit fsType options;

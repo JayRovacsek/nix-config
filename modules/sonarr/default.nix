@@ -54,11 +54,9 @@ let
 
   domains = generate-domains { inherit config service-name; };
 
-  overrides = {
-    locations."~ (/sonarr)?/api" = {
-      proxyPass = "http://localhost:${builtins.toString port}";
-      recommendedProxySettings = true;
-    };
+  overrides.locations."~ (/sonarr)?/api" = {
+    proxyPass = "http://localhost:${builtins.toString port}";
+    recommendedProxySettings = true;
   };
 
   virtualHosts =

@@ -1,21 +1,29 @@
 { self }:
 with self.nixosModules; [
   agenix
+  authelia
   blocky
   clamav
+  ddclient
   docker
   fonts
   gnupg
   headscale
   hydra
   jellyfin
+  lidarr
   lorri
+  nextcloud
+  nginx
   nix
   nix-serve
   nvidia
   openssh
   portainer
+  prowlarr
+  radarr
   samba
+  sonarr
   sudo
   tailscale
   time

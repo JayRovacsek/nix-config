@@ -170,12 +170,6 @@ _: {
       group = "home_assistant";
     };
 
-    jackett = {
-      inherit isSystemUser createHome description;
-      uid = 980;
-      group = "download";
-    };
-
     pihole = {
       inherit isSystemUser createHome description;
       uid = 979;
@@ -200,12 +194,6 @@ _: {
       group = "swag";
     };
 
-    valheim = {
-      inherit isSystemUser createHome description;
-      uid = 975;
-      group = "games";
-    };
-
     tdarr = {
       inherit isSystemUser createHome description;
       uid = 974;
@@ -218,34 +206,10 @@ _: {
       group = "media";
     };
 
-    duin = {
-      inherit isSystemUser createHome description;
-      uid = 972;
-      group = "duin";
-    };
-
     prowlarr = {
       inherit isSystemUser createHome description;
       uid = 971;
       group = "media";
-    };
-
-    elastic = {
-      inherit isSystemUser createHome description;
-      uid = 970;
-      group = "logs";
-    };
-
-    kibana = {
-      inherit isSystemUser createHome description;
-      uid = 969;
-      group = "logs";
-    };
-
-    logstash = {
-      inherit isSystemUser createHome description;
-      uid = 968;
-      group = "logs";
     };
   };
 }

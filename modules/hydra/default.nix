@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (config.flake.lib.authelia) generate-access-rules;
 
   service-name = "hydra";
 
@@ -11,6 +12,7 @@ let
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      add_header Front-End-Https on;
     '';
   };
 
@@ -58,6 +60,9 @@ in {
   '';
 
   services = {
+    authelia.instances =
+      generate-access-rules config.services.nginx.domains service-name;
+
     hydra = {
       enable = true;
       # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
