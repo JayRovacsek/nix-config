@@ -17,7 +17,7 @@
   # likely take some inspiration from this smart cookie:
   # https://github.com/kittywitch/arcnmx-home/blob/f40988631ca8473f5207bc966dae10ef015eb4e0/cfg/personal/ddclient.nix#L39
   services.ddclient = {
-    domains = builtins.map (d: "*.${d}") config.services.nginx.domains;
+    inherit (config.services.nginx) domains;
     enable = true;
     interval = "5min";
     username = "token";

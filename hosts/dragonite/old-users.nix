@@ -110,40 +110,10 @@ _: {
       group = "speedtest";
     };
 
-    authelia = {
-      inherit isSystemUser createHome description;
-      uid = 991;
-      group = "authelia";
-    };
-
-    lidarr = {
-      inherit isSystemUser createHome description;
-      uid = 990;
-      group = "download";
-    };
-
     minecraft = {
       inherit isSystemUser createHome description;
       uid = 989;
       group = "games";
-    };
-
-    nextcloud = {
-      inherit isSystemUser createHome description;
-      uid = 988;
-      group = "nextcloud";
-    };
-
-    radarr = {
-      inherit isSystemUser createHome description;
-      uid = 986;
-      group = "download";
-    };
-
-    sonarr = {
-      inherit isSystemUser createHome description;
-      uid = 985;
-      group = "download";
     };
 
     download = {

@@ -12,9 +12,11 @@ let
     default = true;
     # TODO: in the future having dynamic evaluation based - depends
     # on microvm & tailscale / overlay network
-    locations."/api/verify".extraConfig = ''
-      proxy_pass http://localhost:${builtins.toString port};
-    '';
+    locations = {
+      "/api/verify".extraConfig = ''
+        proxy_pass http://localhost:${builtins.toString port};
+      '';
+    };
   };
 
   domains = generate-domains { inherit config service-name; };
@@ -22,9 +24,11 @@ let
   virtualHosts =
     generate-vhosts { inherit config overrides port service-name; };
 
+  prod = !nginx.test.enable;
+
   production = let domain = "rovacsek.com";
   in {
-    enable = !nginx.test.enable;
+    enable = prod;
 
     settingsFiles = [ config.age.secrets.authelia-notifier-config.path ];
 
@@ -143,26 +147,31 @@ let
 in {
   age = {
     identityPaths = [ "/agenix/id-ed25519-authelia-primary" ];
-    secrets = {
+    secrets = let
+      owner = config.services.authelia.instances."${if prod then
+        "production"
+      else
+        "test"}".user;
+    in {
       authelia-jwt-secret-key = {
         file = ../../secrets/authelia/jwt-secret-key.age;
-        owner = config.services.authelia.instances.test.user;
+        inherit owner;
       };
       authelia-session-secret-key = {
         file = ../../secrets/authelia/session-secret-key.age;
-        owner = config.services.authelia.instances.test.user;
+        inherit owner;
       };
       authelia-storage-encryption-key = {
         file = ../../secrets/authelia/storage-encryption-key.age;
-        owner = config.services.authelia.instances.test.user;
+        inherit owner;
       };
       authelia-notifier-config = {
         file = ../../secrets/authelia/notifier-config.age;
-        owner = config.services.authelia.instances.test.user;
+        inherit owner;
       };
       authelia-users = {
         file = ../../secrets/authelia/users.age;
-        owner = config.services.authelia.instances.test.user;
+        inherit owner;
       };
     };
   };

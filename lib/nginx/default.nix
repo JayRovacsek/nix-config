@@ -20,6 +20,9 @@ let
         != { };
     in genAttrs domains (domain:
       let
+        root = lib.findFirst (x: lib.hasSuffix x domain) ""
+          config.services.nginx.domains;
+
         self-signed = lib.findFirst (x: x.domain == domain) {
           keyPath = builtins.throw
             "services.nginx.test.enable is set to false - this throw should be impossible to hit";
@@ -63,6 +66,6 @@ let
           proxyPass = "http://localhost:${builtins.toString port}";
           recommendedProxySettings = true;
         };
-        useACMEHost = mkIf production domain;
+        useACMEHost = mkIf production root;
       } overrides);
 in { inherit generate-domains generate-vhosts; }
