@@ -26,9 +26,7 @@ in {
 
     certs = merge (builtins.map (tld: {
       "${tld}" = {
-        # I really want to kill this and make it wildcard - TODO: investigate how.
-        extraDomainNames = [ tld ] ++ (builtins.filter (d: lib.hasSuffix tld d)
-          (builtins.attrNames config.services.nginx.virtualHosts));
+        domain = "*.${tld}";
         dnsProvider = "cloudflare";
         environmentFile = "${config.age.secrets.acme-environment-file.path}";
         reloadServices = [ "nginx" ];
