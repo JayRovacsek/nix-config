@@ -186,6 +186,7 @@ in {
           "prowlarr.rovacsek.com" = "192.168.1.220";
           "radarr.rovacsek.com" = "192.168.1.220";
           "sonarr.rovacsek.com" = "192.168.1.220";
+          "jellyseerr.rovacsek.com" = "192.168.1.220";
 
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";

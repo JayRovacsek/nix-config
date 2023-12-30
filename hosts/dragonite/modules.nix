@@ -11,6 +11,7 @@ with self.nixosModules; [
   gnupg
   hydra
   jellyfin
+  jellyseerr
   lidarr
   lorri
   nginx

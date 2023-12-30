@@ -35,6 +35,7 @@ in {
 
     defaults = {
       inherit (config.services.nginx) group;
+      dnsPropagationCheck = false;
       email = "acme@rovacsek.com";
     };
   };
