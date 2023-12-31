@@ -19,3 +19,5 @@ terranix/linode-ami/README.md
 terranix/linode-csgo/README.md
 terranix/linode-openvpn/README.md
 terranix/oracle/default.nix
+terranix/oracle/default.nix
+options/headscale/default.nix

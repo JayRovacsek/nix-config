@@ -6,40 +6,119 @@ let
   grpcPort = 50443;
 in {
 
-  imports = [ ./acl.nix ];
+  imports = [ ./acl.nix ../../options/headscale ../blocky ];
 
-  age.secrets = meta.secrets;
+  age = {
+    inherit (meta) secrets;
+    identityPaths = [ "/agenix/id-ed25519-headscale-primary" ];
+  };
 
   networking.firewall = {
     allowedTCPPorts = [ config.services.headscale.port grpcPort metricsPort ];
     allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
   };
 
-  environment.systemPackages = with pkgs; [ sqlite-interactive headscale ];
-
-  systemd.services."headscale-autosetup" = {
-    inherit (meta) script;
-
-    description = "Automatic configuration of Headscale";
-
-    # make sure we perform actions prior to headscale starting
-    before = [ "headscale.service" ];
-    wantedBy = [ "headscale.service" ];
-
-    # Required to use nix-shell within our script
-    path = with pkgs; [ bash sqlite-interactive ];
-
-    serviceConfig = {
-      User = config.services.headscale.user;
-      Group = config.services.headscale.group;
-      Type = "exec";
-    };
-  };
+  environment.systemPackages = with pkgs; [ headscale ];
 
   services.headscale = {
     enable = true;
     port = 8080;
     address = "0.0.0.0";
+
+    use-declarative-tailnets = true;
+
+    tailnets = [
+      {
+        id = 1;
+        name = "work";
+        keys = [{
+          ephemeral = false;
+          inherit (config.age.secrets.preauth-work) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 2;
+        name = "reverse-proxy";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-reverse-proxy) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 3;
+        name = "nextcloud";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-nextcloud) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 4;
+        name = "log";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-log) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 5;
+        name = "general";
+        keys = [{
+          ephemeral = false;
+          inherit (config.age.secrets.preauth-general) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 6;
+        name = "game";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-game) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 7;
+        name = "download";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-download) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 8;
+        name = "dns";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-dns) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 9;
+        name = "auth";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-auth) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 9;
+        name = "admin";
+        keys = [{
+          ephemeral = false;
+          inherit (config.age.secrets.preauth-admin) path;
+          reusable = true;
+        }];
+      }
+    ];
 
     # This will override settings that are not exposed as nix module options
     settings = {
@@ -65,12 +144,26 @@ in {
       db_name = "headscale";
 
       dns_config = {
-        magicDns = true;
+        magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
-        nameservers = [ "192.168.6.4" "192.168.1.220" ];
-        domains = [ "rovacsek.com.internal" ];
-        baseDomain = "rovacsek.com.internal";
-        # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
+        nameservers = [ "192.168.1.220" ];
+        domains = [ "internal.rovacsek.com" ];
+        base_domain = "internal.rovacsek.com";
+
+        # Because we utilise blocky locally across all machines but 
+        # Tailscale will take control of DNS once a client is connected,
+        # we'll opt to inject all custom records from blocky into tailscale
+        # to ensure continuity in that space.
+        # Blocky only supports A and AAAA, but as we don't use ipv6 we can
+        # blindly assume A records here for now.
+        #
+        # There's a future in which we can bootstrap tailscale suitably to 
+        # simply consume DNS from a suitable node utilising blocky - but it's 
+        # still a work in progress.
+        extra_records = lib.mapAttrsToList (name: value: {
+          inherit name value;
+          type = "A";
+        }) config.services.blocky.settings.customDNS.mapping;
       };
 
       # TODO: move this to agenix

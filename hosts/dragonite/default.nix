@@ -35,10 +35,7 @@ in {
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
     };
-    identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
-      "/agenix/id-ed25519-headscale-primary"
-    ];
+    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -50,10 +47,13 @@ in {
     pciutils
   ];
 
+  services.nginx.domains = [ "rovacsek.com" ];
+
   imports = [
     ./filesystems.nix
     ./hardware-configuration.nix
     ./networking.nix
+    ./nginx-temp.nix
     ./old-users.nix
     ./samba.nix
   ];

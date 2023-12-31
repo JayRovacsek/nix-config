@@ -6,8 +6,20 @@ let
 
   domains = generate-domains { inherit config service-name; };
 
+  overrides = {
+    locations = {
+      "/" = { extraConfig = ""; };
+      "~ (/jellyfin)?/socket" = {
+        extraConfig = "";
+        proxyPass = "http://localhost:${
+            builtins.toString config.services.jellyfin.ports.http
+          }";
+      };
+    };
+  };
+
   virtualHosts = generate-vhosts {
-    inherit config service-name;
+    inherit config service-name overrides;
     port = config.services.jellyfin.ports.http;
   };
 in {

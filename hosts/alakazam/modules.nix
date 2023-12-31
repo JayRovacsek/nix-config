@@ -8,7 +8,6 @@ with self.nixosModules; [
   gnupg
   grub
   hyprland
-  nginx
   keybase
   lorri
   nextcloud-client
@@ -19,6 +18,7 @@ with self.nixosModules; [
   sddm
   steam
   systemd-networkd
+  tailscale
   time
   timesyncd
   udev
