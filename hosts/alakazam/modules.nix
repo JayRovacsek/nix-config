@@ -18,6 +18,8 @@ with self.nixosModules; [
   sddm
   steam
   systemd-networkd
+  # TODO: figure the DNS issues that mean local addresses defined in blocky aren't resolved correctly
+  # tailscale
   time
   timesyncd
   udev

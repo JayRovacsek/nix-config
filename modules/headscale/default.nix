@@ -6,7 +6,7 @@ let
   grpcPort = 50443;
 in {
 
-  imports = [ ./acl.nix ];
+  imports = [ ./acl.nix ../../options/headscale ];
 
   age = {
     inherit (meta) secrets;
@@ -18,31 +18,107 @@ in {
     allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
   };
 
-  environment.systemPackages = with pkgs; [ sqlite-interactive headscale ];
-
-  systemd.services."headscale-autosetup" = {
-    inherit (meta) script;
-
-    description = "Automatic configuration of Headscale";
-
-    # make sure we perform actions prior to headscale starting
-    before = [ "headscale.service" ];
-    wantedBy = [ "headscale.service" ];
-
-    # Required to use nix-shell within our script
-    path = with pkgs; [ bash sqlite-interactive ];
-
-    serviceConfig = {
-      User = config.services.headscale.user;
-      Group = config.services.headscale.group;
-      Type = "exec";
-    };
-  };
+  environment.systemPackages = with pkgs; [ headscale ];
 
   services.headscale = {
     enable = true;
     port = 8080;
     address = "0.0.0.0";
+
+    use-declarative-tailnets = true;
+
+    tailnets = [
+      {
+        id = 1;
+        name = "work";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-work) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 2;
+        name = "reverse-proxy";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-reverse-proxy) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 3;
+        name = "nextcloud";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-nextcloud) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 4;
+        name = "log";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-log) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 5;
+        name = "general";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-general) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 6;
+        name = "game";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-game) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 7;
+        name = "download";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-download) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 8;
+        name = "dns";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-dns) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 9;
+        name = "auth";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-auth) path;
+          reusable = true;
+        }];
+      }
+      {
+        id = 9;
+        name = "admin";
+        keys = [{
+          ephemeral = true;
+          inherit (config.age.secrets.preauth-admin) path;
+          reusable = true;
+        }];
+      }
+    ];
 
     # This will override settings that are not exposed as nix module options
     settings = {
@@ -70,9 +146,9 @@ in {
       dns_config = {
         magicDns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
-        nameservers = [ "192.168.6.4" "192.168.1.220" ];
-        domains = [ "rovacsek.com.internal" ];
-        baseDomain = "rovacsek.com.internal";
+        nameservers = [ "192.168.1.220" ];
+        # domains = [ "internal.rovacsek.com.internal" ];
+        baseDomain = "headscale.rovacsek.com";
         # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
       };
 

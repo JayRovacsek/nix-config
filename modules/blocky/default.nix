@@ -178,15 +178,17 @@ in {
           "terraria.lan" = "192.168.17.4";
           "authelia.rovacsek.com" = "192.168.1.220";
           "binarycache.rovacsek.com" = "192.168.1.220";
+          "headscale.rovacsek.com" = "192.168.1.220";
           "hydra.rovacsek.com" = "192.168.1.220";
           "jellyfin.rovacsek.com" = "192.168.1.220";
+          "jellyseerr.rovacsek.com" = "192.168.1.220";
           "lidarr.rovacsek.com" = "192.168.1.220";
           "nextcloud.rovacsek.com" = "192.168.1.220";
           "pfsense.rovacsek.com" = "192.168.1.220";
+          "portainer.rovacsek.com" = "192.168.1.220";
           "prowlarr.rovacsek.com" = "192.168.1.220";
           "radarr.rovacsek.com" = "192.168.1.220";
           "sonarr.rovacsek.com" = "192.168.1.220";
-          "jellyseerr.rovacsek.com" = "192.168.1.220";
 
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";
