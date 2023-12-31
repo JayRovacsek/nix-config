@@ -26,6 +26,7 @@ with self.nixosModules; [
   samba
   sonarr
   sudo
+  tailscale
   time
   timesyncd
   udev

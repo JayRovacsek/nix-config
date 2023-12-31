@@ -6,7 +6,7 @@ let
   grpcPort = 50443;
 in {
 
-  imports = [ ./acl.nix ../../options/headscale ];
+  imports = [ ./acl.nix ../../options/headscale ../blocky ];
 
   age = {
     inherit (meta) secrets;
@@ -32,7 +32,7 @@ in {
         id = 1;
         name = "work";
         keys = [{
-          ephemeral = true;
+          ephemeral = false;
           inherit (config.age.secrets.preauth-work) path;
           reusable = true;
         }];
@@ -68,7 +68,7 @@ in {
         id = 5;
         name = "general";
         keys = [{
-          ephemeral = true;
+          ephemeral = false;
           inherit (config.age.secrets.preauth-general) path;
           reusable = true;
         }];
@@ -113,7 +113,7 @@ in {
         id = 9;
         name = "admin";
         keys = [{
-          ephemeral = true;
+          ephemeral = false;
           inherit (config.age.secrets.preauth-admin) path;
           reusable = true;
         }];
@@ -144,12 +144,26 @@ in {
       db_name = "headscale";
 
       dns_config = {
-        magicDns = true;
+        magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
         nameservers = [ "192.168.1.220" ];
-        # domains = [ "internal.rovacsek.com.internal" ];
-        baseDomain = "headscale.rovacsek.com";
-        # More settings for this in services.headscale.settings as they currently aren't mapped in nix module
+        domains = [ "internal.rovacsek.com" ];
+        base_domain = "internal.rovacsek.com";
+
+        # Because we utilise blocky locally across all machines but 
+        # Tailscale will take control of DNS once a client is connected,
+        # we'll opt to inject all custom records from blocky into tailscale
+        # to ensure continuity in that space.
+        # Blocky only supports A and AAAA, but as we don't use ipv6 we can
+        # blindly assume A records here for now.
+        #
+        # There's a future in which we can bootstrap tailscale suitably to 
+        # simply consume DNS from a suitable node utilising blocky - but it's 
+        # still a work in progress.
+        extra_records = lib.mapAttrsToList (name: value: {
+          inherit name value;
+          type = "A";
+        }) config.services.blocky.settings.customDNS.mapping;
       };
 
       # TODO: move this to agenix

@@ -86,8 +86,8 @@ in {
       description = "Declarative configuration of Headscale tailnets & keys";
 
       # make sure we perform actions prior to headscale starting
-      before = [ "headscale.service" ];
-      wantedBy = [ "headscale.service" ];
+      after = [ "headscale.service" ];
+      wants = [ "headscale.service" ];
 
       # Required to use nix-shell within our script
       path = with pkgs; [ bash sqlite-interactive ];
@@ -95,7 +95,7 @@ in {
       serviceConfig = {
         User = config.services.headscale.user;
         Group = config.services.headscale.group;
-        Type = "exec";
+        Type = "oneshot";
       };
     };
   };
