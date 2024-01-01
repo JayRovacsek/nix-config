@@ -40,6 +40,23 @@
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
+  # TODO; fold any overlay definitions here into the exposed options
+  # space within nix-options to nixd will happily identify those auto-completions
+  lib = _final: prev:
+    let
+      lib-net = (import "${self.inputs.lib-net}/net.nix" {
+        inherit (self.inputs.nixpkgs) lib;
+      }).lib.net;
+
+      net = builtins.removeAttrs (lib-net [ "types" ]);
+
+    in {
+      lib = prev.lib.recursiveUpdate prev.lib {
+        inherit net;
+        types.net = lib-net.types;
+      };
+    };
+
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {

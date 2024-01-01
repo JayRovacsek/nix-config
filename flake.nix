@@ -93,13 +93,20 @@
       url = "github:nix-community/lib-aggregate";
     };
 
+    lib-net = {
+      url =
+        "https://gist.github.com/JayRovacsek/13cfd56cac0f638931ea07f2cd5c45e2/archive/3885f7cd9ed0a746a9d675da6f265d41e9fd6704.tar.gz";
+      flake = false;
+    };
+
     # Microvm module, PoC state for implementation
     microvm = {
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:astro/microvm.nix";
+      url =
+        "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
     };
 
     neovim-flake = {

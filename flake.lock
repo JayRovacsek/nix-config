@@ -2180,6 +2180,19 @@
         "type": "github"
       }
     },
+    "lib-net": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1596309860,
+        "narHash": "sha256-izAzepR/6cDvnRfaa2ceSolMLMwqzQB5x9q62aR5J2g=",
+        "type": "tarball",
+        "url": "https://gist.github.com/JayRovacsek/13cfd56cac0f638931ea07f2cd5c45e2/archive/3885f7cd9ed0a746a9d675da6f265d41e9fd6704.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://gist.github.com/JayRovacsek/13cfd56cac0f638931ea07f2cd5c45e2/archive/3885f7cd9ed0a746a9d675da6f265d41e9fd6704.tar.gz"
+      }
+    },
     "lsp-lines": {
       "flake": false,
       "locked": {
@@ -2343,19 +2356,21 @@
     "microvm": {
       "inputs": {
         "flake-utils": ["flake-utils"],
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": ["nixpkgs"],
+        "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1699034391,
-        "narHash": "sha256-mDUutffT+B6yBBcO92TIJ3taR4tlLfiFT/USHyTzf48=",
+        "lastModified": 1703725854,
+        "narHash": "sha256-xFhd5XaLgZiwfiVhPw0gYEpaxiE8l8Or+pvAnxfSUWU=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "883a67a71431f1e1b9349650bd3395b3cf679850",
+        "rev": "17e7f0682378e77e0ed0ab5796260bd3beb9d513",
         "type": "github"
       },
       "original": {
         "owner": "astro",
         "repo": "microvm.nix",
+        "rev": "17e7f0682378e77e0ed0ab5796260bd3beb9d513",
         "type": "github"
       }
     },
@@ -4690,6 +4705,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lib-aggregate": "lib-aggregate",
+        "lib-net": "lib-net",
         "microvm": "microvm",
         "naersk": "naersk",
         "neovim-flake": "neovim-flake",
@@ -4891,6 +4907,22 @@
         "owner": "m4xshen",
         "repo": "smartcolumn.nvim",
         "type": "github"
+      }
+    },
+    "spectrum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703273931,
+        "narHash": "sha256-CJ1Crdi5fXHkCiemovsp20/RC4vpDaZl1R6V273FecI=",
+        "ref": "refs/heads/main",
+        "rev": "97e2f3429ee61dc37664b4d096b2fec48a57b691",
+        "revCount": 597,
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
       }
     },
     "sqls-nvim": {

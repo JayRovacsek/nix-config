@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  phys0Exists = builtins.hasAttr "10-phys0" config.systemd.network.links;
+  phys0Exists = builtins.hasAttr "00-phys0" config.systemd.network.links;
 
   # The below variables are inherited by both wired and wireless
   # configs.
@@ -29,7 +29,7 @@ in {
     services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
     network.networks = {
-      "00-wired" = {
+      "10-wired" = {
         inherit dns networkConfig;
 
         matchConfig.Name = if phys0Exists then "phys0" else "en*";
@@ -40,7 +40,7 @@ in {
         dhcpV4Config.RouteMetric = 10;
       };
 
-      "10-wireless" = {
+      "20-wireless" = {
         inherit dns networkConfig;
 
         matchConfig.Name = "wl*";

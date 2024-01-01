@@ -25,10 +25,46 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  # REMOVE BEFORE DEPLOY
-  services.nginx = {
-    domains = [ "rovacsek.com" ];
-    test.enable = true;
+  microvm.vms = {
+    dns = {
+      config = {
+        # It is highly recommended to share the host's nix-store
+        # with the VMs to prevent building huge images.
+        microvm.shares = [{
+          source = "/nix/store";
+          mountPoint = "/nix/.ro-store";
+          tag = "ro-store";
+          proto = "virtiofs";
+        }];
+
+        nixpkgs.overlays = [ flake.overlays.lib ];
+
+        imports = [
+          flake.nixosModules.blocky
+          # flake.inputs.microvm.nixosModules.microvm
+          # ../../options/microvm-guest
+          {
+            microvm = {
+              interfaces = [{
+                type = "macvtap";
+                id = "vm-test";
+                mac = "02:01:27:00:00:00";
+                macvtap = {
+                  link = "phys0";
+                  mode = "bridge";
+                };
+              }];
+            };
+          }
+        ];
+      };
+    };
+  };
+
+  nix.settings = {
+    substituters = [ "https://microvm.cachix.org/" ];
+    trusted-public-keys =
+      [ "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys=" ];
   };
 
   age = {
@@ -72,7 +108,16 @@ in {
 
   services.tailscale.tailnet = "admin";
 
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  systemd = {
+    services = {
+      "getty@tty1".enable = false;
+      "autovt@tty1".enable = false;
+    };
+    network.links."00-phys0" = {
+      matchConfig.Type = "ether";
+      linkConfig.Name = "phys0";
+    };
+  };
+
   system.stateVersion = "22.11";
 }

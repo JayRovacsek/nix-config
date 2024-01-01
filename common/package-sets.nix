@@ -29,8 +29,12 @@ let
 
   targetGeneration = [ stable unstable bleeding-edge ];
 
-  overlays =
-    [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
+  overlays = [
+    agenix.overlays.default
+    nur.overlay
+    self.overlays.lib
+    self.overlays.nix-monitored
+  ];
 
   darwin-overlays = [ firefox-darwin.overlay ];
 
