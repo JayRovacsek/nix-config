@@ -25,30 +25,148 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  microvm.vms = {
-    dns = {
-      config = {
-        # It is highly recommended to share the host's nix-store
-        # with the VMs to prevent building huge images.
-        microvm.shares = [{
-          source = "/nix/store";
-          mountPoint = "/nix/.ro-store";
-          tag = "ro-store";
-          proto = "virtiofs";
-        }];
+  systemd = {
+    services = {
+      "getty@tty1".enable = false;
+      "autovt@tty1".enable = false;
+    };
+    network = {
+      links."00-phys0" = {
+        matchConfig.Type = "ether";
+        linkConfig.Name = "phys0";
+      };
+    };
+  };
 
+  microvm.vms = {
+    test = {
+      config = {
         nixpkgs.overlays = [ flake.overlays.lib ];
 
         imports = [
           flake.nixosModules.blocky
-          # flake.inputs.microvm.nixosModules.microvm
-          # ../../options/microvm-guest
+          flake.nixosModules.time
+          flake.nixosModules.timesyncd
+          flake.nixosModules.systemd-networkd
+          {
+            systemd.network = {
+              netdevs."00-vlan-dns" = {
+                enable = true;
+                netdevConfig = {
+                  Kind = "vlan";
+                  Name = "vlan-dns";
+                };
+                vlanConfig.Id = 6;
+              };
+
+              networks = {
+                "00-wired" = {
+                  enable = true;
+                  # mkForce is utilised here to override the default systemd
+                  # settings in the systemd-networkd module
+                  matchConfig.Name = lib.mkForce "en*";
+                  networkConfig = lib.mkForce { VLAN = "vlan-dns"; };
+                  dhcpV4Config = lib.mkForce { };
+                };
+
+                "10-vlan-dns" = {
+                  enable = true;
+                  name = "vlan-dns";
+                  networkConfig.DHCP = "ipv4";
+                };
+              };
+            };
+
+            services.resolved.enable = false;
+
+            users = {
+              groups.test = { };
+              users = {
+                root.password = "";
+                test = {
+                  password = "test";
+                  group = "test";
+                  isNormalUser = true;
+                };
+              };
+            };
+
+            services.openssh = {
+              enable = true;
+              settings.PermitRootLogin = "yes";
+            };
+            networking.firewall = {
+              enable = false;
+              allowedTCPPorts = [ 22 ];
+            };
+          }
           {
             microvm = {
+              shares = [{
+                source = "/nix/store";
+                mountPoint = "/nix/.ro-store";
+                tag = "ro-store";
+                proto = "virtiofs";
+              }];
               interfaces = [{
                 type = "macvtap";
                 id = "vm-test";
-                mac = "02:01:27:00:00:00";
+                mac = "02:01:27:00:00:01";
+                macvtap = {
+                  link = "phys0";
+                  mode = "bridge";
+                };
+              }];
+            };
+          }
+        ];
+      };
+    };
+    foo = {
+      config = {
+        nixpkgs.overlays = [ flake.overlays.lib ];
+
+        imports = [
+          flake.nixosModules.blocky
+          flake.nixosModules.time
+          flake.nixosModules.timesyncd
+          flake.nixosModules.systemd-networkd
+          {
+            services.resolved.enable = false;
+
+            users = {
+              groups.test = { };
+              users = {
+                root.password = "";
+                test = {
+                  password = "test";
+                  group = "test";
+                  isNormalUser = true;
+                };
+              };
+            };
+
+            services.openssh = {
+              enable = true;
+              settings.PermitRootLogin = "yes";
+            };
+            networking.firewall = {
+              enable = false;
+              allowedTCPPorts = [ 22 ];
+            };
+          }
+          {
+            microvm = {
+              shares = [{
+                source = "/nix/store";
+                mountPoint = "/nix/.ro-store";
+                tag = "ro-store";
+                proto = "virtiofs";
+              }];
+              interfaces = [{
+                type = "macvtap";
+                id = "vm-foo";
+                mac = "02:01:27:00:00:02";
                 macvtap = {
                   link = "phys0";
                   mode = "bridge";
@@ -107,17 +225,6 @@ in {
   };
 
   services.tailscale.tailnet = "admin";
-
-  systemd = {
-    services = {
-      "getty@tty1".enable = false;
-      "autovt@tty1".enable = false;
-    };
-    network.links."00-phys0" = {
-      matchConfig.Type = "ether";
-      linkConfig.Name = "phys0";
-    };
-  };
 
   system.stateVersion = "22.11";
 }
