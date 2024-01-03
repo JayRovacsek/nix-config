@@ -30,99 +30,53 @@ in {
       "getty@tty1".enable = false;
       "autovt@tty1".enable = false;
     };
+
     network = {
+      # Create a link that gives us an nice primary name 
+      # to bind to for all other interfaces.
+      # TODO: change match config from ether to something 
+      # more suitable
       links."00-phys0" = {
         matchConfig.Type = "ether";
         linkConfig.Name = "phys0";
+      };
+
+      networks = {
+        # The below network is already configured in the 
+        # systemd-networkd module, however we explicitly introduce
+        # the capacity for the interface to route the vlan netdev
+        # out of this interface here
+        "10-wired".networkConfig.VLAN = "vlan-dns";
+
+        # This interface effectively acts as a stub for microvms
+        # to bind to. It doesn't configure itself via DHCP or alike
+        # (but could) as this isn't required for the microvms bound to
+        # the network to communicate; they should bring their own
+        # dynamic or static configurations.
+        "10-vlan-dns" = {
+          enable = true;
+          name = "vlan-dns";
+        };
+      };
+
+      # Netdev interface for the network of the same name to utilise.
+      # here we control the name and tag of the vlan.
+      # Note the name should be propagated through all other 
+      # related interfaces to ensure match predicates are met (from my
+      # current understanding)
+      netdevs."00-vlan-dns" = {
+        enable = true;
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "vlan-dns";
+        };
+        vlanConfig.Id = 6;
       };
     };
   };
 
   microvm.vms = {
-    test = {
-      config = {
-        nixpkgs.overlays = [ flake.overlays.lib ];
-
-        imports = [
-          flake.nixosModules.blocky
-          flake.nixosModules.time
-          flake.nixosModules.timesyncd
-          flake.nixosModules.systemd-networkd
-          {
-            systemd.network = {
-              netdevs."00-vlan-dns" = {
-                enable = true;
-                netdevConfig = {
-                  Kind = "vlan";
-                  Name = "vlan-dns";
-                };
-                vlanConfig.Id = 6;
-              };
-
-              networks = {
-                "00-wired" = {
-                  enable = true;
-                  # mkForce is utilised here to override the default systemd
-                  # settings in the systemd-networkd module
-                  matchConfig.Name = lib.mkForce "en*";
-                  networkConfig = lib.mkForce { VLAN = "vlan-dns"; };
-                  dhcpV4Config = lib.mkForce { };
-                };
-
-                "10-vlan-dns" = {
-                  enable = true;
-                  name = "vlan-dns";
-                  networkConfig.DHCP = "ipv4";
-                };
-              };
-            };
-
-            services.resolved.enable = false;
-
-            users = {
-              groups.test = { };
-              users = {
-                root.password = "";
-                test = {
-                  password = "test";
-                  group = "test";
-                  isNormalUser = true;
-                };
-              };
-            };
-
-            services.openssh = {
-              enable = true;
-              settings.PermitRootLogin = "yes";
-            };
-            networking.firewall = {
-              enable = false;
-              allowedTCPPorts = [ 22 ];
-            };
-          }
-          {
-            microvm = {
-              shares = [{
-                source = "/nix/store";
-                mountPoint = "/nix/.ro-store";
-                tag = "ro-store";
-                proto = "virtiofs";
-              }];
-              interfaces = [{
-                type = "macvtap";
-                id = "vm-test";
-                mac = "02:01:27:00:00:01";
-                macvtap = {
-                  link = "phys0";
-                  mode = "bridge";
-                };
-              }];
-            };
-          }
-        ];
-      };
-    };
-    foo = {
+    blocky = {
       config = {
         nixpkgs.overlays = [ flake.overlays.lib ];
 
@@ -154,8 +108,7 @@ in {
               enable = false;
               allowedTCPPorts = [ 22 ];
             };
-          }
-          {
+
             microvm = {
               shares = [{
                 source = "/nix/store";
@@ -165,10 +118,10 @@ in {
               }];
               interfaces = [{
                 type = "macvtap";
-                id = "vm-foo";
-                mac = "02:01:27:00:00:02";
+                id = "blocky";
+                mac = "02:01:27:00:00:03";
                 macvtap = {
-                  link = "phys0";
+                  link = "vlan-dns";
                   mode = "bridge";
                 };
               }];
