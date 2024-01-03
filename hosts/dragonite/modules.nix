@@ -3,7 +3,6 @@ with self.nixosModules; [
   acme
   authelia
   agenix
-  auto-upgrade
   blocky
   clamav
   ddclient
@@ -20,17 +19,16 @@ with self.nixosModules; [
   nix-serve
   nvidia
   openssh
+  openvscode-server
   portainer
   prowlarr
   radarr
   samba
   sonarr
   sudo
-  tailscale
   time
   timesyncd
   udev
-  ups
   zfs
   zsh
 ]

@@ -100,6 +100,10 @@ in {
           url =
             "https://search.nix.gsc.io/?q=%s&i=nope&files=&excludeFiles=&repos=";
         };
+        "Nix Home Manager Options Search" = {
+          keyword = "hm";
+          url = "https://mipmip.github.io/home-manager-option-search/?query=";
+        };
         "nib Jira Search" = {
           keyword = "j";
           url =
@@ -326,6 +330,7 @@ in {
         "gecko.handlerService.schemes.webcal.0.uriTemplate" = "";
 
         "gfx.xrender.enabled" = true;
+        "gfx.webrender.force-disabled" = true;
 
         "healthreport.uploadEnabled" = false;
 
@@ -406,7 +411,9 @@ in {
         "privacy.firstparty.isolate" = true;
         "privacy.query_stripping" = true;
         "privacy.resistFingerprinting.block_mozAddonManager" = true;
-        "privacy.resistFingerprinting.letterboxing" = false;
+        "privacy.resistFingerprinting.letterboxing" = true;
+        "privacy.resistFingerprinting.randomDataOnCanvasExtract" = false;
+        "privacy.resistFingerprinting.target_video_res" = 1080;
         "privacy.resistFingerprinting" = true;
         "privacy.sanitize.sanitizeOnShutdown" = true;
         "privacy.sanitize.timeSpan" = 0;

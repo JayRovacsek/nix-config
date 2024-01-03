@@ -178,6 +178,7 @@ in {
           "terraria.lan" = "192.168.17.4";
           "authelia.rovacsek.com" = "192.168.1.220";
           "binarycache.rovacsek.com" = "192.168.1.220";
+          "code.rovacsek.com" = "192.168.1.220";
           "headscale.rovacsek.com" = "192.168.1.220";
           "hydra.rovacsek.com" = "192.168.1.220";
           "jellyfin.rovacsek.com" = "192.168.1.220";
