@@ -1,12 +1,13 @@
 { self }:
 with self.nixosModules; [
   acme
-  authelia
   agenix
+  authelia
   blocky
   clamav
   ddclient
   docker
+  firefox-syncserver
   fonts
   gnupg
   hydra

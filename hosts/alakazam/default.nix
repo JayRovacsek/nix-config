@@ -2,7 +2,8 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-desktop games;
+  inherit (flake.common.home-manager-module-sets)
+    base hyprland-waybar-desktop games;
   inherit (flake.lib) merge;
 
   inherit (pkgs) system;
@@ -15,7 +16,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop ++ games;
+    modules = hyprland-waybar-desktop ++ games;
   };
 
   merged = merge [ builder jay ];
@@ -211,7 +212,8 @@ in {
     ];
   };
 
-  environment.systemPackages = (with pkgs; [ curl wget agenix ]) ++ [ trdsql ];
+  environment.systemPackages = (with pkgs; [ curl wget agenix prismlauncher ])
+    ++ [ trdsql ];
 
   hardware.opengl.driSupport32Bit = true;
 

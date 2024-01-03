@@ -335,6 +335,8 @@ in {
         "healthreport.uploadEnabled" = false;
 
         "identity.mobilepromo.android" = localhost;
+        "identity.sync.tokenserver.uri" =
+          "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
 
         "intl.locale.matchOS" = true;
 
@@ -410,7 +412,10 @@ in {
         "privacy.donottrackheader.value" = 1;
         "privacy.firstparty.isolate" = true;
         "privacy.query_stripping" = true;
+        "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" =
+          false;
         "privacy.resistFingerprinting.block_mozAddonManager" = true;
+        "privacy.resistFingerprinting.exemptedDomains" = "*.rovacsek.com";
         "privacy.resistFingerprinting.letterboxing" = true;
         "privacy.resistFingerprinting.randomDataOnCanvasExtract" = false;
         "privacy.resistFingerprinting.target_video_res" = 1080;

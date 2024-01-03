@@ -12,6 +12,13 @@ let
     inherit (config.services.openvscode-server) port;
     overrides.locations."/".proxyWebsockets = true;
   };
+
+  nix-options = pkgs.fetchFromGitHub {
+    owner = "JayRovacsek";
+    repo = "nix-options";
+    rev = "4142d6dd0a1bd97ede240e84bf87c8f65a0ccbfd";
+    hash = "sha256-jxNmMjtan/TUnzo5ZTw7uWhsgzHTlmvOIXNgNn9Z46o=";
+  };
 in {
   # Extended options for nginx & openvscode-server
   imports = [ ../../options/nginx ../../options/openvscode-server ];
@@ -161,7 +168,7 @@ in {
               enable = true;
               target = {
                 args = [ ];
-                installable = "${config.flake}#options";
+                installable = "${nix-options}#options";
               };
             };
           };
