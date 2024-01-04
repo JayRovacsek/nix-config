@@ -25,109 +25,28 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  systemd = {
-    services = {
-      "getty@tty1".enable = false;
-      "autovt@tty1".enable = false;
-    };
-
-    network = {
-      # Create a link that gives us an nice primary name 
-      # to bind to for all other interfaces.
-      # TODO: change match config from ether to something 
-      # more suitable
-      links."00-phys0" = {
-        matchConfig.Type = "ether";
-        linkConfig.Name = "phys0";
-      };
-
-      networks = {
-        # The below network is already configured in the 
-        # systemd-networkd module, however we explicitly introduce
-        # the capacity for the interface to route the vlan netdev
-        # out of this interface here
-        "10-wired".networkConfig.VLAN = "vlan-dns";
-
-        # This interface effectively acts as a stub for microvms
-        # to bind to. It doesn't configure itself via DHCP or alike
-        # (but could) as this isn't required for the microvms bound to
-        # the network to communicate; they should bring their own
-        # dynamic or static configurations.
-        "10-vlan-dns" = {
-          enable = true;
-          name = "vlan-dns";
-        };
-      };
-
-      # Netdev interface for the network of the same name to utilise.
-      # here we control the name and tag of the vlan.
-      # Note the name should be propagated through all other 
-      # related interfaces to ensure match predicates are met (from my
-      # current understanding)
-      netdevs."00-vlan-dns" = {
-        enable = true;
-        netdevConfig = {
-          Kind = "vlan";
-          Name = "vlan-dns";
-        };
-        vlanConfig.Id = 6;
-      };
-    };
+  systemd.services = {
+    "getty@tty1".enable = false;
+    "autovt@tty1".enable = false;
   };
 
-  microvm.vms = {
-    blocky = {
-      config = {
-        nixpkgs.overlays = [ flake.overlays.lib ];
-
-        imports = [
-          flake.nixosModules.blocky
-          flake.nixosModules.time
-          flake.nixosModules.timesyncd
-          flake.nixosModules.systemd-networkd
-          {
-            services.resolved.enable = false;
-
-            users = {
-              groups.test = { };
-              users = {
-                root.password = "";
-                test = {
-                  password = "test";
-                  group = "test";
-                  isNormalUser = true;
-                };
-              };
-            };
-
-            services.openssh = {
-              enable = true;
-              settings.PermitRootLogin = "yes";
-            };
-            networking.firewall = {
-              enable = false;
-              allowedTCPPorts = [ 22 ];
-            };
-
-            microvm = {
-              shares = [{
-                source = "/nix/store";
-                mountPoint = "/nix/.ro-store";
-                tag = "ro-store";
-                proto = "virtiofs";
-              }];
-              interfaces = [{
-                type = "macvtap";
-                id = "blocky";
-                mac = "02:01:27:00:00:03";
-                macvtap = {
-                  link = "vlan-dns";
-                  mode = "bridge";
-                };
-              }];
-            };
-          }
-        ];
+  microvm = {
+    macvlans = [
+      {
+        name = "vlan-dns";
+        parent = "10-wired";
+        vlan-tag = 6;
+      }
+      {
+        name = "vlan-reee";
+        parent = "10-wired";
+        vlan-tag = 100;
+      }
+    ];
+    vms = {
+      igglybuff = {
+        inherit flake;
+        updateFlake = "git+file://${flake}";
       };
     };
   };
@@ -175,7 +94,6 @@ in {
   networking = {
     hostId = "ef26b1be";
     hostName = "alakazam";
-    useDHCP = false;
   };
 
   services.tailscale.tailnet = "admin";

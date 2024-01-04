@@ -7,7 +7,7 @@ let
   inherit (self.common.package-sets)
     x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
 
-  inherit (self.lib.host) make-host;
+  inherit (self.lib.host) make-host make-microvm;
 in {
   # Cloud and hardware specific configurations
   inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
@@ -39,6 +39,7 @@ in {
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
   ## MicroVMs
+  igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
   ## TEMPORARILY DISABLED
 
   # igglybuff = let

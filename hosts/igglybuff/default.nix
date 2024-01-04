@@ -1,47 +1,28 @@
-{ config, pkgs, lib, flake, ... }:
-let
-  inherit (flake) common;
-  inherit (flake.lib) merge;
-  inherit (config.networking) hostName;
-
-  jay = common.users.jay {
-    inherit config pkgs;
-    modules = [ ];
-    overrides = { users.users.jay.shell = pkgs.bash; };
-  };
-
-  merged = merge [ jay ];
-
-in {
+{ flake, ... }: {
   inherit flake;
-  inherit (merged) users;
 
-  networking = {
-    hostName = "igglybuff";
-    hostId = "b560563b";
-  };
+  networking.hostName = "igglybuff";
 
   microvm = {
-    vcpu = 1;
-    mem = 2048;
-    hypervisor = "qemu";
+    # TODO: determine best approach to passing secrets into microvms.
+    # This'll likely end up being a mount of the requisite decryption
+    # keys so we can just use age directly as happens in all modules currently.
+    # shares = [{
+    #   # On the host
+    #   source = "/run/agenix";
+    #   # In the MicroVM
+    #   mountPoint = "/run/agenix";
+    #   tag = "id-ed25519-wireless-primary";
+    #   proto = "virtiofs";
+    # }];
     interfaces = [{
-      type = "tap";
-      id = "vm-${hostName}-01";
-      mac = "00:00:00:00:00:01";
+      type = "macvtap";
+      id = "blocky";
+      mac = "02:42:c0:a8:06:08";
+      macvtap = {
+        link = "vlan-dns";
+        mode = "bridge";
+      };
     }];
-    writableStoreOverlay = null;
   };
-
-  services.resolved.enable = false;
-
-  imports = [
-    ../../modules/blocky
-    ../../modules/microvm/guest
-    ../../modules/openssh
-    ../../modules/time
-    ../../modules/timesyncd
-  ];
-
-  system.stateVersion = "22.11";
 }

@@ -12,6 +12,7 @@ in with self.nixosModules; [
   keybase
   lorri
   microvm.nixosModules.host
+  microvm-host
   nextcloud-client
   nix
   nvidia
