@@ -33,14 +33,14 @@ in {
   microvm = {
     macvlans = [
       {
+        name = "vlan-download";
+        parent = "10-wired";
+        vlan-tag = 4;
+      }
+      {
         name = "vlan-dns";
         parent = "10-wired";
         vlan-tag = 6;
-      }
-      {
-        name = "vlan-reee";
-        parent = "10-wired";
-        vlan-tag = 100;
       }
     ];
     vms = {
