@@ -6,6 +6,23 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  element-desktop = _final: prev: {
+    element-desktop = prev.element-desktop.overrideAttrs (old:
+      let executableName = "element-desktop";
+      in {
+        desktopItem = prev.makeDesktopItem {
+          name = "element-desktop";
+          exec = "${executableName} --disable-gpu %u";
+          icon = "element";
+          desktopName = "Element";
+          genericName = "Matrix Client";
+          comment = old.meta.description;
+          categories = [ "Network" "InstantMessaging" "Chat" ];
+          startupWMClass = "Element";
+          mimeTypes = [ "x-scheme-handler/element" ];
+        };
+      });
+  };
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
   hello = _final: prev: {
