@@ -11,8 +11,8 @@ in with self.nixosModules; [
   hyprland
   keybase
   lorri
-  microvm.nixosModules.host
   microvm-host
+  microvm.nixosModules.host
   nextcloud-client
   nix
   nvidia

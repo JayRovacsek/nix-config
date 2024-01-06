@@ -155,6 +155,10 @@ in {
         inherit flake;
         updateFlake = "git+file://${flake}";
       };
+      mankey = {
+        inherit flake;
+        updateFlake = "git+file://${flake}";
+      };
     };
   };
 
@@ -166,6 +170,8 @@ in {
   powerManagement.enable = false;
 
   services = {
+    deluge.config.download_location = "/mnt/zfs/downloads";
+
     nginx.domains = [ "rovacsek.com" ];
 
     # This requires the addition of the samba module

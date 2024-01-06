@@ -28,6 +28,18 @@ let
   authelia-pfsense =
     generate-access-rules config.services.nginx.domains "pfsense";
 
+  deluge-vhost = generate-vhosts {
+    inherit config;
+    service-name = "deluge";
+    port = 0;
+    overrides = {
+      locations."/" = { proxyPass = "http://192.168.4.130:8112"; };
+    };
+  };
+
+  authelia-deluge =
+    generate-access-rules config.services.nginx.domains "deluge";
+
   portainer-vhost = generate-vhosts {
     inherit config;
     service-name = "portainer";
@@ -57,9 +69,10 @@ let
 
 in {
   services = {
-    authelia.instances = authelia-pfsense // authelia-portainer;
+    authelia.instances = authelia-pfsense // authelia-portainer
+      // authelia-deluge;
 
     nginx.virtualHosts = headscale-vhost // pfsense-vhost // nextcloud-vhost
-      // portainer-vhost;
+      // portainer-vhost // deluge-vhost;
   };
 }
