@@ -25,38 +25,6 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  systemd.services = {
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
-  };
-
-  microvm = {
-    macvlans = [
-      {
-        name = "vlan-download";
-        parent = "10-wired";
-        vlan-tag = 4;
-      }
-      {
-        name = "vlan-dns";
-        parent = "10-wired";
-        vlan-tag = 6;
-      }
-    ];
-    vms = {
-      igglybuff = {
-        inherit flake;
-        updateFlake = "git+file://${flake}";
-      };
-    };
-  };
-
-  nix.settings = {
-    substituters = [ "https://microvm.cachix.org/" ];
-    trusted-public-keys =
-      [ "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys=" ];
-  };
-
   age = {
     secrets = {
       "git-signing-key" = rec {
@@ -84,7 +52,8 @@ in {
     ];
   };
 
-  environment.systemPackages = (with pkgs; [ curl wget agenix prismlauncher ])
+  environment.systemPackages =
+    (with pkgs; [ curl wget agenix prismlauncher element-desktop ])
     ++ [ trdsql ];
 
   hardware.opengl.driSupport32Bit = true;
@@ -97,6 +66,11 @@ in {
   };
 
   services.tailscale.tailnet = "admin";
+
+  systemd.services = {
+    "getty@tty1".enable = false;
+    "autovt@tty1".enable = false;
+  };
 
   system.stateVersion = "22.11";
 }

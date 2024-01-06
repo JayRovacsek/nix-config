@@ -168,6 +168,7 @@ in {
           "jellyfin.lan" = "192.168.5.4";
           "stubby.lan" = "192.168.6.3";
           "jigglypuff.lan" = "192.168.6.4";
+          "igglybuff.lan" = "192.168.6.8";
           "victreebel.lan" = "192.168.7.12";
           "authelia.lan" = "192.168.9.2";
           "nextcloud.lan" = "192.168.10.2";

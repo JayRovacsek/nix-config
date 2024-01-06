@@ -1,5 +1,6 @@
 { self }:
-with self.nixosModules; [
+let inherit (self.inputs) microvm;
+in with self.nixosModules; [
   acme
   agenix
   authelia
@@ -15,6 +16,8 @@ with self.nixosModules; [
   jellyseerr
   lidarr
   lorri
+  microvm.nixosModules.host
+  microvm-host
   nginx
   nix
   nix-serve
@@ -27,6 +30,7 @@ with self.nixosModules; [
   samba
   sonarr
   sudo
+  systemd-networkd
   time
   timesyncd
   udev

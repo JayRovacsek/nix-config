@@ -26,6 +26,9 @@ in {
   # Extended options for jellyfin & nginx
   imports = [ ../../options/jellyfin ../../options/nginx ];
 
+  # TODO: add logic to ensure the unit loads _after_ zfs
+  # mounts if they exist as they may be utilised.
+
   services = {
     jellyfin = {
       enable = true;

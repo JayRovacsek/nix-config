@@ -44,7 +44,7 @@ in {
               else
                 [ interface.name ];
 
-            "10-${interface.name}" = {
+            "30-${interface.name}" = {
               enable = true;
               inherit (interface) name;
             };
