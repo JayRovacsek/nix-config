@@ -10,6 +10,12 @@
       value = cfg.enableSsl;
     }
     {
+      name = "ApiKey";
+      # This value is overridden with use of the api-key-file
+      # attribute. Otherwise you're likely to have a bad time.
+      value = "deadb33fdeadb33fdeadb33fdeadb33f";
+    }
+    {
       name = "Port";
       value = cfg.ports.http;
     }

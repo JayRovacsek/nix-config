@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.sonarr;
   inherit (config.flake.lib.generators) to-xml;
@@ -51,6 +51,11 @@ in with lib; {
       default = false;
     };
 
+    api-key-file = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
+
     config-settings = mkOption {
       type = types.nullOr types.attrs;
       default = if cfg.use-declarative-settings then { } else null;
@@ -86,9 +91,10 @@ in with lib; {
       mode = "640";
     };
 
-    systemd.tmpfiles.rules = [
-      "L+ ${config.services.sonarr.dataDir}/config.xml - - - - /etc/sonarr/config.xml"
-    ];
+    systemd.services.sonarr.preStart =
+      lib.optionalString (cfg.api-key-file != null) ''
+        ${pkgs.coreutils}/bin/cat /etc/sonarr/config.xml | ${pkgs.gnused}/bin/sed "s/deadb33fdeadb33fdeadb33fdeadb33f/$(${pkgs.coreutils}/bin/cat ${cfg.api-key-file})/g" > ${config.services.sonarr.dataDir}/config.xml
+      '';
 
     # Add some smarts behind if we open any, some or all of the 
     # config ports.

@@ -199,9 +199,12 @@ in {
   swapDevices =
     [{ device = "/dev/disk/by-uuid/de692380-3788-4375-8afb-33a6195fa9e6"; }];
 
-  systemd.services = {
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
+  systemd = {
+    network.networks."20-wireless".enable = false;
+    services = {
+      "getty@tty1".enable = false;
+      "autovt@tty1".enable = false;
+    };
   };
 
   system.stateVersion = "22.11";
