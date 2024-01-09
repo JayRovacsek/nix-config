@@ -1,26 +1,35 @@
 { self }:
-with self.nixosModules; [
+let inherit (self.inputs) microvm;
+in with self.nixosModules; [
+  acme
   agenix
+  authelia
   blocky
   clamav
+  ddclient
   docker
+  firefox-syncserver
   fonts
   gnupg
   hydra
   jellyfin
+  jellyseerr
   lorri
+  microvm.nixosModules.host
+  microvm-host
+  nginx
   nix
   nix-serve
   nvidia
   openssh
+  openvscode-server
   portainer
   samba
   sudo
-  tailscale
+  systemd-networkd
   time
   timesyncd
   udev
-  ups
   zfs
   zsh
 ]

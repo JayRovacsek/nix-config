@@ -2,7 +2,7 @@
 let
   pname = "libevtx-python";
   name = pname;
-  version = "20221101";
+  version = "20231121";
 
   meta = with lib; {
     description = "Python bindings module for libevtx";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-2ABOow7Dq9W2MS4J221OQ6OX1UqQZ9reseZpu7/qDTc=";
+    sha256 = "sha256-5XF0R1c8xVazJoLQ7jbKb/hHSGWsN2bXV9BOG6cOI9g=";
   };
 
   doCheck = false;

@@ -2,7 +2,7 @@
 let
   pname = "libfsapfs-python";
   name = pname;
-  version = "20221102";
+  version = "20231122";
 
   meta = with lib; {
     description = "Python bindings module for libfsapfs";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-v6lD23VJXONC59QC2kkZ2KdThUSXuv7qBdgFXWPu3Wc=";
+    sha256 = "sha256-CQ+/xVuNvW5P6Kqc+9TWnjw9znTqK+y/9jL14CfwZ70=";
   };
 
   doCheck = false;

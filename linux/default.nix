@@ -7,7 +7,7 @@ let
   inherit (self.common.package-sets)
     x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
 
-  inherit (self.lib.host) make-host;
+  inherit (self.lib.host) make-host make-microvm;
 in {
   # Cloud and hardware specific configurations
   inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
@@ -39,17 +39,10 @@ in {
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
   ## MicroVMs
-  ## TEMPORARILY DISABLED
-
-  # igglybuff = let
-  #   inherit (x86_64-linux-unstable) system identifier pkgs;
-  #   base = self.common.modules.${identifier};
-  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/igglybuff ];
-  # in unstable-system { inherit system pkgs modules; };
-
-  # aipom = let
-  #   inherit (x86_64-linux-unstable) system identifier pkgs;
-  #   base = self.common.modules.${identifier};
-  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/aipom ];
-  # in unstable-system { inherit system pkgs modules; };
+  bellsprout = make-microvm x86_64-linux-unstable "bellsprout" unstable-system;
+  igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
+  machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
+  mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
+  meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
+  poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
 }

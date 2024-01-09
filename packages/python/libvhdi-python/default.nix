@@ -2,7 +2,7 @@
 let
   pname = "libvhdi-python";
   name = pname;
-  version = "20221124";
+  version = "20231127";
 
   meta = with lib; {
     description = "Python bindings module for libvhdi";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-IxDeXPBD8axii/2NF5ugG88GbzE64G56W1BLKgjdWQM=";
+    sha256 = "sha256-KOR9r0lUxlR999s4H/mmbk4FbAzzXBECxRIo7lTvZGY=";
   };
 
   doCheck = false;

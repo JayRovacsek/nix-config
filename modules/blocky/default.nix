@@ -41,7 +41,6 @@ in {
         blackLists = {
           ads = [
             "https://adaway.org/hosts.txt"
-            "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
@@ -87,15 +86,15 @@ in {
             # optional: Number of download attempts.
             attempts = 5;
             # optional: Time between the download attempts. Default: 1s
-            cooldown = "10s";
+            cooldown = "1s";
           };
         };
       };
 
       # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
       bootstrapDns = {
-        upstream = "https://1dot1dot1dot1.cloudflare-dns.com/dns-query";
-        ips = [ "1.1.1.1" ];
+        upstream = "https://dns.google/dns-query";
+        ips = [ "8.8.8.8" "8.8.4.4" ];
       };
 
       # optional: configuration for caching of DNS responses
@@ -128,13 +127,7 @@ in {
         prefetchMaxItemsCount = 0;
         # Time how long negative results (NXDOMAIN response or empty result) are cached. A value of -1 will disable caching for negative results.
         # Default: 30m
-        cacheTimeNegative = "30m";
-      };
-
-      # optional: configuration of client name resolution
-      clientLookup = {
-        upstream = "192.168.1.1";
-        singleNameOrder = [ 2 1 ];
+        cacheTimeNegative = "90m";
       };
 
       # optional: Determines how blocky will create outgoing connections. This impacts both upstreams, and lists.
@@ -148,7 +141,7 @@ in {
         customTTL = "1h";
         # optional: if true (default), return empty result for unmapped query types (for example TXT, MX or AAAA if only IPv4 address is defined).
         # if false, queries with unmapped types will be forwarded to the upstream resolver
-        filterUnmappedTypes = true;
+        filterUnmappedTypes = false;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
         mapping = bin-blocks // {
           # Local
@@ -175,19 +168,31 @@ in {
           "jellyfin.lan" = "192.168.5.4";
           "stubby.lan" = "192.168.6.3";
           "jigglypuff.lan" = "192.168.6.4";
+          "igglybuff.lan" = "192.168.6.8";
           "victreebel.lan" = "192.168.7.12";
           "authelia.lan" = "192.168.9.2";
           "nextcloud.lan" = "192.168.10.2";
           "home-assistant.lan" = "192.168.12.2";
           "cache.lan" = "192.168.16.2";
           "minecraft.lan" = "192.168.17.5";
-          "minecraft.rovacsek.com" = "192.168.17.5";
           "valheim.lan" = "192.168.17.3";
-          "valheim.rovacsek.com" = "192.168.17.3";
           "terraria.lan" = "192.168.17.4";
-          "terraria.rovacsek.com" = "192.168.17.4";
-          # TODO: migrate this to config as code upstream in cloudflare
-          "test.rovacsek.com" = "127.0.0.1";
+          "authelia.rovacsek.com" = "192.168.1.220";
+          "binarycache.rovacsek.com" = "192.168.1.220";
+          "code.rovacsek.com" = "192.168.1.220";
+          "deluge.rovacsek.com" = "192.168.1.220";
+          "firefox-syncserver.rovacsek.com" = "192.168.1.220";
+          "headscale.rovacsek.com" = "192.168.1.220";
+          "hydra.rovacsek.com" = "192.168.1.220";
+          "jellyfin.rovacsek.com" = "192.168.1.220";
+          "jellyseerr.rovacsek.com" = "192.168.1.220";
+          "lidarr.rovacsek.com" = "192.168.1.220";
+          "nextcloud.rovacsek.com" = "192.168.1.220";
+          "pfsense.rovacsek.com" = "192.168.1.220";
+          "portainer.rovacsek.com" = "192.168.1.220";
+          "prowlarr.rovacsek.com" = "192.168.1.220";
+          "radarr.rovacsek.com" = "192.168.1.220";
+          "sonarr.rovacsek.com" = "192.168.1.220";
 
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";
@@ -292,7 +297,7 @@ in {
           "steam.naeu.qtlglb.com" = "192.168.16.2";
           "steampipe-kr.akamaized.net" = "192.168.16.2";
           "steam.ix.asn.au" = "192.168.16.2";
-          "steam.eca.qtlglb.com " = "192.168.16.2";
+          "steam.eca.qtlglb.com" = "192.168.16.2";
           "steam.cdn.on.net" = "192.168.16.2";
           "update5.dota2.wmsj.cn" = "192.168.16.2";
           "update2.dota2.wmsj.cn" = "192.168.16.2";
@@ -327,7 +332,7 @@ in {
       };
 
       # optional: drop all queries with following query types. Default: empty
-      filtering = { queryTypes = [ "AAAA" ]; };
+      filtering.queryTypes = [ "AAAA" ];
 
       # optional: logging configuration
       log = {

@@ -1,4 +1,19 @@
-{ osConfig, pkgs, ... }: {
+{ pkgs, ... }:
+let
+  # This is done to avoid circular dependencies within the flake lockfile.
+  # There is very little point downloading two copies of all inputs of this 
+  # flake. As you cannot supply the flake itself as a followable input
+  # to other inputs.
+  # In reality, the source likely will match if you ensure update cycles,
+  # however this is kinda gross still as the lockfile is littered with
+  # references to X_2 for all inputs.
+  nix-options = pkgs.fetchFromGitHub {
+    owner = "JayRovacsek";
+    repo = "nix-options";
+    rev = "4142d6dd0a1bd97ede240e84bf87c8f65a0ccbfd";
+    hash = "sha256-jxNmMjtan/TUnzo5ZTw7uWhsgzHTlmvOIXNgNn9Z46o=";
+  };
+in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -74,7 +89,7 @@
             enable = true;
             target = {
               args = [ ];
-              installable = "${osConfig.flake.inputs.nix-options}#options";
+              installable = "${nix-options}#options";
             };
           };
         };

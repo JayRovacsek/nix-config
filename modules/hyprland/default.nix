@@ -4,8 +4,6 @@ let
   nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
-  enableNvidiaPatches = nvidia-present;
-
   package = pkgs.hyprland;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
@@ -34,7 +32,7 @@ in {
 
   programs.hyprland = {
     enable = true;
-    inherit enableNvidiaPatches package;
+    inherit package;
     xwayland.enable = true;
   };
 

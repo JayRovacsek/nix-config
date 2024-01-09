@@ -63,6 +63,12 @@
       inherit fsType options;
     };
 
+    "/var/lib/nextcloud/data" = {
+      device = "tank/nextcloud";
+      inherit fsType options;
+      depends = [ "/" ];
+    };
+
     "/mnt/zfs/music" = {
       device = "tank/music";
       inherit fsType options;

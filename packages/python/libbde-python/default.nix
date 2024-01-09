@@ -2,7 +2,7 @@
 let
   pname = "libbde-python";
   name = pname;
-  version = "20221031";
+  version = "20231205";
 
   meta = with lib; {
     description =
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-62n9EgbdokMmmh3KQnFJdVZLVaRYc2ARyTwRJ10jOzA=";
+    sha256 = "sha256-U6nlzpD2vRzJfEI0rrD6Z52uJDOnhL/R3ashY06K1OE=";
   };
 
   doCheck = false;

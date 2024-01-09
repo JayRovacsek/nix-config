@@ -2,7 +2,7 @@
 let
   pname = "libfsfat-python";
   name = pname;
-  version = "20220925";
+  version = "20231122";
 
   meta = with lib; {
     description = "Python bindings module for libfsfat";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-dv1pGbNO73xogXrmon1swmjNu5ICEIKKx/D3uWdNNp4=";
+    sha256 = "sha256-TTUUb1px9EfX0DQzOsrD4bEnL1THxw/kvU+II6tDgxE=";
   };
 
   doCheck = false;

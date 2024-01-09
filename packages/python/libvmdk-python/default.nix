@@ -2,7 +2,7 @@
 let
   pname = "libvmdk-python";
   name = pname;
-  version = "20221124";
+  version = "20231123";
 
   meta = with lib; {
     description = "Python bindings module for libvmdk";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-gUgogP/ccPfO5auRKEd5Q5B0GrRIleLt+By3LXiOYXo=";
+    sha256 = "sha256-tqlJBLNlterh/sR2CmjKl2gotfGR9qHCfa9NqrTBl2E=";
   };
 
   doCheck = false;
