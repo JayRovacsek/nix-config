@@ -25,12 +25,6 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  # REMOVE BEFORE DEPLOY
-  services.nginx = {
-    domains = [ "rovacsek.com" ];
-    test.enable = true;
-  };
-
   age = {
     secrets = {
       "git-signing-key" = rec {
@@ -58,7 +52,9 @@ in {
     ];
   };
 
-  environment.systemPackages = (with pkgs; [ curl wget agenix ]) ++ [ trdsql ];
+  environment.systemPackages =
+    (with pkgs; [ curl wget agenix prismlauncher element-desktop ])
+    ++ [ trdsql ];
 
   hardware.opengl.driSupport32Bit = true;
 
@@ -67,12 +63,14 @@ in {
   networking = {
     hostId = "ef26b1be";
     hostName = "alakazam";
-    useDHCP = false;
   };
 
   services.tailscale.tailnet = "admin";
 
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  systemd.services = {
+    "getty@tty1".enable = false;
+    "autovt@tty1".enable = false;
+  };
+
   system.stateVersion = "22.11";
 }

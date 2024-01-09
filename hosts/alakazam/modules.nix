@@ -1,5 +1,6 @@
 { self }:
-with self.nixosModules; [
+let inherit (self.inputs) microvm;
+in with self.nixosModules; [
   agenix
   clamav
   docker
@@ -8,9 +9,10 @@ with self.nixosModules; [
   gnupg
   grub
   hyprland
-  nginx
   keybase
   lorri
+  microvm-host
+  microvm.nixosModules.host
   nextcloud-client
   nix
   nvidia
@@ -19,6 +21,7 @@ with self.nixosModules; [
   sddm
   steam
   systemd-networkd
+  # tailscale
   time
   timesyncd
   udev

@@ -2,7 +2,7 @@
 let
   pname = "libfvde-python";
   name = pname;
-  version = "20220915";
+  version = "20231128";
 
   meta = with lib; {
     description = "Python bindings module for libfvde";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-tEmmSvcse7/oxObigJHcTl00WTDh5oQjX9qSbkomAzM=";
+    sha256 = "sha256-InW4qbmjkloWktSk396qEhxO3MVTjCFMAW0apnK1QXk=";
   };
 
   doCheck = false;

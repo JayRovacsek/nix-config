@@ -4,12 +4,18 @@ let
 
   service-name = "radarr";
 
+  port = 7878;
+
   domains = generate-domains { inherit config service-name; };
 
+  overrides.locations."~ (/radarr)?/api" = {
+    extraConfig = "";
+    proxyPass = "http://localhost:${builtins.toString port}";
+  };
+
   virtualHosts = generate-vhosts {
-    inherit config service-name;
+    inherit config service-name overrides port;
     # port = config.services.radarr.ports.http;
-    port = 7878;
   };
 in {
   # Extended options for nginx

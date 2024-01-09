@@ -2,7 +2,7 @@
 let
   pname = "libesedb-python";
   name = pname;
-  version = "20220806";
+  version = "20231120";
 
   meta = with lib; {
     description = "Python bindings module for libesedb";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-MJ6xvtuhxuf4sKGQ7aHolu8UlEcmN7dzbStFBSrVU+g=";
+    sha256 = "sha256-fHGYgxwW0Xmj/swip3eNedsex2pWozKAYVsuR+qce9c=";
   };
 
   doCheck = false;

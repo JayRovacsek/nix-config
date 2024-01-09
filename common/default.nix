@@ -19,6 +19,7 @@
   images = import ./images { inherit self; };
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
+  minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);

@@ -6,10 +6,19 @@ let
 
   service-name = "binarycache";
 
+  overrides = {
+    locations."/".extraConfig = ''
+      allow 10.0.0.0/8;
+      allow 172.16.0.0/12;
+      allow 192.168.0.0/16;
+      deny all;
+    '';
+  };
+
   domains = generate-domains { inherit config service-name; };
 
   virtualHosts = generate-vhosts {
-    inherit config service-name;
+    inherit config service-name overrides;
     inherit (config.services.nix-serve) port;
   };
 in {

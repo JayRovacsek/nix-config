@@ -6,6 +6,23 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  element-desktop = _final: prev: {
+    element-desktop = prev.element-desktop.overrideAttrs (old:
+      let executableName = "element-desktop";
+      in {
+        desktopItem = prev.makeDesktopItem {
+          name = "element-desktop";
+          exec = "${executableName} --disable-gpu %u";
+          icon = "element";
+          desktopName = "Element";
+          genericName = "Matrix Client";
+          comment = old.meta.description;
+          categories = [ "Network" "InstantMessaging" "Chat" ];
+          startupWMClass = "Element";
+          mimeTypes = [ "x-scheme-handler/element" ];
+        };
+      });
+  };
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
 
   hello = _final: prev: {
@@ -39,6 +56,23 @@
   grub2 = _final: prev: {
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
+
+  # TODO; fold any overlay definitions here into the exposed options
+  # space within nix-options to nixd will happily identify those auto-completions
+  lib = _final: prev:
+    let
+      lib-net = (import "${self.inputs.lib-net}/net.nix" {
+        inherit (self.inputs.nixpkgs) lib;
+      }).lib.net;
+
+      net = builtins.removeAttrs (lib-net [ "types" ]);
+
+    in {
+      lib = prev.lib.recursiveUpdate prev.lib {
+        inherit net;
+        types.net = lib-net.types;
+      };
+    };
 
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
@@ -316,5 +350,9 @@
       propagatedBuildInputs = old.propagatedBuildInputs
         ++ (with prev.python-prev; [ pylint ]);
     });
+  };
+
+  waybar = _final: prev: {
+    inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;
   };
 }

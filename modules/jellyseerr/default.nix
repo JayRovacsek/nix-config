@@ -1,6 +1,7 @@
 { config, ... }:
 let
   inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (config.flake.lib.authelia) generate-access-rules;
 
   service-name = "jellyseerr";
 
@@ -15,6 +16,9 @@ in {
   imports = [ ../../options/nginx ];
 
   services = {
+    authelia.instances =
+      generate-access-rules config.services.nginx.domains service-name;
+
     jellyseerr = {
       enable = true;
       port = 5055;

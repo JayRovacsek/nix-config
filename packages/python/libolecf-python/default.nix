@@ -2,7 +2,7 @@
 let
   pname = "libolecf-python";
   name = pname;
-  version = "20221024";
+  version = "20231203";
 
   meta = with lib; {
     description = "Python bindings module for libolecf";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Wtj5f5NRxzc4x49Gh6gqIJ4UZvcEPuGp6NiAqry23qQ=";
+    sha256 = "sha256-hQNlUJDLlkGPrzgFJVt+SF8bluyRLemkFHJyCutvMMA=";
   };
 
   doCheck = false;

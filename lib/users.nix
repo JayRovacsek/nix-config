@@ -50,6 +50,8 @@ let
       # the system nixpkgs version is - assuming it is set to
       # be available as xdg.configHome
       defaultHome = {
+        enableNixpkgsReleaseCheck = false;
+
         # State version here is the database layout NOT the packages version or 
         # associated settings.
         stateVersion = "22.11";

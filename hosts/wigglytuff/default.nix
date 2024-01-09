@@ -27,8 +27,7 @@ in {
     ./wireless.nix
   ];
 
-  age.identityPaths =
-    [ "/agenix/id-ed25519-ssh-primary" "/agenix/id-ed25519-wireless-primary" ];
+  age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
   environment.systemPackages = with pkgs; [ jellyfin-media-player ];
 

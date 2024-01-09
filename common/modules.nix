@@ -1,8 +1,8 @@
 { self }:
 let
   inherit (self.common)
-    age fonts generations home-manager impermanence i18n nixified-ai options
-    package-sets self-reference stylix standardise-nix;
+    age fonts generations home-manager impermanence i18n options package-sets
+    self-reference stylix standardise-nix;
   inherit (self.inputs.nur.nixosModules) nur;
 in builtins.mapAttrs (package-set: _:
   home-manager.${package-set} ++ [
@@ -11,7 +11,6 @@ in builtins.mapAttrs (package-set: _:
     generations.${package-set}
     i18n.${package-set}
     impermanence.${package-set}
-    nixified-ai.${package-set}
     nur
     options.${package-set}
     self-reference
