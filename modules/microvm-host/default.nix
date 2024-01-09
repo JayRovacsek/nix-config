@@ -3,6 +3,8 @@ let
   inherit (config) flake;
   inherit (flake.lib.microvm) is-microvm-host;
 
+  path-file = s: lib.last (lib.splitString "/" s);
+
   enable = is-microvm-host config;
 
   microvmHostnames =
@@ -10,10 +12,15 @@ let
 
   # Assumption vms value matches that of a nixosConfiguration
   # TODO: add guard to check for attribute
-  microvms =
-    builtins.map (x: flake.nixosConfigurations."${x}") microvmHostnames;
+  microvms = builtins.map (x: flake.nixosConfigurations.${x}) microvmHostnames;
 
-  journaldRules = builtins.map (microvm:
+  agenix-rules = builtins.foldl' (acc: microvm:
+    acc ++ (builtins.map (y:
+      "C /agenix/${microvm.config.systemd.machineId}/${
+        path-file y
+      } - - - - ${y}") microvm.config.age.identityPaths)) [ ] microvms;
+
+  journald-rules = builtins.map (microvm:
     let
       inherit (microvm.config.systemd) machineId;
       inherit (microvm.config.networking) hostName;
@@ -30,5 +37,5 @@ in {
       [ "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys=" ];
   };
 
-  systemd.tmpfiles.rules = journaldRules;
+  systemd.tmpfiles.rules = agenix-rules ++ journald-rules;
 }

@@ -41,4 +41,5 @@ in {
   ## MicroVMs
   igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
   mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
+  meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
 }

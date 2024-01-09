@@ -40,36 +40,7 @@ let
     };
 
     settings = {
-      access_control = {
-        default_policy = "deny";
-        rules = [
-          {
-            domain = "duplicati.${domain}";
-            policy = "two_factor";
-            subject = "group:duplicati";
-          }
-          {
-            domain = "homeassistant.${domain}";
-            policy = "two_factor";
-            subject = "group:homeassistant";
-          }
-          {
-            domain = "pfsense.${domain}";
-            policy = "two_factor";
-            subject = "group:pfsense";
-          }
-          {
-            domain = "portainer.${domain}";
-            policy = "two_factor";
-            subject = "group:portainer";
-          }
-          {
-            domain = "tdarr.${domain}";
-            policy = "two_factor";
-            subject = "group:tdarr";
-          }
-        ];
-      };
+      access_control.default_policy = "deny";
 
       authentication_backend = {
         password_reset.disable = false;

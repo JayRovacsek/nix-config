@@ -25,7 +25,6 @@ in with self.nixosModules; [
   openssh
   openvscode-server
   portainer
-  prowlarr
   radarr
   samba
   sonarr

@@ -1,20 +1,23 @@
-{ config, flake, ... }: {
+{ config, flake, lib, ... }: {
   inherit flake;
 
-  networking.hostName = "igglybuff";
+  networking = {
+    dhcpcd.enable = false;
+    hostName = "igglybuff";
+    networkmanager.enable = false;
+    useNetworkd = true;
+  };
+
+  # This is extremely important as this host does not utilise the
+  # systemd networkd module, therefore not inheriting the
+  # disabled resolved service.
+  # 
+  # Blocky doesn't like that punk resolvd taking 53 off them
+  services.resolved.enable = false;
+
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
   microvm = {
-    # TODO: determine best approach to passing secrets into microvms.
-    # This'll likely end up being a mount of the requisite decryption
-    # keys so we can just use age directly as happens in all modules currently.
-    # shares = [{
-    #   # On the host
-    #   source = "/run/agenix";
-    #   # In the MicroVM
-    #   mountPoint = "/run/agenix";
-    #   tag = "id-ed25519-wireless-primary";
-    #   proto = "virtiofs";
-    # }];
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;

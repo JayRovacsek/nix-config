@@ -159,6 +159,10 @@ in {
         inherit flake;
         updateFlake = "git+file://${flake}";
       };
+      meowth = {
+        inherit flake;
+        updateFlake = "git+file://${flake}";
+      };
     };
   };
 
