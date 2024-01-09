@@ -1,6 +1,6 @@
 _: {
   users.groups = {
-    users = { gid = 100; };
+    users.gid = 100;
 
     jellyfin = {
       gid = 10001;
@@ -9,7 +9,7 @@ _: {
 
     media = {
       gid = 10002;
-      members = [ "jellyfin" "tdarr" ];
+      members = [ "jay" "jellyfin" "tdarr" ];
     };
 
     nextcloud = {

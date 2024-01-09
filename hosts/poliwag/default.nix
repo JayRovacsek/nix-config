@@ -33,4 +33,20 @@
       }
     ];
   };
+
+  services.radarr.group = "download";
+
+  users = {
+    users.radarr.uid = 275;
+    groups = {
+      download = {
+        gid = 10005;
+        members = [ "radarr" ];
+      };
+      media = {
+        gid = 10002;
+        members = [ "radarr" ];
+      };
+    };
+  };
 }

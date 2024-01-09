@@ -33,4 +33,20 @@
       }
     ];
   };
+
+  services.lidarr.group = "download";
+
+  users = {
+    users.lidarr.uid = 306;
+    groups = {
+      download = {
+        gid = 10005;
+        members = [ "lidarr" ];
+      };
+      media = {
+        gid = 10002;
+        members = [ "lidarr" ];
+      };
+    };
+  };
 }

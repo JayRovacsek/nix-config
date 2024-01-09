@@ -33,4 +33,21 @@
   };
 
   networking.hostName = "bellsprout";
+
+  services.sonarr.group = "download";
+
+  users = {
+    users.sonarr.uid = 274;
+    groups = {
+      download = {
+        gid = 10005;
+        members = [ "sonarr" ];
+      };
+      media = {
+        gid = 10002;
+        members = [ "sonarr" ];
+      };
+    };
+  };
+
 }
