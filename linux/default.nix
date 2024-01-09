@@ -44,5 +44,6 @@ in {
   machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
   mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
   meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
+  nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
   poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
 }

@@ -65,6 +65,10 @@ let
         extraConfig = "";
         proxyPass = "http://192.168.4.137:9696";
       };
+      "~ (/prowlarr)?(/[0-9]+)?/download" = {
+        extraConfig = "";
+        proxyPass = "http://192.168.4.137:9696";
+      };
     };
   };
 

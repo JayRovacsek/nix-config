@@ -4,7 +4,8 @@
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
-  fileSystems."/mnt/zfs/downloads".neededForBoot = true;
+  fileSystems.${config.services.deluge.config.download_location}.neededForBoot =
+    true;
 
   microvm = {
     interfaces = [{
@@ -29,5 +30,5 @@
 
   networking.hostName = "mankey";
 
-  services.deluge.config.download_location = "/mnt/zfs/downloads";
+  services.deluge.config.download_location = "/srv/downloads";
 }

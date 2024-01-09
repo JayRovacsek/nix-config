@@ -23,7 +23,7 @@
       }
       {
         # On the host
-        source = "/mnt/zfs/downloads";
+        source = "/srv/downloads";
         # In the MicroVM
         mountPoint = "/srv/downloads";
         tag = "linux-isos";

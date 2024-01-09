@@ -33,6 +33,11 @@
       inherit fsType options;
     };
 
+    "/srv/tv" = {
+      device = "tank/tv";
+      inherit fsType options;
+    };
+
     "/mnt/zfs/backup" = {
       device = "tank/backup";
       inherit fsType options;
@@ -58,6 +63,11 @@
       inherit fsType options;
     };
 
+    "/srv/movies" = {
+      device = "tank/movies";
+      inherit fsType options;
+    };
+
     "/mnt/zfs/nextcloud" = {
       device = "tank/nextcloud";
       inherit fsType options;
@@ -74,12 +84,22 @@
       inherit fsType options;
     };
 
+    "/srv/music" = {
+      device = "tank/music";
+      inherit fsType options;
+    };
+
     "/mnt/zfs/photos" = {
       device = "tank/photos";
       inherit fsType options;
     };
 
     "/mnt/zfs/downloads" = {
+      device = "tank/downloads";
+      inherit fsType options;
+    };
+
+    "/srv/downloads" = {
       device = "tank/downloads";
       inherit fsType options;
     };
