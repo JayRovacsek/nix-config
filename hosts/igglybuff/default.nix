@@ -1,6 +1,18 @@
 { config, flake, lib, ... }: {
   inherit flake;
 
+  microvm = {
+    interfaces = [{
+      type = "macvtap";
+      id = config.networking.hostName;
+      mac = "02:42:c0:a8:06:08";
+      macvtap = {
+        link = "dns";
+        mode = "bridge";
+      };
+    }];
+  };
+
   networking = {
     dhcpcd.enable = false;
     hostName = "igglybuff";
@@ -16,16 +28,4 @@
   services.resolved.enable = false;
 
   systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
-
-  microvm = {
-    interfaces = [{
-      type = "macvtap";
-      id = config.networking.hostName;
-      mac = "02:42:c0:a8:06:08";
-      macvtap = {
-        link = "dns";
-        mode = "bridge";
-      };
-    }];
-  };
 }

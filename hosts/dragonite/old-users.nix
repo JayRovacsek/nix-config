@@ -9,7 +9,7 @@ _: {
 
     media = {
       gid = 10002;
-      members = [ "jellyfin" "sonarr" "radarr" "lidarr" "tdarr" "prowlarr" ];
+      members = [ "jellyfin" "tdarr" ];
     };
 
     nextcloud = {
@@ -24,7 +24,7 @@ _: {
 
     download = {
       gid = 10005;
-      members = [ "download" "sonarr" "radarr" "lidarr" "prowlarr" ];
+      members = [ "download" ];
     };
 
     authelia = {
@@ -35,11 +35,6 @@ _: {
     home_assistant = {
       gid = 10008;
       members = [ "home_assistant" ];
-    };
-
-    jackett = {
-      gid = 10009;
-      members = [ "jackett" ];
     };
 
     unify = {
@@ -57,11 +52,6 @@ _: {
       members = [ "db" ];
     };
 
-    pihole = {
-      gid = 10013;
-      members = [ "pihole" ];
-    };
-
     backup = {
       gid = 10014;
       members = [ "backup" ];
@@ -72,11 +62,6 @@ _: {
       members = [ "swag" "jay" ];
     };
 
-    speedtest = {
-      gid = 10016;
-      members = [ "speedtest" ];
-    };
-
     games = {
       gid = 10017;
       members = [ "minecraft" "valheim" ];
@@ -85,11 +70,6 @@ _: {
     duin = {
       gid = 10018;
       members = [ "duin" ];
-    };
-
-    logs = {
-      gid = 10019;
-      members = [ "elastic" "kibana" "logstash" ];
     };
   };
 
@@ -102,12 +82,6 @@ _: {
       inherit isSystemUser createHome description;
       uid = 998;
       group = "jellyfin";
-    };
-
-    speedtest = {
-      inherit isSystemUser createHome description;
-      uid = 996;
-      group = "speedtest";
     };
 
     minecraft = {
@@ -140,12 +114,6 @@ _: {
       group = "home_assistant";
     };
 
-    pihole = {
-      inherit isSystemUser createHome description;
-      uid = 979;
-      group = "pihole";
-    };
-
     redis = {
       inherit isSystemUser createHome description;
       uid = 978;
@@ -158,27 +126,9 @@ _: {
       group = "unify";
     };
 
-    swag = {
-      inherit isSystemUser createHome description;
-      uid = 976;
-      group = "swag";
-    };
-
     tdarr = {
       inherit isSystemUser createHome description;
       uid = 974;
-      group = "media";
-    };
-
-    ombi = {
-      inherit isSystemUser createHome description;
-      uid = 973;
-      group = "media";
-    };
-
-    prowlarr = {
-      inherit isSystemUser createHome description;
-      uid = 971;
       group = "media";
     };
   };

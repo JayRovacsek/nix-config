@@ -14,7 +14,6 @@ in with self.nixosModules; [
   hydra
   jellyfin
   jellyseerr
-  lidarr
   lorri
   microvm.nixosModules.host
   microvm-host
@@ -25,9 +24,7 @@ in with self.nixosModules; [
   openssh
   openvscode-server
   portainer
-  radarr
   samba
-  sonarr
   sudo
   systemd-networkd
   time

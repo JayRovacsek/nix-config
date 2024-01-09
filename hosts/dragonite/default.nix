@@ -20,7 +20,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./filesystems.nix ./nginx-temp.nix ./old-users.nix ];
+  imports = [ ./authelia.nix ./filesystems.nix ./nginx.nix ./old-users.nix ];
 
   age = {
     secrets = {
@@ -150,20 +150,15 @@ in {
       }
     ];
 
-    vms = {
-      igglybuff = {
-        inherit flake;
-        updateFlake = "git+file://${flake}";
-      };
-      mankey = {
-        inherit flake;
-        updateFlake = "git+file://${flake}";
-      };
-      meowth = {
-        inherit flake;
-        updateFlake = "git+file://${flake}";
-      };
-    };
+    vms = let
+      party = [ "bellsprout" "igglybuff" "machop" "mankey" "meowth" "poliwag" ];
+    in builtins.foldl' (acc: pokemon:
+      acc // {
+        ${pokemon} = {
+          inherit flake;
+          updateFlake = "git+file://${flake}";
+        };
+      }) { } party;
   };
 
   networking = {

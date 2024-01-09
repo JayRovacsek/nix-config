@@ -15,10 +15,7 @@ let
   virtualHosts = lib.foldlAttrs (acc: name: value:
     acc // {
       ${name} = { inherit (value) forceSSL sslCertificate sslCertificateKey; };
-    }) { } (generate-vhosts {
-      inherit config service-name;
-      port = 0;
-    });
+    }) { } (generate-vhosts { inherit config service-name; });
 
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;

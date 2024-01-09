@@ -39,7 +39,10 @@ in {
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
   ## MicroVMs
+  bellsprout = make-microvm x86_64-linux-unstable "bellsprout" unstable-system;
   igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
+  machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
   mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
   meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
+  poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
 }

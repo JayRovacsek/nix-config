@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
   inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
-  inherit (config.flake.lib.authelia) generate-access-rules;
 
   inherit (config.services.sonarr.ports) http;
 
@@ -33,9 +32,6 @@ in {
   };
 
   services = {
-    authelia.instances =
-      generate-access-rules config.services.nginx.domains service-name;
-
     nginx = {
       test = { inherit domains; };
       inherit virtualHosts;

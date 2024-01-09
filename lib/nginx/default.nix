@@ -9,7 +9,7 @@ let
         lib.optionalString config.services.nginx.test.enable "test."
       }${domain}") config.services.nginx.domains;
 
-  generate-vhosts = { config, service-name, port, overrides ? { }, ... }:
+  generate-vhosts = { config, service-name, port ? 0, overrides ? { }, ... }:
     let
       inherit (config.nixpkgs) pkgs;
       test = config.services.nginx.test.enable;
