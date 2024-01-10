@@ -18,6 +18,8 @@
       };
     }];
 
+    mem = 6144;
+
     shares = [{
       # On the host
       source = config.services.deluge.config.download_location;
@@ -31,4 +33,12 @@
   networking.hostName = "mankey";
 
   services.deluge.config.download_location = "/srv/downloads";
+
+  users = {
+    users.download.uid = 984;
+    groups.download = {
+      gid = 10005;
+      members = [ "download" ];
+    };
+  };
 }
