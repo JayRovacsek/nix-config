@@ -15,7 +15,7 @@
     shares = [
       {
         # On the host
-        source = "/mnt/zfs/tv";
+        source = "/srv/tv";
         # In the MicroVM
         mountPoint = "/srv/tv";
         tag = "tv";
@@ -34,20 +34,17 @@
 
   networking.hostName = "bellsprout";
 
-  services.sonarr.group = "download";
-
-  users = {
-    users.sonarr.uid = 274;
-    groups = {
-      download = {
-        gid = 10005;
-        members = [ "sonarr" ];
-      };
-      media = {
-        gid = 10002;
-        members = [ "sonarr" ];
-      };
-    };
+  services.sonarr = {
+    group = "media";
+    user = "media";
   };
 
+  users = {
+    groups.media.gid = config.ids.gids.media;
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
+    };
+  };
 }

@@ -1,4 +1,13 @@
-_: {
+{ config, ... }: {
+
+  users = {
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
+    };
+  };
+
   users.groups = {
     users.gid = 100;
 
@@ -8,7 +17,7 @@ _: {
     };
 
     media = {
-      gid = 10002;
+      gid = config.ids.gids.media;
       members = [ "jay" "jellyfin" "tdarr" ];
     };
 

@@ -18,7 +18,7 @@
       };
     }];
 
-    mem = 6144;
+    mem = 1024;
 
     shares = [{
       # On the host
@@ -32,13 +32,18 @@
 
   networking.hostName = "mankey";
 
-  services.deluge.config.download_location = "/srv/downloads";
+  services.deluge = {
+    config.download_location = "/srv/downloads";
+    user = "media";
+    group = "media";
+  };
 
   users = {
-    users.download.uid = 984;
-    groups.download = {
-      gid = 10005;
-      members = [ "download" ];
+    groups.media.gid = config.ids.gids.media;
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
     };
   };
 }
