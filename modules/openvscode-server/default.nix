@@ -37,6 +37,8 @@ in {
     allowedTCPPorts = [ config.services.openvscode-server.port ];
   };
 
+  nix.trustedUsers = [ config.services.openvscode-server.user ];
+
   services = {
     authelia.instances =
       generate-access-rules config.services.nginx.domains service-name;
