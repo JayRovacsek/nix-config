@@ -39,6 +39,14 @@ in {
 
   nix.trustedUsers = [ config.services.openvscode-server.user ];
 
+  security.sudo.extraRules = [{
+    commands = [{
+      command = "/run/current-system/sw/bin/nixos-rebuild";
+      options = [ "NOPASSWD" ];
+    }];
+    users = [ config.services.openvscode-server.user ];
+  }];
+
   services = {
     authelia.instances =
       generate-access-rules config.services.nginx.domains service-name;
