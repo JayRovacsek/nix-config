@@ -76,7 +76,6 @@ in {
       enableImagemagick = true;
       # extraApps= {};
       # extraAppsEnable = true;
-      hostName = builtins.head domains;
       https = true;
       logType = "file";
       maxUploadSize = "10G";

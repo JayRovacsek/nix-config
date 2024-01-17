@@ -27,4 +27,6 @@
       proto = "virtiofs";
     }];
   };
+
+  services.nextcloud.hostName = "nextcloud.rovacsek.com";
 }
