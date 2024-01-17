@@ -76,7 +76,6 @@ in {
       enableImagemagick = true;
       # extraApps= {};
       # extraAppsEnable = true;
-      globalProfiles = false;
       hostName = builtins.head domains;
       https = true;
       logType = "file";
