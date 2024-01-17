@@ -1,6 +1,11 @@
 { self }:
 let inherit (self.inputs) microvm;
 in with self.nixosModules; [
+  # loki
+  # grafana
+  # grafana-agent
+  # telegraf
+
   acme
   agenix
   authelia

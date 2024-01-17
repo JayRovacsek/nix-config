@@ -1,4 +1,7 @@
-_: {
+{ config, ... }: {
+  networking.firewall.allowedTCPPorts =
+    [ config.services.grafana.settings.server.http_port ];
+
   services.grafana = {
     enable = true;
 
@@ -14,7 +17,8 @@ _: {
       };
       unified_alerting.enabled = true;
       server = {
-        domain = "grafana.rovacsek.com";
+        http_addr = "0.0.0.0";
+        # domain = "grafana.rovacsek.com";
         # root_url = "https://${name}.${domain}/";
         enable_gzip = true;
         # TODO: change prior to deploy

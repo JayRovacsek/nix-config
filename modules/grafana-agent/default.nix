@@ -7,6 +7,7 @@
     retentionTime = "30d";
     exporters.node = {
       enable = true;
+      enabledCollectors = [ "systemd" "processes" ];
       port = 9100;
       openFirewall = true;
     };
@@ -48,6 +49,16 @@
               __path__ = "/var/log/clamd.log";
               host = config.networking.hostName;
               job = "clamd";
+            };
+          }];
+        }
+        {
+          job_name = "zfs";
+          static_configs = [{
+            targets = [ "localhost:9273" ];
+            labels = {
+              host = config.networking.hostName;
+              job = "zfs";
             };
           }];
         }
