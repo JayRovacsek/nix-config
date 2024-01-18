@@ -24,4 +24,9 @@ let
     sha256 = "sha256-cXTBfmWBFK3jHharORKFZ8q7pbtYs3OhsuUJ2StRjDk=";
   };
 
-in buildPythonPackage { inherit pname version meta propagatedBuildInputs src; }
+in buildPythonPackage {
+  inherit pname version meta propagatedBuildInputs src;
+  postPatch = ''
+    rm -rf tests
+  '';
+}
