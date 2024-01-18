@@ -30,24 +30,14 @@
 
     mem = 4096;
 
-    shares = [
-      {
-        # On the host
-        source = "/srv/nextcloud";
-        # In the MicroVM
-        mountPoint = "/srv/nextcloud";
-        tag = "nextcloud";
-        proto = "virtiofs";
-      }
-      {
-        # On the host
-        source = "/srv/databases/nextcloud";
-        # In the MicroVM
-        mountPoint = "/srv/databases/nextcloud";
-        tag = "databases";
-        proto = "virtiofs";
-      }
-    ];
+    shares = [{
+      # On the host
+      source = "/srv/nextcloud";
+      # In the MicroVM
+      mountPoint = "/srv/nextcloud";
+      tag = "nextcloud";
+      proto = "virtiofs";
+    }];
 
     vcpu = 4;
   };
