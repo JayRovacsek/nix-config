@@ -1,11 +1,11 @@
 { self }:
 let
   # Required build functions
-  inherit (self.common.system) unstable-system bleeding-edge-system;
+  inherit (self.common.system) unstable-system;
 
   # Required package-sets
   inherit (self.common.package-sets)
-    x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
+    x86_64-linux-unstable aarch64-linux-unstable;
 
   inherit (self.lib.host) make-host make-microvm;
 in {
@@ -32,8 +32,7 @@ in {
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
-  wigglytuff =
-    make-host aarch64-linux-bleeding-edge "wigglytuff" bleeding-edge-system;
+  wigglytuff = make-host aarch64-linux-unstable "wigglytuff" unstable-system;
 
   ## WSL Configuration
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
