@@ -44,6 +44,9 @@ in {
       # notification-settings = { };
       # system-settings = { };
       use-declarative-settings = true;
+
+      user = "media";
+      group = "media";
     };
 
     nginx = {

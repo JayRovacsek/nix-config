@@ -17,7 +17,7 @@
     shares = [
       {
         # On the host
-        source = "/mnt/zfs/music";
+        source = "/srv/music";
         # In the MicroVM
         mountPoint = "/srv/music";
         tag = "music";
@@ -25,7 +25,7 @@
       }
       {
         # On the host
-        source = "/mnt/zfs/downloads";
+        source = "/srv/downloads";
         # In the MicroVM
         mountPoint = "/srv/downloads";
         tag = "linux-isos";
@@ -34,19 +34,19 @@
     ];
   };
 
-  services.lidarr.group = "download";
+  services.lidarr = {
+    group = "media";
+    user = "media";
+  };
+
+  system.stateVersion = "24.05";
 
   users = {
-    users.lidarr.uid = 306;
-    groups = {
-      download = {
-        gid = 10005;
-        members = [ "lidarr" ];
-      };
-      media = {
-        gid = 10002;
-        members = [ "lidarr" ];
-      };
+    groups.media.gid = config.ids.gids.media;
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
     };
   };
 }

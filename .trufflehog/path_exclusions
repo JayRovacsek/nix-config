@@ -1,4 +1,5 @@
 flake.nix
+modules/grafana/default.nix
 modules/hydra/default.nix
 options/headscale/default.nix
 overlays/patches/hydra.patch

@@ -35,12 +35,11 @@ let
   nextcloud-vhost = generate-vhosts {
     inherit config;
     service-name = "nextcloud";
-    overrides.locations."/" = {
-      extraConfig = ''
-        proxy_hide_header X-Frame-Options;
-        proxy_max_temp_file_size 2048m;
-      '';
-      proxyPass = "https://192.168.10.2";
+    overrides = {
+      locations."/" = {
+        extraConfig = "";
+        proxyPass = "http://192.168.10.3";
+      };
     };
   };
 
@@ -62,6 +61,10 @@ let
     overrides.locations = {
       "/" = { proxyPass = "http://192.168.4.137:9696"; };
       "~ (/prowlarr)?(/[0-9]+)?/api" = {
+        extraConfig = "";
+        proxyPass = "http://192.168.4.137:9696";
+      };
+      "~ (/prowlarr)?(/[0-9]+)?/download" = {
         extraConfig = "";
         proxyPass = "http://192.168.4.137:9696";
       };

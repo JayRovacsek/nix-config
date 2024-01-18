@@ -17,7 +17,7 @@
     shares = [
       {
         # On the host
-        source = "/mnt/zfs/movies";
+        source = "/srv/movies";
         # In the MicroVM
         mountPoint = "/srv/movies";
         tag = "movies";
@@ -25,7 +25,7 @@
       }
       {
         # On the host
-        source = "/mnt/zfs/downloads";
+        source = "/srv/downloads";
         # In the MicroVM
         mountPoint = "/srv/downloads";
         tag = "linux-isos";
@@ -34,19 +34,19 @@
     ];
   };
 
-  services.radarr.group = "download";
+  services.radarr = {
+    group = "media";
+    user = "media";
+  };
+
+  system.stateVersion = "24.05";
 
   users = {
-    users.radarr.uid = 275;
-    groups = {
-      download = {
-        gid = 10005;
-        members = [ "radarr" ];
-      };
-      media = {
-        gid = 10002;
-        members = [ "radarr" ];
-      };
+    groups.media.gid = config.ids.gids.media;
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
     };
   };
 }

@@ -4,7 +4,8 @@
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
-  fileSystems."/mnt/zfs/downloads".neededForBoot = true;
+  fileSystems.${config.services.deluge.config.download_location}.neededForBoot =
+    true;
 
   microvm = {
     interfaces = [{
@@ -16,6 +17,8 @@
         mode = "bridge";
       };
     }];
+
+    mem = 1024;
 
     shares = [{
       # On the host
@@ -29,5 +32,20 @@
 
   networking.hostName = "mankey";
 
-  services.deluge.config.download_location = "/mnt/zfs/downloads";
+  services.deluge = {
+    config.download_location = "/srv/downloads";
+    user = "media";
+    group = "media";
+  };
+
+  system.stateVersion = "24.05";
+
+  users = {
+    groups.media.gid = config.ids.gids.media;
+    users.media = {
+      group = "media";
+      uid = config.ids.uids.media;
+      isSystemUser = true;
+    };
+  };
 }

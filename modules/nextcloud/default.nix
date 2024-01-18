@@ -45,6 +45,8 @@ in {
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
   services = {
     nextcloud = {
       enable = true;
@@ -60,32 +62,47 @@ in {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        overwriteProtocol = "https";
         trustedProxies = [ "127.0.0.1" ];
       };
 
       configureRedis = true;
 
-      # The below is only useful if we're starting fresh - 
-      # however we're migrating so the use of this setting is 
-      # */freedom* no bueno */s*
-      # Here if we're testing we'll create locally, otherwise 
-      # required configuration settings are kept in the secretFile
-      database.createLocally = config.services.nginx.test.enable;
+      database.createLocally = true;
 
       enableImagemagick = true;
-      # extraApps= {};
-      # extraAppsEnable = true;
-      globalProfiles = false;
-      hostName = builtins.head domains;
-      https = true;
+
+      extraOptions = {
+        "profile.enabled" = false;
+        trusted_proxies = [ "192.168.1.220" ];
+        trusted_domains = [ "192.168.10.3" ];
+        loglevel = 2;
+      };
+
+      # It sucks, but we're already behind a proxy with this instance - let it handle TLS
+      https = false;
       logType = "file";
       maxUploadSize = "10G";
       package = pkgs.nextcloud27;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
+        "opcache.enable_cli" = "1";
+        "opcache.fast_shutdown" = "1";
+        "opcache.interned_strings_buffer" = "32";
+        "opcache.jit_buffer_size" = "128M";
+        "opcache.jit" = "1255";
+        "opcache.max_accelerated_files" = "10000";
+        "opcache.memory_consumption" = "128";
+        "opcache.revalidate_freq" = "1";
+        "opcache.save_comments" = "1";
+        "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
+        catch_workers_output = "yes";
+        display_errors = "stderr";
+        error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
+        expose_php = "Off";
         max_execution_time = "180";
         max_input_time = "90";
+        output_buffering = "0";
+        short_open_tag = "Off";
       };
       # Secret options which will be appended to Nextcloud’s config.php file
       # (written as JSON, in the same form as the services.nextcloud.

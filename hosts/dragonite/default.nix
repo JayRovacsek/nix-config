@@ -151,7 +151,15 @@ in {
     ];
 
     vms = let
-      party = [ "bellsprout" "igglybuff" "machop" "mankey" "meowth" "poliwag" ];
+      party = [
+        "bellsprout"
+        "igglybuff"
+        "machop"
+        "mankey"
+        "meowth"
+        "nidoking"
+        "poliwag"
+      ];
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
@@ -169,8 +177,6 @@ in {
   powerManagement.enable = false;
 
   services = {
-    deluge.config.download_location = "/mnt/zfs/downloads";
-
     nginx.domains = [ "rovacsek.com" ];
 
     # This requires the addition of the samba module

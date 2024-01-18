@@ -35,7 +35,6 @@ in {
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi3;
     kernelParams = [ "cma=128M" ];
 
     initrd.availableKernelModules =
