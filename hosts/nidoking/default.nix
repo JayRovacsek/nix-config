@@ -42,7 +42,10 @@
     vcpu = 4;
   };
 
-  services.nextcloud.extraOptions.datadirectory = "/srv/nextcloud";
+  services.nextcloud = {
+    extraOptions.datadirectory = "/srv/nextcloud";
+    hostName = "nextcloud.rovacsek.com";
+  };
 
   system.stateVersion = "24.05";
 }

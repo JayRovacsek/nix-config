@@ -73,12 +73,11 @@ in {
 
       extraOptions = {
         "profile.enabled" = false;
-        trusted_proxies = [ "127.0.0.1" "192.168.1.221" "192.168.1.220" ];
+        trusted_proxies = [ "192.168.1.220" ];
         trusted_domains = [ "192.168.10.3" ];
         loglevel = 2;
       };
 
-      hostName = "nextcloud.rovacsek.com";
       # It sucks, but we're already behind a proxy with this instance - let it handle TLS
       https = false;
       logType = "file";
