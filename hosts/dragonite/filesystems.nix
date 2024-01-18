@@ -73,7 +73,7 @@
       inherit fsType options;
     };
 
-    "/var/lib/nextcloud/data" = {
+    "/srv/nextcloud" = {
       device = "tank/nextcloud";
       inherit fsType options;
       depends = [ "/" ];
@@ -94,11 +94,6 @@
       inherit fsType options;
     };
 
-    "/mnt/zfs/downloads" = {
-      device = "tank/downloads";
-      inherit fsType options;
-    };
-
     "/srv/downloads" = {
       device = "tank/downloads";
       inherit fsType options;
@@ -109,12 +104,17 @@
       inherit fsType options;
     };
 
+    "/srv/databases" = {
+      device = "tank/databases";
+      inherit fsType options;
+    };
+
     "/mnt/zfs/home_assistant" = {
       device = "tank/home_assistant";
       inherit fsType options;
     };
 
-    "/mnt/zfs/logs" = {
+    "/srv/logs" = {
       device = "tank/logs";
       inherit fsType options;
     };

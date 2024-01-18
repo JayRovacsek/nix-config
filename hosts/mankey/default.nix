@@ -38,6 +38,8 @@
     group = "media";
   };
 
+  system.stateVersion = "24.05";
+
   users = {
     groups.media.gid = config.ids.gids.media;
     users.media = {

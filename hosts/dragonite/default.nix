@@ -151,7 +151,15 @@ in {
     ];
 
     vms = let
-      party = [ "bellsprout" "igglybuff" "machop" "mankey" "meowth" "poliwag" ];
+      party = [
+        "bellsprout"
+        "igglybuff"
+        "machop"
+        "mankey"
+        "meowth"
+        "nidoking"
+        "poliwag"
+      ];
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
