@@ -17,16 +17,18 @@ let
 
   inherit (self.packages.${system}) docxcompose;
 
-  propagatedBuildInputs = [ six python-docx jinja2 lxml docxcompose ];
+  propagatedBuildInputs = [
+    six
+    (python-docx.overridePythonAttrs
+      (_: { disabledTests = [ "DescribeParseXml" ]; }))
+    jinja2
+    lxml
+    docxcompose
+  ];
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-cXTBfmWBFK3jHharORKFZ8q7pbtYs3OhsuUJ2StRjDk=";
   };
 
-in buildPythonPackage {
-  inherit pname version meta propagatedBuildInputs src;
-  postPatch = ''
-    rm -rf tests
-  '';
-}
+in buildPythonPackage { inherit pname version meta propagatedBuildInputs src; }
