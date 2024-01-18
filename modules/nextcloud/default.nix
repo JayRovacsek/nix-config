@@ -75,7 +75,7 @@ in {
         "profile.enabled" = false;
         trusted_proxies = [ "127.0.0.1" "192.168.1.221" "192.168.1.220" ];
         trusted_domains = [ "192.168.10.3" ];
-        loglevel = 0;
+        loglevel = 2;
       };
 
       hostName = "nextcloud.rovacsek.com";
@@ -89,9 +89,12 @@ in {
         "opcache.enable_cli" = "1";
         "opcache.fast_shutdown" = "1";
         "opcache.interned_strings_buffer" = "32";
+        "opcache.jit_buffer_size" = "128M";
+        "opcache.jit" = "1255";
         "opcache.max_accelerated_files" = "10000";
         "opcache.memory_consumption" = "128";
         "opcache.revalidate_freq" = "1";
+        "opcache.save_comments" = "1";
         "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
         catch_workers_output = "yes";
         display_errors = "stderr";
