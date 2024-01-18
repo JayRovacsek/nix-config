@@ -17,8 +17,6 @@
     settings.PermitRootLogin = "yes";
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-
   microvm = {
     interfaces = [{
       type = "macvtap";
