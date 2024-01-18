@@ -61,7 +61,7 @@
     # Home management module
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.11";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.
