@@ -148,6 +148,11 @@ in {
         parent = "10-wired";
         vlan-tag = 17;
       }
+      {
+        name = "headscale";
+        parent = "10-wired";
+        vlan-tag = 25;
+      }
     ];
 
     vms = let
@@ -155,6 +160,7 @@ in {
         "bellsprout"
         "igglybuff"
         "machop"
+        "magikarp"
         "mankey"
         "meowth"
         "nidoking"
