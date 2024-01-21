@@ -72,6 +72,13 @@ in {
       enableImagemagick = true;
 
       extraOptions = {
+        enabledPreviewProviders = [
+          "OC\\Preview\\BMP"
+          "OC\\Preview\\GIF"
+          "OC\\Preview\\JPEG"
+          "OC\\Preview\\PNG"
+          "OC\\Preview\\HEIC"
+        ];
         "profile.enabled" = false;
         trusted_proxies = [ "192.168.1.220" ];
         trusted_domains = [ "192.168.10.3" ];
@@ -87,19 +94,19 @@ in {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
         "opcache.fast_shutdown" = "1";
-        "opcache.interned_strings_buffer" = "32";
-        "opcache.jit_buffer_size" = "128M";
+        "opcache.interned_strings_buffer" = "64";
+        "opcache.jit_buffer_size" = "256M";
         "opcache.jit" = "1255";
-        "opcache.max_accelerated_files" = "10000";
+        "opcache.max_accelerated_files" = "150000";
         "opcache.memory_consumption" = "128";
-        "opcache.revalidate_freq" = "1";
+        "opcache.revalidate_freq" = "60";
         "opcache.save_comments" = "1";
-        "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
+        "openssl.cafile" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
         catch_workers_output = "yes";
         display_errors = "stderr";
         error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
         expose_php = "Off";
-        max_execution_time = "180";
+        max_execution_time = "30";
         max_input_time = "90";
         output_buffering = "0";
         short_open_tag = "Off";
@@ -109,9 +116,15 @@ in {
       # extraOptions option), for example {"redis":{"password":"secret"}}.
       secretFile = config.age.secrets.nextcloud-secret-file.path;
     };
+
     nginx = {
       test = { inherit domains; };
       inherit virtualHosts;
+    };
+
+    redis.servers.nextcloud.settings = {
+      maxmemory = "512m";
+      maxmemory-policy = "volatile-lfu";
     };
   };
 

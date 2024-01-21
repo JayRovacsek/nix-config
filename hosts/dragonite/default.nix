@@ -49,7 +49,7 @@ in {
 
     blacklistedKernelModules = [ "e1000e" ];
 
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems = [ "ntfs" "zfs" ];
     kernelParams = [ "amd_iommu=on" ];
 
     initrd = {
@@ -66,9 +66,9 @@ in {
     dnsutils
     exfat
     hddtemp
+    htop
     lm_sensors
     pciutils
-    htop
   ];
 
   fileSystems = {
