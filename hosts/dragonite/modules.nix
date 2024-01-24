@@ -15,8 +15,8 @@ in with self.nixosModules; [
   jellyfin
   jellyseerr
   lorri
-  microvm.nixosModules.host
   microvm-host
+  microvm.nixosModules.host
   nginx
   nix
   nix-serve

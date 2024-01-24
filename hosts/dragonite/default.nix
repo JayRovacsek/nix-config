@@ -165,6 +165,7 @@ in {
         "meowth"
         "nidoking"
         "poliwag"
+        "porygon"
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {

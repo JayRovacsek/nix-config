@@ -175,8 +175,10 @@ in {
           "home-assistant.lan" = "192.168.12.2";
           "cache.lan" = "192.168.16.2";
           "minecraft.lan" = "192.168.17.5";
+          "porygon.lan" = "192.168.17.2";
           "valheim.lan" = "192.168.17.3";
           "terraria.lan" = "192.168.17.4";
+
           "authelia.rovacsek.com" = "192.168.1.220";
           "binarycache.rovacsek.com" = "192.168.1.220";
           "code.rovacsek.com" = "192.168.1.220";
@@ -193,6 +195,7 @@ in {
           "prowlarr.rovacsek.com" = "192.168.1.220";
           "radarr.rovacsek.com" = "192.168.1.220";
           "sonarr.rovacsek.com" = "192.168.1.220";
+          "palworld.rovacsek.com" = "192.168.17.2";
 
           # Blizzard
           "dist.blizzard.com" = "192.168.16.2";
@@ -264,57 +267,6 @@ in {
           "gs-sec.ww.np.dl.playstation.net" = "192.168.16.2";
 
           # Steam
-          "lancache.steampowered.com" = "192.168.16.2";
-          "lancache.steamcontent.com" = "192.168.16.2";
-          "content.steampowered.com" = "192.168.16.2";
-          "content1.steampowered.com" = "192.168.16.2";
-          "content2.steampowered.com" = "192.168.16.2";
-          "content3.steampowered.com" = "192.168.16.2";
-          "content4.steampowered.com" = "192.168.16.2";
-          "content5.steampowered.com" = "192.168.16.2";
-          "content6.steampowered.com" = "192.168.16.2";
-          "content7.steampowered.com" = "192.168.16.2";
-          "content8.steampowered.com" = "192.168.16.2";
-          "client-download.steampowered.com" = "192.168.16.2";
-          "hsar.steampowered.com.edgesuite.net" = "192.168.16.2";
-          "akamai.steamstatic.com" = "192.168.16.2";
-          "content-origin.steampowered.com" = "192.168.16.2";
-          "clientconfig.akamai.steamtransparent.com" = "192.168.16.2";
-          "steampipe.akamaized.net" = "192.168.16.2";
-          "steam.apac.qtlglb.com.mwcloudcdn.com" = "192.168.16.2";
-          "cs.steampowered.com" = "192.168.16.2";
-          "cm.steampowered.com" = "192.168.16.2";
-          "edgecast.steamstatic.com" = "192.168.16.2";
-          "steamcontent.com" = "192.168.16.2";
-          "cdn1-sea1.valve.net" = "192.168.16.2";
-          "cdn2-sea1.valve.net" = "192.168.16.2";
-          "steam-content-dnld-1.apac-1-cdn.cqloud.com" = "192.168.16.2";
-          "steam-content-dnld-1.eu-c1-cdn.cqloud.com" = "192.168.16.2";
-          "steam-content-dnld-1.qwilted-cds.cqloud.com" = "192.168.16.2";
-          "steam.apac.qtlglb.com" = "192.168.16.2";
-          "edge.steam-dns.top.comcast.net" = "192.168.16.2";
-          "edge.steam-dns-2.top.comcast.net" = "192.168.16.2";
-          "steam.naeu.qtlglb.com" = "192.168.16.2";
-          "steampipe-kr.akamaized.net" = "192.168.16.2";
-          "steam.ix.asn.au" = "192.168.16.2";
-          "steam.eca.qtlglb.com" = "192.168.16.2";
-          "steam.cdn.on.net" = "192.168.16.2";
-          "update5.dota2.wmsj.cn" = "192.168.16.2";
-          "update2.dota2.wmsj.cn" = "192.168.16.2";
-          "update6.dota2.wmsj.cn" = "192.168.16.2";
-          "update3.dota2.wmsj.cn" = "192.168.16.2";
-          "update1.dota2.wmsj.cn" = "192.168.16.2";
-          "update4.dota2.wmsj.cn" = "192.168.16.2";
-          "update5.csgo.wmsj.cn" = "192.168.16.2";
-          "update2.csgo.wmsj.cn" = "192.168.16.2";
-          "update4.csgo.wmsj.cn" = "192.168.16.2";
-          "update3.csgo.wmsj.cn" = "192.168.16.2";
-          "update6.csgo.wmsj.cn" = "192.168.16.2";
-          "update1.csgo.wmsj.cn" = "192.168.16.2";
-          "st.dl.bscstorage.net" = "192.168.16.2";
-          "cdn.mileweb.cs.steampowered.com.8686c.com" = "192.168.16.2";
-          "steamcdn-a.akamaihd.net" = "192.168.16.2";
-
           # Uplay
           "cdn.ubi.com" = "192.168.16.2";
 

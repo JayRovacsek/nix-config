@@ -46,4 +46,5 @@ in {
   meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
   nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
   poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
+  porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
 }
