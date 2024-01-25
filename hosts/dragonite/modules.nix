@@ -23,7 +23,6 @@ in with self.nixosModules; [
   nvidia
   openssh
   openvscode-server
-  portainer
   samba
   sudo
   systemd-networkd

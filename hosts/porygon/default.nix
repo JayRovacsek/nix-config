@@ -16,6 +16,7 @@
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   microvm = {
+
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;
@@ -26,7 +27,8 @@
       };
     }];
 
-    mem = 6144;
+    mem = 8096;
+    vcpu = 4;
   };
 
   system.stateVersion = "24.05";
