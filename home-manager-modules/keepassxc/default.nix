@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
-
   home = {
+    # Generate a suitable configuration that applies opinionated defaults
     file."${config.xdg.configHome}/keepassxc/keepassxc.ini".text =
       lib.generators.toINI { } {
         General = {
@@ -17,7 +17,27 @@
 
         GUI = {
           ApplicationTheme = "dark";
+          MinimizeOnClose = true;
+          MinimizeOnStartup = true;
+          MinimizeToTray = true;
+          ShowTrayIcon = true;
           TrayIconAppearance = "monochrome-light";
+        };
+
+        KeeShare = {
+          Active = ''
+            <?xml version="1.0"?><KeeShare><Active/></KeeShare>
+          '';
+          Foreign = ''
+            <?xml version="1.0"?>
+            <KeeShare xmlns:xsd="http://www.w3.org/2001/XMLSchema"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <Foreign/>
+            </KeeShare>
+          '';
+          Own = ''
+            <?xml version="1.0"?><KeeShare></PrivateKey></PublicKey></KeeShare>
+          '';
+          QuietSuccess = true;
         };
 
         PasswordGenerator = {
@@ -33,7 +53,7 @@
           WordSeparator = " ";
         };
 
-        Security = { IconDownloadFallback = true; };
+        Security.IconDownloadFallback = true;
       };
     packages = with pkgs; [ keepassxc ];
   };
