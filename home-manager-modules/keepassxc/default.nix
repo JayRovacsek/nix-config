@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }: {
+  # Required to generate the json file describing how firefox
+  # can interact with keepassxc
+  programs.firefox.nativeMessagingHosts = with pkgs; [ keepassxc ];
+
   home = {
-    # Generate a suitable configuration that applies opinionated defaults
+    # Generate a suitable configuration that applies opinionated defaults    
     file."${config.xdg.configHome}/keepassxc/keepassxc.ini".text =
       lib.generators.toINI { } {
         General = {
