@@ -2,7 +2,7 @@
 let
   inherit (pkgs)
     grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
-  inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
+  inherit (osConfig.flake.lib.hyprland) generate-monitors;
 
   alakazam-monitors = [
     {
@@ -20,14 +20,14 @@ let
       extra = "";
     }
     {
-      name = "DP-4";
+      name = "DP-5";
       resolution = "1920x1080";
       position = "3000x420";
       scale = "1";
       extra = "";
     }
     {
-      name = "DP-5";
+      name = "DP-4";
       resolution = "1920x1080";
       position = "4920x420";
       scale = "1";
@@ -51,7 +51,7 @@ let
 
   exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
 
-in generate-config {
+in {
   inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";

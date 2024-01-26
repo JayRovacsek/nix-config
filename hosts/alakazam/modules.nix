@@ -7,6 +7,7 @@ in with self.nixosModules; [
   fonts
   generations
   gnupg
+  greetd
   grub
   hyprland
   keybase
@@ -18,7 +19,6 @@ in with self.nixosModules; [
   nvidia
   openssh
   pipewire
-  sddm
   steam
   systemd-networkd
   # tailscale
