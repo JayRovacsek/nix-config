@@ -28,7 +28,7 @@ let
   # 
   packages = (with pkgs; [ hyprpicker hyprpaper ]) ++ optional-packages;
 
-  extraConfig = import ./config.nix { inherit config pkgs osConfig; };
+  settings = import ./settings.nix { inherit config pkgs osConfig; };
 
 in {
   xdg.configFile."hypr/hyprpaper.conf".text = ''
@@ -61,5 +61,5 @@ in {
     } // optional-env-values;
   };
 
-  wayland.windowManager.hyprland = { inherit enable package extraConfig; };
+  wayland.windowManager.hyprland = { inherit enable package settings; };
 }

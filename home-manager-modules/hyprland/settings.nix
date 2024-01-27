@@ -2,7 +2,7 @@
 let
   inherit (pkgs)
     grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
-  inherit (osConfig.flake.lib.hyprland) generate-monitors generate-config;
+  inherit (osConfig.flake.lib.hyprland) generate-monitors;
 
   alakazam-monitors = [
     {
@@ -51,7 +51,7 @@ let
 
   exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
 
-in generate-config {
+in {
   inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";

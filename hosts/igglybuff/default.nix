@@ -27,5 +27,7 @@
   # Blocky doesn't like that punk resolvd taking 53 off them
   services.resolved.enable = false;
 
+  system.stateVersion = "24.05";
+
   systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 }

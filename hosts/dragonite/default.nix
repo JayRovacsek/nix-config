@@ -49,7 +49,7 @@ in {
 
     blacklistedKernelModules = [ "e1000e" ];
 
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems = [ "ntfs" "zfs" ];
     kernelParams = [ "amd_iommu=on" ];
 
     initrd = {
@@ -66,9 +66,9 @@ in {
     dnsutils
     exfat
     hddtemp
+    htop
     lm_sensors
     pciutils
-    htop
   ];
 
   fileSystems = {
@@ -148,10 +148,25 @@ in {
         parent = "10-wired";
         vlan-tag = 17;
       }
+      {
+        name = "headscale";
+        parent = "10-wired";
+        vlan-tag = 25;
+      }
     ];
 
     vms = let
-      party = [ "bellsprout" "igglybuff" "machop" "mankey" "meowth" "poliwag" ];
+      party = [
+        "bellsprout"
+        "igglybuff"
+        "machop"
+        "magikarp"
+        "mankey"
+        "meowth"
+        "nidoking"
+        "poliwag"
+        "porygon"
+      ];
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
@@ -169,8 +184,6 @@ in {
   powerManagement.enable = false;
 
   services = {
-    deluge.config.download_location = "/mnt/zfs/downloads";
-
     nginx.domains = [ "rovacsek.com" ];
 
     # This requires the addition of the samba module

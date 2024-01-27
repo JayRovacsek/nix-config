@@ -9,6 +9,7 @@
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
+  gids = import ./gids.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
@@ -24,7 +25,6 @@
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
-  nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
@@ -38,6 +38,7 @@
   tofu = import ./tofu { inherit self; };
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
+  uids = import ./uids.nix { inherit self; };
   users = import ./users.nix { inherit self; };
   wallpaper-packages =
     builtins.attrNames (builtins.readDir ../packages/wallpapers);

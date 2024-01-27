@@ -77,8 +77,8 @@ let
 
       server = {
         buffers = {
-          read = 4096;
-          write = 4096;
+          read = 8196;
+          write = 8196;
         };
         path = "authelia";
         host = "localhost";
