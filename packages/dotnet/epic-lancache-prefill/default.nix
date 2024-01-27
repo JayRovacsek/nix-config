@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime }:
 let
   pname = "epic-lancache-prefill";
-  version = "1.1.2";
+  version = "1.2.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/epic-lancache-prefill";
@@ -16,7 +16,7 @@ let
     repo = "epic-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-YvaZ1MDGb2XEs2bh6EdtXIAdXu8YrvBjtuGHNXsmvlM=";
+    hash = "sha256-4BGERyENmIjR+txMdzQsOIMqzhawEWRjnbB0FrUmgyE=";
   };
 
   patches = [ ./no-appcontext.patch ];

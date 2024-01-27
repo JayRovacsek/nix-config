@@ -13,9 +13,6 @@ let
 
   package = pkgs.hyprland;
 
-  # Apply nvidia patches if available and required
-  enableNvidiaPatches = nvidia-present;
-
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   # Add vaapi drivers if nvidia is present
   optional-packages =
@@ -31,7 +28,7 @@ let
   # 
   packages = (with pkgs; [ hyprpicker hyprpaper ]) ++ optional-packages;
 
-  extraConfig = import ./config.nix { inherit config pkgs osConfig; };
+  settings = import ./settings.nix { inherit config pkgs osConfig; };
 
 in {
   xdg.configFile."hypr/hyprpaper.conf".text = ''
@@ -64,7 +61,5 @@ in {
     } // optional-env-values;
   };
 
-  wayland.windowManager.hyprland = {
-    inherit enable enableNvidiaPatches package extraConfig;
-  };
+  wayland.windowManager.hyprland = { inherit enable package settings; };
 }

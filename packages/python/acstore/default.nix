@@ -2,7 +2,7 @@
 let
   pname = "acstore";
   name = pname;
-  version = "20230226";
+  version = "20230519";
 
   meta = with lib; {
     description =
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-MDeWOU1cv6dW8LL2UmdUbSwm0vg4YfxvpTDTb15+/+s=";
+    sha256 = "sha256-ufbXsWCbl1j8CUTsJeRD3gvRrLaVc4jC3lrMZB4T2Ag=";
   };
 
   doCheck = false;

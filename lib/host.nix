@@ -30,4 +30,13 @@ let
       extra-modules = import ../hosts/${name}/modules.nix { inherit self; };
       modules = base ++ extra-modules;
     in system-builder { inherit system pkgs modules; };
-in { inherit make-host; }
+
+  make-microvm = package-set: name: system-builder:
+    let
+      inherit (package-set) system identifier pkgs;
+      base = self.common.minimal-modules.${identifier} ++ [ ../hosts/${name} ];
+      extra-modules = import ../hosts/${name}/modules.nix { inherit self; };
+      modules = base ++ extra-modules;
+    in system-builder { inherit system pkgs modules; };
+
+in { inherit make-host make-microvm; }

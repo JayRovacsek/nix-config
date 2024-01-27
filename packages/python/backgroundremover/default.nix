@@ -4,7 +4,7 @@ let
 
   pname = "backgroundremover";
   name = pname;
-  version = "0.2.1";
+  version = "0.2.6";
 
   meta = with lib; {
     description =
@@ -53,7 +53,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-hh+NSFy2NgvgpsnTcFORzFfW4ZxX96nP4u9O+OpZw7Y=";
+    sha256 = "sha256-YAiPwI7YCTIDJxgzEoVCT/6htRemcVuvfj2lVS3dlks=";
   };
 
   doCheck = false;

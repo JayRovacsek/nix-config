@@ -2,7 +2,7 @@
 let
   pname = "libqcow-python";
   name = pname;
-  version = "20221124";
+  version = "20231125";
 
   meta = with lib; {
     description = "Python bindings module for libqcow";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-p0CdNcT3t2KdiTp1g00gw9tsxmuoKXInfyQBhg+64nI=";
+    sha256 = "sha256-Eqhwx9rPO0zvA9pETmhadOsXrBhS2Htz7ueUxWuWmtA=";
   };
 
   doCheck = false;

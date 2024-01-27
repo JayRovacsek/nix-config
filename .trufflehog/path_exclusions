@@ -1,4 +1,7 @@
+flake.nix
+modules/grafana/default.nix
 modules/hydra/default.nix
+options/headscale/default.nix
 overlays/patches/hydra.patch
 packages/python-packages/sqlalchemy-utils/skip-database-tests.patch
 packages/terranix/aws-valheim/README.md
@@ -18,4 +21,5 @@ terranix/github/README.md
 terranix/linode-ami/README.md
 terranix/linode-csgo/README.md
 terranix/linode-openvpn/README.md
+terranix/oracle/default.nix
 terranix/oracle/default.nix

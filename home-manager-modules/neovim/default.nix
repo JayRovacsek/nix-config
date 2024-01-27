@@ -91,7 +91,6 @@ _: {
         nvimWebDevicons.enable = true;
         smoothScroll.enable = true;
         scrollBar.enable = true;
-        indentBlankline.useTreesitter.enable = true;
         fidget-nvim.enable = true;
       };
 

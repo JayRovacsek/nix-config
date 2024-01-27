@@ -1,5 +1,5 @@
 { self }:
-with self.nixosModules; [
+(with self.nixosModules; [
   agenix
   blocky
   fonts
@@ -16,4 +16,6 @@ with self.nixosModules; [
   time
   timesyncd
   zsh
+]) ++ [
+  "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 ]

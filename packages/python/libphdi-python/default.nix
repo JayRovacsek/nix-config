@@ -2,7 +2,7 @@
 let
   pname = "libphdi-python";
   name = pname;
-  version = "20221025";
+  version = "20231129";
 
   meta = with lib; {
     description = "Python bindings module for libphdi";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-5FiLLvGv4470DdcKbWLEWpxAfn3aHwBmZuU98mAviGo=";
+    sha256 = "sha256-G06vL2FpeO5o3O+Qu1YWfrLJJ3+JICvF85Dsgu3RrJA=";
   };
 
   doCheck = false;

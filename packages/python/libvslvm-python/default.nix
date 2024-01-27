@@ -2,7 +2,7 @@
 let
   pname = "libvslvm-python";
   name = pname;
-  version = "20221025";
+  version = "20231122";
 
   meta = with lib; {
     description = "Python bindings module for libvslvm";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-IUqSzlsTqZcqYBBXjY4MyRnOL6/Ks4FgBVN3fi70uA8=";
+    sha256 = "sha256-XsHGlO0dgn66tP7But4/g5eratIotuoCIcUhNcSO5Yg=";
   };
 
   doCheck = false;

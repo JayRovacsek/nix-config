@@ -17,7 +17,14 @@ let
 
   inherit (self.packages.${system}) docxcompose;
 
-  propagatedBuildInputs = [ six python-docx jinja2 lxml docxcompose ];
+  propagatedBuildInputs = [
+    six
+    (python-docx.overridePythonAttrs
+      (_: { disabledTests = [ "DescribeParseXml" ]; }))
+    jinja2
+    lxml
+    docxcompose
+  ];
 
   src = fetchPypi {
     inherit pname version;

@@ -1,5 +1,5 @@
 [files]
-extend-exclude = ["_typos.toml"]
+extend-exclude = ["_typos.toml", "*.age"]
 
 [default.extend-words]
 Adge = "Adge"
@@ -8,13 +8,14 @@ ba = "ba"
 browseable = "browseable"
 crypted = "crypted"
 dota = "dota"
+ede = "ede"
 flor = "flor"
 Flor = "Flor"
 gastly = "gastly"
 Gastly = "Gastly"
 no = "no"
-noo = "noo"
 noice = "noice"
+noo = "noo"
 SART = "SART"
 SYNOPSYS = "SYNOPSYS"
 wih = "wih"
