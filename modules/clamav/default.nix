@@ -1,5 +1,10 @@
 { pkgs, lib, ... }: {
-  # Inspiration: https://github.com/houstdav000/dotfiles/blob/733f2db667e3645619ca9dc05446099864045a49/nixos/config/services/clamav.nix
+  # Required as DNS may not be immediately available on a system if
+  # blocky is being used while the bootstrap occurs.
+  # 
+  # Block updates for 5 minutes on a freshly booted system.
+  systemd.timers.clamav-freshclam.timerConfig.OnBootSec = 300;
+
   services.clamav = {
     daemon = {
       enable = true;

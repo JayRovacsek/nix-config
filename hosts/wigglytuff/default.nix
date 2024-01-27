@@ -36,8 +36,11 @@ in {
     hostId = "d2a7b80b";
   };
 
-  system.stateVersion = "23.11";
+  services = {
+    journald.storage = "volatile";
+    # Hide Builder user from SDDM login
+    xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
+  };
 
-  # Hide Builder user from SDDM login
-  services.xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
+  system.stateVersion = "24.05";
 }
