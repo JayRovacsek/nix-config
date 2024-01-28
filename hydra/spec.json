@@ -14,7 +14,7 @@
     "nixpkgs": {
       "emailresponsible": false,
       "type": "path",
-      "value": "/nix/store/19kjl5p3hx3l51yfnii653a3qzm4l6hf-source"
+      "value": "/nix/store/dllvbhgw5f584ficlqvqkpb0mjnf4v0s-source"
     },
     "pulls": {
       "emailresponsible": false,

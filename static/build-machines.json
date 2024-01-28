@@ -5,10 +5,18 @@
     "speedFactor": 16,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
     "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "bellsprout.lan",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -53,10 +61,18 @@
     "speedFactor": 96,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
     "hostName": "gastly.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "igglybuff.lan",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -86,6 +102,38 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "machop.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "magikarp.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "mankey.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "meowth.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "mew.lan",
     "maxJobs": 1,
     "speedFactor": 1,
@@ -94,7 +142,31 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "nidoking.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "ditto.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "poliwag.lan",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "porygon.lan",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
