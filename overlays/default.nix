@@ -388,6 +388,7 @@
         "openssh"
         "pcre"
         "rhash"
+        "sourceHighlight"
       ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
 
       disabled-install-checks = prev.lib.genAttrs [ "tpm2-tss" ]
