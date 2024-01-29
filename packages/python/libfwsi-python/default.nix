@@ -2,7 +2,7 @@
 let
   pname = "libfwsi-python";
   name = pname;
-  version = "20231130";
+  version = "20240120";
 
   meta = with lib; {
     description = "Python bindings module for libfwsi";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-RwJF1ufPDQNZT3AvAULgftWfDC8Wx2OmKex7CpJ5UiU=";
+    sha256 = "sha256-J21uWdkEH+dA0AzbzJo93Npd/VCda/B95F+afv6Q5rs=";
   };
 
   doCheck = false;

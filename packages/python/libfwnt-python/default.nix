@@ -2,7 +2,7 @@
 let
   pname = "libfwnt-python";
   name = pname;
-  version = "20231124";
+  version = "20240126";
 
   meta = with lib; {
     description = "Python bindings module for libfwnt";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-909nXbw5rxBdVOJ7hhvTxlfs+cWKPsShULGet8QRnbQ=";
+    sha256 = "sha256-Ur+rHobSASCjYZKQlNBHb+34/rUsg9/dw0WKFXK+bvw=";
   };
 
   doCheck = false;

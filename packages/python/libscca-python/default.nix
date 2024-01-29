@@ -2,7 +2,7 @@
 let
   pname = "libscca-python";
   name = pname;
-  version = "20231203";
+  version = "20240120";
 
   meta = with lib; {
     description = "Python bindings module for libscca";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-IXqsDBjwYwa93+Ovq5mUlg5dCst3q2Z/QE+aM66W1iE=";
+    sha256 = "sha256-vVnl8n21GIf4rhuPTkrs3XcWKBT4fZKZyv//8xRvNYY=";
   };
 
   doCheck = false;

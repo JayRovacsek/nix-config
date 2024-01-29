@@ -2,7 +2,7 @@
 let
   pname = "libluksde-python";
   name = pname;
-  version = "20231204";
+  version = "20240114";
 
   meta = with lib; {
     description = "Python bindings module for libluksde";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SMWmZ76sJOrcC4YV2Ta22gdj+Gqg1/KDhd61+xM7Bh8=";
+    sha256 = "sha256-3memvir7wBXruXgmVG83aw6NI/T/jIw2mWnJFuoPuBc=";
   };
 
   doCheck = false;

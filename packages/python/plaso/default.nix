@@ -4,7 +4,7 @@ let
 
   pname = "plaso";
   name = pname;
-  version = "20230717";
+  version = "20231224";
   meta = with lib; {
     description =
       "Plaso (Plaso Langar Að Safna Öllu), or super timeline all the things, is a Python-based engine used by several tools for automatic creation of timelines. Plaso default behavior is to create super timelines but it also supports creating more targeted timelines.";
@@ -17,7 +17,7 @@ let
   inherit (python3Packages)
     bencode-py buildPythonPackage certifi cffi cryptography defusedxml future
     lz4 opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyyaml
-    pyzmq pyxattr redis requests six XlsxWriter yara-python;
+    pyzmq redis requests six XlsxWriter yara-python;
 
   inherit (self.packages.${system})
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
@@ -28,14 +28,14 @@ let
     libmsiecf-python libolecf-python libphdi-python libqcow-python
     libregf-python libscca-python libsigscan-python libsmdev-python
     libsmraw-python libvhdi-python libvmdk-python libvsgpt-python
-    libvshadow-python libvslvm-python pytsk3;
+    libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
   inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Ao8A6r1OeCS6s/5ZJRiooJXNylsgTCh5Kqz98eNImmQ=";
+    sha256 = "sha256-wyGJSvdOR3Jr2ms8LcJgL9w573+YIqyFef/kb2pEETc=";
   };
 
   doCheck = false;

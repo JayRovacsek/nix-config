@@ -4,7 +4,7 @@ let
 
   pname = "dfvfs";
   name = pname;
-  version = "20231205";
+  version = "20240115";
 
   meta = with lib; {
     description =
@@ -15,7 +15,7 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage cffi cryptography pyyaml pyxattr;
+  inherit (python3Packages) buildPythonPackage cffi cryptography pyyaml;
 
   inherit (self.packages.${system})
     dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
@@ -23,14 +23,14 @@ let
     libfsxfs-python libfvde-python libfwnt-python libluksde-python
     libmodi-python libphdi-python libqcow-python libsigscan-python
     libsmdev-python libsmraw-python libvhdi-python libvmdk-python
-    libvsgpt-python libvshadow-python libvslvm-python pytsk3;
+    libvsgpt-python libvshadow-python libvslvm-python pytsk3 pyxattr;
 
 in buildPythonPackage {
   inherit pname name version meta;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-ABMpYTh42wzIW+V/RaNBHTLnmZSzE/flaaZhhXACO2o=";
+    sha256 = "sha256-FkOB26OdxD9j82oaQFqtGYxKdjGQRLZNCFDq7dOKt7s=";
   };
 
   doCheck = false;
