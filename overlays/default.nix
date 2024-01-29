@@ -140,6 +140,84 @@
             };
           });
 
+          afdko = python-prev.afdko.overrideAttrs (_:
+
+            prev.buildPythonPackage rec {
+              pname = "afdko";
+              version = "3.9.3";
+              format = "pyproject";
+
+              src = prev.fetchPypi {
+                inherit pname version;
+                sha256 = "sha256-v0fIhf3P5Xjdn5/ryRNj0Q2YHAisMqi5RTmJQabaUO0=";
+              };
+
+              nativeBuildInputs = with prev; [
+                setuptools-scm
+                scikit-build
+                cmake
+              ];
+
+              buildInputs = with prev; [ antlr4_9.runtime.cpp libxml2.dev ];
+
+              # setup.py will always (re-)execute cmake in buildPhase
+              dontConfigure = true;
+
+              propagatedBuildInputs = with prev; [
+                booleanoperations
+                fonttools
+                lxml # fonttools[lxml], defcon[lxml] extra
+                fs # fonttools[ufo] extra
+                unicodedata2 # fonttools[unicode] extra
+                brotlipy # fonttools[woff] extra
+                zopfli # fonttools[woff] extra
+                fontpens
+                brotli
+                defcon
+                fontmath
+                mutatormath
+                ufoprocessor
+                ufonormalizer
+                psautohint
+                tqdm
+              ];
+
+              # Use system libxml2
+              FORCE_SYSTEM_LIBXML2 = true;
+
+              nativeCheckInputs = [ prev.pytestCheckHook ];
+
+              preCheck = ''
+                export PATH=$PATH:$out/bin
+              '';
+
+              disabledTests = [
+                # Disable slow tests, reduces test time ~25 %
+                "test_report"
+                "test_post_overflow"
+                "test_cjk"
+                "test_extrapolate"
+                "test_filename_without_dir"
+                "test_overwrite"
+                "test_options"
+              ] ++ prev.lib.optionals (prev.stdenv.hostPlatform.isAarch
+                || prev.stdenv.hostPlatform.isRiscV) [
+                  # unknown reason so far
+                  # https://github.com/adobe-type-tools/afdko/issues/1425
+                  "test_spec"
+                ] ++ prev.lib.optionals prev.stdenv.hostPlatform.isi686
+                [ "test_type1mm_inputs" ];
+
+              meta = with prev.lib; {
+                changelog =
+                  "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
+                description = "Adobe Font Development Kit for OpenType";
+                homepage = "https://adobe-type-tools.github.io/afdko";
+                license = licenses.asl20;
+                maintainers = [ maintainers.sternenseemann ];
+              };
+            });
+
           blinker = python-prev.blinker.overrideAttrs (old: rec {
             version = "1.6.2";
             src = prev.fetchPypi {
