@@ -472,8 +472,12 @@
         "sourceHighlight"
       ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
 
-      disabled-install-checks = prev.lib.genAttrs [ "tpm2-tss" ]
-        (name: prev.${name}.overrideAttrs (_: { doInstallCheck = false; }));
+      disabled-install-checks =
+        prev.lib.genAttrs [ "git" "gitMinimal" "tpm2-tss" ] (name:
+          prev.${name}.overrideAttrs (_: {
+            doInstallCheck = false;
+            preInstallCheck = "";
+          }));
 
       d-file-offset-fixes = prev.lib.genAttrs [ "bind" "kbd" ] (name:
         prev.${name}.overrideAttrs (_: {
@@ -532,12 +536,9 @@
         });
       };
 
-      removed-pre-install-check = prev.lib.genAttrs [ "git" "gitMinimal" ]
-        (name: prev.${name}.overrideAttrs (_: { preInstallCheck = ""; }));
-
     in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
     // d-file-offset-fixes // llvm-fixes // libllvm-fixes // python-fixes
-    // tpm2-tss-extra-deps // removed-pre-install-check;
+    // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
