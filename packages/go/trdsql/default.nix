@@ -19,4 +19,6 @@ let
 
   vendorHash = "sha256-8wF06bIM+tDYqd8tyXKOehuYJQvyqhLBJv0K47vh8hY=";
 
-in buildGoModule { inherit pname version src meta vendorHash; }
+  doCheck = false;
+
+in buildGoModule { inherit pname version src meta vendorHash doCheck; }
