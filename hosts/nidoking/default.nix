@@ -28,7 +28,7 @@
       };
     }];
 
-    mem = 4096;
+    mem = 6144;
 
     shares = [{
       # On the host

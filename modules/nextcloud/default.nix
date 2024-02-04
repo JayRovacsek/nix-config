@@ -89,7 +89,7 @@ in {
       https = false;
       logType = "file";
       maxUploadSize = "10G";
-      package = pkgs.nextcloud27;
+      package = pkgs.nextcloud28;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
@@ -98,7 +98,7 @@ in {
         "opcache.jit_buffer_size" = "256M";
         "opcache.jit" = "1255";
         "opcache.max_accelerated_files" = "150000";
-        "opcache.memory_consumption" = "128";
+        "opcache.memory_consumption" = "256";
         "opcache.revalidate_freq" = "60";
         "opcache.save_comments" = "1";
         "openssl.cafile" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
