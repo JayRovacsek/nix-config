@@ -2,7 +2,6 @@
 let inherit (self.inputs) microvm;
 in with self.nixosModules; [
   acme
-  agenix
   authelia
   blocky
   clamav

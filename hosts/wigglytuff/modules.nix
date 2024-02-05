@@ -1,7 +1,6 @@
 { self }:
 let inherit (self.inputs.nixos-hardware.nixosModules) raspberry-pi-4;
 in (with self.nixosModules; [
-  agenix
   gnupg
   lorri
   nix

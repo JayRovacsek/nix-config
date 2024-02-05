@@ -1,6 +1,5 @@
 { self }:
 (with self.nixosModules; [
-  agenix
   blocky
   fonts
   gnupg
