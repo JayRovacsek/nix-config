@@ -1,10 +1,9 @@
-_: {
+{ config, ... }: {
   system.autoUpgrade = {
     enable = true;
-    # Poll the `main` branch for changes once a minute
-    dates = "minutely";
-    # You need this if you poll more than once an hour
-    flags = [ "--option" "tarball-ttl" "0" ];
-    flake = "github:JayRovacsek/nix-config";
+    allowReboot = false;
+    # Poll the `main` branch for changes once every 5 minutes
+    dates = "hourly";
+    flake = "github:JayRovacsek/nix-config/main#${config.networking.hostName}";
   };
 }

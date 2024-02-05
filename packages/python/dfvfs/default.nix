@@ -4,7 +4,7 @@ let
 
   pname = "dfvfs";
   name = pname;
-  version = "20221224";
+  version = "20231205";
 
   meta = with lib; {
     description =
@@ -30,7 +30,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-IxkoXVDUztPKf+m3UxLLxneUuPgTBvkikTyButPIKeA=";
+    sha256 = "sha256-ABMpYTh42wzIW+V/RaNBHTLnmZSzE/flaaZhhXACO2o=";
   };
 
   doCheck = false;

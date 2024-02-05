@@ -1,47 +1,33 @@
-{ config, pkgs, lib, flake, ... }:
-let
-  inherit (flake) common;
-  inherit (flake.lib) merge;
-  inherit (config.networking) hostName;
-
-  jay = common.users.jay {
-    inherit config pkgs;
-    modules = [ ];
-    overrides = { users.users.jay.shell = pkgs.bash; };
-  };
-
-  merged = merge [ jay ];
-
-in {
+{ config, flake, lib, ... }: {
   inherit flake;
-  inherit (merged) users;
-
-  networking = {
-    hostName = "igglybuff";
-    hostId = "b560563b";
-  };
 
   microvm = {
-    vcpu = 1;
-    mem = 2048;
-    hypervisor = "qemu";
     interfaces = [{
-      type = "tap";
-      id = "vm-${hostName}-01";
-      mac = "00:00:00:00:00:01";
+      type = "macvtap";
+      id = config.networking.hostName;
+      mac = "02:42:c0:a8:06:08";
+      macvtap = {
+        link = "dns";
+        mode = "bridge";
+      };
     }];
-    writableStoreOverlay = null;
   };
 
+  networking = {
+    dhcpcd.enable = false;
+    hostName = "igglybuff";
+    networkmanager.enable = false;
+    useNetworkd = true;
+  };
+
+  # This is extremely important as this host does not utilise the
+  # systemd networkd module, therefore not inheriting the
+  # disabled resolved service.
+  # 
+  # Blocky doesn't like that punk resolvd taking 53 off them
   services.resolved.enable = false;
 
-  imports = [
-    ../../modules/blocky
-    ../../modules/microvm/guest
-    ../../modules/openssh
-    ../../modules/time
-    ../../modules/timesyncd
-  ];
+  system.stateVersion = "24.05";
 
-  system.stateVersion = "22.11";
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 }

@@ -29,18 +29,25 @@ let
 
   targetGeneration = [ stable unstable bleeding-edge ];
 
-  overlays =
-    [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
+  overlays = [
+    agenix.overlays.default
+    nur.overlay
+    self.overlays.lib
+    self.overlays.nix-monitored
+  ];
 
   darwin-overlays = [ firefox-darwin.overlay ];
 
   linux-overlays = [
+    self.overlays.element-desktop
     self.overlays.fcitx-engines
     self.overlays.grub2
+    self.overlays.hydra
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
     self.overlays.ranger
+    self.overlays.waybar
   ];
 
   # Done to make available the packageset identifier via the identifier attribute of

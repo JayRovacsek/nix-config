@@ -2,7 +2,7 @@
 let
   pname = "libmsiecf-python";
   name = pname;
-  version = "20221024";
+  version = "20231203";
 
   meta = with lib; {
     description = "Python bindings module for libmsiecf";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8Ch7mVkgUFEFWquOq/oamOTFd63/vQ1QOuxTdVSoiLg=";
+    sha256 = "sha256-R6KqJthZI8L0LVElQVBRVFb0bRLPlbf+4k1ejj4iNIo=";
   };
 
   doCheck = false;

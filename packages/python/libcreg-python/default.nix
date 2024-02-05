@@ -2,7 +2,7 @@
 let
   pname = "libcreg-python";
   name = pname;
-  version = "20221022";
+  version = "20231123";
 
   meta = with lib; {
     description = "Python bindings module for libcreg";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-N/E0u3WyXe+zRT0NAr0OoeqlNiQQcZsI6hTgD+JhsAo=";
+    sha256 = "sha256-W/O6G4QVozXi7xwTKsgnv0uEGBrLVEKVgiy2f2gWeCQ=";
   };
 
   doCheck = false;

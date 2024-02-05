@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-23.05";
+    stable.url = "github:nixos/nixpkgs/release-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
 
@@ -20,24 +20,14 @@
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
     };
 
-    crane = {
-      url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dream2nix = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        nix-unit.follows = "nix-unit";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-      url = "github:nix-community/dream2nix";
-    };
+    # crane = {
+    #   url = "github:ipetkov/crane";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
@@ -68,14 +58,6 @@
       url = "github:hercules-ci/gitignore.nix";
     };
 
-    hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # Home management module
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,7 +81,8 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:astro/microvm.nix";
+      url =
+        "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
     };
 
     neovim-flake = {
@@ -116,18 +99,6 @@
       url = "github:notashelf/neovim-flake";
     };
 
-    nixci = {
-      inputs = {
-        crane.follows = "crane";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-        systems.follows = "systems";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      url = "github:srid/nixci";
-    };
-
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -140,15 +111,6 @@
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
       };
-    };
-
-    nixified-ai = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        hercules-ci-effects.follows = "hercules-ci-effects";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:nixified-ai/flake";
     };
 
     # Generate system images easily
@@ -205,14 +167,6 @@
       url = "github:ners/nix-monitored";
     };
 
-    nix-unit = {
-      inputs = {
-        nix-filter.follows = "nix-filter";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:ners/nix-monitored";
-    };
-
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 
@@ -247,7 +201,13 @@
 
     # Software bill of materials package
     sbomnix = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        # flake-root.follows = "flake-root";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       url = "github:tiiuae/sbomnix/main";
     };
 
@@ -297,42 +257,15 @@
 
   outputs = { self, flake-utils, ... }:
     let
-      inherit (self.inputs.nixpkgs.lib) filterAttrs recursiveUpdate;
+      inherit (self.inputs.nixpkgs) lib;
+      inherit (lib) recursiveUpdate;
 
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
 
         # Automated build configuration for local packages
-        hydraJobs = with builtins;
-          let
-            unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
-            # Strip out unsupportable systems.
-            supported-packages = removeAttrs self.packages unsupported-systems;
-
-            # Strip items that hydra just cannot handle
-            non-problematic-packages = mapAttrs (_: value:
-              removeAttrs value [
-                "amazon"
-                "linode"
-                "linode-ami"
-                "oracle"
-                "rpi1-sdImage"
-                "rpi2-sdImage"
-              ]) supported-packages;
-
-            # Strip broken packages as they just cause eval errors
-            non-broken-packages =
-              mapAttrs (_: value: filterAttrs (_: v: (!v.meta.broken)) value)
-              non-problematic-packages;
-          in {
-            checks = removeAttrs self.checks unsupported-systems;
-            devShells = removeAttrs self.devShells unsupported-systems;
-
-            # Strip out below known issue packages when it comes to 
-            # hydra evaluation.
-            packages = non-broken-packages;
-          };
+        hydraJobs = import ./hydra { inherit self lib; };
 
         # Useful functions to use throughout the flake
         lib = import ./lib { inherit self; };

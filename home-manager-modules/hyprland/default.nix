@@ -1,8 +1,10 @@
 { config, pkgs, osConfig, ... }:
 let
-  inherit (pkgs) lib;
+  inherit (pkgs) lib system;
 
   enable = true;
+
+  inherit (osConfig.flake.packages.${system}) mario-homelab-pixelart-wallpaper;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
@@ -10,9 +12,6 @@ let
     osConfig.services.xserver.videoDrivers;
 
   package = pkgs.hyprland;
-
-  # Apply nvidia patches if available and required
-  enableNvidiaPatches = nvidia-present;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
   # Add vaapi drivers if nvidia is present
@@ -27,11 +26,16 @@ let
   };
 
   # 
-  packages = (with pkgs; [ hyprpicker ]) ++ optional-packages;
+  packages = (with pkgs; [ hyprpicker hyprpaper ]) ++ optional-packages;
 
-  extraConfig = import ./config.nix { inherit config pkgs osConfig; };
+  settings = import ./settings.nix { inherit config pkgs osConfig; };
 
 in {
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = ${mario-homelab-pixelart-wallpaper}/share/wallpaper.jpg
+    wallpaper = ,${mario-homelab-pixelart-wallpaper}/share/wallpaper.jpg
+  '';
+
   home = {
     inherit packages;
     sessionVariables = {
@@ -57,7 +61,5 @@ in {
     } // optional-env-values;
   };
 
-  wayland.windowManager.hyprland = {
-    inherit enable enableNvidiaPatches package extraConfig;
-  };
+  wayland.windowManager.hyprland = { inherit enable package settings; };
 }

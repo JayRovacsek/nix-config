@@ -30,10 +30,6 @@ let
     htop
     killall
 
-    # Productivity
-    keepassxc
-    nextcloud-client
-
     ## Misc
     hunspell
     hunspellDicts.en-au

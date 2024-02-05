@@ -1,0 +1,83 @@
+From 83407d19a5e80fb665c4f436d7ccde0216535f1b Mon Sep 17 00:00:00 2001
+From: jayrovacsek <jay@rovacsek.com>
+Date: Thu, 30 Nov 2023 21:24:55 +1100
+Subject: [PATCH] Add local file read capability for GH token
+
+---
+ src/lib/Hydra/Plugin/GithubPulls.pm  | 11 ++++++-----
+ src/lib/Hydra/Plugin/GithubStatus.pm |  5 ++++-
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/src/lib/Hydra/Plugin/GithubPulls.pm b/src/lib/Hydra/Plugin/GithubPulls.pm
+index 9d8412c3..64606e41 100644
+--- a/src/lib/Hydra/Plugin/GithubPulls.pm
++++ b/src/lib/Hydra/Plugin/GithubPulls.pm
+@@ -7,6 +7,7 @@ use HTTP::Request;
+ use LWP::UserAgent;
+ use JSON::MaybeXS;
+ use Hydra::Helper::CatalystUtils;
++use File::Slurper 'read_text';
+ use File::Temp;
+ use POSIX qw(strftime);
+ 
+@@ -16,10 +17,10 @@ sub supportedInputTypes {
+ }
+ 
+ sub _iterate {
+-    my ($url, $auth, $pulls, $ua) = @_;
++    my ($url, $token, $pulls, $ua) = @_;
+     my $req = HTTP::Request->new('GET', $url);
+     $req->header('Accept' => 'application/vnd.github.v3+json');
+-    $req->header('Authorization' => $auth) if defined $auth;
++    $req->header('Authorization' => $token) if defined $token;
+     my $res = $ua->request($req);
+     my $content = $res->decoded_content;
+     die "Error pulling from the github pulls API: $content\n"
+@@ -39,7 +40,7 @@ sub _iterate {
+             last;
+         }
+     }
+-    _iterate($next, $auth, $pulls, $ua) unless $next eq "";
++    _iterate($next, $token, $pulls, $ua) unless $next eq "";
+ }
+ 
+ sub fetchInput {
+@@ -47,10 +48,10 @@ sub fetchInput {
+     return undef if $type ne "githubpulls";
+     # TODO Allow filtering of some kind here?
+     (my $owner, my $repo) = split ' ', $value;
+-    my $auth = $self->{config}->{github_authorization}->{$owner};
++    my $token = read_text("/etc/hydra/github_token");
+     my %pulls;
+     my $ua = LWP::UserAgent->new();
+-    _iterate("https://api.github.com/repos/$owner/$repo/pulls?per_page=100", $auth, \%pulls, $ua);
++    _iterate("https://api.github.com/repos/$owner/$repo/pulls?per_page=100", $token, \%pulls, $ua);
+     my $tempdir = File::Temp->newdir("github-pulls" . "XXXXX", TMPDIR => 1);
+     my $filename = "$tempdir/github-pulls.json";
+ 
+diff --git a/src/lib/Hydra/Plugin/GithubStatus.pm b/src/lib/Hydra/Plugin/GithubStatus.pm
+index fe791533..d802f27c 100644
+--- a/src/lib/Hydra/Plugin/GithubStatus.pm
++++ b/src/lib/Hydra/Plugin/GithubStatus.pm
+@@ -3,6 +3,7 @@ package Hydra::Plugin::GithubStatus;
+ use strict;
+ use warnings;
+ use parent 'Hydra::Plugin';
++use File::Slurper 'read_text';
+ use HTTP::Request;
+ use JSON::MaybeXS;
+ use LWP::UserAgent;
+@@ -73,7 +74,9 @@ sub common {
+                     my $req = HTTP::Request->new('POST', $url);
+                     $req->header('Content-Type' => 'application/json');
+                     $req->header('Accept' => 'application/vnd.github.v3+json');
+-                    $req->header('Authorization' => ($self->{config}->{github_authorization}->{$owner} // $conf->{authorization}));
++                    my $token = read_text("/etc/hydra/github_token");
++                    $token =~ s/\s+//;
++                    $req->header('Authorization' => "token $token");
+                     $req->content($body);
+                     my $res = $ua->request($req);
+                     print STDERR $res->status_line, ": ", $res->decoded_content, "\n" unless $res->is_success;
+-- 
+2.42.0
+

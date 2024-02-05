@@ -2,7 +2,7 @@
 let
   pname = "dfdatetime";
   name = pname;
-  version = "20230225";
+  version = "20231205";
 
   meta = with lib; {
     description =
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-k7Wbxeyca1r9jrNzK+q5K/EGQhG/Zgbqy/VAEYoWB+U=";
+    sha256 = "sha256-OG26dfWSPtOkewX50n82qa1yn1rGtmjKKM0t/uZUEtg=";
   };
 
   doCheck = false;
