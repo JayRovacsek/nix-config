@@ -1,0 +1,211 @@
+{ config, self, ... }:
+let
+  inherit (self.lib) merge;
+  inherit (self.lib.nginx) generate-vhosts;
+  inherit (self.common.networking.services)
+    authelia code deluge headscale hydra jellyfin jellyseerr lidarr nextcloud
+    pfsense prowlarr radarr sonarr;
+
+  authelia-vhost = generate-vhosts {
+    inherit config;
+    inherit (authelia) subdomain;
+    overrides = {
+      default = true;
+      locations = let
+        proxyPass = "${authelia.protocol}://${authelia.ipv4}:${
+            builtins.toString authelia.port
+          }";
+      in {
+        "/" = { inherit proxyPass; };
+        "/api/verify" = { inherit proxyPass; };
+      };
+    };
+  };
+
+  code-vhost = generate-vhosts {
+    inherit config;
+    inherit (code) subdomain;
+    overrides.locations."/" = {
+      proxyPass =
+        "${code.protocol}://${code.ipv4}:${builtins.toString code.port}";
+      proxyWebsockets = true;
+    };
+  };
+
+  deluge-vhost = generate-vhosts {
+    inherit config;
+    inherit (deluge) subdomain;
+    overrides.locations."/".proxyPass =
+      "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
+  };
+
+  headscale-vhost = generate-vhosts {
+    inherit config;
+    inherit (headscale) subdomain;
+    overrides.locations."/" = {
+      extraConfig = "";
+      proxyPass = "${headscale.protocol}://${headscale.ipv4}:${
+          builtins.toString headscale.port
+        }";
+      proxyWebsockets = true;
+    };
+  };
+
+  hydra-vhost = generate-vhosts {
+    inherit config;
+    inherit (hydra) subdomain;
+    overrides.locations."/" = {
+      proxyPass =
+        "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header Front-End-Https on;
+      '';
+    };
+  };
+
+  jellyfin-vhost = generate-vhosts {
+    inherit config;
+    inherit (jellyfin) port subdomain;
+    overrides.locations."/".proxyPass =
+      "${jellyfin.protocol}://${jellyfin.ipv4}:${
+        builtins.toString jellyfin.port
+      }";
+  };
+
+  jellyseerr-vhost = generate-vhosts {
+    inherit config;
+    inherit (jellyseerr) port subdomain;
+    overrides.locations."/".proxyPass =
+      "${jellyseerr.protocol}://${jellyseerr.ipv4}:${
+        builtins.toString jellyseerr.port
+      }";
+  };
+
+  lidarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (lidarr) port subdomain;
+    overrides.locations = let
+      proxyPass =
+        "${lidarr.protocol}://${lidarr.ipv4}:${builtins.toString lidarr.port}";
+    in {
+      "/" = { inherit proxyPass; };
+      "~ (/lidarr)?/api" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+    };
+  };
+
+  nextcloud-vhost = generate-vhosts {
+    inherit config;
+    service-name = "nextcloud";
+    inherit (nextcloud) port subdomain;
+    overrides = {
+      # The below is required as by default nginx will utilise differing
+      # max client body sizes - this is simply a copy of the recommended
+      # nextcloud proxy config, minus any headers as the response from
+      # the second nginx proxy will add these headers
+      #
+      # Why do we need a dual reverse proxy config, to avoid needing to rewrite large
+      # elements of the upstream opinions on nextcloud.
+      extraConfig = ''
+        index index.php index.html /index.php$request_uri;
+
+        client_max_body_size 10G;
+        fastcgi_buffers 64 4K;
+        fastcgi_hide_header X-Powered-By;
+        gzip on;
+        gzip_vary on;
+        gzip_comp_level 4;
+        gzip_min_length 256;
+        gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+        gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+      '';
+      locations."/" = {
+        extraConfig = "";
+        proxyPass = "${nextcloud.protocol}://${nextcloud.ipv4}:${
+            builtins.toString nextcloud.port
+          }";
+      };
+    };
+  };
+
+  pfsense-vhost = generate-vhosts {
+    inherit config;
+    inherit (pfsense) subdomain;
+    overrides.locations."/".proxyPass =
+      "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
+  };
+
+  prowlarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (prowlarr) subdomain;
+    overrides.locations = let
+      proxyPass = "${prowlarr.protocol}://${prowlarr.ipv4}:${
+          builtins.toString prowlarr.port
+        }";
+    in {
+      "/" = { inherit proxyPass; };
+      "~ (/prowlarr)?(/[0-9]+)?/api" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+      "~ (/prowlarr)?(/[0-9]+)?/download" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+    };
+  };
+
+  radarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (radarr) subdomain;
+    overrides.locations = let
+      proxyPass =
+        "${radarr.protocol}://${radarr.ipv4}:${builtins.toString radarr.port}";
+    in {
+      "/" = { inherit proxyPass; };
+      "~ (/radarr)?/api" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+    };
+  };
+
+  sonarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (sonarr) subdomain;
+    overrides.locations = let
+      proxyPass =
+        "${sonarr.protocol}://${sonarr.ipv4}:${builtins.toString sonarr.port}";
+    in {
+      "/" = { inherit proxyPass; };
+      "~ (/sonarr)?/api" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+    };
+  };
+in {
+  services.nginx = {
+    domains = [ "rovacsek.com" ];
+    virtualHosts = merge [
+      authelia-vhost
+      deluge-vhost
+      headscale-vhost
+      hydra-vhost
+      jellyfin-vhost
+      jellyseerr-vhost
+      lidarr-vhost
+      nextcloud-vhost
+      code-vhost
+      pfsense-vhost
+      prowlarr-vhost
+      radarr-vhost
+      sonarr-vhost
+    ];
+  };
+}

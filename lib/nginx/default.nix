@@ -3,18 +3,18 @@ let
   inherit (self.inputs.nixpkgs) lib;
   inherit (lib) genAttrs mkIf optionalString recursiveUpdate;
 
-  generate-domains = { config, service-name }:
+  generate-domains = { config, subdomain }:
     builtins.map (domain:
-      "${service-name}.${
+      "${subdomain}.${
         lib.optionalString config.services.nginx.test.enable "test."
       }${domain}") config.services.nginx.domains;
 
-  generate-vhosts = { config, service-name, port ? 0, overrides ? { }, ... }:
+  generate-vhosts = { config, subdomain, port ? 0, overrides ? { }, ... }:
     let
       inherit (config.nixpkgs) pkgs;
       test = config.services.nginx.test.enable;
       production = !config.services.nginx.test.enable;
-      domains = generate-domains { inherit config service-name; };
+      domains = generate-domains { inherit config subdomain; };
       authelia-enabled =
         (lib.filterAttrs (_: v: v.enable) config.services.authelia.instances)
         != { };
@@ -43,12 +43,12 @@ let
         # The below code adds lines to the server block
         # if authelia is present, add required config options to the block
         serverExtraConfig =
-          lib.optionalString (authelia-enabled && service-name != "authelia")
+          lib.optionalString (authelia-enabled && subdomain != "authelia")
           "include ${authelia-location-conf};";
 
         locationExtraConfig = ''
           ${lib.optionalString authelia-enabled "include ${proxy-conf};"}
-          ${lib.optionalString (authelia-enabled && service-name != "authelia")
+          ${lib.optionalString (authelia-enabled && subdomain != "authelia")
           "include ${authelia-authrequest-conf};"}
         '';
 

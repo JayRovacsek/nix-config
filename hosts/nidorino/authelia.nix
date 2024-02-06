@@ -1,17 +1,13 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config.flake.lib.authelia)
+  inherit (self.lib.authelia)
     generate-prod-access-rules generate-test-access-rules;
 
-  services = lib.unique [
-    "deluge"
-    "lidarr"
-    "pfsense"
-    "portainer"
-    "prowlarr"
-    "radarr"
-    "sonarr"
-  ];
+  inherit (self.common.networking) services;
+
+  authelia-scoped-services = lib.filterAttrs (_: v: v.authelia) services;
+
+  proxied-services = builtins.attrNames authelia-scoped-services;
 
 in {
   services = {
@@ -29,6 +25,8 @@ in {
       }) {
         production.settings.access_control.rules = [ ];
         test.settings.access_control.rules = [ ];
-      } services;
+      } proxied-services;
+
+    nginx.domains = [ "rovacsek.com" ];
   };
 }

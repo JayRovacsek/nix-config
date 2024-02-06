@@ -20,7 +20,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./authelia.nix ./filesystems.nix ./nginx.nix ./old-users.nix ];
+  imports = [ ./filesystems.nix ./old-users.nix ];
 
   age = {
     secrets = {

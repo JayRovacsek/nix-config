@@ -13,13 +13,14 @@ let
     inherit system;
     pkgs = import nixpkgs { inherit system; };
     modules = [{
+      system.stateVersion = "24.05";
+
       imports = [
         ../options/flake
         ../options/hardware
         ../options/headscale
         ../options/networking
         ../options/nix
-        ../options/ssh
         ../options/systemd
         ../options/tailscale
       ];
@@ -31,12 +32,13 @@ let
     inherit system;
     pkgs = import nixpkgs { inherit system; };
     modules = [{
+      system.stateVersion = "24.05";
+
       imports = [
         ../options/blocky
         ../options/docker
         ../options/dockutil
         ../options/hardware
-        ../options/headscale
         ../options/networking/darwin.nix
         ../options/nix
         ../options/ssh
@@ -49,9 +51,10 @@ let
     pkgs = import nixpkgs { inherit system; };
     modules = [{
       home = {
+        enableNixpkgsReleaseCheck = false;
+        homeDirectory = "/";
         stateVersion = "23.11";
         username = "stub";
-        homeDirectory = "/";
       };
     }];
   };
