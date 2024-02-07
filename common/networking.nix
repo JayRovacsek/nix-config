@@ -8,6 +8,14 @@ _: {
       subdomain = "authelia";
     };
 
+    binarycache = {
+      authelia = false;
+      ipv4 = "192.168.1.220";
+      port = 5000;
+      protocol = "http";
+      subdomain = "binarycache";
+    };
+
     code = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -24,12 +32,24 @@ _: {
       subdomain = "deluge";
     };
 
+    firefox-syncserver = {
+      authelia = false;
+      ipv4 = "192.168.1.220";
+      port = 5002;
+      protocol = "http";
+      subdomain = "firefox-syncserver";
+    };
+
     headscale = {
       authelia = false;
       ipv4 = "192.168.25.2";
       port = 8080;
       protocol = "http";
       subdomain = "headscale";
+
+      derpServerStunPort = 3478;
+      grpcPort = 50443;
+      metricsPort = 9090;
     };
 
     hydra = {
@@ -46,6 +66,8 @@ _: {
       port = 8096;
       protocol = "http";
       subdomain = "jellyfin";
+
+      https-port = 8920;
     };
 
     jellyseerr = {

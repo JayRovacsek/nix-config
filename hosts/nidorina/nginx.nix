@@ -3,8 +3,8 @@ let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.networking.services)
-    authelia code deluge headscale hydra jellyfin jellyseerr lidarr nextcloud
-    pfsense prowlarr radarr sonarr;
+    authelia binarycache code deluge firefox-syncserver headscale hydra jellyfin
+    jellyseerr lidarr nextcloud pfsense prowlarr radarr sonarr;
 
   authelia-vhost = generate-vhosts {
     inherit config;
@@ -19,6 +19,22 @@ let
         "/" = { inherit proxyPass; };
         "/api/verify" = { inherit proxyPass; };
       };
+    };
+  };
+
+  binarycache-vhost = generate-vhosts {
+    inherit config;
+    inherit (binarycache) subdomain;
+    overrides.locations."/" = {
+      extraConfig = ''
+        allow 10.0.0.0/8;
+        allow 172.16.0.0/12;
+        allow 192.168.0.0/16;
+        deny all;
+      '';
+      proxyPass = "${binarycache.protocol}://${binarycache.ipv4}:${
+          builtins.toString binarycache.port
+        }";
     };
   };
 
@@ -37,6 +53,15 @@ let
     inherit (deluge) subdomain;
     overrides.locations."/".proxyPass =
       "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
+  };
+
+  firefox-syncserver-vhost = generate-vhosts {
+    inherit config;
+    inherit (firefox-syncserver) subdomain;
+    overrides.locations."/".proxyPass =
+      "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${
+        builtins.toString firefox-syncserver.port
+      }";
   };
 
   headscale-vhost = generate-vhosts {
@@ -68,11 +93,21 @@ let
 
   jellyfin-vhost = generate-vhosts {
     inherit config;
-    inherit (jellyfin) port subdomain;
-    overrides.locations."/".proxyPass =
-      "${jellyfin.protocol}://${jellyfin.ipv4}:${
-        builtins.toString jellyfin.port
-      }";
+    inherit (jellyfin) subdomain;
+    overrides.locations = let
+      proxyPass = "${jellyfin.protocol}://${jellyfin.ipv4}:${
+          builtins.toString jellyfin.port
+        }";
+    in {
+      "/" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+      "~ (/jellyfin)?/socket" = {
+        extraConfig = "";
+        inherit proxyPass;
+      };
+    };
   };
 
   jellyseerr-vhost = generate-vhosts {
@@ -86,7 +121,7 @@ let
 
   lidarr-vhost = generate-vhosts {
     inherit config;
-    inherit (lidarr) port subdomain;
+    inherit (lidarr) subdomain;
     overrides.locations = let
       proxyPass =
         "${lidarr.protocol}://${lidarr.ipv4}:${builtins.toString lidarr.port}";
@@ -102,7 +137,7 @@ let
   nextcloud-vhost = generate-vhosts {
     inherit config;
     service-name = "nextcloud";
-    inherit (nextcloud) port subdomain;
+    inherit (nextcloud) subdomain;
     overrides = {
       # The below is required as by default nginx will utilise differing
       # max client body sizes - this is simply a copy of the recommended
@@ -192,16 +227,19 @@ let
 in {
   services.nginx = {
     domains = [ "rovacsek.com" ];
+
     virtualHosts = merge [
       authelia-vhost
+      binarycache-vhost
+      code-vhost
       deluge-vhost
+      firefox-syncserver-vhost
       headscale-vhost
       hydra-vhost
       jellyfin-vhost
       jellyseerr-vhost
       lidarr-vhost
       nextcloud-vhost
-      code-vhost
       pfsense-vhost
       prowlarr-vhost
       radarr-vhost
