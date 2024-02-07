@@ -94,6 +94,11 @@ _: {
       subdomain = "nextcloud";
     };
 
+    nginx = {
+      authelia = false;
+      ipv4 = "192.168.5.3";
+    };
+
     palworld = {
       authelia = false;
       ipv4 = "192.168.17.2";

@@ -1,7 +1,7 @@
 { config, lib, self, ... }:
 let
   inherit (config.services) nginx;
-  inherit (self.common.services.networking.authelia) port;
+  inherit (self.common.networking.services.authelia) port;
   inherit (lib) recursiveUpdate;
 
   # TODO: move this to an authelia option.

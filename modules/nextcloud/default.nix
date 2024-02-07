@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, self, ... }:
 let
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
@@ -41,7 +41,6 @@ in {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        trustedProxies = [ "127.0.0.1" ];
       };
 
       configureRedis = true;
@@ -58,15 +57,15 @@ in {
           "OC\\Preview\\PNG"
           "OC\\Preview\\HEIC"
         ];
-        "profile.enabled" = false;
-        trusted_proxies = [ "192.168.1.220" ];
-        trusted_domains = [ "192.168.10.3" ];
+        log_type = "file";
         loglevel = 2;
+        "profile.enabled" = false;
+        trusted_proxies = [ self.common.networking.services.nginx.ipv4 ];
+        trusted_domains = [ "192.168.10.3" ];
       };
 
       # It sucks, but we're already behind a proxy with this instance - let it handle TLS
       https = false;
-      logType = "file";
       maxUploadSize = "10G";
       package = pkgs.nextcloud28;
       phpOptions = {
