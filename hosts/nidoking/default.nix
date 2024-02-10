@@ -1,4 +1,11 @@
-{ config, flake, ... }: {
+{ config, flake, pkgs, self, ... }:
+let
+  inherit (self.lib) certificates;
+  certificate-lib = certificates pkgs;
+  inherit (certificate-lib) generate-self-signed;
+
+  cert = generate-self-signed "nextcloud.rovacsek.com";
+in {
   inherit flake;
 
   networking.hostName = "nidoking";
@@ -42,9 +49,19 @@
     vcpu = 4;
   };
 
-  services.nextcloud = {
-    extraOptions.datadirectory = "/srv/nextcloud";
-    hostName = "nextcloud.rovacsek.com";
+  services = {
+    nextcloud = {
+      extraOptions.datadirectory = "/srv/nextcloud";
+      hostName = "nextcloud.rovacsek.com";
+    };
+
+    nginx.virtualHosts."nextcloud.rovacsek.com" = {
+      enableAuthelia = false;
+      forceSSL = true;
+      # TODO: remove self signed certificate in the future.
+      sslCertificate = "${cert}/share/self-signed.crt";
+      sslCertificateKey = "${cert}/share/privkey.key";
+    };
   };
 
   system.stateVersion = "24.05";

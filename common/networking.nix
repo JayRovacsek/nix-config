@@ -89,8 +89,8 @@ _: {
     nextcloud = {
       authelia = false;
       ipv4 = "192.168.10.3";
-      port = 80;
-      protocol = "http";
+      port = 443;
+      protocol = "https";
       subdomain = "nextcloud";
     };
 

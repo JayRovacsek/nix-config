@@ -41,6 +41,7 @@ in {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
+        overwriteProtocol = "https";
       };
 
       configureRedis = true;
@@ -64,8 +65,7 @@ in {
         trusted_domains = [ "192.168.10.3" ];
       };
 
-      # It sucks, but we're already behind a proxy with this instance - let it handle TLS
-      https = false;
+      https = true;
       maxUploadSize = "10G";
       package = pkgs.nextcloud28;
       phpOptions = {
@@ -89,6 +89,7 @@ in {
         output_buffering = "0";
         short_open_tag = "Off";
       };
+
       # Secret options which will be appended to Nextcloud’s config.php file
       # (written as JSON, in the same form as the services.nextcloud.
       # extraOptions option), for example {"redis":{"password":"secret"}}.
