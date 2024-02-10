@@ -164,6 +164,8 @@ in {
         "mankey"
         "meowth"
         "nidoking"
+        "nidorina"
+        "nidorino"
         "poliwag"
         "porygon"
       ];
@@ -184,8 +186,6 @@ in {
   powerManagement.enable = false;
 
   services = {
-    nginx.domains = [ "rovacsek.com" ];
-
     # This requires the addition of the samba module
     # to enable shares
     samba.shares = {

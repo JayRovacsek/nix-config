@@ -35,7 +35,7 @@ let
             key_length = 32;
             salt_length = 16;
             memory = 65536;
-            parallelism = 8;
+            parallelism = 4;
           };
         };
       };
@@ -62,7 +62,7 @@ let
           write = 8196;
         };
         path = "authelia";
-        host = "localhost";
+        host = "0.0.0.0";
         inherit port;
       };
 
@@ -128,8 +128,7 @@ in {
     };
   };
 
-  networking.firewall.allowedTCPPorts =
-    [ config.services.authelia.instances.production.settings.server.port ];
+  networking.firewall.allowedTCPPorts = [ port ];
 
   services.authelia.instances = { inherit production test; };
 }

@@ -1,18 +1,11 @@
-{ config, pkgs, production, ... }:
-let
-  port = if production then
-    config.services.authelia.instances.production.settings.server.port
-  else
-    config.services.authelia.instances.test.settings.server.port;
-  # As per: https://www.authelia.com/integration/proxies/nginx/#authelia-locationconf
-in pkgs.writeTextFile {
+{ self, writeTextFile, ... }:
+let inherit (self.common.networking.services) authelia;
+in writeTextFile {
   name = "authelia-location.conf";
-  # TODO: in the future having authelia be dynamically evaluated based 
-  # on DNS; currently this is authelia.lan but will be a namespace behind
-  # tailscale once resolved
+
   text = ''
-    set $upstream_authelia http://localhost:${
-      builtins.toString port
+    set $upstream_authelia ${authelia.protocol}://${authelia.ipv4}:${
+      builtins.toString authelia.port
     }/api/verify;
 
     ## Virtual endpoint created by nginx to forward auth requests.

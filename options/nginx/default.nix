@@ -1,10 +1,35 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 let
+  inherit (pkgs) system;
+  inherit (self.packages.${system})
+    authelia-location-conf authelia-proxy-conf authelia-authrequest-conf;
   inherit (config.flake.lib) certificates;
   inherit (certificate-lib) generate-self-signed;
 
   certificate-lib = certificates pkgs;
   cfg = config.services.nginx;
+
+  vhostOptions = { config, ... }: {
+    options = {
+      enableAuthelia = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable authelia for the vhost";
+      };
+    };
+    # Config changes to apply authelia if required for the vhost
+    config = lib.mkIf config.enableAuthelia {
+      extraConfig = lib.optionalString (!(lib.hasPrefix "authelia"
+        (if config.serverName != null then config.serverName else "")))
+        "include ${authelia-location-conf};";
+      locations."/".extraConfig = ''
+        include ${authelia-proxy-conf};
+        ${lib.optionalString (!(lib.hasPrefix "authelia"
+          (if config.serverName != null then config.serverName else "")))
+        "include ${authelia-authrequest-conf};"}
+      '';
+    };
+  };
 
 in with lib; {
   options.services.nginx = {
@@ -45,6 +70,10 @@ in with lib; {
           });
       };
     };
+
+    virtualHosts =
+      mkOption { type = types.attrsOf (types.submodule vhostOptions); };
+
   };
 
   config = mkIf cfg.enable {

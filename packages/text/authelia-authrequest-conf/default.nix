@@ -1,12 +1,7 @@
-{ domain, pkgs, ... }:
-let
-  inherit (pkgs.lib) optionalString splitString;
-  authelia-location = "authelia.${
-      builtins.foldl' (acc: x: "${acc}${optionalString (acc != "") "."}${x}") ""
-      (builtins.tail (splitString "." domain))
-    }";
-  # As per: https://www.authelia.com/integration/proxies/nginx/#authelia-authrequestconf
-in pkgs.writeTextFile {
+{ writeTextFile, ... }:
+# TODO: figure if I can ever remove the hardcoded site value on the 
+# last line of the config
+writeTextFile {
   name = "authelia-authrequest.conf";
   text = ''
     ## Send a subrequest to Authelia to verify if the user is authenticated and has permission to access the resource.
@@ -33,6 +28,6 @@ in pkgs.writeTextFile {
     proxy_set_header Remote-Email $email;
 
     ## If the subreqest returns 200 pass to the backend, if the subrequest returns 401 redirect to the portal.
-    error_page 401 =302 https://${authelia-location}/?rd=$target_url;
+    error_page 401 =302 https://authelia.rovacsek.com/?rd=$target_url;
   '';
 }

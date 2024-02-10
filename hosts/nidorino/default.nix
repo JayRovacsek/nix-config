@@ -13,6 +13,9 @@
         mode = "bridge";
       };
     }];
+
+    mem = 1024;
+    vcpu = 2;
   };
 
   networking.hostName = "nidorino";

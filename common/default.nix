@@ -38,6 +38,7 @@
   system = import ./system.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   tofu = import ./tofu { inherit self; };
+  text-packages = builtins.attrNames (builtins.readDir ../packages/text);
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   uids = import ./uids.nix { inherit self; };

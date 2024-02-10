@@ -25,16 +25,19 @@ let
   binarycache-vhost = generate-vhosts {
     inherit config;
     inherit (binarycache) subdomain;
-    overrides.locations."/" = {
-      extraConfig = ''
-        allow 10.0.0.0/8;
-        allow 172.16.0.0/12;
-        allow 192.168.0.0/16;
-        deny all;
-      '';
-      proxyPass = "${binarycache.protocol}://${binarycache.ipv4}:${
-          builtins.toString binarycache.port
-        }";
+    overrides = {
+      enableAuthelia = false;
+      locations."/" = {
+        extraConfig = ''
+          allow 10.0.0.0/8;
+          allow 172.16.0.0/12;
+          allow 192.168.0.0/16;
+          deny all;
+        '';
+        proxyPass = "${binarycache.protocol}://${binarycache.ipv4}:${
+            builtins.toString binarycache.port
+          }";
+      };
     };
   };
 
@@ -58,54 +61,66 @@ let
   firefox-syncserver-vhost = generate-vhosts {
     inherit config;
     inherit (firefox-syncserver) subdomain;
-    overrides.locations."/".proxyPass =
-      "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${
-        builtins.toString firefox-syncserver.port
-      }";
+    overrides = {
+      enableAuthelia = false;
+      locations."/".proxyPass =
+        "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${
+          builtins.toString firefox-syncserver.port
+        }";
+    };
   };
 
   headscale-vhost = generate-vhosts {
     inherit config;
     inherit (headscale) subdomain;
-    overrides.locations."/" = {
-      extraConfig = "";
-      proxyPass = "${headscale.protocol}://${headscale.ipv4}:${
-          builtins.toString headscale.port
-        }";
-      proxyWebsockets = true;
+    overrides = {
+      enableAuthelia = false;
+      locations."/" = {
+        extraConfig = "";
+        proxyPass = "${headscale.protocol}://${headscale.ipv4}:${
+            builtins.toString headscale.port
+          }";
+        proxyWebsockets = true;
+      };
     };
   };
 
   hydra-vhost = generate-vhosts {
     inherit config;
     inherit (hydra) subdomain;
-    overrides.locations."/" = {
-      proxyPass =
-        "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
-      extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        add_header Front-End-Https on;
-      '';
+    overrides = {
+      enableAuthelia = false;
+      locations."/" = {
+        proxyPass =
+          "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
+        extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          add_header Front-End-Https on;
+        '';
+      };
     };
   };
 
   jellyfin-vhost = generate-vhosts {
     inherit config;
     inherit (jellyfin) subdomain;
-    overrides.locations = let
-      proxyPass = "${jellyfin.protocol}://${jellyfin.ipv4}:${
-          builtins.toString jellyfin.port
-        }";
-    in {
-      "/" = {
-        extraConfig = "";
-        inherit proxyPass;
-      };
-      "~ (/jellyfin)?/socket" = {
-        extraConfig = "";
-        inherit proxyPass;
+    overrides = {
+      enableAuthelia = false;
+      locations = let
+        proxyPass = "${jellyfin.protocol}://${jellyfin.ipv4}:${
+            builtins.toString jellyfin.port
+          }";
+      in {
+        "/" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+        "~ (/jellyfin)?/socket" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
       };
     };
   };
@@ -113,10 +128,12 @@ let
   jellyseerr-vhost = generate-vhosts {
     inherit config;
     inherit (jellyseerr) port subdomain;
-    overrides.locations."/".proxyPass =
-      "${jellyseerr.protocol}://${jellyseerr.ipv4}:${
-        builtins.toString jellyseerr.port
-      }";
+    overrides = {
+      enableAuthelia = false;
+      locations."/".proxyPass = "${jellyseerr.protocol}://${jellyseerr.ipv4}:${
+          builtins.toString jellyseerr.port
+        }";
+    };
   };
 
   lidarr-vhost = generate-vhosts {
@@ -139,6 +156,7 @@ let
     service-name = "nextcloud";
     inherit (nextcloud) subdomain;
     overrides = {
+      enableAuthelia = false;
       # The below is required as by default nginx will utilise differing
       # max client body sizes - this is simply a copy of the recommended
       # nextcloud proxy config, minus any headers as the response from
