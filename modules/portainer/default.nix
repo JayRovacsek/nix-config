@@ -20,7 +20,9 @@ in {
   virtualisation.oci-containers.containers = docker.generate-config {
     serviceName = name;
     autoStart = true;
-    user = builtins.toString config.users.users.${name}.uid;
+    user = "${builtins.toString config.users.users.${name}.uid}:${
+        builtins.toString config.ids.gids.docker
+      }";
     image = "${name}/${name}-ce:alpine";
     ports = [ "0.0.0.0:9000:9000" ];
     volumes =
@@ -29,6 +31,7 @@ in {
 
     extraOptions = [ "--name=${name}" "--network=bridge" ];
   };
+
   users.extraUsers = portainer-user.extraUsers;
   users.extraGroups = portainer-user.extraGroups;
 

@@ -190,14 +190,14 @@ in {
     # to enable shares
     samba.shares = {
       isos = {
-        path = "/mnt/zfs/isos";
+        path = "/srv/isos";
         browseable = "yes";
         "read only" = true;
         "guest ok" = "yes";
         comment = "Public ISO Share";
       };
       games = {
-        path = "/mnt/zfs/games/files";
+        path = "/srv/games/files";
         browseable = "yes";
         "read only" = true;
         "guest ok" = "yes";

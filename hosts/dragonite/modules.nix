@@ -4,7 +4,6 @@ in with self.nixosModules; [
   agenix
   blocky
   clamav
-  docker
   firefox-syncserver
   fonts
   gnupg
