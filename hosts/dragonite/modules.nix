@@ -1,7 +1,6 @@
 { self }:
 let inherit (self.inputs) microvm;
 in with self.nixosModules; [
-  agenix
   blocky
   clamav
   firefox-syncserver
