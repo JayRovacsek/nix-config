@@ -5,7 +5,8 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     cpp-packages dotnet-packages images go-packages node-packages
-    python-packages rust-packages shell-packages tofu-stacks wallpaper-packages;
+    python-packages rust-packages shell-packages text-packages tofu-stacks
+    wallpaper-packages;
   inherit (self.lib) merge;
 
   cpp = builtins.foldl' (accumulator: package:
@@ -30,6 +31,11 @@ let
     recursiveUpdate {
       ${package} = callPackage ./shell/${package} { inherit self; };
     } accumulator) { } shell-packages;
+
+  text = builtins.foldl' (accumulator: package:
+    recursiveUpdate {
+      ${package} = callPackage ./text/${package} { inherit self; };
+    } accumulator) { } text-packages;
 
   python = let
     python-overlay-pkgs = import self.inputs.nixpkgs {
@@ -70,6 +76,7 @@ let
     python
     rust
     shell
+    text
     tofu
     wallpapers
     {

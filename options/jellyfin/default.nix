@@ -1,7 +1,5 @@
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, self, ... }:
 with lib;
-
 let
   cfg = config.services.jellyfin;
   CacheDirectory = "jellyfin";
@@ -13,12 +11,12 @@ in {
       ports = {
         http = mkOption {
           type = types.port;
-          default = 8096;
+          default = self.common.networking.services.jellyfin.port;
         };
 
         https = mkOption {
           type = types.port;
-          default = 8920;
+          default = self.common.networking.services.jellyfin.https-port;
         };
       };
 

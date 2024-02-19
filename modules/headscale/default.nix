@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, self, ... }:
 let
+  inherit (self.common.networking.services.headscale)
+    derpServerStunPort grpcPort metricsPort port;
+
   meta = import ./meta.nix { inherit config pkgs lib; };
-  derpServerStunPort = 3478;
-  metricsPort = 9090;
-  grpcPort = 50443;
 in {
 
   imports = [ ./acl.nix ../../options/headscale ../blocky ];
@@ -14,15 +14,15 @@ in {
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ config.services.headscale.port grpcPort metricsPort ];
-    allowedUDPPorts = [ config.services.headscale.port derpServerStunPort ];
+    allowedTCPPorts = [ port grpcPort metricsPort ];
+    allowedUDPPorts = [ port derpServerStunPort ];
   };
 
   environment.systemPackages = with pkgs; [ headscale ];
 
   services.headscale = {
     enable = true;
-    port = 8080;
+    inherit port;
     address = "0.0.0.0";
 
     use-declarative-tailnets = true;

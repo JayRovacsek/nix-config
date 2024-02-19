@@ -1,12 +1,9 @@
 { self }:
 let inherit (self.inputs) microvm;
 in with self.nixosModules; [
-  acme
-  authelia
+  agenix
   blocky
   clamav
-  ddclient
-  docker
   firefox-syncserver
   fonts
   gnupg
@@ -16,7 +13,6 @@ in with self.nixosModules; [
   lorri
   microvm-host
   microvm.nixosModules.host
-  nginx
   nix
   nix-serve
   nvidia

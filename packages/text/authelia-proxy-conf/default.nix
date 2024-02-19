@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ writeTextFile, ... }:
 # Note the below should be injected into location blocks of vhosts
 # if authelia is running
-pkgs.writeTextFile {
+writeTextFile {
   name = "proxy.conf";
   text = ''
     # All of the below lines until next indicated are recommended/required

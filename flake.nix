@@ -274,9 +274,9 @@
         nixosModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {
             ${module} =
-              { config, pkgs, lib, options, specialArgs, modulesPath }:
+              { config, lib, modulesPath, options, pkgs, self, specialArgs }:
               import ./modules/${module} {
-                inherit config pkgs lib options specialArgs modulesPath;
+                inherit config lib modulesPath options pkgs self specialArgs;
               };
           } accumulator) { } self.common.nixos-modules;
 

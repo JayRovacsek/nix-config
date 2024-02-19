@@ -23,8 +23,6 @@
         mode = "bridge";
       };
     }];
-
-    mem = 1024;
   };
 
   system.stateVersion = "24.05";
