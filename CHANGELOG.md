@@ -4,17 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [unreleased]
 
-### Release
+### 🚀 Features
 
-- *(tooling)* Tag repository to better enable conventional commits
+- *(tooling)* Exclude CHANGELOG from being automatically linted
 
 ## [0.0.2] - 2024-02-20
-
-### 📚 Documentation
-
-- *(checks)* Generate initial changelog file
-
-## [0.0.1] - 2024-02-20
 
 ### 🚀 Features
 
@@ -27,6 +21,16 @@ All notable changes to this project will be documented in this file.
 
 - *(tooling)* Fix missing type of fix
 - *(modules)* Resolve greetd including systemd logs
+
+### 📚 Documentation
+
+- *(checks)* Generate initial changelog file
+
+### Release
+
+- *(tooling)* Tag repository to better enable conventional commits
+
+## [0.0.1] - 2024-02-11
 
 ### Tree-wide
 
