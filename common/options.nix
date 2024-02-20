@@ -24,6 +24,7 @@ in builtins.mapAttrs (package-set: _:
 
     darwin = optionals isDarwin [
       ../options/blocky
+      ../options/darwin-systemd
       ../options/docker
       ../options/dockutil
       ../options/networking/darwin.nix

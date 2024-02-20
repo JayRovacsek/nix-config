@@ -1,9 +1,9 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   # Required as DNS may not be immediately available on a system if
   # blocky is being used while the bootstrap occurs.
-  # 
-  # Block updates for 5 minutes on a freshly booted system.
-  systemd.timers.clamav-freshclam.timerConfig.OnBootSec = 300;
+  systemd.services.clamav-freshclam = {
+    after = lib.optional config.services.blocky.enable "blocky.service";
+  };
 
   services.clamav = {
     daemon = {

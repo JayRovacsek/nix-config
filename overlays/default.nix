@@ -23,7 +23,25 @@
         };
       });
   };
+
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
+
+  git-cliff = _final: prev: {
+    git-cliff = prev.rustPlatform.buildRustPackage rec {
+      inherit (prev.git-cliff) buildInputs doCheck meta pname;
+
+      version = "2.0.2";
+
+      src = prev.fetchFromGitHub {
+        owner = "orhun";
+        repo = "git-cliff";
+        rev = "v${version}";
+        hash = "sha256-m8xnsj6z/QBeya3CQBkQ+/eGSCZVKpTa8y1zt+3NeIo=";
+      };
+
+      cargoHash = "sha256-axh62ogKI2UnlI4aXLDB3fIg1CowQN8xRKWmZi5Kgig=";
+    };
+  };
 
   hello = _final: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
@@ -139,6 +157,84 @@
               hash = "sha256-9/pAcVTzw9v57E5l4d8zNyBJM+QNGEuLKrQ0WUBW5xw=";
             };
           });
+
+          afdko = python-prev.afdko.overrideAttrs (_:
+
+            prev.buildPythonPackage rec {
+              pname = "afdko";
+              version = "3.9.3";
+              format = "pyproject";
+
+              src = prev.fetchPypi {
+                inherit pname version;
+                sha256 = "sha256-v0fIhf3P5Xjdn5/ryRNj0Q2YHAisMqi5RTmJQabaUO0=";
+              };
+
+              nativeBuildInputs = with prev; [
+                setuptools-scm
+                scikit-build
+                cmake
+              ];
+
+              buildInputs = with prev; [ antlr4_9.runtime.cpp libxml2.dev ];
+
+              # setup.py will always (re-)execute cmake in buildPhase
+              dontConfigure = true;
+
+              propagatedBuildInputs = with prev; [
+                booleanoperations
+                fonttools
+                lxml # fonttools[lxml], defcon[lxml] extra
+                fs # fonttools[ufo] extra
+                unicodedata2 # fonttools[unicode] extra
+                brotlipy # fonttools[woff] extra
+                zopfli # fonttools[woff] extra
+                fontpens
+                brotli
+                defcon
+                fontmath
+                mutatormath
+                ufoprocessor
+                ufonormalizer
+                psautohint
+                tqdm
+              ];
+
+              # Use system libxml2
+              FORCE_SYSTEM_LIBXML2 = true;
+
+              nativeCheckInputs = [ prev.pytestCheckHook ];
+
+              preCheck = ''
+                export PATH=$PATH:$out/bin
+              '';
+
+              disabledTests = [
+                # Disable slow tests, reduces test time ~25 %
+                "test_report"
+                "test_post_overflow"
+                "test_cjk"
+                "test_extrapolate"
+                "test_filename_without_dir"
+                "test_overwrite"
+                "test_options"
+              ] ++ prev.lib.optionals (prev.stdenv.hostPlatform.isAarch
+                || prev.stdenv.hostPlatform.isRiscV) [
+                  # unknown reason so far
+                  # https://github.com/adobe-type-tools/afdko/issues/1425
+                  "test_spec"
+                ] ++ prev.lib.optionals prev.stdenv.hostPlatform.isi686
+                [ "test_type1mm_inputs" ];
+
+              meta = with prev.lib; {
+                changelog =
+                  "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
+                description = "Adobe Font Development Kit for OpenType";
+                homepage = "https://adobe-type-tools.github.io/afdko";
+                license = licenses.asl20;
+                maintainers = [ maintainers.sternenseemann ];
+              };
+            });
 
           blinker = python-prev.blinker.overrideAttrs (old: rec {
             version = "1.6.2";
