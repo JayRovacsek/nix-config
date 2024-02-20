@@ -6,11 +6,11 @@ in (with self.nixosModules; [
   lorri
   nix
   openssh
-  sddm
+  greetd
+  hyprland
   sudo
   systemd-networkd
   time
   timesyncd
-  xfce
   zsh
 ]) ++ [ raspberry-pi-4 ]

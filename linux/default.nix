@@ -45,6 +45,8 @@ in {
   mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
   meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
   nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
+  nidorina = make-microvm x86_64-linux-unstable "nidorina" unstable-system;
+  nidorino = make-microvm x86_64-linux-unstable "nidorino" unstable-system;
   poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
   porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
 }

@@ -23,12 +23,12 @@ in {
     image = "haveagitgat/${name}:latest";
     ports = [ "8265:8265" "8266:8266" ];
     volumes = [
-      "/mnt/zfs/containers/${name}/server:/app/server:rw"
-      "/mnt/zfs/containers/${name}/configs:/app/configs:rw"
-      "/mnt/zfs/containers/${name}/logs:/app/logs:rw"
-      "/mnt/zfs/movies:/movies:rw"
-      "/mnt/zfs/tv:/tv:rw"
-      "/mnt/zfs/music:/music:rw"
+      "/srv/containers/${name}/server:/app/server:rw"
+      "/srv/containers/${name}/configs:/app/configs:rw"
+      "/srv/containers/${name}/logs:/app/logs:rw"
+      "/srv/movies:/movies:rw"
+      "/srv/tv:/tv:rw"
+      "/srv/music:/music:rw"
       "/transcode:/temp:rw"
     ];
     environment = {

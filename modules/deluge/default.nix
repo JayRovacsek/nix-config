@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 let
   user = "media";
   owner = user;
@@ -89,7 +89,8 @@ in {
     web = {
       enable = true;
       openFirewall = true;
-      port = 8112;
+
+      inherit (self.common.networking.services.deluge) port;
     };
   };
 }

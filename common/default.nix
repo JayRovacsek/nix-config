@@ -23,12 +23,14 @@
   minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
+  networking = import ./networking.nix { };
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
+  # TODO: kill in favour of specialArgs
   self-reference = import ./self-reference.nix { inherit self; };
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
@@ -36,6 +38,7 @@
   system = import ./system.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   tofu = import ./tofu { inherit self; };
+  text-packages = builtins.attrNames (builtins.readDir ../packages/text);
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   uids = import ./uids.nix { inherit self; };

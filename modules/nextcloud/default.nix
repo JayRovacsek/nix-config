@@ -1,32 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
-
-  service-name = "nextcloud";
-
-  domains = generate-domains { inherit config service-name; };
-
-  # The below is pretty differt to other use-cases of generate-vhosts
-  # as nextcloud somewhat enforces use of nginx in the nixos module 
-  # leaving us in a position where we want to merge our position on 
-  # TLS & other settings.
-  # Effectively the below is a hack doing so - port here is not important as 
-  # it's not used in this context
-  virtualHosts = lib.foldlAttrs (acc: name: value:
-    acc // {
-      ${name} = { inherit (value) forceSSL sslCertificate sslCertificateKey; };
-    }) { } (generate-vhosts { inherit config service-name; });
-
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
 
   zfsServiceSupported = config.services.zfs.autoScrub.enable
     || config.services.zfs.autoSnapshot.enable;
-
 in {
-  # Extended options for nginx
-  imports = [ ../../options/nginx ];
-
   age = {
     identityPaths = [ "/agenix/id-ed25519-nextcloud-primary" ];
 
@@ -62,7 +41,7 @@ in {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        trustedProxies = [ "127.0.0.1" ];
+        overwriteProtocol = "https";
       };
 
       configureRedis = true;
@@ -79,17 +58,16 @@ in {
           "OC\\Preview\\PNG"
           "OC\\Preview\\HEIC"
         ];
-        "profile.enabled" = false;
-        trusted_proxies = [ "192.168.1.220" ];
-        trusted_domains = [ "192.168.10.3" ];
+        log_type = "file";
         loglevel = 2;
+        "profile.enabled" = false;
+        trusted_proxies = [ self.common.networking.services.nginx.ipv4 ];
+        trusted_domains = [ "192.168.10.3" ];
       };
 
-      # It sucks, but we're already behind a proxy with this instance - let it handle TLS
-      https = false;
-      logType = "file";
+      https = true;
       maxUploadSize = "10G";
-      package = pkgs.nextcloud27;
+      package = pkgs.nextcloud28;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
@@ -98,7 +76,7 @@ in {
         "opcache.jit_buffer_size" = "256M";
         "opcache.jit" = "1255";
         "opcache.max_accelerated_files" = "150000";
-        "opcache.memory_consumption" = "128";
+        "opcache.memory_consumption" = "256";
         "opcache.revalidate_freq" = "60";
         "opcache.save_comments" = "1";
         "openssl.cafile" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
@@ -111,15 +89,11 @@ in {
         output_buffering = "0";
         short_open_tag = "Off";
       };
+
       # Secret options which will be appended to Nextcloud’s config.php file
       # (written as JSON, in the same form as the services.nextcloud.
       # extraOptions option), for example {"redis":{"password":"secret"}}.
       secretFile = config.age.secrets.nextcloud-secret-file.path;
-    };
-
-    nginx = {
-      test = { inherit domains; };
-      inherit virtualHosts;
     };
 
     redis.servers.nextcloud.settings = {
