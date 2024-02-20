@@ -45,7 +45,10 @@ in {
     settings = {
       deadnix.edit = true;
       nixfmt.width = 80;
-      prettier.write = true;
+      prettier = {
+        ignore-path = self.packages.${system}.prettierignore;
+        write = true;
+      };
       typos.locale = "en-au";
     };
   };

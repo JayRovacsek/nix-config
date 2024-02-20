@@ -1,5 +1,0 @@
-.pre-commit-config.yaml
-result
-*.nix
-.prettierignore
-CHANGELOG.md
