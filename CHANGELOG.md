@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.2] - 2024-02-20
+
+### 📚 Documentation
+
+- _(checks)_ Generate initial changelog file
+
 ## [0.0.1] - 2024-02-20
 
 ### 🚀 Features
