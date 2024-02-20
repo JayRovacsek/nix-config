@@ -42,6 +42,7 @@ let
             "modules"
             "options"
             "overlays"
+            "packages"
             "secrets"
             "shells"
             "static"
