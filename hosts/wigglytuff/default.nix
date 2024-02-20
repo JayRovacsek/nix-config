@@ -2,7 +2,7 @@
 
 let
   inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base desktop;
+  inherit (flake.common.home-manager-module-sets) base hyprland-desktop-minimal;
   inherit (flake.lib) merge;
 
   builder = common.users.builder {
@@ -12,7 +12,8 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = desktop;
+    modules = hyprland-desktop-minimal
+      ++ (with flake.common.home-manager-modules; [ mako waybar ]);
   };
 
   merged = merge [ builder jay ];
@@ -62,7 +63,7 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [ jellyfin-media-player ];
+  environment.systemPackages = with pkgs; [ alacritty jellyfin-media-player ];
 
   fileSystems = {
     "/" = {
@@ -112,6 +113,13 @@ in {
     journald.storage = "volatile";
     # Hide Builder user from SDDM login
     xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
+    timesyncd.servers = lib.mkForce [
+      # "129.6.15.28"
+      "137.92.140.80" # -> ntp.ise.canberra.edu.au
+      "138.194.21.154" # -> ntp.mel.nml.csiro.au
+      "129.6.15.28" # -> time-a-g.nist.gov
+      "129.6.15.29" # -> time-b-g.nist.gov
+    ];
   };
 
   swapDevices = [{
