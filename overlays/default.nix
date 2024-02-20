@@ -23,7 +23,25 @@
         };
       });
   };
+
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
+
+  git-cliff = _final: prev: {
+    git-cliff = prev.rustPlatform.buildRustPackage rec {
+      inherit (prev.git-cliff) buildInputs doCheck meta pname;
+
+      version = "2.0.2";
+
+      src = prev.fetchFromGitHub {
+        owner = "orhun";
+        repo = "git-cliff";
+        rev = "v${version}";
+        hash = "sha256-m8xnsj6z/QBeya3CQBkQ+/eGSCZVKpTa8y1zt+3NeIo=";
+      };
+
+      cargoHash = "sha256-axh62ogKI2UnlI4aXLDB3fIg1CowQN8xRKWmZi5Kgig=";
+    };
+  };
 
   hello = _final: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
