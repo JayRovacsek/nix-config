@@ -2,3 +2,4 @@
 result
 *.nix
 .prettierignore
+CHANGELOG.md

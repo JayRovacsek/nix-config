@@ -2,25 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Release
+
+- *(tooling)* Tag repository to better enable conventional commits
+
 ## [0.0.2] - 2024-02-20
 
 ### 📚 Documentation
 
-- _(checks)_ Generate initial changelog file
+- *(checks)* Generate initial changelog file
 
 ## [0.0.1] - 2024-02-20
 
 ### 🚀 Features
 
-- _(tooling)_ Add generator for conform configuration
-- _(tooling)_ Add conform config file to gitignore
-- _(linux)_ Move wigglytuff host from xfce to hyprland
-- _(overlays)_ Add git-cliff overlay
+- *(tooling)* Add generator for conform configuration
+- *(tooling)* Add conform config file to gitignore
+- *(linux)* Move wigglytuff host from xfce to hyprland
+- *(overlays)* Add git-cliff overlay
 
 ### 🐛 Bug Fixes
 
-- _(tooling)_ Fix missing type of fix
-- _(modules)_ Resolve greetd including systemd logs
+- *(tooling)* Fix missing type of fix
+- *(modules)* Resolve greetd including systemd logs
 
 ### Tree-wide
 
