@@ -23,6 +23,7 @@ let
             "ci"
             "docs"
             "feat"
+            "fix"
             "perf"
             "refactor"
             "release"
