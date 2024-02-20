@@ -25,6 +25,7 @@
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
   networking = import ./networking.nix { };
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
+  overlays = import ./overlays.nix { inherit self; };
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };

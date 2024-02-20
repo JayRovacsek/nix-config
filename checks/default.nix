@@ -14,6 +14,14 @@ in {
       typos.enable = true;
 
       # Custom hooks
+      git-cliff = {
+        enable = true;
+        name = "Git Cliff";
+        entry = "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
+        language = "system";
+        pass_filenames = false;
+      };
+
       statix-write = {
         enable = true;
         name = "Statix Write";
@@ -46,7 +54,7 @@ in {
       deadnix.edit = true;
       nixfmt.width = 80;
       prettier = {
-        ignore-path = self.packages.${system}.prettierignore;
+        ignore-path = [ self.packages.${system}.prettierignore ];
         write = true;
       };
       typos.locale = "en-au";

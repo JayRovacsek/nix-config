@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file.
 ### 🚀 Features
 
 - *(tooling)* Exclude CHANGELOG from being automatically linted
+- *(packages)* Implement prettierignore config as a package
+- *(tooling)* Replace prettierignore with package
+
+### 🐛 Bug Fixes
+
+- *(tooling)* Add packages to conform known types
+
+### ⚙️ Miscellaneous Tasks
+
+- *(tooling)* Reallocate tags to recent commits + tag init commit
 
 ## [0.0.2] - 2024-02-20
 
