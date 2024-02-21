@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - *(tooling)* Exclude CHANGELOG from being automatically linted
 - *(packages)* Implement prettierignore config as a package
 - *(tooling)* Replace prettierignore with package
+- *(modules)* Add linux builder to darwin settings
 
 ### 🐛 Bug Fixes
 
