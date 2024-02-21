@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### ⚙️ Miscellaneous Tasks
 
 - *(tooling)* Reallocate tags to recent commits + tag init commit
+- *(packages)* Bump trdsql to v0.20.0 + disable checks
 
 ## [0.0.2] - 2024-02-20
 
