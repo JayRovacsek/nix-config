@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### 🐛 Bug Fixes
 
 - *(tooling)* Add packages to conform known types
+- *(overlays)* Resolve git-cliff darwin build
 
 ### ⚙️ Miscellaneous Tasks
 
