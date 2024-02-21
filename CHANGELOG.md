@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - *(packages)* Implement prettierignore config as a package
 - *(tooling)* Replace prettierignore with package
 - *(modules)* Add linux builder to darwin settings
+- *(darwin)* Add trdsql package back to victreebel
 
 ### 🐛 Bug Fixes
 
