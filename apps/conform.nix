@@ -37,6 +37,7 @@ let
             "darwin"
             "flake"
             "home-manager-modules"
+            "hydra"
             "lib"
             "linux"
             "modules"

@@ -21,7 +21,6 @@ let
     filterAttrs (_: v: (!v.meta.broken && !v.meta.unsupported)) value)
     non-problematic-packages;
 in {
-  checks = removeAttrs self.checks unsupported-systems;
   devShells = removeAttrs self.devShells unsupported-systems;
 
   # Wrap nixos configuration testing via the system.build.toplevel 
