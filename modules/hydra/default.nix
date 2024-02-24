@@ -27,8 +27,12 @@ in {
     };
   };
 
-  environment.etc."hydra/github_token".source =
-    config.age.secrets.hydra-github-token.path;
+  environment.etc."hydra/github_token" = {
+    inherit (config.users.users.hydra) group;
+    mode = "400";
+    source = config.age.secrets.hydra-github-token.path;
+    user = config.users.users.hydra.name;
+  };
 
   networking.firewall.allowedTCPPorts = [ port ];
 
