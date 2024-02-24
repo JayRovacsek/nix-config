@@ -85,20 +85,6 @@
         "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
     };
 
-    neovim-flake = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        flake-utils.follows = "flake-utils";
-        nil.follows = "nil";
-        nixpkgs.follows = "nixpkgs";
-        rnix-lsp.follows = "rnix-lsp";
-        systems.follows = "systems";
-        tidalcycles.follows = "tidalcycles";
-        zig.follows = "zig";
-      };
-      url = "github:notashelf/neovim-flake";
-    };
-
     naersk = {
       url = "github:nix-community/naersk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -141,6 +127,18 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:nix-community/nixpkgs-wayland";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
     };
 
     nix-darwin = {
