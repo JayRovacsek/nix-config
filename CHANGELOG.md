@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - *(home-manager-modules)* Change from neovim-flake to nixvim
 - *(modules)* Create basic prometheus module
 - *(common)* Add more definitions to networking services
+- *(modules)* Order grafana module, add settings to allow network access
 
 ### 🐛 Bug Fixes
 
