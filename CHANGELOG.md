@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 - *(tooling)* Add packages to conform known types
 - *(overlays)* Resolve git-cliff darwin build
+- *(modules)* Remove non-loki code from loki module
 
 ### ⚙️ Miscellaneous Tasks
 
