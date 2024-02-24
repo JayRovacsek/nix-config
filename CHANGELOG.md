@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - *(modules)* Add linux builder to darwin settings
 - *(darwin)* Add trdsql package back to victreebel
 - *(tooling)* Add tableau to work macos machines
+- *(home-manager-modules)* Change from neovim-flake to nixvim
 
 ### 🐛 Bug Fixes
 
