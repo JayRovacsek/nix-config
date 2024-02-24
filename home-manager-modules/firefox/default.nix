@@ -411,6 +411,8 @@ in {
         "privacy.donottrackheader.enabled" = true;
         "privacy.donottrackheader.value" = 1;
         "privacy.firstparty.isolate" = true;
+        "privacy.globalprivacycontrol.enabled" = true;
+        "privacy.globalprivacycontrol.functionality.enabled" = true;
         "privacy.query_stripping" = true;
         "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" =
           false;
@@ -469,6 +471,7 @@ in {
           false;
         "services.sync.prefs.sync.browser.startup.homepage" = true;
         "services.sync.prefs.sync.browser.startup.page" = true;
+        "services.sync.prefs.sync.privacy.globalprivacycontrol.enabled" = true;
         "services.sync.privacyURL" = localhost;
 
         "signon.autofillForms" = false;

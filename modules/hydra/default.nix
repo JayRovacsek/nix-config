@@ -1,31 +1,6 @@
-{ config, pkgs, lib, ... }:
-let
-  inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
-  inherit (config.flake.lib.authelia) generate-access-rules;
-
-  service-name = "hydra";
-
-  domains = generate-domains { inherit config service-name; };
-
-  overrides = {
-    locations."/".extraConfig = ''
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      add_header Front-End-Https on;
-    '';
-  };
-
-  virtualHosts = generate-vhosts {
-    inherit config service-name overrides;
-    inherit (config.services.hydra) port;
-  };
+{ config, pkgs, lib, self, ... }:
+let inherit (self.common.networking.services.hydra) port;
 in {
-  # Extended options for nginx
-  imports = [ ../../options/nginx ];
-
-  networking.firewall.allowedTCPPorts = [ config.services.hydra.port ];
-
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key
   # to hydra so that it may evaluate remote builds correctly also otherwise
@@ -55,40 +30,32 @@ in {
   environment.etc."hydra/github_token".source =
     config.age.secrets.hydra-github-token.path;
 
+  networking.firewall.allowedTCPPorts = [ port ];
+
   nix.extraOptions = ''
     extra-allowed-uris = https://gitlab.com/api/v4/projects/rycee%2Fnmd https://git.sr.ht/~rycee/nmd
   '';
 
-  services = {
-    authelia.instances =
-      generate-access-rules config.services.nginx.domains service-name;
-
-    hydra = {
-      enable = true;
-      # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
-      extraConfig = ''
-        compress_build_logs = 1
-        <githubstatus>
-          jobs = .*
-          inputs = src
-          context = hydra
-        </githubstatus>
-      '';
-      hydraURL = "https://hydra.rovacsek.com";
-      listenHost = "*";
-      minimumDiskFree = 25;
-      minimumDiskFreeEvaluator = 50;
-      notificationSender = "";
-      package = pkgs.hydra_unstable;
-      port = 3000;
-      smtpHost = null;
-      tracker = "";
-      useSubstitutes = true;
-    };
-
-    nginx = {
-      test = { inherit domains; };
-      inherit virtualHosts;
-    };
+  services.hydra = {
+    enable = true;
+    # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
+    extraConfig = ''
+      compress_build_logs = 1
+      <githubstatus>
+        jobs = .*
+        inputs = src
+        context = hydra
+      </githubstatus>
+    '';
+    hydraURL = "https://hydra.rovacsek.com";
+    listenHost = "*";
+    minimumDiskFree = 25;
+    minimumDiskFreeEvaluator = 50;
+    notificationSender = "";
+    package = pkgs.hydra_unstable;
+    inherit port;
+    smtpHost = null;
+    tracker = "";
+    useSubstitutes = true;
   };
 }

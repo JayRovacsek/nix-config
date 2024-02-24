@@ -20,7 +20,7 @@ in {
   inherit flake;
   inherit (merged) users home-manager;
 
-  imports = [ ./authelia.nix ./filesystems.nix ./nginx.nix ./old-users.nix ];
+  imports = [ ./filesystems.nix ./old-users.nix ];
 
   age = {
     secrets = {
@@ -164,6 +164,8 @@ in {
         "mankey"
         "meowth"
         "nidoking"
+        "nidorina"
+        "nidorino"
         "poliwag"
         "porygon"
       ];
@@ -184,20 +186,18 @@ in {
   powerManagement.enable = false;
 
   services = {
-    nginx.domains = [ "rovacsek.com" ];
-
     # This requires the addition of the samba module
     # to enable shares
     samba.shares = {
       isos = {
-        path = "/mnt/zfs/isos";
+        path = "/srv/isos";
         browseable = "yes";
         "read only" = true;
         "guest ok" = "yes";
         comment = "Public ISO Share";
       };
       games = {
-        path = "/mnt/zfs/games/files";
+        path = "/srv/games/files";
         browseable = "yes";
         "read only" = true;
         "guest ok" = "yes";

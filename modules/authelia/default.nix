@@ -1,29 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
   inherit (config.services) nginx;
-  inherit (config.flake.lib.nginx) generate-domains generate-vhosts;
+  inherit (self.common.networking.services.authelia) port;
   inherit (lib) recursiveUpdate;
 
-  service-name = "authelia";
-
-  port = 9091;
-
-  overrides = {
-    default = true;
-    # TODO: in the future having dynamic evaluation based - depends
-    # on microvm & tailscale / overlay network
-    locations = {
-      "/api/verify".extraConfig = ''
-        proxy_pass http://localhost:${builtins.toString port};
-      '';
-    };
-  };
-
-  domains = generate-domains { inherit config service-name; };
-
-  virtualHosts =
-    generate-vhosts { inherit config overrides port service-name; };
-
+  # TODO: move this to an authelia option.
   prod = !nginx.test.enable;
 
   production = let domain = "rovacsek.com";
@@ -54,7 +35,7 @@ let
             key_length = 32;
             salt_length = 16;
             memory = 65536;
-            parallelism = 8;
+            parallelism = 4;
           };
         };
       };
@@ -81,7 +62,7 @@ let
           write = 8196;
         };
         path = "authelia";
-        host = "localhost";
+        host = "0.0.0.0";
         inherit port;
       };
 
@@ -147,15 +128,7 @@ in {
     };
   };
 
-  networking.firewall.allowedTCPPorts =
-    [ config.services.authelia.instances.production.settings.server.port ];
+  networking.firewall.allowedTCPPorts = [ port ];
 
-  services = {
-    authelia.instances = { inherit production test; };
-
-    nginx = {
-      test = { inherit domains; };
-      inherit virtualHosts;
-    };
-  };
+  services.authelia.instances = { inherit production test; };
 }

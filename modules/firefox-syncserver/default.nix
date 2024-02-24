@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, self, ... }:
+let inherit (self.common.networking.services.firefox-syncserver) port;
+in {
   age = {
     identityPaths = [ "/agenix/id-ed25519-firefox-syncserver-primary" ];
 
@@ -10,15 +12,14 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts =
-    [ config.services.firefox-syncserver.settings.port ];
+  networking.firewall.allowedTCPPorts = [ port ];
 
   services = {
     firefox-syncserver = {
       enable = true;
       secrets = config.age.secrets."firefox-syncserver-secrets".path;
 
-      settings.port = 5002;
+      settings = { inherit port; };
       logLevel = "error";
       singleNode = {
         enable = true;

@@ -1,15 +1,10 @@
-{ config, ... }:
-let patchDriver = import ./nvenc-unlock.nix;
-in {
+_: {
   hardware = {
     opengl = {
       enable = true;
       driSupport32Bit = true;
     };
-    nvidia = {
-      package = patchDriver config.boot.kernelPackages.nvidiaPackages.stable;
-      modesetting.enable = true;
-    };
+    nvidia.modesetting.enable = true;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
