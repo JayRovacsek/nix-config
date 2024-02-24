@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - *(modules)* Create basic prometheus module
 - *(common)* Add more definitions to networking services
 - *(modules)* Order grafana module, add settings to allow network access
+- *(modules)* Add common network definitions to grafana-agent module
 
 ### 🐛 Bug Fixes
 
