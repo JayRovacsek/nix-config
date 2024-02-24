@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - *(common)* Add more definitions to networking services
 - *(modules)* Order grafana module, add settings to allow network access
 - *(modules)* Add common network definitions to grafana-agent module
+- *(modules)* Enable reporting for blocky module
 
 ### 🐛 Bug Fixes
 

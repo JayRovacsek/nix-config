@@ -10,6 +10,11 @@ in {
     provision = {
       enable = true;
 
+      dashboards.settings.providers = [{
+        name = "blocky";
+        options.path = ./blocky.json;
+      }];
+
       datasources.settings.datasources = [
         {
           name = "Loki";
