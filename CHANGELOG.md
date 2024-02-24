@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - *(tooling)* Add tableau to work macos machines
 - *(home-manager-modules)* Change from neovim-flake to nixvim
 - *(modules)* Create basic prometheus module
+- *(common)* Add more definitions to networking services
 
 ### 🐛 Bug Fixes
 
