@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - *(tooling)* Add packages to conform known types
 - *(overlays)* Resolve git-cliff darwin build
 - *(modules)* Fix hydra github token being incorrectly created as root only
+- *(hydra)* Remove checks from hydra jobs
 
 ### ⚙️ Miscellaneous Tasks
 
