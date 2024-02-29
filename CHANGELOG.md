@@ -16,6 +16,7 @@
 
 ### 🐛 Bug Fixes
 
+- *(hydra)* Resolve git token to being readable for hydra services via group - ([dece76a](https://github.com/JayRovacsek/nix-config/commit/dece76ab5e0325c74860fc5eaef26003e44a2665))
 - *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
 - *(modules)* Fix hydra github token being incorrectly created as root only - ([d315ea9](https://github.com/JayRovacsek/nix-config/commit/d315ea90e9f85a9bdcb0955f7284e043afbe4f3f))
 - *(overlays)* Resolve git-cliff darwin build - ([4afa8d1](https://github.com/JayRovacsek/nix-config/commit/4afa8d1e9b3216954e57928896529521551f5e0a))
