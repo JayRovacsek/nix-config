@@ -1,8 +1,9 @@
 { config, lib, ... }:
 let
-  inherit (lib) optionals;
+  inherit (lib) filterAttrs optionals;
   zfsBootSupported =
-    builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
+    (filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
+    != { };
 
   zfsServiceSupported = config.services.zfs.autoScrub.enable
     || config.services.zfs.autoSnapshot.enable;
