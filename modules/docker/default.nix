@@ -1,8 +1,7 @@
 { config, lib, ... }:
 let
-  inherit (lib) filterAttrs optionals;
   zfsBootSupported =
-    (filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
+    (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
     != { };
 
   zfsServiceSupported = config.services.zfs.autoScrub.enable
@@ -23,6 +22,7 @@ in {
   };
 
   systemd.services.docker.after =
-    optionals (zfsBootSupported || zfsServiceSupported) [ "zfs-mount.service" ];
+    lib.optionals (zfsBootSupported || zfsServiceSupported)
+    [ "zfs-mount.service" ];
   systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
 }
