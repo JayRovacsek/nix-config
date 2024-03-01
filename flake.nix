@@ -149,6 +149,7 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
+        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -156,6 +157,11 @@
     };
 
     nix-filter.url = "github:numtide/nix-filter";
+
+    nix-github-actions = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nix-github-actions";
+    };
 
     nix-monitored = {
       inputs = {
