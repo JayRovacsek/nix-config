@@ -295,11 +295,7 @@
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
       flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
-        let
-          pkgs = import self.inputs.nixpkgs {
-            inherit system;
-            overlays = self.common.overlays.system-agnostic;
-          };
+        let pkgs = import self.inputs.nixpkgs { inherit system; };
         in {
           # Space in which exposed derivations can be ran via
           # nix run .#foo - handy in the future for stuff like deploying

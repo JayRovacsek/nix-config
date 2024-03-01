@@ -1,63 +1,86 @@
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
 ## [unreleased]
 
-### 🚀 Features
+### ⛰️  Features
 
-- *(tooling)* Exclude CHANGELOG from being automatically linted
-- *(packages)* Implement prettierignore config as a package
-- *(tooling)* Replace prettierignore with package
-- *(modules)* Add linux builder to darwin settings
-- *(darwin)* Add trdsql package back to victreebel
-- *(tooling)* Add tableau to work macos machines
-- *(home-manager-modules)* Change from neovim-flake to nixvim
-- *(modules)* Create basic prometheus module
-- *(common)* Add more definitions to networking services
-- *(modules)* Order grafana module, add settings to allow network access
-- *(modules)* Add common network definitions to grafana-agent module
-- *(modules)* Enable reporting for blocky module
-- *(modules)* Add blocky dashboard to grafana
+- *(common)* Add more definitions to networking services - ([5f7700c](https://github.com/JayRovacsek/nix-config/commit/5f7700c810963a1ccef994489dc237904a7783f1))
+- *(darwin)* Add trdsql package back to victreebel - ([ca18a44](https://github.com/JayRovacsek/nix-config/commit/ca18a449d0da38629dfe24e5627ce5e4eb3bed16))
+- *(flake)* Enable system agnostic overlays to be utilised in flake - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
+- *(home-manager-modules)* Change from neovim-flake to nixvim - ([d9cb899](https://github.com/JayRovacsek/nix-config/commit/d9cb8999b83b23f0554d5df42ac8399be5e10259))
+- *(modules)* Add blocky dashboard to grafana - ([f2fb944](https://github.com/JayRovacsek/nix-config/commit/f2fb944fb68faf346e067a85f7252ec7889a259d))
+- *(modules)* Enable reporting for blocky module - ([eb9f59d](https://github.com/JayRovacsek/nix-config/commit/eb9f59d1818f996010a1819690b100fd81f2baee))
+- *(modules)* Add common network definitions to grafana-agent module - ([775f13f](https://github.com/JayRovacsek/nix-config/commit/775f13f4fdb3d2665dbd0d61ef653ca34a63619f))
+- *(modules)* Order grafana module, add settings to allow network access - ([8449937](https://github.com/JayRovacsek/nix-config/commit/84499379d74f48ffd2f55fb34a23528556de2c81))
+- *(modules)* Create basic prometheus module - ([5a784cf](https://github.com/JayRovacsek/nix-config/commit/5a784cfb85ae9dd309b3305ce39e7ae71ccd1e94))
+- *(modules)* Enable nix binary cache on linux-builder - ([5466cdc](https://github.com/JayRovacsek/nix-config/commit/5466cdce52f072e441f0d6000f55ac7e6f8cef1f))
+- *(modules)* Add linux builder to darwin settings - ([4b2e4f9](https://github.com/JayRovacsek/nix-config/commit/4b2e4f9f17b3711915f1cc17b4ddfe8725d7a400))
+- *(options)* Enable emulated systems for linux-builder - ([5466cdc](https://github.com/JayRovacsek/nix-config/commit/5466cdce52f072e441f0d6000f55ac7e6f8cef1f))
+- *(overlays)* Move overlay system binds to common space + remove from package-sets - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
+- *(packages)* Implement prettierignore config as a package - ([305ef53](https://github.com/JayRovacsek/nix-config/commit/305ef53311a60df3997652c668f331b1f25ca313))
+- *(tooling)* Add tableau to work macos machines - ([95cd15a](https://github.com/JayRovacsek/nix-config/commit/95cd15a449a87a7f0cb0e731cb8aa6416750f8db))
+- *(tooling)* Add git-cliff pre-commit check - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
+- *(tooling)* Replace prettierignore with package - ([6130434](https://github.com/JayRovacsek/nix-config/commit/6130434878c22e0319e5b721d97fa93ba173525e))
+- *(tooling)* Exclude CHANGELOG from being automatically linted - ([3673f6b](https://github.com/JayRovacsek/nix-config/commit/3673f6b87a920c86fd908c9daca729e0904abb28))
 
 ### 🐛 Bug Fixes
 
-- *(tooling)* Add packages to conform known types
-- *(overlays)* Resolve git-cliff darwin build
-- *(modules)* Remove non-loki code from loki module
+- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+- *(modules)* Fix hydra github token being incorrectly created as root only - ([d315ea9](https://github.com/JayRovacsek/nix-config/commit/d315ea90e9f85a9bdcb0955f7284e043afbe4f3f))
+- *(modules)* Remove non-loki code from loki module - ([3adec3b](https://github.com/JayRovacsek/nix-config/commit/3adec3b28d03f74f2dd78c17fb34fad60686cbc3))
+- *(overlays)* Resolve git-cliff darwin build - ([4afa8d1](https://github.com/JayRovacsek/nix-config/commit/4afa8d1e9b3216954e57928896529521551f5e0a))
+- *(tooling)* Add packages to conform known types - ([61b1591](https://github.com/JayRovacsek/nix-config/commit/61b1591184eed6b658121faf77639da6c28f9269))
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(tooling)* Reallocate tags to recent commits + tag init commit
-- *(packages)* Bump trdsql to v0.20.0 + disable checks
-- Merge branch 'monitoring' into logging
+- *(packages)* Bump trdsql to v0.20.0 + disable checks - ([50bc014](https://github.com/JayRovacsek/nix-config/commit/50bc014630f5b35d0155670e8ac5c1c86c90ce97))
+- *(tooling)* Reallocate tags to recent commits + tag init commit - ([23f69d5](https://github.com/JayRovacsek/nix-config/commit/23f69d5aab6dcc9f06f24d518065d4902e714427))
+- Merge testing into monitoring - ([e660ffc](https://github.com/JayRovacsek/nix-config/commit/e660ffc66f5833064b04271208ae67d6d5d08470))
+- Merge branch 'monitoring' into logging - ([5b27396](https://github.com/JayRovacsek/nix-config/commit/5b27396d1a886220fdb78dfc652ec3a531a3a674))
 
-## [0.0.2] - 2024-02-20
+## [0.0.2](https://github.com/JayRovacsek/nix-config/compare/v0.0.1..v0.0.2) - 2024-02-20
 
-### 🚀 Features
+### ⛰️  Features
 
-- *(tooling)* Add generator for conform configuration
-- *(tooling)* Add conform config file to gitignore
-- *(linux)* Move wigglytuff host from xfce to hyprland
-- *(overlays)* Add git-cliff overlay
+- *(linux)* Move wigglytuff host from xfce to hyprland - ([f037eed](https://github.com/JayRovacsek/nix-config/commit/f037eed12cdba108ca0e696aa8d844fc86f190da))
+- *(overlays)* Add git-cliff overlay - ([ac8cc9f](https://github.com/JayRovacsek/nix-config/commit/ac8cc9f71578e97909a93b81b412e89a3568dd03))
+- *(tooling)* Add conform config file to gitignore - ([e151495](https://github.com/JayRovacsek/nix-config/commit/e15149593fa53c670703c5a060ed94bbc1206731))
+- *(tooling)* Add generator for conform configuration - ([016a04a](https://github.com/JayRovacsek/nix-config/commit/016a04a1d9205eadb98f133b39953514cc4130b9))
 
 ### 🐛 Bug Fixes
 
-- *(tooling)* Fix missing type of fix
-- *(modules)* Resolve greetd including systemd logs
+- *(modules)* Resolve greetd including systemd logs - ([f6266cf](https://github.com/JayRovacsek/nix-config/commit/f6266cfc22ae09e52c247c42e09d1bba074b12eb))
+- *(tooling)* Fix missing type of fix - ([6a80cb5](https://github.com/JayRovacsek/nix-config/commit/6a80cb53819d43f48ea658144731871c905b47ae))
 
 ### 📚 Documentation
 
-- *(checks)* Generate initial changelog file
+- *(checks)* Generate initial changelog file - ([c327d38](https://github.com/JayRovacsek/nix-config/commit/c327d38cef5ec5b4b863cc16021046fff60c2d75))
 
 ### Release
 
-- *(tooling)* Tag repository to better enable conventional commits
+- *(tooling)* Tag repository to better enable conventional commits - ([a5f7cb7](https://github.com/JayRovacsek/nix-config/commit/a5f7cb7da637be0e2757bfce44d7b754531ea117))
 
-## [0.0.1] - 2024-02-11
+## [0.0.1](https://github.com/JayRovacsek/nix-config/compare/v0.0.0..v0.0.1) - 2024-02-11
+
+### Add
+
+- Bat, fzf, jq to HM - ([220832f](https://github.com/JayRovacsek/nix-config/commit/220832fe00630dc1be9b662d08f7ca1687490fea))
+
+### Signed-off-by
+
+- Dependabot[bot] <support@github.com> - ([de6509d](https://github.com/JayRovacsek/nix-config/commit/de6509dcd6e0cc5e9a8cde8c4412c0755effd0bb))
+- Dependabot[bot] <support@github.com> - ([d210667](https://github.com/JayRovacsek/nix-config/commit/d21066730d801fbc6ebc724047e0d2f624dd04a8))
+- Dependabot[bot] <support@github.com> - ([cc4eb64](https://github.com/JayRovacsek/nix-config/commit/cc4eb644c87809db5f3f7bc9c7ec6641d7233159))
+- Dependabot[bot] <support@github.com> - ([796f890](https://github.com/JayRovacsek/nix-config/commit/796f890f024b059730bfc15adca497545f7dc3e0))
 
 ### Tree-wide
 
-- Thunk use of nixpkgs to hopefully avoid expensive operations
+- Thunk use of nixpkgs to hopefully avoid expensive operations - ([9eb2a39](https://github.com/JayRovacsek/nix-config/commit/9eb2a39f79a6225a602726c03c53e2a4177e09fa))
 
-<!-- generated by git-cliff -->
+### WIP
+
+- Rework wireless secrets for gastly - ([d8c4526](https://github.com/JayRovacsek/nix-config/commit/d8c4526482e28413d11f632ccb00fcd73758440f))
+
+### Protip
+
+- It works rather than not :) - ([5258550](https://github.com/JayRovacsek/nix-config/commit/52585500be8f34314a070d3c44871c50127fab72))
+
+

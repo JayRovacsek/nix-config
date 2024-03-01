@@ -22,7 +22,6 @@ in {
   system-agnostic = [
     agenix.overlays.default
     nur.overlay
-    self.overlays.git-cliff
     self.overlays.lib
     self.overlays.nix-monitored
   ];

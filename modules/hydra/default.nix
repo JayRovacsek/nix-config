@@ -22,16 +22,16 @@ in {
         file = ../../secrets/hydra/hydra-github-token.age;
         owner = config.users.users.hydra.name;
         inherit (config.users.users.hydra) group;
-        mode = "0400";
+        mode = "0440";
       };
     };
   };
 
   environment.etc."hydra/github_token" = {
     inherit (config.users.users.hydra) group;
-    mode = "400";
+    mode = "440";
     source = config.age.secrets.hydra-github-token.path;
-    user = config.users.users.hydra.name;
+    user = config.users.users.hydra-queue-runner.name;
   };
 
   networking.firewall.allowedTCPPorts = [ port ];
@@ -61,5 +61,10 @@ in {
     smtpHost = null;
     tracker = "";
     useSubstitutes = true;
+  };
+
+  systemd.services = {
+    hydra-evaluator.serviceConfig.Group = config.users.users.hydra.group;
+    hydra-notify.serviceConfig.Group = config.users.users.hydra.group;
   };
 }
