@@ -34,6 +34,8 @@
 
 - *(packages)* Implement prettierignore config as a package - ([305ef53](https://github.com/JayRovacsek/nix-config/commit/305ef53311a60df3997652c668f331b1f25ca313))
 
+- *(tooling)* Remove configuration files from repository - ([51d21b1](https://github.com/JayRovacsek/nix-config/commit/51d21b11da0bc1d5a4ddd998dda5fc2776cf2416))
+
 - *(tooling)* Add cliff.toml file to ensure consistent changelog generation - ([c66da68](https://github.com/JayRovacsek/nix-config/commit/c66da68a924d8cd07120a098db2fd0b83112c127))
 
 - *(tooling)* Add tableau to work macos machines - ([95cd15a](https://github.com/JayRovacsek/nix-config/commit/95cd15a449a87a7f0cb0e731cb8aa6416750f8db))
