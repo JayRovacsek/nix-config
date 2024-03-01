@@ -214,6 +214,11 @@
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
 
+        githubActions = self.inputs.nix-github-actions.lib.mkGithubMatrix {
+          checks = (lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.checks)
+            // (lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.packages);
+        };
+
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };
 
