@@ -24,11 +24,6 @@
       };
     };
 
-    # crane = {
-    #   url = "github:ipetkov/crane";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -83,20 +78,6 @@
       };
       url =
         "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
-    };
-
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nil = {
-      url = "github:oxalica/nil";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
     };
 
     # Generate system images easily
@@ -186,29 +167,11 @@
       url = "github:cachix/pre-commit-hooks.nix";
     };
 
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs = {
-        naersk.follows = "naersk";
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        # flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -236,26 +199,9 @@
       url = "github:terranix/terranix";
     };
 
-    tidalcycles = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-      url = "github:mitchmindtree/tidalcycles.nix";
-    };
-
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
-    };
-
-    zig = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:mitchellh/zig-overlay";
     };
   };
 
