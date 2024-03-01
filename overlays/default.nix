@@ -270,16 +270,6 @@
               };
             });
 
-          flask-security-too = python-prev.flask-security-too.overrideAttrs
-            (_old: rec {
-              version = "5.0.2";
-              src = prev.fetchPypi {
-                pname = "Flask-Security-Too";
-                inherit version;
-                sha256 = "sha256-Nv7g2l0bPSEcrydFU7d1NHjCCJl8Ykq7hOu6QmHeZcI=";
-              };
-            });
-
           flask-sqlalchemy = python-prev.flask-sqlalchemy.overrideAttrs
             (old: rec {
               version = "3.0.5";

@@ -215,8 +215,11 @@
         common = import ./common { inherit self; };
 
         githubActions = self.inputs.nix-github-actions.lib.mkGithubMatrix {
-          checks = (lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.checks)
-            // (lib.getAttrs [ "x86_64-linux" "x86_64-darwin" ] self.packages);
+          # TODO: 
+          # re-introduce darwin packages 
+          # checks for pre-commits
+          # nixosConfigurations for all guitable hosts
+          checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
 
         # Automated build configuration for local packages
