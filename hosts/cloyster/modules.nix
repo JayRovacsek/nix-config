@@ -6,7 +6,6 @@ in (with self.nixosModules; [
   fonts
   gnupg
   greetd
-  grub
   hyprland
   lorri
   nix
