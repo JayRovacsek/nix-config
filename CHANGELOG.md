@@ -70,6 +70,8 @@
 
 - *(linux)* Move gastly to home wireless network - ([951bc11](https://github.com/JayRovacsek/nix-config/commit/951bc114d351ab14ae84e76807a67463d0e94475))
 
+- *(modules)* Remove deprecated wireplumber config - ([ed05243](https://github.com/JayRovacsek/nix-config/commit/ed05243f4b630d860378fa3126b60990bddb9be2))
+
 - *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
 
 - *(modules)* Resolve zfs support code for nextcloud - ([55308a5](https://github.com/JayRovacsek/nix-config/commit/55308a59285845c1ebf4fe814189b1f5b3879e17))
