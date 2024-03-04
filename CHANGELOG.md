@@ -34,6 +34,8 @@
 
 - *(overlays)* Move overlay system binds to common space + remove from package-sets - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
 
+- *(packages)* Add wireplumber configuration to text packages - ([062304b](https://github.com/JayRovacsek/nix-config/commit/062304b7e547cbffd94302ac6de02c3685ae386f))
+
 - *(packages)* Implement prettierignore config as a package - ([305ef53](https://github.com/JayRovacsek/nix-config/commit/305ef53311a60df3997652c668f331b1f25ca313))
 
 - *(tooling)* Implement gh actions check via nix-github-actions - ([fe0f91b](https://github.com/JayRovacsek/nix-config/commit/fe0f91beb1a3ba5a579f2af4901c87a4fd56e499))
@@ -69,6 +71,8 @@
 - *(linux)* Remove pipewire from hosts temporarily - ([49def46](https://github.com/JayRovacsek/nix-config/commit/49def46c1a58d5989619a7a368c034d87021d8cc))
 
 - *(linux)* Move gastly to home wireless network - ([951bc11](https://github.com/JayRovacsek/nix-config/commit/951bc114d351ab14ae84e76807a67463d0e94475))
+
+- *(modules)* Fix pipewire module to resolve 24.05 breakage - ([062304b](https://github.com/JayRovacsek/nix-config/commit/062304b7e547cbffd94302ac6de02c3685ae386f))
 
 - *(modules)* Remove deprecated wireplumber config - ([ed05243](https://github.com/JayRovacsek/nix-config/commit/ed05243f4b630d860378fa3126b60990bddb9be2))
 
