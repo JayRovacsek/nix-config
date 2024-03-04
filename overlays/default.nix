@@ -421,6 +421,34 @@
     });
   };
 
+  sonarr = _final: prev: {
+    sonarr = prev.sonarr.overrideAttrs (old: {
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p $out/{bin,share/sonarr-${old.version}}
+        cp -r * $out/share/sonarr-${old.version}/.
+
+        makeWrapper "${prev.dotnet-runtime}/bin/dotnet" $out/bin/NzbDrone \
+          --add-flags "$out/share/sonarr-${old.version}/Sonarr.dll" \
+          --prefix PATH : ${
+            prev.lib.makeBinPath
+            [ (prev.ffmpeg.override { withSdl2 = false; }) ]
+          } \
+          --prefix LD_LIBRARY_PATH : ${
+            prev.lib.makeLibraryPath [
+              prev.curl
+              prev.sqlite
+              prev.openssl
+              prev.icu
+            ]
+          }
+
+        runHook postInstall
+      '';
+    });
+  };
+
   waybar = _final: prev: {
     inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;
   };

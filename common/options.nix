@@ -19,7 +19,6 @@ in builtins.mapAttrs (package-set: _:
       ../options/nginx
       ../options/sonarr
       ../options/systemd
-      ../options/tailscale
     ];
 
     darwin = optionals isDarwin [

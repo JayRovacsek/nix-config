@@ -49,4 +49,5 @@ in {
   nidorino = make-microvm x86_64-linux-unstable "nidorino" unstable-system;
   poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
   porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
+  slowpoke = make-microvm x86_64-linux-unstable "slowpoke" unstable-system;
 }

@@ -62,6 +62,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    agenix
     cifs-utils
     dnsutils
     exfat
@@ -168,6 +169,7 @@ in {
         "nidorino"
         "poliwag"
         "porygon"
+        "slowpoke"
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
@@ -204,8 +206,6 @@ in {
         comment = "Public Game Files";
       };
     };
-
-    tailscale.tailnet = "admin";
   };
 
   swapDevices =

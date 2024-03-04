@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
   # Agenix is likely required if we have a share from host to guest passing
   # a secret and identity paths has some kind of value.
@@ -78,4 +78,19 @@ in {
       networkConfig.DHCP = "yes";
     };
   };
+
+  # The below configures openssh access for root using physical keys
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "yes";
+      PasswordAuthentication = false;
+    };
+  };
+
+  users.users.root.openssh.authorizedKeys.keys =
+    self.common.networking.services.openssh.public-keys;
 }

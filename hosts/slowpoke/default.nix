@@ -1,24 +1,21 @@
 { config, flake, ... }: {
   inherit flake;
 
-  imports = [ ./authelia.nix ];
+  environment.noXlibs = false;
+
+  networking.hostName = "slowpoke";
 
   microvm = {
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;
-      mac = "02:42:c0:a8:09:02";
+      mac = "02:42:c0:a8:04:8a";
       macvtap = {
-        link = "authelia";
+        link = "download";
         mode = "bridge";
       };
     }];
-
-    mem = 1024;
-    vcpu = 2;
   };
-
-  networking.hostName = "nidorino";
 
   system.stateVersion = "24.05";
 }
