@@ -2,7 +2,7 @@
 let
   pname = "pfFocus";
   name = pname;
-  version = "0.1.0";
+  version = "0.1";
 
   meta = with lib; {
     description =

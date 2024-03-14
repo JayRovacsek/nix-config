@@ -41,7 +41,6 @@ in {
         blackLists = {
           ads = [
             "https://adaway.org/hosts.txt"
-            "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
@@ -87,15 +86,15 @@ in {
             # optional: Number of download attempts.
             attempts = 5;
             # optional: Time between the download attempts. Default: 1s
-            cooldown = "10s";
+            cooldown = "1s";
           };
         };
       };
 
       # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
       bootstrapDns = {
-        upstream = "https://1dot1dot1dot1.cloudflare-dns.com/dns-query";
-        ips = [ "1.1.1.1" ];
+        upstream = "https://dns.google/dns-query";
+        ips = [ "8.8.8.8" "8.8.4.4" ];
       };
 
       # optional: configuration for caching of DNS responses
@@ -128,13 +127,7 @@ in {
         prefetchMaxItemsCount = 0;
         # Time how long negative results (NXDOMAIN response or empty result) are cached. A value of -1 will disable caching for negative results.
         # Default: 30m
-        cacheTimeNegative = "30m";
-      };
-
-      # optional: configuration of client name resolution
-      clientLookup = {
-        upstream = "192.168.1.1";
-        singleNameOrder = [ 2 1 ];
+        cacheTimeNegative = "90m";
       };
 
       # optional: Determines how blocky will create outgoing connections. This impacts both upstreams, and lists.
@@ -148,7 +141,7 @@ in {
         customTTL = "1h";
         # optional: if true (default), return empty result for unmapped query types (for example TXT, MX or AAAA if only IPv4 address is defined).
         # if false, queries with unmapped types will be forwarded to the upstream resolver
-        filterUnmappedTypes = true;
+        filterUnmappedTypes = false;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
         mapping = bin-blocks // {
           # Local
@@ -175,157 +168,23 @@ in {
           "jellyfin.lan" = "192.168.5.4";
           "stubby.lan" = "192.168.6.3";
           "jigglypuff.lan" = "192.168.6.4";
+          "igglybuff.lan" = "192.168.6.8";
           "victreebel.lan" = "192.168.7.12";
           "authelia.lan" = "192.168.9.2";
           "nextcloud.lan" = "192.168.10.2";
           "home-assistant.lan" = "192.168.12.2";
           "cache.lan" = "192.168.16.2";
           "minecraft.lan" = "192.168.17.5";
-          "minecraft.rovacsek.com" = "192.168.17.5";
+          "porygon.lan" = "192.168.17.2";
           "valheim.lan" = "192.168.17.3";
-          "valheim.rovacsek.com" = "192.168.17.3";
           "terraria.lan" = "192.168.17.4";
-          "terraria.rovacsek.com" = "192.168.17.4";
 
-          # Blizzard
-          "dist.blizzard.com" = "192.168.16.2";
-          "dist.blizzard.com.edgesuite.net" = "192.168.16.2";
-          "llnw.blizzard.com" = "192.168.16.2";
-          "edgecast.blizzard.com" = "192.168.16.2";
-          "blizzard.vo.llnwd.net" = "192.168.16.2";
-          "blzddist1-a.akamaihd.net" = "192.168.16.2";
-          "blzddist2-a.akamaihd.net" = "192.168.16.2";
-          "blzddist3-a.akamaihd.net" = "192.168.16.2";
-          "blzddist4-a.akamaihd.net" = "192.168.16.2";
-          "level3.blizzard.com" = "192.168.16.2";
-          "nydus.battle.net" = "192.168.16.2";
-          "edge.blizzard.top.comcast.net" = "192.168.16.2";
-          "cdn.blizzard.com" = "192.168.16.2";
-
-          # Epic
-          "cdn1.epicgames.com" = "192.168.16.2";
-          "cdn.unrealengine.com" = "192.168.16.2";
-          "cdn1.unrealengine.com" = "192.168.16.2";
-          "cdn2.unrealengine.com" = "192.168.16.2";
-          "cdn3.unrealengine.com" = "192.168.16.2";
-          "download.epicgames.com" = "192.168.16.2";
-          "download2.epicgames.com" = "192.168.16.2";
-          "download3.epicgames.com" = "192.168.16.2";
-          "download4.epicgames.com" = "192.168.16.2";
-          "epicgames-download1.akamaized.net" = "192.168.16.2";
-          "fastly-download.epicgames.com" = "192.168.16.2";
-
-          # Nintendo
-          "ccs.cdn.wup.shop.nintendo.com" = "192.168.16.2";
-          "ccs.cdn.wup.shop.nintendo.net" = "192.168.16.2";
-          "ccs.cdn.wup.shop.nintendo.net.edgesuite.net" = "192.168.16.2";
-          "geisha-wup.cdn.nintendo.net" = "192.168.16.2";
-          "geisha-wup.cdn.nintendo.net.edgekey.net" = "192.168.16.2";
-          "idbe-wup.cdn.nintendo.net" = "192.168.16.2";
-          "idbe-wup.cdn.nintendo.net.edgekey.net" = "192.168.16.2";
-          "ecs-lp1.hac.shop.nintendo.net" = "192.168.16.2";
-          "receive-lp1.dg.srv.nintendo.net" = "192.168.16.2";
-          "wup.shop.nintendo.net" = "192.168.16.2";
-          "wup.eshop.nintendo.net" = "192.168.16.2";
-          "hac.lp1.d4c.nintendo.net" = "192.168.16.2";
-          "hac.lp1.eshop.nintendo.net" = "192.168.16.2";
-
-          # Origin
-          "origin-a.akamaihd.net" = "192.168.16.2";
-          "lvlt.cdn.ea.com" = "192.168.16.2";
-          "cdn-patch.swtor.com" = "192.168.16.2";
-
-          # Riot
-          "l3cdn.riotgames.com" = "192.168.16.2";
-          "worldwide.l3cdn.riotgames.com" = "192.168.16.2";
-          "riotgamespatcher-a.akamaihd.net" = "192.168.16.2";
-          "riotgamespatcher-a.akamaihd.net.edgesuite.net" = "192.168.16.2";
-          "dyn.riotcdn.net" = "192.168.16.2";
-
-          # Rockstar
-          "patches.rockstargames.com" = "192.168.16.2";
-
-          # Sony
-          "gs2.ww.prod.dl.playstation.net" = "192.168.16.2";
-          "gs2.sonycoment.loris-e.llnwd.net" = "192.168.16.2";
-          "pls.patch.station.sony.com" = "192.168.16.2";
-          "gs2-ww-prod.psn.akadns.net" = "192.168.16.2";
-          "gs2.ww.prod.dl.playstation.net.edgesuite.net" = "192.168.16.2";
-          "playstation4.sony.akadns.net" = "192.168.16.2";
-          "theia.dl.playstation.net" = "192.168.16.2";
-          "tmdb.np.dl.playstation.net" = "192.168.16.2";
-          "gs-sec.ww.np.dl.playstation.net" = "192.168.16.2";
-
-          # Steam
-          "lancache.steampowered.com" = "192.168.16.2";
-          "lancache.steamcontent.com" = "192.168.16.2";
-          "content.steampowered.com" = "192.168.16.2";
-          "content1.steampowered.com" = "192.168.16.2";
-          "content2.steampowered.com" = "192.168.16.2";
-          "content3.steampowered.com" = "192.168.16.2";
-          "content4.steampowered.com" = "192.168.16.2";
-          "content5.steampowered.com" = "192.168.16.2";
-          "content6.steampowered.com" = "192.168.16.2";
-          "content7.steampowered.com" = "192.168.16.2";
-          "content8.steampowered.com" = "192.168.16.2";
-          "client-download.steampowered.com" = "192.168.16.2";
-          "hsar.steampowered.com.edgesuite.net" = "192.168.16.2";
-          "akamai.steamstatic.com" = "192.168.16.2";
-          "content-origin.steampowered.com" = "192.168.16.2";
-          "clientconfig.akamai.steamtransparent.com" = "192.168.16.2";
-          "steampipe.akamaized.net" = "192.168.16.2";
-          "steam.apac.qtlglb.com.mwcloudcdn.com" = "192.168.16.2";
-          "cs.steampowered.com" = "192.168.16.2";
-          "cm.steampowered.com" = "192.168.16.2";
-          "edgecast.steamstatic.com" = "192.168.16.2";
-          "steamcontent.com" = "192.168.16.2";
-          "cdn1-sea1.valve.net" = "192.168.16.2";
-          "cdn2-sea1.valve.net" = "192.168.16.2";
-          "steam-content-dnld-1.apac-1-cdn.cqloud.com" = "192.168.16.2";
-          "steam-content-dnld-1.eu-c1-cdn.cqloud.com" = "192.168.16.2";
-          "steam-content-dnld-1.qwilted-cds.cqloud.com" = "192.168.16.2";
-          "steam.apac.qtlglb.com" = "192.168.16.2";
-          "edge.steam-dns.top.comcast.net" = "192.168.16.2";
-          "edge.steam-dns-2.top.comcast.net" = "192.168.16.2";
-          "steam.naeu.qtlglb.com" = "192.168.16.2";
-          "steampipe-kr.akamaized.net" = "192.168.16.2";
-          "steam.ix.asn.au" = "192.168.16.2";
-          "steam.eca.qtlglb.com " = "192.168.16.2";
-          "steam.cdn.on.net" = "192.168.16.2";
-          "update5.dota2.wmsj.cn" = "192.168.16.2";
-          "update2.dota2.wmsj.cn" = "192.168.16.2";
-          "update6.dota2.wmsj.cn" = "192.168.16.2";
-          "update3.dota2.wmsj.cn" = "192.168.16.2";
-          "update1.dota2.wmsj.cn" = "192.168.16.2";
-          "update4.dota2.wmsj.cn" = "192.168.16.2";
-          "update5.csgo.wmsj.cn" = "192.168.16.2";
-          "update2.csgo.wmsj.cn" = "192.168.16.2";
-          "update4.csgo.wmsj.cn" = "192.168.16.2";
-          "update3.csgo.wmsj.cn" = "192.168.16.2";
-          "update6.csgo.wmsj.cn" = "192.168.16.2";
-          "update1.csgo.wmsj.cn" = "192.168.16.2";
-          "st.dl.bscstorage.net" = "192.168.16.2";
-          "cdn.mileweb.cs.steampowered.com.8686c.com" = "192.168.16.2";
-          "steamcdn-a.akamaihd.net" = "192.168.16.2";
-
-          # Uplay
-          "cdn.ubi.com" = "192.168.16.2";
-
-          # XBox Live
-          "assets1.xboxlive.com" = "192.168.16.2";
-          "assets2.xboxlive.com" = "192.168.16.2";
-          "xboxone.loris.llnwd.net" = "192.168.16.2";
-          "xboxone.vo.llnwd.net" = "192.168.16.2";
-          "xbox-mbr.xboxlive.com" = "192.168.16.2";
-          "assets1.xboxlive.com.nsatc.net" = "192.168.16.2";
-          "xvcf1.xboxlive.com" = "192.168.16.2";
-          "xvcf2.xboxlive.com" = "192.168.16.2";
-          "d1.xboxlive.com" = "192.168.16.2";
+          "palworld.rovacsek.com" = "192.168.17.2";
         };
       };
 
       # optional: drop all queries with following query types. Default: empty
-      filtering = { queryTypes = [ "AAAA" ]; };
+      filtering.queryTypes = [ "AAAA" ];
 
       # optional: logging configuration
       log = {
@@ -352,7 +211,7 @@ in {
         # optional: Port(s) and bind ip address(es) for DoT (DNS-over-TLS) listener. Example: 853, 127.0.0.1:853
         tls = 853;
         # optional: Port(s) and optional bind ip address(es) to serve HTTPS used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:443. Example: 443, :443, 127.0.0.1:443,[::1]:443
-        https = 443;
+        https = 8443;
         # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
         http = 4000;
       };
@@ -360,7 +219,7 @@ in {
       # optional: configuration for prometheus metrics endpoint
       prometheus = {
         # enabled if true
-        enable = false;
+        enable = true;
         # url path, optional (default '/metrics')
         path = "/metrics";
       };

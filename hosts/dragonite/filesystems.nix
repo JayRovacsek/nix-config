@@ -3,92 +3,83 @@
     fsType = "zfs";
     options = [ "nofail" ];
   in {
-    "/mnt/zfs" = {
-      device = "tank";
-      inherit fsType options;
-    };
-
-    "/mnt/zfs/storage" = {
+    "/srv/storage" = {
       device = "tank/storage";
       inherit fsType options;
     };
 
-    "/mnt/zfs/cache" = {
-      device = "tank/cache";
-      inherit fsType options;
-    };
-
-    "/mnt/zfs/containers" = {
+    "/srv/containers" = {
       device = "tank/containers";
       inherit fsType options;
     };
 
-    "/mnt/zfs/isos" = {
+    "/srv/isos" = {
       device = "tank/isos";
       inherit fsType options;
     };
 
-    "/mnt/zfs/tv" = {
+    "/srv/tv" = {
       device = "tank/tv";
       inherit fsType options;
     };
 
-    "/mnt/zfs/backup" = {
+    "/srv/backup" = {
       device = "tank/backup";
       inherit fsType options;
     };
 
-    "/mnt/zfs/personal_video" = {
+    "/srv/personal_video" = {
       device = "tank/personal_video";
       inherit fsType options;
     };
 
-    "/mnt/zfs/work" = {
+    "/srv/work" = {
       device = "tank/work";
       inherit fsType options;
     };
 
-    "/mnt/zfs/games" = {
+    "/srv/games" = {
       device = "tank/games";
       inherit fsType options;
     };
 
-    "/mnt/zfs/movies" = {
+    "/srv/movies" = {
       device = "tank/movies";
       inherit fsType options;
     };
 
-    "/mnt/zfs/nextcloud" = {
+    "/srv/nextcloud" = {
       device = "tank/nextcloud";
       inherit fsType options;
+      depends = [ "/" ];
     };
 
-    "/mnt/zfs/music" = {
+    "/srv/music" = {
       device = "tank/music";
       inherit fsType options;
     };
 
-    "/mnt/zfs/photos" = {
-      device = "tank/photos";
+    "/srv/osts" = {
+      device = "tank/osts";
       inherit fsType options;
     };
 
-    "/mnt/zfs/downloads" = {
+    "/srv/downloads" = {
       device = "tank/downloads";
       inherit fsType options;
     };
 
-    "/mnt/zfs/databases" = {
+    "/srv/databases" = {
       device = "tank/databases";
       inherit fsType options;
     };
 
-    "/mnt/zfs/home_assistant" = {
+    "/srv/home_assistant" = {
       device = "tank/home_assistant";
       inherit fsType options;
     };
 
-    "/mnt/zfs/logs" = {
+    "/srv/logs" = {
       device = "tank/logs";
       inherit fsType options;
     };

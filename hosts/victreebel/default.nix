@@ -5,7 +5,7 @@ let
   inherit (flake) common;
   inherit (flake.common.home-manager-module-sets) darwin-desktop;
   inherit (flake.lib) merge;
-  inherit (config.flake.packages.${system}) trdsql;
+  inherit (config.flake.packages.${system}) cloudquery cvemap trdsql;
 
   jay = common.users."j.rovacsek" {
     inherit config pkgs;
@@ -54,7 +54,7 @@ in {
     };
   };
 
-  environment.systemPackages = (with pkgs; [ agenix ]) ++ [ trdsql ];
+  environment.systemPackages = [ cloudquery cvemap trdsql ];
 
   services.nix-daemon.enable = true;
 

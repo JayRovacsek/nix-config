@@ -9,6 +9,7 @@
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   fonts = import ./fonts.nix { inherit self; };
   generations = import ./generations.nix { inherit self; };
+  gids = import ./gids.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
   home-manager-modules = import ./home-manager-modules.nix { inherit self; };
@@ -19,15 +20,18 @@
   images = import ./images { inherit self; };
   metadata = import ./metadata.nix { inherit self; };
   microvm = import ./microvm.nix { inherit self; };
+  minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
+  networking = import ./networking.nix { };
   node-packages = builtins.attrNames (builtins.readDir ../packages/node);
+  overlays = import ./overlays.nix { inherit self; };
   go-packages = builtins.attrNames (builtins.readDir ../packages/go);
-  nixified-ai = import ./nixified-ai.nix { inherit self; };
   options = import ./options.nix { inherit self; };
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
+  # TODO: kill in favour of specialArgs
   self-reference = import ./self-reference.nix { inherit self; };
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
@@ -35,8 +39,10 @@
   system = import ./system.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   tofu = import ./tofu { inherit self; };
+  text-packages = builtins.attrNames (builtins.readDir ../packages/text);
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
+  uids = import ./uids.nix { inherit self; };
   users = import ./users.nix { inherit self; };
   wallpaper-packages =
     builtins.attrNames (builtins.readDir ../packages/wallpapers);

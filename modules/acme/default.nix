@@ -1,26 +1,42 @@
-{ config, primaryDomain ? "rovacsek.com", tlds ? [ primaryDomain ], ... }:
+{ config, lib, ... }:
 let
+  inherit (config.flake.lib) merge;
+
   port = 10080;
 
-  tldCertConfigs = builtins.map (tld: {
-    "${tld}" = {
-      extraDomainNames = [ "*.${tld}" ];
-      listenHTTP = ":${builtins.toString port}";
-      reloadServices = [ "nginx" ];
-    };
-  }) tlds;
-
-  certs = builtins.foldl' (x: y: x // y) { } tldCertConfigs;
-
-  defaults = {
-    inherit (config.services.nginx) group;
-    email = "acme@${primaryDomain}";
-  };
+  prod = !config.services.nginx.test.enable;
 in {
-  networking.firewall.allowedTCPPorts = [ port ];
+  age = {
+    identityPaths = [ "/agenix/id-ed25519-acme-primary" ];
 
-  security.acme = {
-    inherit certs defaults;
+    secrets.acme-environment-file = {
+      file = ../../secrets/acme/environment-file.age;
+      mode = "0440";
+      # As per magic value: https://github.com/NixOS/nixpkgs/blob/6df37dc6a77654682fe9f071c62b4242b5342e04/nixos/modules/security/acme/default.nix#L8
+      owner = "acme";
+      # Footgun if you wanted to create distinct capabilities around user/group for this.
+      inherit (config.security.acme.defaults) group;
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = lib.mkIf prod [ port ];
+
+  security.acme = lib.mkIf prod {
     acceptTerms = true;
+
+    certs = merge (builtins.map (tld: {
+      "${tld}" = {
+        domain = "*.${tld}";
+        dnsProvider = "cloudflare";
+        environmentFile = "${config.age.secrets.acme-environment-file.path}";
+        reloadServices = [ "nginx" ];
+      };
+    }) config.services.nginx.domains);
+
+    defaults = {
+      inherit (config.services.nginx) group;
+      dnsPropagationCheck = false;
+      email = "acme@rovacsek.com";
+    };
   };
 }

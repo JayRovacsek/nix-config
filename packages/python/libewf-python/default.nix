@@ -2,7 +2,7 @@
 let
   pname = "libewf-python";
   name = pname;
-  version = "20230212";
+  version = "20231119";
 
   meta = with lib; {
     description = "Python bindings module for libewf";
@@ -21,7 +21,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-a7bPJVovPukGWrOV1peM314w9alB3Kk+Ow1WMlD5+LA=";
+    sha256 = "sha256-35hPmLSVZnAQTputkeputePD2pVwYOt7qerbAe8CE4I=";
   };
 
   doCheck = false;

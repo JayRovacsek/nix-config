@@ -1,6 +1,4 @@
-# Base nix jazz
-.direnv
-.pre-commit-config.yaml
+# Nix
 result
 
 # Terraform
@@ -9,3 +7,10 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform/
 terraform.tfvars
+
+# Tooling
+_typos.toml
+.conform.yaml
+.direnv
+.pre-commit-config.yaml
+cliff.toml

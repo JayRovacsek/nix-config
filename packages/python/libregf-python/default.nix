@@ -2,7 +2,7 @@
 let
   pname = "libregf-python";
   name = pname;
-  version = "20221026";
+  version = "20231203";
 
   meta = with lib; {
     description = "Python bindings module for libregf";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-ofTpfiIERGE6YdM3mut/dl0P72tjiwp5tKBB0MaPZ6Q=";
+    sha256 = "sha256-HGEX6grAfw3p4d2ee14jqgJw7FSueVjozaylrWkplzA=";
   };
 
   doCheck = false;

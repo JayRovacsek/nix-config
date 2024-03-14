@@ -1,9 +1,0 @@
-[files]
-extend-exclude = ["_typos.toml"]
-
-[default.extend-words]
-dota = "dota"
-Adge = "Adge"
-browseable = "browsable"
-browsable = "browseable"
-no = "noo"

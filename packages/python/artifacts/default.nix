@@ -2,7 +2,7 @@
 let
   pname = "artifacts";
   name = pname;
-  version = "20221219";
+  version = "20230928";
 
   meta = with lib; {
     description =
@@ -20,7 +20,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-rCmmzA9OmUiJPVrOJu2N61zj6Z4MysJP6fOTKRibCm0=";
+    sha256 = "sha256-uRjyl35Xl+BuTfERNRumsm2LdEag62TuxrLz+n3xy48=";
   };
 
   propagatedBuildInputs = [ pyyaml ];

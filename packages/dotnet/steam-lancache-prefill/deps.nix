@@ -33,6 +33,11 @@
     sha256 = "1gpj4nx05lknvnnfhcc4kc1wdmrs9vkw3sbb6qbj5m7ygm8g03x4";
   })
   (fetchNuGet {
+    pname = "Intellenum";
+    version = "1.0.0-beta.3";
+    sha256 = "1z3mwrxshd5wwxwwifgg2c1lnkds5xsjcqribacxqh3g1i5xglhm";
+  })
+  (fetchNuGet {
     pname = "JetBrains.Annotations";
     version = "2022.1.0";
     sha256 = "0lsqpssain0v9i3jhpi1c42r5s329y31cvqk5x7gqvy17f29y002";
@@ -54,23 +59,28 @@
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Abstractions";
-    version = "6.27.0";
-    sha256 = "053c1pkx9bnb9440f5rkzbdv99wgcaw95xnqjp09ncd2crh8kakp";
+    version = "6.34.0";
+    sha256 = "0dgn51k142f73l6fk4bsqrpwqhcw6s8y98548kczbzy7qxcnyp82";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.JsonWebTokens";
-    version = "6.27.0";
-    sha256 = "103qvpahmn1x8yxj0kc920s27xbyjr15z8lf5ikrsrikalb5yjx9";
+    version = "6.34.0";
+    sha256 = "0c01dqya958z9ypf0155aqdkvkz9j4j5mgnygxzkisri2cs2w7gs";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Logging";
-    version = "6.27.0";
-    sha256 = "1c3b0bkmxa24bvzi16jc7lc1nifqcq4jg7ild973bb8mivicagzv";
+    version = "6.34.0";
+    sha256 = "0fm4nrihhqn4wrcj2q06rzfrfzgzilb7ch3izkv89c4q74x0yhkb";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Tokens";
-    version = "6.27.0";
-    sha256 = "0h51vdcz6pkv4ky2ygba4vks56rskripqb3fjz95ym0l0xg20s1a";
+    version = "6.34.0";
+    sha256 = "1vkjwryz4wdsaawfq3r80qrmfiyv2zp9y6fzkf2014sqw4nf1vwl";
+  })
+  (fetchNuGet {
+    pname = "Microsoft.NET.ILLink.Tasks";
+    version = "8.0.1";
+    sha256 = "1drbgqdcvbpisjn8mqfgba1pwb6yri80qc4mfvyczqwrcsj5k2ja";
   })
   (fetchNuGet {
     pname = "Microsoft.NETCore.Platforms";
@@ -149,8 +159,8 @@
   })
   (fetchNuGet {
     pname = "System.IdentityModel.Tokens.Jwt";
-    version = "6.27.0";
-    sha256 = "0fihix48dk0jrkawby62fs163dv5hsh63vdhdyp7hfz6nabsqs2j";
+    version = "6.34.0";
+    sha256 = "150ybq4ba9sm3c37d758ngja6wz72f0840d8vfs6bhy6pw0svzwy";
   })
   (fetchNuGet {
     pname = "System.Private.Uri";
@@ -161,11 +171,6 @@
     pname = "System.Runtime";
     version = "4.3.0";
     sha256 = "066ixvgbf2c929kgknshcxqj6539ax7b9m570cp8n179cpfkapz7";
-  })
-  (fetchNuGet {
-    pname = "System.Runtime.CompilerServices.Unsafe";
-    version = "6.0.0";
-    sha256 = "0qm741kh4rh57wky16sq4m0v05fxmkjjr87krycf5vp9f0zbahbc";
   })
   (fetchNuGet {
     pname = "System.Security.AccessControl";

@@ -2,7 +2,7 @@
 let
   pname = "libvshadow-python";
   name = pname;
-  version = "20221030";
+  version = "20231128";
 
   meta = with lib; {
     description = "Python bindings module for libvshadow";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-U9cwm8Nye9eDb77FkB39U3fBMqn1jCEqpbizcXZCLQg=";
+    sha256 = "sha256-B1B7le2SHjnF5ds/7eqburL7WVk/ANmsPS1tDbZcTPQ=";
   };
 
   doCheck = false;

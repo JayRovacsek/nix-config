@@ -4,7 +4,8 @@ let
   # any number of packagesets to be consumed without boilerplate 
   inherit (self) inputs;
   # Inputs that expose overlays we require
-  inherit (self.inputs) nur agenix firefox-darwin flake-utils;
+  inherit (self.inputs) flake-utils;
+  inherit (self.common.overlays) darwin linux system-agnostic;
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
@@ -25,24 +26,9 @@ let
     name = "bleeding-edge";
   };
 
-  config = { allowUnfree = true; };
+  config.allowUnfree = true;
 
   targetGeneration = [ stable unstable bleeding-edge ];
-
-  overlays =
-    [ nur.overlay agenix.overlays.default self.overlays.nix-monitored ];
-
-  darwin-overlays = [ firefox-darwin.overlay ];
-
-  linux-overlays = [
-    self.overlays.ags-config
-    self.overlays.fcitx-engines
-    self.overlays.grub2
-    self.overlays.makeModulesClosure
-    self.overlays.moonlight-wayland
-    self.overlays.mpvpaper
-    self.overlays.ranger
-  ];
 
   # Done to make available the packageset identifier via the identifier attribute of
   # the packageset. Mostly everything else will be a derivation
@@ -89,8 +75,8 @@ let
           # This might be better abstracted into a set that then is
           # pulled via getAttr, but that'll be a next refactor step
           # rather than MVP suitable.
-          overlays = overlays ++ (optionals isDarwin darwin-overlays)
-            ++ (optionals isLinux linux-overlays);
+          overlays = system-agnostic ++ (optionals isDarwin darwin)
+            ++ (optionals isLinux linux);
         };
       }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
 in recursiveUpdate identifiers packageSets

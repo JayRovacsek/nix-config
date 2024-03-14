@@ -1,13 +1,13 @@
 { self }:
 let
   # Required build functions
-  inherit (self.common.system) unstable-system bleeding-edge-system;
+  inherit (self.common.system) unstable-system;
 
   # Required package-sets
   inherit (self.common.package-sets)
-    x86_64-linux-unstable aarch64-linux-unstable aarch64-linux-bleeding-edge;
+    x86_64-linux-unstable aarch64-linux-unstable;
 
-  inherit (self.lib.host) make-host;
+  inherit (self.lib.host) make-host make-microvm;
 in {
   # Cloud and hardware specific configurations
   inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
@@ -32,24 +32,21 @@ in {
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
-  wigglytuff =
-    make-host aarch64-linux-bleeding-edge "wigglytuff" bleeding-edge-system;
+  wigglytuff = make-host aarch64-linux-unstable "wigglytuff" unstable-system;
 
   ## WSL Configuration
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
   ## MicroVMs
-  ## TEMPORARILY DISABLED
-
-  # igglybuff = let
-  #   inherit (x86_64-linux-unstable) system identifier pkgs;
-  #   base = self.common.modules.${identifier};
-  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/igglybuff ];
-  # in unstable-system { inherit system pkgs modules; };
-
-  # aipom = let
-  #   inherit (x86_64-linux-unstable) system identifier pkgs;
-  #   base = self.common.modules.${identifier};
-  #   modules = base ++ [ microvm.nixosModules.microvm ../hosts/aipom ];
-  # in unstable-system { inherit system pkgs modules; };
+  bellsprout = make-microvm x86_64-linux-unstable "bellsprout" unstable-system;
+  igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
+  machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
+  magikarp = make-microvm x86_64-linux-unstable "magikarp" unstable-system;
+  mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
+  meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
+  nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
+  nidorina = make-microvm x86_64-linux-unstable "nidorina" unstable-system;
+  nidorino = make-microvm x86_64-linux-unstable "nidorino" unstable-system;
+  poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
+  porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
 }

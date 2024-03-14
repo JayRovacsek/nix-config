@@ -4,7 +4,7 @@ let
 
   pname = "dfwinreg";
   name = pname;
-  version = "20221218";
+  version = "20231205";
 
   meta = with lib; {
     description =
@@ -26,7 +26,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-qY49wRXGuK86lE12pJz17AxbKg+oAD2sXXy8eLS3LS0=";
+    sha256 = "sha256-8KZdPM4XXQ9H7brgcO3orFYwVRpGgFjjq3DUI401XTo=";
   };
 
   doCheck = false;

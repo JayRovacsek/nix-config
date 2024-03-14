@@ -453,7 +453,7 @@ comment = "False positives"
 ["sysstat"]
 cve = ["CVE-2022-39377"]
 until = "2022-12-31"
-comment = "Temporarily risk acccept"
+comment = "Temporarily risk accept"
 
 ["tcl"]
 cve = ["CVE-2021-35331"]

@@ -4,7 +4,7 @@ let
 
   pname = "plaso";
   name = pname;
-  version = "20230311";
+  version = "20230717";
   meta = with lib; {
     description =
       "Plaso (Plaso Langar Að Safna Öllu), or super timeline all the things, is a Python-based engine used by several tools for automatic creation of timelines. Plaso default behavior is to create super timelines but it also supports creating more targeted timelines.";
@@ -35,7 +35,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-hruwIXFfKiIBG/oEjOHGQbhzJVIRNmdVcGAHitxidWQ=";
+    sha256 = "sha256-Ao8A6r1OeCS6s/5ZJRiooJXNylsgTCh5Kqz98eNImmQ=";
   };
 
   doCheck = false;

@@ -2,7 +2,7 @@
 let
   pname = "libfsntfs-python";
   name = pname;
-  version = "20221023";
+  version = "20231125";
 
   meta = with lib; {
     description = "Python bindings module for libfsntfs";
@@ -19,7 +19,7 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-tjdkHy/ttKVlGucC9/0bk9ni2J5LdvD07e/mOLX25Zg=";
+    sha256 = "sha256-4jxemTiozAuneNvrsb4pouO4Sh4W2dTO+jyzdgizIK0=";
   };
 
   doCheck = false;

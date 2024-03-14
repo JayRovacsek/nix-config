@@ -1,7 +1,9 @@
-{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime }:
+{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime_8, dotnet-sdk_8 }:
 let
+  dotnet-runtime = dotnet-runtime_8;
+  dotnet-sdk = dotnet-sdk_8;
   pname = "steam-lancache-prefill";
-  version = "2.1.4";
+  version = "2.4.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/steam-lancache-prefill";
@@ -15,18 +17,19 @@ let
     repo = "steam-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-ZdmPbir2KRSKXtYfn05V9+Y2e8HW4mXhfHlMdVy8oMI=";
+    hash = "sha256-Hk0BjAMkyXDtNy/kKhIANPmjTzW5kd4fJWC+m0jwCUI=";
   };
 
   patches = [ ./no-appcontext.patch ];
 
   projectFile = [
     "SteamPrefill/SteamPrefill.csproj"
-    "LancachePrefill.Common/LancachePrefill.Common.csproj"
+    "LancachePrefill.Common/dotnet/LancachePrefill.Common.csproj"
   ];
 
   nugetDeps = ./deps.nix;
 
 in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime projectFile nugetDeps patches;
+  inherit pname version meta src dotnet-runtime dotnet-sdk projectFile nugetDeps
+    patches;
 }
