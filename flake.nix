@@ -30,9 +30,9 @@
     };
 
     ags-config = {
-      url = "github:JayRovacsek/ags-config/1.5.1";
+      url = "github:JayRovacsek/ags-config/1.8.0";
       inputs = {
-        gitignore.follows = "gitignore";
+        ags.follows = "ags";
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
