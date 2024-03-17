@@ -21,11 +21,9 @@ in with self.nixosModules; [
   pipewire
   steam
   systemd-networkd
-  # tailscale
   time
   timesyncd
   udev
-  upower
   zsh
 ]
 
