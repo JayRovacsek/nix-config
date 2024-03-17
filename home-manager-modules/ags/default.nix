@@ -1,19 +1,17 @@
 { pkgs, osConfig, ... }: {
   programs.ags = {
     enable = true;
-    inherit (osConfig.flake.inputs.ags-config) configDir;
+    configDir = osConfig.flake.inputs.ags-config.outPath + "/src";
   };
 
   home.packages = with pkgs; [
+    # Required for brightness control
     brightnessctl
-    gnome-icon-theme
-    hicolor-icon-theme
-    hyprpicker
-    inotify-tools
-    papirus-icon-theme
-    playerctl
-    sassc
-    swww
-    tela-circle-icon-theme
+    # Required to build ags config
+    bun
+    # Required for theme icons
+    adw-gtk3
+    # Required for system tray
+    libdbusmenu-gtk3
   ];
 }

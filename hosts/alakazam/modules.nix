@@ -25,6 +25,7 @@ in with self.nixosModules; [
   time
   timesyncd
   udev
+  upower
   zsh
 ]
 

@@ -16,6 +16,8 @@
 
 - *(linux)* Add zfs dataset to dragonite (osts) - ([004159b](https://github.com/JayRovacsek/nix-config/commit/004159b1c29647c886ae9a7db567439962492429))
 
+- *(modules)* Implement upower module to utilise in ags - ([757e6f8](https://github.com/JayRovacsek/nix-config/commit/757e6f8290ea62aa63e00d7b21bdf00937143efa))
+
 - *(modules)* Add blocky dashboard to grafana - ([f2fb944](https://github.com/JayRovacsek/nix-config/commit/f2fb944fb68faf346e067a85f7252ec7889a259d))
 
 - *(modules)* Enable reporting for blocky module - ([eb9f59d](https://github.com/JayRovacsek/nix-config/commit/eb9f59d1818f996010a1819690b100fd81f2baee))
