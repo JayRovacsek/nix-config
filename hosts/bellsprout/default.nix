@@ -1,6 +1,4 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, ... }: {
   microvm = {
     interfaces = [{
       type = "macvtap";

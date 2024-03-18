@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (pkgs) lib;
   nvidia-present = builtins.any (driver: driver == "nvidia")
@@ -26,7 +26,7 @@ let
   };
 
 in {
-  nixpkgs.overlays = with config.flake.inputs; [ nixpkgs-wayland.overlay ];
+  nixpkgs.overlays = with self.inputs; [ nixpkgs-wayland.overlay ];
 
   services.xserver.displayManager.defaultSession = "hyprland";
 

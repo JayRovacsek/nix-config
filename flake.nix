@@ -238,6 +238,16 @@
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
 
+        homeManagerModules = builtins.foldl' (accumulator: module:
+          recursiveUpdate {
+            ${module} = { config, lib, modulesPath, nixosConfig, options
+              , osConfig, pkgs, self, specialArgs }:
+              import ./home-manager-modules/${module} {
+                inherit config lib modulesPath nixosConfig options osConfig pkgs
+                  self specialArgs;
+              };
+          } accumulator) { } self.common.home-manager-modules;
+
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };
 

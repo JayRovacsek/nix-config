@@ -9,6 +9,7 @@ in with self.nixosModules; [
   gnupg
   greetd
   grub
+  home-manager
   hyprland
   keybase
   lorri

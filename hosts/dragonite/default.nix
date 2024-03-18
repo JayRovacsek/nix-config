@@ -1,8 +1,8 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base cli;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -17,7 +17,6 @@ let
   merged = merge [ builder jay ];
 
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   imports = [ ./filesystems.nix ./old-users.nix ];
@@ -171,10 +170,7 @@ in {
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
-        ${pokemon} = {
-          inherit flake;
-          updateFlake = "git+file://${flake}";
-        };
+        ${pokemon} = { updateFlake = "git+file://${flake}"; };
       }) { } party;
   };
 

@@ -1,9 +1,9 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) cli;
+  inherit (self.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
@@ -12,7 +12,6 @@ let
 
   merged = merge [ jay ];
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   age = {

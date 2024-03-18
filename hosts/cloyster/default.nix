@@ -1,11 +1,10 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
-  inherit (flake.lib) merge;
+  inherit (self.common.home-manager-module-sets) hyprland-desktop;
+  inherit (self.lib) merge;
 
-  jay = common.users.jay {
+  jay = self.common.users.jay {
     inherit config pkgs;
     modules = hyprland-desktop;
   };
@@ -13,7 +12,6 @@ let
   merged = merge [ jay ];
 
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   age = {
@@ -72,7 +70,7 @@ in {
   hardware = {
     cpu.intel.updateMicrocode =
       lib.mkDefault config.hardware.enableRedistributableFirmware;
-    firmware = [ config.flake.packages.${pkgs.system}.t2-firmware ];
+    firmware = [ self.packages.${pkgs.system}.t2-firmware ];
   };
 
   networking.hostName = "cloyster";

@@ -1,19 +1,17 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
   inherit (pkgs) system;
 
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge;
-  inherit (config.flake.packages.${system}) cloudquery cvemap trdsql;
+  inherit (self.common.home-manager-module-sets) darwin-desktop;
+  inherit (self.lib) merge;
+  inherit (self.packages.${system}) cloudquery cvemap trdsql;
 
-  jay = common.users."j.rovacsek" {
+  jay = self.common.users."j.rovacsek" {
     inherit config pkgs;
     modules = darwin-desktop;
   };
   merged = merge [ jay ];
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   age = {

@@ -1,4 +1,4 @@
-{ config, flake, pkgs, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
@@ -6,8 +6,6 @@ let
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
 in {
-  inherit flake;
-
   networking.hostName = "nidoking";
 
   users = {

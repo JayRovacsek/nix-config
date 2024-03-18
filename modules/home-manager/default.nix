@@ -1,1 +1,1 @@
-_: { programs.home-manager.enable = true; }
+{ self, ... }: { home-manager.extraSpecialArgs = { inherit self; }; }

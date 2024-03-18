@@ -1,6 +1,4 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, ... }: {
   networking.hostName = "machop";
 
   microvm = {

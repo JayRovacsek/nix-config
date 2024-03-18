@@ -1,9 +1,9 @@
-{ config, pkgs, lib, modulesPath, flake, ... }:
+{ config, pkgs, lib, modulesPath, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-desktop-minimal;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base hyprland-desktop-minimal;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -13,13 +13,12 @@ let
   jay = common.users.jay {
     inherit config pkgs;
     modules = hyprland-desktop-minimal
-      ++ (with flake.common.home-manager-modules; [ mako waybar ]);
+      ++ (with self.common.home-manager-modules; [ mako waybar ]);
   };
 
   merged = merge [ builder jay ];
 
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   imports = [ "${modulesPath}/installer/sd-card/sd-image-aarch64.nix" ];

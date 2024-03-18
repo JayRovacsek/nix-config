@@ -1,13 +1,13 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets)
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets)
     base hyprland-waybar-desktop games;
-  inherit (flake.lib) merge;
+  inherit (self.lib) merge;
 
   inherit (pkgs) system;
-  inherit (config.flake.packages.${system}) trdsql;
+  inherit (self.packages.${system}) trdsql;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -22,7 +22,6 @@ let
   merged = merge [ builder jay ];
 
 in {
-  inherit flake;
   inherit (merged) users home-manager;
 
   age = {

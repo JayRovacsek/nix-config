@@ -1,7 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config) flake;
-  inherit (flake.lib.microvm) is-microvm-host;
+  inherit (self.lib.microvm) is-microvm-host;
 
   path-file = s: lib.last (lib.splitString "/" s);
 
@@ -12,7 +11,7 @@ let
 
   # Assumption vms value matches that of a nixosConfiguration
   # TODO: add guard to check for attribute
-  microvms = builtins.map (x: flake.nixosConfigurations.${x}) microvmHostnames;
+  microvms = builtins.map (x: self.nixosConfigurations.${x}) microvmHostnames;
 
   agenix-rules = builtins.foldl' (acc: microvm:
     acc ++ (builtins.map (y:

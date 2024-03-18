@@ -1,6 +1,4 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, ... }: {
   environment.noXlibs = false;
 
   networking.hostName = "porygon";

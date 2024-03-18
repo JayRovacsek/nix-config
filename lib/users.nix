@@ -1,7 +1,7 @@
 _:
 let
-  generate-config = { flake, config, pkgs, user-settings, modules
-    , stable ? false, overrides ? { }, ... }:
+  generate-config = { self, config, pkgs, user-settings, modules, stable ? false
+    , overrides ? { }, ... }:
     # User settings:
     # {
     #   name,
@@ -19,9 +19,9 @@ let
       inherit (lib) recursiveUpdate;
       inherit (lib.strings) hasInfix;
       inherit (lib.attrsets) filterAttrs;
-      inherit (flake.inputs) home-manager;
-      inherit (flake.common) user-attr-names;
-      inherit (flake.lib.ssh) generate-ssh-config;
+      inherit (self.inputs) home-manager;
+      inherit (self.common) user-attr-names;
+      inherit (self.lib.ssh) generate-ssh-config;
 
       # Also described below, making the recursive update easier to follow
       flippedRecursiveUpdate = x: y: recursiveUpdate y x;
@@ -72,10 +72,11 @@ let
       stripped-user-settings =
         filterAttrs (name: _: elem name user-attr-names) user-settings;
 
-      nixpkgs = if stable then flake.inputs.stable else flake.inputs.nixpkgs;
+      nixpkgs = if stable then self.inputs.stable else self.inputs.nixpkgs;
 
       optionalHome = lib.attrsets.optionalAttrs (hasAttr "home" user-settings)
         user-settings.home;
+
       accounts = lib.attrsets.optionalAttrs (hasAttr "accounts" user-settings)
         user-settings.accounts;
 

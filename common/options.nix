@@ -6,12 +6,7 @@ in builtins.mapAttrs (package-set: _:
     inherit (pkgs.lib.lists) optionals;
     inherit (pkgs.stdenv) isLinux isDarwin;
 
-    generic = [
-      ../options/flake
-      ../options/hardware
-      ../options/networking
-      ../options/nix
-    ];
+    generic = [ ../options/hardware ../options/networking ../options/nix ];
 
     linux = optionals isLinux [
       ../options/headscale

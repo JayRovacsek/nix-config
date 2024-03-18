@@ -12,7 +12,8 @@
   gids = import ./gids.nix { inherit self; };
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
-  home-manager-modules = import ./home-manager-modules.nix { inherit self; };
+  home-manager-modules =
+    builtins.attrNames (builtins.readDir ../home-manager-modules);
   headscale = import ./headscale.nix { inherit self; };
   hyprland = import ./hyprland.nix { inherit self; };
   impermanence = import ./impermanence.nix { inherit self; };
@@ -31,8 +32,6 @@
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
-  # TODO: kill in favour of specialArgs
-  self-reference = import ./self-reference.nix { inherit self; };
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };

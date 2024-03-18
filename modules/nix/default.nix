@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 with builtins;
 let
   # We use the below value as it'll be available before this
-  # evaluates rather than config.flake (which is available but
+  # evaluates rather than self (which is available but
   # only after further evaluation)
-  inherit (config) flake;
-  inherit (flake.lib.distributed-builds) generate-system-ssh-extra-config;
+  inherit (self.lib.distributed-builds) generate-system-ssh-extra-config;
 
   build-configs =
     builtins.fromJSON (builtins.readFile ../../static/build-machines.json);

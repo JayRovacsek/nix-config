@@ -1,6 +1,4 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, ... }: {
   imports = [ ./authelia.nix ];
 
   microvm = {

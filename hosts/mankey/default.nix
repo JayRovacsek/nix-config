@@ -1,6 +1,4 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, ... }: {
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
