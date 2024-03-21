@@ -1,6 +1,8 @@
 { config, flake, ... }: {
   inherit flake;
 
+  environment.noXlibs = false;
+
   microvm = {
     interfaces = [{
       type = "macvtap";
