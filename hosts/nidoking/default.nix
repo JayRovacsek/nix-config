@@ -19,11 +19,6 @@ in {
     };
   };
 
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-
   microvm = {
     interfaces = [{
       type = "macvtap";

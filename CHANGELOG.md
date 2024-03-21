@@ -2,6 +2,8 @@
 
 ### ⛰️  Features
 
+- *(common)* Add flaresolverr and openssh public keys to common - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
 - *(common)* Add more definitions to networking services - ([5f7700c](https://github.com/JayRovacsek/nix-config/commit/5f7700c810963a1ccef994489dc237904a7783f1))
 
 - *(darwin)* Add trdsql package back to victreebel - ([ca18a44](https://github.com/JayRovacsek/nix-config/commit/ca18a449d0da38629dfe24e5627ce5e4eb3bed16))
@@ -12,9 +14,13 @@
 
 - *(home-manager-modules)* Change from neovim-flake to nixvim - ([d9cb899](https://github.com/JayRovacsek/nix-config/commit/d9cb8999b83b23f0554d5df42ac8399be5e10259))
 
+- *(linux)* Add slowpoke as a new host (flaresolverr) - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
 - *(linux)* Move gastly to greetd, remove docker + pipewire - ([a364d66](https://github.com/JayRovacsek/nix-config/commit/a364d665db80b614f187f0ee009194f501e644f5))
 
 - *(linux)* Add zfs dataset to dragonite (osts) - ([004159b](https://github.com/JayRovacsek/nix-config/commit/004159b1c29647c886ae9a7db567439962492429))
+
+- *(modules)* Add flaresolverr module - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
 - *(modules)* Add blocky dashboard to grafana - ([f2fb944](https://github.com/JayRovacsek/nix-config/commit/f2fb944fb68faf346e067a85f7252ec7889a259d))
 
@@ -30,7 +36,11 @@
 
 - *(modules)* Add linux builder to darwin settings - ([4b2e4f9](https://github.com/JayRovacsek/nix-config/commit/4b2e4f9f17b3711915f1cc17b4ddfe8725d7a400))
 
+- *(options)* Migrate network from lan to local as local domain - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
 - *(options)* Enable emulated systems for linux-builder - ([5466cdc](https://github.com/JayRovacsek/nix-config/commit/5466cdce52f072e441f0d6000f55ac7e6f8cef1f))
+
+- *(overlays)* Add sonarr overlay to resolve microvm breakage - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
 - *(overlays)* Move overlay system binds to common space + remove from package-sets - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
 
@@ -68,6 +78,8 @@
 
 - *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
 
+- *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
 - *(linux)* Remove grub from t2 host (requires systemd) - ([f474124](https://github.com/JayRovacsek/nix-config/commit/f47412477c8a1b7b21a6afafa8eb376ce05110e4))
 
 - *(linux)* Remove pipewire from hosts temporarily - ([49def46](https://github.com/JayRovacsek/nix-config/commit/49def46c1a58d5989619a7a368c034d87021d8cc))
@@ -87,6 +99,8 @@
 - *(modules)* Fix hydra github token being incorrectly created as root only - ([d315ea9](https://github.com/JayRovacsek/nix-config/commit/d315ea90e9f85a9bdcb0955f7284e043afbe4f3f))
 
 - *(modules)* Remove non-loki code from loki module - ([3adec3b](https://github.com/JayRovacsek/nix-config/commit/3adec3b28d03f74f2dd78c17fb34fad60686cbc3))
+
+- *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
 - *(overlays)* Resolve git-cliff darwin build - ([4afa8d1](https://github.com/JayRovacsek/nix-config/commit/4afa8d1e9b3216954e57928896529521551f5e0a))
 
