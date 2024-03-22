@@ -1,12 +1,12 @@
 { config, pkgs, lib, self, ... }:
 
 let
-  inherit (self.common.home-manager-module-sets) hyprland-desktop;
+  inherit (self.common.home-manager-module-sets) hyprland-waybar-desktop;
   inherit (self.lib) merge;
 
   jay = self.common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-waybar-desktop;
   };
 
   merged = merge [ jay ];
