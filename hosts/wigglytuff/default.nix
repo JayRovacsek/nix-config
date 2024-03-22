@@ -13,7 +13,7 @@ let
   jay = common.users.jay {
     inherit config pkgs;
     modules = hyprland-desktop-minimal
-      ++ (with self.common.home-manager-modules; [ mako waybar ]);
+      ++ (with self.homeManagerModules; [ mako waybar ]);
   };
 
   merged = merge [ builder jay ];
