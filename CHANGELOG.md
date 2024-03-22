@@ -114,6 +114,10 @@
 
 - *(home-manager-modules)* Implement mopidy in hm rather than system - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))
 
+### 📚 Documentation
+
+- *(hydra)* Add comments to hydra required allowed uris - ([8ccf002](https://github.com/JayRovacsek/nix-config/commit/8ccf002f3c6627e92c30b16c4f31e6dd786b6f41))
+
 ### 🧪 Testing
 
 - *(linux)* Swap alakazam back to waybar for now - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))

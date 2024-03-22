@@ -34,6 +34,7 @@ let
     "github:NixOS/nixos-hardware"
     "github:nixos/nixpkgs"
     "github:NixOS/nixpkgs"
+    "github:numtide/devshell"
     "github:numtide/flake-utils"
     "github:numtide/nix-filter"
     "github:numtide/treefmt-nix"
