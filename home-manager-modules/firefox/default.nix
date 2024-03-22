@@ -73,12 +73,11 @@ in {
         };
         "Github Code Search" = {
           keyword = "cs";
-          url = "https://cs.github.com/?scopeName=All+repos&scope=&q=%s";
+          url = "https://github.com/search?type=code&q=%s";
         };
         "Github Nix Code Search" = {
           keyword = "ncs";
-          url =
-            "https://cs.github.com/?scopeName=All+repos&scope=&q=%s+language%3Anix";
+          url = "https://github.com/search?type=code&q=language%3Anix+%s";
         };
         "Dockerhub Search" = {
           keyword = "dh";
