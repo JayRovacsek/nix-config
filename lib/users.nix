@@ -89,11 +89,15 @@ let
         home = if isDarwin then "/Users/${name}" else "/home/${name}";
       } stripped-user-settings;
 
-      home-manager.users.${name} = {
-        home = recursiveUpdate defaultHome optionalHome;
-        inherit accounts;
-        imports = modules;
-        xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+      home-manager = {
+        extraSpecialArgs = { inherit self; };
+
+        users.${name} = {
+          home = recursiveUpdate defaultHome optionalHome;
+          inherit accounts;
+          imports = modules;
+          xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+        };
       };
     };
 
