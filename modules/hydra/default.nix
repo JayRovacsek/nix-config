@@ -22,6 +22,7 @@ let
     "github:numtide/nix-filter"
     "github:numtide/treefmt-nix"
     "github:ryantm/agenix"
+    "github:SenchoPens/base16.nix"
     "github:terranix/terranix"
     "github:tiiuae/sbomnix"
   ];
