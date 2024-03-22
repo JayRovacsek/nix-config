@@ -1,5 +1,31 @@
 { config, pkgs, lib, self, ... }:
-let inherit (self.common.networking.services.hydra) port;
+let
+  inherit (self.common.networking.services.hydra) port;
+  urls = [
+    "github:astro/microvm.nix"
+    "github:Aylur/ags"
+    "github:bandithedoge/nixpkgs-firefox-darwin"
+    "github:cachix/pre-commit-hooks.nix"
+    "github:danth/stylix"
+    "github:DeterminateSystems/flake-schemas"
+    "github:edolstra/flake-compat"
+    "github:hercules-ci/flake-parts"
+    "github:hercules-ci/gitignore.nix"
+    "github:JayRovacsek/ags-config"
+    "github:lnl7/nix-darwin"
+    "github:ners/nix-monitored"
+    "github:nix-community"
+    "github:nix-systems/default"
+    "github:NixOS/nixos-hardware"
+    "github:nixos/nixpkgs"
+    "github:numtide/flake-utils"
+    "github:numtide/nix-filter"
+    "github:numtide/treefmt-nix"
+    "github:ryantm/agenix"
+    "github:SenchoPens/base16.nix"
+    "github:terranix/terranix"
+    "github:tiiuae/sbomnix"
+  ];
 in {
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key
@@ -37,7 +63,7 @@ in {
   networking.firewall.allowedTCPPorts = [ port ];
 
   nix.extraOptions = ''
-    extra-allowed-uris = https://gitlab.com/api/v4/projects/rycee%2Fnmd https://git.sr.ht/~rycee/nmd
+    allowed-uris = ${lib.concatStringsSep " " urls}
   '';
 
   services.hydra = {
@@ -48,7 +74,7 @@ in {
       <githubstatus>
         jobs = .*
         inputs = src
-        context = hydra
+        useShortContext = true
       </githubstatus>
     '';
     hydraURL = "https://hydra.rovacsek.com";

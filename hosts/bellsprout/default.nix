@@ -1,4 +1,6 @@
 { config, ... }: {
+  environment.noXlibs = false;
+
   microvm = {
     interfaces = [{
       type = "macvtap";
