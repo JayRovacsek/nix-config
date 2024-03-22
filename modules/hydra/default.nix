@@ -1,30 +1,51 @@
 { config, pkgs, lib, self, ... }:
 let
   inherit (self.common.networking.services.hydra) port;
+
+  /* *
+     Hello fellow hydra user! You might be here given some broad
+     search attempt in github to understand what is going on in hydra.
+     Hopefully some of the below might be of value! One word of warning
+     is the folly that is keeping an allowed uris list small it seems nowadays
+     (other than super permissive allow-lists...)
+
+     Note that the below seem to by case-sensitive if it couldn't get much worse
+     :'(
+  */
   urls = [
+    "github:aarowill/base16-alacritty"
     "github:astro/microvm.nix"
     "github:Aylur/ags"
     "github:bandithedoge/nixpkgs-firefox-darwin"
     "github:cachix/pre-commit-hooks.nix"
+    "github:chriskempson/base16-vim"
     "github:danth/stylix"
     "github:DeterminateSystems/flake-schemas"
     "github:edolstra/flake-compat"
+    "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
     "github:JayRovacsek/ags-config"
+    "github:kdrag0n/base16-kitty"
     "github:lnl7/nix-darwin"
     "github:ners/nix-monitored"
     "github:nix-community"
     "github:nix-systems/default"
     "github:NixOS/nixos-hardware"
     "github:nixos/nixpkgs"
+    "github:NixOS/nixpkgs"
     "github:numtide/flake-utils"
     "github:numtide/nix-filter"
     "github:numtide/treefmt-nix"
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
+    "github:SenchoPens/fromYaml"
     "github:terranix/terranix"
     "github:tiiuae/sbomnix"
+    "github:tinted-theming/base16-foot"
+    "github:tinted-theming/base16-helix"
+    "github:tinted-theming/base16-tmux"
+    "github:tomyun/base16-fish"
   ];
 in {
   # If Hydra is present, we assume a builder user is also present generally
