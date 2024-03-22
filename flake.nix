@@ -240,11 +240,11 @@
 
         homeManagerModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {
-            ${module} = { config, lib, modulesPath, nixosConfig, options
-              , osConfig, pkgs, self, specialArgs }:
+            ${module} = { config, darwinConfig ? { }, lib, modulesPath
+              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs }:
               import ./home-manager-modules/${module} {
-                inherit config lib modulesPath nixosConfig options osConfig pkgs
-                  self specialArgs;
+                inherit config darwinConfig lib modulesPath nixosConfig options
+                  osConfig pkgs self specialArgs;
               };
           } accumulator) { } self.common.home-manager-modules;
 
