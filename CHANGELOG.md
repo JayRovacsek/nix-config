@@ -100,6 +100,8 @@
 
 - *(overlays)* Resolve git-cliff darwin build - ([4afa8d1](https://github.com/JayRovacsek/nix-config/commit/4afa8d1e9b3216954e57928896529521551f5e0a))
 
+- *(packages)* Mark backgroundremover as broken - ([5860ef6](https://github.com/JayRovacsek/nix-config/commit/5860ef6b5f5e455a1cbbeb4cf2cfe1f8c58a56c2))
+
 - *(packages)* Remove flask-security & security-too overlays/packages - ([49def46](https://github.com/JayRovacsek/nix-config/commit/49def46c1a58d5989619a7a368c034d87021d8cc))
 
 - *(secrets)* Correct terraform api secret - ([72048dc](https://github.com/JayRovacsek/nix-config/commit/72048dc74e40d6d86e8571bd2aca596ce089acc8))
