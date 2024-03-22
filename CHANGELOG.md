@@ -14,6 +14,8 @@
 
 - *(home-manager-modules)* Change from neovim-flake to nixvim - ([d9cb899](https://github.com/JayRovacsek/nix-config/commit/d9cb8999b83b23f0554d5df42ac8399be5e10259))
 
+- *(linux)* Change cloyster to waybar - ([0b01017](https://github.com/JayRovacsek/nix-config/commit/0b0101739b1754df8d69e6f93e848c7cc59c8d5b))
+
 - *(linux)* Add upower to alakazam for testing - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))
 
 - *(linux)* Move gastly to greetd, remove docker + pipewire - ([a364d66](https://github.com/JayRovacsek/nix-config/commit/a364d665db80b614f187f0ee009194f501e644f5))

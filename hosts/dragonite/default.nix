@@ -170,7 +170,7 @@ in {
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
-        ${pokemon} = { updateFlake = "git+file://${flake}"; };
+        ${pokemon} = { updateFlake = "git:JayRovacsek/nix-config/testing"; };
       }) { } party;
   };
 
