@@ -1,4 +1,14 @@
-{ config, ... }: {
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    gids
+    lidarr
+    microvm-guest
+    time
+    timesyncd
+    uids
+  ];
+
   networking.hostName = "machop";
 
   microvm = {

@@ -1,7 +1,6 @@
 { config, pkgs, lib, self, ... }:
 
 let
-  inherit (self) common;
   inherit (self.common.home-manager-module-sets)
     base hyprland-waybar-desktop games;
   inherit (self.lib) merge;
@@ -9,20 +8,49 @@ let
   inherit (pkgs) system;
   inherit (self.packages.${system}) trdsql;
 
-  builder = common.users.builder {
+  builder = self.common.users.builder {
     inherit config pkgs;
     modules = base;
   };
 
-  jay = common.users.jay {
+  jay = self.common.users.jay {
     inherit config pkgs;
     modules = hyprland-waybar-desktop ++ games;
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
+
+  imports = with self.nixosModules; [
+    agenix
+    clamav
+    docker
+    fonts
+    generations
+    gnupg
+    greetd
+    grub
+    home-manager
+    hyprland
+    i18n
+    impermanence
+    keybase
+    lorri
+    microvm-host
+    nextcloud-client
+    nix
+    nvidia
+    openssh
+    pipewire
+    steam
+    systemd-networkd
+    time
+    timesyncd
+    udev
+    zsh
+  ];
 
   age = {
     secrets = {
@@ -97,8 +125,6 @@ in {
     hostId = "ef26b1be";
     hostName = "alakazam";
   };
-
-  services.tailscale.tailnet = "admin";
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/b8d2e5ee-095e-4daa-8b2b-ddcfc5b67ac9"; }];

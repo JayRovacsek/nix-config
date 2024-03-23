@@ -21,7 +21,22 @@ let
 in {
   inherit (merged) users home-manager;
 
-  imports = [ "${modulesPath}/installer/sd-card/sd-image-aarch64.nix" ];
+  imports = with self.nixosModules; [
+    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    agenix
+    gnupg
+    greetd
+    hyprland
+    lorri
+    nix
+    openssh
+    self.inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    zsh
+  ];
 
   age = {
     identityPaths = [

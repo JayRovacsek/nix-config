@@ -28,7 +28,11 @@ let
     microvms;
 
 in {
-  imports = [ ../systemd-networkd ../../options/microvm-host ];
+  imports = [
+    self.inputs.microvm.nixosModules.host
+    ../systemd-networkd
+    ../../options/microvm-host
+  ];
 
   nix.settings = {
     substituters = [ "https://microvm.cachix.org/" ];

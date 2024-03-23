@@ -19,7 +19,32 @@ let
 in {
   inherit (merged) users home-manager;
 
-  imports = [ ./filesystems.nix ./old-users.nix ];
+  imports = [ ./filesystems.nix ./old-users.nix ] ++ (with self.nixosModules; [
+    agenix
+    blocky
+    clamav
+    firefox-syncserver
+    fonts
+    gnupg
+    hydra
+    jellyfin
+    jellyseerr
+    lorri
+    microvm-host
+    nix
+    nix-serve
+    nvidia
+    openssh
+    openvscode-server
+    samba
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    udev
+    zfs
+    zsh
+  ]);
 
   age = {
     secrets = {
@@ -170,7 +195,14 @@ in {
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
-        ${pokemon} = { updateFlake = "git:JayRovacsek/nix-config/testing"; };
+        ${pokemon} = {
+          inherit (self.nixosConfigurations.${pokemon}._module) specialArgs;
+
+          config = {
+            imports = builtins.filter (x: (builtins.typeOf x) != "lambda")
+              self.nixosConfigurations.${pokemon}._module.args.modules;
+          };
+        };
       }) { } party;
   };
 
@@ -200,8 +232,6 @@ in {
         comment = "Public Game Files";
       };
     };
-
-    tailscale.tailnet = "admin";
   };
 
   swapDevices =

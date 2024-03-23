@@ -1,4 +1,12 @@
-{ config, lib, ... }: {
+{ config, lib, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    blocky
+    microvm-guest
+    time
+    timesyncd
+  ];
+
   microvm = {
     interfaces = [{
       type = "macvtap";

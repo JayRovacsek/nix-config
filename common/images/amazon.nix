@@ -1,9 +1,8 @@
 { self }:
 let
   inherit (self.common.system) unstable-system;
-  inherit (self.common.assertions) disable-assertions;
   inherit (self.common.package-sets) x86_64-linux-unstable;
-  inherit (self.nixosModules) amazon-image zsh;
+  inherit (self.nixosModules) amazon-image zsh disable-assertions;
 
   inherit (x86_64-linux-unstable) system identifier pkgs;
   base = self.common.modules.${identifier};

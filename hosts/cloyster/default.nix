@@ -73,6 +73,24 @@ in {
     firmware = [ self.packages.${pkgs.system}.t2-firmware ];
   };
 
+  imports = (with self.nixosModules; [
+    agenix
+    clamav
+    fonts
+    gnupg
+    greetd
+    hyprland
+    lorri
+    nix
+    openssh
+    steam
+    systemd-networkd
+    time
+    timesyncd
+    udev
+    zsh
+  ]) ++ [ self.inputs.nixos-hardware.nixosModules.apple-t2 ];
+
   networking.hostName = "cloyster";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

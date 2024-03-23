@@ -12,7 +12,45 @@ let
 in {
   inherit (merged) users home-manager;
 
-  imports = [ ./system-packages.nix ./secrets.nix ];
+  age.secrets = {
+    jrovacsek-id-ed25519-sk-type-a-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-a-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-c-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-c-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
+      owner = "jrovacsek";
+    };
+  };
+
+  environment.systemPackages = with pkgs; [ agenix ];
+
+  imports = with self.nixosModules; [
+    agenix
+    darwin-settings
+    docker-darwin
+    dockutil
+    documentation
+    fonts
+    gnupg
+    lorri
+    networking
+    nix
+    time
+    yabai
+    zsh
+  ];
 
   services.nix-daemon.enable = true;
 

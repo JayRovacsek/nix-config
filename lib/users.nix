@@ -54,7 +54,7 @@ let
 
         # State version here is the database layout NOT the packages version or 
         # associated settings.
-        stateVersion = "22.11";
+        # stateVersion = "22.11";
 
         sessionVariables.NIX_PATH = "nixpkgs=${builtins.toString pkgs.path}";
 
@@ -122,4 +122,5 @@ let
         "${cfg.group.name}" = { inherit (cfg.group) gid members; };
       } // extraGroupExtendedOptions;
     };
+
 in { inherit generate-config generate-service-user; }

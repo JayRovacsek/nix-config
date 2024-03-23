@@ -16,6 +16,20 @@ let
 in {
   inherit (merged) users home-manager;
 
+  imports = with self.nixosModules; [
+    agenix
+    clamav
+    disable-assertions
+    gnupg
+    linode-image
+    lorri
+    nix
+    openssh
+    time
+    timesyncd
+    zsh
+  ];
+
   # Once a ditto, always a ditto.
   environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
 

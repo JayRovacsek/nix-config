@@ -17,6 +17,17 @@ in {
 
   environment.systemPackages = with pkgs; [ curl wget ];
 
+  imports = with self.nixosModules; [
+    agenix
+    disable-assertions
+    hyprland
+    lorri
+    nix
+    time
+    timesyncd
+    zsh
+  ];
+
   networking = {
     hostName = "mew";
     useDHCP = true;

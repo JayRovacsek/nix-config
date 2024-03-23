@@ -10,8 +10,6 @@ let
   };
 
   merged = merge [ jay ];
-
-  hostName = "zubat";
 in {
   inherit (merged) users home-manager;
 
@@ -23,7 +21,19 @@ in {
     wget
   ];
 
-  networking = { inherit hostName; };
+  imports = with self.nixosModules; [
+    agenix
+    lorri
+    nix
+    time
+    timesyncd
+    zsh
+    self.inputs.nixos-wsl.nixosModules.wsl
+  ];
+
+  networking.hostName = "zubat";
+
+  system.stateVersion = "22.05";
 
   wsl = {
     defaultUser = "jay";
@@ -31,10 +41,4 @@ in {
     startMenuLaunchers = true;
     wslConf.automount.root = "/mnt";
   };
-
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-  system.stateVersion = "22.05";
 }

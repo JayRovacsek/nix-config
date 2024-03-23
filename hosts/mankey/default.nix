@@ -1,9 +1,19 @@
-{ config, ... }: {
+{ config, self, ... }: {
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
   fileSystems.${config.services.deluge.config.download_location}.neededForBoot =
     true;
+
+  imports = with self.nixosModules; [
+    agenix
+    deluge
+    gids
+    microvm-guest
+    time
+    timesyncd
+    uids
+  ];
 
   microvm = {
     interfaces = [{

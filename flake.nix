@@ -92,8 +92,7 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url =
-        "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
+      url = "github:astro/microvm.nix";
     };
 
     # Generate system images easily
@@ -221,7 +220,7 @@
     };
   };
 
-  outputs = { self, flake-utils, ... }:
+  outputs = { self, flake-utils, home-manager, ... }:
     let
       inherit (self.inputs.nixpkgs) lib;
       inherit (lib) recursiveUpdate;
@@ -237,6 +236,20 @@
           # nixosConfigurations for all guitable hosts
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
+
+        homeManagerConfigurations = builtins.foldl' (accumulator: username:
+          recursiveUpdate {
+            ${username} = { modules ? [ ], pkgs }:
+              home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                modules = modules ++ [{
+                  home = {
+                    homeDirectory = "/home/${username}";
+                    inherit username;
+                  };
+                }];
+              };
+          } accumulator) { } [ "jay" ];
 
         homeManagerModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {

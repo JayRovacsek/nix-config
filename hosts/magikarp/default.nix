@@ -1,15 +1,16 @@
-{ config, ... }: {
-  networking.hostName = "magikarp";
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    headscale
+    microvm-guest
+    time
+    timesyncd
+  ];
 
-  users.users.root.hashedPassword =
-    "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
-
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
+  networking = {
+    firewall.allowedTCPPorts = [ 22 ];
+    hostName = "magikarp";
   };
-
-  networking.firewall.allowedTCPPorts = [ 22 ];
 
   microvm = {
     interfaces = [{

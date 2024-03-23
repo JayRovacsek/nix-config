@@ -19,6 +19,21 @@ in {
   # Once a ditto, always a ditto.
   environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
 
+  imports = with self.nixosModules; [
+    agenix
+    amazon-image
+    clamav
+    disable-assertions
+    gnupg
+    lorri
+    nix
+    openssh
+    ssm
+    time
+    timesyncd
+    zsh
+  ];
+
   networking.hostName = "butterfree";
   system.stateVersion = "23.05";
 }

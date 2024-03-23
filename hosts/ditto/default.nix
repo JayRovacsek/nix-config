@@ -16,6 +16,19 @@ let
 in {
   inherit (merged) users home-manager;
 
+  imports = with self.nixosModules; [
+    agenix
+    disable-assertions
+    clamav
+    gnupg
+    lorri
+    nix
+    openssh
+    time
+    timesyncd
+    zsh
+  ];
+
   environment.systemPackages = [ ditto-transform ]
     ++ (with pkgs; [ curl git wget ]);
 

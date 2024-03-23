@@ -52,6 +52,24 @@ in {
 
   hardware.enableRedistributableFirmware = true;
 
+  imports = (with self.nixosModules; [
+    agenix
+    blocky
+    fonts
+    gnupg
+    journald
+    lorri
+    nix
+    openssh
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    zsh
+  ]) ++ [
+    "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+  ];
+
   networking = {
     hostName = "jigglypuff";
     hostId = "d2a7f613";

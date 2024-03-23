@@ -76,6 +76,8 @@
 
 - *(darwin)* Resolve darwin config issues - ([9e4a063](https://github.com/JayRovacsek/nix-config/commit/9e4a06358189f466078b0b8d22dbb6fd2cedcc03))
 
+- *(home-manager-modules)* Resolve firefox bookmark issue with github - ([fa99493](https://github.com/JayRovacsek/nix-config/commit/fa994939199c78f6729989c425a84526d086eab2))
+
 - *(home-manager-modules)* Add editor session variable to nixvim - ([b7dcaa5](https://github.com/JayRovacsek/nix-config/commit/b7dcaa515e4b026183968f4720059b18b73b2ac8))
 
 - *(home-manager-modules)* Update ags module to reflect new branch in ags-config - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))

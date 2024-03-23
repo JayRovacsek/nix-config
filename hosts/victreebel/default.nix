@@ -54,13 +54,29 @@ in {
 
   environment.systemPackages = [ cloudquery cvemap trdsql ];
 
-  services.nix-daemon.enable = true;
+  imports = with self.nixosModules; [
+    darwin-settings
+    docker-darwin
+    dockutil
+    documentation
+    fonts
+    gnupg
+    lorri
+    networking
+    nix
+    skhd
+    time
+    yabai
+    zsh
+  ];
 
   networking = {
     computerName = "victreebel";
     hostName = "victreebel";
     localHostName = "victreebel";
   };
+
+  services.nix-daemon.enable = true;
 
   system.stateVersion = 4;
 }

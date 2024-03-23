@@ -1,4 +1,12 @@
-{ config, ... }: {
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    microvm-guest
+    prowlarr
+    time
+    timesyncd
+  ];
+
   networking.hostName = "meowth";
 
   microvm = {
