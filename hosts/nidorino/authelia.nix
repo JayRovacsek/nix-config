@@ -5,7 +5,9 @@ let
 
   inherit (self.common.networking) services;
 
-  authelia-scoped-services = lib.filterAttrs (_: v: v.authelia) services;
+  authelia-scoped-services = lib.filterAttrs
+    (_: v: if builtins.hasAttr "authelia" v then v.authelia else false)
+    services;
 
   proxied-services = builtins.attrNames authelia-scoped-services;
 

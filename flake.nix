@@ -24,10 +24,21 @@
       };
     };
 
-    # crane = {
-    #   url = "github:ipetkov/crane";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags-config = {
+      url = "github:JayRovacsek/ags-config/1.8.0";
+      inputs = {
+        ags.follows = "ags";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
 
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
@@ -85,34 +96,6 @@
         "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
     };
 
-    neovim-flake = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        flake-utils.follows = "flake-utils";
-        nil.follows = "nil";
-        nixpkgs.follows = "nixpkgs";
-        rnix-lsp.follows = "rnix-lsp";
-        systems.follows = "systems";
-        tidalcycles.follows = "tidalcycles";
-        zig.follows = "zig";
-      };
-      url = "github:notashelf/neovim-flake";
-    };
-
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nil = {
-      url = "github:oxalica/nil";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-
     # Generate system images easily
     nixos-generators = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -143,6 +126,18 @@
       url = "github:nix-community/nixpkgs-wayland";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
+
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin/master";
@@ -151,6 +146,7 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
+        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -158,6 +154,11 @@
     };
 
     nix-filter.url = "github:numtide/nix-filter";
+
+    nix-github-actions = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nix-github-actions";
+    };
 
     nix-monitored = {
       inputs = {
@@ -182,29 +183,11 @@
       url = "github:cachix/pre-commit-hooks.nix";
     };
 
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs = {
-        naersk.follows = "naersk";
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        # flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -232,26 +215,9 @@
       url = "github:terranix/terranix";
     };
 
-    tidalcycles = {
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-      url = "github:mitchmindtree/tidalcycles.nix";
-    };
-
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
-    };
-
-    zig = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:mitchellh/zig-overlay";
     };
   };
 
@@ -263,6 +229,14 @@
       standard-outputs = {
         # Common/consistent values to be consumed by the flake
         common = import ./common { inherit self; };
+
+        githubActions = self.inputs.nix-github-actions.lib.mkGithubMatrix {
+          # TODO: 
+          # re-introduce darwin packages 
+          # checks for pre-commits
+          # nixosConfigurations for all guitable hosts
+          checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
+        };
 
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };

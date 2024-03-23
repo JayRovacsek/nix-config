@@ -173,7 +173,7 @@ in {
       acc // {
         ${pokemon} = {
           inherit flake;
-          updateFlake = "git+file://${flake}";
+          updateFlake = "github:JayRovacsek/nix-config/testing";
         };
       }) { } party;
   };

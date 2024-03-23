@@ -59,6 +59,11 @@
       inherit fsType options;
     };
 
+    "/srv/osts" = {
+      device = "tank/osts";
+      inherit fsType options;
+    };
+
     "/srv/downloads" = {
       device = "tank/downloads";
       inherit fsType options;
