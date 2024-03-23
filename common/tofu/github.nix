@@ -22,6 +22,7 @@ in {
     squash_merge_commit_message = "COMMIT_MESSAGES";
     squash_merge_commit_title = "COMMIT_OR_PR_TITLE";
     vulnerability_alerts = true;
+    web_commit_signoff_required = true;
   };
 
   public-repository-settings = {
@@ -298,7 +299,13 @@ in {
       name = "ncsg-presentation-june-2023";
       description =
         "A presentation for Newcastle Cybersecurity Group, June 2023";
-      pages.build_type = "workflow";
+      pages = {
+        build_type = "workflow";
+        source = {
+          branch = "main";
+          path = "/";
+        };
+      };
     }
     {
       name = "nix-config";
@@ -330,6 +337,11 @@ in {
       name = "nvidia-patch";
       description =
         "This patch removes restriction on maximum number of simultaneous NVENC video encoding sessions imposed by Nvidia to consumer-grade GPUs.";
+    }
+    {
+      name = "opinionated-development";
+      description =
+        "A flake for applying strong opinions in an extensible manner across development environments";
     }
     {
       name = "pf-captive-portal";
@@ -385,9 +397,12 @@ in {
     {
       name = "rovacsek";
       description = "Homepage repo";
-      pages.source = {
-        branch = "master";
-        path = "/";
+      pages = {
+        build_type = "legacy";
+        source = {
+          branch = "main";
+          path = "/";
+        };
       };
     }
     {

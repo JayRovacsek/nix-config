@@ -219,7 +219,7 @@ in {
       # optional: configuration for prometheus metrics endpoint
       prometheus = {
         # enabled if true
-        enable = false;
+        enable = true;
         # url path, optional (default '/metrics')
         path = "/metrics";
       };

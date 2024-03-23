@@ -2,16 +2,14 @@
 with self.nixosModules; [
   agenix
   clamav
-  docker
   fonts
   gnupg
+  greetd
   grub
   hyprland
   lorri
   nix
   openssh
-  pipewire
-  sddm
   steam
   systemd-networkd
   time

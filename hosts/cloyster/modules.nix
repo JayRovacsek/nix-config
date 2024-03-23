@@ -3,17 +3,13 @@ let inherit (self.inputs.nixos-hardware.nixosModules) apple-t2;
 in (with self.nixosModules; [
   agenix
   clamav
-  docker
   fonts
-  generations
   gnupg
+  greetd
   hyprland
   lorri
-  nextcloud-client
   nix
   openssh
-  pipewire
-  sddm
   steam
   systemd-networkd
   time

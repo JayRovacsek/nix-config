@@ -16,6 +16,15 @@ _: {
       subdomain = "binarycache";
     };
 
+    blocky = {
+      authelia = false;
+      ipv4 = null;
+      nodes = [ "192.168.1.1" "192.168.1.2" ];
+      port = 5000;
+      protocol = "http";
+      subdomain = "binarycache";
+    };
+
     code = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -23,6 +32,8 @@ _: {
       protocol = "http";
       subdomain = "code";
     };
+
+    exporters-node = { port = 9100; };
 
     deluge = {
       authelia = true;
@@ -60,6 +71,14 @@ _: {
       subdomain = "hydra";
     };
 
+    grafana = {
+      authelia = true;
+      ipv4 = "127.0.0.1";
+      port = 3002;
+      protocol = "http";
+      subdomain = "grafana";
+    };
+
     jellyfin = {
       authelia = false;
       ipv4 = "192.168.1.220";
@@ -84,6 +103,15 @@ _: {
       port = 8686;
       protocol = "http";
       subdomain = "lidarr";
+    };
+
+    loki = {
+      authelia = false;
+      ipv4 = "127.0.0.1";
+      port = 3100;
+      protocol = "http";
+      push-api = "loki/api/v1/push";
+      subdomain = "loki";
     };
 
     nextcloud = {
@@ -112,6 +140,15 @@ _: {
       port = 443;
       protocol = "https";
       subdomain = "pfsense";
+    };
+
+    prometheus = {
+      authelia = false;
+      ipv4 = "127.0.0.1";
+      port = 9092;
+      protocol = "http";
+      write-api = "api/v1/write";
+      subdomain = "prometheus";
     };
 
     prowlarr = {

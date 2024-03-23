@@ -3,7 +3,7 @@
     identityPaths = [ "/agenix/id-ed25519-wireless-primary" ];
 
     secrets."wireless.env" = {
-      file = ../../secrets/wireless/wireless-pixel-hotspot.env.age;
+      file = ../../secrets/wireless/wireless-home.env.age;
       mode = "0400";
     };
   };
