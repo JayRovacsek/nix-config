@@ -25,6 +25,7 @@ in {
     clamav
     firefox-syncserver
     fonts
+    gids
     gnupg
     hydra
     jellyfin
@@ -42,6 +43,7 @@ in {
     time
     timesyncd
     udev
+    uids
     zfs
     zsh
   ]);
