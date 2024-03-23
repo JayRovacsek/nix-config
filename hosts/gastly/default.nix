@@ -11,10 +11,10 @@ let
     modules = hyprland-waybar-desktop;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
     agenix

@@ -220,7 +220,7 @@
     };
   };
 
-  outputs = { self, flake-utils, home-manager, ... }:
+  outputs = { self, flake-utils, ... }:
     let
       inherit (self.inputs.nixpkgs) lib;
       inherit (lib) recursiveUpdate;
@@ -236,20 +236,6 @@
           # nixosConfigurations for all guitable hosts
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
-
-        homeManagerConfigurations = builtins.foldl' (accumulator: username:
-          recursiveUpdate {
-            ${username} = { modules ? [ ], pkgs }:
-              home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                modules = modules ++ [{
-                  home = {
-                    homeDirectory = "/home/${username}";
-                    inherit username;
-                  };
-                }];
-              };
-          } accumulator) { } [ "jay" ];
 
         homeManagerModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {

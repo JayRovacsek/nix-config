@@ -92,6 +92,8 @@
 
 - *(lib)* Fix use of extraSpecialArgs for home manager - ([31a152f](https://github.com/JayRovacsek/nix-config/commit/31a152f0963d39662d78cc6cdab523520eb0007e))
 
+- *(linux)* Resolve incorrect disable-assertions reference - ([51dde15](https://github.com/JayRovacsek/nix-config/commit/51dde155cd463c6c0cad8843f056d360c06bfc21))
+
 - *(linux)* Add uids/gids to dragonite - ([e4e4002](https://github.com/JayRovacsek/nix-config/commit/e4e40028db64aefd1f6088c7d76a0afc1f9e9299))
 
 - *(linux)* Resolve lack of specialArgs on images - ([ff9115d](https://github.com/JayRovacsek/nix-config/commit/ff9115dd7d08bf523cada8079d900346ba47d4e3))

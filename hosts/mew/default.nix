@@ -10,10 +10,10 @@ let
     modules = hyprland-desktop;
   };
 
-  merged = merge [ test ];
+  user-configs = merge [ test ];
 
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   environment.systemPackages = with pkgs; [ curl wget ];
 

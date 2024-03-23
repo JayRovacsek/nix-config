@@ -12,9 +12,9 @@ let
     modules = cli;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   # Once a ditto, always a ditto.
   environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);

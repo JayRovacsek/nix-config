@@ -9,9 +9,9 @@ let
     modules = cli;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 

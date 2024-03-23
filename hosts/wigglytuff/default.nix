@@ -16,10 +16,10 @@ let
       ++ (with self.homeManagerModules; [ mako waybar ]);
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"

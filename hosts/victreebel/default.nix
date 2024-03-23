@@ -10,9 +10,9 @@ let
     inherit config pkgs;
     modules = darwin-desktop;
   };
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age = {
     identityPaths = [ "/private/var/agenix/id-ed25519-ssh-primary" ];

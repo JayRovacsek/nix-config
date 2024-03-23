@@ -14,12 +14,14 @@ let
     modules = cli;
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ ./filesystems.nix ./old-users.nix ] ++ (with self.nixosModules; [
+  imports = with self.nixosModules; [
+    ./filesystems.nix
+    ./old-users.nix
     agenix
     blocky
     clamav
@@ -46,7 +48,7 @@ in {
     uids
     zfs
     zsh
-  ]);
+  ];
 
   age = {
     secrets = {
