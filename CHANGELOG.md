@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.0.3](https://github.com/JayRovacsek/nix-config/compare/v0.0.2..v0.0.3) - 2024-03-22
 
 ### ⛰️  Features
 
@@ -75,6 +75,8 @@
 - *(hydra)* Resolve git token to being readable for hydra services via group - ([ff76d36](https://github.com/JayRovacsek/nix-config/commit/ff76d3698aa29bcbe566f41d9a4d948ef8dc0d80))
 
 - *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+
+- *(linux)* Move updateFlake of microvms to stable ref - ([6a6b1c1](https://github.com/JayRovacsek/nix-config/commit/6a6b1c1bed833709573582d2dbc39334fc421587))
 
 - *(linux)* Resolve sonarr dependencies on x11 - ([3b228f6](https://github.com/JayRovacsek/nix-config/commit/3b228f613b63df01569f89dafa6a7ddac33e070d))
 
