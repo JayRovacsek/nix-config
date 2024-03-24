@@ -136,7 +136,7 @@ in {
       connectIPVersion = "v4";
 
       # optional: custom IP address(es) for domain name (with all sub-domains). Multiple addresses must be separated by a comma
-      # example: query "printer.lan" or "my.printer.lan" will return 192.168.178.3
+      # example: query "printer.local" or "my.printer.local" will return 192.168.178.3
       customDNS = {
         customTTL = "1h";
         # optional: if true (default), return empty result for unmapped query types (for example TXT, MX or AAAA if only IPv4 address is defined).
@@ -145,39 +145,39 @@ in {
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
         mapping = bin-blocks // {
           # Local
-          "pfsense.lan" = "192.168.1.1";
-          "ubiquiti_ap.lan" = "192.168.1.3";
-          "dragonite.lan" = "192.168.1.220";
-          "alakazam.lan" = "192.168.1.221";
-          "speedtest.lan" = "192.168.1.222";
-          "duplicati.lan" = "192.168.1.223";
-          "tv.lan" = "192.168.3.2";
-          "wigglytuff.lan" = "192.168.3.4";
-          "car_bed.lan" = "192.168.3.10";
-          "jackett.lan" = "192.168.4.129";
-          "deluge.lan" = "192.168.4.130";
-          "sonarr.lan" = "192.168.4.131";
-          "radarr.lan" = "192.168.4.132";
-          "lidarr.lan" = "192.168.4.133";
-          "ombi.lan" = "192.168.4.134";
-          "tdarr.lan" = "192.168.4.135";
-          "tdarr-node-01.lan" = "192.168.4.136";
-          "prowlarr.lan" = "192.168.4.137";
-          "flare-solverr.lan" = "192.168.4.138";
-          "swag.lan" = "192.168.5.3";
-          "jellyfin.lan" = "192.168.5.4";
-          "stubby.lan" = "192.168.6.3";
-          "jigglypuff.lan" = "192.168.6.4";
-          "igglybuff.lan" = "192.168.6.8";
-          "victreebel.lan" = "192.168.7.12";
-          "authelia.lan" = "192.168.9.2";
-          "nextcloud.lan" = "192.168.10.2";
-          "home-assistant.lan" = "192.168.12.2";
-          "cache.lan" = "192.168.16.2";
-          "minecraft.lan" = "192.168.17.5";
-          "porygon.lan" = "192.168.17.2";
-          "valheim.lan" = "192.168.17.3";
-          "terraria.lan" = "192.168.17.4";
+          "pfsense.local" = "192.168.1.1";
+          "ubiquiti_ap.local" = "192.168.1.3";
+          "dragonite.local" = "192.168.1.220";
+          "alakazam.local" = "192.168.1.221";
+          "speedtest.local" = "192.168.1.222";
+          "duplicati.local" = "192.168.1.223";
+          "tv.local" = "192.168.3.2";
+          "wigglytuff.local" = "192.168.3.4";
+          "car_bed.local" = "192.168.3.10";
+          "jackett.local" = "192.168.4.129";
+          "deluge.local" = "192.168.4.130";
+          "sonarr.local" = "192.168.4.131";
+          "radarr.local" = "192.168.4.132";
+          "lidarr.local" = "192.168.4.133";
+          "ombi.local" = "192.168.4.134";
+          "tdarr.local" = "192.168.4.135";
+          "tdarr-node-01.local" = "192.168.4.136";
+          "prowlarr.local" = "192.168.4.137";
+          "flare-solverr.local" = "192.168.4.138";
+          "swag.local" = "192.168.5.3";
+          "jellyfin.local" = "192.168.5.4";
+          "stubby.local" = "192.168.6.3";
+          "jigglypuff.local" = "192.168.6.4";
+          "igglybuff.local" = "192.168.6.8";
+          "victreebel.local" = "192.168.7.12";
+          "authelia.local" = "192.168.9.2";
+          "nextcloud.local" = "192.168.10.2";
+          "home-assistant.local" = "192.168.12.2";
+          "cache.local" = "192.168.16.2";
+          "minecraft.local" = "192.168.17.5";
+          "porygon.local" = "192.168.17.2";
+          "valheim.local" = "192.168.17.3";
+          "terraria.local" = "192.168.17.4";
 
           "palworld.rovacsek.com" = "192.168.17.2";
         };
@@ -219,7 +219,7 @@ in {
       # optional: configuration for prometheus metrics endpoint
       prometheus = {
         # enabled if true
-        enable = false;
+        enable = true;
         # url path, optional (default '/metrics')
         path = "/metrics";
       };

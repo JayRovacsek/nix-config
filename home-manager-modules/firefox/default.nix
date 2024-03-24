@@ -1,4 +1,4 @@
-{ lib, osConfig, pkgs, ... }:
+{ lib, pkgs, self, ... }:
 let
   packageSettings =
     lib.optionalAttrs pkgs.stdenv.isDarwin { package = pkgs.firefox-bin; };
@@ -22,8 +22,7 @@ let
       with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ]
     else
       [ ];
-  dictionaries = with osConfig.flake.packages.${pkgs.system};
-    [ better-english ];
+  dictionaries = with self.packages.${pkgs.system}; [ better-english ];
   extensions = addons ++ languagePacks ++ dictionaries;
 
   localhost = "http://127.0.0.1/";
@@ -74,12 +73,11 @@ in {
         };
         "Github Code Search" = {
           keyword = "cs";
-          url = "https://cs.github.com/?scopeName=All+repos&scope=&q=%s";
+          url = "https://github.com/search?type=code&q=%s";
         };
         "Github Nix Code Search" = {
           keyword = "ncs";
-          url =
-            "https://cs.github.com/?scopeName=All+repos&scope=&q=%s+language%3Anix";
+          url = "https://github.com/search?type=code&q=language%3Anix+%s";
         };
         "Dockerhub Search" = {
           keyword = "dh";

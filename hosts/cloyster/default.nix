@@ -1,20 +1,18 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
-  inherit (flake.lib) merge;
+  inherit (self.common.home-manager-module-sets) hyprland-waybar-desktop;
+  inherit (self.lib) merge;
 
-  jay = common.users.jay {
+  jay = self.common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop;
+    modules = hyprland-waybar-desktop;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age = {
     secrets = {
@@ -72,8 +70,26 @@ in {
   hardware = {
     cpu.intel.updateMicrocode =
       lib.mkDefault config.hardware.enableRedistributableFirmware;
-    firmware = [ config.flake.packages.${pkgs.system}.t2-firmware ];
+    firmware = [ self.packages.${pkgs.system}.t2-firmware ];
   };
+
+  imports = (with self.nixosModules; [
+    agenix
+    clamav
+    fonts
+    gnupg
+    greetd
+    hyprland
+    lorri
+    nix
+    openssh
+    steam
+    systemd-networkd
+    time
+    timesyncd
+    udev
+    zsh
+  ]) ++ [ self.inputs.nixos-hardware.nixosModules.apple-t2 ];
 
   networking.hostName = "cloyster";
 

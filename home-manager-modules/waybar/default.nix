@@ -1,6 +1,6 @@
-{ pkgs, osConfig, lib, ... }:
+{ pkgs, lib, self, ... }:
 let
-  settings = import ./settings.nix { inherit pkgs osConfig; };
+  settings = import ./settings.nix { inherit pkgs self; };
   enable = true;
   systemd = {
     enable = true;

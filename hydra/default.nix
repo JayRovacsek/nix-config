@@ -22,7 +22,6 @@ let
     filterAttrs (_: v: (!v.meta.broken && !v.meta.unsupported)) value)
     non-problematic-packages;
 in {
-  checks = removeAttrs self.checks unsupported-systems;
   devShells = removeAttrs self.devShells unsupported-systems;
 
   images = { inherit (self.common.images) rpi1-sdImage rpi2-sdImage; };

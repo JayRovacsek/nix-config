@@ -13,7 +13,7 @@ let
 in {
   # Ensure the networking options as well as blocky module is
   # included to localise DNS for end-to-end encrypted DNS.
-  imports = [ ../blocky ../../options/networking ];
+  imports = [ ../blocky ../../options/networking ../../options/systemd ];
 
   networking = {
     dhcpcd.enable = false;

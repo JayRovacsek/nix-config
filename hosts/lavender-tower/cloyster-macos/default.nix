@@ -1,17 +1,16 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) darwin-desktop;
+  inherit (self.lib) merge;
 
   jay = common.users."jrovacsek" {
     inherit config pkgs;
     modules = darwin-desktop;
   };
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   imports = [ ./modules.nix ./system-packages.nix ./secrets.nix ];
 

@@ -6,6 +6,10 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  ags-config = _final: prev: {
+    inherit (self.inputs.ags-config.packages.${prev.system}) ags-config;
+  };
+
   element-desktop = _final: prev: {
     element-desktop = prev.element-desktop.overrideAttrs (old:
       let executableName = "element-desktop";
@@ -25,23 +29,6 @@
   };
 
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
-
-  git-cliff = _final: prev: {
-    git-cliff = prev.rustPlatform.buildRustPackage rec {
-      inherit (prev.git-cliff) buildInputs doCheck meta pname;
-
-      version = "2.0.2";
-
-      src = prev.fetchFromGitHub {
-        owner = "orhun";
-        repo = "git-cliff";
-        rev = "v${version}";
-        hash = "sha256-m8xnsj6z/QBeya3CQBkQ+/eGSCZVKpTa8y1zt+3NeIo=";
-      };
-
-      cargoHash = "sha256-axh62ogKI2UnlI4aXLDB3fIg1CowQN8xRKWmZi5Kgig=";
-    };
-  };
 
   hello = _final: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
@@ -284,16 +271,6 @@
                 repo = "python-${old.pname}";
                 rev = "refs/tags/v${version}";
                 hash = "sha256-o7UREa+IBiFjmqx0p+4XJCcoHQ/R6r2RtoezEcWvgbg=";
-              };
-            });
-
-          flask-security-too = python-prev.flask-security-too.overrideAttrs
-            (_old: rec {
-              version = "5.0.2";
-              src = prev.fetchPypi {
-                pname = "Flask-Security-Too";
-                inherit version;
-                sha256 = "sha256-Nv7g2l0bPSEcrydFU7d1NHjCCJl8Ykq7hOu6QmHeZcI=";
               };
             });
 

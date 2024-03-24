@@ -1,9 +1,8 @@
 { self }:
 let
-  inherit (self.inputs) neovim-flake;
-  inherit (self.common) home-manager-modules;
+  inherit (self.inputs) nixvim;
   inherit (self.common.home-manager-module-sets) base;
-in base ++ (with home-manager-modules; [
+in base ++ (with self.homeManagerModules; [
   bat
   direnv
   fzf
@@ -15,4 +14,4 @@ in base ++ (with home-manager-modules; [
   nix-index
   starship
   zsh
-]) ++ [ neovim-flake.homeManagerModules.default ]
+]) ++ [ nixvim.homeManagerModules.nixvim ]

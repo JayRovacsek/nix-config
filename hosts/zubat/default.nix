@@ -1,20 +1,17 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) cli;
+  inherit (self.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
     modules = cli;
   };
 
-  merged = merge [ jay ];
-
-  hostName = "zubat";
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age.identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
 
@@ -24,7 +21,19 @@ in {
     wget
   ];
 
-  networking = { inherit hostName; };
+  imports = with self.nixosModules; [
+    agenix
+    lorri
+    nix
+    time
+    timesyncd
+    zsh
+    self.inputs.nixos-wsl.nixosModules.wsl
+  ];
+
+  networking.hostName = "zubat";
+
+  system.stateVersion = "22.05";
 
   wsl = {
     defaultUser = "jay";
@@ -32,10 +41,4 @@ in {
     startMenuLaunchers = true;
     wslConf.automount.root = "/mnt";
   };
-
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-  system.stateVersion = "22.05";
 }

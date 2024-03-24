@@ -1,7 +1,7 @@
-{ pkgs, osConfig }:
+{ pkgs, self }:
 let
   inherit (pkgs) brightnessctl procps system pamixer wlogout;
-  inherit (osConfig.flake.packages.${system}) waybar-screenshot;
+  inherit (self.packages.${system}) waybar-screenshot;
 in [{
   layer = "top";
   position = "top";

@@ -6,22 +6,6 @@ in builtins.mapAttrs (package-set: _:
     inherit (pkgs.lib.lists) optionals;
     inherit (pkgs.stdenv) isLinux isDarwin;
 
-    generic = [
-      ../options/flake
-      ../options/hardware
-      ../options/networking
-      ../options/nix
-    ];
-
-    linux = optionals isLinux [
-      ../options/headscale
-      ../options/jellyfin
-      ../options/nginx
-      ../options/sonarr
-      ../options/systemd
-      ../options/tailscale
-    ];
-
     darwin = optionals isDarwin [
       ../options/blocky
       ../options/darwin-systemd
@@ -31,5 +15,9 @@ in builtins.mapAttrs (package-set: _:
       ../options/ssh
     ];
 
-    imports = generic ++ linux ++ darwin;
+    generic = [ ../options/hardware ../options/networking ../options/nix ];
+
+    linux = optionals isLinux [ ../options/systemd ];
+
+    imports = darwin ++ generic ++ linux;
   in { inherit imports; }) package-sets

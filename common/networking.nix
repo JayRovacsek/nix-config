@@ -16,6 +16,15 @@ _: {
       subdomain = "binarycache";
     };
 
+    blocky = {
+      authelia = false;
+      ipv4 = null;
+      nodes = [ "192.168.1.1" "192.168.1.2" ];
+      port = 5000;
+      protocol = "http";
+      subdomain = "binarycache";
+    };
+
     code = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -23,6 +32,8 @@ _: {
       protocol = "http";
       subdomain = "code";
     };
+
+    exporters-node = { port = 9100; };
 
     deluge = {
       authelia = true;
@@ -60,6 +71,14 @@ _: {
       subdomain = "hydra";
     };
 
+    grafana = {
+      authelia = true;
+      ipv4 = "127.0.0.1";
+      port = 3002;
+      protocol = "http";
+      subdomain = "grafana";
+    };
+
     jellyfin = {
       authelia = false;
       ipv4 = "192.168.1.220";
@@ -86,6 +105,15 @@ _: {
       subdomain = "lidarr";
     };
 
+    loki = {
+      authelia = false;
+      ipv4 = "127.0.0.1";
+      port = 3100;
+      protocol = "http";
+      push-api = "loki/api/v1/push";
+      subdomain = "loki";
+    };
+
     nextcloud = {
       authelia = false;
       ipv4 = "192.168.10.3";
@@ -97,6 +125,15 @@ _: {
     nginx = {
       authelia = false;
       ipv4 = "192.168.5.3";
+    };
+
+    openssh = {
+      public-keys = [
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMO6FTToBOIByP9uVP2Ke2jGD/ESxPcXEMhvR7unukNGAAAABHNzaDo= jay@rovacsek.com"
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAINNGQz3ekO1q/DrxuhP7Ck3TnP9V4ooF5vo8ibFWKKqFAAAABHNzaDo= jay@rovacsek.com"
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIDuG5e8MReihLwtKk3/rbXcZKNfiapcqAhWu//fC0aMKAAAABHNzaDo= jay@rovacsek.com"
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILDjbVDfVzpcxnx9fl4pBr6eKAJdSyX4JLyBK02N9YeFAAAABHNzaDo= jay@rovacsek.com"
+      ];
     };
 
     palworld = {
@@ -112,6 +149,15 @@ _: {
       port = 443;
       protocol = "https";
       subdomain = "pfsense";
+    };
+
+    prometheus = {
+      authelia = false;
+      ipv4 = "127.0.0.1";
+      port = 9092;
+      protocol = "http";
+      write-api = "api/v1/write";
+      subdomain = "prometheus";
     };
 
     prowlarr = {

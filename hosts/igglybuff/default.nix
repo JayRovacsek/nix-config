@@ -1,5 +1,11 @@
-{ config, flake, lib, ... }: {
-  inherit flake;
+{ config, lib, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    blocky
+    microvm-guest
+    time
+    timesyncd
+  ];
 
   microvm = {
     interfaces = [{
