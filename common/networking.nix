@@ -51,6 +51,14 @@ _: {
       subdomain = "firefox-syncserver";
     };
 
+    flaresolverr = {
+      authelia = false;
+      ipv4 = "192.168.4.138";
+      port = 8191;
+      protocol = "http";
+      subdomain = "flaresolverr";
+    };
+
     headscale = {
       authelia = false;
       ipv4 = "192.168.25.2";
@@ -107,11 +115,15 @@ _: {
 
     loki = {
       authelia = false;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 3100;
       protocol = "http";
       push-api = "loki/api/v1/push";
       subdomain = "loki";
+      user = {
+        gid = 255;
+        uid = 255;
+      };
     };
 
     nextcloud = {

@@ -92,6 +92,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    agenix
     cifs-utils
     dnsutils
     exfat
@@ -179,6 +180,11 @@ in {
         vlan-tag = 17;
       }
       {
+        name = "log";
+        parent = "10-wired";
+        vlan-tag = 18;
+      }
+      {
         name = "headscale";
         parent = "10-wired";
         vlan-tag = 25;
@@ -190,7 +196,6 @@ in {
         "bellsprout"
         "igglybuff"
         "machop"
-        "magikarp"
         "mankey"
         "meowth"
         "nidoking"
@@ -198,6 +203,7 @@ in {
         "nidorino"
         "poliwag"
         "porygon"
+        "slowpoke"
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
