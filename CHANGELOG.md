@@ -22,6 +22,8 @@
 
 - *(home-manager-modules)* Resolve firefox custom code search shortcut - ([6262682](https://github.com/JayRovacsek/nix-config/commit/626268297ac071753b6596a39708760004786a44))
 
+- *(linux)* Add magikarp back to dragonite - ([c93d9db](https://github.com/JayRovacsek/nix-config/commit/c93d9dbe26d14fa3b65ae1ec27fc6a846f88304f))
+
 - *(linux)* Remove password ssh configuration from microvms - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
