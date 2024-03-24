@@ -21,7 +21,7 @@ in {
     "/var/lib".neededForBoot = true;
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
-  imports = [ self.inputs.microvm.nixosModules.microvm ];
+  imports = [ ../../options/systemd self.inputs.microvm.nixosModules.microvm ];
 
   microvm.shares = (lib.optionals agenix-required [{
     # On the host

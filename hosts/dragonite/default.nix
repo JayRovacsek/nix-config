@@ -200,12 +200,8 @@ in {
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
-          inherit (self.nixosConfigurations.${pokemon}._module) specialArgs;
-
-          config = {
-            imports = builtins.filter (x: (builtins.typeOf x) != "lambda")
-              self.nixosConfigurations.${pokemon}._module.args.modules;
-          };
+          flake = self;
+          restartIfChanged = true;
         };
       }) { } party;
   };
