@@ -196,6 +196,7 @@ in {
         "bellsprout"
         "igglybuff"
         "machop"
+        "magikarp"
         "mankey"
         "meowth"
         "nidoking"
