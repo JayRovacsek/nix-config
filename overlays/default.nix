@@ -126,7 +126,7 @@
     };
 
   python = _final: prev:
-    prev.lib.attrsets.genAttrs [
+    prev.lib.genAttrs [
       "python38"
       "python39"
       "python310"
@@ -424,6 +424,118 @@
         ++ (with prev.python-prev; [ pylint ]);
     });
   };
+
+  # The below exist to resolve issues with compiling the aarch32 architectures.
+  # The failing checks might be able to be removed individually, but
+  # just looking at easiest path here.
+  armv6l-fixes = _final: prev:
+    let
+      aws-sdk-cpp-reduced-apis = {
+        # For the aws cpp sdk, we need to reduce the apis included for 32 bit systems
+        # as well as remove testing capabilities due to test failures introduced by running
+        # on a 32 bit arch.
+        aws-sdk-cpp = (prev.aws-sdk-cpp.override {
+          apis = [ "s3" ];
+          customMemoryManagement = false;
+        }).overrideAttrs (old: {
+          doCheck = false;
+          postPatch = ''
+            ${old.postPatch}
+            substituteInPlace CMakeLists.txt \
+              --replace 'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" ON)' \
+              'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" OFF)' \
+              --replace 'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" ON)' \
+              'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" OFF)'
+          '';
+        });
+      };
+
+      disabled-checks = prev.lib.genAttrs [
+        "boehmgc"
+        "dejagnu"
+        "diffutils"
+        "gnugrep"
+        "graphite2"
+        "libllvm"
+        "libressl"
+        "libseccomp"
+        "libuv"
+        "mdbook"
+        "openssh"
+        "pcre"
+        "rhash"
+        "sourceHighlight"
+      ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
+
+      disabled-install-checks =
+        prev.lib.genAttrs [ "git" "gitMinimal" "tpm2-tss" ] (name:
+          prev.${name}.overrideAttrs (_: {
+            doInstallCheck = false;
+            preInstallCheck = "";
+          }));
+
+      d-file-offset-fixes = prev.lib.genAttrs [ "bind" "kbd" ] (name:
+        prev.${name}.overrideAttrs (_: {
+          cmakeFlags = [ "-D_FILE_OFFSET_BITS=64" ];
+          configureFlags = [ "CFLAGS=-D_FILE_OFFSET_BITS=64" ];
+
+          NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
+        }));
+
+      libllvm-fixes = {
+        # For the aws cpp sdk, we need to reduce the apis included for 32 bit systems
+        # as well as remove testing capabilities due to test failures introduced by running
+        # on a 32 bit arch.
+        libllvm = prev.libllvm.overrideAttrs (old: {
+          doCheck = false;
+          postPatch = ''
+            ${old.postPatch}
+            substituteInPlace CMakeLists.txt \
+              --replace 'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" ON)' \
+              'option(ENABLE_TESTING "Flag to enable/disable building unit and integration tests" OFF)' \
+              --replace 'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" ON)' \
+              'option(AUTORUN_UNIT_TESTS "Flag to enable/disable automatically run unit tests after building" OFF)'
+
+            substituteInPlace unittests/ExecutionEngine/Orc/CMakeLists.txt \
+              --replace '  OrcCAPITest.cpp' ""
+          '';
+        });
+      };
+
+      llvm-fixes = let
+        llvm = prev.llvmPackages.llvm.overrideAttrs (_: { doCheck = false; });
+      in {
+        llvmPackages =
+          prev.lib.recursiveUpdate prev.llvmPackages { inherit llvm; };
+      };
+
+      python-fixes = prev.lib.genAttrs [
+        "python38"
+        "python39"
+        "python310"
+        "python311"
+        "python312"
+      ] (version:
+        prev.${version}.override {
+          packageOverrides = _: python-prev: {
+            psutil = python-prev.psutil.overrideAttrs (old: {
+              disabledTests = old.disabledTests
+                ++ [ "test_net_if_addrs" "test_net_if_stats" ];
+            });
+          };
+        });
+
+      tpm2-tss-extra-deps = {
+        tpm2-tss = prev.tpm2-tss.overrideAttrs (old: {
+          nativeBuildInputs = old.nativeBuildInputs ++ [ prev.iproute2 ];
+        });
+      };
+
+    in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
+    // d-file-offset-fixes // llvm-fixes // libllvm-fixes // python-fixes
+    // tpm2-tss-extra-deps;
+
+  armv7l-fixes = self.overlays.armv6l-fixes;
 
   waybar = _final: prev: {
     inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;

@@ -1,6 +1,7 @@
 { self, lib }:
 let
   inherit (lib) filterAttrs mapAttrs;
+  inherit (self.common) images;
 
   unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
   # Strip out unsupportable systems.
@@ -22,6 +23,8 @@ let
     non-problematic-packages;
 in {
   devShells = removeAttrs self.devShells unsupported-systems;
+
+  images = { inherit (self.common.images) rpi1-sdImage rpi2-sdImage; };
 
   # Wrap nixos configuration testing via the system.build.toplevel 
   # attribute which which ensure both build suitability as well as
