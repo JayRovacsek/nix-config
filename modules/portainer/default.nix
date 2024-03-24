@@ -1,6 +1,6 @@
-{ config, ... }:
+{ config, self, ... }:
 let
-  inherit (config.flake.lib) docker users;
+  inherit (self.lib) docker users;
 
   name = "portainer";
 

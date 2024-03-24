@@ -1,7 +1,15 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, self, ... }: {
   environment.noXlibs = false;
+
+  imports = with self.nixosModules; [
+    agenix
+    gids
+    microvm-guest
+    sonarr
+    time
+    timesyncd
+    uids
+  ];
 
   microvm = {
     interfaces = [{

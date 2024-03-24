@@ -1,7 +1,7 @@
-{ pkgs, osConfig, ... }:
+{ pkgs, self, ... }:
 let
   inherit (pkgs) system;
-  inherit (osConfig.flake.packages.${system}) eww-sleek-bar;
+  inherit (self.packages.${system}) eww-sleek-bar;
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 

@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, self, ... }:
 let
-  inherit (config.flake.common.colour-schemes) tomorrow-night-blue-base16;
+  inherit (self.common.colour-schemes) tomorrow-night-blue-base16;
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {

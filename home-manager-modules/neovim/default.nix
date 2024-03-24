@@ -1,6 +1,8 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   # Configuration Options
   # https://nix-community.github.io/nixvim/
+
+  home.sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
 
   programs.nixvim = {
     enable = true;

@@ -1,6 +1,6 @@
 [
   {
-    "hostName": "alakazam.lan",
+    "hostName": "alakazam.local",
     "maxJobs": 8,
     "speedFactor": 16,
     "sshUser": "builder",
@@ -8,7 +8,7 @@
     "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -16,7 +16,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "butterfree.lan",
+    "hostName": "butterfree.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -24,7 +24,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "cloyster.lan",
+    "hostName": "cloyster.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -32,7 +32,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "diglett.lan",
+    "hostName": "diglett.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -40,7 +40,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -48,7 +48,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "dragonite.lan",
+    "hostName": "dragonite.local",
     "maxJobs": 24,
     "speedFactor": 96,
     "sshUser": "builder",
@@ -56,7 +56,7 @@
     "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
   },
   {
-    "hostName": "gastly.lan",
+    "hostName": "gastly.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -64,7 +64,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "jigglypuff.lan",
+    "hostName": "jigglypuff.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -78,7 +78,7 @@
     "systems": ["aarch64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -86,7 +86,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "mew.lan",
+    "hostName": "mew.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -94,7 +94,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -102,7 +102,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "wigglytuff.lan",
+    "hostName": "wigglytuff.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -116,7 +116,7 @@
     "systems": ["aarch64-linux"]
   },
   {
-    "hostName": "zubat.lan",
+    "hostName": "zubat.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -124,7 +124,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ninetales.lan",
+    "hostName": "ninetales.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -132,7 +132,7 @@
     "systems": ["aarch64-darwin"]
   },
   {
-    "hostName": "victreebel.lan",
+    "hostName": "victreebel.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",

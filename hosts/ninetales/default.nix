@@ -1,19 +1,56 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) darwin-desktop;
+  inherit (self.lib) merge;
 
   jay = common.users."jrovacsek" {
     inherit config pkgs;
     modules = darwin-desktop;
   };
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ ./system-packages.nix ./secrets.nix ];
+  age.secrets = {
+    jrovacsek-id-ed25519-sk-type-a-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-a-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-c-1 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
+      owner = "jrovacsek";
+    };
+
+    jrovacsek-id-ed25519-sk-type-c-2 = {
+      file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
+      owner = "jrovacsek";
+    };
+  };
+
+  environment.systemPackages = with pkgs; [ agenix ];
+
+  imports = with self.nixosModules; [
+    agenix
+    darwin-settings
+    docker-darwin
+    dockutil
+    documentation
+    fonts
+    gnupg
+    lorri
+    networking
+    nix
+    time
+    yabai
+    zsh
+  ];
 
   services.nix-daemon.enable = true;
 

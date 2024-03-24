@@ -92,8 +92,7 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url =
-        "github:astro/microvm.nix?rev=17e7f0682378e77e0ed0ab5796260bd3beb9d513";
+      url = "github:astro/microvm.nix";
     };
 
     # Generate system images easily
@@ -237,6 +236,16 @@
           # nixosConfigurations for all guitable hosts
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
+
+        homeManagerModules = builtins.foldl' (accumulator: module:
+          recursiveUpdate {
+            ${module} = { config, darwinConfig ? { }, lib, modulesPath
+              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs }:
+              import ./home-manager-modules/${module} {
+                inherit config darwinConfig lib modulesPath nixosConfig options
+                  osConfig pkgs self specialArgs;
+              };
+          } accumulator) { } self.common.home-manager-modules;
 
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };

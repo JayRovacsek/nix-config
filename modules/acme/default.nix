@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config.flake.lib) merge;
+  inherit (self.lib) merge;
 
   port = 10080;
 

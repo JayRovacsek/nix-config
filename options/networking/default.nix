@@ -5,7 +5,7 @@
 # settings dependent on this knowledge are broken.
 with lib;
 let
-  defaultValue = "lan";
+  defaultValue = "local";
   default = if (builtins.hasAttr "domain" config.networking) then
     (if config.networking.domain != null then
       config.networking.domain
