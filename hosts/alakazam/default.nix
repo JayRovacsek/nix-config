@@ -65,13 +65,6 @@ in {
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
-
-      "terraform-api-key" = rec {
-        file = ../../secrets/terraform/terraform-api-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        mode = "400";
-        path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
-      };
     };
     identityPaths = [
       "/agenix/id-ed25519-ssh-primary"

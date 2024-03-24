@@ -1,23 +1,32 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
-    headscale
     microvm-guest
+    loki
     time
     timesyncd
   ];
 
-  networking.hostName = "magikarp";
+  networking.hostName = "mr-mime";
 
   microvm = {
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;
-      mac = "02:42:c0:a8:19:02";
+      mac = "02:42:c0:a8:12:02";
       macvtap = {
-        link = "headscale";
+        link = "log";
         mode = "bridge";
       };
+    }];
+
+    shares = [{
+      # On the host
+      source = "/srv/logs/loki";
+      # In the MicroVM
+      mountPoint = config.services.loki.dataDir;
+      tag = "nextcloud";
+      proto = "virtiofs";
     }];
   };
 

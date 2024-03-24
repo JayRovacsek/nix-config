@@ -55,6 +55,7 @@ in {
         mode = "400";
         path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
       };
+
       "wireless.env" = {
         file = ../../secrets/wireless/wireless-home.env.age;
         mode = "0400";

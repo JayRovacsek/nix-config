@@ -42,13 +42,13 @@ let
       sshUser = "builder";
 
       # WARNING: pretty big assumption that localDomain exists on the target system plus
-      # assumption we are using "lan" as local domain identifier.
+      # assumption we are using "local" as local domain identifier.
       # This is only temporary until we get into tailscale as the transport mechanism here
       hostName = "${system.networking.hostName}.${
           if builtins.hasAttr "localDomain" system.networking then
             system.networking.localDomain
           else
-            "lan"
+            "local"
         }";
       # If we don't have the system-features attribute, we know
       supportedFeatures =

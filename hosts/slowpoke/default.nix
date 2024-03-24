@@ -1,21 +1,23 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
-    headscale
+    flaresolverr
     microvm-guest
     time
     timesyncd
   ];
 
-  networking.hostName = "magikarp";
+  environment.noXlibs = false;
+
+  networking.hostName = "slowpoke";
 
   microvm = {
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;
-      mac = "02:42:c0:a8:19:02";
+      mac = "02:42:c0:a8:04:8a";
       macvtap = {
-        link = "headscale";
+        link = "download";
         mode = "bridge";
       };
     }];

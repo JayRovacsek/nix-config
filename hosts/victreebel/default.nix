@@ -55,6 +55,7 @@ in {
   environment.systemPackages = [ cloudquery cvemap trdsql ];
 
   imports = with self.nixosModules; [
+    agenix
     darwin-settings
     docker-darwin
     dockutil
