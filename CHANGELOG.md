@@ -18,6 +18,8 @@
 
 - *(linux)* Resolve incorrect use of home-manager-modules on wigglytuff - ([1dbbf32](https://github.com/JayRovacsek/nix-config/commit/1dbbf3264f8c2aaa226908d6f3c8426ec9528ce3))
 
+- *(tooling)* Remove checks configuration - ([3502cb3](https://github.com/JayRovacsek/nix-config/commit/3502cb3587f17aaaf0d1e71177c44ade1aee6e52))
+
 ### 🚜 Refactor
 
 - *(darwin)* Rename merged user config to user-configs - ([5ca9a4e](https://github.com/JayRovacsek/nix-config/commit/5ca9a4ef54da9cd1846f20231cc3cf53502fe2eb))

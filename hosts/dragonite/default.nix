@@ -23,6 +23,7 @@ in {
     ./filesystems.nix
     ./old-users.nix
     agenix
+    auto-upgrade
     blocky
     clamav
     firefox-syncserver
@@ -30,6 +31,7 @@ in {
     gids
     gnupg
     hydra
+    i18n
     jellyfin
     jellyseerr
     lorri
