@@ -26,18 +26,15 @@ let
   make-host = package-set: name: system-builder:
     let
       inherit (package-set) system identifier pkgs;
-      base = self.common.modules.${identifier} ++ [ ../hosts/${name} ];
-      extra-modules = import ../hosts/${name}/modules.nix { inherit self; };
-      modules = base ++ extra-modules;
+      modules = self.common.modules.${identifier} ++ [ ../hosts/${name} ];
       specialArgs = { inherit self; };
     in system-builder { inherit modules pkgs specialArgs system; };
 
   make-microvm = package-set: name: system-builder:
     let
       inherit (package-set) system identifier pkgs;
-      base = self.common.minimal-modules.${identifier} ++ [ ../hosts/${name} ];
-      extra-modules = import ../hosts/${name}/modules.nix { inherit self; };
-      modules = base ++ extra-modules;
+      modules = self.common.minimal-modules.${identifier}
+        ++ [ ../hosts/${name} ];
       specialArgs = { inherit self; };
     in system-builder { inherit modules pkgs specialArgs system; };
 

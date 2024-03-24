@@ -1,9 +1,8 @@
 { self }:
 let
   inherit (self.inputs) nixvim;
-  inherit (self.common) home-manager-modules;
   inherit (self.common.home-manager-module-sets) base;
-in base ++ (with home-manager-modules; [
+in base ++ (with self.homeManagerModules; [
   bat
   direnv
   fzf

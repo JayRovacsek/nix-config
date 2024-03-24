@@ -17,8 +17,7 @@ let
 
   fn = mapAttrs (_: user-settings:
     { config, pkgs, modules ? [ ], overrides ? { } }:
-    let flake = self;
-    in generate-config {
-      inherit pkgs modules user-settings config overrides flake;
+    generate-config {
+      inherit pkgs modules user-settings config overrides self;
     }) base-users;
 in fn

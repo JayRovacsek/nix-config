@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, self, ... }:
 let
-  inherit (config.flake.lib) etc;
+  inherit (self.lib) etc;
 
   # Config file contents to write to environment.etc locations
   local = import ./local.nix;

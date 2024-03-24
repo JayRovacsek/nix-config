@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 let
   cfg = config.services.sonarr;
-  inherit (config.flake.lib.generators) to-xml;
+  inherit (self.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
 in with lib; {
   options.services.sonarr = {

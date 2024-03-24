@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.services.jellyfin;
   CacheDirectory = "jellyfin";
-  inherit (config.flake.lib.generators) to-xml;
+  inherit (self.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
 in {
   options = {

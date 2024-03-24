@@ -1,21 +1,33 @@
-{ config, pkgs, flake, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (pkgs) system;
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) cli;
+  inherit (self.lib) merge;
 
-  inherit (flake.packages.${system}) ditto-transform;
+  inherit (self.packages.${system}) ditto-transform;
 
   jay = common.users.jay {
     inherit config pkgs;
     modules = cli;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
+
+  imports = with self.nixosModules; [
+    agenix
+    disable-assertions
+    clamav
+    gnupg
+    lorri
+    nix
+    openssh
+    time
+    timesyncd
+    zsh
+  ];
 
   environment.systemPackages = [ ditto-transform ]
     ++ (with pkgs; [ curl git wget ]);

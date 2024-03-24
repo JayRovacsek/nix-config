@@ -1,5 +1,3 @@
 { self }:
-let
-  inherit (self.common) home-manager-modules;
-  inherit (self.common.home-manager-module-sets) desktop;
-in desktop ++ (with home-manager-modules; [ hyprland fuzzel ])
+let inherit (self.common.home-manager-module-sets) desktop;
+in desktop ++ (with self.homeManagerModules; [ hyprland fuzzel ])

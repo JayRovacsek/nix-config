@@ -1,8 +1,8 @@
-{ config, pkgs, osConfig, ... }:
+{ config, osConfig, pkgs, self }:
 let
   inherit (pkgs)
     grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
-  inherit (osConfig.flake.lib.hyprland) generate-monitors;
+  inherit (self.lib.hyprland) generate-monitors;
 
   alakazam-monitors = [
     {

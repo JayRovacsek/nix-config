@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config.flake.lib.tailscale) lookup-tailnet;
+  inherit (self.lib.tailscale) lookup-tailnet;
   inherit (config.networking) hostName;
 
   tailnet = lookup-tailnet hostName;

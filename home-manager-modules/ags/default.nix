@@ -1,7 +1,7 @@
-{ pkgs, osConfig, ... }: {
+{ pkgs, self, ... }: {
   programs.ags = {
     enable = true;
-    configDir = osConfig.flake.inputs.ags-config.outPath + "/src";
+    configDir = self.inputs.ags-config.outPath + "/src";
   };
 
   home.packages = with pkgs; [
