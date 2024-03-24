@@ -1,1 +1,4 @@
-_: { programs.home-manager.enable = true; }
+_: {
+  home.stateVersion = "23.11";
+  programs.home-manager.enable = true;
+}

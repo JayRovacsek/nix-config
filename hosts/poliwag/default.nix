@@ -1,7 +1,13 @@
-{ config, flake, ... }: {
-  inherit flake;
-
-  networking.hostName = "poliwag";
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    gids
+    microvm-guest
+    radarr
+    time
+    timesyncd
+    uids
+  ];
 
   microvm = {
     interfaces = [{
@@ -33,6 +39,8 @@
       }
     ];
   };
+
+  networking.hostName = "poliwag";
 
   services.radarr = {
     group = "media";

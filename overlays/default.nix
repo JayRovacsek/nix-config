@@ -6,6 +6,10 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
+  ags-config = _final: prev: {
+    inherit (self.inputs.ags-config.packages.${prev.system}) ags-config;
+  };
+
   element-desktop = _final: prev: {
     element-desktop = prev.element-desktop.overrideAttrs (old:
       let executableName = "element-desktop";

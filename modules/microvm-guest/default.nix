@@ -21,6 +21,8 @@ in {
     "/var/lib".neededForBoot = true;
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
+  imports = [ ../../options/systemd self.inputs.microvm.nixosModules.microvm ];
+
   microvm.shares = (lib.optionals agenix-required [{
     # On the host
     source = "/agenix/${config.systemd.machineId}";
@@ -61,8 +63,11 @@ in {
     }
   ];
 
-  # Ensure we're using networkd
-  networking.useNetworkd = true;
+  # Ensure we're using networkd & open ssh
+  networking = {
+    firewall.allowedTCPPorts = [ 22 ];
+    useNetworkd = true;
+  };
 
   systemd = {
     # Blunt approach to ensuring stable machine id.
@@ -78,10 +83,6 @@ in {
       networkConfig.DHCP = "yes";
     };
   };
-
-  # The below configures openssh access for root using physical keys
-
-  networking.firewall.allowedTCPPorts = [ 22 ];
 
   services.openssh = {
     enable = true;

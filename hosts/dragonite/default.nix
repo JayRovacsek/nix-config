@@ -1,8 +1,8 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base cli;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -14,13 +14,43 @@ let
     modules = cli;
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ ./filesystems.nix ./old-users.nix ];
+  imports = with self.nixosModules; [
+    ./filesystems.nix
+    ./old-users.nix
+    agenix
+    auto-upgrade
+    blocky
+    clamav
+    firefox-syncserver
+    fonts
+    gids
+    gnupg
+    hydra
+    i18n
+    jellyfin
+    jellyseerr
+    lorri
+    microvm-host
+    nix
+    nix-serve
+    nvidia
+    openssh
+    openvscode-server
+    samba
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    udev
+    uids
+    zfs
+    zsh
+  ];
 
   age = {
     secrets = {
@@ -178,8 +208,8 @@ in {
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
-          inherit flake;
-          updateFlake = "git+file://${flake}";
+          flake = self;
+          restartIfChanged = true;
         };
       }) { } party;
   };

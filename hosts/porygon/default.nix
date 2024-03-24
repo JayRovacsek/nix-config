@@ -1,22 +1,15 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, self, ... }: {
   environment.noXlibs = false;
 
-  networking.hostName = "porygon";
-
-  users.users.root.hashedPassword =
-    "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
-
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  imports = with self.nixosModules; [
+    agenix
+    palworld
+    microvm-guest
+    time
+    timesyncd
+  ];
 
   microvm = {
-
     interfaces = [{
       type = "macvtap";
       id = config.networking.hostName;
@@ -30,6 +23,8 @@
     mem = 8096;
     vcpu = 4;
   };
+
+  networking.hostName = "porygon";
 
   system.stateVersion = "24.05";
 }

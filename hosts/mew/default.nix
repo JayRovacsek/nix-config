@@ -1,22 +1,32 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.lib) merge;
-  inherit (flake.common.home-manager-module-sets) hyprland-desktop;
+  inherit (self) common;
+  inherit (self.lib) merge;
+  inherit (self.common.home-manager-module-sets) hyprland-desktop;
 
   test = common.users.test {
     inherit config pkgs;
     modules = hyprland-desktop;
   };
 
-  merged = merge [ test ];
+  user-configs = merge [ test ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   environment.systemPackages = with pkgs; [ curl wget ];
+
+  imports = with self.nixosModules; [
+    agenix
+    disable-assertions
+    hyprland
+    lorri
+    nix
+    time
+    timesyncd
+    zsh
+  ];
 
   networking = {
     hostName = "mew";

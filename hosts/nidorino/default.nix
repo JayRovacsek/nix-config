@@ -1,7 +1,13 @@
-{ config, flake, ... }: {
-  inherit flake;
-
-  imports = [ ./authelia.nix ];
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    ./authelia.nix
+    agenix
+    authelia
+    microvm-guest
+    nginx
+    time
+    timesyncd
+  ];
 
   microvm = {
     interfaces = [{

@@ -1,8 +1,6 @@
 { self, pkgs }:
 let
   inherit (self.lib) merge;
-  act = import ./act.nix { inherit self pkgs; };
-
   agenix = import ./agenix.nix { inherit self pkgs; };
 
   # Previously I had configured this to evaluate at system evaluation time.
@@ -17,4 +15,4 @@ let
 
   tooling = import ./tooling.nix { inherit self pkgs; };
 
-in merge [ act agenix distributed-builds hydra tofu tooling ]
+in merge [ agenix distributed-builds hydra tofu tooling ]

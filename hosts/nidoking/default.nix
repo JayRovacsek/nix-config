@@ -1,4 +1,4 @@
-{ config, flake, pkgs, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
@@ -6,18 +6,14 @@ let
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
 in {
-  inherit flake;
-
-  networking.hostName = "nidoking";
-
-  users = {
-    groups.nextcloud.gid = 10003;
-    users = {
-      nextcloud.uid = 988;
-      root.hashedPassword =
-        "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
-    };
-  };
+  imports = with self.nixosModules; [
+    agenix
+    microvm-guest
+    nextcloud
+    nginx
+    time
+    timesyncd
+  ];
 
   microvm = {
     interfaces = [{
@@ -44,6 +40,8 @@ in {
     vcpu = 4;
   };
 
+  networking.hostName = "nidoking";
+
   services = {
     nextcloud = {
       extraOptions.datadirectory = "/srv/nextcloud";
@@ -60,4 +58,9 @@ in {
   };
 
   system.stateVersion = "24.05";
+
+  users = {
+    groups.nextcloud.gid = 10003;
+    users.nextcloud.uid = 988;
+  };
 }

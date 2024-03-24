@@ -1,4 +1,11 @@
-{ config, ... }: {
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    microvm-guest
+    loki
+    time
+    timesyncd
+  ];
 
   networking.hostName = "mr-mime";
 

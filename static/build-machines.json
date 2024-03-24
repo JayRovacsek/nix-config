@@ -142,6 +142,14 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "mr-mime.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "nidoking.local",
     "maxJobs": 1,
     "speedFactor": 1,
@@ -183,6 +191,14 @@
   },
   {
     "hostName": "porygon.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "slowpoke.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",

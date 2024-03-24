@@ -57,6 +57,7 @@ let
         username = "stub";
       };
     }];
+    extraSpecialArgs = { inherit self; };
   };
 
 in {

@@ -1,4 +1,4 @@
-{ lib, osConfig, pkgs, ... }:
+{ lib, pkgs, self, ... }:
 let
   packageSettings =
     lib.optionalAttrs pkgs.stdenv.isDarwin { package = pkgs.firefox-bin; };
@@ -22,8 +22,7 @@ let
       with pkgs.nur.repos.sigprof; [ firefox-langpack-en-GB ]
     else
       [ ];
-  dictionaries = with osConfig.flake.packages.${pkgs.system};
-    [ better-english ];
+  dictionaries = with self.packages.${pkgs.system}; [ better-english ];
   extensions = addons ++ languagePacks ++ dictionaries;
 
   localhost = "http://127.0.0.1/";

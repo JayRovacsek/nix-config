@@ -13,6 +13,7 @@ let
     homepage = "https://github.com/nadermx/backgroundremover";
     downloadPage = "https://github.com/nadermx/backgroundremover/releases";
     license = licenses.mit;
+    broken = true;
   };
 
   inherit (python3Packages)

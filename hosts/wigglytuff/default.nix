@@ -1,9 +1,9 @@
-{ config, pkgs, lib, modulesPath, flake, ... }:
+{ config, pkgs, lib, modulesPath, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base hyprland-desktop-minimal;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base hyprland-desktop-minimal;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -13,16 +13,30 @@ let
   jay = common.users.jay {
     inherit config pkgs;
     modules = hyprland-desktop-minimal
-      ++ (with flake.common.home-manager-modules; [ mako waybar ]);
+      ++ (with self.homeManagerModules; [ mako waybar ]);
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ "${modulesPath}/installer/sd-card/sd-image-aarch64.nix" ];
+  imports = with self.nixosModules; [
+    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    agenix
+    gnupg
+    greetd
+    hyprland
+    lorri
+    nix
+    openssh
+    self.inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    zsh
+  ];
 
   age = {
     identityPaths = [

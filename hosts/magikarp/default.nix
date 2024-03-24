@@ -1,5 +1,11 @@
-{ config, flake, ... }: {
-  inherit flake;
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    headscale
+    microvm-guest
+    time
+    timesyncd
+  ];
 
   networking.hostName = "magikarp";
 
