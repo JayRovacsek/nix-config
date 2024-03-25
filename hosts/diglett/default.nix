@@ -20,6 +20,7 @@ in {
     agenix
     clamav
     disable-assertions
+    generations
     gnupg
     linode-image
     lorri

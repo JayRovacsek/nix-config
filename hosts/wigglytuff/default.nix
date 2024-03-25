@@ -24,6 +24,7 @@ in {
   imports = with self.nixosModules; [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     agenix
+    generations
     gnupg
     greetd
     hyprland

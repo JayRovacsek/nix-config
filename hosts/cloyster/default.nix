@@ -77,6 +77,7 @@ in {
     agenix
     clamav
     fonts
+    generations
     gnupg
     greetd
     hyprland

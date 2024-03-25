@@ -43,6 +43,7 @@ in {
     dockutil
     documentation
     fonts
+    generations
     gnupg
     lorri
     networking

@@ -28,6 +28,7 @@ in {
     clamav
     firefox-syncserver
     fonts
+    generations
     gids
     gnupg
     hydra

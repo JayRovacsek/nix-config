@@ -56,6 +56,7 @@ in {
     agenix
     blocky
     fonts
+    generations
     gnupg
     journald
     lorri

@@ -28,6 +28,8 @@
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(modules)* Resolve headscale migration issue re; acls - ([c0ece2c](https://github.com/JayRovacsek/nix-config/commit/c0ece2c05908834158a8a192faa91e6378f550f8))
+
 - *(modules)* Correct headscale to match upstream changes of tailnet -> user - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(modules)* Add allowed uri for hydra - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))

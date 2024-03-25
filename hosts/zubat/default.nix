@@ -23,6 +23,7 @@ in {
 
   imports = with self.nixosModules; [
     agenix
+    generations
     lorri
     nix
     time
