@@ -1,6 +1,8 @@
-## [unreleased]
+## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 
 ### ⛰️  Features
+
+- *(linux)* Re-introduce auto-updates to dragonite - ([efcc88c](https://github.com/JayRovacsek/nix-config/commit/efcc88cef665df90e8ca5a051cc17cb74e53fd7e))
 
 - *(linux)* Remove update flake from microvms - ([c44b4a0](https://github.com/JayRovacsek/nix-config/commit/c44b4a0fd252e814d3b1fe01bf69ff1a621aa908))
 
@@ -9,6 +11,8 @@
 ### 🐛 Bug Fixes
 
 - *(home-manager-modules)* Resolve firefox bookmark issue with github - ([fa99493](https://github.com/JayRovacsek/nix-config/commit/fa994939199c78f6729989c425a84526d086eab2))
+
+- *(linux)* Resolve issue with dragonite missing i18n settings after refactor - ([efcc88c](https://github.com/JayRovacsek/nix-config/commit/efcc88cef665df90e8ca5a051cc17cb74e53fd7e))
 
 - *(linux)* Resolve incorrect disable-assertions reference - ([51dde15](https://github.com/JayRovacsek/nix-config/commit/51dde155cd463c6c0cad8843f056d360c06bfc21))
 

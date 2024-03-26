@@ -509,6 +509,28 @@
           prev.lib.recursiveUpdate prev.llvmPackages { inherit llvm; };
       };
 
+      meson-fixes = {
+        meson = prev.meson.overrideAttrs (_: {
+          checkPhase = prev.lib.concatStringsSep "\n" ([
+            "runHook preCheck"
+            ''
+              patchShebangs 'test cases'
+              substituteInPlace \
+                'test cases/native/8 external program shebang parsing/script.int.in' \
+                  --replace /usr/bin/env ${prev.coreutils}/bin/env
+            ''
+          ]
+          # Remove problematic tests
+            ++ (builtins.map (f: ''rm -vr "${f}";'') [
+              "test cases vcstag"
+              "test cases"
+            ]) ++ [
+              ''HOME="$TMPDIR" python ./run_project_tests.py''
+              "runHook postCheck"
+            ]);
+        });
+      };
+
       python-fixes = prev.lib.genAttrs [
         "python38"
         "python39"
@@ -532,8 +554,8 @@
       };
 
     in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
-    // d-file-offset-fixes // llvm-fixes // libllvm-fixes // python-fixes
-    // tpm2-tss-extra-deps;
+    // d-file-offset-fixes // llvm-fixes // libllvm-fixes // meson-fixes
+    // python-fixes // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
