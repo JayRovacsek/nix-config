@@ -1,3 +1,8 @@
+## [unreleased]
+
+### 🐛 Bug Fixes
+- Resolve meson build failure - ([a09b8f3](https://github.com/JayRovacsek/nix-config/commit/a09b8f37f542b3b04668a1a45eef33074569565f))
+
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 
 ### ⛰️  Features

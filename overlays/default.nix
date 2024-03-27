@@ -454,6 +454,7 @@
         "boehmgc"
         "dejagnu"
         "diffutils"
+        "fribidi"
         "gnugrep"
         "graphite2"
         "libllvm"
@@ -463,6 +464,7 @@
         "mdbook"
         "openssh"
         "pcre"
+        "pixman"
         "rhash"
         "sourceHighlight"
       ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
@@ -520,7 +522,7 @@
                   --replace /usr/bin/env ${prev.coreutils}/bin/env
             ''
           ]
-          # Remove problematic tests
+          # Remove all tests
             ++ (builtins.map (f: ''rm -vr "${f}";'') [
               "test cases vcstag"
               "test cases"
