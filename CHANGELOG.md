@@ -1,6 +1,8 @@
 ## [unreleased]
 
 ### 🐛 Bug Fixes
+
+- *(overlays)* Resolve failed armv6/7 builds of fribidi & pixman - ([d67aa2d](https://github.com/JayRovacsek/nix-config/commit/d67aa2d227c6ed9a2ddec6be186fa016cb480cfe))
 - Resolve meson build failure - ([a09b8f3](https://github.com/JayRovacsek/nix-config/commit/a09b8f37f542b3b04668a1a45eef33074569565f))
 
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24

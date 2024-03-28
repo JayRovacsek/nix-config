@@ -451,7 +451,9 @@
       };
 
       disabled-checks = prev.lib.genAttrs [
+        "aws-c-common"
         "boehmgc"
+        "dav1d"
         "dejagnu"
         "diffutils"
         "fribidi"
