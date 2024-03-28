@@ -1,4 +1,4 @@
-{ self, nixos-rebuild, stdenv, pkgs, lib }:
+{ nixos-rebuild, stdenv, pkgs, lib, ... }:
 with lib;
 let
   name = "ditto-transform";
@@ -17,7 +17,7 @@ let
       echo "$0 - Error \$TARGET not set or NULL, use the first parameter to this script to define the target"
     else
       echo "Transforming into: $TARGET"
-      ${nixos-rebuild}/bin/nixos-rebuild switch --flake ${self}#$TARGET
+      ${nixos-rebuild}/bin/nixos-rebuild switch --flake github:JayRovacsek/nix-config#$TARGET
     fi
   '';
 
