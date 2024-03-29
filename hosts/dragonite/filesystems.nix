@@ -23,21 +23,6 @@
       inherit fsType options;
     };
 
-    "/srv/backup" = {
-      device = "tank/backup";
-      inherit fsType options;
-    };
-
-    "/srv/personal_video" = {
-      device = "tank/personal_video";
-      inherit fsType options;
-    };
-
-    "/srv/work" = {
-      device = "tank/work";
-      inherit fsType options;
-    };
-
     "/srv/games" = {
       device = "tank/games";
       inherit fsType options;
@@ -71,11 +56,6 @@
 
     "/srv/databases" = {
       device = "tank/databases";
-      inherit fsType options;
-    };
-
-    "/srv/home_assistant" = {
-      device = "tank/home_assistant";
       inherit fsType options;
     };
 

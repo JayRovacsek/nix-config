@@ -41,6 +41,8 @@
 - *(options)* Headscale options alignment with upstream tailnet -> user - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
+- *(packages)* Ditto transform points to the main branch of config repo now - ([d972634](https://github.com/JayRovacsek/nix-config/commit/d972634faa723b81a5de4534855cb22351a9ec23))
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 
 ### ⛰️  Features
