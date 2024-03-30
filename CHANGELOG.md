@@ -22,6 +22,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(home-manager-modules)* Correct hyprland window config on alakazam - ([c9db6c6](https://github.com/JayRovacsek/nix-config/commit/c9db6c66572a92057b5ca5a0fb3ba5ae7b241a5e))
+
 - *(home-manager-modules)* Resolve firefox custom code search shortcut - ([6262682](https://github.com/JayRovacsek/nix-config/commit/626268297ac071753b6596a39708760004786a44))
 
 - *(linux)* Remove dead zfs stores from dragonite - ([1b73bec](https://github.com/JayRovacsek/nix-config/commit/1b73bec10e135fc6f10858ca05a454c0b93fe69f))

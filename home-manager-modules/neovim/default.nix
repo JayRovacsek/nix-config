@@ -2,7 +2,10 @@
   # Configuration Options
   # https://nix-community.github.io/nixvim/
 
-  home.sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+  home = {
+    packages = with pkgs; [ zathura ];
+    sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+  };
 
   programs.nixvim = {
     enable = true;
@@ -125,7 +128,7 @@
       lsp-format.enable = true;
 
       # Completion
-      nvim-cmp.enable = true; # https://github.com/hrsh7th/nvim-cmp
+      cmp.enable = true; # https://github.com/hrsh7th/nvim-cmp
 
       # Language Servers 
       lsp = {
@@ -150,7 +153,7 @@
       nix-develop.enable = true;
       typst-vim = {
         enable = true;
-        pdfViewer = "zathura";
+        settings.pdf_viewer = "zathura";
       };
     };
 
