@@ -38,6 +38,8 @@
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(modules)* Force palworld to start when ready - ([100a2d6](https://github.com/JayRovacsek/nix-config/commit/100a2d69d18960849d9a45755ca46a5b15fbe745))
+
 - *(modules)* Resolve issues related to nextcloud configuration - ([3f44d2a](https://github.com/JayRovacsek/nix-config/commit/3f44d2a23c084f9ca74eca56c9f275140d79ea01))
 
 - *(modules)* Reduce systemd configuration limit - ([bd7fefc](https://github.com/JayRovacsek/nix-config/commit/bd7fefc103e8c4c3d886fe21b8dc2afc53123415))
