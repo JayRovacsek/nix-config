@@ -44,8 +44,8 @@ in {
 
   services = {
     nextcloud = {
-      extraOptions.datadirectory = "/srv/nextcloud";
       hostName = "nextcloud.rovacsek.com";
+      settings.datadirectory = "/srv/nextcloud";
     };
 
     nginx.virtualHosts."nextcloud.rovacsek.com" = {

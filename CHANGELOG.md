@@ -22,6 +22,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(home-manager-modules)* Resolve warnings related to zsh - ([bd73ac0](https://github.com/JayRovacsek/nix-config/commit/bd73ac04d44787b62a1721205d8d871cf66b8741))
+
 - *(home-manager-modules)* Resolve warnings related to nixvim - ([077475d](https://github.com/JayRovacsek/nix-config/commit/077475d2eb8049e0daf9e22b8411ae69f42fe794))
 
 - *(home-manager-modules)* Correct hyprland window config on alakazam - ([c9db6c6](https://github.com/JayRovacsek/nix-config/commit/c9db6c66572a92057b5ca5a0fb3ba5ae7b241a5e))
@@ -49,6 +51,10 @@
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
 - *(packages)* Ditto transform points to the main branch of config repo now - ([d972634](https://github.com/JayRovacsek/nix-config/commit/d972634faa723b81a5de4534855cb22351a9ec23))
+
+### 🚜 Refactor
+
+- *(home-manager-modules)* Clean up zsh module - ([bd73ac0](https://github.com/JayRovacsek/nix-config/commit/bd73ac04d44787b62a1721205d8d871cf66b8741))
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 
 ### ⛰️  Features

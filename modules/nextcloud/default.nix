@@ -42,7 +42,6 @@ in {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        overwriteProtocol = "https";
       };
 
       configureRedis = true;
@@ -51,7 +50,7 @@ in {
 
       enableImagemagick = true;
 
-      extraOptions = {
+      settings = {
         enabledPreviewProviders = [
           "OC\\Preview\\BMP"
           "OC\\Preview\\GIF"
@@ -61,6 +60,8 @@ in {
         ];
         log_type = "file";
         loglevel = 2;
+        maintenance_window_start = "12";
+        overwriteProtocol = "https";
         "profile.enabled" = false;
         trusted_proxies = [ self.common.networking.services.nginx.ipv4 ];
         trusted_domains = [ "192.168.10.3" ];
