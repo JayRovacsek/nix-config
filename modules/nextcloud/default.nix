@@ -25,6 +25,8 @@ in {
     };
   };
 
+  environment.systemPackages = with pkgs; [ ffmpeg-headless ];
+
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services = {
