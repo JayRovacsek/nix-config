@@ -5,12 +5,6 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx = {
-    commonHttpConfig = ''
-      types {
-        application/javascript mjs;
-      }
-    '';
-
     enable = true;
     enableReload = true;
     recommendedTlsSettings = true;

@@ -30,6 +30,8 @@
 
 - *(home-manager-modules)* Resolve firefox custom code search shortcut - ([6262682](https://github.com/JayRovacsek/nix-config/commit/626268297ac071753b6596a39708760004786a44))
 
+- *(linux)* Add services to mr-mime - ([dd78a6f](https://github.com/JayRovacsek/nix-config/commit/dd78a6ff79d607a4239a16fca3cb89907276b5c1))
+
 - *(linux)* Remove dead zfs stores from dragonite - ([1b73bec](https://github.com/JayRovacsek/nix-config/commit/1b73bec10e135fc6f10858ca05a454c0b93fe69f))
 
 - *(linux)* Add magikarp back to dragonite - ([c93d9db](https://github.com/JayRovacsek/nix-config/commit/c93d9dbe26d14fa3b65ae1ec27fc6a846f88304f))
@@ -37,6 +39,8 @@
 - *(linux)* Remove password ssh configuration from microvms - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
+- *(modules)* Expose ports for prometheus and loki - ([dd78a6f](https://github.com/JayRovacsek/nix-config/commit/dd78a6ff79d607a4239a16fca3cb89907276b5c1))
 
 - *(modules)* Resolve microvm host issues related to macvtap state - ([a7d2eeb](https://github.com/JayRovacsek/nix-config/commit/a7d2eeb9500f8c1b482af219d0bd446e392d6239))
 
