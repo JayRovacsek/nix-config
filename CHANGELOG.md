@@ -38,6 +38,8 @@
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(modules)* Resolve microvm host issues related to macvtap state - ([a7d2eeb](https://github.com/JayRovacsek/nix-config/commit/a7d2eeb9500f8c1b482af219d0bd446e392d6239))
+
 - *(modules)* Add ffmpeg to nextcloud module to enable media conversion - ([22c32be](https://github.com/JayRovacsek/nix-config/commit/22c32be3b373aae166ed60a3969478191d2a8d33))
 
 - *(modules)* Remove power settings and modify systemd sleep for microvms - ([100444a](https://github.com/JayRovacsek/nix-config/commit/100444a458d9b06f7f9d09b7cce909f849101194))

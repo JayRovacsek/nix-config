@@ -121,9 +121,14 @@ _: {
       push-api = "loki/api/v1/push";
       subdomain = "loki";
       user = {
-        gid = 255;
-        uid = 255;
+        gid = 401;
+        uid = 401;
       };
+    };
+
+    media.user = {
+      gid = 400;
+      uid = 400;
     };
 
     nextcloud = {
@@ -165,7 +170,7 @@ _: {
 
     prometheus = {
       authelia = false;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 9092;
       protocol = "http";
       write-api = "api/v1/write";

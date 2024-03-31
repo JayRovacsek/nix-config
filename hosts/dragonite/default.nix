@@ -29,7 +29,6 @@ in {
     firefox-syncserver
     fonts
     generations
-    gids
     gnupg
     hydra
     i18n
@@ -48,7 +47,6 @@ in {
     time
     timesyncd
     udev
-    uids
     zfs
     zsh
   ];
@@ -200,6 +198,7 @@ in {
         "magikarp"
         "mankey"
         "meowth"
+        "mr-mime"
         "nidoking"
         "nidorina"
         "nidorino"

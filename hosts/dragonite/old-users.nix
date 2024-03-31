@@ -1,10 +1,10 @@
-{ config, ... }: {
+{ self, ... }: {
 
   users = {
     users.media = {
       group = "media";
-      uid = config.ids.uids.media;
       isSystemUser = true;
+      inherit (self.common.networking.services.media.user) uid;
     };
   };
 
@@ -17,7 +17,7 @@
     };
 
     media = {
-      gid = config.ids.gids.media;
+      inherit (self.common.networking.services.media.user) gid;
       members = [ "jay" "jellyfin" "tdarr" ];
     };
 
