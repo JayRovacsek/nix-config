@@ -64,6 +64,8 @@
 
 ### 🚜 Refactor
 
+- *(common,tooling,linux)* Move media uid/gids into common, remove modules - ([b4e5a3c](https://github.com/JayRovacsek/nix-config/commit/b4e5a3cbac2a5301c74733cbd22fdb79b84a393f))
+
 - *(home-manager-modules)* Clean up zsh module - ([bd73ac0](https://github.com/JayRovacsek/nix-config/commit/bd73ac04d44787b62a1721205d8d871cf66b8741))
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 

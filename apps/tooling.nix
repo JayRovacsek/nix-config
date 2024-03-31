@@ -15,7 +15,7 @@ let
 
         body = ''
           {%- macro remote_url() -%}
-            https://github.com/JayRovacsek/nix-config
+            https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
           {%- endmacro -%}
           {% macro print_commit(commit) -%}
               - {% if commit.scope %}*({{ commit.scope }})* {% endif %}{% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message | upper_first }} - ([{{ commit.id | truncate(length=7, end="") }}]({{ self::remote_url() }}/commit/{{ commit.id }}))
@@ -166,6 +166,10 @@ let
         sort_commits = "newest";
       };
 
+      remote.github = {
+        owner = "JayRovacsek";
+        repo = "nix-config";
+      };
     };
 
     program = builtins.toString (pkgs.writers.writeBash "copy-config" ''
