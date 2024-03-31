@@ -1,6 +1,8 @@
-{ self, ... }:
+{ config, self, ... }:
 let inherit (self.common.networking.services) exporters-node prometheus;
 in {
+  networking.firewall.allowedTCPPorts = [ config.services.prometheus.port ];
+
   services.prometheus = {
     enable = true;
 

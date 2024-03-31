@@ -1,8 +1,10 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
-    microvm-guest
+    grafana
     loki
+    microvm-guest
+    prometheus
     time
     timesyncd
   ];
@@ -20,14 +22,26 @@
       };
     }];
 
-    shares = [{
-      # On the host
-      source = "/srv/logs/loki";
-      # In the MicroVM
-      mountPoint = config.services.loki.dataDir;
-      tag = "nextcloud";
-      proto = "virtiofs";
-    }];
+    mem = 2048;
+
+    shares = [
+      {
+        # On the host
+        source = "/srv/logs/loki";
+        # In the MicroVM
+        mountPoint = config.services.loki.dataDir;
+        tag = "loki";
+        proto = "virtiofs";
+      }
+      {
+        # On the host
+        source = "/srv/logs/prometheus";
+        # In the MicroVM
+        mountPoint = "/var/lib/${config.services.prometheus.stateDir}";
+        tag = "prometheus";
+        proto = "virtiofs";
+      }
+    ];
   };
 
   system.stateVersion = "24.05";
