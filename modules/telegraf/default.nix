@@ -1,18 +1,21 @@
-_: {
+{ pkgs, self, ... }:
+let inherit (self.common.networking.services.telegraf.output.prometheus) port;
+in {
+  networking.firewall.allowedTCPPorts = [ port ];
   services = {
-    influxdb = { enable = true; };
     telegraf = {
       enable = true;
       extraConfig = {
-        inputs = { zfs = { poolMetrics = true; }; };
-        outputs = {
-          influxdb = {
-            database = "telegraf";
-            urls = [ "http://localhost:8086" ];
+        inputs = {
+          execd = {
+            command = [ "${pkgs.zfs}/libexec/zfs/zpool_influxdb" "--execd" ];
+            data_format = "influx";
+            restart_delay = "10s";
+            signal = "STDIN";
           };
+          zfs = { };
         };
-
-        outputs.prometheus_client.listen = ":9273";
+        outputs.prometheus_client.listen = ":${builtins.toString port}";
       };
     };
   };

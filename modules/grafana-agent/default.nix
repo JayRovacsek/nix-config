@@ -1,10 +1,11 @@
 { config, lib, self, ... }:
 let
-  inherit (self.common.networking.services) loki prometheus;
+  inherit (self.common.networking.services) loki prometheus telegraf;
 
   blocky-enabled = config.services.blocky.enable;
   clamav-enabled = config.services.clamav.daemon.enable;
   node-enabled = config.services.prometheus.exporters.node.enable;
+  telegraf-enabled = config.services.telegraf.enable;
 
   blocky-prom-config = {
     job_name = "blocky";
@@ -44,9 +45,19 @@ let
       ];
     }];
   };
+
+  zfs-telegraf-config = {
+    job_name = "zfs";
+    scheme = "http";
+    static_configs = [{
+      labels.host = config.networking.hostName;
+      targets =
+        [ "127.0.0.1:${builtins.toString telegraf.output.prometheus.port}" ];
+    }];
+  };
 in {
-  systemd.services.grafana-agent.serviceConfig.SupplementaryGroups =
-    lib.mkForce [ "systemd-journal" "clamav" ];
+  systemd.services.grafana-agent.serviceConfig.SupplementaryGroups = lib.mkForce
+    ([ "systemd-journal" ] ++ (lib.optional clamav-enabled "clamav"));
 
   services.grafana-agent = {
     enable = true;
@@ -94,7 +105,8 @@ in {
         configs = [{
           name = "prometheus_scrape_configs";
           scrape_configs = (lib.optional blocky-enabled blocky-prom-config)
-            ++ (lib.optional node-enabled node-prom-config);
+            ++ (lib.optional node-enabled node-prom-config)
+            ++ (lib.optional telegraf-enabled zfs-telegraf-config);
         }];
 
       };

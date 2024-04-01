@@ -46,6 +46,7 @@ in {
     samba
     sudo
     systemd-networkd
+    telegraf
     time
     timesyncd
     udev

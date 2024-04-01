@@ -6,11 +6,15 @@
 
 - *(common)* Add flaresolverr and openssh public keys to common - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(linux)* Enable logging on alakazam, dragonite and jigglypuff - ([4d7ba47](https://github.com/JayRovacsek/nix-config/commit/4d7ba47a95d692a90b8321ca223988ce748ef444))
+
 - *(linux)* Add log macvlan to dragonite - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(linux)* Add mr mime as logging microvm - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(linux)* Add slowpoke as a new host (flaresolverr) - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
+- *(modules)* Uplift grafana agent module to start monitoring journey - ([4d7ba47](https://github.com/JayRovacsek/nix-config/commit/4d7ba47a95d692a90b8321ca223988ce748ef444))
 
 - *(modules)* Add flaresolverr module - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 

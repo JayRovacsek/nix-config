@@ -200,5 +200,7 @@ _: {
       protocol = "http";
       subdomain = "sonarr";
     };
+
+    telegraf.output.prometheus.port = 9273;
   };
 }
