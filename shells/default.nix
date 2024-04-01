@@ -1,13 +1,16 @@
 { self, pkgs }:
-let
-  inherit (pkgs) system;
-  name = "dev-shell";
-  node-deps = with pkgs.nodePackages; [ prettier ];
-  packages = (with pkgs; [ deadnix nixfmt statix nil ]) ++ node-deps;
+let inherit (pkgs) system;
 in {
-  "${name}" = pkgs.mkShell {
-    inherit name packages;
+  default = pkgs.mkShell {
+    name = "dev-shell";
+    packages = with pkgs; [
+      deadnix
+      nil
+      nixfmt
+      nixVersions.stable
+      nodePackages.prettier
+      statix
+    ];
     inherit (self.checks.${system}.pre-commit) shellHook;
   };
-  default = self.outputs.devShells.${system}.${name};
 }

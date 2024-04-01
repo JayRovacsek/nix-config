@@ -6,6 +6,8 @@
 
 - *(common)* Add flaresolverr and openssh public keys to common - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(linux)* Add logging to igglybuff as litness test for microvms - ([ab6bd69](https://github.com/JayRovacsek/nix-config/commit/ab6bd691d209873074721c95981bb10248a62fd5))
+
 - *(linux)* Enable logging on alakazam, dragonite and jigglypuff - ([4d7ba47](https://github.com/JayRovacsek/nix-config/commit/4d7ba47a95d692a90b8321ca223988ce748ef444))
 
 - *(linux)* Add log macvlan to dragonite - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
