@@ -30,10 +30,12 @@ in {
     fonts
     generations
     gnupg
+    grafana-agent
     hydra
     i18n
     jellyfin
     jellyseerr
+    logging
     lorri
     microvm-host
     nix

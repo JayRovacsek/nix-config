@@ -30,6 +30,8 @@
 
 - *(home-manager-modules)* Resolve firefox custom code search shortcut - ([6262682](https://github.com/JayRovacsek/nix-config/commit/626268297ac071753b6596a39708760004786a44))
 
+- *(linux)* Reduce ram allocated to nidoking; not required with zfs fixes - ([d9b5190](https://github.com/JayRovacsek/nix-config/commit/d9b5190fd0d059305816b9d62a869be9dfea3ee8))
+
 - *(linux)* Add services to mr-mime - ([dd78a6f](https://github.com/JayRovacsek/nix-config/commit/dd78a6ff79d607a4239a16fca3cb89907276b5c1))
 
 - *(linux)* Remove dead zfs stores from dragonite - ([1b73bec](https://github.com/JayRovacsek/nix-config/commit/1b73bec10e135fc6f10858ca05a454c0b93fe69f))
@@ -39,6 +41,8 @@
 - *(linux)* Remove password ssh configuration from microvms - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(linux)* Remove password ssh auth from microvms - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
+- *(modules)* Revert mjs code from nginx - ([d9b5190](https://github.com/JayRovacsek/nix-config/commit/d9b5190fd0d059305816b9d62a869be9dfea3ee8))
 
 - *(modules)* Expose ports for prometheus and loki - ([dd78a6f](https://github.com/JayRovacsek/nix-config/commit/dd78a6ff79d607a4239a16fca3cb89907276b5c1))
 

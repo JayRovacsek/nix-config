@@ -58,7 +58,9 @@ in {
     fonts
     generations
     gnupg
+    grafana-agent
     journald
+    logging
     lorri
     nix
     openssh

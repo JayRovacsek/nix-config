@@ -33,7 +33,7 @@ _: {
       subdomain = "code";
     };
 
-    exporters-node = { port = 9100; };
+    exporters-node.port = 9100;
 
     deluge = {
       authelia = true;
@@ -81,7 +81,7 @@ _: {
 
     grafana = {
       authelia = true;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 3002;
       protocol = "http";
       subdomain = "grafana";

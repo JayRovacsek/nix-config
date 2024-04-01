@@ -30,6 +30,7 @@ in {
     fonts
     generations
     gnupg
+    grafana-agent
     greetd
     grub
     home-manager
@@ -37,6 +38,7 @@ in {
     i18n
     impermanence
     keybase
+    logging
     lorri
     microvm-host
     nextcloud-client
