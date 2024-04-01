@@ -2,6 +2,8 @@
   imports = with self.nixosModules; [
     agenix
     blocky
+    grafana-agent
+    logging
     microvm-guest
     time
     timesyncd

@@ -14,6 +14,8 @@
 
 - *(linux)* Add slowpoke as a new host (flaresolverr) - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(modules)* Implement telegraf for zfs metric data - ([908468e](https://github.com/JayRovacsek/nix-config/commit/908468e99b35e210a2c36e74c5fe394bc77cb44f))
+
 - *(modules)* Uplift grafana agent module to start monitoring journey - ([4d7ba47](https://github.com/JayRovacsek/nix-config/commit/4d7ba47a95d692a90b8321ca223988ce748ef444))
 
 - *(modules)* Add flaresolverr module - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
