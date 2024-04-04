@@ -1,7 +1,7 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "dtfabric";
-  name = pname;
+
   version = "20230520";
 
   meta = with lib; {
@@ -13,16 +13,17 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage pyyaml;
+  inherit (python3Packages) buildPythonPackage pip pyyaml setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
-  propagatedBuildInputs = [ pyyaml ];
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [ pip pyyaml ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
   };
-
-  doCheck = false;
 }

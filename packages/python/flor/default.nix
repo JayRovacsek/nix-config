@@ -1,7 +1,7 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "Flor";
-  name = pname;
+
   version = "1.1.3";
 
   meta = with lib; {
@@ -15,12 +15,10 @@ let
   inherit (python3Packages) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-H6wQHhYURtuy7lN51blQuwFf5tkFaDhaVJtTjKEv6UI=";
   };
-
-  doCheck = false;
 }

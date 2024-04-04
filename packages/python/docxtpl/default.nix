@@ -3,7 +3,7 @@ let
   inherit (pkgs) system;
 
   pname = "docxtpl";
-  version = "0.16.7";
+  version = "0.16.8";
 
   meta = with lib; {
     description = "Use a docx as a jinja2 template";
@@ -17,6 +17,8 @@ let
 
   inherit (self.packages.${system}) docxcompose;
 
+in buildPythonPackage {
+  inherit pname version meta;
   propagatedBuildInputs = [
     six
     (python-docx.overridePythonAttrs
@@ -28,7 +30,6 @@ let
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-cXTBfmWBFK3jHharORKFZ8q7pbtYs3OhsuUJ2StRjDk=";
+    sha256 = "sha256-Rh09TiYfZw0x3k7uLIw+AK8mhuev21xcy0Zb0GUNpus=";
   };
-
-in buildPythonPackage { inherit pname version meta propagatedBuildInputs src; }
+}

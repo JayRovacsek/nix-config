@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libmsiecf-python";
-  name = pname;
-  version = "20231203";
+
+  version = "20240209";
 
   meta = with lib; {
     description = "Python bindings module for libmsiecf";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-R6KqJthZI8L0LVElQVBRVFb0bRLPlbf+4k1ejj4iNIo=";
+    sha256 = "sha256-C38pCImI7S3NHlR443IPuaR3eeij12TibsYzJcXBANA=";
   };
-
-  doCheck = false;
 }

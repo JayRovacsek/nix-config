@@ -1,7 +1,7 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "pytsk3";
-  name = pname;
+
   version = "20231007";
 
   meta = with lib; {
@@ -16,7 +16,7 @@ let
   inherit (python3Packages) buildPythonPackage;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   src = fetchPypi {
     inherit pname version;

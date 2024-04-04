@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, python3Packages, ... }:
 let
   pname = "OPNReport";
-  name = pname;
+
   version = "0.1.0";
 
   meta = with lib; {
@@ -15,7 +15,7 @@ let
   inherit (python3Packages) buildPythonPackage defusedxml pyyaml;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   propagatedBuildInputs = [ defusedxml pyyaml ];
 

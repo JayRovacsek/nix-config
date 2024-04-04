@@ -1,8 +1,8 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsapfs-python";
-  name = pname;
-  version = "20231122";
+
+  version = "20240218";
 
   meta = with lib; {
     description = "Python bindings module for libfsapfs";
@@ -12,17 +12,17 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   buildInputs = [ zlib ];
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-CQ+/xVuNvW5P6Kqc+9TWnjw9znTqK+y/9jL14CfwZ70=";
+    sha256 = "sha256-88F2RrVw9+JitNyg3mnkkMaWHKBDZoYxdvfeDRe+slw=";
   };
-
-  doCheck = false;
 }

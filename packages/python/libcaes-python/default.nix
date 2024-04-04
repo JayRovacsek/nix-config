@@ -1,14 +1,13 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
-  pname = "libphdi-python";
-
-  version = "20240307";
+  pname = "libcaes-python";
+  version = "20240114";
 
   meta = with lib; {
-    description = "Python bindings module for libphdi";
+    description = "Python bindings module for libcaes";
     platforms = platforms.all;
-    homepage = "https://github.com/libyal/libphdi/";
-    downloadPage = "https://github.com/libyal/libphdi/releases";
+    homepage = "https://github.com/libyal/libcaes";
+    downloadPage = "https://github.com/libyal/libcaes/releases";
     license = licenses.lgpl3Plus;
   };
 
@@ -22,6 +21,6 @@ in buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-qn4iZkVpWcm2leVWpJx0l3BFYBY3U8nsR6EzgBz1Uak=";
+    hash = "sha256-bD2FPEM8p0bU8v6Vg4z4PsTwSWWfUy70I+/9j56aBUE=";
   };
 }

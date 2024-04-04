@@ -1,8 +1,8 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
 let
   pname = "libmodi-python";
-  name = pname;
-  version = "20231123";
+
+  version = "20240305";
 
   meta = with lib; {
     description = "Python bindings module for libmodi";
@@ -12,17 +12,17 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   buildInputs = [ zlib ];
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-EknrAFpLCTz3z08Bn1KCwPByBF+8vP+dWiCqJFbb51k=";
+    sha256 = "sha256-cZy1/RdFbT6OwIT/+MCVpdzRO8sz0P3I6EtcI9HdfNI=";
   };
-
-  doCheck = false;
 }

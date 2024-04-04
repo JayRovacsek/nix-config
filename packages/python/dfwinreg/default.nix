@@ -3,8 +3,8 @@ let
   inherit (pkgs) system;
 
   pname = "dfwinreg";
-  name = pname;
-  version = "20231205";
+
+  version = "20240229";
 
   meta = with lib; {
     description =
@@ -15,19 +15,21 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage pyyaml;
+  inherit (python3Packages) buildPythonPackage pyyaml setuptools;
 
   inherit (self.packages.${system})
     dfdatetime libregf-python libcreg-python dtfabric;
+
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
   propagatedBuildInputs =
     [ dfdatetime libregf-python libcreg-python pyyaml dtfabric ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8KZdPM4XXQ9H7brgcO3orFYwVRpGgFjjq3DUI401XTo=";
+    sha256 = "sha256-guiWjSx3LsPkPOgqN6axfE36FOuZet5LrnYIHZqQ6WM=";
   };
-
-  doCheck = false;
 }

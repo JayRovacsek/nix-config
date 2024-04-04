@@ -1,7 +1,7 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsxfs-python";
-  name = pname;
+
   version = "20231124";
 
   meta = with lib; {
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-h8Cn/0rI7tYYxKgX2pt9/96f9XOiGiOk9gI9i+KeLxc=";
   };
-
-  doCheck = false;
 }

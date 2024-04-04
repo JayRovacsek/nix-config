@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfwsi-python";
-  name = pname;
-  version = "20231130";
+
+  version = "20240315";
 
   meta = with lib; {
     description = "Python bindings module for libfwsi";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-RwJF1ufPDQNZT3AvAULgftWfDC8Wx2OmKex7CpJ5UiU=";
+    sha256 = "sha256-FmtU0apa9kfwTqCJbpBL+NVHFCN3BtMXAWtY71MZsgg=";
   };
-
-  doCheck = false;
 }

@@ -1,10 +1,10 @@
-{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
+{ pkgs, lib, fetchPypi, python3Packages, self, stdenv, ... }:
 let
   inherit (pkgs) system;
 
   pname = "dfvfs";
-  name = pname;
-  version = "20231205";
+
+  version = "20240115";
 
   meta = with lib; {
     description =
@@ -15,33 +15,30 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage cffi cryptography pyyaml pyxattr;
+  inherit (python3Packages) buildPythonPackage cffi pyyaml pyxattr setuptools;
 
   inherit (self.packages.${system})
-    dfdatetime dtfabric libbde-python libewf-python libfsapfs-python
-    libfsext-python libfsfat-python libfshfs-python libfsntfs-python
-    libfsxfs-python libfvde-python libfwnt-python libluksde-python
-    libmodi-python libphdi-python libqcow-python libsigscan-python
-    libsmdev-python libsmraw-python libvhdi-python libvmdk-python
-    libvsgpt-python libvshadow-python libvslvm-python pytsk3;
+    dfdatetime dtfabric libbde-python libcaes-python libewf-python
+    libfcrypto-python libfsapfs-python libfsext-python libfsfat-python
+    libfshfs-python libfsntfs-python libfsxfs-python libfvde-python
+    libfwnt-python libluksde-python libmodi-python libphdi-python libqcow-python
+    libsigscan-python libsmdev-python libsmraw-python libvhdi-python
+    libvmdk-python libvsapm-python libvsgpt-python libvshadow-python
+    libvslvm-python pytsk3;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-ABMpYTh42wzIW+V/RaNBHTLnmZSzE/flaaZhhXACO2o=";
-  };
-
-  doCheck = false;
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     cffi
-    cryptography
     dfdatetime
     dtfabric
     libbde-python
+    libcaes-python
     libewf-python
+    libfcrypto-python
     libfsapfs-python
     libfsext-python
     libfsfat-python
@@ -59,11 +56,24 @@ in buildPythonPackage {
     libsmraw-python
     libvhdi-python
     libvmdk-python
+    libvsapm-python
     libvsgpt-python
     libvshadow-python
     libvslvm-python
     pytsk3
-    pyxattr
+    (pyxattr.overrideAttrs (old: rec {
+      buildInputs = lib.optional stdenv.isLinux pkgs.attr;
+      meta.platforms = old.meta.platforms
+        ++ [ "aarch64-darwin" "x86_64-darwin" ];
+      hardeningDisable = lib.optional stdenv.isDarwin "strictoverflow";
+    }))
     pyyaml
   ];
+
+  pyproject = true;
+
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-FkOB26OdxD9j82oaQFqtGYxKdjGQRLZNCFDq7dOKt7s=";
+  };
 }

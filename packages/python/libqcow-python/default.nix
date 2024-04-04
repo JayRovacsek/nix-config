@@ -1,8 +1,8 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
 let
   pname = "libqcow-python";
-  name = pname;
-  version = "20231125";
+
+  version = "20240308";
 
   meta = with lib; {
     description = "Python bindings module for libqcow";
@@ -12,17 +12,17 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   buildInputs = [ zlib ];
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Eqhwx9rPO0zvA9pETmhadOsXrBhS2Htz7ueUxWuWmtA=";
+    sha256 = "sha256-6bPjrY0uiJu4nVWklso9lzyoAEMBASeGvLr2H5h5YWU=";
   };
-
-  doCheck = false;
 }

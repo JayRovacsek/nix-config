@@ -1,7 +1,7 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfvde-python";
-  name = pname;
+
   version = "20231128";
 
   meta = with lib; {
@@ -12,17 +12,17 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
 
   buildInputs = [ zlib ];
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-InW4qbmjkloWktSk396qEhxO3MVTjCFMAW0apnK1QXk=";
   };
-
-  doCheck = false;
 }

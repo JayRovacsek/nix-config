@@ -37,16 +37,11 @@ let
       ${package} = callPackage ./text/${package} { inherit self; };
     } accumulator) { } text-packages;
 
-  python = let
-    python-overlay-pkgs = import self.inputs.nixpkgs {
-      inherit system;
-      overlays = [ self.overlays.python ];
-    };
-  in builtins.foldl' (accumulator: package:
+  python = builtins.foldl' (accumulator: package:
     recursiveUpdate {
       ${package} = callPackage ./python/${package} {
         inherit self;
-        pkgs = python-overlay-pkgs;
+        inherit pkgs;
       };
     } accumulator) { } python-packages;
 

@@ -14,6 +14,9 @@ let
 
   inherit (python3Packages) buildPythonPackage;
 
+in buildPythonPackage {
+  inherit pname version meta;
+
   propagatedBuildInputs = with python3Packages; [
     lxml
     (python-docx.overridePythonAttrs
@@ -27,5 +30,4 @@ let
     inherit pname version;
     sha256 = "sha256-vPJ5mgtjwp63ej15mi8oRDrg9p+Gkf89dT9wa+UVw+k=";
   };
-
-in buildPythonPackage { inherit pname version meta propagatedBuildInputs src; }
+}

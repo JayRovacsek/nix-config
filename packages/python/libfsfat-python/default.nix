@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsfat-python";
-  name = pname;
-  version = "20231122";
+
+  version = "20240220";
 
   meta = with lib; {
     description = "Python bindings module for libfsfat";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-TTUUb1px9EfX0DQzOsrD4bEnL1THxw/kvU+II6tDgxE=";
+    sha256 = "sha256-eABliX9tg+AMjbtr0g1BbjZUbgJE+uIljCB7GIMWs2w=";
   };
-
-  doCheck = false;
 }

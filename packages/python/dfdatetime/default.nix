@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "dfdatetime";
-  name = pname;
-  version = "20231205";
+
+  version = "20240330";
 
   meta = with lib; {
     description =
@@ -13,15 +13,16 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-OG26dfWSPtOkewX50n82qa1yn1rGtmjKKM0t/uZUEtg=";
+    sha256 = "sha256-vRKhR+/pPLWhzo5s1sXK/oOIu+HZmjEgZflICnXsiJ0=";
   };
-
-  doCheck = false;
 }

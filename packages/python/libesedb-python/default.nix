@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libesedb-python";
-  name = pname;
-  version = "20231120";
+
+  version = "20240202";
 
   meta = with lib; {
     description = "Python bindings module for libesedb";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-fHGYgxwW0Xmj/swip3eNedsex2pWozKAYVsuR+qce9c=";
+    sha256 = "sha256-vUfVNNwpPBv0IREKj21MfKWPFXxvzhfyzRpre+3BjAU=";
   };
-
-  doCheck = false;
 }

@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfwnt-python";
-  name = pname;
-  version = "20231124";
+
+  version = "20240126";
 
   meta = with lib; {
     description = "Python bindings module for libfwnt";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-909nXbw5rxBdVOJ7hhvTxlfs+cWKPsShULGet8QRnbQ=";
+    sha256 = "sha256-Ur+rHobSASCjYZKQlNBHb+34/rUsg9/dw0WKFXK+bvw=";
   };
-
-  doCheck = false;
 }

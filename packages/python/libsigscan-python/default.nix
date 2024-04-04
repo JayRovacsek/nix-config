@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libsigscan-python";
-  name = pname;
-  version = "20231201";
+
+  version = "20240219";
 
   meta = with lib; {
     description = "Python bindings module for libsigscan";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-e7HmAU2JFMtvgAbYOqpdKy0/GN2w5wdMLRPouLCoqvg=";
+    sha256 = "sha256-iSsEQyHrBMcr+p+Vyei9J05+PXCWAvsR6G2EMVTXNGU=";
   };
-
-  doCheck = false;
 }

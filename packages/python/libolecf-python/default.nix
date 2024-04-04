@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libolecf-python";
-  name = pname;
-  version = "20231203";
+
+  version = "20240212";
 
   meta = with lib; {
     description = "Python bindings module for libolecf";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-hQNlUJDLlkGPrzgFJVt+SF8bluyRLemkFHJyCutvMMA=";
+    sha256 = "sha256-jKm4eo5UVnlDyRqGz7oOIzRIsJ2jeIspzeDVi1xHOPY=";
   };
-
-  doCheck = false;
 }

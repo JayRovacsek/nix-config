@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libevtx-python";
-  name = pname;
-  version = "20231121";
+
+  version = "20240204";
 
   meta = with lib; {
     description = "Python bindings module for libevtx";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-5XF0R1c8xVazJoLQ7jbKb/hHSGWsN2bXV9BOG6cOI9g=";
+    sha256 = "sha256-ndEyCnp8H8D9y8bw5i3noEeSMo+R9FmavaM/FeQbCyI=";
   };
-
-  doCheck = false;
 }

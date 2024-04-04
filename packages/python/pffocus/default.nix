@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, python3Packages, ... }:
 let
   pname = "pfFocus";
-  name = pname;
+
   version = "0.1";
 
   meta = with lib; {
@@ -12,21 +12,19 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage defusedxml pyyaml;
+  inherit (python3Packages) buildPythonPackage defusedxml pip pyyaml;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ pip ];
 
   propagatedBuildInputs = [ defusedxml pyyaml ];
-
-  patches = [ ./bump-pyyaml-dependency.patch ];
 
   src = fetchFromGitHub {
     owner = "TKCERT";
     repo = pname;
-    rev = "7d3b027f9887af0c98cc3bdfe15388adc3208231";
-    sha256 = "sha256-LWxV4vWugVXyFsHGbtqyprLbYMz8stpEniYZRqBmULI=";
+    rev = "7112221236ccac4a7ce3cd7f1c8e1c9d4cf54fd4";
+    hash = "sha256-W1g8cWoICjKxr+wUbfO/XLBq9LGXgtRBj1X1aDBT0YA=";
   };
-
-  doCheck = false;
 }

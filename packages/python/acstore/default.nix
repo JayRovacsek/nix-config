@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "acstore";
-  name = pname;
-  version = "20230519";
+
+  version = "20240128";
 
   meta = with lib; {
     description =
@@ -13,16 +13,17 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools pyyaml;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [ pyyaml ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-ufbXsWCbl1j8CUTsJeRD3gvRrLaVc4jC3lrMZB4T2Ag=";
+    sha256 = "sha256-8phz/rUT+ppJPBGmnYn4WEKpjTOc/ENp3hkLAZALz9A=";
   };
-
-  doCheck = false;
-
 }

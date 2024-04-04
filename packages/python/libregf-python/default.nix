@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libregf-python";
-  name = pname;
-  version = "20231203";
+
+  version = "20240303";
 
   meta = with lib; {
     description = "Python bindings module for libregf";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-HGEX6grAfw3p4d2ee14jqgJw7FSueVjozaylrWkplzA=";
+    sha256 = "sha256-L3us7wNT9uc2KaGUFpqXyD44wud2cP3towqzpy2xy2Y=";
   };
-
-  doCheck = false;
 }

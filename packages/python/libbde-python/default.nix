@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libbde-python";
-  name = pname;
-  version = "20231205";
+
+  version = "20240223";
 
   meta = with lib; {
     description =
@@ -13,15 +13,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-U6nlzpD2vRzJfEI0rrD6Z52uJDOnhL/R3ashY06K1OE=";
+    sha256 = "sha256-6Au2V4rZ1YAa4gumZXbiWs0DeJQbEM9oJJVjsjJCiYA=";
   };
-
-  doCheck = false;
 }

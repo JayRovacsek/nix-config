@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsntfs-python";
-  name = pname;
-  version = "20231125";
+
+  version = "20240119";
 
   meta = with lib; {
     description = "Python bindings module for libfsntfs";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-4jxemTiozAuneNvrsb4pouO4Sh4W2dTO+jyzdgizIK0=";
+    sha256 = "sha256-Ts400b8VQpDLHlGJvHokUsHiS/OhGTtB27Sn2foqAUY=";
   };
-
-  doCheck = false;
 }

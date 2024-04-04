@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libluksde-python";
-  name = pname;
-  version = "20231204";
+
+  version = "20240114";
 
   meta = with lib; {
     description = "Python bindings module for libluksde";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-SMWmZ76sJOrcC4YV2Ta22gdj+Gqg1/KDhd61+xM7Bh8=";
+    sha256 = "sha256-3memvir7wBXruXgmVG83aw6NI/T/jIw2mWnJFuoPuBc=";
   };
-
-  doCheck = false;
 }

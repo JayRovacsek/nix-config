@@ -1,7 +1,7 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "artifacts";
-  name = pname;
+
   version = "20230928";
 
   meta = with lib; {
@@ -13,17 +13,17 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage pyyaml;
+  inherit (python3Packages) buildPythonPackage pyyaml setuptools pip;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [ pip pyyaml ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-uRjyl35Xl+BuTfERNRumsm2LdEag62TuxrLz+n3xy48=";
   };
-
-  propagatedBuildInputs = [ pyyaml ];
-
-  doCheck = false;
 }

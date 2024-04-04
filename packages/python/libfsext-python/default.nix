@@ -1,8 +1,8 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
   pname = "libfsext-python";
-  name = pname;
-  version = "20231129";
+
+  version = "20240301";
 
   meta = with lib; {
     description = "Python bindings module for libfsext";
@@ -12,15 +12,16 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in buildPythonPackage {
-  inherit pname name version meta;
+  inherit pname version meta;
+
+  nativeBuildInputs = [ setuptools ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Ijhu/0QzRVzrJQTU5UsPMfRauzaeK6maR3Vdo2k80UI=";
+    sha256 = "sha256-BZ8Jta4YoGMraoSbVheYi5BV8AdWjbPi142BdvRTW7g=";
   };
-
-  doCheck = false;
 }
