@@ -31,7 +31,7 @@ in {
       };
 
       trufflehog-verified = {
-        enable = true;
+        enable = pkgs.stdenv.isLinux;
         name = "Trufflehog Search";
         entry =
           "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
@@ -40,7 +40,7 @@ in {
       };
 
       trufflehog-regex = {
-        enable = true;
+        enable = pkgs.stdenv.isLinux;
         name = "Trufflehog Regex Search";
         entry =
           "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions  --no-update";

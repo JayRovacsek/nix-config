@@ -86,6 +86,10 @@
 
 - *(home-manager-modules)* Clean up zsh module - ([bd73ac0](https://github.com/JayRovacsek/nix-config/commit/bd73ac04d44787b62a1721205d8d871cf66b8741))
 
+- *(overlays)* Remove all python overlays as they are no longer required - ([3cd203e](https://github.com/JayRovacsek/nix-config/commit/3cd203e37239409dd4ebf1be246a90fcd5139c90))
+
+- *(packages)* Make all python packages consistent in order - ([3cd203e](https://github.com/JayRovacsek/nix-config/commit/3cd203e37239409dd4ebf1be246a90fcd5139c90))
+
 - *(shells)* Minor refactor on shell - ([3891046](https://github.com/JayRovacsek/nix-config/commit/3891046a137c8a3463f9250f22c141e9dfd70494))
 ## [0.0.4](https://github.com/JayRovacsek/nix-config/compare/v0.0.3..v0.0.4) - 2024-03-24
 
