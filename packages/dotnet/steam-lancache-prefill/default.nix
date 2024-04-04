@@ -9,7 +9,7 @@ let
     homepage = "https://github.com/tpill90/steam-lancache-prefill";
     description = "CLI tool to automatically prime a Lancache with Steam games";
     license = licenses.mit;
-    inherit (dotnet-runtime_8.meta) platforms;
+    inherit (dotnet-runtime.meta) platforms;
   };
 
   src = fetchFromGitHub {

@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime }:
+{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime, dotnet-sdk }:
 let
   pname = "epic-lancache-prefill";
   version = "1.2.0";
@@ -29,5 +29,6 @@ let
   nugetDeps = ./deps.nix;
 
 in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime projectFile nugetDeps patches;
+  inherit pname version meta src dotnet-runtime dotnet-sdk projectFile nugetDeps
+    patches;
 }

@@ -90,6 +90,8 @@
 
 - *(overlays)* Remove all python overlays as they are no longer required - ([3cd203e](https://github.com/JayRovacsek/nix-config/commit/3cd203e37239409dd4ebf1be246a90fcd5139c90))
 
+- *(packages)* Remove use of name across remaining packages - ([60091f2](https://github.com/JayRovacsek/nix-config/commit/60091f2822226b6dfdbc7554f27bb2c7e9de022d))
+
 - *(packages)* Make all python packages consistent in order - ([3cd203e](https://github.com/JayRovacsek/nix-config/commit/3cd203e37239409dd4ebf1be246a90fcd5139c90))
 
 - *(shells)* Minor refactor on shell - ([3891046](https://github.com/JayRovacsek/nix-config/commit/3891046a137c8a3463f9250f22c141e9dfd70494))
@@ -274,12 +276,6 @@
 
 - *(tooling)* Add packages to conform known types - ([61b1591](https://github.com/JayRovacsek/nix-config/commit/61b1591184eed6b658121faf77639da6c28f9269))
 
-### 🐍 Hydra
-
-- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
-
-- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
-
 ### 🚜 Refactor
 
 - *(apps)* Remove act app - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
@@ -293,12 +289,6 @@
 ### 🧪 Testing
 
 - *(linux)* Swap alakazam back to waybar for now - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
-
-### ⚫ Common
-
-- *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
-
-- *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
 ## [0.0.2](https://github.com/JayRovacsek/nix-config/compare/v0.0.1..v0.0.2) - 2024-02-20
 
 ### ⛰️  Features
@@ -320,11 +310,4 @@
 ### 📚 Documentation
 
 - *(checks)* Generate initial changelog file - ([c327d38](https://github.com/JayRovacsek/nix-config/commit/c327d38cef5ec5b4b863cc16021046fff60c2d75))
-## [0.0.1](https://github.com/JayRovacsek/nix-config/compare/v0.0.0..v0.0.1) - 2024-02-11
-
-### 🧪 Testing
-- Test branch protection - ([2dbb0ac](https://github.com/JayRovacsek/nix-config/commit/2dbb0ace6e749093f083aeaf63897c1ecd961798))
-
-- Test - ([e448584](https://github.com/JayRovacsek/nix-config/commit/e4485847a90823ce1158b69543c6e4e36d83b63c))
-
 
