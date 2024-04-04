@@ -1,9 +1,9 @@
 { stdenv, pkgs, lib, hyprpicker, wl-clipboard, ... }:
 with lib;
 let
-  name = "waybar-colour-picker";
-  pname = name;
+  pname = "waybar-colour-picker";
   version = "0.0.1";
+
   meta = {
     description = "A simple shell wrapper hyprpicker";
     inherit (hyprpicker.meta) platforms;
@@ -17,7 +17,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ waybar-colour-picker-wrapped ];
 

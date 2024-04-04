@@ -1,8 +1,8 @@
 { nixos-rebuild, stdenv, pkgs, lib, ... }:
 with lib;
 let
-  name = "ditto-transform";
-  pname = name;
+  pname = "ditto-transform";
+
   version = "0.0.1";
   meta = {
     description =
@@ -24,7 +24,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ ditto-transform-wrapped ];
 

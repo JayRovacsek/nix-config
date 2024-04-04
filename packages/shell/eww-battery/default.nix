@@ -1,7 +1,7 @@
 { stdenvNoCC, lib, fetchFromGitHub, coreutils, gnugrep, ... }:
 with lib;
 let
-  name = "eww-battery";
+  pname = "eww-battery";
   version = "0.0.1";
   meta = { description = "Eww battery widget"; };
 
@@ -15,7 +15,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenvNoCC.mkDerivation {
-  inherit name version meta phases src;
+  inherit pname version meta phases src;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/bin

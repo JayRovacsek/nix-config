@@ -1,7 +1,7 @@
 { lib, stdenvNoCC, fetchurl, findutils, coreutils }:
 let
   pname = "t2-firmware";
-  name = pname;
+
   version = "0.0.1";
 
   meta = with lib; {
@@ -18,7 +18,7 @@ let
   };
 
 in stdenvNoCC.mkDerivation {
-  inherit name pname version src meta;
+  inherit pname version src meta;
 
   buildCommand = ''
     ${coreutils}/bin/mkdir -p $out/lib/firmware

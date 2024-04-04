@@ -52,7 +52,7 @@ in {
     };
   };
 
-  environment.systemPackages = [ cloudquery cvemap trdsql ];
+  environment.systemPackages = with pkgs; [ agenix cloudquery cvemap trdsql ];
 
   imports = with self.nixosModules; [
     agenix

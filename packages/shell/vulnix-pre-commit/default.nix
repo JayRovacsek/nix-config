@@ -1,7 +1,6 @@
 { stdenv, pkgs, lib, ... }:
 with lib;
 let
-  name = "vulnix-pre-commit";
   pname = "vulnix-pre-commit";
   version = "0.0.1";
   meta = {
@@ -51,7 +50,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ vulnix-pre-commit-wrapped ];
 
