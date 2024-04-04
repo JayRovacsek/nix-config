@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime }:
 let
   pname = "battlenet-lancache-prefill";
-  version = "1.6.1";
+  version = "1.7.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/battlenet-lancache-prefill";
@@ -16,7 +16,7 @@ let
     repo = "battlenet-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-rv03vPr1PtlK83OvnGJVo5nHMfZnEJtZcQ03vLLq75s=";
+    hash = "sha256-qQjqNiZk7m38AR23pVp963ZO+GECcdWkxA4i9+8Lt+I=";
   };
 
   patches = [ ./no-appcontext.patch ];

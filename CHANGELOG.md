@@ -78,6 +78,8 @@
 
 - *(packages)* Ditto transform points to the main branch of config repo now - ([d972634](https://github.com/JayRovacsek/nix-config/commit/d972634faa723b81a5de4534855cb22351a9ec23))
 
+- *(tooling)* Change pre-commit for trufflehog to only linux - ([5fef734](https://github.com/JayRovacsek/nix-config/commit/5fef734110488a0ac50376ab5911b655a3e0d124))
+
 - *(tooling)* Correct use of remote (git) in generating conform yaml - ([03e598c](https://github.com/JayRovacsek/nix-config/commit/03e598cc687190491e77cb2f8a2b2ca19c507a4e))
 
 ### 🚜 Refactor
