@@ -76,6 +76,8 @@
 
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(packages)* Resolve builds for steam and epic prefill - ([e28fb77](https://github.com/JayRovacsek/nix-config/commit/e28fb77c72e9c25a8080dfb65901af8d4baac8b6))
+
 - *(packages)* Ditto transform points to the main branch of config repo now - ([d972634](https://github.com/JayRovacsek/nix-config/commit/d972634faa723b81a5de4534855cb22351a9ec23))
 
 - *(tooling)* Change pre-commit for trufflehog to only linux - ([5fef734](https://github.com/JayRovacsek/nix-config/commit/5fef734110488a0ac50376ab5911b655a3e0d124))
