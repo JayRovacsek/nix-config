@@ -29,6 +29,8 @@ let
 in buildPythonPackage {
   inherit pname version meta;
 
+  patches = [ ./no-xattr-dependency.patch ];
+
   nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [

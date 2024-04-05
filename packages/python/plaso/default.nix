@@ -35,6 +35,8 @@ in buildPythonPackage {
 
   nativeBuildInputs = [ setuptools ];
 
+  patches = [ ./no-xattr-dependency.patch ];
+
   propagatedBuildInputs = [
     acstore
     artifacts

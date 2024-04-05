@@ -76,6 +76,8 @@
 
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(packages)* Update battlenet prefill & resolve moved submodule csproj file - ([c03cbff](https://github.com/JayRovacsek/nix-config/commit/c03cbff9ceed5f557133f72dcc8a64880280c76f))
+
 - *(packages)* Resolve builds for steam and epic prefill - ([e28fb77](https://github.com/JayRovacsek/nix-config/commit/e28fb77c72e9c25a8080dfb65901af8d4baac8b6))
 
 - *(packages)* Ditto transform points to the main branch of config repo now - ([d972634](https://github.com/JayRovacsek/nix-config/commit/d972634faa723b81a5de4534855cb22351a9ec23))
