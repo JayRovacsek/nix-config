@@ -3,12 +3,10 @@ let
   inherit (pkgs) system;
 
   pname = "PurpleOps";
-  version = "356802d8d4ad26ef15d3c50cd2219a104d63142b";
+  version = "14997923f44bf9870e9ab904034f57a4b46b18dc";
 
   meta = with lib; {
     inherit version;
-
-    broken = true;
     description =
       "An open-source self-hosted purple team management web application";
     platforms = platforms.all;
@@ -41,7 +39,7 @@ let
     owner = "CyberCX-STA";
     repo = pname;
     rev = meta.version;
-    hash = "sha256-6Cm6X6PXxsIvQRJjZh87/UQhg68ZXuZj0lCCcqFj/NA=";
+    hash = "sha256-XeRuU5eWg9iE7OuNHQoumcALc1VzrBIdlrW1SGvUX+w=";
   };
 
   doCheck = false;
@@ -52,7 +50,7 @@ let
   inherit (python3Packages)
     buildPythonPackage anyio asn1crypto Babel bcrypt bleach blinker cbor2
     certifi cffi charset-normalizer click cryptography dnspython email-validator
-    et_xmlfile exceptiongroup flask flask_mail flask_principal flask-babelex
+    et_xmlfile exceptiongroup flask flask_mail flask_principal flask-babel
     flask-login flask-mailman flask-mongoengine flask-security-too
     flask-sqlalchemy flask-wtf gitdb GitPython greenlet gunicorn h11 httpcore
     idna importlib-metadata importlib-resources itsdangerous jinja2 lxml
@@ -83,7 +81,7 @@ let
     flask
     flask_mail
     flask_principal
-    flask-babelex
+    flask-babel
     flask-login
     flask-mailman
     flask-mongoengine
