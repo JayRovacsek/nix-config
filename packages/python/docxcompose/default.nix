@@ -19,8 +19,7 @@ in buildPythonPackage {
 
   propagatedBuildInputs = with python3Packages; [
     lxml
-    (python-docx.overridePythonAttrs
-      (_: { disabledTests = [ "DescribeParseXml" ]; }))
+    python-docx
     setuptools
     six
     babel
