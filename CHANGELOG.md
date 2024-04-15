@@ -1,3 +1,16 @@
+## [unreleased]
+
+### ⛰️  Features
+
+- *(packages)* Implement pf and ub logos - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
+
+### 🐛 Bug Fixes
+
+- *(packages)* Move some packages to the resource location - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
+
+### 🚜 Refactor
+
+- *(flake)* Remove redundant pname = name code - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
 ## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
 
 ### ⛰️  Features

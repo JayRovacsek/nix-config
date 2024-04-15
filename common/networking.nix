@@ -1,4 +1,47 @@
 _: {
+  vlans = [
+    {
+      name = "iot";
+      vlan-tag = 3;
+    }
+    {
+      name = "download";
+      vlan-tag = 4;
+    }
+    {
+      name = "reverse-proxy";
+      vlan-tag = 5;
+    }
+    {
+      name = "dns";
+      vlan-tag = 6;
+    }
+    {
+      name = "wlan";
+      vlan-tag = 8;
+    }
+    {
+      name = "authelia";
+      vlan-tag = 9;
+    }
+    {
+      name = "nextcloud";
+      vlan-tag = 10;
+    }
+    {
+      name = "game";
+      vlan-tag = 17;
+    }
+    {
+      name = "log";
+      vlan-tag = 18;
+    }
+    {
+      name = "headscale";
+      vlan-tag = 25;
+    }
+  ];
+
   services = {
     authelia = {
       authelia = false;

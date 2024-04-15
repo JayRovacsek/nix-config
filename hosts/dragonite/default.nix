@@ -125,73 +125,8 @@ in {
   };
 
   microvm = {
-    macvlans = [
-      {
-        name = "guest";
-        parent = "10-wired";
-        vlan-tag = 2;
-      }
-      {
-        name = "iot";
-        parent = "10-wired";
-        vlan-tag = 3;
-      }
-      {
-        name = "download";
-        parent = "10-wired";
-        vlan-tag = 4;
-      }
-      {
-        name = "reverse-proxy";
-        parent = "10-wired";
-        vlan-tag = 5;
-      }
-      {
-        name = "dns";
-        parent = "10-wired";
-        vlan-tag = 6;
-      }
-      {
-        name = "work";
-        parent = "10-wired";
-        vlan-tag = 7;
-      }
-      {
-        name = "wlan";
-        parent = "10-wired";
-        vlan-tag = 8;
-      }
-      {
-        name = "authelia";
-        parent = "10-wired";
-        vlan-tag = 9;
-      }
-      {
-        name = "nextcloud";
-        parent = "10-wired";
-        vlan-tag = 10;
-      }
-      {
-        name = "cache";
-        parent = "10-wired";
-        vlan-tag = 16;
-      }
-      {
-        name = "game";
-        parent = "10-wired";
-        vlan-tag = 17;
-      }
-      {
-        name = "log";
-        parent = "10-wired";
-        vlan-tag = 18;
-      }
-      {
-        name = "headscale";
-        parent = "10-wired";
-        vlan-tag = 25;
-      }
-    ];
+    macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
+      self.common.networking.vlans;
 
     vms = let
       party = [
