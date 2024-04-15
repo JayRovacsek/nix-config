@@ -1,5 +1,12 @@
 ## [unreleased]
 
+### 🐛 Bug Fixes
+
+- *(linux)* Resolve issue with pipewire & i18n missing from gastly - ([e4152e4](https://github.com/JayRovacsek/nix-config/commit/e4152e45dd453c3c2778c887c2d0968faf47ff74))
+
+- *(packages)* Resolve python-docx issue by removing override - ([ce7540e](https://github.com/JayRovacsek/nix-config/commit/ce7540e7577fc393d7a963f8d48d9a474750f770))
+## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
+
 ### ⛰️  Features
 
 - *(common)* Add basic nix topology diagram of configurations - ([6a27732](https://github.com/JayRovacsek/nix-config/commit/6a2773261989b04cb6ab9aa0d6b5a0bb023dd9fc))
