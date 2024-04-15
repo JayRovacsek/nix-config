@@ -1,6 +1,7 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
+    blocky
     headscale
     microvm-guest
     nix-topology

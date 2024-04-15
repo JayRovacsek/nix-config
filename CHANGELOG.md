@@ -1,12 +1,5 @@
 ## [unreleased]
 
-### 🐛 Bug Fixes
-
-- *(linux)* Resolve issue with pipewire & i18n missing from gastly - ([e4152e4](https://github.com/JayRovacsek/nix-config/commit/e4152e45dd453c3c2778c887c2d0968faf47ff74))
-
-- *(packages)* Resolve python-docx issue by removing override - ([ce7540e](https://github.com/JayRovacsek/nix-config/commit/ce7540e7577fc393d7a963f8d48d9a474750f770))
-## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
-
 ### ⛰️  Features
 
 - *(common)* Add basic nix topology diagram of configurations - ([6a27732](https://github.com/JayRovacsek/nix-config/commit/6a2773261989b04cb6ab9aa0d6b5a0bb023dd9fc))
@@ -21,11 +14,17 @@
 
 - *(modules)* Implement nix-topology module - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
+- *(packages)* Re-introduce flask-security - ([ecd6dc7](https://github.com/JayRovacsek/nix-config/commit/ecd6dc7ec46c3e1440b8071f5b093690d2752cd3))
+
+- *(packages)* Add topology to exported packages - ([dfff01f](https://github.com/JayRovacsek/nix-config/commit/dfff01ff3d208991af3e1acecfa530f4b6bafe6c))
+
 - *(packages)* Implement pf and ub logos - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
 
 ### 🐛 Bug Fixes
 
 - *(flake)* Change nix-topology input away from local dev - ([310343b](https://github.com/JayRovacsek/nix-config/commit/310343b09bfeaf0a1a7d762cdbe88153cdc9ba1e))
+
+- *(linux)* Resolve issue with pipewire & i18n missing from gastly - ([e4152e4](https://github.com/JayRovacsek/nix-config/commit/e4152e45dd453c3c2778c887c2d0968faf47ff74))
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
@@ -35,11 +34,19 @@
 
 - *(overlays)* Lexicographically sort inherit statement - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
+- *(packages)* Start resolving purple-ops issues - ([ecd6dc7](https://github.com/JayRovacsek/nix-config/commit/ecd6dc7ec46c3e1440b8071f5b093690d2752cd3))
+
+- *(packages)* Resolve python-docx issue by removing override - ([ce7540e](https://github.com/JayRovacsek/nix-config/commit/ce7540e7577fc393d7a963f8d48d9a474750f770))
+
 - *(packages)* Move some packages to the resource location - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
 
 ### 🚜 Refactor
 
 - *(flake)* Remove redundant pname = name code - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
+
+### 📚 Documentation
+
+- *(flake)* Add topology doc to readme - ([dfff01f](https://github.com/JayRovacsek/nix-config/commit/dfff01ff3d208991af3e1acecfa530f4b6bafe6c))
 ## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
 
 ### ⛰️  Features
