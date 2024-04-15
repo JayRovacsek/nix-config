@@ -1,6 +1,7 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
+    nix-topology
     microvm-guest
     radarr
     time

@@ -2,6 +2,7 @@
   imports = with self.nixosModules; [
     agenix
     lidarr
+    nix-topology
     microvm-guest
     time
     timesyncd

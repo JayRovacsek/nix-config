@@ -4,6 +4,7 @@
   imports = with self.nixosModules; [
     agenix
     microvm-guest
+    nix-topology
     sonarr
     time
     timesyncd

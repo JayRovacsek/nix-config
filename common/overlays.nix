@@ -1,7 +1,7 @@
 { self }:
 let
-  inherit (self.common.overlays) system-agnostic darwin linux;
-  inherit (self.inputs) nur agenix firefox-darwin;
+  inherit (self.common.overlays) darwin linux system-agnostic;
+  inherit (self.inputs) agenix firefox-darwin nur;
 in {
   all = system-agnostic ++ darwin ++ linux;
 

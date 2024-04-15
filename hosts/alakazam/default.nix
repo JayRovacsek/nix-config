@@ -43,6 +43,7 @@ in {
     microvm-host
     nextcloud-client
     nix
+    nix-topology
     nvidia
     openssh
     pipewire

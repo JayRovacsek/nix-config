@@ -26,6 +26,7 @@ in {
     auto-upgrade
     blocky
     clamav
+    nix-topology
     firefox-syncserver
     fonts
     generations

@@ -4,6 +4,7 @@
     agenix
     ddclient
     microvm-guest
+    nix-topology
     nginx
     time
     timesyncd

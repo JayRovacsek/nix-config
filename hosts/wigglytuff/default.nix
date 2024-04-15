@@ -26,6 +26,7 @@ in {
     agenix
     generations
     gnupg
+    nix-topology
     greetd
     hyprland
     lorri

@@ -4,6 +4,7 @@
     flaresolverr
     microvm-guest
     time
+    nix-topology
     timesyncd
   ];
 

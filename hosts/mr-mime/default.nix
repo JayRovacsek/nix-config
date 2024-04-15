@@ -5,6 +5,7 @@
     loki
     microvm-guest
     prometheus
+    nix-topology
     time
     timesyncd
   ];

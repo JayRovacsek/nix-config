@@ -4,6 +4,7 @@
     agenix
     authelia
     microvm-guest
+    nix-topology
     nginx
     time
     timesyncd

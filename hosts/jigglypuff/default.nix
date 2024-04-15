@@ -57,6 +57,7 @@ in {
     blocky
     fonts
     generations
+    nix-topology
     gnupg
     grafana-agent
     journald

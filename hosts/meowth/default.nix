@@ -3,6 +3,7 @@
     agenix
     microvm-guest
     prowlarr
+    nix-topology
     time
     timesyncd
   ];

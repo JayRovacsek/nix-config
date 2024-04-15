@@ -43,6 +43,7 @@ in {
     dockutil
     documentation
     fonts
+    nix-topology
     generations
     gnupg
     lorri

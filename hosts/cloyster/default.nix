@@ -76,6 +76,7 @@ in {
   imports = (with self.nixosModules; [
     agenix
     clamav
+    nix-topology
     fonts
     generations
     gnupg

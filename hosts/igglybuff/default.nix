@@ -5,6 +5,7 @@
     grafana-agent
     logging
     microvm-guest
+    nix-topology
     time
     timesyncd
   ];

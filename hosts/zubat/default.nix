@@ -26,6 +26,7 @@ in {
     generations
     lorri
     nix
+    nix-topology
     time
     timesyncd
     zsh

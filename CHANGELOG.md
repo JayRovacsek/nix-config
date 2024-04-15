@@ -4,6 +4,8 @@
 
 - *(common)* Add vlan definitions to common code - ([6d515c9](https://github.com/JayRovacsek/nix-config/commit/6d515c9a485d31a3dd51b828fe0141deb446d991))
 
+- *(flake)* Add nix-topology to inputs - ([e2b1703](https://github.com/JayRovacsek/nix-config/commit/e2b17036e6d8ead8ad419f48d3e11f8271012b47))
+
 - *(packages)* Implement pf and ub logos - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
 
 ### 🐛 Bug Fixes

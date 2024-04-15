@@ -3,6 +3,7 @@
     agenix
     headscale
     microvm-guest
+    nix-topology
     time
     timesyncd
   ];

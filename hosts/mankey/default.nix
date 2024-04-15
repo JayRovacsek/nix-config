@@ -8,6 +8,7 @@
   imports = with self.nixosModules; [
     agenix
     deluge
+    nix-topology
     microvm-guest
     time
     timesyncd
