@@ -4,7 +4,7 @@ let
     derpServerStunPort grpcPort metricsPort port;
 in {
 
-  imports = [ ./acl.nix ../../options/headscale ../blocky ];
+  imports = [ ./acl.nix ../../options/headscale ];
 
   age = {
     secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
