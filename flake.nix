@@ -40,6 +40,14 @@
       };
     };
 
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -128,6 +136,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
+        devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
@@ -165,6 +174,16 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:ners/nix-monitored";
+    };
+
+    nix-topology = {
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+      url = "git+file:///home/jay/dev/personal/nix-topology";
     };
 
     # Like the Arch User Repository, but better :)
@@ -280,7 +299,11 @@
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
       flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
-        let pkgs = import self.inputs.nixpkgs { inherit system; };
+        let
+          pkgs = import self.inputs.nixpkgs {
+            inherit system;
+            overlays = [ self.inputs.nix-topology.overlays.default ];
+          };
         in {
           # Space in which exposed derivations can be ran via
           # nix run .#foo - handy in the future for stuff like deploying
@@ -304,6 +327,11 @@
           # (all systems in this flake apply this opinion via the common.modules)
           # construct
           packages = import ./packages { inherit self pkgs; };
+
+          topology = import self.inputs.nix-topology {
+            inherit pkgs;
+            modules = [ self.common.topology ];
+          };
         });
 
     in flake-utils-output // standard-outputs;
