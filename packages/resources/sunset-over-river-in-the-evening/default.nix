@@ -1,23 +1,21 @@
 { stdenv, lib, fetchurl, ffmpeg-headless }:
 with lib;
 let
-  name = "may-sitting-near-waterfall-pokemon-emerald-wallpaper";
-  pname = name;
+  pname = "sunset-over-river-in-the-evening-wallpaper";
   version = "0.0.1";
   meta = {
-    description =
-      "May Sitting Near Waterfall Pokemon Emerald Pixel Live Wallpaper";
+    description = "Sunset Over River In the Evening Pixel Live Wallpaper";
   };
 
   src = fetchurl {
-    url = "https://wallpaperwaifu.com/download/3273/";
-    sha256 = "sha256-q9fm9dg65oGCtoYERXUqWg/HC9HTA9XbboIXEfhTHMk=";
+    url = "https://wallpaperwaifu.com/download/3003/";
+    sha256 = "sha256-NRsLWVlFqxTEPmP8e4PlCVso3r+SFOtk5QiiJJiS+Rs=";
   };
 
   phases = [ "installPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases src;
+  inherit pname version meta phases src;
 
   installPhase = ''
     mkdir -p $out/share

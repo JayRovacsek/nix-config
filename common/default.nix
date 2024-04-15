@@ -21,16 +21,17 @@
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
+  resource-packages =
+    builtins.attrNames (builtins.readDir ../packages/resources);
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
-  tofu = import ./tofu { inherit self; };
   text-packages = builtins.attrNames (builtins.readDir ../packages/text);
+  tofu = import ./tofu { inherit self; };
   tofu-stacks = import ./tofu-stacks.nix { inherit self; };
+  topology = import ./topology.nix { inherit self; };
   user-attr-names = import ./user-attr-names.nix { };
   users = import ./users.nix { inherit self; };
-  wallpaper-packages =
-    builtins.attrNames (builtins.readDir ../packages/wallpapers);
 }

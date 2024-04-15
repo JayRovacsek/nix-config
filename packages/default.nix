@@ -5,8 +5,8 @@ let
   inherit (self.inputs) terranix;
   inherit (self.common)
     cpp-packages dotnet-packages images go-packages node-packages
-    python-packages rust-packages shell-packages text-packages tofu-stacks
-    wallpaper-packages;
+    python-packages resource-packages rust-packages shell-packages text-packages
+    tofu-stacks;
   inherit (self.lib) merge;
 
   cpp = builtins.foldl' (accumulator: package:
@@ -58,9 +58,9 @@ let
       ];
     }) tofu-stacks;
 
-  wallpapers = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
-    accumulator) { } wallpaper-packages;
+  resources = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./resources/${package} { }; }
+    accumulator) { } resource-packages;
 
   packages = merge [
     cpp
@@ -69,11 +69,11 @@ let
     (builtins.removeAttrs images [ "configurations" ])
     node
     python
+    resources
     rust
     shell
     text
     tofu
-    wallpapers
     {
       better-english = callPackage ./better-english { };
       t2-firmware = callPackage ./t2-firmware { };

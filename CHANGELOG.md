@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
 
 ### ⛰️  Features
 
@@ -75,6 +75,8 @@
 - *(options)* Headscale options alignment with upstream tailnet -> user - ([503be85](https://github.com/JayRovacsek/nix-config/commit/503be85c82ec3bbfd17f9cc1a0522a564a1b2a1e))
 
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
+
+- *(packages)* Resolve xattr dependency issues for dfvfs and plaso - ([66147c1](https://github.com/JayRovacsek/nix-config/commit/66147c138c672d80689fcada93d77db1bdf3c795))
 
 - *(packages)* Update battlenet prefill & resolve moved submodule csproj file - ([c03cbff](https://github.com/JayRovacsek/nix-config/commit/c03cbff9ceed5f557133f72dcc8a64880280c76f))
 

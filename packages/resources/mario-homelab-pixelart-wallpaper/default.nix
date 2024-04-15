@@ -1,8 +1,7 @@
 { stdenvNoCC, lib, fetchurl }:
 with lib;
 let
-  name = "mario-homelab-pixelart-wallpaper";
-  pname = name;
+  pname = "mario-homelab-pixelart-wallpaper";
   version = "0.0.1";
   meta = { description = "Mario sitting in his home-lab Wallpaper"; };
 
@@ -15,7 +14,7 @@ let
   phases = [ "installPhase" ];
 
 in stdenvNoCC.mkDerivation {
-  inherit name pname version meta phases src;
+  inherit pname version meta phases src;
 
   installPhase = ''
     mkdir -p $out/share
