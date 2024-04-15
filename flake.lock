@@ -635,15 +635,15 @@
       "locked": {
         "lastModified": 1713178164,
         "narHash": "sha256-jqRnS+G1Ha7X9/DBzbxjCJE5ikJXo3xmr0fO8pYjhSI=",
-        "ref": "refs/heads/main",
+        "owner": "oddlama",
+        "repo": "nix-topology",
         "rev": "4f9a4a367e5da7d04fa56422c0741e7d2985d676",
-        "revCount": 88,
-        "type": "git",
-        "url": "file:///home/jay/dev/personal/nix-topology"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/jay/dev/personal/nix-topology"
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
       }
     },
     "nix-visualize": {

@@ -183,7 +183,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
-      url = "git+file:///home/jay/dev/personal/nix-topology";
+      url = "github:oddlama/nix-topology";
     };
 
     # Like the Arch User Repository, but better :)
