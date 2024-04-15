@@ -6,6 +6,8 @@
 
 - *(flake)* Add nix-topology to inputs - ([e2b1703](https://github.com/JayRovacsek/nix-config/commit/e2b17036e6d8ead8ad419f48d3e11f8271012b47))
 
+- *(linux)* Add grafana server root url to mr-mime - ([52ebe77](https://github.com/JayRovacsek/nix-config/commit/52ebe7730cc17d34f9eac51b0197a52673789e0a))
+
 - *(linux)* Add nix-topology module to all nixos systems - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
 - *(modules)* Implement nix-topology module - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
