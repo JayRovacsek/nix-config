@@ -18,6 +18,8 @@
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
+- *(modules)* Add both root and wildcard domains to acme configuration - ([200eac9](https://github.com/JayRovacsek/nix-config/commit/200eac9b7423f5d046a1d1d55a8386362e483076))
+
 - *(modules)* Don't enforce headscale to run blocky also - ([20ae2b7](https://github.com/JayRovacsek/nix-config/commit/20ae2b7a0db13cad220b0e099267104671922d54))
 
 - *(overlays)* Lexicographically sort inherit statement - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
