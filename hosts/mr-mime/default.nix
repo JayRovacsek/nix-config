@@ -45,5 +45,7 @@
     ];
   };
 
+  services.grafana.settings.server.root_url = "https://grafana.rovacsek.com";
+
   system.stateVersion = "24.05";
 }

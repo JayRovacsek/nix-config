@@ -16,6 +16,8 @@
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
+- *(modules)* Don't enforce headscale to run blocky also - ([20ae2b7](https://github.com/JayRovacsek/nix-config/commit/20ae2b7a0db13cad220b0e099267104671922d54))
+
 - *(overlays)* Lexicographically sort inherit statement - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
 - *(packages)* Move some packages to the resource location - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
