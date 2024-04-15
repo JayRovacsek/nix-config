@@ -18,6 +18,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(flake)* Change nix-topology input away from local dev - ([310343b](https://github.com/JayRovacsek/nix-config/commit/310343b09bfeaf0a1a7d762cdbe88153cdc9ba1e))
+
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
 - *(modules)* Add both root and wildcard domains to acme configuration - ([200eac9](https://github.com/JayRovacsek/nix-config/commit/200eac9b7423f5d046a1d1d55a8386362e483076))
