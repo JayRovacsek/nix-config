@@ -24,6 +24,8 @@
 
 - *(flake)* Change nix-topology input away from local dev - ([310343b](https://github.com/JayRovacsek/nix-config/commit/310343b09bfeaf0a1a7d762cdbe88153cdc9ba1e))
 
+- *(linux)* Re-add blocky to magikarp for now due to custom mappings - ([abbaa1f](https://github.com/JayRovacsek/nix-config/commit/abbaa1ff2798ae6f7fa01ee090ba6a1e2998554d))
+
 - *(linux)* Resolve issue with pipewire & i18n missing from gastly - ([e4152e4](https://github.com/JayRovacsek/nix-config/commit/e4152e45dd453c3c2778c887c2d0968faf47ff74))
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))

@@ -29,7 +29,7 @@ in {
         inherit domain;
         dnsProvider = "cloudflare";
         environmentFile = "${config.age.secrets.acme-environment-file.path}";
-        extraDomainNames = "*.${domain}";
+        extraDomainNames = [ "*.${domain}" ];
         reloadServices = [ "nginx" ];
       };
     }) config.services.nginx.domains);
