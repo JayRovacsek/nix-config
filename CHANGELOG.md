@@ -30,6 +30,8 @@
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
+- *(modules)* Acme requires list of extra domain names - ([0729897](https://github.com/JayRovacsek/nix-config/commit/072989790ce48dddf5b1ee781b950b50c20f2b85))
+
 - *(modules)* Add both root and wildcard domains to acme configuration - ([200eac9](https://github.com/JayRovacsek/nix-config/commit/200eac9b7423f5d046a1d1d55a8386362e483076))
 
 - *(modules)* Don't enforce headscale to run blocky also - ([20ae2b7](https://github.com/JayRovacsek/nix-config/commit/20ae2b7a0db13cad220b0e099267104671922d54))
