@@ -76,7 +76,6 @@ let
     tofu
     {
       better-english = callPackage ./better-english { };
-      topology = self.topology.${system}.config.output;
       t2-firmware = callPackage ./t2-firmware { };
     }
   ];

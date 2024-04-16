@@ -30,6 +30,8 @@
 
 - *(linux)* Remove redundant modules for slowpoke - ([bb1a223](https://github.com/JayRovacsek/nix-config/commit/bb1a2230ba1610a86046c100439e81c3bf9da1b5))
 
+- *(modules)* Resolve hydra requiring new uris - ([0c13ff7](https://github.com/JayRovacsek/nix-config/commit/0c13ff79fbad92d59bdfb7064a96a18a4a4e0985))
+
 - *(modules)* Acme requires list of extra domain names - ([0729897](https://github.com/JayRovacsek/nix-config/commit/072989790ce48dddf5b1ee781b950b50c20f2b85))
 
 - *(modules)* Add both root and wildcard domains to acme configuration - ([200eac9](https://github.com/JayRovacsek/nix-config/commit/200eac9b7423f5d046a1d1d55a8386362e483076))
