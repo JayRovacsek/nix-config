@@ -21,8 +21,8 @@
 
         GUI = {
           ApplicationTheme = "dark";
-          MinimizeOnClose = true;
-          MinimizeOnStartup = true;
+          MinimizeOnClose = false;
+          MinimizeOnStartup = false;
           MinimizeToTray = true;
           ShowTrayIcon = true;
           TrayIconAppearance = "monochrome-light";
