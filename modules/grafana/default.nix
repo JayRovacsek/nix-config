@@ -10,10 +10,20 @@ in {
     provision = {
       enable = true;
 
-      dashboards.settings.providers = [{
-        name = "blocky";
-        options.path = ./blocky.json;
-      }];
+      dashboards.settings.providers = [
+        {
+          name = "Blocky";
+          options.path = ./dashboards/blocky.json;
+        }
+        {
+          name = "Node Exporter";
+          options.path = ./dashboards/node-exporter.json;
+        }
+        {
+          name = "ZFS";
+          options.path = ./dashboards/zfs.json;
+        }
+      ];
 
       datasources.settings.datasources = [
         {
