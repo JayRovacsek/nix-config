@@ -53,6 +53,10 @@
 ### 📚 Documentation
 
 - *(flake)* Add topology doc to readme - ([dfff01f](https://github.com/JayRovacsek/nix-config/commit/dfff01ff3d208991af3e1acecfa530f4b6bafe6c))
+
+### 🧪 Testing
+
+- *(packages)* Remove topology from packages - ([0889862](https://github.com/JayRovacsek/nix-config/commit/08898627fdab8f7a62a03cd7471d8a2119666bef))
 ## [0.0.5](https://github.com/JayRovacsek/nix-config/compare/v0.0.4..v0.0.5) - 2024-04-05
 
 ### ⛰️  Features
