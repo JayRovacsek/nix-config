@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features
 
@@ -17,6 +17,8 @@
 - *(linux)* Add grafana server root url to mr-mime - ([52ebe77](https://github.com/JayRovacsek/nix-config/commit/52ebe7730cc17d34f9eac51b0197a52673789e0a))
 
 - *(linux)* Add nix-topology module to all nixos systems - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
+
+- *(modules)* Add a number of dashboards to grafana as code - ([2a6aacc](https://github.com/JayRovacsek/nix-config/commit/2a6aaccaabae8b11d561d6ee006f3d613169611f))
 
 - *(modules)* Implement tmux - ([078945f](https://github.com/JayRovacsek/nix-config/commit/078945f85d4e18c116c5988901a480251a60e065))
 
