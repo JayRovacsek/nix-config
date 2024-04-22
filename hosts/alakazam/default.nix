@@ -40,6 +40,7 @@ in {
     keybase
     logging
     lorri
+    tmux
     microvm-host
     nextcloud-client
     nix

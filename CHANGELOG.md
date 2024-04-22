@@ -36,6 +36,8 @@
 
 - *(home-manager-modules)* Correct screen positions for alakazam again - ([da9c289](https://github.com/JayRovacsek/nix-config/commit/da9c289fc8768d5e511b55f773944c015a013f63))
 
+- *(linux)* Add missing modules from wigglytuff - ([ff41272](https://github.com/JayRovacsek/nix-config/commit/ff41272c427ec46fe985b2074ad69e09e522ce08))
+
 - *(linux)* Re-add blocky to magikarp for now due to custom mappings - ([abbaa1f](https://github.com/JayRovacsek/nix-config/commit/abbaa1ff2798ae6f7fa01ee090ba6a1e2998554d))
 
 - *(linux)* Resolve issue with pipewire & i18n missing from gastly - ([e4152e4](https://github.com/JayRovacsek/nix-config/commit/e4152e45dd453c3c2778c887c2d0968faf47ff74))

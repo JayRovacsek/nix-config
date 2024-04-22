@@ -50,6 +50,7 @@ in {
     telegraf
     time
     timesyncd
+    tmux
     udev
     zfs
     zsh
