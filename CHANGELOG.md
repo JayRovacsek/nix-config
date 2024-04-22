@@ -12,6 +12,8 @@
 
 - *(linux)* Add nix-topology module to all nixos systems - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
+- *(modules)* Implement smartd module - ([cae7614](https://github.com/JayRovacsek/nix-config/commit/cae761465a98c19861e1bbb8668b9bc0c879a4d8))
+
 - *(modules)* Implement nix-topology module - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
 - *(packages)* Re-introduce flask-security - ([ecd6dc7](https://github.com/JayRovacsek/nix-config/commit/ecd6dc7ec46c3e1440b8071f5b093690d2752cd3))
