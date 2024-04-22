@@ -22,6 +22,11 @@ in {
         mode = "0400";
         owner = "nextcloud";
       };
+      nextcloud-exporter-token = {
+        file = ../../secrets/nextcloud/exporter-token.age;
+        mode = "0400";
+        owner = config.services.prometheus.exporters.nextcloud.user;
+      };
     };
   };
 
@@ -98,6 +103,17 @@ in {
       # (written as JSON, in the same form as the services.nextcloud.
       # extraOptions option), for example {"redis":{"password":"secret"}}.
       secretFile = config.age.secrets.nextcloud-secret-file.path;
+    };
+
+    prometheus.exporters = {
+      # TODO: implement the below
+      # mysqld.enable = true;
+      nextcloud = {
+        enable = true;
+        tokenFile = config.age.secrets.nextcloud-exporter-token.path;
+        url = "https://${config.services.nextcloud.hostName}";
+      };
+      redis.enable = true;
     };
 
     redis.servers.nextcloud.settings = {

@@ -8,9 +8,13 @@
 
 - *(flake)* Add nix-topology to inputs - ([e2b1703](https://github.com/JayRovacsek/nix-config/commit/e2b17036e6d8ead8ad419f48d3e11f8271012b47))
 
+- *(linux)* Add grafana agent more widely over deployed hosts - ([5c7278c](https://github.com/JayRovacsek/nix-config/commit/5c7278cdbc33a8f17dfd9640cc329c5155ed3fd3))
+
 - *(linux)* Add grafana server root url to mr-mime - ([52ebe77](https://github.com/JayRovacsek/nix-config/commit/52ebe7730cc17d34f9eac51b0197a52673789e0a))
 
 - *(linux)* Add nix-topology module to all nixos systems - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
+
+- *(modules)* Add more scraped services to grafana agent - ([5c7278c](https://github.com/JayRovacsek/nix-config/commit/5c7278cdbc33a8f17dfd9640cc329c5155ed3fd3))
 
 - *(modules)* Implement smartd module - ([cae7614](https://github.com/JayRovacsek/nix-config/commit/cae761465a98c19861e1bbb8668b9bc0c879a4d8))
 
