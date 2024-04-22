@@ -8,6 +8,7 @@ let
 in {
   imports = with self.nixosModules; [
     agenix
+    grafana-agent
     nix-topology
     microvm-guest
     nextcloud

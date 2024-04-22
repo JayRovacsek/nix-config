@@ -2,6 +2,7 @@
   imports = with self.nixosModules; [
     agenix
     flaresolverr
+    grafana-agent
     microvm-guest
     time
     nix-topology

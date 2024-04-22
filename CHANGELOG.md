@@ -54,6 +54,8 @@
 
 ### 🚜 Refactor
 
+- *(flake)* Move devshell code to main flake file - ([a1beeb0](https://github.com/JayRovacsek/nix-config/commit/a1beeb0c719aebfb02cf42a76e2c3731570b16ef))
+
 - *(flake)* Move checks to main flake file - ([3156162](https://github.com/JayRovacsek/nix-config/commit/315616223dbfb5294256d811d376cc9d28267095))
 
 - *(flake)* Remove redundant pname = name code - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))

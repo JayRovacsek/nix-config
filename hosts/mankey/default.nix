@@ -8,6 +8,7 @@
   imports = with self.nixosModules; [
     agenix
     deluge
+    grafana-agent
     nix-topology
     microvm-guest
     time

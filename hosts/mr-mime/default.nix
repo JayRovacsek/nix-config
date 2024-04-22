@@ -2,6 +2,7 @@
   imports = with self.nixosModules; [
     agenix
     grafana
+    grafana-agent
     loki
     microvm-guest
     prometheus

@@ -2,6 +2,7 @@
   imports = with self.nixosModules; [
     agenix
     blocky
+    grafana-agent
     headscale
     microvm-guest
     nix-topology

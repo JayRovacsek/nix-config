@@ -3,6 +3,7 @@
     ./authelia.nix
     agenix
     authelia
+    grafana-agent
     microvm-guest
     nix-topology
     nginx

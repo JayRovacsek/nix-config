@@ -76,6 +76,7 @@ in {
   imports = (with self.nixosModules; [
     agenix
     clamav
+    grafana-agent
     nix-topology
     fonts
     generations

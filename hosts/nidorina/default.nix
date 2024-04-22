@@ -3,6 +3,7 @@
     acme
     agenix
     ddclient
+    grafana-agent
     microvm-guest
     nix-topology
     nginx

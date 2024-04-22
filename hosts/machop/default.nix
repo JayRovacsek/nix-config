@@ -1,6 +1,7 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
+    grafana-agent
     lidarr
     nix-topology
     microvm-guest
