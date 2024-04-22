@@ -24,17 +24,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "links": [
-    {
-      "icon": "external link",
-      "tags": [],
-      "title": "blocky @ GitHub",
-      "tooltip": "open GitHub repo",
-      "type": "link",
-      "url": "https://github.com/0xERR0R/blocky"
-    }
-  ],
+  "id": 17,
+  "links": [],
   "liveNow": false,
   "panels": [
     {
@@ -62,8 +53,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d44a3a",
-                "value": null
+                "color": "#d44a3a"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -80,7 +70,6 @@
         "overrides": []
       },
       "id": 26,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -92,10 +81,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -140,8 +130,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#d44a3a",
-                "value": null
+                "color": "#d44a3a"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -164,7 +153,6 @@
         "y": 0
       },
       "id": 43,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -176,10 +164,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -203,7 +192,7 @@
       "datasource": {
         "uid": "PBFA97CFB590B2093"
       },
-      "description": "Number of blacklist entries",
+      "description": "Number of blocklist entries",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -221,8 +210,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -237,7 +225,6 @@
         "y": 0
       },
       "id": 30,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -249,10 +236,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -268,7 +256,7 @@
           "refId": "A"
         }
       ],
-      "title": "Blacklist entries total",
+      "title": "Blocklist entries total",
       "transparent": true,
       "type": "stat"
     },
@@ -294,8 +282,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -310,7 +297,6 @@
         "y": 0
       },
       "id": 28,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -322,10 +308,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -358,8 +345,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -387,10 +373,11 @@
           "fields": "/^version$/",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "repeatDirection": "v",
       "targets": [
         {
@@ -443,8 +430,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -463,7 +449,6 @@
         "y": 3
       },
       "id": 24,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -475,10 +460,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -510,8 +496,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -535,10 +520,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -575,8 +561,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -601,10 +586,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -649,8 +635,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -669,7 +654,6 @@
         "y": 6
       },
       "id": 34,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -681,10 +665,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -726,8 +711,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -743,7 +727,6 @@
       },
       "hideTimeOverride": true,
       "id": 4,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -755,10 +738,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -790,8 +774,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -819,10 +802,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -858,8 +842,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -884,10 +867,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -930,8 +914,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
-                "value": null
+                "color": "#299c46"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -953,7 +936,6 @@
         "y": 9
       },
       "id": 36,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
         "colorMode": "value",
@@ -965,10 +947,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1000,8 +983,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1025,10 +1007,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1059,8 +1042,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1084,10 +1066,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1120,8 +1103,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1146,10 +1128,11 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -1217,8 +1200,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1317,8 +1299,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1439,7 +1420,7 @@
         },
         "showValue": "never",
         "tooltip": {
-          "show": true,
+          "mode": "single",
           "showColorScale": false,
           "yHistogram": false
         },
@@ -1449,7 +1430,7 @@
           "unit": "ms"
         }
       },
-      "pluginVersion": "10.2.3",
+      "pluginVersion": "10.4.0",
       "reverseYBuckets": false,
       "targets": [
         {
@@ -1513,7 +1494,6 @@
         "y": 35
       },
       "id": 2,
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1584,7 +1564,6 @@
         "y": 35
       },
       "id": 8,
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1655,7 +1634,6 @@
         "y": 43
       },
       "id": 32,
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1692,7 +1670,7 @@
           "refId": "A"
         }
       ],
-      "title": "Blacklist by group",
+      "title": "Blocklist by group",
       "transparent": true,
       "type": "piechart"
     },
@@ -1726,7 +1704,6 @@
         "y": 43
       },
       "id": 14,
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1797,7 +1774,6 @@
       },
       "id": 38,
       "interval": "",
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1867,7 +1843,6 @@
         "y": 51
       },
       "id": 12,
-      "links": [],
       "maxDataPoints": 3,
       "options": {
         "legend": {
@@ -1910,7 +1885,7 @@
   ],
   "refresh": "",
   "schemaVersion": 39,
-  "tags": [],
+  "tags": ["dns"],
   "templating": {
     "list": [
       {
@@ -1942,7 +1917,7 @@
     ]
   },
   "timezone": "",
-  "title": "blocky",
+  "title": "Blocky",
   "version": 1,
   "weekStart": ""
 }

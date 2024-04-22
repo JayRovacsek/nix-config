@@ -6,7 +6,11 @@
 
 - *(common)* Add vlan definitions to common code - ([6d515c9](https://github.com/JayRovacsek/nix-config/commit/6d515c9a485d31a3dd51b828fe0141deb446d991))
 
+- *(flake)* Add disko input - ([3b8779c](https://github.com/JayRovacsek/nix-config/commit/3b8779c63b485b240d47e18ada5d43db63138559))
+
 - *(flake)* Add nix-topology to inputs - ([e2b1703](https://github.com/JayRovacsek/nix-config/commit/e2b17036e6d8ead8ad419f48d3e11f8271012b47))
+
+- *(linux)* Migrate dragonite's zfs disks to disko (currently degraded) - ([3b8779c](https://github.com/JayRovacsek/nix-config/commit/3b8779c63b485b240d47e18ada5d43db63138559))
 
 - *(linux)* Add grafana agent more widely over deployed hosts - ([5c7278c](https://github.com/JayRovacsek/nix-config/commit/5c7278cdbc33a8f17dfd9640cc329c5155ed3fd3))
 
