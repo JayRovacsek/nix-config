@@ -20,7 +20,7 @@ in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
-    ./filesystems.nix
+    ./disk-config.nix
     ./old-users.nix
     agenix
     auto-upgrade
@@ -76,23 +76,25 @@ in {
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
     blacklistedKernelModules = [ "e1000e" ];
 
-    supportedFilesystems = [ "ntfs" "zfs" ];
-    kernelParams = [ "amd_iommu=on" ];
+    extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" ];
       kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     };
 
+    kernel.sysctl."vm.swappiness" = 10;
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-    extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
+    kernelParams = [ "amd_iommu=on" ];
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    supportedFilesystems = [ "ntfs" "zfs" ];
   };
 
   environment.systemPackages = with pkgs; [

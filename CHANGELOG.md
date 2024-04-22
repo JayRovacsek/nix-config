@@ -14,6 +14,8 @@
 
 - *(linux)* Add nix-topology module to all nixos systems - ([9cdc214](https://github.com/JayRovacsek/nix-config/commit/9cdc214deb256b2d15c3eaccd13a3703cdaed886))
 
+- *(modules)* Implement tmux - ([078945f](https://github.com/JayRovacsek/nix-config/commit/078945f85d4e18c116c5988901a480251a60e065))
+
 - *(modules)* Add nextcloud node exporter - ([07dc034](https://github.com/JayRovacsek/nix-config/commit/07dc0345d589be656b9bab5694c83072e4e97ac4))
 
 - *(modules)* Add more scraped services to grafana agent - ([5c7278c](https://github.com/JayRovacsek/nix-config/commit/5c7278cdbc33a8f17dfd9640cc329c5155ed3fd3))

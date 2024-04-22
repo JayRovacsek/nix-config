@@ -294,6 +294,24 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1713406758,
+        "narHash": "sha256-kwZvhmx+hSZvjzemKxsAqzEqWmXZS47VVwQhNrINORQ=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "1efd500e9805a9efbce401ed5999006d397b9f11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "firefox-darwin": {
       "inputs": {
         "nixpkgs": ["nixpkgs"]
@@ -633,11 +651,11 @@
         "pre-commit-hooks": ["pre-commit-hooks"]
       },
       "locked": {
-        "lastModified": 1713178164,
-        "narHash": "sha256-jqRnS+G1Ha7X9/DBzbxjCJE5ikJXo3xmr0fO8pYjhSI=",
+        "lastModified": 1713783363,
+        "narHash": "sha256-4nSK8+QrCabGTINrQNucPm60Mq9GCuImgMGSVUTtCj4=",
         "owner": "oddlama",
         "repo": "nix-topology",
-        "rev": "4f9a4a367e5da7d04fa56422c0741e7d2985d676",
+        "rev": "d54cacc0ee6c53ae696c954c7105980d9c944c9b",
         "type": "github"
       },
       "original": {
@@ -856,6 +874,7 @@
         "ags-config": "ags-config",
         "bleeding-edge": "bleeding-edge",
         "devshell": "devshell",
+        "disko": "disko",
         "firefox-darwin": "firefox-darwin",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",

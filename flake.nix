@@ -48,6 +48,11 @@
       };
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
