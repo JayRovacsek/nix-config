@@ -50,6 +50,8 @@
 
 ### 🚜 Refactor
 
+- *(flake)* Move checks to main flake file - ([3156162](https://github.com/JayRovacsek/nix-config/commit/315616223dbfb5294256d811d376cc9d28267095))
+
 - *(flake)* Remove redundant pname = name code - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
 
 ### 📚 Documentation
