@@ -302,7 +302,10 @@
         let
           pkgs = import self.inputs.nixpkgs {
             inherit system;
-            overlays = [ self.inputs.nix-topology.overlays.default ];
+            overlays = with self.inputs; [
+              nix-topology.overlays.default
+              devshell.overlays.default
+            ];
           };
         in {
           # Space in which exposed derivations can be ran via
@@ -385,7 +388,23 @@
 
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
-          devShells = import ./shells { inherit self pkgs; };
+          devShells.default = pkgs.devshell.mkShell {
+            commands = [
+              {
+                package = pkgs.deadnix;
+                help = "Remove unused nix code";
+              }
+              {
+                package = pkgs.nixfmt;
+                help = "Lint nix code";
+              }
+            ];
+
+            name = "nix-config";
+
+            devshell.startup.pre-commit-hooks.text =
+              self.checks.${system}.pre-commit-hooks.shellHook;
+          };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have
           formatter = pkgs.nixfmt;

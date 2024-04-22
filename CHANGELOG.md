@@ -26,6 +26,8 @@
 
 - *(flake)* Change nix-topology input away from local dev - ([310343b](https://github.com/JayRovacsek/nix-config/commit/310343b09bfeaf0a1a7d762cdbe88153cdc9ba1e))
 
+- *(home-manager-modules)* Change keepassxc default open behaviour - ([89a498c](https://github.com/JayRovacsek/nix-config/commit/89a498ca0b059cb08210f091abc46f79a742e864))
+
 - *(home-manager-modules)* Correct screen positions for alakazam again - ([da9c289](https://github.com/JayRovacsek/nix-config/commit/da9c289fc8768d5e511b55f773944c015a013f63))
 
 - *(linux)* Re-add blocky to magikarp for now due to custom mappings - ([abbaa1f](https://github.com/JayRovacsek/nix-config/commit/abbaa1ff2798ae6f7fa01ee090ba6a1e2998554d))
