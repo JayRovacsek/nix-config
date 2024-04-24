@@ -1885,7 +1885,7 @@
   ],
   "refresh": "",
   "schemaVersion": 39,
-  "tags": ["dns"],
+  "tags": ["dns", "services"],
   "templating": {
     "list": [
       {

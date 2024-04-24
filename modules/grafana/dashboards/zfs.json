@@ -6400,7 +6400,7 @@
   ],
   "refresh": false,
   "schemaVersion": 39,
-  "tags": ["disks"],
+  "tags": ["disks", "filesystem"],
   "templating": {
     "list": [
       {
