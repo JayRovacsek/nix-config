@@ -40,10 +40,7 @@ in {
 
       appstoreEnable = true;
 
-      autoUpdateApps = {
-        enable = true;
-        startAt = "";
-      };
+      autoUpdateApps.enable = true;
 
       config = {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;

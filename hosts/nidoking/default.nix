@@ -6,16 +6,19 @@ let
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
 in {
-  imports = with self.nixosModules; [
-    agenix
-    grafana-agent
-    nix-topology
-    microvm-guest
-    nextcloud
-    nginx
-    time
-    timesyncd
-  ];
+
+  imports = with self.nixosModules;
+    [
+      agenix
+      grafana-agent
+      microvm-guest
+      nextcloud
+      nginx
+      nix-topology
+      time
+      timesyncd
+      tmp-tmpfs
+    ] ++ [ self.inputs.sandro-nixos-modules.nixosModule ];
 
   microvm = {
     interfaces = [{
@@ -28,7 +31,7 @@ in {
       };
     }];
 
-    mem = 4096;
+    mem = 8192;
 
     shares = [{
       # On the host
@@ -46,16 +49,22 @@ in {
 
   services = {
     nextcloud = {
+      configureMemories = true;
+      configureRecognize = true;
       hostName = "nextcloud.rovacsek.com";
       settings.datadirectory = "/srv/nextcloud";
     };
 
-    nginx.virtualHosts."nextcloud.rovacsek.com" = {
-      enableAuthelia = false;
-      forceSSL = true;
-      # TODO: remove self signed certificate in the future.
-      sslCertificate = "${cert}/share/self-signed.crt";
-      sslCertificateKey = "${cert}/share/privkey.key";
+    nginx = {
+      statusPage = true;
+
+      virtualHosts."nextcloud.rovacsek.com" = {
+        enableAuthelia = false;
+        forceSSL = true;
+        # TODO: remove self signed certificate in the future.
+        sslCertificate = "${cert}/share/self-signed.crt";
+        sslCertificateKey = "${cert}/share/privkey.key";
+      };
     };
   };
 

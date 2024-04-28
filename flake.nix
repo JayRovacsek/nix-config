@@ -206,6 +206,14 @@
       url = "github:cachix/pre-commit-hooks.nix";
     };
 
+    sandro-nixos-modules = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+      url = "github:JayRovacsek/nixos-modules";
+    };
+
     # Software bill of materials package
     sbomnix = {
       inputs = {

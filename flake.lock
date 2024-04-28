@@ -900,12 +900,32 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
+        "sandro-nixos-modules": "sandro-nixos-modules",
         "sbomnix": "sbomnix",
         "stable": "stable",
         "stylix": "stylix",
         "systems": "systems",
         "terranix": "terranix",
         "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "sandro-nixos-modules": {
+      "inputs": {
+        "flake-utils": ["flake-utils"],
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1714026638,
+        "narHash": "sha256-6jgcBKsRIsFnbyzWMWt6oXncFcgbKidIJY0nKLdSpeA=",
+        "owner": "JayRovacsek",
+        "repo": "nixos-modules",
+        "rev": "74fc65a771c98c522a782ed5713d84e578df6a7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JayRovacsek",
+        "repo": "nixos-modules",
+        "type": "github"
       }
     },
     "sbomnix": {
