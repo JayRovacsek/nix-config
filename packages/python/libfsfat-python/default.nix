@@ -1,27 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libfsfat-python";
-
   version = "20240220";
-
-  meta = with lib; {
-    description = "Python bindings module for libfsfat";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfsfat/";
-    downloadPage = "https://github.com/libyal/libfsfat/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  nativeBuildInputs = [ setuptools ];
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-eABliX9tg+AMjbtr0g1BbjZUbgJE+uIljCB7GIMWs2w=";
+    hash = "sha256-eABliX9tg+AMjbtr0g1BbjZUbgJE+uIljCB7GIMWs2w=";
+  };
+
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyfsfat" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libfsfat";
+    downloadPage = "https://github.com/libyal/libfsfat/releases";
+    homepage = "https://github.com/libyal/libfsfat";
+    license = licenses.lgpl3Plus;
   };
 }
