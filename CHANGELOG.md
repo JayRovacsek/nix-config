@@ -22,6 +22,8 @@
 
 - *(home-manager-modules)* Remove neovim telescope settings - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
 
+- *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
+
 - *(modules)* Resolve hydra eval issues - ([6a1826e](https://github.com/JayRovacsek/nix-config/commit/6a1826e60fd7de12e7aecd48cec32e1f4851caaf))
 
 - *(modules)* Resolve firefox sync service configuration - ([24d52cb](https://github.com/JayRovacsek/nix-config/commit/24d52cb9f3fb9a0f21ed1d2f4e48e282d9315408))
