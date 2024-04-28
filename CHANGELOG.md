@@ -6,6 +6,8 @@
 
 - *(common)* Generate and add keys for all suitable hosts - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
 
+- *(linux)* Add smartd & tmp-tmpfs to dragonite - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
+
 - *(linux,flake)* Add sandro nixos modules input + nextcloud options - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
 
 - *(modules)* Implement nginx status page & monitoring - ([eafeee1](https://github.com/JayRovacsek/nix-config/commit/eafeee16a0d3dff2752e1e1207a350759b39a1bc))
@@ -15,6 +17,8 @@
 - *(modules)* Add nextcloud dashboard - ([ab4d70a](https://github.com/JayRovacsek/nix-config/commit/ab4d70aff530f6328d83c7a1c2f15819d25fdf5d))
 
 ### 🐛 Bug Fixes
+
+- *(home-manager-modules)* Remove neovim telescope settings - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
 
 - *(modules)* Remove notify action from clamav - achieved by loki instead - ([8afd672](https://github.com/JayRovacsek/nix-config/commit/8afd67244c15b941c9c4ef7f1e987e9f33e75560))
 

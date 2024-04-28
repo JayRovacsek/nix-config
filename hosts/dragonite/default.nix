@@ -14,14 +14,45 @@ let
     modules = cli;
   };
 
-  user-configs = merge [ builder jay ];
+  jellyfin-user = {
+    users = {
+      extraUsers.jellyfin = {
+        createHome = false;
+        description = "User account generated for running a specific service";
+        group = "jellyfin";
+        isSystemUser = true;
+        uid = 998;
+      };
+
+      groups = {
+        users.gid = 100;
+
+        jellyfin = {
+          gid = 10001;
+          members = [ "jellyfin" ];
+        };
+
+        media = {
+          inherit (self.common.networking.services.media.user) gid;
+          members = [ "jay" "jellyfin" ];
+        };
+      };
+
+      users.media = {
+        group = "media";
+        isSystemUser = true;
+        inherit (self.common.networking.services.media.user) uid;
+      };
+    };
+  };
+
+  user-configs = merge [ builder jay jellyfin-user ];
 
 in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
     ./disk-config.nix
-    ./old-users.nix
     agenix
     auto-upgrade
     blocky
