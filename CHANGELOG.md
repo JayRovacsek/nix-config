@@ -2,6 +2,8 @@
 
 ### ⛰️  Features
 
+- *(apps,packages)* Remove package content from apps file - ([a8ff962](https://github.com/JayRovacsek/nix-config/commit/a8ff962836b45ac082a807eb3d756f217cbe8700))
+
 - *(linux,flake)* Add sandro nixos modules input + nextcloud options - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
 
 - *(modules)* Implement tmpfs module for /tmp - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
