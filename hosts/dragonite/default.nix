@@ -162,7 +162,7 @@ in {
 
   microvm = {
     macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
-      self.common.networking.vlans;
+      self.common.networking.networks;
 
     vms = let
       party = [
