@@ -56,6 +56,7 @@ in buildPythonPackage rec {
     libvshadow-python
     libvslvm-python
     pytsk3
+    # This is required to support the darwin architecture for pyxattr
     (pyxattr.overrideAttrs (old: rec {
       buildInputs = lib.optional stdenv.isLinux pkgs.attr;
       meta.platforms = old.meta.platforms
@@ -67,6 +68,8 @@ in buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
+  # This is required only as the build process incorrectly assumes xattr
+  # is not installed, despite it being included in dependencies.
   patches = [ ./no-xattr-dependency.patch ];
 
   pythonImportsCheck = [ pname ];

@@ -14,7 +14,7 @@ in buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  pythonImportsCheck = [ "pyfsxfs" ];
+  pythonImportsCheck = [ "pyvsapm" ];
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
