@@ -42,6 +42,8 @@
 
 - *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
 
+- *(packages)* Start aligning python packages better with upstream expectations - ([265e768](https://github.com/JayRovacsek/nix-config/commit/265e768c146167a1446ea3c95bdaf42693cfcdce))
+
 - *(packages)* Start aligning python packages better with upstream expectations - ([2ee00de](https://github.com/JayRovacsek/nix-config/commit/2ee00dee5fc98e857aa90583c5f7692e0402902a))
 
 - *(packages)* Start aligning python packages better with upstream expectations - ([ee4f064](https://github.com/JayRovacsek/nix-config/commit/ee4f0649eb09e5989e74adf9dc7a242d7927b77b))
