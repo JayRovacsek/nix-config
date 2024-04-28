@@ -4,6 +4,8 @@
 
 - *(apps,packages)* Remove package content from apps file - ([a8ff962](https://github.com/JayRovacsek/nix-config/commit/a8ff962836b45ac082a807eb3d756f217cbe8700))
 
+- *(common)* Generate and add keys for all suitable hosts - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
+
 - *(linux,flake)* Add sandro nixos modules input + nextcloud options - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
 
 - *(modules)* Implement nginx status page & monitoring - ([eafeee1](https://github.com/JayRovacsek/nix-config/commit/eafeee16a0d3dff2752e1e1207a350759b39a1bc))
@@ -21,6 +23,8 @@
 - *(modules,common,linux)* Move authelia network to simply auth - ([48c0bf0](https://github.com/JayRovacsek/nix-config/commit/48c0bf042f744bceaeebe8afa51edb49d89a7d04))
 
 - *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
+
+- *(tooling)* Resolve typos not using packaged defined config - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features

@@ -43,13 +43,14 @@ in {
     nix-serve
     nvidia
     openssh
-    openvscode-server
     samba
+    smartd
     sudo
     systemd-networkd
     telegraf
     time
     timesyncd
+    tmp-tmpfs
     tmux
     udev
     zfs
