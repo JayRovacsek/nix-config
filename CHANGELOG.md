@@ -22,6 +22,8 @@
 
 - *(home-manager-modules)* Remove neovim telescope settings - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
 
+- *(modules)* Resolve firefox sync service configuration - ([24d52cb](https://github.com/JayRovacsek/nix-config/commit/24d52cb9f3fb9a0f21ed1d2f4e48e282d9315408))
+
 - *(modules)* Revert to wildcard primary name, tld extra names in acme - ([1f3c452](https://github.com/JayRovacsek/nix-config/commit/1f3c4522120d64729590ced3e194261a261762c4))
 
 - *(modules)* Remove notify action from clamav - achieved by loki instead - ([8afd672](https://github.com/JayRovacsek/nix-config/commit/8afd67244c15b941c9c4ef7f1e987e9f33e75560))
