@@ -356,6 +356,27 @@
                   enable = true;
                   settings = {
                     binary = false;
+                    exclude = "*.age";
+                    ignored-words = [
+                      "Adge"
+                      "ags"
+                      "ba"
+                      "browseable"
+                      "crypted"
+                      "dota"
+                      "ede"
+                      "flor"
+                      "Flor"
+                      "gastly"
+                      "Gastly"
+                      "no"
+                      "noice"
+                      "noo"
+                      "Ot"
+                      "SART"
+                      "SYNOPSYS"
+                      "wih"
+                    ];
                     locale = "en-au";
                   };
                 };
