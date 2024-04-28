@@ -41,6 +41,8 @@
 - *(linux)* Reorder modules in dragonite imports - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
 
 - *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
+
+- *(packages)* Start aligning python packages better with upstream expectations - ([ee4f064](https://github.com/JayRovacsek/nix-config/commit/ee4f0649eb09e5989e74adf9dc7a242d7927b77b))
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features

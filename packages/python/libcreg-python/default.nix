@@ -19,7 +19,7 @@ in buildPythonPackage rec {
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libcreg";
-    homepage = "https://github.com/libyal/libcreg/";
+    homepage = "https://github.com/libyal/libcreg";
     downloadPage = "https://github.com/libyal/libcreg/releases";
     license = licenses.lgpl3Plus;
   };
