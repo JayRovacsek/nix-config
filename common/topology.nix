@@ -31,10 +31,10 @@ in {
     alakazam.interfaces.eth0.network = "lan";
     cloyster.interfaces.wlan0.network = "wlan";
     dragonite.interfaces = let
-      vlan-interfaces = builtins.foldl'
+      interfaces = builtins.foldl'
         (acc: vlan: recursiveUpdate acc { ${vlan.name}.network = vlan.name; })
-        { } self.common.networking.vlans;
-    in recursiveUpdate { eth0.network = "lan"; } vlan-interfaces;
+        { } self.common.networking.networks;
+    in recursiveUpdate { eth0.network = "lan"; } interfaces;
     gastly.interfaces.wlan0.network = "wlan";
     jigglypuff.interfaces.vlan-dns.network = "dns";
     wigglytuff.interfaces.wlan0.network = "iot";
@@ -46,34 +46,34 @@ in {
       interfaceGroups = [ [ "em0" ] [ "em1" "ovpnc1" "ovpnc2" ] ];
 
       interfaces = let
-        vlan-interfaces = builtins.foldl' (acc: vlan:
+        interfaces = builtins.foldl' (acc: vlan:
           recursiveUpdate acc {
             ${vlan.name} = {
               network = vlan.name;
               addresses = [ "192.168.${builtins.toString vlan.vlan-tag}.1" ];
               virtual = true;
             };
-          }) { } self.common.networking.vlans;
+          }) { } self.common.networking.networks;
       in {
         em1 = {
           addresses = [ "192.168.1.1" ];
           network = "lan";
         };
-      } // vlan-interfaces;
+      } // interfaces;
     };
 
     switch = mkSwitch "US-24" {
       hardware.info = "Ubiquiti UniFi 24 Port Managed Switch with SFP";
       image = "${self.packages.${system}.ubiquiti-logo}/share/logo.png";
       interfaces = let
-        vlan-interfaces = builtins.foldl' (acc: vlan:
+        interfaces = builtins.foldl' (acc: vlan:
           recursiveUpdate acc {
             ${vlan.name} = {
               network = vlan.name;
               virtual = true;
               physicalConnections = [ (mkConnection "pfsense" vlan.name) ];
             };
-          }) { } self.common.networking.vlans;
+          }) { } self.common.networking.networks;
       in recursiveUpdate {
         eth0 = {
           network = "lan";
@@ -96,7 +96,7 @@ in {
           network = "lan";
           physicalConnections = [ (mkConnection "wap" "eth0") ];
         };
-      } vlan-interfaces;
+      } interfaces;
     };
 
     wap = mkSwitch "AP AC Lite" {
@@ -120,17 +120,17 @@ in {
   };
 
   networks = let
-    vlan-networks = builtins.foldl' (acc: vlan:
+    networks = builtins.foldl' (acc: vlan:
       recursiveUpdate acc {
         ${vlan.name} = {
           inherit (vlan) name;
           cidrv4 = "192.168.${builtins.toString vlan.vlan-tag}.0/24";
         };
-      }) { } self.common.networking.vlans;
+      }) { } self.common.networking.networks;
   in recursiveUpdate {
     lan = {
       name = "lan";
       cidrv4 = "192.168.1.0/24";
     };
-  } vlan-networks;
+  } networks;
 }

@@ -1,5 +1,5 @@
 _: {
-  vlans = [
+  networks = [
     {
       name = "iot";
       vlan-tag = 3;
@@ -21,7 +21,7 @@ _: {
       vlan-tag = 8;
     }
     {
-      name = "authelia";
+      name = "auth";
       vlan-tag = 9;
     }
     {

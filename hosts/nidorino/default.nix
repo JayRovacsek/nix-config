@@ -17,7 +17,7 @@
       id = config.networking.hostName;
       mac = "02:42:c0:a8:09:02";
       macvtap = {
-        link = "authelia";
+        link = "auth";
         mode = "bridge";
       };
     }];
