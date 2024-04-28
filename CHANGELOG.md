@@ -29,6 +29,10 @@
 - *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
 
 - *(tooling)* Resolve typos not using packaged defined config - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
+
+### 🚜 Refactor
+
+- *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features

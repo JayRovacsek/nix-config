@@ -40,6 +40,22 @@
           };
         };
       };
+      wwn-0x5000c500e84f2745 = {
+        type = "disk";
+        device = "/dev/disk/by-id/wwn-0x5000c500e84f2745";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "tank";
+              };
+            };
+          };
+        };
+      };
     };
 
     zpool = {

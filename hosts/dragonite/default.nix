@@ -57,7 +57,6 @@ in {
     auto-upgrade
     blocky
     clamav
-    nix-topology
     firefox-syncserver
     fonts
     generations
@@ -72,6 +71,7 @@ in {
     microvm-host
     nix
     nix-serve
+    nix-topology
     nvidia
     openssh
     samba
