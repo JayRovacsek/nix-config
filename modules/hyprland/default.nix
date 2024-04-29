@@ -1,6 +1,5 @@
-{ config, pkgs, self, ... }:
+{ config, lib, pkgs, self, ... }:
 let
-  inherit (pkgs) lib;
   nvidia-present = builtins.any (driver: driver == "nvidia")
     config.services.xserver.videoDrivers;
 
@@ -45,7 +44,7 @@ in {
       NIXOS_OZONE_WL = "1";
       __GL_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
-      GDK_BACKEND = "wayland";
+      GDK_BACKEND = lib.mkDefault "wayland";
       WLR_DRM_NO_ATOMIC = "1";
       MOZ_ENABLE_WAYLAND = "1";
       WLR_BACKEND = "vulkan";

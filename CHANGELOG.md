@@ -45,16 +45,6 @@
 - *(linux)* Reorder modules in dragonite imports - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
 
 - *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
-
-- *(packages)* Start aligning python packages better with upstream expectations - ([18ee190](https://github.com/JayRovacsek/nix-config/commit/18ee1909eaf462d3f669c5df58e07fa3e2b53518))
-
-- *(packages)* Start aligning python packages better with upstream expectations - ([a85bcf8](https://github.com/JayRovacsek/nix-config/commit/a85bcf8cb81fa023df434f9e6d0af232ea8a6afa))
-
-- *(packages)* Start aligning python packages better with upstream expectations - ([265e768](https://github.com/JayRovacsek/nix-config/commit/265e768c146167a1446ea3c95bdaf42693cfcdce))
-
-- *(packages)* Start aligning python packages better with upstream expectations - ([2ee00de](https://github.com/JayRovacsek/nix-config/commit/2ee00dee5fc98e857aa90583c5f7692e0402902a))
-
-- *(packages)* Start aligning python packages better with upstream expectations - ([ee4f064](https://github.com/JayRovacsek/nix-config/commit/ee4f0649eb09e5989e74adf9dc7a242d7927b77b))
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features
@@ -124,6 +114,12 @@
 - *(packages)* Resolve python-docx issue by removing override - ([ce7540e](https://github.com/JayRovacsek/nix-config/commit/ce7540e7577fc393d7a963f8d48d9a474750f770))
 
 - *(packages)* Move some packages to the resource location - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
+
+### 🐍 Hydra
+
+- *(packages)* Remove topology from packages - ([0889862](https://github.com/JayRovacsek/nix-config/commit/08898627fdab8f7a62a03cd7471d8a2119666bef))
+
+- *(packages)* Remove topology from packages - ([0889862](https://github.com/JayRovacsek/nix-config/commit/08898627fdab8f7a62a03cd7471d8a2119666bef))
 
 ### 🚜 Refactor
 
@@ -424,6 +420,12 @@
 
 - *(tooling)* Add packages to conform known types - ([61b1591](https://github.com/JayRovacsek/nix-config/commit/61b1591184eed6b658121faf77639da6c28f9269))
 
+### 🐍 Hydra
+
+- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+
+- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+
 ### 🚜 Refactor
 
 - *(apps)* Remove act app - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
@@ -437,6 +439,12 @@
 ### 🧪 Testing
 
 - *(linux)* Swap alakazam back to waybar for now - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
+
+### ⚫ Common
+
+- *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
+
+- *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
 ## [0.0.2](https://github.com/JayRovacsek/nix-config/compare/v0.0.1..v0.0.2) - 2024-02-20
 
 ### ⛰️  Features
@@ -458,4 +466,11 @@
 ### 📚 Documentation
 
 - *(checks)* Generate initial changelog file - ([c327d38](https://github.com/JayRovacsek/nix-config/commit/c327d38cef5ec5b4b863cc16021046fff60c2d75))
+## [0.0.1](https://github.com/JayRovacsek/nix-config/compare/v0.0.0..v0.0.1) - 2024-02-11
+
+### 🧪 Testing
+- Test branch protection - ([2dbb0ac](https://github.com/JayRovacsek/nix-config/commit/2dbb0ace6e749093f083aeaf63897c1ecd961798))
+
+- Test - ([e448584](https://github.com/JayRovacsek/nix-config/commit/e4485847a90823ce1158b69543c6e4e36d83b63c))
+
 
