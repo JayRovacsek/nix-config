@@ -22,6 +22,8 @@
 
 - *(home-manager-modules)* Remove neovim telescope settings - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
 
+- *(home-manager-modules,overlays)* Resolve keepassxc issues with yubikey - ([6576768](https://github.com/JayRovacsek/nix-config/commit/65767689c9fc579e56ef0509ce4c1869a1ed8f25))
+
 - *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
 
 - *(modules)* Make environment variable default for GDK on wayland - ([06b21d1](https://github.com/JayRovacsek/nix-config/commit/06b21d178fbcc158bec6397215a09a572b54e24b))
