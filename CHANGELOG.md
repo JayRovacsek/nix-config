@@ -26,6 +26,8 @@
 
 - *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
 
+- *(modules)* Resolve dockutil definition for keepassxc - ([2e20f48](https://github.com/JayRovacsek/nix-config/commit/2e20f483aa224c43731d73b41933e4f0d55490b5))
+
 - *(modules)* Make environment variable default for GDK on wayland - ([06b21d1](https://github.com/JayRovacsek/nix-config/commit/06b21d178fbcc158bec6397215a09a572b54e24b))
 
 - *(modules)* Resolve hydra eval issues - ([6a1826e](https://github.com/JayRovacsek/nix-config/commit/6a1826e60fd7de12e7aecd48cec32e1f4851caaf))
