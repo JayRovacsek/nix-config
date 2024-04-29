@@ -53,6 +53,10 @@
 - *(linux)* Reorder modules in dragonite imports - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
 
 - *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
+
+- *(packages)* Remove redundant platforms definitions - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
+
+- *(packages)* Restructure more packages to match upstream expected order - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features

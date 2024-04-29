@@ -40,7 +40,6 @@ in {
     keybase
     logging
     lorri
-    tmux
     microvm-host
     nextcloud-client
     nix
@@ -52,6 +51,8 @@ in {
     systemd-networkd
     time
     timesyncd
+    tmp-tmpfs
+    tmux
     udev
     zsh
   ];
