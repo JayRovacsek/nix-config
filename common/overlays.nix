@@ -5,7 +5,7 @@ let
 in {
   all = system-agnostic ++ darwin ++ linux;
 
-  darwin = [ firefox-darwin.overlay ];
+  darwin = [ firefox-darwin.overlay self.overlays.keepassxc ];
 
   linux = [
     self.overlays.element-desktop
