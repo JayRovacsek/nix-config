@@ -1,6 +1,6 @@
 { pkgs, self, ... }:
 let
-  inherit (pkgs) coreutils system writers;
+  inherit (pkgs) coreutils system;
 
   type = "app";
 
@@ -26,29 +26,16 @@ let
     '');
   in { inherit program type; };
 
-  generate-typos-config = let
-    filename = "_typos.toml";
-
-    config = self.packages.${system}.typos-config;
-
-    program = builtins.toString (pkgs.writers.writeBash "copy-config" ''
-      ${coreutils}/bin/rm ./${filename}
-      ${coreutils}/bin/ln -s ${config} ./${filename}
-    '');
-  in { inherit program type; };
-
   generate-all-configs = {
     program = builtins.toString
       (pkgs.writers.writeBash "generate-all-configs" ''
         ${pkgs.nixVersions.stable}/bin/nix run ${self}#generate-cliff-config
         ${pkgs.nixVersions.stable}/bin/nix run ${self}#generate-conform-config
-        ${pkgs.nixVersions.stable}/bin/nix run ${self}#generate-typos-config
       '');
 
     type = "app";
   };
 
 in {
-  inherit generate-all-configs generate-cliff-config generate-conform-config
-    generate-typos-config;
+  inherit generate-all-configs generate-cliff-config generate-conform-config;
 }
