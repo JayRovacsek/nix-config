@@ -62,6 +62,16 @@
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
+  jellyfin-wayland = _final: prev: {
+    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs
+      (_: {
+        postPatch = ''
+          substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
+            --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
+        '';
+      });
+  };
+
   keepassxc = _final: prev: {
     keepassxc = if prev.stdenv.isDarwin then
       prev.stdenvNoCC.mkDerivation (finalAttrs: {

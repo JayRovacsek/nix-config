@@ -8,6 +8,8 @@
 
 - *(home-manager-modules)* Add success logging to firefox config - ([3373f48](https://github.com/JayRovacsek/nix-config/commit/3373f48031514927ce8236534b6b5dc56fc245f7))
 
+- *(linux)* Correct disko config for dragonite - ([7d71a2b](https://github.com/JayRovacsek/nix-config/commit/7d71a2bda559ac8fb02a75ab7e7ca55085dd4aca))
+
 - *(linux)* Move alakazam to tmp on tmpfs - ([95d9073](https://github.com/JayRovacsek/nix-config/commit/95d907323f90b0290709ab5b82873d56d922748a))
 
 - *(linux)* Add new disk to dragonite zfs pool - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
