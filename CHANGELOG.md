@@ -30,6 +30,8 @@
 
 - *(home-manager-modules,overlays)* Resolve keepassxc issues with yubikey - ([6576768](https://github.com/JayRovacsek/nix-config/commit/65767689c9fc579e56ef0509ce4c1869a1ed8f25))
 
+- *(linux)* Resolve problematic microvm ram issues - ([a192776](https://github.com/JayRovacsek/nix-config/commit/a1927760e69e345c4dc25455dd4afc3086804060))
+
 - *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
 
 - *(modules)* Resolve dockutil definition for keepassxc - ([2e20f48](https://github.com/JayRovacsek/nix-config/commit/2e20f483aa224c43731d73b41933e4f0d55490b5))
