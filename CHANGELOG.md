@@ -56,6 +56,8 @@
 
 - *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
 
+- *(options)* Resolve sonarr authentication methods - ([6086aec](https://github.com/JayRovacsek/nix-config/commit/6086aec4d4521d08f4d26fed7dedb139d682d311))
+
 - *(tooling)* Resolve typos not using packaged defined config - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
 - Resolve removed typos config from apps - ([d0fe627](https://github.com/JayRovacsek/nix-config/commit/d0fe6277cee1a79b3aecd95fb2e6d934b798c52d))
 

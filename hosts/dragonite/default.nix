@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) base cli;
@@ -52,6 +52,7 @@ in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
+    ./backups.nix
     ./disk-config.nix
     agenix
     auto-upgrade
@@ -117,7 +118,7 @@ in {
       kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     };
 
-    kernel.sysctl."vm.swappiness" = 10;
+    kernel.sysctl."vm.swappiness" = 1;
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     kernelParams = [ "amd_iommu=on" ];
 
