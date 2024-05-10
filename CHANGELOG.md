@@ -8,6 +8,8 @@
 
 - *(home-manager-modules)* Add success logging to firefox config - ([3373f48](https://github.com/JayRovacsek/nix-config/commit/3373f48031514927ce8236534b6b5dc56fc245f7))
 
+- *(linux)* Implement local and remote backups for nextcloud in nix - ([1728f77](https://github.com/JayRovacsek/nix-config/commit/1728f77d4d1d088b753ab2379b306cbb9169655e))
+
 - *(linux)* Correct disko config for dragonite - ([7d71a2b](https://github.com/JayRovacsek/nix-config/commit/7d71a2bda559ac8fb02a75ab7e7ca55085dd4aca))
 
 - *(linux)* Move alakazam to tmp on tmpfs - ([95d9073](https://github.com/JayRovacsek/nix-config/commit/95d907323f90b0290709ab5b82873d56d922748a))
