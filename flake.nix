@@ -77,6 +77,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    flake-root.url = "github:srid/flake-root";
+
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
@@ -143,11 +145,13 @@
       inputs = {
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
+        flake-root.follows = "flake-root";
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
@@ -166,18 +170,13 @@
       url = "github:nix-community/nix-eval-jobs";
     };
 
-    nix-filter.url = "github:numtide/nix-filter";
-
     nix-github-actions = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-github-actions";
     };
 
     nix-monitored = {
-      inputs = {
-        nix-filter.follows = "nix-filter";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs = { nixpkgs.follows = "nixpkgs"; };
       url = "github:ners/nix-monitored";
     };
 
@@ -211,7 +210,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
-      url = "github:JayRovacsek/nixos-modules";
+      url = "github:SuperSandro2000/nixos-modules";
     };
 
     # Software bill of materials package
@@ -219,6 +218,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };

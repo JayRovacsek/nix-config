@@ -4,11 +4,13 @@
 
 - *(apps,packages)* Remove package content from apps file - ([a8ff962](https://github.com/JayRovacsek/nix-config/commit/a8ff962836b45ac082a807eb3d756f217cbe8700))
 
-- *(common)* Add standard aarch64 image - ([dfa2a1e](https://github.com/JayRovacsek/nix-config/commit/dfa2a1ea7edb504d6e1007c37a37625de6c19075))
+- *(common)* Add standard aarch64 image - ([d106da7](https://github.com/JayRovacsek/nix-config/commit/d106da736bc59bff805e69832f0a3d22f06bb44c))
 
 - *(common)* Generate and add keys for all suitable hosts - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
 
 - *(home-manager-modules)* Add success logging to firefox config - ([3373f48](https://github.com/JayRovacsek/nix-config/commit/3373f48031514927ce8236534b6b5dc56fc245f7))
+
+- *(linux)* Add smartd options for exos drives - ([ba2c8a6](https://github.com/JayRovacsek/nix-config/commit/ba2c8a6b84c1d24eccec58a93ae57a5f493e58b6))
 
 - *(linux)* Implement local and remote backups for nextcloud in nix - ([1728f77](https://github.com/JayRovacsek/nix-config/commit/1728f77d4d1d088b753ab2379b306cbb9169655e))
 
@@ -27,6 +29,8 @@
 - *(modules)* Implement tmpfs module for /tmp - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
 
 - *(modules)* Add nextcloud dashboard - ([ab4d70a](https://github.com/JayRovacsek/nix-config/commit/ab4d70aff530f6328d83c7a1c2f15819d25fdf5d))
+
+- *(packages)* Add AnythingLLMDesktop - ([6766355](https://github.com/JayRovacsek/nix-config/commit/67663552bd18150e56ced05773551a567422e1d6))
 
 ### 🐛 Bug Fixes
 

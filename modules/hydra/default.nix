@@ -37,7 +37,6 @@ let
     "github:NixOS/nixpkgs"
     "github:numtide/devshell"
     "github:numtide/flake-utils"
-    "github:numtide/nix-filter"
     "github:numtide/treefmt-nix"
     "github:oddlama/nix-topology"
     "github:ryantm/agenix"
