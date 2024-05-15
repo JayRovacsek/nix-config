@@ -30,6 +30,7 @@ in {
     fonts
     generations
     gnupg
+    gnome-keyring
     grafana-agent
     greetd
     grub
