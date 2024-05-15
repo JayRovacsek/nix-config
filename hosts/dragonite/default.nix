@@ -75,6 +75,7 @@ in {
     nix-topology
     nvidia
     openssh
+    openvscode-server
     samba
     smartd
     sudo
@@ -178,7 +179,6 @@ in {
         "nidorina"
         "nidorino"
         "poliwag"
-        "porygon"
         "slowpoke"
       ];
     in builtins.foldl' (acc: pokemon:

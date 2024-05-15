@@ -84,6 +84,10 @@
 
 - *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
 
+- *(packages)* Swap use of sha256 to hash - ([0402c7d](https://github.com/JayRovacsek/nix-config/commit/0402c7d55559607b1c4dc536fcaf0cc1afdd629c))
+
+- *(packages)* Remove cpp packages (upstream'd) - ([0402c7d](https://github.com/JayRovacsek/nix-config/commit/0402c7d55559607b1c4dc536fcaf0cc1afdd629c))
+
 - *(packages)* Remove redundant platforms definitions - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
 
 - *(packages)* Restructure more packages to match upstream expected order - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
