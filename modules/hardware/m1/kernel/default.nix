@@ -52,7 +52,7 @@
         patches = (o.patches or [ ]) ++ [
           (self.fetchpatch {
             url = "https://github.com/libunwind/libunwind/pull/330.patch";
-            sha256 = "sha256-z3Hpg98D4UMmrE/LC596RFcyxRTvDjD4k7llDPfz1NI=";
+            hash = "sha256-z3Hpg98D4UMmrE/LC596RFcyxRTvDjD4k7llDPfz1NI=";
           })
         ];
       });

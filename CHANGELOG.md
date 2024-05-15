@@ -24,6 +24,8 @@
 
 - *(linux,flake)* Add sandro nixos modules input + nextcloud options - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
 
+- *(modules)* Add gnome-keyring module - ([fd39b5f](https://github.com/JayRovacsek/nix-config/commit/fd39b5fc7225ec58ba8ef28b1fff872e9771c3f2))
+
 - *(modules)* Implement nginx status page & monitoring - ([eafeee1](https://github.com/JayRovacsek/nix-config/commit/eafeee16a0d3dff2752e1e1207a350759b39a1bc))
 
 - *(modules)* Implement tmpfs module for /tmp - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))

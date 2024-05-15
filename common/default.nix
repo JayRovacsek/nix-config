@@ -1,7 +1,6 @@
 { self }: {
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
-  cpp-packages = builtins.attrNames (builtins.readDir ../packages/cpp);
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
