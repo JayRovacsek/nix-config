@@ -32,6 +32,8 @@
 
 - *(modules)* Add nextcloud dashboard - ([ab4d70a](https://github.com/JayRovacsek/nix-config/commit/ab4d70aff530f6328d83c7a1c2f15819d25fdf5d))
 
+- *(modules,linux)* Add logs backup configuration - ([04f4666](https://github.com/JayRovacsek/nix-config/commit/04f4666939509515e5713e8ba0c392f72dedc81f))
+
 - *(packages)* Add AnythingLLMDesktop - ([6766355](https://github.com/JayRovacsek/nix-config/commit/67663552bd18150e56ced05773551a567422e1d6))
 
 ### 🐛 Bug Fixes
