@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self.lib) merge;
 
@@ -19,7 +19,9 @@ let
   nextcloud-local-disk-backup = {
     nextcloud-local-disk-backup = merge [
       defaults
-      {
+      rec {
+        backupPrepareCommand =
+          "${pkgs.restic}/bin/restic -r ${repository} unlock";
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
           "/srv/nextcloud"
@@ -35,9 +37,11 @@ let
   nextcloud-wasabi-backup = {
     nextcloud-wasabi-backup = merge [
       defaults
-      {
+      rec {
+        backupPrepareCommand =
+          "${pkgs.restic}/bin/restic -r ${repository} unlock";
         environmentFile = config.age.secrets.nextcloud-wasabi-backup-env.path;
-        extraOptions = [ "--limit-upload=1024" "--compression=max" ];
+        extraOptions = [ "limit-upload=4096" "compression=max" ];
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
           "/srv/nextcloud"
@@ -47,8 +51,9 @@ let
         repository =
           "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0u";
         timerConfig = {
-          OnCalendar = "hourly";
+          OnCalendar = "00:05";
           Persistent = true;
+          RandomizedDelaySec = "5h";
         };
       }
     ];

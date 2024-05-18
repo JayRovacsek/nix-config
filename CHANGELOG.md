@@ -40,6 +40,8 @@
 
 - *(home-manager-modules,overlays)* Resolve keepassxc issues with yubikey - ([6576768](https://github.com/JayRovacsek/nix-config/commit/65767689c9fc579e56ef0509ce4c1869a1ed8f25))
 
+- *(linux)* Re-add code server, remove porygon from dragonite - ([dffdfc8](https://github.com/JayRovacsek/nix-config/commit/dffdfc826f357f6dc2248979e05756d9512fe340))
+
 - *(linux)* Resolve problematic microvm ram issues - ([a192776](https://github.com/JayRovacsek/nix-config/commit/a1927760e69e345c4dc25455dd4afc3086804060))
 
 - *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
