@@ -34,13 +34,33 @@ let
     ];
   };
 
+  logs-wasabi-backup = {
+    logs-wasabi-backup = merge [
+      defaults
+      rec {
+        backupPrepareCommand =
+          "${pkgs.restic}/bin/restic -r ${repository} unlock";
+        environmentFile = config.age.secrets.wasabi-backup-env.path;
+        extraOptions = [ "limit-upload=4096" "compression=max" ];
+        passwordFile = config.age.secrets.logs-password.path;
+        paths = [ "/srv/logs" ];
+        repository =
+          "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0v";
+        timerConfig = {
+          OnCalendar = "hourly";
+          Persistent = true;
+        };
+      }
+    ];
+  };
+
   nextcloud-wasabi-backup = {
     nextcloud-wasabi-backup = merge [
       defaults
       rec {
         backupPrepareCommand =
           "${pkgs.restic}/bin/restic -r ${repository} unlock";
-        environmentFile = config.age.secrets.nextcloud-wasabi-backup-env.path;
+        environmentFile = config.age.secrets.wasabi-backup-env.path;
         extraOptions = [ "limit-upload=4096" "compression=max" ];
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
@@ -64,11 +84,14 @@ in {
     identityPaths = [ "/agenix/id-ed25519-restic-primary" ];
     secrets = {
       nextcloud-password.file = ../../secrets/restic/nextcloud-password.age;
-      nextcloud-wasabi-backup-env.file =
-        ../../secrets/restic/nextcloud-wasabi-backup-env.age;
+      logs-password.file = ../../secrets/restic/logs-password.age;
+      wasabi-backup-env.file = ../../secrets/restic/wasabi-backup-env.age;
     };
   };
 
-  services.restic.backups =
-    merge [ nextcloud-local-disk-backup nextcloud-wasabi-backup ];
+  services.restic.backups = merge [
+    logs-wasabi-backup
+    nextcloud-local-disk-backup
+    nextcloud-wasabi-backup
+  ];
 }
