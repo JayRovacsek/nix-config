@@ -5,7 +5,6 @@ let
 
   meta = with lib; {
     description = "phonenumbers Python Library";
-    platforms = platforms.all;
     homepage = "https://github.com/daviddrysdale/python-phonenumbers";
     downloadPage = "https://github.com/daviddrysdale/python-phonenumbers/tags";
     license = licenses.asl20;

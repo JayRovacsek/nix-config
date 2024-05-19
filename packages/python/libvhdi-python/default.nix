@@ -1,27 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libvhdi-python";
-
-  version = "20231127";
-
-  meta = with lib; {
-    description = "Python bindings module for libvhdi";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libvhdi/";
-    downloadPage = "https://github.com/libyal/libvhdi/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  nativeBuildInputs = [ setuptools ];
+  version = "20240303";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-KOR9r0lUxlR999s4H/mmbk4FbAzzXBECxRIo7lTvZGY=";
+    hash = "sha256-p5Se/gk6g2DdBEYk1IkwAs5VvkTnbq4Xe+7WNlnvKCc=";
+  };
+
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyvhdi" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libvhdi";
+    downloadPage = "https://github.com/libyal/libvhdi/releases";
+    homepage = "https://github.com/libyal/libvhdi";
+    license = licenses.lgpl3Plus;
   };
 }

@@ -10,8 +10,8 @@ let
   nix-options = pkgs.fetchFromGitHub {
     owner = "JayRovacsek";
     repo = "nix-options";
-    rev = "4142d6dd0a1bd97ede240e84bf87c8f65a0ccbfd";
-    hash = "sha256-jxNmMjtan/TUnzo5ZTw7uWhsgzHTlmvOIXNgNn9Z46o=";
+    rev = "main";
+    hash = "sha256-Lf0foTW1F2WZGlxLgMj6f84x2jCIS6/mFHFBdr075Fs=";
   };
 in {
   programs.vscode = {
@@ -55,9 +55,14 @@ in {
       };
       "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
       "[yaml]" = { "editor.formatOnSave" = false; };
+
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
+
+      "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+      "direnv.restart.automatic" = true;
+
       "editor.bracketPairColorization.enabled" = true;
       "editor.fontFamily" = "Hack Nerd Font Mono";
       "editor.fontLigatures" = false;
@@ -78,19 +83,16 @@ in {
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
 
-      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
-          options = {
-            enable = true;
-            target = {
-              args = [ ];
-              installable = "${nix-options}#options";
-            };
+          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+          "options" = {
+            darwin.expr =
+              ''(builtins.getFlake "${nix-options}").options.darwin'';
+            hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
+            nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
         };
       };
@@ -109,10 +111,9 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
-
       # Nix
       jnoortheen.nix-ide
-      arrterian.nix-env-selector
+      mkhl.direnv
 
       # JS/TS
       dbaeumer.vscode-eslint

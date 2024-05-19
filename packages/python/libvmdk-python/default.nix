@@ -1,28 +1,28 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libvmdk-python";
-
-  version = "20231123";
-
-  meta = with lib; {
-    description = "Python bindings module for libvmdk";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libvmdk/";
-    downloadPage = "https://github.com/libyal/libvmdk/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  buildInputs = [ zlib ];
-  nativeBuildInputs = [ setuptools ];
+  version = "20240303";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-tqlJBLNlterh/sR2CmjKl2gotfGR9qHCfa9NqrTBl2E=";
+    hash = "sha256-v4/9iiMfOtF12DQIThLkL29NmVP1lNK0fwbLsZIX0v4=";
+  };
+
+  build-system = [ setuptools ];
+
+  buildInputs = [ zlib ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyvmdk" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libvmdk";
+    downloadPage = "https://github.com/libyal/libvmdk/releases";
+    homepage = "https://github.com/libyal/libvmdk";
+    license = licenses.lgpl3Plus;
   };
 }

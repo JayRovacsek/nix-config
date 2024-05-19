@@ -13,7 +13,7 @@ let
     owner = "ankane";
     repo = "pdscan";
     rev = "v${version}";
-    sha256 = "sha256-F4owE2IFj9r/HcmFQ/63HlE15xrhdGe/aU6anSnPmWM=";
+    hash = "sha256-F4owE2IFj9r/HcmFQ/63HlE15xrhdGe/aU6anSnPmWM=";
   };
 
   vendorHash = "sha256-Dx4zjVMgKye5vYoinX6CnQdSCQ+8Ryd2i3ToHlnBjcI=";

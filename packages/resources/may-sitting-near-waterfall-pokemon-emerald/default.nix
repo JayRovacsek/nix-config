@@ -1,22 +1,15 @@
 { stdenv, lib, fetchurl, ffmpeg-headless }:
 with lib;
-let
-  pname = "may-sitting-near-waterfall-pokemon-emerald-wallpaper";
+stdenv.mkDerivation {
+  pname = "may-sitting-near-waterfall-pokemon-emerald";
   version = "0.0.1";
-  meta = {
-    description =
-      "May Sitting Near Waterfall Pokemon Emerald Pixel Live Wallpaper";
-  };
 
   src = fetchurl {
     url = "https://wallpaperwaifu.com/download/3273/";
-    sha256 = "sha256-q9fm9dg65oGCtoYERXUqWg/HC9HTA9XbboIXEfhTHMk=";
+    hash = "sha256-q9fm9dg65oGCtoYERXUqWg/HC9HTA9XbboIXEfhTHMk=";
   };
 
   phases = [ "installPhase" ];
-
-in stdenv.mkDerivation {
-  inherit pname version meta phases src;
 
   installPhase = ''
     mkdir -p $out/share
@@ -27,4 +20,7 @@ in stdenv.mkDerivation {
     # not yield any notable filesize changes
     ${ffmpeg-headless}/bin/ffmpeg -i $src -vcodec libx265 -crf 28 $out/share/wallpaper.mp4
   '';
+
+  meta.description =
+    "May Sitting Near Waterfall Pokemon Emerald Pixel Live Wallpaper";
 }

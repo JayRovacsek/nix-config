@@ -7,7 +7,6 @@ let
   meta = with lib; {
     description =
       "Generate meaningful output from your pfSense configuration backup, like Markdown documentation.";
-    platforms = platforms.all;
     homepage = "https://github.com/TKCERT/pfFocus";
     license = licenses.lgpl3Plus;
   };
@@ -17,9 +16,9 @@ let
 in buildPythonPackage {
   inherit pname version meta;
 
-  nativeBuildInputs = [ pip ];
+  build-system = [ pip ];
 
-  propagatedBuildInputs = [ defusedxml pyyaml ];
+  dependencies = [ defusedxml pyyaml ];
 
   src = fetchFromGitHub {
     owner = "TKCERT";

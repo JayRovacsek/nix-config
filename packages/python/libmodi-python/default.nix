@@ -1,28 +1,26 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage setuptools;
+in buildPythonPackage rec {
   pname = "libmodi-python";
-
   version = "20240305";
-
-  meta = with lib; {
-    description = "Python bindings module for libmodi";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libmodi/";
-    downloadPage = "https://github.com/libyal/libmodi/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  buildInputs = [ zlib ];
-  nativeBuildInputs = [ setuptools ];
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-cZy1/RdFbT6OwIT/+MCVpdzRO8sz0P3I6EtcI9HdfNI=";
+    hash = "sha256-cZy1/RdFbT6OwIT/+MCVpdzRO8sz0P3I6EtcI9HdfNI=";
+  };
+
+  build-system = [ setuptools ];
+
+  buildInputs = [ zlib ];
+
+  pythonImportsCheck = [ "pymodi" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libmodi";
+    downloadPage = "https://github.com/libyal/libmodi/releases";
+    homepage = "https://github.com/libyal/libmodi";
+    license = licenses.lgpl3Plus;
   };
 }

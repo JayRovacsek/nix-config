@@ -31,12 +31,13 @@ in {
         environmentFile = "${config.age.secrets.acme-environment-file.path}";
         extraDomainNames = [ "*.${domain}" ];
         reloadServices = [ "nginx" ];
+        # Staging - use if testing, expect to see invalid certs however
+        # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       };
     }) config.services.nginx.domains);
 
     defaults = {
       inherit (config.services.nginx) group;
-      dnsPropagationCheck = false;
       email = "acme@rovacsek.com";
     };
   };

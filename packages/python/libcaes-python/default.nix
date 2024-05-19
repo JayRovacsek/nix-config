@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libcaes-python";
-  version = "20240114";
-
-  meta = with lib; {
-    description = "Python bindings module for libcaes";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libcaes";
-    downloadPage = "https://github.com/libyal/libcaes/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  nativeBuildInputs = [ setuptools ];
+  version = "20240413";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-bD2FPEM8p0bU8v6Vg4z4PsTwSWWfUy70I+/9j56aBUE=";
+    hash = "sha256-L39X0Y65cRAkATLVxS+v32A7VNeVL6uJVOBHENNlDqo=";
+  };
+
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pycaes" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libcaes";
+    downloadPage = "https://github.com/libyal/libcaes/releases";
+    homepage = "https://github.com/libyal/libcaes";
+    license = licenses.lgpl3Plus;
   };
 }

@@ -77,6 +77,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    flake-root.url = "github:srid/flake-root";
+
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
@@ -143,11 +145,13 @@
       inputs = {
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
+        flake-root.follows = "flake-root";
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
@@ -166,18 +170,13 @@
       url = "github:nix-community/nix-eval-jobs";
     };
 
-    nix-filter.url = "github:numtide/nix-filter";
-
     nix-github-actions = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nix-github-actions";
     };
 
     nix-monitored = {
-      inputs = {
-        nix-filter.follows = "nix-filter";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs = { nixpkgs.follows = "nixpkgs"; };
       url = "github:ners/nix-monitored";
     };
 
@@ -206,11 +205,20 @@
       url = "github:cachix/pre-commit-hooks.nix";
     };
 
+    sandro-nixos-modules = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+      url = "github:SuperSandro2000/nixos-modules";
+    };
+
     # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -348,6 +356,27 @@
                   enable = true;
                   settings = {
                     binary = false;
+                    exclude = "*.age";
+                    ignored-words = [
+                      "Adge"
+                      "ags"
+                      "ba"
+                      "browseable"
+                      "crypted"
+                      "dota"
+                      "ede"
+                      "flor"
+                      "Flor"
+                      "gastly"
+                      "Gastly"
+                      "no"
+                      "noice"
+                      "noo"
+                      "Ot"
+                      "SART"
+                      "SYNOPSYS"
+                      "wih"
+                    ];
                     locale = "en-au";
                   };
                 };
@@ -394,21 +423,22 @@
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
           devShells.default = pkgs.devshell.mkShell {
-            commands = [
-              {
-                package = pkgs.deadnix;
-                help = "Remove unused nix code";
-              }
-              {
-                package = pkgs.nixfmt;
-                help = "Lint nix code";
-              }
-            ];
+            devshell.startup.pre-commit-hooks.text =
+              self.checks.${system}.pre-commit-hooks.shellHook;
 
             name = "nix-config";
 
-            devshell.startup.pre-commit-hooks.text =
-              self.checks.${system}.pre-commit-hooks.shellHook;
+            packages = with pkgs; [
+              actionlint
+              conform
+              deadnix
+              git-cliff
+              nixfmt
+              nodePackages.prettier
+              statix
+              trufflehog
+              typos
+            ];
           };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have

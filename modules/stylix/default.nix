@@ -46,7 +46,7 @@ in {
     homeManagerIntegration.followSystem = true;
     image = pkgs.fetchurl {
       url = "https://openclipart.org/image/2000px/311101";
-      sha256 = "sha256-mIMXYOENVSgH0PjhO02MM7beg9AT44uVDj/tXxilDx0=";
+      hash = "sha256-mIMXYOENVSgH0PjhO02MM7beg9AT44uVDj/tXxilDx0=";
     };
     polarity = "dark";
   };

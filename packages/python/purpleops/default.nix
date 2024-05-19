@@ -9,7 +9,6 @@ let
     inherit version;
     description =
       "An open-source self-hosted purple team management web application";
-    platforms = platforms.all;
     homepage = "https://github.com/CyberCX-STA/PurpleOps";
     license = licenses.asl20;
   };
@@ -59,7 +58,7 @@ let
     qrcode requests six smmap speaklater sqlalchemy sqlalchemy-utils
     typing-extensions urllib3 webauthn webencodings werkzeug wtforms zipp;
 
-  propagatedBuildInputs = [
+  dependencies = [
     anyio
     asn1crypto
     Babel
@@ -138,6 +137,5 @@ let
   '';
 
 in buildPythonPackage {
-  inherit pname version meta setupPy src doCheck propagatedBuildInputs
-    postPatch;
+  inherit pname version meta setupPy src doCheck dependencies postPatch;
 }

@@ -24,7 +24,7 @@ let
   braveEntry = [{ path = "/Applications/Brave Browser.app"; }];
   chromiumEntry = [{ path = "/Applications/Chromium.app"; }];
   vscodiumEntry = [{ path = "${pkgs.vscodium}/Applications/VSCodium.app"; }];
-  keepassEntry = [{ path = "/Applications/KeePassXC.app"; }];
+  keepassEntry = [{ path = "${pkgs.keepassxc}/Applications/KeePassXC.app"; }];
   outlookEntry = [{ path = "/Applications/Microsoft Outlook.app"; }];
   slackEntry = [{ path = "${pkgs.slack}/Applications/Slack.app"; }];
 

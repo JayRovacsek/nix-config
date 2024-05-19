@@ -1,3 +1,124 @@
+## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
+
+### ⛰️  Features
+
+- *(apps,packages)* Remove package content from apps file - ([a8ff962](https://github.com/JayRovacsek/nix-config/commit/a8ff962836b45ac082a807eb3d756f217cbe8700))
+
+- *(common)* Add standard aarch64 image - ([d106da7](https://github.com/JayRovacsek/nix-config/commit/d106da736bc59bff805e69832f0a3d22f06bb44c))
+
+- *(common)* Generate and add keys for all suitable hosts - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
+
+- *(home-manager-modules)* Move from arrterian.nix-env-selector to mkhl.direnv - ([c149982](https://github.com/JayRovacsek/nix-config/commit/c149982e54ac3974ec1813399a2a729d13e6662e))
+
+- *(home-manager-modules)* Add success logging to firefox config - ([3373f48](https://github.com/JayRovacsek/nix-config/commit/3373f48031514927ce8236534b6b5dc56fc245f7))
+
+- *(linux)* Add smartd options for exos drives - ([ba2c8a6](https://github.com/JayRovacsek/nix-config/commit/ba2c8a6b84c1d24eccec58a93ae57a5f493e58b6))
+
+- *(linux)* Implement local and remote backups for nextcloud in nix - ([1728f77](https://github.com/JayRovacsek/nix-config/commit/1728f77d4d1d088b753ab2379b306cbb9169655e))
+
+- *(linux)* Correct disko config for dragonite - ([7d71a2b](https://github.com/JayRovacsek/nix-config/commit/7d71a2bda559ac8fb02a75ab7e7ca55085dd4aca))
+
+- *(linux)* Move alakazam to tmp on tmpfs - ([95d9073](https://github.com/JayRovacsek/nix-config/commit/95d907323f90b0290709ab5b82873d56d922748a))
+
+- *(linux)* Add new disk to dragonite zfs pool - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
+
+- *(linux)* Add smartd & tmp-tmpfs to dragonite - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
+
+- *(linux,flake)* Add sandro nixos modules input + nextcloud options - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
+
+- *(modules)* Add gnome-keyring module - ([fd39b5f](https://github.com/JayRovacsek/nix-config/commit/fd39b5fc7225ec58ba8ef28b1fff872e9771c3f2))
+
+- *(modules)* Implement nginx status page & monitoring - ([eafeee1](https://github.com/JayRovacsek/nix-config/commit/eafeee16a0d3dff2752e1e1207a350759b39a1bc))
+
+- *(modules)* Implement tmpfs module for /tmp - ([f9a4aba](https://github.com/JayRovacsek/nix-config/commit/f9a4aba7a6f80440614ad8e9d82822266cc89ba7))
+
+- *(modules)* Add nextcloud dashboard - ([ab4d70a](https://github.com/JayRovacsek/nix-config/commit/ab4d70aff530f6328d83c7a1c2f15819d25fdf5d))
+
+- *(modules,linux)* Add logs backup configuration - ([04f4666](https://github.com/JayRovacsek/nix-config/commit/04f4666939509515e5713e8ba0c392f72dedc81f))
+
+- *(packages)* Add AnythingLLMDesktop - ([6766355](https://github.com/JayRovacsek/nix-config/commit/67663552bd18150e56ced05773551a567422e1d6))
+
+### 🐛 Bug Fixes
+
+- *(home-manager-modules)* Remove neovim telescope settings - ([62cb429](https://github.com/JayRovacsek/nix-config/commit/62cb429e52126b4685979b26f4b5958fc9d947b1))
+
+- *(home-manager-modules,overlays)* Resolve keepassxc issues with yubikey - ([6576768](https://github.com/JayRovacsek/nix-config/commit/65767689c9fc579e56ef0509ce4c1869a1ed8f25))
+
+- *(linux)* Re-add code server, remove porygon from dragonite - ([dffdfc8](https://github.com/JayRovacsek/nix-config/commit/dffdfc826f357f6dc2248979e05756d9512fe340))
+
+- *(linux)* Resolve problematic microvm ram issues - ([a192776](https://github.com/JayRovacsek/nix-config/commit/a1927760e69e345c4dc25455dd4afc3086804060))
+
+- *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
+
+- *(modules)* Add allowed uri to hydra - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
+- *(modules)* Resolve acme issues providing cert to domain root - ([97bff0a](https://github.com/JayRovacsek/nix-config/commit/97bff0ad51bf9ef82898333dc0b33248f30dbb19))
+
+- *(modules)* Resolve dockutil definition for keepassxc - ([2e20f48](https://github.com/JayRovacsek/nix-config/commit/2e20f483aa224c43731d73b41933e4f0d55490b5))
+
+- *(modules)* Make environment variable default for GDK on wayland - ([06b21d1](https://github.com/JayRovacsek/nix-config/commit/06b21d178fbcc158bec6397215a09a572b54e24b))
+
+- *(modules)* Resolve hydra eval issues - ([6a1826e](https://github.com/JayRovacsek/nix-config/commit/6a1826e60fd7de12e7aecd48cec32e1f4851caaf))
+
+- *(modules)* Resolve firefox sync service configuration - ([24d52cb](https://github.com/JayRovacsek/nix-config/commit/24d52cb9f3fb9a0f21ed1d2f4e48e282d9315408))
+
+- *(modules)* Revert to wildcard primary name, tld extra names in acme - ([1f3c452](https://github.com/JayRovacsek/nix-config/commit/1f3c4522120d64729590ced3e194261a261762c4))
+
+- *(modules)* Remove notify action from clamav - achieved by loki instead - ([8afd672](https://github.com/JayRovacsek/nix-config/commit/8afd67244c15b941c9c4ef7f1e987e9f33e75560))
+
+- *(modules)* Add tags to grafana dashboards, add - ([ab4d70a](https://github.com/JayRovacsek/nix-config/commit/ab4d70aff530f6328d83c7a1c2f15819d25fdf5d))
+
+- *(modules,common,linux)* Move authelia network to simply auth - ([48c0bf0](https://github.com/JayRovacsek/nix-config/commit/48c0bf042f744bceaeebe8afa51edb49d89a7d04))
+
+- *(modules,home-manager-modules)* Resolve issues introduced with nix-ide update - ([187c9e0](https://github.com/JayRovacsek/nix-config/commit/187c9e0c36da270847383fe18c614693ca6ff83b))
+
+- *(modules,home-manager-modules)* Resolve hyprland env issues - ([fbe3b23](https://github.com/JayRovacsek/nix-config/commit/fbe3b2386486bf95b5c9b02a0f6cbf267c331cb8))
+
+- *(modules,hydra)* Add more trusted uris - ([9ac9f55](https://github.com/JayRovacsek/nix-config/commit/9ac9f5503d07485fc4d761b747460a946389f1b0))
+
+- *(modules,hydra)* Resolve status updates on PRs - ([1c00211](https://github.com/JayRovacsek/nix-config/commit/1c00211ff811610f483eb733f52c8c3b2f03fdeb))
+
+- *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
+
+- *(options)* Resolve sonarr authentication methods - ([6086aec](https://github.com/JayRovacsek/nix-config/commit/6086aec4d4521d08f4d26fed7dedb139d682d311))
+
+- *(overlays)* Resolve jellyfin on hyprland issues - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
+- *(packages)* Resolve eval issue for packages - ([440ddec](https://github.com/JayRovacsek/nix-config/commit/440ddec0b07c7e881e2bc6d80f5412f8fa91a390))
+
+- *(secrets)* Resolve incorrect creds in acme env - ([a7ab682](https://github.com/JayRovacsek/nix-config/commit/a7ab682077c2f27b4e9609f4444d19b12f5244be))
+
+- *(tooling)* Resolve typos not using packaged defined config - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
+- Correct backup to ensure unlock prior to run - ([77f8d41](https://github.com/JayRovacsek/nix-config/commit/77f8d410acf9fd7a8ab8cb909e65f7aa29e59ba4))
+
+- Resolve removed typos config from apps - ([d0fe627](https://github.com/JayRovacsek/nix-config/commit/d0fe6277cee1a79b3aecd95fb2e6d934b798c52d))
+
+- Resolve regression with jellyfin on hyprland - ([7dae711](https://github.com/JayRovacsek/nix-config/commit/7dae711a1b70e765464deeb20f8d5d8ec6a7f6f3))
+
+
+### 🚜 Refactor
+
+- *(flake)* Change devshell to packages rather than commands - ([5ae35d7](https://github.com/JayRovacsek/nix-config/commit/5ae35d7e345d5eee37bc4d85c2d06b5fc7b51043))
+
+- *(linux)* Reorder alakazam modules - ([95d9073](https://github.com/JayRovacsek/nix-config/commit/95d907323f90b0290709ab5b82873d56d922748a))
+
+- *(linux)* Reorder modules in dragonite imports - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
+
+- *(linux)* Remove old-users.nix from dragonite - ([759c05b](https://github.com/JayRovacsek/nix-config/commit/759c05b4529a808b195a5b4f77245833b20d0573))
+
+- *(packages)* Swap use of sha256 to hash - ([0402c7d](https://github.com/JayRovacsek/nix-config/commit/0402c7d55559607b1c4dc536fcaf0cc1afdd629c))
+
+- *(packages)* Remove cpp packages (upstream'd) - ([0402c7d](https://github.com/JayRovacsek/nix-config/commit/0402c7d55559607b1c4dc536fcaf0cc1afdd629c))
+
+- *(packages)* Remove redundant platforms definitions - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
+
+- *(packages)* Restructure more packages to match upstream expected order - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
+- Remove some redundant code - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
+
+### 📚 Documentation
+- Generate deployment svg - ([a39aa02](https://github.com/JayRovacsek/nix-config/commit/a39aa024e91290656d1185158b9c3d7e8cef315a))
+
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features
@@ -67,6 +188,10 @@
 - *(packages)* Resolve python-docx issue by removing override - ([ce7540e](https://github.com/JayRovacsek/nix-config/commit/ce7540e7577fc393d7a963f8d48d9a474750f770))
 
 - *(packages)* Move some packages to the resource location - ([0b598d7](https://github.com/JayRovacsek/nix-config/commit/0b598d78cff2d8deaf171acebdaed95f90f1742d))
+
+### 🐍 Hydra
+
+- *(packages)* Remove topology from packages - ([0889862](https://github.com/JayRovacsek/nix-config/commit/08898627fdab8f7a62a03cd7471d8a2119666bef))
 
 ### 🚜 Refactor
 
@@ -367,6 +492,10 @@
 
 - *(tooling)* Add packages to conform known types - ([61b1591](https://github.com/JayRovacsek/nix-config/commit/61b1591184eed6b658121faf77639da6c28f9269))
 
+### 🐍 Hydra
+
+- *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+
 ### 🚜 Refactor
 
 - *(apps)* Remove act app - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
@@ -380,6 +509,10 @@
 ### 🧪 Testing
 
 - *(linux)* Swap alakazam back to waybar for now - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
+
+### ⚫ Common
+
+- *(modules)* Resolve eval error - ([4cf0320](https://github.com/JayRovacsek/nix-config/commit/4cf0320c34788f5aeb0078483b7e8ef8dd503a7c))
 ## [0.0.2](https://github.com/JayRovacsek/nix-config/compare/v0.0.1..v0.0.2) - 2024-02-20
 
 ### ⛰️  Features
@@ -401,4 +534,11 @@
 ### 📚 Documentation
 
 - *(checks)* Generate initial changelog file - ([c327d38](https://github.com/JayRovacsek/nix-config/commit/c327d38cef5ec5b4b863cc16021046fff60c2d75))
+## [0.0.1](https://github.com/JayRovacsek/nix-config/compare/v0.0.0..v0.0.1) - 2024-02-11
+
+### 🧪 Testing
+- Test branch protection - ([2dbb0ac](https://github.com/JayRovacsek/nix-config/commit/2dbb0ace6e749093f083aeaf63897c1ecd961798))
+
+- Test - ([e448584](https://github.com/JayRovacsek/nix-config/commit/e4485847a90823ce1158b69543c6e4e36d83b63c))
+
 
