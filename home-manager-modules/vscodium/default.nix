@@ -55,9 +55,14 @@ in {
       };
       "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
       "[yaml]" = { "editor.formatOnSave" = false; };
+
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
+
+      "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+      "direnv.restart.automatic" = true;
+
       "editor.bracketPairColorization.enabled" = true;
       "editor.fontFamily" = "Hack Nerd Font Mono";
       "editor.fontLigatures" = false;
@@ -78,7 +83,6 @@ in {
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
 
-      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
@@ -107,10 +111,9 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
-
       # Nix
       jnoortheen.nix-ide
-      arrterian.nix-env-selector
+      mkhl.direnv
 
       # JS/TS
       dbaeumer.vscode-eslint
