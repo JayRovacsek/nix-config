@@ -8,6 +8,8 @@
 
 - *(common)* Generate and add keys for all suitable hosts - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
 
+- *(home-manager-modules)* Move from arrterian.nix-env-selector to mkhl.direnv - ([c149982](https://github.com/JayRovacsek/nix-config/commit/c149982e54ac3974ec1813399a2a729d13e6662e))
+
 - *(home-manager-modules)* Add success logging to firefox config - ([3373f48](https://github.com/JayRovacsek/nix-config/commit/3373f48031514927ce8236534b6b5dc56fc245f7))
 
 - *(linux)* Add smartd options for exos drives - ([ba2c8a6](https://github.com/JayRovacsek/nix-config/commit/ba2c8a6b84c1d24eccec58a93ae57a5f493e58b6))

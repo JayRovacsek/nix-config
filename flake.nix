@@ -423,21 +423,22 @@
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
           devShells.default = pkgs.devshell.mkShell {
-            commands = [
-              {
-                package = pkgs.deadnix;
-                help = "Remove unused nix code";
-              }
-              {
-                package = pkgs.nixfmt;
-                help = "Lint nix code";
-              }
-            ];
+            devshell.startup.pre-commit-hooks.text =
+              self.checks.${system}.pre-commit-hooks.shellHook;
 
             name = "nix-config";
 
-            devshell.startup.pre-commit-hooks.text =
-              self.checks.${system}.pre-commit-hooks.shellHook;
+            packages = with pkgs; [
+              actionlint
+              conform
+              deadnix
+              git-cliff
+              nixfmt
+              nodePackages.prettier
+              statix
+              trufflehog
+              typos
+            ];
           };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have
