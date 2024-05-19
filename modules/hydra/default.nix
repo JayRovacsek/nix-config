@@ -63,26 +63,19 @@ in {
   age = {
     identityPaths = [ "/agenix/id-ed25519-hydra-primary" ];
     secrets = {
-      "builder-id-ed25519" = lib.mkForce {
+      builder-id-ed25519 = lib.mkForce {
         file = ../../secrets/ssh/builder-id-ed25519.age;
         owner = config.users.users.hydra-queue-runner.name;
         mode = "0400";
       };
 
-      "hydra-github-token" = {
+      hydra-github-token = {
         file = ../../secrets/hydra/hydra-github-token.age;
         owner = config.users.users.hydra.name;
         inherit (config.users.users.hydra) group;
         mode = "0440";
       };
     };
-  };
-
-  environment.etc."hydra/github_token" = {
-    inherit (config.users.users.hydra) group;
-    mode = "440";
-    source = config.age.secrets.hydra-github-token.path;
-    user = config.users.users.hydra-queue-runner.name;
   };
 
   networking.firewall.allowedTCPPorts = [ port ];
@@ -98,8 +91,8 @@ in {
       compress_build_logs = 1
       <githubstatus>
         jobs = .*
-        inputs = src
         useShortContext = true
+        Include ${config.age.secrets.hydra-github-token.path}
       </githubstatus>
     '';
     hydraURL = "https://hydra.rovacsek.com";

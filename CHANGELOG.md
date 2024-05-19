@@ -94,6 +94,8 @@
 
 ### 🚜 Refactor
 
+- *(flake)* Change devshell to packages rather than commands - ([5ae35d7](https://github.com/JayRovacsek/nix-config/commit/5ae35d7e345d5eee37bc4d85c2d06b5fc7b51043))
+
 - *(linux)* Reorder alakazam modules - ([95d9073](https://github.com/JayRovacsek/nix-config/commit/95d907323f90b0290709ab5b82873d56d922748a))
 
 - *(linux)* Reorder modules in dragonite imports - ([74e639a](https://github.com/JayRovacsek/nix-config/commit/74e639a2f2273dd5499248ce9c8fa85fd548b440))
