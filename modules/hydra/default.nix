@@ -25,8 +25,7 @@ let
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
-    "github:JayRovacsek/ags-config"
-    "github:JayRovacsek/nixos-modules"
+    "github:JayRovacsek"
     "github:kdrag0n/base16-kitty"
     "github:lnl7/nix-darwin"
     "github:ners/nix-monitored"
@@ -35,7 +34,6 @@ let
     "github:NixOS/nixos-hardware"
     "github:nixos/nixpkgs"
     "github:NixOS/nixpkgs"
-    "github:NixOS/nixpkgs"
     "github:numtide/devshell"
     "github:numtide/flake-utils"
     "github:numtide/treefmt-nix"
@@ -43,6 +41,7 @@ let
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
     "github:SenchoPens/fromYaml"
+    "github:srid/flake-root"
     "github:SuperSandro2000/nixos-modules"
     "github:terranix/terranix"
     "github:tiiuae/sbomnix"
@@ -50,6 +49,7 @@ let
     "github:tinted-theming/base16-helix"
     "github:tinted-theming/base16-tmux"
     "github:tomyun/base16-fish"
+    "https://github.com/NixOS"
   ];
 in {
   # If Hydra is present, we assume a builder user is also present generally
