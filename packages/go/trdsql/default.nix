@@ -14,7 +14,7 @@ let
     owner = "noborus";
     repo = "trdsql";
     rev = "v${version}";
-    sha256 = "sha256-dlLhnRRg7kkRjjcDfId1VoUE5tQdYmue+GavN08Czrc=";
+    hash = "sha256-dlLhnRRg7kkRjjcDfId1VoUE5tQdYmue+GavN08Czrc=";
   };
 
   vendorHash = "sha256-8wF06bIM+tDYqd8tyXKOehuYJQvyqhLBJv0K47vh8hY=";

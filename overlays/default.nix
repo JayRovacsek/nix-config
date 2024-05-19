@@ -62,6 +62,53 @@
     inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
   };
 
+  jellyfin-wayland = _final: prev: {
+    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs
+      (_: {
+        autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
+
+        postPatch = ''
+          substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
+            --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
+        '';
+      });
+  };
+
+  keepassxc = _final: prev: {
+    keepassxc = if prev.stdenv.isDarwin then
+      prev.stdenvNoCC.mkDerivation (finalAttrs: {
+        pname = "keepassxc";
+        version = "2.7.7";
+
+        src = prev.fetchurl {
+          url =
+            "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
+          hash = "sha256-hoFUBifQP3D2g9xazXmvj0K7ohQl/681LHnrXDH7lxI=";
+        };
+
+        sourceRoot = ".";
+
+        nativeBuildInputs = [ prev.undmg ];
+
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/Applications
+          cp -r *.app $out/Applications
+          runHook postInstall
+        '';
+
+        meta = with prev.lib; {
+          description =
+            "Smooths scrolling and set mouse scroll directions independently";
+          homepage = "http://mos.caldis.me/";
+          sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+          platforms = platforms.darwin;
+        };
+      })
+    else
+      prev.keepassxc;
+  };
+
   # TODO; fold any overlay definitions here into the exposed options
   # space within nix-options to nixd will happily identify those auto-completions
   lib = _final: prev:

@@ -1,27 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libregf-python";
-
-  version = "20240303";
-
-  meta = with lib; {
-    description = "Python bindings module for libregf";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libregf/";
-    downloadPage = "https://github.com/libyal/libregf/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage setuptools;
-
-in buildPythonPackage {
-  inherit pname version meta;
-
-  nativeBuildInputs = [ setuptools ];
+  version = "20240421";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-L3us7wNT9uc2KaGUFpqXyD44wud2cP3towqzpy2xy2Y=";
+    hash = "sha256-oYbCR1zX59Cj4yQbM1fk5SC/YFB14BmiL0F4mix0Gvw=";
+  };
+
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyregf" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libregf";
+    downloadPage = "https://github.com/libyal/libregf/releases";
+    homepage = "https://github.com/libyal/libregf";
+    license = licenses.lgpl3Plus;
   };
 }

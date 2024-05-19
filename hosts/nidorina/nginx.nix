@@ -151,6 +151,20 @@ let
     };
   };
 
+  localhost-vhost = {
+    localhost = {
+      enableAuthelia = false;
+      forceSSL = false;
+      locations."/" = {
+        extraConfig = ''
+          allow 127.0.0.1;
+          deny all;
+        '';
+        proxyPass = "https://127.0.0.1/nginx_status";
+      };
+    };
+  };
+
   nextcloud-vhost = generate-vhosts {
     inherit config;
     service-name = "nextcloud";
@@ -257,6 +271,7 @@ in {
       jellyfin-vhost
       jellyseerr-vhost
       lidarr-vhost
+      localhost-vhost
       nextcloud-vhost
       pfsense-vhost
       prowlarr-vhost

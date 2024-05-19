@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (pkgs) system;
 

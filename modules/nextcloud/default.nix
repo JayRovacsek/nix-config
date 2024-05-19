@@ -40,10 +40,7 @@ in {
 
       appstoreEnable = true;
 
-      autoUpdateApps = {
-        enable = true;
-        startAt = "";
-      };
+      autoUpdateApps.enable = true;
 
       config = {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
@@ -76,7 +73,7 @@ in {
 
       https = true;
       maxUploadSize = "10G";
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";

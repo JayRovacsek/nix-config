@@ -170,10 +170,11 @@ in {
         # There's a future in which we can bootstrap tailscale suitably to 
         # simply consume DNS from a suitable node utilising blocky - but it's 
         # still a work in progress.
-        extra_records = lib.mapAttrsToList (name: value: {
-          inherit name value;
-          type = "A";
-        }) config.services.blocky.settings.customDNS.mapping;
+        extra_records = lib.optionalAttrs config.services.blocky.enable
+          (lib.mapAttrsToList (name: value: {
+            inherit name value;
+            type = "A";
+          }) config.services.blocky.settings.customDNS.mapping);
       };
 
       # TODO: move this to agenix

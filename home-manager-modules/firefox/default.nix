@@ -464,6 +464,7 @@ in {
         "security.webauthn.ctap2" = false;
 
         "services.settings.server" = "";
+        "services.sync.log.appender.file.logOnSuccess" = true;
         "services.sync.prefs.sync-seen.browser.search.update" = true;
         "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" =
           false;

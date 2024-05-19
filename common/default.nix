@@ -1,7 +1,6 @@
 { self }: {
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
-  cpp-packages = builtins.attrNames (builtins.readDir ../packages/cpp);
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
@@ -9,6 +8,7 @@
     builtins.attrNames (builtins.readDir ../home-manager-modules);
   headscale = import ./headscale.nix { inherit self; };
   images = import ./images { inherit self; };
+  keys = import ./keys.nix { inherit self; };
   metadata = import ./metadata.nix { inherit self; };
   minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };

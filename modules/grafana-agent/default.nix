@@ -6,6 +6,7 @@ let
   clamav-enabled = config.services.clamav.daemon.enable;
   mysql-enabled = config.services.prometheus.exporters.mysqld.enable;
   nextcloud-enabled = config.services.prometheus.exporters.redis.enable;
+  nginx-enabled = config.services.nginx.enable;
   node-enabled = config.services.prometheus.exporters.node.enable;
   redis-enabled = config.services.prometheus.exporters.redis.enable;
   # TODO: change this so it checks for zfs also.
@@ -58,6 +59,19 @@ let
       targets = [
         "127.0.0.1:${
           builtins.toString config.services.prometheus.exporters.nextcloud.port
+        }"
+      ];
+    }];
+  };
+
+  nginx-prom-config = {
+    job_name = "nginx";
+    scheme = "http";
+    static_configs = [{
+      labels.host = config.networking.hostName;
+      targets = [
+        "127.0.0.1:${
+          builtins.toString config.services.prometheus.exporters.nginx.port
         }"
       ];
     }];
@@ -150,11 +164,11 @@ in {
           scrape_configs = (lib.optional blocky-enabled blocky-prom-config)
             ++ (lib.optional mysql-enabled mysql-prom-config)
             ++ (lib.optional nextcloud-enabled nextcloud-prom-config)
+            ++ (lib.optional nginx-enabled nginx-prom-config)
             ++ (lib.optional node-enabled node-prom-config)
             ++ (lib.optional redis-enabled redis-prom-config)
             ++ (lib.optional telegraf-enabled zfs-telegraf-config);
         }];
-
       };
     };
   };

@@ -1,22 +1,15 @@
 { stdenv, lib, fetchurl, ffmpeg-headless }:
 with lib;
-let
-  pname = "sunset-over-river-in-the-evening-wallpaper";
+stdenv.mkDerivation {
+  pname = "sunset-over-river-in-the-evening";
   version = "0.0.1";
-  meta = {
-    description = "Sunset Over River In the Evening Pixel Live Wallpaper";
-  };
 
   src = fetchurl {
     url = "https://wallpaperwaifu.com/download/3003/";
-    sha256 = "sha256-NRsLWVlFqxTEPmP8e4PlCVso3r+SFOtk5QiiJJiS+Rs=";
+    hash = "sha256-NRsLWVlFqxTEPmP8e4PlCVso3r+SFOtk5QiiJJiS+Rs=";
   };
 
   phases = [ "installPhase" ];
-
-in stdenv.mkDerivation {
-  inherit pname version meta phases src;
-
   installPhase = ''
     mkdir -p $out/share
 
@@ -26,4 +19,6 @@ in stdenv.mkDerivation {
     # not yield any notable filesize changes
     ${ffmpeg-headless}/bin/ffmpeg -i $src -vcodec libx265 -crf 28 $out/share/wallpaper.mp4
   '';
+
+  meta.description = "Sunset Over River In the Evening Pixel Live Wallpaper";
 }

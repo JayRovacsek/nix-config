@@ -40,6 +40,38 @@
           };
         };
       };
+      wwn-0x5000c500e84f2745 = {
+        type = "disk";
+        device = "/dev/disk/by-id/wwn-0x5000c500e84f2745";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "tank";
+              };
+            };
+          };
+        };
+      };
+      wwn-0x5000c500e82a80a2 = {
+        type = "disk";
+        device = "/dev/disk/by-id/wwn-0x5000c500e82a80a2";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "tank";
+              };
+            };
+          };
+        };
+      };
     };
 
     zpool = {
@@ -86,5 +118,28 @@
           ];
       };
     };
+  };
+
+  services.smartd = let options = "-a -v 1,raw48:54 -v 7,raw48:54";
+  in {
+    devices = [
+
+      {
+        device = "/dev/disk/by-id/wwn-0x5000c500c892b513";
+        inherit options;
+      }
+      {
+        device = "/dev/disk/by-id/wwn-0x5000c500c7db3a72";
+        inherit options;
+      }
+      {
+        device = "/dev/disk/by-id/wwn-0x5000c500e84f2745";
+        inherit options;
+      }
+      {
+        device = "/dev/disk/by-id/wwn-0x5000c500e82a80a2";
+        inherit options;
+      }
+    ];
   };
 }

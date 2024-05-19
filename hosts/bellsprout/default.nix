@@ -22,6 +22,8 @@
       };
     }];
 
+    mem = 1024;
+
     shares = [
       {
         # On the host
@@ -47,6 +49,7 @@
   services.sonarr = {
     group = "media";
     user = "media";
+    authenticationMethod = "External";
   };
 
   system.stateVersion = "24.05";

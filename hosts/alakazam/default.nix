@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 
 let
   inherit (self.common.home-manager-module-sets)
@@ -30,6 +30,7 @@ in {
     fonts
     generations
     gnupg
+    gnome-keyring
     grafana-agent
     greetd
     grub
@@ -40,7 +41,6 @@ in {
     keybase
     logging
     lorri
-    tmux
     microvm-host
     nextcloud-client
     nix
@@ -52,6 +52,8 @@ in {
     systemd-networkd
     time
     timesyncd
+    tmp-tmpfs
+    tmux
     udev
     zsh
   ];

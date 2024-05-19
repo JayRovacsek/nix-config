@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) base cli;
@@ -14,19 +14,50 @@ let
     modules = cli;
   };
 
-  user-configs = merge [ builder jay ];
+  jellyfin-user = {
+    users = {
+      extraUsers.jellyfin = {
+        createHome = false;
+        description = "User account generated for running a specific service";
+        group = "jellyfin";
+        isSystemUser = true;
+        uid = 998;
+      };
+
+      groups = {
+        users.gid = 100;
+
+        jellyfin = {
+          gid = 10001;
+          members = [ "jellyfin" ];
+        };
+
+        media = {
+          inherit (self.common.networking.services.media.user) gid;
+          members = [ "jay" "jellyfin" ];
+        };
+      };
+
+      users.media = {
+        group = "media";
+        isSystemUser = true;
+        inherit (self.common.networking.services.media.user) uid;
+      };
+    };
+  };
+
+  user-configs = merge [ builder jay jellyfin-user ];
 
 in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
+    ./backups.nix
     ./disk-config.nix
-    ./old-users.nix
     agenix
     auto-upgrade
     blocky
     clamav
-    nix-topology
     firefox-syncserver
     fonts
     generations
@@ -41,15 +72,18 @@ in {
     microvm-host
     nix
     nix-serve
+    nix-topology
     nvidia
     openssh
     openvscode-server
     samba
+    smartd
     sudo
     systemd-networkd
     telegraf
     time
     timesyncd
+    tmp-tmpfs
     tmux
     udev
     zfs
@@ -85,7 +119,7 @@ in {
       kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     };
 
-    kernel.sysctl."vm.swappiness" = 10;
+    kernel.sysctl."vm.swappiness" = 1;
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     kernelParams = [ "amd_iommu=on" ];
 
@@ -130,7 +164,7 @@ in {
 
   microvm = {
     macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
-      self.common.networking.vlans;
+      self.common.networking.networks;
 
     vms = let
       party = [
@@ -145,7 +179,6 @@ in {
         "nidorina"
         "nidorino"
         "poliwag"
-        "porygon"
         "slowpoke"
       ];
     in builtins.foldl' (acc: pokemon:

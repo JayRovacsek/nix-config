@@ -5,13 +5,13 @@ let
 in {
   all = system-agnostic ++ darwin ++ linux;
 
-  darwin = [ firefox-darwin.overlay ];
+  darwin = [ firefox-darwin.overlay self.overlays.keepassxc ];
 
   linux = [
     self.overlays.element-desktop
     self.overlays.fcitx-engines
     self.overlays.grub2
-    self.overlays.hydra
+    self.overlays.jellyfin-wayland
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper

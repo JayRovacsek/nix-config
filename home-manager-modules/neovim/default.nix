@@ -32,54 +32,6 @@
       fileencoding = "utf-8";
     };
 
-    keymaps = [
-      {
-        mode = "n";
-        key = "<leader>mp";
-        action = "<Plug>MarkdownPreviewToggle";
-      }
-      {
-        mode = "n";
-        key = "<leader>ff";
-        action = "<cmd>Telescope find_files<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fg";
-        action = "<cmd>Telescope live_grep<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fb";
-        action = "<cmd>Telescope buffers<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fh";
-        action = "<cmd>Telescope help_tags<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-p>";
-        action = "<cmd>Telescope find_files<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-s-p>";
-        action = "<cmd>Telescope commands<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-k>";
-        action = "<cmd>Telescope buffers<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-s-k>";
-        action = "<cmd>Telescope keymaps<cr>";
-      }
-    ];
-
     # Plugin Definitions (Modules)
     plugins = {
       bufferline.enable = true;
@@ -101,16 +53,6 @@
 
         closeIfLastWindow = true;
         extraOptions = { filesystem.filtered_items.visible = true; };
-      };
-
-      telescope = {
-        enable = true;
-
-        enabledExtensions = [ "ui-select" ];
-        extensionConfig.ui-select = { };
-
-        extensions.frecency.enable = true;
-        extensions.fzf-native.enable = true;
       };
 
       # Better highlighting
@@ -158,6 +100,6 @@
     };
 
     # Plugin Definitions (nixpkgs)
-    extraPlugins = with pkgs.vimPlugins; [ nvchad telescope-ui-select-nvim ];
+    extraPlugins = with pkgs.vimPlugins; [ nvchad ];
   };
 }

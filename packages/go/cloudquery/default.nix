@@ -7,7 +7,7 @@ buildGoModule rec {
     owner = "cloudquery";
     repo = "cloudquery";
     rev = "v${version}";
-    sha256 = "sha256-u0s8snPtRChoP5n8zGUwAG2N6jzKhqAOm2QvN4CY/CI=";
+    hash = "sha256-u0s8snPtRChoP5n8zGUwAG2N6jzKhqAOm2QvN4CY/CI=";
   };
 
   vendorHash = "sha256-SdPqjFnKakU4bajGu/AROmbgYTBHnB9iac9snaryMhU=";
