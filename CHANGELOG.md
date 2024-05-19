@@ -48,6 +48,8 @@
 
 - *(linux)* Resolve regression issue introduced with recent common changes - ([30cc12a](https://github.com/JayRovacsek/nix-config/commit/30cc12ae25bb1442fe5a825b487f390ba027731d))
 
+- *(modules)* Add allowed uri to hydra - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
 - *(modules)* Resolve acme issues providing cert to domain root - ([97bff0a](https://github.com/JayRovacsek/nix-config/commit/97bff0ad51bf9ef82898333dc0b33248f30dbb19))
 
 - *(modules)* Resolve dockutil definition for keepassxc - ([2e20f48](https://github.com/JayRovacsek/nix-config/commit/2e20f483aa224c43731d73b41933e4f0d55490b5))
@@ -73,6 +75,8 @@
 - *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
 
 - *(options)* Resolve sonarr authentication methods - ([6086aec](https://github.com/JayRovacsek/nix-config/commit/6086aec4d4521d08f4d26fed7dedb139d682d311))
+
+- *(overlays)* Resolve jellyfin on hyprland issues - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
 
 - *(packages)* Resolve eval issue for packages - ([440ddec](https://github.com/JayRovacsek/nix-config/commit/440ddec0b07c7e881e2bc6d80f5412f8fa91a390))
 
@@ -101,6 +105,8 @@
 - *(packages)* Remove redundant platforms definitions - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
 
 - *(packages)* Restructure more packages to match upstream expected order - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
+- Remove some redundant code - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
 ### ⛰️  Features
