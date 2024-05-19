@@ -74,6 +74,8 @@
 
 - *(modules,home-manager-modules)* Resolve hyprland env issues - ([fbe3b23](https://github.com/JayRovacsek/nix-config/commit/fbe3b2386486bf95b5c9b02a0f6cbf267c331cb8))
 
+- *(modules,hydra)* Add more trusted uris - ([9ac9f55](https://github.com/JayRovacsek/nix-config/commit/9ac9f5503d07485fc4d761b747460a946389f1b0))
+
 - *(modules,hydra)* Resolve status updates on PRs - ([1c00211](https://github.com/JayRovacsek/nix-config/commit/1c00211ff811610f483eb733f52c8c3b2f03fdeb))
 
 - *(modules,linux)* Remove blocky from magikarp, add custom dns as optional map - ([d000a69](https://github.com/JayRovacsek/nix-config/commit/d000a69fb539d0fa6e286586e232f9416aac7285))
