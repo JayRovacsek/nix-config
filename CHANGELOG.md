@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
 
 ### ⛰️  Features
 
@@ -114,6 +114,10 @@
 
 - *(packages)* Restructure more packages to match upstream expected order - ([079603e](https://github.com/JayRovacsek/nix-config/commit/079603ee6056e044ee09f79401a11a01700729fc))
 - Remove some redundant code - ([ad37c0c](https://github.com/JayRovacsek/nix-config/commit/ad37c0c6ded4e7a0181c706f723e097132fcfc1b))
+
+
+### 📚 Documentation
+- Generate deployment svg - ([a39aa02](https://github.com/JayRovacsek/nix-config/commit/a39aa024e91290656d1185158b9c3d7e8cef315a))
 
 ## [0.0.6](https://github.com/JayRovacsek/nix-config/compare/v0.0.5..v0.0.6) - 2024-04-22
 
