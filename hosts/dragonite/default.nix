@@ -86,6 +86,7 @@ in {
     tmp-tmpfs
     tmux
     udev
+    unifi
     zfs
     zsh
   ];

@@ -4,7 +4,7 @@ let
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.networking.services)
     authelia binarycache code deluge firefox-syncserver headscale hydra jellyfin
-    jellyseerr lidarr nextcloud pfsense prowlarr radarr sonarr;
+    jellyseerr lidarr nextcloud pfsense prowlarr radarr sonarr unifi;
 
   authelia-vhost = generate-vhosts {
     inherit config;
@@ -256,6 +256,13 @@ let
       };
     };
   };
+
+  unifi-vhost = generate-vhosts {
+    inherit config;
+    inherit (unifi) subdomain;
+    overrides.locations."/".proxyPass =
+      "${unifi.protocol}://${unifi.ipv4}:${builtins.toString unifi.port}";
+  };
 in {
   services.nginx = {
     domains = [ "rovacsek.com" ];
@@ -277,6 +284,7 @@ in {
       prowlarr-vhost
       radarr-vhost
       sonarr-vhost
+      unifi-vhost
     ];
   };
 }

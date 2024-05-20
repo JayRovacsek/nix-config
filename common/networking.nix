@@ -245,5 +245,13 @@ _: {
     };
 
     telegraf.output.prometheus.port = 9273;
+
+    unifi = {
+      authelia = true;
+      ipv4 = "192.168.1.220";
+      port = 8443;
+      protocol = "https";
+      subdomain = "unifi";
+    };
   };
 }
