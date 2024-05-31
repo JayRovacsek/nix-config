@@ -1,3 +1,8 @@
+## [unreleased]
+
+### ⛰️  Features
+
+- *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
 
 ### ⛰️  Features

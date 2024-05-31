@@ -58,10 +58,6 @@
     });
   };
 
-  grub2 = _final: prev: {
-    inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
-  };
-
   jellyfin-wayland = _final: prev: {
     jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs
       (_: {

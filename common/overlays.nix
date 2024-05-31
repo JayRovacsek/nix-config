@@ -10,7 +10,6 @@ in {
   linux = [
     self.overlays.element-desktop
     self.overlays.fcitx-engines
-    self.overlays.grub2
     self.overlays.jellyfin-wayland
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
