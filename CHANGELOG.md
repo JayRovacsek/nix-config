@@ -88,7 +88,10 @@
 
 - *(secrets)* Resolve incorrect creds in acme env - ([a7ab682](https://github.com/JayRovacsek/nix-config/commit/a7ab682077c2f27b4e9609f4444d19b12f5244be))
 
+- *(packages)* Resolve eval issue for packages - ([440ddec](https://github.com/JayRovacsek/nix-config/commit/440ddec0b07c7e881e2bc6d80f5412f8fa91a390))
+
 - *(tooling)* Resolve typos not using packaged defined config - ([6d582d9](https://github.com/JayRovacsek/nix-config/commit/6d582d96d5ce3cb8f3779348ee216c71c5565518))
+
 - Correct backup to ensure unlock prior to run - ([77f8d41](https://github.com/JayRovacsek/nix-config/commit/77f8d410acf9fd7a8ab8cb909e65f7aa29e59ba4))
 
 - Resolve removed typos config from apps - ([d0fe627](https://github.com/JayRovacsek/nix-config/commit/d0fe6277cee1a79b3aecd95fb2e6d934b798c52d))
