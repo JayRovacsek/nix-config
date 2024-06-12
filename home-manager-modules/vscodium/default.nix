@@ -14,6 +14,13 @@ let
     hash = "sha256-Lf0foTW1F2WZGlxLgMj6f84x2jCIS6/mFHFBdr075Fs=";
   };
 in {
+  imports = [ ../../options/darwin-ollama ];
+
+  services.ollama = {
+    enable = true;
+    model = "starcoder2:3b";
+  };
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -111,6 +118,8 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
+      continue.continue
+
       # Nix
       jnoortheen.nix-ide
       mkhl.direnv
@@ -156,6 +165,10 @@ in {
 
       # Markdown
       yzhang.markdown-all-in-one
+
+      # Python
+      ms-python.python
+      ms-python.debugpy
     ];
   };
 }
