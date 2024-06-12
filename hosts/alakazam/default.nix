@@ -29,11 +29,10 @@ in {
     docker
     fonts
     generations
-    gnupg
     gnome-keyring
+    gnupg
     grafana-agent
     greetd
-    grub
     home-manager
     hyprland
     i18n
@@ -49,6 +48,7 @@ in {
     openssh
     pipewire
     steam
+    systemd-boot
     systemd-networkd
     time
     timesyncd
@@ -59,6 +59,11 @@ in {
   ];
 
   age = {
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      "/agenix/id-ed25519-terraform-primary"
+    ];
+
     secrets = {
       "git-signing-key" = rec {
         file = ../../secrets/ssh/git-signing-key.age;
@@ -72,10 +77,6 @@ in {
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
     };
-    identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
-      "/agenix/id-ed25519-terraform-primary"
-    ];
   };
 
   boot = {
