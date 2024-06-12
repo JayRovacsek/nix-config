@@ -2,6 +2,8 @@
 
 ### ⛰️  Features
 
+- *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
+
 - *(modules)* Add systemd-boot module - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))

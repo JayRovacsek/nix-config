@@ -150,7 +150,6 @@
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        flake-root.follows = "flake-root";
         git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";

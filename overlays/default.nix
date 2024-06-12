@@ -74,12 +74,12 @@
     keepassxc = if prev.stdenv.isDarwin then
       prev.stdenvNoCC.mkDerivation (finalAttrs: {
         pname = "keepassxc";
-        version = "2.7.7";
+        version = "2.7.8";
 
         src = prev.fetchurl {
           url =
             "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
-          hash = "sha256-hoFUBifQP3D2g9xazXmvj0K7ohQl/681LHnrXDH7lxI=";
+          hash = "sha256-RZlan+DgkKnURwlVl2hi70lFXqFme4xaygRuICpkv3k=";
         };
 
         sourceRoot = ".";
