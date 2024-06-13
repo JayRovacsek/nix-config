@@ -19,6 +19,8 @@
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+- Resolve ollama issues on linux by disabling for now - ([b00ccff](https://github.com/JayRovacsek/nix-config/commit/b00ccff6fe01ee97d68337aaa60bbae47717b38c))
+
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
 
 ### ⛰️  Features

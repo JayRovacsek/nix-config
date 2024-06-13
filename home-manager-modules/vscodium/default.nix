@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # This is done to avoid circular dependencies within the flake lockfile.
   # There is very little point downloading two copies of all inputs of this 
@@ -117,59 +117,61 @@ in {
       "workbench.settings.editor" = "json";
     };
 
-    extensions = with pkgs.vscode-extensions; [
-      continue.continue
+    extensions = with pkgs.vscode-extensions;
+      [
+        continue.continue
 
-      # Nix
-      jnoortheen.nix-ide
-      mkhl.direnv
+        # Nix
+        jnoortheen.nix-ide
+        mkhl.direnv
 
-      # JS/TS
-      dbaeumer.vscode-eslint
+        # JS/TS
+        dbaeumer.vscode-eslint
 
-      # XML
-      redhat.vscode-xml
+        # XML
+        redhat.vscode-xml
 
-      # YAML
-      redhat.vscode-yaml
+        # YAML
+        redhat.vscode-yaml
 
-      # TOML
-      tamasfe.even-better-toml
+        # TOML
+        tamasfe.even-better-toml
 
-      # Go
-      golang.go
+        # Go
+        golang.go
 
-      # Terraform
-      hashicorp.terraform
+        # Terraform
+        hashicorp.terraform
 
-      # Latex
-      james-yu.latex-workshop
+        # Latex
+        james-yu.latex-workshop
 
-      # Rust
-      rust-lang.rust-analyzer
+        # Rust
+        rust-lang.rust-analyzer
 
-      # Spellcheck
-      streetsidesoftware.code-spell-checker
+        # Spellcheck
+        streetsidesoftware.code-spell-checker
 
-      # Shell
-      timonwong.shellcheck
+        # Shell
+        timonwong.shellcheck
 
-      # Docker
-      ms-azuretools.vscode-docker
+        # Docker
+        ms-azuretools.vscode-docker
 
-      # Theme
-      zhuangtongfa.material-theme
+        # Theme
+        zhuangtongfa.material-theme
 
-      # Icons
-      pkief.material-icon-theme
+        # Icons
+        pkief.material-icon-theme
 
-      # Markdown
-      yzhang.markdown-all-in-one
-
-      # Python
-      ms-python.python
-      ms-python.debugpy
-    ];
+        # Markdown
+        yzhang.markdown-all-in-one
+      ] ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
+        # Python
+        # Turns out that the below are not supported on aarch64 linux
+        ms-python.python
+        ms-python.debugpy
+      ];
   };
 }
 
