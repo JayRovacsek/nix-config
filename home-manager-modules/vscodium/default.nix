@@ -18,7 +18,7 @@ in {
 
   services.ollama = {
     enable = true;
-    model = "starcoder2:3b";
+    models = [ "starcoder2:3b" ];
   };
 
   programs.vscode = {
