@@ -24,7 +24,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
     home.packages = [ cfg.package ];
     launchd.agents = {
       ollama-serve = {
