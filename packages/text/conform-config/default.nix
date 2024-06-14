@@ -35,6 +35,7 @@ writers.writeYAML ".conform.yaml" {
           "flake"
           "home-manager-modules"
           "hydra"
+          "iac"
           "lib"
           "linux"
           "modules"
