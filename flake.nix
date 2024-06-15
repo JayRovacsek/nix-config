@@ -3,16 +3,9 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-23.11";
+    stable.url = "github:nixos/nixpkgs/release-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
-
-    # Pinned packages/inputs
-    # Breaks booting based on update from 2.06 -> 2.12
-    # fix applied downstream via grub2 overlay which simply points
-    # grub at the stable version.
-    "grub-2.06".url =
-      "github:nixos/nixpkgs/d9e8d5395ed0fd93ee23114e59ba5449992829a6";
 
     # Secrets Management <3
     agenix = {
@@ -36,7 +29,7 @@
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
+        pre-commit-hooks.follows = "git-hooks";
       };
     };
 
@@ -82,6 +75,17 @@
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
+    };
+
+    # Adds configurable pre-commit options to our flake :)
+    git-hooks = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+        nixpkgs-stable.follows = "stable";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:cachix/git-hooks.nix";
     };
 
     # Home management module
@@ -145,12 +149,11 @@
       inputs = {
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
-        flake-root.follows = "flake-root";
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -185,25 +188,13 @@
         devshell.follows = "devshell";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
+        pre-commit-hooks.follows = "git-hooks";
       };
       url = "github:oddlama/nix-topology";
     };
 
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
-
-    # Adds configurable pre-commit options to our flake :)
-    pre-commit-hooks = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        gitignore.follows = "gitignore";
-        nixpkgs-stable.follows = "stable";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:cachix/pre-commit-hooks.nix";
-    };
 
     sandro-nixos-modules = {
       inputs = {
@@ -330,7 +321,7 @@
           # Pre-commit hooks to enforce formatting, lining, find 
           # antipatterns and ensure they don't reach upstream
           checks = {
-            pre-commit-hooks = self.inputs.pre-commit-hooks.lib.${system}.run {
+            git-hooks = self.inputs.git-hooks.lib.${system}.run {
               src = self;
               hooks = {
                 # Builtin hooks
@@ -423,8 +414,8 @@
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
           devShells.default = pkgs.devshell.mkShell {
-            devshell.startup.pre-commit-hooks.text =
-              self.checks.${system}.pre-commit-hooks.shellHook;
+            devshell.startup.git-hooks.text =
+              self.checks.${system}.git-hooks.shellHook;
 
             name = "nix-config";
 

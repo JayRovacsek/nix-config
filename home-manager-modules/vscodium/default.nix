@@ -11,7 +11,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-Lf0foTW1F2WZGlxLgMj6f84x2jCIS6/mFHFBdr075Fs=";
+    hash = "sha256-B4g01J03TSy4c5bUVPPUpCtxGpoVG60EPVgzxg0V8z4=";
   };
 in {
   imports = [ ../../options/darwin-ollama ];
@@ -146,7 +146,7 @@ in {
       james-yu.latex-workshop
 
       # Rust
-      matklad.rust-analyzer
+      rust-lang.rust-analyzer
 
       # Spellcheck
       streetsidesoftware.code-spell-checker
@@ -165,10 +165,6 @@ in {
 
       # Markdown
       yzhang.markdown-all-in-one
-
-      # Python
-      ms-python.python
-      ms-python.debugpy
     ];
   };
 }

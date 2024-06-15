@@ -56,7 +56,7 @@ in {
       james-yu.latex-workshop
 
       # Rust
-      matklad.rust-analyzer
+      rust-lang.rust-analyzer
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

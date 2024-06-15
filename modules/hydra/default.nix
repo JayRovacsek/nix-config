@@ -17,7 +17,7 @@ let
     "github:astro/microvm.nix"
     "github:Aylur/ags"
     "github:bandithedoge/nixpkgs-firefox-darwin"
-    "github:cachix/pre-commit-hooks.nix"
+    "github:cachix/git-hooks.nix"
     "github:chriskempson/base16-vim"
     "github:danth/stylix"
     "github:DeterminateSystems/flake-schemas"

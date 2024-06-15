@@ -4,7 +4,33 @@
 
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
 
+- *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
+
+- *(modules)* Add systemd-boot module - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
+
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
+
+- *(modules,options)* Implement velociraptor modules - ([d4d1471](https://github.com/JayRovacsek/nix-config/commit/d4d1471108d1c67444e5556c330daf22cb0d4122))
+
+- *(packages)* Add velociraptor package - ([bb4ba58](https://github.com/JayRovacsek/nix-config/commit/bb4ba58ad18e2b95e0b84d9128747f56bd363a65))
+- Update nix-options to 24.05 also - ([fab8c60](https://github.com/JayRovacsek/nix-config/commit/fab8c60c1629c0966a45665aff68ab4e208a4cf1))
+
+
+### 🐛 Bug Fixes
+
+- *(flake)* Resolve dead inputs - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+
+- *(home-manager-modules)* Resolve ollama issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+
+- *(home-manager-modules)* Resolve vscode plugin issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+
+- *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
+
+- *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+- Resolve vscodium issues on aarch64-linux - ([e283bcb](https://github.com/JayRovacsek/nix-config/commit/e283bcbb81b23ebc9d35aadf01e7e74ff4baa5dc))
+
+- Resolve ollama issues on linux by disabling for now - ([b00ccff](https://github.com/JayRovacsek/nix-config/commit/b00ccff6fe01ee97d68337aaa60bbae47717b38c))
+
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
 
 ### ⛰️  Features

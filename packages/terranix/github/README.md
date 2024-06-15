@@ -10,7 +10,7 @@
 
 | Name                                                      | Version |
 | --------------------------------------------------------- | ------- |
-| <a name="provider_github"></a> [github](#provider_github) | 5.39.0  |
+| <a name="provider_github"></a> [github](#provider_github) | 5.45.0  |
 
 ## Modules
 
@@ -44,6 +44,7 @@ No modules.
 | [github_branch_default.nixos-nvidia-vgpu](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)              | resource |
 | [github_branch_default.nixpkgs](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                        | resource |
 | [github_branch_default.nvidia-patch](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                   | resource |
+| [github_branch_default.opinionated-development](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)        | resource |
 | [github_branch_default.project_alias](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                  | resource |
 | [github_branch_default.raspberry-pi-nix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)               | resource |
 | [github_branch_default.rovacsek](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/branch_default)                       | resource |
@@ -115,6 +116,7 @@ No modules.
 | [github_repository.nixpkgs](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                | resource |
 | [github_repository.notes](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                  | resource |
 | [github_repository.nvidia-patch](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                           | resource |
+| [github_repository.opinionated-development](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                | resource |
 | [github_repository.pf-captive-portal](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                      | resource |
 | [github_repository.project-euler](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                          | resource |
 | [github_repository.project_alias](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                          | resource |
@@ -138,6 +140,7 @@ No modules.
 | [github_repository.tf-nix-deploy-poc](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                      | resource |
 | [github_repository.u-boot](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                 | resource |
 | [github_repository.user-js](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                | resource |
+| [github_repository.velo-workshop](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                          | resource |
 | [github_repository.vgpu_unlock_5-12](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                       | resource |
 | [github_repository.vms-nix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                | resource |
 | [github_repository.vulnix](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository)                                 | resource |
