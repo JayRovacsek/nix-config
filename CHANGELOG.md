@@ -10,6 +10,8 @@
 
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
 
+- *(modules,options)* Implement velociraptor modules - ([d4d1471](https://github.com/JayRovacsek/nix-config/commit/d4d1471108d1c67444e5556c330daf22cb0d4122))
+
 - *(packages)* Add velociraptor package - ([bb4ba58](https://github.com/JayRovacsek/nix-config/commit/bb4ba58ad18e2b95e0b84d9128747f56bd363a65))
 - Update nix-options to 24.05 also - ([fab8c60](https://github.com/JayRovacsek/nix-config/commit/fab8c60c1629c0966a45665aff68ab4e208a4cf1))
 

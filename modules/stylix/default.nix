@@ -5,6 +5,7 @@ let
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {
   stylix = {
+    enable = true;
     autoEnable = true;
     base16Scheme = tomorrow-night-blue-base16;
     fonts = {
