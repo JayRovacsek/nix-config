@@ -1,8 +1,6 @@
 { lib, fetchurl, buildNpmPackage, nodejs }:
 let
-
   pname = "xmlbuilder";
-  name = pname;
   version = "15.1.1";
 
   meta = with lib; {
@@ -22,6 +20,5 @@ let
   npmDepsHash = "sha256-oMEAQpr0HdNiBTD36u+0BG2jqYgu2l626sQd5tI6FPA=";
 
 in buildNpmPackage {
-  inherit name pname version src meta nodejs npmDepsHash dontNpmBuild
-    npmBuildScript;
+  inherit pname version src meta nodejs npmDepsHash dontNpmBuild npmBuildScript;
 }

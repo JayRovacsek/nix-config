@@ -22,6 +22,7 @@ in {
     disable-assertions
     hyprland
     lorri
+    nix-topology
     nix
     time
     timesyncd

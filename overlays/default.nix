@@ -58,8 +58,51 @@
     });
   };
 
-  grub2 = _final: prev: {
-    inherit (self.inputs."grub-2.06".legacyPackages.${prev.system}) grub2;
+  jellyfin-wayland = _final: prev: {
+    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs
+      (_: {
+        autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
+
+        postPatch = ''
+          substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
+            --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
+        '';
+      });
+  };
+
+  keepassxc = _final: prev: {
+    keepassxc = if prev.stdenv.isDarwin then
+      prev.stdenvNoCC.mkDerivation (finalAttrs: {
+        pname = "keepassxc";
+        version = "2.7.8";
+
+        src = prev.fetchurl {
+          url =
+            "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
+          hash = "sha256-RZlan+DgkKnURwlVl2hi70lFXqFme4xaygRuICpkv3k=";
+        };
+
+        sourceRoot = ".";
+
+        nativeBuildInputs = [ prev.undmg ];
+
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/Applications
+          cp -r *.app $out/Applications
+          runHook postInstall
+        '';
+
+        meta = with prev.lib; {
+          description =
+            "Smooths scrolling and set mouse scroll directions independently";
+          homepage = "http://mos.caldis.me/";
+          sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+          platforms = platforms.darwin;
+        };
+      })
+    else
+      prev.keepassxc;
   };
 
   # TODO; fold any overlay definitions here into the exposed options
@@ -562,6 +605,34 @@
     // python-fixes // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
+
+  sonarr = _final: prev: {
+    sonarr = prev.sonarr.overrideAttrs (old: {
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p $out/{bin,share/sonarr-${old.version}}
+        cp -r * $out/share/sonarr-${old.version}/.
+
+        makeWrapper "${prev.dotnet-runtime}/bin/dotnet" $out/bin/NzbDrone \
+          --add-flags "$out/share/sonarr-${old.version}/Sonarr.dll" \
+          --prefix PATH : ${
+            prev.lib.makeBinPath
+            [ (prev.ffmpeg.override { withSdl2 = false; }) ]
+          } \
+          --prefix LD_LIBRARY_PATH : ${
+            prev.lib.makeLibraryPath [
+              prev.curl
+              prev.sqlite
+              prev.openssl
+              prev.icu
+            ]
+          }
+
+        runHook postInstall
+      '';
+    });
+  };
 
   waybar = _final: prev: {
     inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;

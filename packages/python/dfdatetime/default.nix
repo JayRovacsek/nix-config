@@ -1,27 +1,27 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "dfdatetime";
-  name = pname;
-  version = "20231205";
+  version = "20240330";
+  pyproject = true;
 
-  meta = with lib; {
+  src = fetchPypi {
+    inherit pname version;
+    hash = "sha256-vRKhR+/pPLWhzo5s1sXK/oOIu+HZmjEgZflICnXsiJ0=";
+  };
+
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.8";
+
+  pythonImportsCheck = [ pname ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
     description =
       "dfDateTime, or Digital Forensics date and time, provides date and time objects to preserve accuracy and precision.";
-    platforms = platforms.all;
     homepage = "https://github.com/log2timeline/dfdatetime";
     downloadPage = "https://github.com/log2timeline/dfdatetime/releases";
     license = licenses.asl20;
   };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
-
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-OG26dfWSPtOkewX50n82qa1yn1rGtmjKKM0t/uZUEtg=";
-  };
-
-  doCheck = false;
 }

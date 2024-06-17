@@ -24,11 +24,15 @@ in {
   imports = with self.nixosModules; [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     agenix
+    generations
     gnupg
+    grafana-agent
     greetd
     hyprland
+    i18n
     lorri
     nix
+    nix-topology
     openssh
     self.inputs.nixos-hardware.nixosModules.raspberry-pi-4
     sudo

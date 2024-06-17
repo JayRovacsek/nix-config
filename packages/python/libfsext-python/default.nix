@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libfsext-python";
-  name = pname;
-  version = "20231129";
-
-  meta = with lib; {
-    description = "Python bindings module for libfsext";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfsext/";
-    downloadPage = "https://github.com/libyal/libfsext/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240301";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Ijhu/0QzRVzrJQTU5UsPMfRauzaeK6maR3Vdo2k80UI=";
+    hash = "sha256-BZ8Jta4YoGMraoSbVheYi5BV8AdWjbPi142BdvRTW7g=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyfsext" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libfsext";
+    homepage = "https://github.com/libyal/libfsext";
+    downloadPage = "https://github.com/libyal/libfsext/releases";
+    license = licenses.lgpl3Plus;
+  };
 }

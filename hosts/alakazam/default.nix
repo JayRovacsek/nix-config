@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 
 let
   inherit (self.common.home-manager-module-sets)
@@ -29,30 +29,41 @@ in {
     docker
     fonts
     generations
+    gnome-keyring
     gnupg
+    grafana-agent
     greetd
-    grub
     home-manager
     hyprland
     i18n
     impermanence
     keybase
+    logging
     lorri
     microvm-host
     nextcloud-client
     nix
+    nix-topology
     nvidia
     openssh
     pipewire
     steam
+    systemd-boot
     systemd-networkd
     time
     timesyncd
+    tmp-tmpfs
+    tmux
     udev
     zsh
   ];
 
   age = {
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      "/agenix/id-ed25519-terraform-primary"
+    ];
+
     secrets = {
       "git-signing-key" = rec {
         file = ../../secrets/ssh/git-signing-key.age;
@@ -65,18 +76,7 @@ in {
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
-
-      "terraform-api-key" = rec {
-        file = ../../secrets/terraform/terraform-api-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        mode = "400";
-        path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
-      };
     };
-    identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
-      "/agenix/id-ed25519-terraform-primary"
-    ];
   };
 
   boot = {

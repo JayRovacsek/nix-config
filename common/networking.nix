@@ -1,4 +1,47 @@
 _: {
+  networks = [
+    {
+      name = "iot";
+      vlan-tag = 3;
+    }
+    {
+      name = "download";
+      vlan-tag = 4;
+    }
+    {
+      name = "reverse-proxy";
+      vlan-tag = 5;
+    }
+    {
+      name = "dns";
+      vlan-tag = 6;
+    }
+    {
+      name = "wlan";
+      vlan-tag = 8;
+    }
+    {
+      name = "auth";
+      vlan-tag = 9;
+    }
+    {
+      name = "nextcloud";
+      vlan-tag = 10;
+    }
+    {
+      name = "game";
+      vlan-tag = 17;
+    }
+    {
+      name = "log";
+      vlan-tag = 18;
+    }
+    {
+      name = "headscale";
+      vlan-tag = 25;
+    }
+  ];
+
   services = {
     authelia = {
       authelia = false;
@@ -33,7 +76,7 @@ _: {
       subdomain = "code";
     };
 
-    exporters-node = { port = 9100; };
+    exporters-node.port = 9100;
 
     deluge = {
       authelia = true;
@@ -49,6 +92,14 @@ _: {
       port = 5002;
       protocol = "http";
       subdomain = "firefox-syncserver";
+    };
+
+    flaresolverr = {
+      authelia = false;
+      ipv4 = "192.168.4.138";
+      port = 8191;
+      protocol = "http";
+      subdomain = "flaresolverr";
     };
 
     headscale = {
@@ -73,7 +124,7 @@ _: {
 
     grafana = {
       authelia = true;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 3002;
       protocol = "http";
       subdomain = "grafana";
@@ -107,11 +158,20 @@ _: {
 
     loki = {
       authelia = false;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 3100;
       protocol = "http";
       push-api = "loki/api/v1/push";
       subdomain = "loki";
+      user = {
+        gid = 401;
+        uid = 401;
+      };
+    };
+
+    media.user = {
+      gid = 400;
+      uid = 400;
     };
 
     nextcloud = {
@@ -153,7 +213,7 @@ _: {
 
     prometheus = {
       authelia = false;
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.18.2";
       port = 9092;
       protocol = "http";
       write-api = "api/v1/write";
@@ -182,6 +242,16 @@ _: {
       port = 9999;
       protocol = "http";
       subdomain = "sonarr";
+    };
+
+    telegraf.output.prometheus.port = 9273;
+
+    unifi = {
+      authelia = true;
+      ipv4 = "192.168.1.220";
+      port = 8443;
+      protocol = "https";
+      subdomain = "unifi";
     };
   };
 }

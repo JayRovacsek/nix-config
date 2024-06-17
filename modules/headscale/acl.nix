@@ -1,17 +1,17 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 let
-  meta = import ./meta.nix { inherit config pkgs lib; };
+  inherit (config.services.headscale) users;
 
   # Below generates group values of "group:$X" for all pre-auth namespaces we've stored
   groups = builtins.foldl' (x: y: x // y) { }
-    (builtins.map (x: { "group:${x}" = [ "${x}" ]; }) meta.users);
+    (builtins.map (x: { "group:${x.name}" = [ "${x.name}" ]; }) users);
 
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   defaultNamespaceCommunication = builtins.map (x: {
     action = "accept";
-    src = [ "group:${x}" ];
-    dst = [ "${x}:*" ];
-  }) meta.users;
+    src = [ "group:${x.name}" ];
+    dst = [ "${x.name}:*" ];
+  }) users;
 
   allowAdminToAll = [{
     action = "accept";

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (pkgs) system;
 
@@ -52,9 +52,10 @@ in {
     };
   };
 
-  environment.systemPackages = [ cloudquery cvemap trdsql ];
+  environment.systemPackages = with pkgs; [ agenix cloudquery cvemap trdsql ];
 
   imports = with self.nixosModules; [
+    agenix
     darwin-settings
     docker-darwin
     dockutil

@@ -3,12 +3,12 @@
 
   imports = with self.nixosModules; [
     agenix
-    gids
+    grafana-agent
     microvm-guest
+    nix-topology
     sonarr
     time
     timesyncd
-    uids
   ];
 
   microvm = {
@@ -21,6 +21,8 @@
         mode = "bridge";
       };
     }];
+
+    mem = 1024;
 
     shares = [
       {
@@ -47,15 +49,18 @@
   services.sonarr = {
     group = "media";
     user = "media";
+    authenticationMethod = "External";
   };
 
   system.stateVersion = "24.05";
 
   users = {
-    groups.media.gid = config.ids.gids.media;
+    groups.media = {
+      inherit (self.common.networking.services.media.user) gid;
+    };
     users.media = {
       group = "media";
-      uid = config.ids.uids.media;
+      inherit (self.common.networking.services.media.user) uid;
       isSystemUser = true;
     };
   };

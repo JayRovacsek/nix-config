@@ -3,7 +3,9 @@
     ./authelia.nix
     agenix
     authelia
+    grafana-agent
     microvm-guest
+    nix-topology
     nginx
     time
     timesyncd
@@ -15,7 +17,7 @@
       id = config.networking.hostName;
       mac = "02:42:c0:a8:09:02";
       macvtap = {
-        link = "authelia";
+        link = "auth";
         mode = "bridge";
       };
     }];
@@ -25,6 +27,8 @@
   };
 
   networking.hostName = "nidorino";
+
+  services.nginx.statusPage = true;
 
   system.stateVersion = "24.05";
 }

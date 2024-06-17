@@ -43,6 +43,9 @@ in {
     dockutil
     documentation
     fonts
+    nix-topology
+    generations
+    grafana-agent
     gnupg
     lorri
     networking

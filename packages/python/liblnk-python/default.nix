@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "liblnk-python";
-  name = pname;
-  version = "20231120";
-
-  meta = with lib; {
-    description = "Python bindings module for liblnk";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/liblnk/";
-    downloadPage = "https://github.com/libyal/liblnk/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240423";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-uRZ0TyEWrgxOpNwDuZA5iGIvh0QG+nO4sGqK5K54e+w=";
+    hash = "sha256-oCRa/Z9Pbj5dnGbWR8c8PiChrfBPMpL4mGuMqw6Gfx8=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pylnk" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for liblnk";
+    downloadPage = "https://github.com/libyal/liblnk/releases";
+    homepage = "https://github.com/libyal/liblnk";
+    license = licenses.lgpl3Plus;
+  };
 }

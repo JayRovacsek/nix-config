@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libcreg-python";
-  name = pname;
-  version = "20231123";
-
-  meta = with lib; {
-    description = "Python bindings module for libcreg";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libcreg/";
-    downloadPage = "https://github.com/libyal/libcreg/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240419";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-W/O6G4QVozXi7xwTKsgnv0uEGBrLVEKVgiy2f2gWeCQ=";
+    hash = "sha256-yXis81GljgJSP6N/Vl7xWkNq049w/lqVjYBEZWL4/04=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pycreg" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libcreg";
+    homepage = "https://github.com/libyal/libcreg";
+    downloadPage = "https://github.com/libyal/libcreg/releases";
+    license = licenses.lgpl3Plus;
+  };
 }

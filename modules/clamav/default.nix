@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, lib, ... }: {
   # Required as DNS may not be immediately available on a system if
   # blocky is being used while the bootstrap occurs.
   systemd.services.clamav-freshclam = {
@@ -20,12 +20,6 @@
         OnAccessExcludeUname = "clamav";
         OnAccessExtraScanning = true;
         OnAccessPrevention = true;
-        VirusEvent = lib.escapeShellArgs [
-          "${pkgs.libnotify}/bin/notify-send"
-          "--"
-          "ClamAV Virus Scan"
-          "Found virus: %v"
-        ];
       };
     };
 
@@ -40,5 +34,4 @@
       interval = "hourly";
     };
   };
-  environment.systemPackages = with pkgs; [ libnotify ];
 }

@@ -1,5 +1,4 @@
 { config, pkgs, lib, self, ... }:
-
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) hyprland-waybar-desktop;
@@ -19,14 +18,19 @@ in {
   imports = with self.nixosModules; [
     agenix
     clamav
+    grafana-agent
+    nix-topology
     fonts
+    generations
     gnupg
     greetd
     grub
     hyprland
+    i18n
     lorri
     nix
     openssh
+    pipewire
     steam
     systemd-networkd
     time
@@ -55,6 +59,7 @@ in {
         mode = "400";
         path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
       };
+
       "wireless.env" = {
         file = ../../secrets/wireless/wireless-home.env.age;
         mode = "0400";
@@ -119,6 +124,9 @@ in {
   };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/907b7556-218a-4516-ae2b-0b310d6b0b19"; }];
 
   system.stateVersion = "22.11";
 }

@@ -323,11 +323,12 @@ in {
     {
       name = "nixpkgs";
       allow_auto_merge = false;
-      description = "Nix Packages collection";
+      description = "Nix Packages collection & NixOS";
       has_downloads = true;
       has_issues = false;
       has_projects = true;
       vulnerability_alerts = false;
+      web_commit_signoff_required = false;
       security_and_analysis = {
         secret_scanning.status = "disabled";
         secret_scanning_push_protection.status = "disabled";
@@ -582,6 +583,7 @@ in {
       name = "watchrs";
       archived = true;
     }
+    { name = "velo-workshop"; }
   ];
   repositories = public-repositories ++ private-repositories;
 }

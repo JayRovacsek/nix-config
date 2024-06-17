@@ -1,27 +1,27 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libbde-python";
-  name = pname;
-  version = "20231205";
-
-  meta = with lib; {
-    description =
-      "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libbde/";
-    downloadPage = "https://github.com/libyal/libbde/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240223";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-U6nlzpD2vRzJfEI0rrD6Z52uJDOnhL/R3ashY06K1OE=";
+    hash = "sha256-6Au2V4rZ1YAa4gumZXbiWs0DeJQbEM9oJJVjsjJCiYA=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pybde" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description =
+      "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
+    downloadPage = "https://github.com/libyal/libbde/releases";
+    homepage = "https://github.com/libyal/libbde";
+    license = licenses.lgpl3Plus;
+  };
 }

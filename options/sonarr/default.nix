@@ -69,8 +69,8 @@ in with lib; {
     };
 
     authenticationMethod = mkOption {
-      type = with types; enum [ "None" "Basic" "Forms" ];
-      default = "None";
+      type = with types; enum [ "Basic" "External" "Forms" ];
+      default = "Forms";
       description = "";
     };
 

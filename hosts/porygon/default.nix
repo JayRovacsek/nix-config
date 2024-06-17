@@ -3,8 +3,10 @@
 
   imports = with self.nixosModules; [
     agenix
-    palworld
+    grafana-agent
     microvm-guest
+    nix-topology
+    palworld
     time
     timesyncd
   ];

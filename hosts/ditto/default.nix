@@ -19,6 +19,7 @@ in {
   imports = with self.nixosModules; [
     agenix
     disable-assertions
+    nix-topology
     clamav
     gnupg
     lorri

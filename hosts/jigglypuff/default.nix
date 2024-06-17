@@ -56,8 +56,12 @@ in {
     agenix
     blocky
     fonts
+    generations
+    nix-topology
     gnupg
+    grafana-agent
     journald
+    logging
     lorri
     nix
     openssh

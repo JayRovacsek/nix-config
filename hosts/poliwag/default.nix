@@ -1,12 +1,12 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
-    gids
+    grafana-agent
+    nix-topology
     microvm-guest
     radarr
     time
     timesyncd
-    uids
   ];
 
   microvm = {
@@ -19,6 +19,8 @@
         mode = "bridge";
       };
     }];
+
+    mem = 1024;
 
     shares = [
       {
@@ -50,10 +52,12 @@
   system.stateVersion = "24.05";
 
   users = {
-    groups.media.gid = config.ids.gids.media;
+    groups.media = {
+      inherit (self.common.networking.services.media.user) gid;
+    };
     users.media = {
       group = "media";
-      uid = config.ids.uids.media;
+      inherit (self.common.networking.services.media.user) uid;
       isSystemUser = true;
     };
   };

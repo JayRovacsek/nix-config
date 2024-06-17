@@ -2,15 +2,24 @@
 let
   inherit (self.common.networking.services.headscale)
     derpServerStunPort grpcPort metricsPort port;
-
-  meta = import ./meta.nix { inherit config pkgs lib; };
 in {
 
-  imports = [ ./acl.nix ../../options/headscale ../blocky ];
+  imports = [ ./acl.nix ../../options/headscale ];
 
   age = {
-    inherit (meta) secrets;
-    identityPaths = [ "/agenix/id-ed25519-headscale-primary" ];
+    secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+      "${lib.strings.removeSuffix ".age" x}" = {
+        file = ../../secrets/tailscale/${x};
+        mode = "0400";
+        owner = config.services.headscale.user;
+      };
+    }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
+      (builtins.attrNames (builtins.readDir ../../secrets/tailscale))));
+
+    identityPaths = [
+      "/agenix/id-ed25519-tailscale-primary"
+      "/agenix/id-ed25519-headscale-primary"
+    ];
   };
 
   networking.firewall = {
@@ -25,9 +34,9 @@ in {
     inherit port;
     address = "0.0.0.0";
 
-    use-declarative-tailnets = true;
+    use-declarative-users = true;
 
-    tailnets = [
+    users = [
       {
         id = 1;
         name = "work";
@@ -110,7 +119,7 @@ in {
         }];
       }
       {
-        id = 9;
+        id = 10;
         name = "admin";
         keys = [{
           ephemeral = false;
@@ -144,11 +153,12 @@ in {
       db_name = "headscale";
 
       dns_config = {
+        override_local_dns = false;
         magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
         nameservers = [ "192.168.1.220" ];
         domains = [ "internal.rovacsek.com" ];
-        base_domain = "internal.rovacsek.com";
+        base_domain = "rovacsek.com.internal";
 
         # Because we utilise blocky locally across all machines but 
         # Tailscale will take control of DNS once a client is connected,
@@ -160,15 +170,16 @@ in {
         # There's a future in which we can bootstrap tailscale suitably to 
         # simply consume DNS from a suitable node utilising blocky - but it's 
         # still a work in progress.
-        extra_records = lib.mapAttrsToList (name: value: {
-          inherit name value;
-          type = "A";
-        }) config.services.blocky.settings.customDNS.mapping;
+        extra_records = lib.optionalAttrs config.services.blocky.enable
+          (lib.mapAttrsToList (name: value: {
+            inherit name value;
+            type = "A";
+          }) config.services.blocky.settings.customDNS.mapping);
       };
 
       # TODO: move this to agenix
       noise.private_key_path = "/var/lib/headscale/noise_private.key";
-      metrics_listen_addr = "127.0.0.1:${builtins.toString metricsPort}";
+      metrics_listen_addr = "0.0.0.0:${builtins.toString metricsPort}";
       grpc_listen_addr = "127.0.0.1:${builtins.toString grpcPort}";
       ip_prefixes = [ "100.64.0.0/10" ];
 

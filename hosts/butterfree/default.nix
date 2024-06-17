@@ -24,6 +24,7 @@ in {
     amazon-image
     clamav
     disable-assertions
+    nix-topology
     gnupg
     lorri
     nix
