@@ -620,22 +620,6 @@
         "type": "github"
       }
     },
-    "nix-visualize": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1687577587,
-        "narHash": "sha256-Z1r8XHszoUnQinl63yXvQG6Czp5HnYNG37AY+EEiT4w=",
-        "owner": "craigmbooth",
-        "repo": "nix-visualize",
-        "rev": "cafaba50cd63ba9c759c56af71fd0d22fd60a548",
-        "type": "github"
-      },
-      "original": {
-        "owner": "craigmbooth",
-        "repo": "nix-visualize",
-        "type": "github"
-      }
-    },
     "nixlib": {
       "locked": {
         "lastModified": 1712450863,
@@ -829,7 +813,6 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "sandro-nixos-modules": "sandro-nixos-modules",
-        "sbomnix": "sbomnix",
         "stable": "stable",
         "stylix": "stylix",
         "systems": "systems",
@@ -853,31 +836,6 @@
       "original": {
         "owner": "SuperSandro2000",
         "repo": "nixos-modules",
-        "type": "github"
-      }
-    },
-    "sbomnix": {
-      "inputs": {
-        "flake-compat": ["flake-compat"],
-        "flake-parts": ["flake-parts"],
-        "flake-root": ["flake-root"],
-        "nix-visualize": "nix-visualize",
-        "nixpkgs": ["nixpkgs"],
-        "treefmt-nix": ["treefmt-nix"],
-        "vulnix": "vulnix"
-      },
-      "locked": {
-        "lastModified": 1717053832,
-        "narHash": "sha256-jIbTPLCNmOdYdOZTYZ2rUf9alY0KP4BknHnOrvRZgHA=",
-        "owner": "tiiuae",
-        "repo": "sbomnix",
-        "rev": "0b19e055d1f5124fd67d567db342ef4dd21da6f2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tiiuae",
-        "ref": "main",
-        "repo": "sbomnix",
         "type": "github"
       }
     },
@@ -1008,22 +966,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "vulnix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1676379453,
-        "narHash": "sha256-KXvmnaMjv//zd4aSwu4qmbon1Iyzdod6CPms7LIxeVU=",
-        "owner": "henrirosten",
-        "repo": "vulnix",
-        "rev": "ad28b2924027a44a9b81493a0f9de1b0e8641005",
-        "type": "github"
-      },
-      "original": {
-        "owner": "henrirosten",
-        "repo": "vulnix",
         "type": "github"
       }
     }

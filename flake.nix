@@ -61,20 +61,15 @@
       url = "github:edolstra/flake-compat";
     };
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    flake-root.url = "github:srid/flake-root";
+
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
 
     flake-utils = {
       inputs.systems.follows = "systems";
       url = "github:numtide/flake-utils";
-    };
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
-    flake-root.url = "github:srid/flake-root";
-
-    gitignore = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:hercules-ci/gitignore.nix";
     };
 
     # Adds configurable pre-commit options to our flake :)
@@ -86,6 +81,11 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/git-hooks.nix";
+    };
+
+    gitignore = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hercules-ci/gitignore.nix";
     };
 
     # Home management module
@@ -112,6 +112,41 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix";
+    };
+
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lnl7/nix-darwin/master";
+    };
+
+    nix-eval-jobs = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nix-github-actions.follows = "nix-github-actions";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:nix-community/nix-eval-jobs";
+    };
+
+    nix-github-actions = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nix-github-actions";
+    };
+
+    nix-monitored = {
+      inputs = { nixpkgs.follows = "nixpkgs"; };
+      url = "github:ners/nix-monitored";
+    };
+
+    nix-topology = {
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "git-hooks";
+      };
+      url = "github:oddlama/nix-topology";
     };
 
     # Generate system images easily
@@ -158,41 +193,6 @@
       };
     };
 
-    nix-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:lnl7/nix-darwin/master";
-    };
-
-    nix-eval-jobs = {
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nix-github-actions.follows = "nix-github-actions";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      url = "github:nix-community/nix-eval-jobs";
-    };
-
-    nix-github-actions = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/nix-github-actions";
-    };
-
-    nix-monitored = {
-      inputs = { nixpkgs.follows = "nixpkgs"; };
-      url = "github:ners/nix-monitored";
-    };
-
-    nix-topology = {
-      inputs = {
-        devshell.follows = "devshell";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
-      };
-      url = "github:oddlama/nix-topology";
-    };
-
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 
@@ -202,18 +202,6 @@
         flake-utils.follows = "flake-utils";
       };
       url = "github:SuperSandro2000/nixos-modules";
-    };
-
-    # Software bill of materials package
-    sbomnix = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        flake-root.follows = "flake-root";
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-      url = "github:tiiuae/sbomnix/main";
     };
 
     # Software bill of materials package

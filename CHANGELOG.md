@@ -20,6 +20,8 @@
 
 - *(flake)* Resolve dead inputs - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
+- *(home-manager-modules)* Remove python from vscode - ([f49e4b4](https://github.com/JayRovacsek/nix-config/commit/f49e4b415f2f80990f50b5fd046137885a594deb))
+
 - *(home-manager-modules)* Resolve ollama issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
 - *(home-manager-modules)* Resolve vscode plugin issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
