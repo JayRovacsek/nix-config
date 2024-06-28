@@ -33,6 +33,10 @@
 
 - Resolve ollama issues on linux by disabling for now - ([b00ccff](https://github.com/JayRovacsek/nix-config/commit/b00ccff6fe01ee97d68337aaa60bbae47717b38c))
 
+
+### 🚜 Refactor
+- Reorder inputs - ([21d0ebd](https://github.com/JayRovacsek/nix-config/commit/21d0ebde647dfec1b065f74c3b9bb43810873041))
+
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
 
 ### ⛰️  Features
