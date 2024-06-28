@@ -2,6 +2,8 @@
 
 ### ⛰️  Features
 
+- *(darwin)* Remove keepassxc brew install - ([a27a7f5](https://github.com/JayRovacsek/nix-config/commit/a27a7f5b3555e85f57c6c7cd39699bb0e2ba5e2c))
+
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
 
 - *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
