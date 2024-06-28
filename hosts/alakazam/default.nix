@@ -36,7 +36,6 @@ in {
     home-manager
     hyprland
     i18n
-    impermanence
     keybase
     logging
     lorri

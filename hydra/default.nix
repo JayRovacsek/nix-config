@@ -26,6 +26,8 @@ let
 in {
   devShells = removeAttrs self.devShells unsupported-systems;
 
+  images = { inherit (self.common.images) rpi1-sdImage rpi2-sdImage; };
+
   # Wrap nixos configuration testing via the system.build.toplevel 
   # attribute which which ensure both build suitability as well as
   # create a binary-cache entry for all shared elements.
