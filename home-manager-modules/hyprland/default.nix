@@ -1,10 +1,10 @@
-{ config, pkgs, osConfig, ... }:
+{ config, pkgs, osConfig, self, ... }:
 let
   inherit (pkgs) lib system;
 
   enable = true;
 
-  inherit (osConfig.flake.packages.${system}) mario-homelab-pixelart-wallpaper;
+  inherit (self.packages.${system}) mario-homelab-pixelart-wallpaper;
 
   # Check if nvidia drivers are present on the host, we can assume if
   # yes, we can/should apply some opinions
@@ -28,7 +28,7 @@ let
   # 
   packages = (with pkgs; [ hyprpicker hyprpaper ]) ++ optional-packages;
 
-  settings = import ./settings.nix { inherit config pkgs osConfig; };
+  settings = import ./settings.nix { inherit config pkgs osConfig self; };
 
 in {
   xdg.configFile."hypr/hyprpaper.conf".text = ''
@@ -39,25 +39,18 @@ in {
   home = {
     inherit packages;
     sessionVariables = {
-      NIXOS_OZONE_WL = "1";
       __GL_GSYNC_ALLOWED = "0";
       __GL_VRR_ALLOWED = "0";
-      GDK_BACKEND = "wayland";
-      WLR_DRM_NO_ATOMIC = "1";
-      MOZ_ENABLE_WAYLAND = "1";
-      WLR_BACKEND = "vulkan";
-      WLR_RENDERER = "vulkan";
-      WLR_NO_HARDWARE_CURSORS = "1";
-      XDG_SESSION_TYPE = "wayland";
-      # Resolves jellyfin black screen under hyprland
-      # See also: https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1030690851
-      QT_QPA_PLATFORM = "xcb";
-      SDL_VIDEODRIVER = "x11";
       CLUTTER_BACKEND = "wayland";
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_DESKTOP = "Hyprland";
+      MOZ_ENABLE_WAYLAND = "1";
+      NIXOS_OZONE_WL = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      SDL_VIDEODRIVER = "x11";
+      WLR_BACKEND = "vulkan";
+      WLR_DRM_NO_ATOMIC = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      WLR_RENDERER = "vulkan";
     } // optional-env-values;
   };
 

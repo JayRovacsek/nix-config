@@ -1,11 +1,19 @@
-{ config, flake, ... }: {
-  inherit flake;
-
+{ config, self, ... }: {
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
   fileSystems.${config.services.deluge.config.download_location}.neededForBoot =
     true;
+
+  imports = with self.nixosModules; [
+    agenix
+    deluge
+    grafana-agent
+    nix-topology
+    microvm-guest
+    time
+    timesyncd
+  ];
 
   microvm = {
     interfaces = [{
@@ -41,10 +49,12 @@
   system.stateVersion = "24.05";
 
   users = {
-    groups.media.gid = config.ids.gids.media;
+    groups.media = {
+      inherit (self.common.networking.services.media.user) gid;
+    };
     users.media = {
       group = "media";
-      uid = config.ids.uids.media;
+      inherit (self.common.networking.services.media.user) uid;
       isSystemUser = true;
     };
   };

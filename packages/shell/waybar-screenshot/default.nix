@@ -1,9 +1,9 @@
 { stdenv, pkgs, lib, grim, slurp, wofi, wf-recorder, gawk, ... }:
 with lib;
 let
-  name = "waybar-screenshot";
-  pname = name;
+  pname = "waybar-screenshot";
   version = "0.0.1";
+
   meta = {
     description =
       "A simple shell wrapper for record via wf-recorder or screenshotting via grim & slurp";
@@ -27,7 +27,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ waybar-screenshot-wrapped ];
 

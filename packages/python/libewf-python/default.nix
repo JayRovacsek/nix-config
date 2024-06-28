@@ -1,28 +1,28 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libewf-python";
-  name = pname;
   version = "20231119";
-
-  meta = with lib; {
-    description = "Python bindings module for libewf";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libewf/";
-    downloadPage = "https://github.com/libyal/libewf/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
-
-  buildInputs = [ zlib ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-35hPmLSVZnAQTputkeputePD2pVwYOt7qerbAe8CE4I=";
+    hash = "sha256-35hPmLSVZnAQTputkeputePD2pVwYOt7qerbAe8CE4I=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  buildInputs = [ zlib ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyewf" ];
+
+  meta = with lib; {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libewf";
+    downloadPage = "https://github.com/libyal/libewf/releases";
+    homepage = "https://github.com/libyal/libewf";
+    license = licenses.lgpl3Plus;
+  };
 }

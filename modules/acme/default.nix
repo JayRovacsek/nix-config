@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config.flake.lib) merge;
+  inherit (self.lib) merge;
 
   port = 10080;
 
@@ -24,18 +24,20 @@ in {
   security.acme = lib.mkIf prod {
     acceptTerms = true;
 
-    certs = merge (builtins.map (tld: {
-      "${tld}" = {
-        domain = "*.${tld}";
+    certs = merge (builtins.map (domain: {
+      "${domain}" = {
+        inherit domain;
         dnsProvider = "cloudflare";
         environmentFile = "${config.age.secrets.acme-environment-file.path}";
+        extraDomainNames = [ "*.${domain}" ];
         reloadServices = [ "nginx" ];
+        # Staging - use if testing, expect to see invalid certs however
+        # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       };
     }) config.services.nginx.domains);
 
     defaults = {
       inherit (config.services.nginx) group;
-      dnsPropagationCheck = false;
       email = "acme@rovacsek.com";
     };
   };

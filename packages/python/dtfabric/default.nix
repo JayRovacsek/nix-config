@@ -1,28 +1,33 @@
 { lib, fetchPypi, python3Packages, ... }:
 let
+
+  inherit (python3Packages)
+    buildPythonPackage pip pyyaml pythonOlder setuptools;
+
+in buildPythonPackage rec {
   pname = "dtfabric";
-  name = pname;
   version = "20230520";
-
-  meta = with lib; {
-    description =
-      "dtFabric, or data type fabric, is a project to manage data types and structures, as used in the libyal projects.";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/dtfabric/";
-    downloadPage = "https://github.com/libyal/dtfabric/releases";
-    license = licenses.asl20;
-  };
-
-  inherit (python3Packages) buildPythonPackage pyyaml;
-
-in buildPythonPackage {
-  inherit pname name version meta;
-  propagatedBuildInputs = [ pyyaml ];
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
+    hash = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  dependencies = [ pip pyyaml ];
+
+  disabled = pythonOlder "3.8";
+
+  pythonImportsCheck = [ pname ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description =
+      "dtFabric, or data type fabric, is a project to manage data types and structures, as used in the libyal projects.";
+    downloadPage = "https://github.com/libyal/dtfabric/releases";
+    homepage = "https://github.com/libyal/dtfabric";
+    license = licenses.asl20;
+  };
 }

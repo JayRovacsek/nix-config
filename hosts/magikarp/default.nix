@@ -1,17 +1,15 @@
-{ config, flake, ... }: {
-  inherit flake;
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    grafana-agent
+    headscale
+    microvm-guest
+    nix-topology
+    time
+    timesyncd
+  ];
 
   networking.hostName = "magikarp";
-
-  users.users.root.hashedPassword =
-    "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
-
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-
-  networking.firewall.allowedTCPPorts = [ 22 ];
 
   microvm = {
     interfaces = [{

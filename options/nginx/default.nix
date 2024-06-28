@@ -3,7 +3,7 @@ let
   inherit (pkgs) system;
   inherit (self.packages.${system})
     authelia-location-conf authelia-proxy-conf authelia-authrequest-conf;
-  inherit (config.flake.lib) certificates;
+  inherit (self.lib) certificates;
   inherit (certificate-lib) generate-self-signed;
 
   certificate-lib = certificates pkgs;

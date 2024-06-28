@@ -1,14 +1,14 @@
 [
   {
-    "hostName": "alakazam.lan",
+    "hostName": "alakazam.local",
     "maxJobs": 8,
     "speedFactor": 16,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -16,7 +16,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "butterfree.lan",
+    "hostName": "bellsprout.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -24,7 +24,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "cloyster.lan",
+    "hostName": "butterfree.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -32,7 +32,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "diglett.lan",
+    "hostName": "cloyster.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -40,7 +40,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "diglett.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -48,15 +48,23 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "dragonite.lan",
+    "hostName": "ditto.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "dragonite.local",
     "maxJobs": 24,
     "speedFactor": 96,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
-    "hostName": "gastly.lan",
+    "hostName": "gastly.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -64,7 +72,15 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "jigglypuff.lan",
+    "hostName": "igglybuff.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "jigglypuff.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -78,7 +94,7 @@
     "systems": ["aarch64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "ditto.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -86,7 +102,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "mew.lan",
+    "hostName": "machop.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -94,7 +110,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ditto.lan",
+    "hostName": "magikarp.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -102,7 +118,95 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "wigglytuff.lan",
+    "hostName": "mankey.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "meowth.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "mew.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "mr-mime.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidoking.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidorina.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidorino.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "ditto.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "poliwag.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "porygon.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "slowpoke.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "wigglytuff.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -116,7 +220,7 @@
     "systems": ["aarch64-linux"]
   },
   {
-    "hostName": "zubat.lan",
+    "hostName": "zubat.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -124,7 +228,7 @@
     "systems": ["x86_64-linux"]
   },
   {
-    "hostName": "ninetales.lan",
+    "hostName": "ninetales.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",
@@ -132,7 +236,7 @@
     "systems": ["aarch64-darwin"]
   },
   {
-    "hostName": "victreebel.lan",
+    "hostName": "victreebel.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",

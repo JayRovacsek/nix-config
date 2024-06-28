@@ -2,7 +2,7 @@
 , seed ? "0000000000000000000000000000000000000000000000000000000000000000" }:
 let
   pname = "self-signed-certificate";
-  name = pname;
+
   version = "0.0.1";
 
   meta = with lib; {
@@ -48,4 +48,4 @@ let
 
   phases = [ "buildPhase" ];
 
-in stdenv.mkDerivation { inherit name pname version meta phases buildPhase; }
+in stdenv.mkDerivation { inherit pname version meta phases buildPhase; }

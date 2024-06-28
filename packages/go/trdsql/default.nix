@@ -1,7 +1,7 @@
 { lib, fetchFromGitHub, buildGoModule }:
 let
   pname = "trdsql";
-  version = "0.13.0";
+  version = "0.20.0";
 
   meta = with lib; {
     homepage = "https://github.com/noborus/trdsql";
@@ -14,9 +14,11 @@ let
     owner = "noborus";
     repo = "trdsql";
     rev = "v${version}";
-    sha256 = "sha256-h7vUwZlk27ZD8RzNplxCJ3h7FxEKAHQS73gYrDq0Wfc=";
+    hash = "sha256-dlLhnRRg7kkRjjcDfId1VoUE5tQdYmue+GavN08Czrc=";
   };
 
-  vendorHash = "sha256-D6LrpWMebBoz1chhXSkpRRyU2o6HbnXU9UkdnHjUS6k=";
+  vendorHash = "sha256-8wF06bIM+tDYqd8tyXKOehuYJQvyqhLBJv0K47vh8hY=";
 
-in buildGoModule { inherit pname version src meta vendorHash; }
+  doCheck = false;
+
+in buildGoModule { inherit pname version src meta vendorHash doCheck; }

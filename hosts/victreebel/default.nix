@@ -1,20 +1,18 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (pkgs) system;
 
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) darwin-desktop;
-  inherit (flake.lib) merge;
-  inherit (config.flake.packages.${system}) cloudquery cvemap;
+  inherit (self.common.home-manager-module-sets) darwin-desktop;
+  inherit (self.lib) merge;
+  inherit (self.packages.${system}) cloudquery cvemap trdsql;
 
-  jay = common.users."j.rovacsek" {
+  jay = self.common.users."j.rovacsek" {
     inherit config pkgs;
     modules = darwin-desktop;
   };
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age = {
     identityPaths = [ "/private/var/agenix/id-ed25519-ssh-primary" ];
@@ -54,15 +52,32 @@ in {
     };
   };
 
-  environment.systemPackages = [ cloudquery cvemap ];
+  environment.systemPackages = with pkgs; [ agenix cloudquery cvemap trdsql ];
 
-  services.nix-daemon.enable = true;
+  imports = with self.nixosModules; [
+    agenix
+    darwin-settings
+    docker-darwin
+    dockutil
+    documentation
+    fonts
+    gnupg
+    lorri
+    networking
+    nix
+    skhd
+    time
+    yabai
+    zsh
+  ];
 
   networking = {
     computerName = "victreebel";
     hostName = "victreebel";
     localHostName = "victreebel";
   };
+
+  services.nix-daemon.enable = true;
 
   system.stateVersion = 4;
 }

@@ -4,6 +4,7 @@ let
   inherit (self.inputs) nixos-generators;
 
   # SD Installer Images / Configs
+  aarch64 = import ./aarch64.nix { inherit self; };
   rpi1 = import ./rpi1.nix { inherit self; };
   rpi2 = import ./rpi2.nix { inherit self; };
 
@@ -38,15 +39,15 @@ let
       amazon = amazon-cfg;
       linode = linode-cfg;
       oracle = oracle-cfg;
-      inherit rpi1 rpi2;
+      inherit aarch64 rpi1 rpi2;
     };
   };
 
   sd-images = builtins.map (image: {
     "${image.config.networking.hostName}-sdImage" =
       image.config.system.build.sdImage;
-  }) [ rpi1 rpi2 ];
+  }) [ aarch64 rpi1 rpi2 ];
 
-  cloud-images = { inherit amazon linode oracle; };
+  images = { inherit aarch64 amazon linode oracle; };
 
-in merge ([ cloud-images cfgs ] ++ sd-images)
+in merge ([ images cfgs ] ++ sd-images)

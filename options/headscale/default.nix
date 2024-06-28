@@ -26,9 +26,9 @@ let
     };
   };
 
-  tailnet = {
+  users = {
     options = with types; {
-      # TODO: build check to ensure uniqueness across tailnets for
+      # TODO: build check to ensure uniqueness across users for
       # ID otherwise we'll create issues (plus non-zero/negative etc)
       id = mkOption { type = int; };
       name = mkOption { type = str; };
@@ -41,21 +41,21 @@ let
 
   unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
 
-  sql-statement = builtins.concatStringsSep "\n" (lib.imap0 (i: tailnet: ''
+  sql-statement = builtins.concatStringsSep "\n" (lib.imap0 (i: user: ''
     INSERT OR REPLACE INTO users ('id','created_at','updated_at','name') VALUES (${
-      builtins.toString tailnet.id
-    }, ${unixEpoch},${unixEpoch},'${tailnet.name}');
+      builtins.toString user.id
+    }, ${unixEpoch},${unixEpoch},'${user.name}');
 
     ${builtins.concatStringsSep "\n" (lib.imap0 (j: key: ''
       INSERT OR REPLACE INTO pre_auth_keys ('id','key','user_id','reusable','ephemeral','created_at','expiration') VALUES (${
       # TODO: same constraint as the tailnet primary key - ensure uniqueness
         builtins.toString (j + (i * 64))
-      },'`cat ${key.path}`',${builtins.toString tailnet.id},${
+      },'`cat ${key.path}`',${builtins.toString user.id},${
         bool-to-int key.reusable
       },${bool-to-int key.ephemeral},${unixEpoch},${key.expiration});
-    '') tailnet.keys)}
+    '') user.keys)}
 
-  '') cfg.tailnets);
+  '') cfg.users);
 
   script = with pkgs; ''
     bash -c "
@@ -68,22 +68,22 @@ let
 
 in {
   options.services.headscale = {
-    tailnets = mkOption {
-      type = with types; listOf (submodule tailnet);
+    users = mkOption {
+      type = with types; listOf (submodule users);
       default = [ ];
     };
 
-    use-declarative-tailnets = mkOption {
+    use-declarative-users = mkOption {
       type = with types; bool;
       default = false;
     };
   };
 
-  config = lib.mkIf cfg.use-declarative-tailnets {
-    systemd.services."headscale-tailnet-setup" = {
+  config = lib.mkIf cfg.use-declarative-users {
+    systemd.services."headscale-user-setup" = {
       inherit script;
 
-      description = "Declarative configuration of Headscale tailnets & keys";
+      description = "Declarative configuration of Headscale users & keys";
 
       # make sure we perform actions prior to headscale starting
       after = [ "headscale.service" ];

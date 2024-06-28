@@ -1,31 +1,68 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets)
-    base hyprland-waybar-desktop games impermanence;
-  inherit (flake.lib) merge;
+  inherit (self.common.home-manager-module-sets)
+    base hyprland-waybar-desktop games;
+  inherit (self.lib) merge;
 
   inherit (pkgs) system;
-  inherit (config.flake.packages.${system}) trdsql;
+  inherit (self.packages.${system}) trdsql;
 
-  builder = common.users.builder {
+  builder = self.common.users.builder {
     inherit config pkgs;
     modules = base;
   };
 
-  jay = common.users.jay {
+  jay = self.common.users.jay {
     inherit config pkgs;
-    modules = hyprland-waybar-desktop ++ games ++ impermanence;
+    modules = hyprland-waybar-desktop ++ games;
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
+
+  imports = with self.nixosModules; [
+    agenix
+    clamav
+    docker
+    fonts
+    generations
+    gnome-keyring
+    gnupg
+    grafana-agent
+    greetd
+    home-manager
+    hyprland
+    i18n
+    keybase
+    logging
+    lorri
+    microvm-host
+    nextcloud-client
+    nix
+    nix-topology
+    nvidia
+    openssh
+    pipewire
+    steam
+    systemd-boot
+    systemd-networkd
+    time
+    timesyncd
+    tmp-tmpfs
+    tmux
+    udev
+    zsh
+  ];
 
   age = {
+    identityPaths = [
+      "/agenix/id-ed25519-ssh-primary"
+      "/agenix/id-ed25519-terraform-primary"
+    ];
+
     secrets = {
       "git-signing-key" = rec {
         file = ../../secrets/ssh/git-signing-key.age;
@@ -38,18 +75,7 @@ in {
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
-
-      "terraform-api-key" = rec {
-        file = ../../secrets/terraform/terraform-api-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        mode = "400";
-        path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
-      };
     };
-    identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
-      "/agenix/id-ed25519-terraform-primary"
-    ];
   };
 
   boot = {
@@ -98,8 +124,6 @@ in {
     hostId = "ef26b1be";
     hostName = "alakazam";
   };
-
-  services.tailscale.tailnet = "admin";
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/b8d2e5ee-095e-4daa-8b2b-ddcfc5b67ac9"; }];

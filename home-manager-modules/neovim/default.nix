@@ -1,118 +1,105 @@
-# All options can be found in the following appendix:
-# https://notashelf.github.io/neovim-flake/options.html
-_: {
-  home.sessionVariables.EDITOR = "vim";
+{ config, pkgs, ... }: {
+  # Configuration Options
+  # https://nix-community.github.io/nixvim/
 
-  programs.neovim-flake = {
-    # Everything goes inside the settings braces
+  home = {
+    packages = with pkgs; [ zathura ];
+    sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+  };
+
+  programs.nixvim = {
     enable = true;
-    settings.vim = {
+    viAlias = true;
+    vimAlias = true;
 
-      # Aliases
-      viAlias = true;
-      vimAlias = true;
-      lsp.enable = true;
+    # Custom Package
+    package = pkgs.neovim-unwrapped;
 
-      # Language Support
-      languages = {
-        enableTreesitter = true;
-        enableFormat = true;
-        enableLSP = true;
-
-        nix = {
-          enable = true;
-          format = {
-            enable = true;
-            type = "nixpkgs-fmt";
-          };
-        };
-        ts.enable = true;
-        markdown = {
-          enable = true;
-          glow.enable = true; # Markdown previews
-        };
-      };
-
-      # Cheatsheet
-      binds.cheatsheet.enable = true;
-
-      # Autocomplete
-      autocomplete = {
-        enable = true;
-        type = "nvim-cmp"; # change this to plugin of choice
-      };
-
-      # Dashboard
-      dashboard = {
-        dashboard-nvim.enable = false;
-        alpha.enable = true;
-      };
-
-      # Notification Daemon
-      notify.nvim-notify.enable = true;
-
-      # Terminal
-      terminal.toggleterm = {
-        enable = true;
-        lazygit.enable = true;
-        enable_winbar = true;
-      };
-
-      # Github Integration
-      git = {
-        enable = true;
-        gitsigns = {
-          enable = true;
-          codeActions = false;
-        };
-      };
-
-      # Candy
-      lsp = {
-        formatOnSave = true;
-        nvimCodeActionMenu.enable = true;
-        trouble.enable = true;
-        lspkind.enable = true;
-      };
-
-      # Syntax Highlighting
-      syntaxHighlighting = true;
-      treesitter = {
-        enable = true;
-        autotagHtml = true;
-      };
-
-      # File Searching
-      telescope.enable = true;
-
-      # Visuals
-      visuals = {
-        enable = true;
-        nvimWebDevicons.enable = true;
-        smoothScroll.enable = true;
-        scrollBar.enable = true;
-        fidget-nvim.enable = true;
-      };
-
+    # Global Options
+    options = {
       # Line Numbers
-      lineNumberMode = "number";
+      number = true;
+      relativenumber = false;
 
-      # Utilities
-      utility = {
-        icon-picker.enable = true;
-        diffview-nvim.enable = true;
-        #colorizer.enable = false;
-      };
+      # Spellcheck Locale
+      spelllang = "en_au";
 
-      # UI
-      ui = {
-        smartcolumn.enable = false; # Auto hides line length indicator
-        noice.enable = true; # Pretty tabs and popups
-        modes-nvim.enable = true; # Line decorations
-      };
-
-      # Lines
-      tabline.nvimBufferline.enable = true;
+      shiftwidth = 2;
+      tabstop = 2;
+      softtabstop = 2;
+      expandtab = true;
+      autoindent = true;
+      fileencoding = "utf-8";
     };
+
+    # Plugin Definitions (Modules)
+    plugins = {
+      bufferline.enable = true;
+      # Git Integration
+      diffview.enable = true; # https://github.com/sindrets/diffview.nvim
+      gitblame.enable = true; # https://github.com/Zorcal/gitblame.nvim
+      gitsigns.enable = true; # https://github.com/lewis6991/gitsigns.nvim
+
+      markdown-preview.enable = true;
+
+      neo-tree = {
+        enable = true;
+        enableDiagnostics = false;
+        enableGitStatus = true;
+        enableModifiedMarkers = true;
+        enableRefreshOnWrite = true;
+
+        popupBorderStyle = "rounded";
+
+        closeIfLastWindow = true;
+        extraOptions = { filesystem.filtered_items.visible = true; };
+      };
+
+      # Better highlighting
+      treesitter.enable =
+        true; # https://github.com/nvim-treesitter/nvim-treesitter
+
+      # Notifications
+      notify.enable = true; # https://github.com/rcarriga/nvim-notify
+
+      # Status Line (Bottom Bar)
+      lualine.enable = true; # https://github.com/nvim-lualine/lualine.nvim
+
+      # Linting
+      lint.enable = true;
+      lsp-format.enable = true;
+
+      # Completion
+      cmp.enable = true; # https://github.com/hrsh7th/nvim-cmp
+
+      # Language Servers 
+      lsp = {
+        enable = true;
+        servers = {
+          bashls.enable = true;
+          pylsp.enable = true;
+          html.enable = true;
+          cssls.enable = true;
+          jsonls.enable = true;
+          eslint.enable = true;
+          nixd.enable = true;
+          typst-lsp.enable = true;
+          tsserver.enable = true;
+          terraformls.enable = true;
+          yamlls.enable = true;
+        };
+      };
+
+      # Language Specific Plugins
+      nix.enable = true;
+      nix-develop.enable = true;
+      typst-vim = {
+        enable = true;
+        settings.pdf_viewer = "zathura";
+      };
+    };
+
+    # Plugin Definitions (nixpkgs)
+    extraPlugins = with pkgs.vimPlugins; [ nvchad ];
   };
 }

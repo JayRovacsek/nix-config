@@ -19,7 +19,10 @@ in {
       enable = true;
       secrets = config.age.secrets."firefox-syncserver-secrets".path;
 
-      settings = { inherit port; };
+      settings = {
+        host = "0.0.0.0";
+        inherit port;
+      };
       logLevel = "error";
       singleNode = {
         enable = true;

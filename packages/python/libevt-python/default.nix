@@ -1,26 +1,27 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libevt-python";
-  name = pname;
-  version = "20231121";
 
-  meta = with lib; {
-    description = "Python bindings module for libevt";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libevt/";
-    downloadPage = "https://github.com/libyal/libevt/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240421";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8TVAWaPx+QNHg+/m+7OXuZ201nBnym7Kxa8HnmtMkF0=";
+    hash = "sha256-z2kZ+rl7IEZpANJ4Vc9JiSMz5PLuQ5ySDoX6JgtZ1xU=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyevt" ];
+
+  meta = with lib; {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libevt";
+    homepage = "https://github.com/libyal/libevt";
+    downloadPage = "https://github.com/libyal/libevt/releases";
+    license = licenses.lgpl3Plus;
+  };
 }

@@ -1,9 +1,9 @@
 { stdenv, pkgs, lib, wofi, gawk, systemd, hyprland, ... }:
 with lib;
 let
-  name = "wofi-power";
-  pname = name;
+  pname = "wofi-power";
   version = "0.0.1";
+
   meta = {
     description = "A simple shell wrapper for wofi to handle power events";
     # TODO: resolve intersect-multiple-lists issue
@@ -30,7 +30,7 @@ let
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ wofi-power-wrapped ];
 

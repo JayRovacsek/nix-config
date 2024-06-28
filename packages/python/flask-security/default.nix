@@ -6,7 +6,7 @@ let
   meta = with lib; {
     description =
       "It quickly adds security features to your Flask application.";
-    platforms = platforms.all;
+
     homepage = "https://github.com/mattupstate/flask-security";
     downloadPage = "https://github.com/mattupstate/flask-security/tags";
     license = licenses.mit;
@@ -14,12 +14,12 @@ let
 
   inherit (python3Packages) buildPythonPackage;
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     Babel
     flask
     flask_mail
     flask_principal
-    flask-babelex
+    flask-babel
     flask-login
     flask-wtf
     itsdangerous
@@ -29,11 +29,9 @@ let
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-1h2qX1pI+J8w9QVVhyvfWBssZYBGaLAxM0XNe+/yZDI=";
+    hash = "sha256-1h2qX1pI+J8w9QVVhyvfWBssZYBGaLAxM0XNe+/yZDI=";
   };
 
   doCheck = false;
 
-in buildPythonPackage {
-  inherit pname version meta propagatedBuildInputs src doCheck;
-}
+in buildPythonPackage { inherit pname version meta dependencies src doCheck; }

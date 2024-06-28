@@ -28,6 +28,5 @@ in buildFirefoxXpiAddon {
       "https://addons.mozilla.org/en-US/firefox/addon/english-australian-dictionary/";
     description = "Australian English Dictionary for Mozilla applications.";
     license = licenses.gpl2;
-    platforms = platforms.all;
   };
 }

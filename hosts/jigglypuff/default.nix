@@ -1,19 +1,18 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) cli;
+  inherit (self.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
     modules = cli;
   };
 
-  merged = merge [ jay ];
+  user-configs = merge [ jay ];
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
   age = {
     secrets = {
@@ -52,6 +51,28 @@ in {
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  imports = (with self.nixosModules; [
+    agenix
+    blocky
+    fonts
+    generations
+    nix-topology
+    gnupg
+    grafana-agent
+    journald
+    logging
+    lorri
+    nix
+    openssh
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    zsh
+  ]) ++ [
+    "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+  ];
 
   networking = {
     hostName = "jigglypuff";

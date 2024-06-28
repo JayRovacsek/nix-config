@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libphdi-python";
-  name = pname;
-  version = "20231129";
-
-  meta = with lib; {
-    description = "Python bindings module for libphdi";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libphdi/";
-    downloadPage = "https://github.com/libyal/libphdi/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240307";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-G06vL2FpeO5o3O+Qu1YWfrLJJ3+JICvF85Dsgu3RrJA=";
+    hash = "sha256-qn4iZkVpWcm2leVWpJx0l3BFYBY3U8nsR6EzgBz1Uak=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyphdi" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libphdi";
+    downloadPage = "https://github.com/libyal/libphdi/releases";
+    homepage = "https://github.com/libyal/libphdi";
+    license = licenses.lgpl3Plus;
+  };
 }

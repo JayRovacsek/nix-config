@@ -1,7 +1,15 @@
-{ config, flake, ... }: {
-  inherit flake;
-
-  imports = [ ./authelia.nix ];
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    ./authelia.nix
+    agenix
+    authelia
+    grafana-agent
+    microvm-guest
+    nix-topology
+    nginx
+    time
+    timesyncd
+  ];
 
   microvm = {
     interfaces = [{
@@ -9,7 +17,7 @@
       id = config.networking.hostName;
       mac = "02:42:c0:a8:09:02";
       macvtap = {
-        link = "authelia";
+        link = "auth";
         mode = "bridge";
       };
     }];
@@ -20,13 +28,7 @@
 
   networking.hostName = "nidorino";
 
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
+  services.nginx.statusPage = true;
 
   system.stateVersion = "24.05";
-
-  users.users.root.hashedPassword =
-    "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
 }

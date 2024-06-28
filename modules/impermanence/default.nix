@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
-  inherit (config.flake.lib.microvm) has-microvm is-microvm-host;
+  inherit (self.lib.microvm) has-microvm is-microvm-host;
 
   microvm = (has-microvm config) && (is-microvm-host config);
   # Microvms persist state via their machine-id, which is simply 
@@ -19,6 +19,8 @@ let
   # normal-users = lib.filterAttrs (n: v: v.isNormalUser) config.users.users;
 
 in {
+  imports = [ self.inputs.impermanence.nixosModules.impermanence ];
+
   fileSystems."/" = {
     device = "none";
     fsType = "tmpfs";

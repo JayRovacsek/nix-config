@@ -1,7 +1,8 @@
 { config, ... }:
 let
   inherit (config.networking) hostName;
-  extraCasks = if hostName == "victreebel" then [ "workplace-chat" ] else [ ];
+  extraCasks =
+    if hostName == "victreebel" then [ "tableau" "workplace-chat" ] else [ ];
   forceBrewInstall = name: {
     inherit name;
     args = [ "force" ];
@@ -25,7 +26,6 @@ in {
       "eloston-chromium"
       "gimp"
       "jellyfin-media-player"
-      "keepassxc"
       "keepingyouawake"
       "microsoft-remote-desktop"
       "nextcloud"

@@ -1,7 +1,16 @@
-{ config, flake, ... }: {
-  inherit flake;
-
-  imports = [ ./nginx.nix ];
+{ config, self, ... }: {
+  imports = (with self.nixosModules; [
+    acme
+    agenix
+    ddclient
+    grafana-agent
+    microvm-guest
+    nginx
+    nix-topology
+    time
+    timesyncd
+    tmp-tmpfs
+  ]) ++ [ ./nginx.nix ];
 
   microvm = {
     interfaces = [{
@@ -14,18 +23,10 @@
       };
     }];
 
-    mem = 1024;
+    mem = 4096;
   };
 
   networking.hostName = "nidorina";
 
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
-
   system.stateVersion = "24.05";
-
-  users.users.root.hashedPassword =
-    "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
 }

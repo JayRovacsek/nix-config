@@ -1,5 +1,13 @@
-{ config, flake, ... }: {
-  inherit flake;
+{ config, self, ... }: {
+  imports = with self.nixosModules; [
+    agenix
+    grafana-agent
+    microvm-guest
+    prowlarr
+    nix-topology
+    time
+    timesyncd
+  ];
 
   networking.hostName = "meowth";
 

@@ -4,14 +4,9 @@ let
   inherit (lib) recursiveUpdate mapAttrs;
   inherit (self.inputs) terranix;
   inherit (self.common)
-    cpp-packages dotnet-packages images go-packages node-packages
-    python-packages rust-packages shell-packages text-packages tofu-stacks
-    wallpaper-packages;
+    dotnet-packages images go-packages node-packages python-packages
+    resource-packages rust-packages shell-packages text-packages tofu-stacks;
   inherit (self.lib) merge;
-
-  cpp = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./cpp/${package} { }; }
-    accumulator) { } cpp-packages;
 
   dotnet = builtins.foldl' (accumulator: package:
     recursiveUpdate { ${package} = callPackage ./dotnet/${package} { }; }
@@ -37,16 +32,11 @@ let
       ${package} = callPackage ./text/${package} { inherit self; };
     } accumulator) { } text-packages;
 
-  python = let
-    python-overlay-pkgs = import self.inputs.nixpkgs {
-      inherit system;
-      overlays = [ self.overlays.python ];
-    };
-  in builtins.foldl' (accumulator: package:
+  python = builtins.foldl' (accumulator: package:
     recursiveUpdate {
       ${package} = callPackage ./python/${package} {
         inherit self;
-        pkgs = python-overlay-pkgs;
+        inherit pkgs;
       };
     } accumulator) { } python-packages;
 
@@ -63,22 +53,21 @@ let
       ];
     }) tofu-stacks;
 
-  wallpapers = builtins.foldl' (accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./wallpapers/${package} { }; }
-    accumulator) { } wallpaper-packages;
+  resources = builtins.foldl' (accumulator: package:
+    recursiveUpdate { ${package} = callPackage ./resources/${package} { }; }
+    accumulator) { } resource-packages;
 
   packages = merge [
-    cpp
     dotnet
     go
     (builtins.removeAttrs images [ "configurations" ])
     node
     python
+    resources
     rust
     shell
     text
     tofu
-    wallpapers
     {
       better-english = callPackage ./better-english { };
       t2-firmware = callPackage ./t2-firmware { };

@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libmsiecf-python";
-  name = pname;
-  version = "20231203";
-
-  meta = with lib; {
-    description = "Python bindings module for libmsiecf";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libmsiecf/";
-    downloadPage = "https://github.com/libyal/libmsiecf/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240425";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-R6KqJthZI8L0LVElQVBRVFb0bRLPlbf+4k1ejj4iNIo=";
+    hash = "sha256-mdylekKq2hfUO8xQkbvr9F0X5hMp2zE3qkFvfyw9rhY=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pymsiecf" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libmsiecf";
+    downloadPage = "https://github.com/libyal/libmsiecf/releases";
+    homepage = "https://github.com/libyal/libmsiecf";
+    license = licenses.lgpl3Plus;
+  };
 }

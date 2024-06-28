@@ -1,8 +1,8 @@
-{ config, pkgs, lib, flake, ... }:
+{ config, pkgs, self, ... }:
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base cli;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base cli;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -14,13 +14,82 @@ let
     modules = cli;
   };
 
-  merged = merge [ builder jay ];
+  jellyfin-user = {
+    users = {
+      extraUsers.jellyfin = {
+        createHome = false;
+        description = "User account generated for running a specific service";
+        group = "jellyfin";
+        isSystemUser = true;
+        uid = 998;
+      };
+
+      groups = {
+        users.gid = 100;
+
+        jellyfin = {
+          gid = 10001;
+          members = [ "jellyfin" ];
+        };
+
+        media = {
+          inherit (self.common.networking.services.media.user) gid;
+          members = [ "jay" "jellyfin" ];
+        };
+      };
+
+      users.media = {
+        group = "media";
+        isSystemUser = true;
+        inherit (self.common.networking.services.media.user) uid;
+      };
+    };
+  };
+
+  user-configs = merge [ builder jay jellyfin-user ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ ./filesystems.nix ./old-users.nix ];
+  imports = with self.nixosModules; [
+    ./backups.nix
+    ./disk-config.nix
+    agenix
+    auto-upgrade
+    blocky
+    clamav
+    firefox-syncserver
+    fonts
+    generations
+    gnupg
+    grafana-agent
+    hydra
+    i18n
+    jellyfin
+    jellyseerr
+    logging
+    lorri
+    microvm-host
+    nix
+    nix-serve
+    nix-topology
+    nvidia
+    openssh
+    openvscode-server
+    samba
+    smartd
+    sudo
+    systemd-networkd
+    telegraf
+    time
+    timesyncd
+    tmp-tmpfs
+    tmux
+    udev
+    unifi
+    zfs
+    zsh
+  ];
 
   age = {
     secrets = {
@@ -42,26 +111,29 @@ in {
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
     blacklistedKernelModules = [ "e1000e" ];
 
-    supportedFilesystems = [ "ntfs" "zfs" ];
-    kernelParams = [ "amd_iommu=on" ];
+    extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" ];
       kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     };
 
+    kernel.sysctl."vm.swappiness" = 1;
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-    extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
+    kernelParams = [ "amd_iommu=on" ];
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    supportedFilesystems = [ "ntfs" "zfs" ];
   };
 
   environment.systemPackages = with pkgs; [
+    agenix
     cifs-utils
     dnsutils
     exfat
@@ -92,68 +164,8 @@ in {
   };
 
   microvm = {
-    macvlans = [
-      {
-        name = "guest";
-        parent = "10-wired";
-        vlan-tag = 2;
-      }
-      {
-        name = "iot";
-        parent = "10-wired";
-        vlan-tag = 3;
-      }
-      {
-        name = "download";
-        parent = "10-wired";
-        vlan-tag = 4;
-      }
-      {
-        name = "reverse-proxy";
-        parent = "10-wired";
-        vlan-tag = 5;
-      }
-      {
-        name = "dns";
-        parent = "10-wired";
-        vlan-tag = 6;
-      }
-      {
-        name = "work";
-        parent = "10-wired";
-        vlan-tag = 7;
-      }
-      {
-        name = "wlan";
-        parent = "10-wired";
-        vlan-tag = 8;
-      }
-      {
-        name = "authelia";
-        parent = "10-wired";
-        vlan-tag = 9;
-      }
-      {
-        name = "nextcloud";
-        parent = "10-wired";
-        vlan-tag = 10;
-      }
-      {
-        name = "cache";
-        parent = "10-wired";
-        vlan-tag = 16;
-      }
-      {
-        name = "game";
-        parent = "10-wired";
-        vlan-tag = 17;
-      }
-      {
-        name = "headscale";
-        parent = "10-wired";
-        vlan-tag = 25;
-      }
-    ];
+    macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
+      self.common.networking.networks;
 
     vms = let
       party = [
@@ -163,17 +175,18 @@ in {
         "magikarp"
         "mankey"
         "meowth"
+        "mr-mime"
         "nidoking"
         "nidorina"
         "nidorino"
         "poliwag"
-        "porygon"
+        "slowpoke"
       ];
     in builtins.foldl' (acc: pokemon:
       acc // {
         ${pokemon} = {
-          inherit flake;
-          updateFlake = "git+file://${flake}";
+          flake = self;
+          restartIfChanged = true;
         };
       }) { } party;
   };
@@ -204,8 +217,6 @@ in {
         comment = "Public Game Files";
       };
     };
-
-    tailscale.tailnet = "admin";
   };
 
   swapDevices =

@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, self, ... }:
 let
-  inherit (config.flake.common.colour-schemes) tomorrow-night-blue-base16;
+  inherit (self.common.colour-schemes) tomorrow-night-blue-base16;
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 in {
   stylix = {
+    enable = true;
     autoEnable = true;
     base16Scheme = tomorrow-night-blue-base16;
     fonts = {
@@ -46,7 +47,7 @@ in {
     homeManagerIntegration.followSystem = true;
     image = pkgs.fetchurl {
       url = "https://openclipart.org/image/2000px/311101";
-      sha256 = "sha256-mIMXYOENVSgH0PjhO02MM7beg9AT44uVDj/tXxilDx0=";
+      hash = "sha256-mIMXYOENVSgH0PjhO02MM7beg9AT44uVDj/tXxilDx0=";
     };
     polarity = "dark";
   };

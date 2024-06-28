@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libvslvm-python";
-  name = pname;
-  version = "20231122";
-
-  meta = with lib; {
-    description = "Python bindings module for libvslvm";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libvslvm/";
-    downloadPage = "https://github.com/libyal/libvslvm/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240301";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-XsHGlO0dgn66tP7But4/g5eratIotuoCIcUhNcSO5Yg=";
+    hash = "sha256-1+7okPMphNzQl5kCf7wQaNgu4xonFyjLvV6AT7WTfUw=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyvslvm" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libvslvm";
+    downloadPage = "https://github.com/libyal/libvslvm/releases";
+    homepage = "https://github.com/libyal/libvslvm";
+    license = licenses.lgpl3Plus;
+  };
 }

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 let
   # Agenix is likely required if we have a share from host to guest passing
   # a secret and identity paths has some kind of value.
@@ -20,6 +20,8 @@ in {
   fileSystems = {
     "/var/lib".neededForBoot = true;
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
+
+  imports = [ ../../options/systemd self.inputs.microvm.nixosModules.microvm ];
 
   microvm.shares = (lib.optionals agenix-required [{
     # On the host
@@ -61,8 +63,14 @@ in {
     }
   ];
 
-  # Ensure we're using networkd
-  networking.useNetworkd = true;
+  # Ensure we're using networkd & open ssh
+  networking = {
+    firewall.allowedTCPPorts = [ 22 ];
+    useNetworkd = true;
+  };
+
+  # Disable power management options
+  powerManagement.enable = false;
 
   systemd = {
     # Blunt approach to ensuring stable machine id.
@@ -77,5 +85,21 @@ in {
       matchConfig.Name = "enp*";
       networkConfig.DHCP = "yes";
     };
+
+    sleep.extraConfig = ''
+      AllowHibernation=no
+      AllowSuspend=no
+    '';
   };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "yes";
+      PasswordAuthentication = false;
+    };
+  };
+
+  users.users.root.openssh.authorizedKeys.keys =
+    self.common.networking.services.openssh.public-keys;
 }

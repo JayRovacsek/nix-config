@@ -1,7 +1,8 @@
 { config, pkgs, lib, self, ... }:
 let
   zfsBootSupported =
-    builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
+    (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
+    != { };
 
   zfsServiceSupported = config.services.zfs.autoScrub.enable
     || config.services.zfs.autoSnapshot.enable;
@@ -21,8 +22,15 @@ in {
         mode = "0400";
         owner = "nextcloud";
       };
+      nextcloud-exporter-token = {
+        file = ../../secrets/nextcloud/exporter-token.age;
+        mode = "0400";
+        owner = config.services.prometheus.exporters.nextcloud.user;
+      };
     };
   };
+
+  environment.systemPackages = with pkgs; [ ffmpeg-headless ];
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
@@ -32,16 +40,12 @@ in {
 
       appstoreEnable = true;
 
-      autoUpdateApps = {
-        enable = true;
-        startAt = "";
-      };
+      autoUpdateApps.enable = true;
 
       config = {
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        overwriteProtocol = "https";
       };
 
       configureRedis = true;
@@ -50,7 +54,7 @@ in {
 
       enableImagemagick = true;
 
-      extraOptions = {
+      settings = {
         enabledPreviewProviders = [
           "OC\\Preview\\BMP"
           "OC\\Preview\\GIF"
@@ -60,6 +64,8 @@ in {
         ];
         log_type = "file";
         loglevel = 2;
+        maintenance_window_start = "12";
+        overwriteProtocol = "https";
         "profile.enabled" = false;
         trusted_proxies = [ self.common.networking.services.nginx.ipv4 ];
         trusted_domains = [ "192.168.10.3" ];
@@ -67,7 +73,7 @@ in {
 
       https = true;
       maxUploadSize = "10G";
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
@@ -94,6 +100,17 @@ in {
       # (written as JSON, in the same form as the services.nextcloud.
       # extraOptions option), for example {"redis":{"password":"secret"}}.
       secretFile = config.age.secrets.nextcloud-secret-file.path;
+    };
+
+    prometheus.exporters = {
+      # TODO: implement the below
+      # mysqld.enable = true;
+      nextcloud = {
+        enable = true;
+        tokenFile = config.age.secrets.nextcloud-exporter-token.path;
+        url = "https://${config.services.nextcloud.hostName}";
+      };
+      redis.enable = true;
     };
 
     redis.servers.nextcloud.settings = {

@@ -1,9 +1,9 @@
-{ config, pkgs, lib, modulesPath, flake, ... }:
+{ config, pkgs, lib, modulesPath, self, ... }:
 
 let
-  inherit (flake) common;
-  inherit (flake.common.home-manager-module-sets) base desktop;
-  inherit (flake.lib) merge;
+  inherit (self) common;
+  inherit (self.common.home-manager-module-sets) base hyprland-desktop-minimal;
+  inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
@@ -12,16 +12,35 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = desktop;
+    modules = hyprland-desktop-minimal
+      ++ (with self.homeManagerModules; [ mako waybar ]);
   };
 
-  merged = merge [ builder jay ];
+  user-configs = merge [ builder jay ];
 
 in {
-  inherit flake;
-  inherit (merged) users home-manager;
+  inherit (user-configs) users home-manager;
 
-  imports = [ "${modulesPath}/installer/sd-card/sd-image-aarch64.nix" ];
+  imports = with self.nixosModules; [
+    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    agenix
+    generations
+    gnupg
+    grafana-agent
+    greetd
+    hyprland
+    i18n
+    lorri
+    nix
+    nix-topology
+    openssh
+    self.inputs.nixos-hardware.nixosModules.raspberry-pi-4
+    sudo
+    systemd-networkd
+    time
+    timesyncd
+    zsh
+  ];
 
   age = {
     identityPaths = [
@@ -62,7 +81,7 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [ jellyfin-media-player ];
+  environment.systemPackages = with pkgs; [ alacritty jellyfin-media-player ];
 
   fileSystems = {
     "/" = {
@@ -112,6 +131,13 @@ in {
     journald.storage = "volatile";
     # Hide Builder user from SDDM login
     xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
+    timesyncd.servers = lib.mkForce [
+      # "129.6.15.28"
+      "137.92.140.80" # -> ntp.ise.canberra.edu.au
+      "138.194.21.154" # -> ntp.mel.nml.csiro.au
+      "129.6.15.28" # -> time-a-g.nist.gov
+      "129.6.15.29" # -> time-b-g.nist.gov
+    ];
   };
 
   swapDevices = [{

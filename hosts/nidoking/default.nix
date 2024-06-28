@@ -1,4 +1,4 @@
-{ config, flake, pkgs, self, ... }:
+{ config, pkgs, self, ... }:
 let
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
@@ -6,23 +6,19 @@ let
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
 in {
-  inherit flake;
 
-  networking.hostName = "nidoking";
-
-  users = {
-    groups.nextcloud.gid = 10003;
-    users = {
-      nextcloud.uid = 988;
-      root.hashedPassword =
-        "$y$j9T$1WjHbjaCPVGEEGwuozTF/1$m/0ChZOXjfB5jTB23JMz1HuoiTrH3aw.XRLhpGB6hR6";
-    };
-  };
-
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "yes";
-  };
+  imports = with self.nixosModules;
+    [
+      agenix
+      grafana-agent
+      microvm-guest
+      nextcloud
+      nginx
+      nix-topology
+      time
+      timesyncd
+      tmp-tmpfs
+    ] ++ [ self.inputs.sandro-nixos-modules.nixosModule ];
 
   microvm = {
     interfaces = [{
@@ -35,7 +31,7 @@ in {
       };
     }];
 
-    mem = 6144;
+    mem = 8192;
 
     shares = [{
       # On the host
@@ -49,20 +45,33 @@ in {
     vcpu = 4;
   };
 
+  networking.hostName = "nidoking";
+
   services = {
     nextcloud = {
-      extraOptions.datadirectory = "/srv/nextcloud";
+      configureMemories = true;
+      configureRecognize = true;
       hostName = "nextcloud.rovacsek.com";
+      settings.datadirectory = "/srv/nextcloud";
     };
 
-    nginx.virtualHosts."nextcloud.rovacsek.com" = {
-      enableAuthelia = false;
-      forceSSL = true;
-      # TODO: remove self signed certificate in the future.
-      sslCertificate = "${cert}/share/self-signed.crt";
-      sslCertificateKey = "${cert}/share/privkey.key";
+    nginx = {
+      statusPage = true;
+
+      virtualHosts."nextcloud.rovacsek.com" = {
+        enableAuthelia = false;
+        forceSSL = true;
+        # TODO: remove self signed certificate in the future.
+        sslCertificate = "${cert}/share/self-signed.crt";
+        sslCertificateKey = "${cert}/share/privkey.key";
+      };
     };
   };
 
   system.stateVersion = "24.05";
+
+  users = {
+    groups.nextcloud.gid = 10003;
+    users.nextcloud.uid = 988;
+  };
 }
