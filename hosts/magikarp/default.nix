@@ -1,16 +1,15 @@
 { config, self, ... }: {
   imports = with self.nixosModules; [
     agenix
+    grafana-agent
     headscale
     microvm-guest
+    nix-topology
     time
     timesyncd
   ];
 
-  networking = {
-    firewall.allowedTCPPorts = [ 22 ];
-    hostName = "magikarp";
-  };
+  networking.hostName = "magikarp";
 
   microvm = {
     interfaces = [{

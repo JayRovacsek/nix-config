@@ -23,8 +23,10 @@ in {
 
   imports = with self.nixosModules; [
     agenix
+    generations
     lorri
     nix
+    nix-topology
     time
     timesyncd
     zsh

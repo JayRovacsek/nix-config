@@ -69,6 +69,9 @@ in {
     useNetworkd = true;
   };
 
+  # Disable power management options
+  powerManagement.enable = false;
+
   systemd = {
     # Blunt approach to ensuring stable machine id.
     # TODO: review if there might be a better method to generating this
@@ -82,6 +85,11 @@ in {
       matchConfig.Name = "enp*";
       networkConfig.DHCP = "yes";
     };
+
+    sleep.extraConfig = ''
+      AllowHibernation=no
+      AllowSuspend=no
+    '';
   };
 
   services.openssh = {

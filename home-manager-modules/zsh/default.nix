@@ -1,26 +1,24 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 let
+  inherit (self.lib) merge;
   inherit (pkgs) fetchFromGitHub;
-  inherit (pkgs.lib.attrsets) recursiveUpdate;
-  batAlias = if config.programs.bat.enable then {
+
+  bat = lib.optionalAttrs config.programs.bat.enable {
     less = "${pkgs.bat}/bin/bat --color always";
-  } else
-    { };
-  mergeAliases = [ batAlias ];
-  shellAliases = builtins.foldl' recursiveUpdate { } mergeAliases;
+  };
 in {
   programs.zsh = {
-    inherit shellAliases;
+    autosuggestion.enable = true;
     enable = true;
-    enableAutosuggestions = true;
     enableCompletion = true;
-    syntaxHighlighting.enable = true;
     enableVteIntegration = true;
+
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" "sudo" ];
       theme = "risto";
     };
+
     plugins = [{
       name = "zsh-nix-shell";
       file = "nix-shell.plugin.zsh";
@@ -31,5 +29,8 @@ in {
         sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
       };
     }];
+
+    shellAliases = merge [ bat ];
+    syntaxHighlighting.enable = true;
   };
 }

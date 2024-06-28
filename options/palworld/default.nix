@@ -93,6 +93,8 @@ in {
     systemd.services.palworld = {
       path = [ pkgs.xdg-user-dirs ];
 
+      wantedBy = [ "network-online.target" ];
+
       # Install the game before launching.
       wants = [ steamcmd-install-service ];
       after = [ steamcmd-install-service ];

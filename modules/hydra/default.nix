@@ -17,7 +17,7 @@ let
     "github:astro/microvm.nix"
     "github:Aylur/ags"
     "github:bandithedoge/nixpkgs-firefox-darwin"
-    "github:cachix/pre-commit-hooks.nix"
+    "github:cachix/git-hooks.nix"
     "github:chriskempson/base16-vim"
     "github:danth/stylix"
     "github:DeterminateSystems/flake-schemas"
@@ -25,7 +25,7 @@ let
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
-    "github:JayRovacsek/ags-config"
+    "github:JayRovacsek"
     "github:kdrag0n/base16-kitty"
     "github:lnl7/nix-darwin"
     "github:ners/nix-monitored"
@@ -36,17 +36,20 @@ let
     "github:NixOS/nixpkgs"
     "github:numtide/devshell"
     "github:numtide/flake-utils"
-    "github:numtide/nix-filter"
     "github:numtide/treefmt-nix"
+    "github:oddlama/nix-topology"
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
     "github:SenchoPens/fromYaml"
+    "github:srid/flake-root"
+    "github:SuperSandro2000/nixos-modules"
     "github:terranix/terranix"
     "github:tiiuae/sbomnix"
     "github:tinted-theming/base16-foot"
     "github:tinted-theming/base16-helix"
     "github:tinted-theming/base16-tmux"
     "github:tomyun/base16-fish"
+    "https://github.com/NixOS"
   ];
 in {
   # If Hydra is present, we assume a builder user is also present generally
@@ -60,26 +63,19 @@ in {
   age = {
     identityPaths = [ "/agenix/id-ed25519-hydra-primary" ];
     secrets = {
-      "builder-id-ed25519" = lib.mkForce {
+      builder-id-ed25519 = lib.mkForce {
         file = ../../secrets/ssh/builder-id-ed25519.age;
         owner = config.users.users.hydra-queue-runner.name;
         mode = "0400";
       };
 
-      "hydra-github-token" = {
+      hydra-github-token = {
         file = ../../secrets/hydra/hydra-github-token.age;
         owner = config.users.users.hydra.name;
         inherit (config.users.users.hydra) group;
         mode = "0440";
       };
     };
-  };
-
-  environment.etc."hydra/github_token" = {
-    inherit (config.users.users.hydra) group;
-    mode = "440";
-    source = config.age.secrets.hydra-github-token.path;
-    user = config.users.users.hydra-queue-runner.name;
   };
 
   networking.firewall.allowedTCPPorts = [ port ];
@@ -95,8 +91,8 @@ in {
       compress_build_logs = 1
       <githubstatus>
         jobs = .*
-        inputs = src
         useShortContext = true
+        Include ${config.age.secrets.hydra-github-token.path}
       </githubstatus>
     '';
     hydraURL = "https://hydra.rovacsek.com";

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "cvemap";
-  version = "0.0.2";
+  version = "0.0.6";
 
   src = fetchFromGitHub {
     owner = "projectdiscovery";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-cF9sMcP3m2qZVT/ONovt+JoG+yU9fs8I9Stw01bSwis=";
+    hash = "sha256-aeUYcgBTHWWLTuAXnnc73yXaC3yLZzruqvedUYCnht4=";
   };
 
-  vendorHash = "sha256-XS5yHfPfjZpi/PpN/xKVYvpNmkWROKDhqTaDU9v0cOU=";
+  vendorHash = "sha256-VQGWi01mOP2N4oYsaDK7wn/+hSFEDHhSma9DOZ06Z3k=";
 
   subPackages = [ "cmd/cvemap/" ];
 

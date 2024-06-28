@@ -1,7 +1,6 @@
 { self, lib }:
 let
-  inherit (lib) filterAttrs mapAttrs;
-  inherit (self.common) images;
+  inherit (lib) filterAttrs hasAttr mapAttrs;
 
   unsupported-systems = [ "aarch64-darwin" "x86_64-darwin" ];
   # Strip out unsupportable systems.
@@ -19,8 +18,11 @@ let
 
   # Strip broken & unsupported packages as they just cause eval errors
   non-broken-packages = mapAttrs (_: value:
-    filterAttrs (_: v: (!v.meta.broken && !v.meta.unsupported)) value)
-    non-problematic-packages;
+    filterAttrs (_: v:
+      if hasAttr "meta" v then
+        (!(v.meta.broken ? false) && !(v.meta.unsupported ? false))
+      else
+        false) value) non-problematic-packages;
 in {
   devShells = removeAttrs self.devShells unsupported-systems;
 

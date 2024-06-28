@@ -1,27 +1,27 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "pytsk3";
-  name = pname;
   version = "20231007";
-
-  meta = with lib; {
-    description =
-      "Python bindings for the sleuthkit (http://www.sleuthkit.org/)";
-    platforms = platforms.all;
-    homepage = "https://github.com/py4n6/pytsk/";
-    downloadPage = "https://github.com/py4n6/pytsk/releases";
-    license = licenses.asl20;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-uPE5ytLj+sv/fp1AYjwIdrHLRQU/EVnDZQEGwcK6T/g=";
+    hash = "sha256-uPE5ytLj+sv/fp1AYjwIdrHLRQU/EVnDZQEGwcK6T/g=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.8";
+
+  pythonImportsCheck = [ "pytsk3" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description =
+      "Python bindings for the sleuthkit (http://www.sleuthkit.org/)";
+    downloadPage = "https://github.com/py4n6/pytsk/releases";
+    homepage = "https://github.com/py4n6/pytsk";
+    license = licenses.asl20;
+  };
 }

@@ -16,6 +16,14 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "bellsprout.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "butterfree.local",
     "maxJobs": 1,
     "speedFactor": 1,
@@ -64,6 +72,14 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "igglybuff.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "jigglypuff.local",
     "maxJobs": 1,
     "speedFactor": 1,
@@ -86,6 +102,38 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "machop.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "magikarp.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "mankey.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "meowth.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "mew.local",
     "maxJobs": 1,
     "speedFactor": 1,
@@ -94,7 +142,63 @@
     "systems": ["x86_64-linux"]
   },
   {
+    "hostName": "mr-mime.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidoking.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidorina.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "nidorino.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
     "hostName": "ditto.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "poliwag.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "porygon.local",
+    "maxJobs": 1,
+    "speedFactor": 1,
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "systems": ["x86_64-linux"]
+  },
+  {
+    "hostName": "slowpoke.local",
     "maxJobs": 1,
     "speedFactor": 1,
     "sshUser": "builder",

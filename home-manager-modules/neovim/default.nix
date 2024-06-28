@@ -2,7 +2,10 @@
   # Configuration Options
   # https://nix-community.github.io/nixvim/
 
-  home.sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+  home = {
+    packages = with pkgs; [ zathura ];
+    sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+  };
 
   programs.nixvim = {
     enable = true;
@@ -29,54 +32,6 @@
       fileencoding = "utf-8";
     };
 
-    keymaps = [
-      {
-        mode = "n";
-        key = "<leader>mp";
-        action = "<Plug>MarkdownPreviewToggle";
-      }
-      {
-        mode = "n";
-        key = "<leader>ff";
-        action = "<cmd>Telescope find_files<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fg";
-        action = "<cmd>Telescope live_grep<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fb";
-        action = "<cmd>Telescope buffers<cr>";
-      }
-      {
-        mode = "n";
-        key = "<leader>fh";
-        action = "<cmd>Telescope help_tags<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-p>";
-        action = "<cmd>Telescope find_files<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-s-p>";
-        action = "<cmd>Telescope commands<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-k>";
-        action = "<cmd>Telescope buffers<cr>";
-      }
-      {
-        mode = "n";
-        key = "<c-s-k>";
-        action = "<cmd>Telescope keymaps<cr>";
-      }
-    ];
-
     # Plugin Definitions (Modules)
     plugins = {
       bufferline.enable = true;
@@ -100,16 +55,6 @@
         extraOptions = { filesystem.filtered_items.visible = true; };
       };
 
-      telescope = {
-        enable = true;
-
-        enabledExtensions = [ "ui-select" ];
-        extensionConfig.ui-select = { };
-
-        extensions.frecency.enable = true;
-        extensions.fzf-native.enable = true;
-      };
-
       # Better highlighting
       treesitter.enable =
         true; # https://github.com/nvim-treesitter/nvim-treesitter
@@ -125,7 +70,7 @@
       lsp-format.enable = true;
 
       # Completion
-      nvim-cmp.enable = true; # https://github.com/hrsh7th/nvim-cmp
+      cmp.enable = true; # https://github.com/hrsh7th/nvim-cmp
 
       # Language Servers 
       lsp = {
@@ -150,11 +95,11 @@
       nix-develop.enable = true;
       typst-vim = {
         enable = true;
-        pdfViewer = "zathura";
+        settings.pdf_viewer = "zathura";
       };
     };
 
     # Plugin Definitions (nixpkgs)
-    extraPlugins = with pkgs.vimPlugins; [ nvchad telescope-ui-select-nvim ];
+    extraPlugins = with pkgs.vimPlugins; [ nvchad ];
   };
 }

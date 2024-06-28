@@ -10,10 +10,17 @@ let
   nix-options = pkgs.fetchFromGitHub {
     owner = "JayRovacsek";
     repo = "nix-options";
-    rev = "4142d6dd0a1bd97ede240e84bf87c8f65a0ccbfd";
-    hash = "sha256-jxNmMjtan/TUnzo5ZTw7uWhsgzHTlmvOIXNgNn9Z46o=";
+    rev = "main";
+    hash = "sha256-B4g01J03TSy4c5bUVPPUpCtxGpoVG60EPVgzxg0V8z4=";
   };
 in {
+  imports = [ ../../options/darwin-ollama ];
+
+  services.ollama = {
+    enable = true;
+    models = [ "starcoder2:3b" ];
+  };
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -55,9 +62,14 @@ in {
       };
       "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
       "[yaml]" = { "editor.formatOnSave" = false; };
+
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
+
+      "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+      "direnv.restart.automatic" = true;
+
       "editor.bracketPairColorization.enabled" = true;
       "editor.fontFamily" = "Hack Nerd Font Mono";
       "editor.fontLigatures" = false;
@@ -78,19 +90,16 @@ in {
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "latex-workshop.view.pdf.viewer" = "tab";
 
-      "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
-          options = {
-            enable = true;
-            target = {
-              args = [ ];
-              installable = "${nix-options}#options";
-            };
+          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+          "options" = {
+            darwin.expr =
+              ''(builtins.getFlake "${nix-options}").options.darwin'';
+            hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
+            nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
         };
       };
@@ -109,10 +118,11 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
+      continue.continue
 
       # Nix
       jnoortheen.nix-ide
-      arrterian.nix-env-selector
+      mkhl.direnv
 
       # JS/TS
       dbaeumer.vscode-eslint
@@ -136,7 +146,7 @@ in {
       james-yu.latex-workshop
 
       # Rust
-      matklad.rust-analyzer
+      rust-lang.rust-analyzer
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

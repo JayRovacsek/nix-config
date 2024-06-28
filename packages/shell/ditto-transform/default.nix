@@ -1,8 +1,8 @@
-{ self, nixos-rebuild, stdenv, pkgs, lib }:
+{ nixos-rebuild, stdenv, pkgs, lib, ... }:
 with lib;
 let
-  name = "ditto-transform";
-  pname = name;
+  pname = "ditto-transform";
+
   version = "0.0.1";
   meta = {
     description =
@@ -17,14 +17,14 @@ let
       echo "$0 - Error \$TARGET not set or NULL, use the first parameter to this script to define the target"
     else
       echo "Transforming into: $TARGET"
-      ${nixos-rebuild}/bin/nixos-rebuild switch --flake ${self}#$TARGET
+      ${nixos-rebuild}/bin/nixos-rebuild switch --flake github:JayRovacsek/nix-config#$TARGET
     fi
   '';
 
   phases = [ "installPhase" "fixupPhase" ];
 
 in stdenv.mkDerivation {
-  inherit name pname version meta phases;
+  inherit pname version meta phases;
 
   buildInputs = [ ditto-transform-wrapped ];
 

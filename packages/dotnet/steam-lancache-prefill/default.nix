@@ -3,7 +3,7 @@ let
   dotnet-runtime = dotnet-runtime_8;
   dotnet-sdk = dotnet-sdk_8;
   pname = "steam-lancache-prefill";
-  version = "2.4.0";
+  version = "2.5.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/steam-lancache-prefill";
@@ -17,7 +17,7 @@ let
     repo = "steam-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-Hk0BjAMkyXDtNy/kKhIANPmjTzW5kd4fJWC+m0jwCUI=";
+    hash = "sha256-DZrvo5k+brRLRhQN7dp+2aEtwaJTW0hKZVoh+eguURw=";
   };
 
   patches = [ ./no-appcontext.patch ];

@@ -1,28 +1,28 @@
 { lib, zlib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libfvde-python";
-  name = pname;
-  version = "20231128";
-
-  meta = with lib; {
-    description = "Python bindings module for libfvde";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libfvde/";
-    downloadPage = "https://github.com/libyal/libfvde/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
-
-  buildInputs = [ zlib ];
+  version = "20240113";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-InW4qbmjkloWktSk396qEhxO3MVTjCFMAW0apnK1QXk=";
+    hash = "sha256-GN9Je1s2w2o/ps9zZaZgajJiuHWd8vbAmHpqRfBdssg=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  buildInputs = [ zlib ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyfvde" ];
+
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
+    description = "Python bindings module for libfvde";
+    downloadPage = "https://github.com/libyal/libfvde/releases";
+    homepage = "https://github.com/libyal/libfvde";
+    license = licenses.lgpl3Plus;
+  };
 }

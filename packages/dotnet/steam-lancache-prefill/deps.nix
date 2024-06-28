@@ -78,11 +78,6 @@
     sha256 = "1vkjwryz4wdsaawfq3r80qrmfiyv2zp9y6fzkf2014sqw4nf1vwl";
   })
   (fetchNuGet {
-    pname = "Microsoft.NET.ILLink.Tasks";
-    version = "8.0.1";
-    sha256 = "1drbgqdcvbpisjn8mqfgba1pwb6yri80qc4mfvyczqwrcsj5k2ja";
-  })
-  (fetchNuGet {
     pname = "Microsoft.NETCore.Platforms";
     version = "1.1.0";
     sha256 = "08vh1r12g6ykjygq5d3vq09zylgb84l63k49jc4v8faw9g93iqqm";

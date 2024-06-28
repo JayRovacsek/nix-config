@@ -3,10 +3,13 @@
     acme
     agenix
     ddclient
+    grafana-agent
     microvm-guest
     nginx
+    nix-topology
     time
     timesyncd
+    tmp-tmpfs
   ]) ++ [ ./nginx.nix ];
 
   microvm = {
@@ -20,7 +23,7 @@
       };
     }];
 
-    mem = 1024;
+    mem = 4096;
   };
 
   networking.hostName = "nidorina";

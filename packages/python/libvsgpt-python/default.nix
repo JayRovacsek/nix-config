@@ -1,26 +1,26 @@
 { lib, fetchPypi, python3Packages, ... }:
-let
+let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in buildPythonPackage rec {
   pname = "libvsgpt-python";
-  name = pname;
-  version = "20231122";
-
-  meta = with lib; {
-    description = "Python bindings module for libvsgpt";
-    platforms = platforms.all;
-    homepage = "https://github.com/libyal/libvsgpt/";
-    downloadPage = "https://github.com/libyal/libvsgpt/releases";
-    license = licenses.lgpl3Plus;
-  };
-
-  inherit (python3Packages) buildPythonPackage;
-
-in buildPythonPackage {
-  inherit pname name version meta;
+  version = "20240228";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-bFiM5FXllS9GR+XPc+dQCJ7aGV0EKmnPv4hB0UUDzcU=";
+    hash = "sha256-6knIN5K0m0s5Wp7++tEuCBhhhu+Ego2OvRv87RAA3lQ=";
   };
 
-  doCheck = false;
+  build-system = [ setuptools ];
+
+  disabled = pythonOlder "3.7";
+
+  pythonImportsCheck = [ "pyvsgpt" ];
+
+  meta = with lib; rec {
+    description = "Python bindings module for libvsgpt";
+
+    homepage = "https://github.com/libyal/libvsgpt";
+    downloadPage = "https://github.com/libyal/libvsgpt/releases";
+    license = licenses.lgpl3Plus;
+  };
 }
