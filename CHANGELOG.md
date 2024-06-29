@@ -33,6 +33,8 @@
 - *(modules)* Resolve loki v12 -> v13 changes - ([0f18ebf](https://github.com/JayRovacsek/nix-config/commit/0f18ebf54033e291bee32bf52171676514563862))
 
 - *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+- Resolve eval issues - ([b8e346d](https://github.com/JayRovacsek/nix-config/commit/b8e346d910a1b087960f4bb2dd796fd3209f160d))
+
 - Resolve missing module file - ([b87be83](https://github.com/JayRovacsek/nix-config/commit/b87be83443f655ba1cfb8c809ea89477c0b0981e))
 
 - Resolve vscodium issues on aarch64-linux - ([e283bcb](https://github.com/JayRovacsek/nix-config/commit/e283bcbb81b23ebc9d35aadf01e7e74ff4baa5dc))
