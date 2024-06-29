@@ -7,7 +7,7 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = cli;
+    modules = cli ++ self.common.home-manager-module-sets.impermanence;
   };
 
   user-configs = merge [ jay ];
@@ -44,35 +44,40 @@ in {
   };
 
   fileSystems = {
-    "/" = {
+    "/persistent" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
+      neededForBoot = true;
     };
   };
 
   hardware.enableRedistributableFirmware = true;
 
-  imports = (with self.nixosModules; [
+  imports = with self.nixosModules; [
     agenix
     blocky
     fonts
     generations
-    nix-topology
     gnupg
     grafana-agent
+    impermanence
     journald
     logging
-    lorri
     nix
+    nix-topology
     openssh
     sudo
     systemd-networkd
     time
     timesyncd
     zsh
-  ]) ++ [
-    "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
+  # Add the below to enable imaging as a SD image - this
+  # causes issues when impermanence is active however
+  # ref: https://github.com/NixOS/nixpkgs/blob/53a702e155d4d87cb908524ddb52db36aed98d03/nixos/modules/installer/sd-card/sd-image.nix#L165
+  # ++ [
+  #  "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+  # ];
 
   networking = {
     hostName = "jigglypuff";
@@ -82,11 +87,9 @@ in {
     usePredictableInterfaceNames = false;
   };
 
-  services.journald.storage = "volatile";
-
   swapDevices = [{
     device = "/swapfile";
-    size = 1024;
+    size = 256;
   }];
 
   systemd.network = {

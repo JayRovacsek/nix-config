@@ -9,6 +9,8 @@ let
     builtins.map (x: "/var/lib/${builtins.hashString "md5" x}")
     (builtins.attrNames config.microvm.vms);
 
+  agenix-in-use = builtins.hasAttr "age" config;
+
   # If instances are defined, assume they may be all utilised
   # TODO: check if a filter for enabled is required here in the case of 
   # failure on directory not existing
@@ -38,21 +40,20 @@ in {
     directories =
       # Default inclusions
       [
-        "/etc/adjtime"
-        "/etc/passwd"
-        "/etc/shadow"
         "/nix"
-        "/var/log"
-        "/var/tmp"
         "/var/lib/nixos"
         "/var/lib/private"
         "/var/lib/systemd"
+        "/var/log"
+        "/var/tmp"
       ]
 
       # TODO: map directories to correct owner and systemd state directories.
       # akind to headscale below (plus user)
 
       # Optional inclusions depending on configuration
+      ## Agenix
+      ++ (lib.optional agenix-in-use "/agenix")
       ## Authelia
       ++ (lib.optionals authelia authelia-instances)
       ## ClamAV
@@ -81,9 +82,17 @@ in {
         "/var/lib/lightdm-data"
       ])
       ++ (lib.optionals microvm ([ "/var/lib/microvms" ] ++ microvm-state-dirs))
-      ++ (lib.optionals config.services.xserver.displayManager.sddm.enable
+      ++ (lib.optionals config.services.displayManager.sddm.enable
         [ "/var/lib/sddm" ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
-    files = [ "/etc/machine-id" ];
+    files = [
+      "/etc/adjtime"
+      "/etc/machine-id"
+      "/etc/passwd"
+      "/etc/shadow"
+      "/etc/ssh"
+    ]
+    ## Agenix
+      ++ (lib.optionals agenix-in-use config.age.identityPaths);
   };
 }
