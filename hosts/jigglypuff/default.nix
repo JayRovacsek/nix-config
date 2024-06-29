@@ -34,6 +34,8 @@ in {
   boot = {
     kernelParams = [ "cma=128M" ];
 
+    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
+
     initrd.availableKernelModules =
       [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
 
@@ -86,11 +88,6 @@ in {
     # for now to just assume eth0
     usePredictableInterfaceNames = false;
   };
-
-  swapDevices = [{
-    device = "/swapfile";
-    size = 256;
-  }];
 
   systemd.network = {
     netdevs."00-vlan-dns" = {
