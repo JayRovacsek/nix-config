@@ -1,3 +1,8 @@
 { self }:
-let inherit (self.common) home-manager-modules;
-in with home-manager-modules; [ home-manager impermanence xdg ]
+with self.homeManagerModules; [
+  home-manager
+  # TODO: resolve common home manager files
+  # to be handled by impermanence
+  # impermanence 
+  xdg
+]
