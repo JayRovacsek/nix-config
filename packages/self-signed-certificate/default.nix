@@ -30,6 +30,7 @@ let
       }
       activation_date = "0000-01-01 00:00:00 UTC"
       expiration_date = "9999-12-31 23:59:59 UTC"
+      dns_name = "${builtins.toString domain}"
       dns_name = "*.${builtins.toString domain}"
       ip_address = "127.0.0.1"
     '';
