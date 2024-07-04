@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, self, ... }:
+{ config, pkgs, lib, self, ... }:
 
 let
   inherit (self) common;
@@ -22,7 +22,6 @@ in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
-    "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     agenix
     generations
     gnupg
@@ -30,6 +29,7 @@ in {
     greetd
     hyprland
     i18n
+    impermanence
     lorri
     nix
     nix-topology
@@ -84,9 +84,10 @@ in {
   environment.systemPackages = with pkgs; [ alacritty jellyfin-media-player ];
 
   fileSystems = {
-    "/" = {
+    "/persistent" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
+      neededForBoot = true;
       options = [ "noatime" ];
     };
   };
@@ -142,7 +143,7 @@ in {
 
   swapDevices = [{
     device = "/swapfile";
-    size = 3072;
+    size = 512;
   }];
 
   system.stateVersion = "24.05";

@@ -40,6 +40,7 @@ in {
     directories =
       # Default inclusions
       [
+        "/etc/ssh"
         "/nix"
         "/var/lib/nixos"
         "/var/lib/private"
@@ -90,7 +91,6 @@ in {
       "/etc/machine-id"
       "/etc/passwd"
       "/etc/shadow"
-      "/etc/ssh"
     ]
     ## Agenix
       ++ (lib.optionals agenix-in-use config.age.identityPaths);
