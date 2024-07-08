@@ -9,13 +9,8 @@ let
   optional-packages =
     lib.optionals nvidia-present (with pkgs; [ libva nvidia-vaapi-driver ]);
 
-  systemPackages = (with pkgs; [
-    libsForQt5.qt5.qtwayland
-    pciutils
-    vulkan-loader
-    vulkan-tools
-    vulkan-validation-layers
-  ]) ++ optional-packages;
+  systemPackages = (with pkgs; [ libsForQt5.qt5.qtwayland pciutils ])
+    ++ optional-packages;
 
   optional-env-values = lib.optionalAttrs nvidia-present {
     GBM_BACKEND = "nvidia-drm";
@@ -49,10 +44,8 @@ in {
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       SDL_VIDEODRIVER = "x11";
-      WLR_BACKEND = "vulkan";
       WLR_DRM_NO_ATOMIC = "1";
       WLR_NO_HARDWARE_CURSORS = "1";
-      WLR_RENDERER = "vulkan";
     } // optional-env-values;
   };
 
