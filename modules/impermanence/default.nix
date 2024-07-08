@@ -23,11 +23,14 @@ let
 in {
   imports = [ self.inputs.impermanence.nixosModules.impermanence ];
 
-  fileSystems."/" = {
-    device = "none";
-    fsType = "tmpfs";
-    neededForBoot = true;
-    options = [ "defaults" "size=2G" "mode=755" ];
+  fileSystems = {
+    "/" = {
+      device = "none";
+      fsType = "tmpfs";
+      neededForBoot = true;
+      options = [ "defaults" "size=2G" "mode=755" ];
+    };
+    "/agenix".neededForBoot = true;
   };
 
   boot.tmp = {
@@ -86,13 +89,6 @@ in {
       ++ (lib.optionals config.services.displayManager.sddm.enable
         [ "/var/lib/sddm" ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
-    files = [
-      "/etc/adjtime"
-      "/etc/machine-id"
-      "/etc/passwd"
-      "/etc/shadow"
-    ]
-    ## Agenix
-      ++ (lib.optionals agenix-in-use config.age.identityPaths);
+    files = [ "/etc/machine-id" ];
   };
 }

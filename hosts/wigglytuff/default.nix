@@ -22,6 +22,7 @@ in {
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
+    ./disk-config.nix
     agenix
     generations
     gnupg
@@ -56,46 +57,18 @@ in {
   };
 
   boot = {
-    # VC4 required for GPU hardware acceleration
-    initrd.availableKernelModules = [
-      "pcie_brcmstb"
-      "reset-raspberrypi"
-      "usb_storage"
-      "usbhid"
-      "vc4"
-      "xhci_pci"
-    ];
-
     # Set the headphone jack as the default output
     extraModprobeConfig = ''
       options snd_bcm2835 enable_headphones=1
     '';
 
-    kernelPackages = pkgs.linuxPackages_rpi4;
-    kernelParams = [
-      "cma=256M"
-      "console=tty1"
-      "console=ttyAMA0,115200"
-      "8250.nr_uarts=1"
-      "kunit.enable=0"
-    ];
+    kernelParams =
+      [ "8250.nr_uarts=1" "boot.shell_on_fail" "cma=256M" "console=tty1" ];
   };
 
   environment.systemPackages = with pkgs; [ alacritty jellyfin-media-player ];
 
-  fileSystems = {
-    "/persistent" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      neededForBoot = true;
-      options = [ "noatime" ];
-    };
-  };
-
   hardware = {
-    # Filter for just pi4 replated device drivers
-    deviceTree.filter = "bcm2711-rpi-4*.dtb";
-
     # Audio settings to ensure the headphones are the default
     pulseaudio = {
       enable = true;
@@ -107,6 +80,7 @@ in {
     };
 
     raspberry-pi."4" = {
+      apply-overlays-dtmerge.enable = true;
       # Enable GPU acceleration
       fkms-3d = {
         enable = true;
@@ -130,8 +104,6 @@ in {
 
   services = {
     journald.storage = "volatile";
-    # Hide Builder user from SDDM login
-    xserver.displayManager.sddm.settings.Users.HideUsers = "builder";
     timesyncd.servers = lib.mkForce [
       # "129.6.15.28"
       "137.92.140.80" # -> ntp.ise.canberra.edu.au
@@ -140,11 +112,6 @@ in {
       "129.6.15.29" # -> time-b-g.nist.gov
     ];
   };
-
-  swapDevices = [{
-    device = "/swapfile";
-    size = 512;
-  }];
 
   system.stateVersion = "24.05";
 }
