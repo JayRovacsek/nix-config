@@ -7,4 +7,5 @@ in desktop-minimal ++ (with self.homeManagerModules; [
   keepassxc
   slack
   vscodium
+  zed
 ])

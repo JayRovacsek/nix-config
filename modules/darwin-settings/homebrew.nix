@@ -31,6 +31,7 @@ in {
       "nextcloud"
       "raycast"
       "signal"
+      "zed"
       "zoom"
     ] ++ extraCasks;
 

@@ -71,6 +71,8 @@
 - *(checks)* Remove custom trufflehog check - ([a696b74](https://github.com/JayRovacsek/nix-config/commit/a696b74f57fe85ca3da2c25858eb95ffbe41d78c))
 
 - *(linux)* Remove a large chunk of dead or redundant code - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
+
+- *(modules)* Simplify fonts module - ([bc22ac0](https://github.com/JayRovacsek/nix-config/commit/bc22ac036029b34e674bf43eb1cb85a64111cda0))
 - Reorder inputs - ([21d0ebd](https://github.com/JayRovacsek/nix-config/commit/21d0ebde647dfec1b065f74c3b9bb43810873041))
 
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
