@@ -3,7 +3,7 @@
     packages =
       lib.optionals (!pkgs.zed-editor.meta.broken) (with pkgs; [ zed-editor ]);
 
-    file."${config.xdg.configHome}/.zed/settings.json".text = builtins.toJSON {
+    file."${config.xdg.configHome}/zed/settings.json".text = builtins.toJSON {
       active_pane_magnification = 1;
       always_treat_brackets_as_autoclosed = false;
       assistant = {
