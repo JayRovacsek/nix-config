@@ -6,6 +6,8 @@
 
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
 
+- *(home-manager-modules,darwin)* Add utm as a module - ([83721d3](https://github.com/JayRovacsek/nix-config/commit/83721d30f031b39949f9ad143899cb41d805cd8e))
+
 - *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
 
 - *(linux)* Migrate wigglytuff to impermanence - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))

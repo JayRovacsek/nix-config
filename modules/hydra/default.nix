@@ -13,6 +13,7 @@ let
      :'(
   */
   urls = [
+    "git+https://git.lix.systems"
     "github:aarowill/base16-alacritty"
     "github:astro/microvm.nix"
     "github:Aylur/ags"
