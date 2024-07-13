@@ -5,7 +5,11 @@ let
 in {
   all = system-agnostic ++ darwin ++ linux;
 
-  darwin = [ firefox-darwin.overlay self.overlays.keepassxc ];
+  darwin = [
+    firefox-darwin.overlay
+    self.overlays.dockutil-bin
+    self.overlays.keepassxc
+  ];
 
   linux = [
     self.overlays.element-desktop
@@ -19,10 +23,5 @@ in {
     self.overlays.waybar
   ];
 
-  system-agnostic = [
-    agenix.overlays.default
-    nur.overlay
-    self.overlays.lib
-    self.overlays.nix-monitored
-  ];
+  system-agnostic = [ agenix.overlays.default nur.overlay self.overlays.lib ];
 }

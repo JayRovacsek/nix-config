@@ -10,6 +10,10 @@
     inherit (self.inputs.ags-config.packages.${prev.system}) ags-config;
   };
 
+  dockutil-bin = _final: prev: {
+    dockutil-bin = prev.dockutil.override { fromSource = false; };
+  };
+
   element-desktop = _final: prev: {
     element-desktop = prev.element-desktop.overrideAttrs (old:
       let executableName = "element-desktop";
@@ -121,6 +125,10 @@
         types.net = lib-net.types;
       };
     };
+
+  lix = _final: prev: {
+    inherit (self.inputs.lix.packages.${prev.system}) nix;
+  };
 
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA

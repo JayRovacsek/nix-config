@@ -8,6 +8,14 @@
 
 - *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
 
+- *(linux)* Migrate wigglytuff to impermanence - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
+
+- *(linux)* Move wigglytuff to impermanence - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
+
+- *(linux)* Remove swapfile on jigglypuff & use pi3 kernel - ([d04a417](https://github.com/JayRovacsek/nix-config/commit/d04a41767e4197ccc7972ec36e4daebc9e597fd3))
+
+- *(linux,modules,home-manager-modules)* Migrate jigglypuff to impermanence - ([a11c706](https://github.com/JayRovacsek/nix-config/commit/a11c706bb9d8364086a2e67bb13e826a818af5cd))
+
 - *(modules)* Add systemd-boot module - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
@@ -30,9 +38,17 @@
 
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
+- *(modules)* Add ssh directory to impermanence mounts - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
+
 - *(modules)* Resolve loki v12 -> v13 changes - ([0f18ebf](https://github.com/JayRovacsek/nix-config/commit/0f18ebf54033e291bee32bf52171676514563862))
 
+- *(modules,home-manager-modules)* Remove vulkan from hyprland - ([115f75f](https://github.com/JayRovacsek/nix-config/commit/115f75fada8a465e2bb47e5c1e801a4e37c8d432))
+
 - *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+
+- *(packages)* Resolve deterministic cert not including base domain - ([0afb74c](https://github.com/JayRovacsek/nix-config/commit/0afb74ca93907a581c294ff4ae36faac26efcda3))
+- Move impermanence to it's own package set - ([13d0b9e](https://github.com/JayRovacsek/nix-config/commit/13d0b9e58eba90afdb035163f4f23b2f0cbfccc2))
+
 - Resolve eval issues - ([b8e346d](https://github.com/JayRovacsek/nix-config/commit/b8e346d910a1b087960f4bb2dd796fd3209f160d))
 
 - Resolve missing module file - ([b87be83](https://github.com/JayRovacsek/nix-config/commit/b87be83443f655ba1cfb8c809ea89477c0b0981e))
@@ -43,6 +59,8 @@
 
 
 ### 🚜 Refactor
+
+- *(linux)* Remove a large chunk of dead or redundant code - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
 - Reorder inputs - ([21d0ebd](https://github.com/JayRovacsek/nix-config/commit/21d0ebde647dfec1b065f74c3b9bb43810873041))
 
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19

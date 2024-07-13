@@ -10,6 +10,7 @@ let
     inherit config pkgs;
     modules = darwin-desktop;
   };
+
   user-configs = merge [ jay ];
 in {
   inherit (user-configs) users home-manager;
@@ -62,9 +63,11 @@ in {
     documentation
     fonts
     gnupg
+    lix
     lorri
     networking
     nix
+    nix-monitored
     skhd
     time
     yabai

@@ -37,11 +37,13 @@ in {
     hyprland
     i18n
     keybase
+    lix
     logging
     lorri
     microvm-host
     nextcloud-client
     nix
+    nix-monitored
     nix-topology
     nvidia
     openssh

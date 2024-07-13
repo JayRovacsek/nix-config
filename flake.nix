@@ -105,6 +105,15 @@
       url = "github:nix-community/lib-aggregate";
     };
 
+    lix = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        pre-commit-hooks.follows = "git-hooks";
+      };
+      url = "git+https://git.lix.systems/lix-project/lix.git";
+    };
+
     # Microvm module, PoC state for implementation
     microvm = {
       inputs = {
@@ -383,15 +392,6 @@
                   name = "Trufflehog Search";
                   entry =
                     "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
-                  language = "system";
-                  pass_filenames = false;
-                };
-
-                trufflehog-regex = {
-                  enable = pkgs.stdenv.isLinux;
-                  name = "Trufflehog Regex Search";
-                  entry =
-                    "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions  --no-update";
                   language = "system";
                   pass_filenames = false;
                 };
