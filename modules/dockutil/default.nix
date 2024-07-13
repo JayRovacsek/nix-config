@@ -27,6 +27,7 @@ let
   keepassEntry = [{ path = "${pkgs.keepassxc}/Applications/KeePassXC.app"; }];
   outlookEntry = [{ path = "/Applications/Microsoft Outlook.app"; }];
   slackEntry = [{ path = "${pkgs.slack}/Applications/Slack.app"; }];
+  utmEntry = [{ path = "${pkgs.utm}/Applications/UTM.app"; }];
 
   entries = (if anyUserHas "alacritty" then alacrittyEntry else [ ])
     ++ (if anyUserHas "firefox" then firefoxEntry else [ ])
@@ -39,7 +40,8 @@ let
     ++ (if anyUserHas "vscode" then vscodiumEntry else [ ])
     ++ (if anyUserHas "keepassxc" then keepassEntry else [ ])
     ++ (if anyUserHas "Microsoft Outlook" then outlookEntry else [ ])
-    ++ (if anyUserHas "slack" then slackEntry else [ ]);
+    ++ (if anyUserHas "slack" then slackEntry else [ ])
+    ++ (if anyUserHas "utm" then utmEntry else [ ]);
 
 in {
   imports = [ ../../options/dockutil ];
