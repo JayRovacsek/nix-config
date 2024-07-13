@@ -50,6 +50,8 @@
 
 - *(modules,home-manager-modules)* Remove vulkan from hyprland - ([115f75f](https://github.com/JayRovacsek/nix-config/commit/115f75fada8a465e2bb47e5c1e801a4e37c8d432))
 
+- *(options)* Shift dock-util to binary source to avoid issues with swift - ([522d43e](https://github.com/JayRovacsek/nix-config/commit/522d43e80061aaa29e5a4079596313cba233c62c))
+
 - *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
 - *(packages)* Resolve deterministic cert not including base domain - ([0afb74c](https://github.com/JayRovacsek/nix-config/commit/0afb74ca93907a581c294ff4ae36faac26efcda3))
