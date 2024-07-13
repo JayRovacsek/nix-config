@@ -1,7 +1,7 @@
 # Seriously thankful for @tboerger for the inspiration behind this: https://github.com/tboerger/darwin-config/blob/master/profiles/modules/dock.nix
 # Changed option from my.modules.dock to dockutil
 # Added --relpacing to ensure existing tiles are clobbered if need be
-{ pkgs, lib, config, options, ... }:
+{ pkgs, lib, config, ... }:
 
 let cfg = config.dockutil;
 
@@ -60,17 +60,16 @@ in {
       '') cfg.entries;
 
       createEntries = concatMapStrings (entry: ''
-        dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options} --replacing ${entry.section}
+        ${pkgs.dockutil-bin}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options} --replacing ${entry.section}
       '') cfg.entries;
     in {
-      environment.systemPackages = with pkgs; [ dockutil ];
 
       system.activationScripts.postUserActivation.text = ''
         echo >&2 "Setting up dock items..."
-        haveURIs="$(dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
+        haveURIs="$(${pkgs.dockutil-bin}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"
         if ! diff -wu <(echo -n "$haveURIs") <(echo -n '${wantURIs}') >&2; then
           echo >&2 "Resetting dock"
-          dockutil --no-restart --remove all
+          ${pkgs.dockutil-bin}/bin/dockutil --no-restart --remove all
           ${createEntries}
           killall Dock
         else

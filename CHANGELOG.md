@@ -8,6 +8,8 @@
 
 - *(home-manager-modules,darwin)* Add utm as a module - ([83721d3](https://github.com/JayRovacsek/nix-config/commit/83721d30f031b39949f9ad143899cb41d805cd8e))
 
+- *(hydra)* Add lix to hydra allowed uris - ([a0da1a4](https://github.com/JayRovacsek/nix-config/commit/a0da1a4d4617938fc01ecf8a4b14c16bc6d03552))
+
 - *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
 
 - *(linux)* Migrate wigglytuff to impermanence - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
