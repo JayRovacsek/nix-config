@@ -76,6 +76,8 @@ in {
     usePredictableInterfaceNames = false;
   };
 
+  programs.fuse.userAllowOther = true;
+
   systemd.network = {
     netdevs."00-vlan-dns" = {
       enable = true;

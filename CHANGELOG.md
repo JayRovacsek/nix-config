@@ -50,6 +50,8 @@
 
 - *(home-manager-modules)* Resolve vscode plugin issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
+- *(linux)* Correct impermanence on jigglypuff - ([7e0b548](https://github.com/JayRovacsek/nix-config/commit/7e0b548347634f65ee44a23daa853613204f7089))
+
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(modules)* Add ssh directory to impermanence mounts - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
