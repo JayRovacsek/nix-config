@@ -50,6 +50,8 @@
 
 - *(home-manager-modules)* Resolve vscode plugin issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
+- *(linux)* Add fuse allow other for jigglypuff - ([e9de8fc](https://github.com/JayRovacsek/nix-config/commit/e9de8fcca3dc245ae487af33a8493944da7a90bc))
+
 - *(linux)* Correct impermanence on jigglypuff - ([7e0b548](https://github.com/JayRovacsek/nix-config/commit/7e0b548347634f65ee44a23daa853613204f7089))
 
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))

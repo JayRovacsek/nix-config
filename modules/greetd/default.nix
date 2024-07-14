@@ -4,14 +4,17 @@ let
   # TODO: add other WM configurations where I might use them and greetd.
   # If utilised without hyprland the syntax of the default session will be 
   # invalid
-  cmd = if hyperland-present then "${pkgs.hyprland}/bin/Hyprland" else "";
+  cmd = if hyperland-present then
+    "${config.programs.hyprland.package}/bin/Hyprland"
+  else
+    "";
 
   command = lib.concatStringsSep " " [
     "${pkgs.greetd.tuigreet}/bin/tuigreet"
     "--greeting"
     "'Welcome to NixOS!'"
     "--asterisks"
-    "--remember-session"
+    "--remember"
     "--time"
     "--user-menu"
     "--cmd"
