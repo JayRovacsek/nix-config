@@ -28,7 +28,7 @@ in {
       device = "none";
       fsType = "tmpfs";
       neededForBoot = true;
-      options = [ "defaults" "size=2G" "mode=755" ];
+      options = [ "defaults" "mode=755" ];
     };
     "/agenix".neededForBoot = true;
   };
@@ -89,6 +89,5 @@ in {
       ++ (lib.optionals config.services.displayManager.sddm.enable
         [ "/var/lib/sddm" ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
-    files = [ "/etc/machine-id" ];
   };
 }

@@ -4,6 +4,8 @@
 
 - *(darwin)* Remove keepassxc brew install - ([a27a7f5](https://github.com/JayRovacsek/nix-config/commit/a27a7f5b3555e85f57c6c7cd39699bb0e2ba5e2c))
 
+- *(home-manager-modules)* Customise zed theme & settings - ([8111e4f](https://github.com/JayRovacsek/nix-config/commit/8111e4f6ce59c89e505441be202bf4a7e540bcf2))
+
 - *(home-manager-modules)* Add zed home manager module & default settings - ([ecd343e](https://github.com/JayRovacsek/nix-config/commit/ecd343ed6c49efd4479750152a132541947fa071))
 
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))

@@ -45,17 +45,10 @@ in {
     };
   };
 
-  fileSystems = {
-    "/persistent" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
-  };
-
   hardware.enableRedistributableFirmware = true;
 
   imports = with self.nixosModules; [
+    ./disk-config.nix
     agenix
     blocky
     fonts
@@ -74,12 +67,6 @@ in {
     timesyncd
     zsh
   ];
-  # Add the below to enable imaging as a SD image - this
-  # causes issues when impermanence is active however
-  # ref: https://github.com/NixOS/nixpkgs/blob/53a702e155d4d87cb908524ddb52db36aed98d03/nixos/modules/installer/sd-card/sd-image.nix#L165
-  # ++ [
-  #  "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-  # ];
 
   networking = {
     hostName = "jigglypuff";
