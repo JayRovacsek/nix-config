@@ -97,6 +97,15 @@
     # Modules to help you handle persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
 
+    ironbar = {
+      url = "github:JakeStanger/ironbar";
+      inputs = {
+        naersk.follows = "naersk";
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
     lib-aggregate = {
       inputs = {
         flake-utils.follows = "flake-utils";
@@ -121,6 +130,11 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix";
+    };
+
+    naersk = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/naersk";
     };
 
     nix-darwin = {
@@ -204,6 +218,11 @@
 
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     sandro-nixos-modules = {
       inputs = {
