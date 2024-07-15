@@ -1,8 +1,10 @@
 { config, osConfig, pkgs, self }:
 let
-  inherit (pkgs)
-    grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
+  inherit (pkgs) grim slurp swappy lib fuzzel nextcloud-client hyprpaper;
   inherit (self.lib.hyprland) generate-monitors;
+
+  inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
+    base01 base02 base03;
 
   alakazam-monitors = [
     {
@@ -39,8 +41,6 @@ let
   else
     [ ",preferred,auto,auto" ];
 
-  waybar-exec = "${systemd}/bin/systemctl --user start waybar.service";
-
   nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
     config.home.packages;
 
@@ -49,7 +49,7 @@ let
   nextcloud-exec =
     lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
+  exec-once = [ wallpaper-exec ] ++ nextcloud-exec;
 
 in {
   inherit exec-once monitor;
@@ -65,10 +65,10 @@ in {
   general = {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
     gaps_in = 5;
-    gaps_out = 20;
+    gaps_out = 5;
     border_size = 2;
-    "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-    "col.inactive_border" = "rgba(595959aa)";
+    "col.active_border" = "rgba(${base03}ee)";
+    "col.inactive_border" = "rgba(${base02}aa)";
 
     layout = "dwindle";
   };
@@ -79,7 +79,7 @@ in {
     drop_shadow = true;
     shadow_range = 4;
     shadow_render_power = 3;
-    "col.shadow" = "rgba(1a1a1aee)";
+    "col.shadow" = "rgba(${base01}ee)";
   };
 
   # https://wiki.hyprland.org/Configuring/Variables/#animations

@@ -1,8 +1,7 @@
 { config, pkgs, self, ... }:
 
 let
-  inherit (self.common.home-manager-module-sets)
-    base hyprland-waybar-desktop games;
+  inherit (self.common.home-manager-module-sets) base hyprland-desktop games;
   inherit (self.lib) merge;
 
   inherit (pkgs) system;
@@ -15,7 +14,8 @@ let
 
   jay = self.common.users.jay {
     inherit config pkgs;
-    modules = hyprland-waybar-desktop ++ games;
+    modules = hyprland-desktop ++ games
+      ++ (with self.homeManagerModules; [ ironbar ]);
   };
 
   user-configs = merge [ builder jay ];

@@ -1,154 +1,116 @@
 # https://github.com/JakeStanger/ironbar/wiki/configuration-guide
-_: {
+{ pkgs, self, ... }:
+let
+  inherit (pkgs) system;
+  inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
+    base00 base01 base03 base05 base08;
+in {
+  imports = [ self.inputs.ironbar.homeManagerModules.default ];
+
   programs.ironbar = {
     enable = true;
     systemd = true;
     config = {
-      monitors = {
-        DP-2 = {
-          #icon_theme = "Tela-circle-dracula";
-          position = "top";
-          height = 32;
-          start = [
-            {
-              type = "label";
-              label = "󱄅";
-              name = "nix";
-            }
-            {
-              type = "workspaces";
-              all_monitors = false;
-            }
-            {
-              type = "launcher";
-              show_names = false;
-              show_icons = true;
-            }
-          ];
-          center = [{
-            type = "clock";
-            format = "%R - %a %d.";
+      #icon_theme = "Tela-circle-dracula";
+      position = "top";
+      height = 32;
+      start = [
+        {
+          type = "label";
+          label = "󱄅";
+          name = "nix";
+        }
+        {
+          type = "workspaces";
+          all_monitors = false;
+        }
+        {
+          type = "launcher";
+          show_names = false;
+          show_icons = true;
+        }
+      ];
+      center = [{
+        type = "clock";
+        format = "%R - %a %d.";
+      }];
+      end = [
+        {
+          type = "custom";
+          class = "screenshot";
+          bar = [{
+            type = "button";
+            name = "screenshot-btn";
+            label = "";
+            on_click = "!${
+                self.packages.${system}.waybar-screenshot
+              }/bin/waybar-screenshot";
           }];
-          end = [
-            {
-              type = "sys_info";
-              format = [
-                "   {cpu_percent}% | {temp_c:coretemp-Package-id-0}°C"
-                "   {memory_percent}%"
-              ];
-              interval = {
-                cpu = 1;
-                temps = 5;
-                memory = 30;
-              };
-            }
-            { type = "tray"; }
-            {
-              type = "volume";
-              format = "{icon} {percentage}%";
-              max_volume = 100;
-              icons = {
-                volume_high = "󰕾";
-                volume_medium = "󰖀";
-                volume_low = "󰕿";
-                volume_muted = "󰝟";
-              };
-            }
-            {
-              type = "custom";
-              class = "power-menu";
-              bar = [{
-                type = "button";
-                name = "power-btn";
-                label = "";
-                on_click = "popup:toggle";
-              }];
-              popup = [{
-                type = "box";
-                orientation = "vertical";
-                widgets = [
-                  {
-                    type = "label";
-                    name = "header";
-                    label = "Power menu";
-                  }
-                  {
-                    type = "box";
-                    widgets = [
-                      {
-                        type = "button";
-                        class = "power-btn";
-                        label = "<span font-size='40pt'></span>";
-                        on_click = "!shutdown now";
-                      }
-                      {
-                        type = "button";
-                        class = "power-btn";
-                        label = "<span font-size='40pt'></span>";
-                        on_click = "!reboot";
-                      }
-                    ];
-                  }
-                ];
-              }];
-            }
+        }
+        {
+          type = "sys_info";
+          format = [
+            "   {cpu_percent}% | {temp_c:coretemp-Package-id-0}°C"
+            "   {memory_percent}%"
           ];
-        };
-      };
+          interval = {
+            cpu = 1;
+            temps = 5;
+            memory = 30;
+          };
+        }
+        { type = "tray"; }
+        {
+          type = "volume";
+          format = "{icon} {percentage}%";
+          max_volume = 100;
+          icons = {
+            volume_high = "󰕾";
+            volume_medium = "󰖀";
+            volume_low = "󰕿";
+            volume_muted = "󰝟";
+          };
+        }
+        {
+          type = "custom";
+          class = "power-menu";
+          bar = [{
+            type = "button";
+            name = "power-btn";
+            label = "";
+            on_click = "!${
+                pkgs.writeShellScript "power-btn"
+                "${pkgs.procps}/bin/pkill wlogout || ${pkgs.wlogout}/bin/wlogout"
+              }";
+          }];
+        }
+      ];
     };
     style = ''
-      /* Catppuccin Mocha palette */
-      @define-color rosewater #f5e0dc;
-      @define-color flamingo  #f2cdcd;
-      @define-color pink      #f5c2e7;
-      @define-color mauve     #cba6f7;
-      @define-color red       #f38ba8;
-      @define-color maroon    #eba0ac;
-      @define-color peach     #fab387;
-      @define-color yellow    #f9e2af;
-      @define-color green     #a6e3a1;
-      @define-color teal      #94e2d5;
-      @define-color sky       #89dceb;
-      @define-color sapphire  #74c7ec;
-      @define-color blue      #89b4fa;
-      @define-color lavender  #b4befe;
-      @define-color text      #cdd6f4;
-      @define-color subtext1  #bac2de;
-      @define-color subtext0  #a6adc8;
-      @define-color overlay2  #9399b2;
-      @define-color overlay1  #7f849c;
-      @define-color overlay0  #6c7086;
-      @define-color surface2  #585b70;
-      @define-color surface1  #45475a;
-      @define-color surface0  #313244;
-      @define-color base      #1e1e2e;
-      @define-color mantle    #181825;
-      @define-color crust     #11111b;
-
-      /* Main color definitions */
-      @define-color color_bg           @base;
-      @define-color color_bg_dark      @crust;
-      @define-color color_border       @surface0;
-      @define-color color_border_active @blue;
-      @define-color color_text         @text;
-      @define-color color_urgent       @red;
-
-      /* -- base styles -- */
+      @define-color color_bg #${base00};
+      @define-color color_bg_dark #${base01};
+      @define-color color_border #${base03};
+      @define-color color_border_active #${base03};
+      @define-color color_text #${base05};
+      @define-color color_urgent #${base08};
 
       * {
-          font-family: Noto Sans Nerd Font, sans-serif;
+          font-family: Hack Nerd Font;
           font-size: 16px;
           border: none;
           border-radius: 0;
       }
 
-      box, menubar, button {
+      box,
+      menubar,
+      button {
           background-color: @color_bg;
           background-image: none;
           box-shadow: none;
       }
 
-      button, label {
+      button,
+      label {
           color: @color_text;
       }
 
@@ -168,10 +130,10 @@ _: {
       }
 
       #bar {
-          background-color: @base;
-          border: 2px solid @mauve;
+          background-color: @color_bg;
+          border: 2px solid @color_border;
           border-radius: 8px;
-          margin: 10px 20px;
+          margin: 5px;
           padding: 2px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
@@ -191,21 +153,21 @@ _: {
       }
 
       .widget {
-          color: @text;
-          font-family: "Noto Sans", sans-serif;
-          font-size: 14px;
+          color: @color_text;
+          font-family: Hack Nerd Font;
+          font-size: 16px;
           padding: 0 8px;
       }
 
       .popup {
-          background-color: @base;
-          border: 1px solid @surface0;
+          background-color: @color_bg;
+          border: 1px solid @color_border;
           border-radius: 8px;
           padding: 8px;
       }
 
       /* Ensure widgets don't overflow the rounded corners */
-      #bar > * {
+      #bar>* {
           margin: 2px 0;
       }
 
@@ -302,7 +264,8 @@ _: {
           margin-right: 0.4em;
       }
 
-      .popup-music .title .icon, .popup-music .title .label {
+      .popup-music .title .icon,
+      .popup-music .title .label {
           font-size: 1.7em;
       }
 
@@ -389,7 +352,7 @@ _: {
           padding: 0.6em 1em;
       }
 
-      .popup-power-menu #buttons > *:nth-child(1) .power-btn {
+      .popup-power-menu #buttons>*:nth-child(1) .power-btn {
           margin-right: 1em;
       }
     '';
