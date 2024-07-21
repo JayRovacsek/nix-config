@@ -1,3 +1,4 @@
+
 ## [unreleased]
 
 ### ⛰️  Features
@@ -15,6 +16,10 @@
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
 
 - *(home-manager-modules,darwin)* Add utm as a module - ([83721d3](https://github.com/JayRovacsek/nix-config/commit/83721d30f031b39949f9ad143899cb41d805cd8e))
+
+- *(home-manager-modules,lib)* Add handling for duplicate css keys - ([a2a43e2](https://github.com/JayRovacsek/nix-config/commit/a2a43e2588a1a9cb3654730a5b8a18f172542163))
+
+- *(home-manager-modules,lib)* Nixify ironbar style file - ([a2a43e2](https://github.com/JayRovacsek/nix-config/commit/a2a43e2588a1a9cb3654730a5b8a18f172542163))
 
 - *(hydra)* Add lix to hydra allowed uris - ([a0da1a4](https://github.com/JayRovacsek/nix-config/commit/a0da1a4d4617938fc01ecf8a4b14c16bc6d03552))
 

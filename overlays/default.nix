@@ -6,10 +6,6 @@
       (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
   };
 
-  ags-config = _final: prev: {
-    inherit (self.inputs.ags-config.packages.${prev.system}) ags-config;
-  };
-
   dockutil-bin = _final: prev: {
     dockutil-bin = prev.dockutil.override { fromSource = false; };
   };

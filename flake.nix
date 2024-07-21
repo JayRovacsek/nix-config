@@ -17,22 +17,6 @@
       };
     };
 
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ags-config = {
-      url = "github:JayRovacsek/ags-config/1.8.0";
-      inputs = {
-        ags.follows = "ags";
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
-      };
-    };
-
     devshell = {
       url = "github:numtide/devshell";
       inputs = {
