@@ -1,5 +1,5 @@
 
-## [unreleased]
+## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features
 
@@ -60,6 +60,8 @@
 ### 🐛 Bug Fixes
 
 - *(flake)* Resolve dead inputs - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
+
+- *(home-manager-modules)* Remove old config option from hyprland - ([63cd7b1](https://github.com/JayRovacsek/nix-config/commit/63cd7b125c5b6976217b4e161202036b5d1c1ad9))
 
 - *(home-manager-modules)* Add notifications, shift mem and temp interval - ([28f3b8d](https://github.com/JayRovacsek/nix-config/commit/28f3b8d90c66fd5e76ad7a67d06ffe7867a78eab))
 

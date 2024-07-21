@@ -46,6 +46,7 @@ in {
     nix-monitored
     nix-topology
     nvidia
+    ollama
     openssh
     pipewire
     steam
