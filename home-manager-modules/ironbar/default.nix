@@ -54,8 +54,8 @@ in {
           ];
           interval = {
             cpu = 1;
-            temps = 5;
-            memory = 30;
+            temps = 2;
+            memory = 2;
           };
         }
         { type = "tray"; }
@@ -68,6 +68,18 @@ in {
             volume_medium = "󰖀";
             volume_low = "󰕿";
             volume_muted = "󰝟";
+          };
+        }
+        {
+          type = "notifications";
+          show_count = true;
+          icons = {
+            closed_none = "󰍥";
+            closed_some = "󱥂";
+            closed_dnd = "󱅯";
+            open_none = "󰍡";
+            open_some = "󱥁";
+            open_dnd = "󱅮";
           };
         }
         {
