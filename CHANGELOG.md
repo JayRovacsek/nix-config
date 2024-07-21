@@ -55,6 +55,8 @@
 
 - *(flake)* Resolve dead inputs - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
+- *(home-manager-modules)* Add notifications, shift mem and temp interval - ([28f3b8d](https://github.com/JayRovacsek/nix-config/commit/28f3b8d90c66fd5e76ad7a67d06ffe7867a78eab))
+
 - *(home-manager-modules)* Resolve issue with tuigreet holding old hyprland sesh - ([430b9b6](https://github.com/JayRovacsek/nix-config/commit/430b9b68e29a2ec64229b3eb5080330b6725efcc))
 
 - *(home-manager-modules)* Correct path for zed settings - ([af2d887](https://github.com/JayRovacsek/nix-config/commit/af2d8873c489fb4275b0803c604ada49c3a95fd2))
