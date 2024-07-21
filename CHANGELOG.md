@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(common,linux)* Add ironbar home manager set to common - ([3bd1ec9](https://github.com/JayRovacsek/nix-config/commit/3bd1ec96556ca0b09cf7a3173118a898a409e852))
+
 - *(darwin)* Remove keepassxc brew install - ([a27a7f5](https://github.com/JayRovacsek/nix-config/commit/a27a7f5b3555e85f57c6c7cd39699bb0e2ba5e2c))
 
 - *(flake,home-manager-modules)* Remove ags - ([3b340be](https://github.com/JayRovacsek/nix-config/commit/3b340be635892f5a33a88ae8561808d7b6e6ccd3))

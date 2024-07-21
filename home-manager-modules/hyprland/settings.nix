@@ -101,9 +101,6 @@ in {
     preserve_split = true;
   };
 
-  # https://wiki.hyprland.org/Configuring/Master-Layout/ 
-  master = { new_is_master = true; };
-
   # https://wiki.hyprland.org/Configuring/Variables/#gestures
   gestures = { workspace_swipe = false; };
 
