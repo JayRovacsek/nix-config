@@ -5,6 +5,8 @@
 
 - *(darwin)* Remove keepassxc brew install - ([a27a7f5](https://github.com/JayRovacsek/nix-config/commit/a27a7f5b3555e85f57c6c7cd39699bb0e2ba5e2c))
 
+- *(flake,home-manager-modules)* Remove ags - ([3b340be](https://github.com/JayRovacsek/nix-config/commit/3b340be635892f5a33a88ae8561808d7b6e6ccd3))
+
 - *(home-manager-modules)* Integrate colour better with ironbar & hyprland - ([284e1bb](https://github.com/JayRovacsek/nix-config/commit/284e1bbf70b96c674eb690d90dd0d1eadd83326f))
 
 - *(home-manager-modules)* Add ironbar config - ([3b56d70](https://github.com/JayRovacsek/nix-config/commit/3b56d70edbcf379fe05c329fd79eb8d603682b38))
