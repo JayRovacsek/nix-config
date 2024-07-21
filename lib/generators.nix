@@ -13,7 +13,9 @@ let
         ${name} {
           ${to-css value}
         }
-      '' else
+      '' else if (builtins.typeOf value == "list") then
+        builtins.concatStringsSep "\n" (builtins.map (v: "${name} ${v}") value)
+      else
         "${name}: ${builtins.toString value};") attrs);
 
   to-xml = { name, value ? null, props ? null, include-header ? false, ... }: ''
