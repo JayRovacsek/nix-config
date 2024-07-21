@@ -7,6 +7,8 @@
 
 - *(flake,home-manager-modules)* Remove ags - ([3b340be](https://github.com/JayRovacsek/nix-config/commit/3b340be635892f5a33a88ae8561808d7b6e6ccd3))
 
+- *(home-manager-modules)* Add wlogout module - ([ac27624](https://github.com/JayRovacsek/nix-config/commit/ac27624c8b8555d1e58a7db723387d3ad455523c))
+
 - *(home-manager-modules)* Add hyprlock - ([3fd1e07](https://github.com/JayRovacsek/nix-config/commit/3fd1e07107230aac3f6210159cbb984d1cafe44d))
 
 - *(home-manager-modules)* Integrate colour better with ironbar & hyprland - ([284e1bb](https://github.com/JayRovacsek/nix-config/commit/284e1bbf70b96c674eb690d90dd0d1eadd83326f))
