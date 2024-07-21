@@ -69,6 +69,8 @@
 
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
+- *(modules)* Resolve removed opengl option - ([e7678ef](https://github.com/JayRovacsek/nix-config/commit/e7678efaefbdbf470d9c861f4997744bbd7eb44f))
+
 - *(modules)* Add ssh directory to impermanence mounts - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
 
 - *(modules)* Resolve loki v12 -> v13 changes - ([0f18ebf](https://github.com/JayRovacsek/nix-config/commit/0f18ebf54033e291bee32bf52171676514563862))

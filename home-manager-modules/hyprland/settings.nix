@@ -1,6 +1,7 @@
 { config, osConfig, pkgs, self }:
 let
-  inherit (pkgs) grim slurp swappy lib fuzzel nextcloud-client hyprpaper;
+  inherit (pkgs)
+    grim hyprlock slurp swappy lib fuzzel nextcloud-client hyprpaper;
   inherit (self.lib.hyprland) generate-monitors;
 
   inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
@@ -142,6 +143,9 @@ in {
     # Print Screen
     ''
       , code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
+
+    # Lock
+    "$mainMod, L, exec, pidof ${hyprlock}/bin/hyprlock || ${hyprlock}/bin/hyprlock"
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging
