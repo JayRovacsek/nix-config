@@ -14,6 +14,8 @@
   # Linux desktop alternatives
   gnome-desktop = import ./gnome-desktop.nix { inherit self; };
   hyprland-desktop = import ./hyprland-desktop.nix { inherit self; };
+  hyprland-ironbar-desktop =
+    import ./hyprland-ironbar-desktop.nix { inherit self; };
   hyprland-waybar-desktop =
     import ./hyprland-waybar-desktop.nix { inherit self; };
 

@@ -39,6 +39,8 @@
 
 - *(linux,modules,home-manager-modules)* Migrate jigglypuff to impermanence - ([a11c706](https://github.com/JayRovacsek/nix-config/commit/a11c706bb9d8364086a2e67bb13e826a818af5cd))
 
+- *(modules)* Add ollama module - ([3e8f773](https://github.com/JayRovacsek/nix-config/commit/3e8f773313b302b4b290121f27f9968925ba354b))
+
 - *(modules)* Add systemd-boot module - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
