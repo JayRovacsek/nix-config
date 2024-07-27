@@ -5,6 +5,12 @@
 
 - *(linux,modules)* Add ollama to alakazam - ([ba81918](https://github.com/JayRovacsek/nix-config/commit/ba81918c3d1e675b5c356e24f9880edb51ee95dd))
 
+- *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Provide escape hatch for extra args to be utilised - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Add optional import for microvm-guest module to avoid issue in declarative settings - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
 - *(modules)* Regenerate tailscale keys with per-host configs - ([eeaa19c](https://github.com/JayRovacsek/nix-config/commit/eeaa19c41a098d1829edb01f584203b535f52e77))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
