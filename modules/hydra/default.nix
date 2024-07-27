@@ -25,6 +25,7 @@ let
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
+    "github:JakeStanger/ironbar"
     "github:JayRovacsek"
     "github:kdrag0n/base16-kitty"
     "github:lnl7/nix-darwin"

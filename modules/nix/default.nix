@@ -5,10 +5,14 @@ let
   # only after further evaluation)
   inherit (self.lib.distributed-builds) generate-system-ssh-extra-config;
 
+  inherit (config.networking) hostName;
+
   build-configs =
     builtins.fromJSON (builtins.readFile ../../static/build-machines.json);
 
-  fast-configs = builtins.filter (cfg: cfg.speedFactor != 1) build-configs;
+  fast-configs = builtins.filter
+    (cfg: cfg.speedFactor != 1 && !(lib.hasPrefix hostName cfg.hostName))
+    build-configs;
 
 in {
   age.secrets."builder-id-ed25519" = {
