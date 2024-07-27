@@ -54,6 +54,7 @@ in {
   imports = with self.nixosModules; [
     ./backups.nix
     ./disk-config.nix
+    ./microvms.nix
     agenix
     auto-upgrade
     blocky
@@ -161,34 +162,6 @@ in {
       speed = 4;
     };
     amd.updateMicrocode = true;
-  };
-
-  microvm = {
-    macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
-      self.common.networking.networks;
-
-    vms = let
-      party = [
-        "bellsprout"
-        "igglybuff"
-        "machop"
-        "magikarp"
-        "mankey"
-        "meowth"
-        "mr-mime"
-        "nidoking"
-        "nidorina"
-        "nidorino"
-        "poliwag"
-        "slowpoke"
-      ];
-    in builtins.foldl' (acc: pokemon:
-      acc // {
-        ${pokemon} = {
-          flake = self;
-          restartIfChanged = true;
-        };
-      }) { } party;
   };
 
   networking = {

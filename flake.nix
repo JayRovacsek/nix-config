@@ -262,12 +262,13 @@
 
         homeManagerModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {
-            ${module} = { config, darwinConfig ? { }, lib, modulesPath
-              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs }:
-              import ./home-manager-modules/${module} {
+            ${module} = args@{ config, darwinConfig ? { }, lib, modulesPath
+              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs
+              , ... }:
+              import ./home-manager-modules/${module} ({
                 inherit config darwinConfig lib modulesPath nixosConfig options
                   osConfig pkgs self specialArgs;
-              };
+              } // args);
           } accumulator) { } self.common.home-manager-modules;
 
         # Automated build configuration for local packages
@@ -279,11 +280,11 @@
         # System modules for system consumption
         nixosModules = builtins.foldl' (accumulator: module:
           recursiveUpdate {
-            ${module} =
-              { config, lib, modulesPath, options, pkgs, self, specialArgs }:
-              import ./modules/${module} {
+            ${module} = args@{ config, lib, modulesPath, options, pkgs, self
+              , specialArgs, ... }:
+              import ./modules/${module} ({
                 inherit config lib modulesPath options pkgs self specialArgs;
-              };
+              } // args);
           } accumulator) { } self.common.nixos-modules;
 
         options = self.outputs.lib.options.declarations;

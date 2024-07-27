@@ -4,6 +4,26 @@
 ### ⛰️  Features
 
 - *(linux,modules)* Add ollama to alakazam - ([ba81918](https://github.com/JayRovacsek/nix-config/commit/ba81918c3d1e675b5c356e24f9880edb51ee95dd))
+
+- *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Utilise upstream flaresolverr options - ([c8b0ceb](https://github.com/JayRovacsek/nix-config/commit/c8b0ceb5aff53c021136a603ab2560763d127286))
+
+- *(modules)* Provide escape hatch for extra args to be utilised - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Add optional import for microvm-guest module to avoid issue in declarative settings - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Regenerate tailscale keys with per-host configs - ([eeaa19c](https://github.com/JayRovacsek/nix-config/commit/eeaa19c41a098d1829edb01f584203b535f52e77))
+
+- *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
+
+### 🐛 Bug Fixes
+
+- *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
+
+- *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
+
+- *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features

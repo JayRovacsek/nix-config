@@ -19,7 +19,6 @@ in {
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
     self.overlays.ranger
-    self.overlays.sonarr
     self.overlays.waybar
   ];
 

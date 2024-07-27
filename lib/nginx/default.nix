@@ -28,9 +28,10 @@ let
 
       in recursiveUpdate {
         forceSSL = true;
+        kTLS = true;
+        serverName = domain;
         sslCertificate = mkIf test self-signed.certificatePath;
         sslCertificateKey = mkIf test self-signed.keyPath;
-        serverName = domain;
         useACMEHost = mkIf production root;
       } overrides);
 in { inherit generate-domains generate-vhosts; }

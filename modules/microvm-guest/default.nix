@@ -1,4 +1,4 @@
-{ config, lib, self, ... }:
+{ config, lib, self, microvm ? false, ... }:
 let
   # Agenix is likely required if we have a share from host to guest passing
   # a secret and identity paths has some kind of value.
@@ -21,7 +21,8 @@ in {
     "/var/lib".neededForBoot = true;
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
-  imports = [ ../../options/systemd self.inputs.microvm.nixosModules.microvm ];
+  imports = [ ../../options/systemd ]
+    ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 
   microvm.shares = (lib.optionals agenix-required [{
     # On the host

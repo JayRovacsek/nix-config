@@ -4,8 +4,9 @@ let
 
   inherit (python3Packages)
     bencode-py buildPythonPackage certifi cffi defusedxml future lz4
-    opensearch-py pefile pip psutil pyparsing python-dateutil pytz pyxattr
-    pyyaml pyzmq redis requests setuptools six XlsxWriter yara-python zstd;
+    opensearch-py pefile pip psutil pyparsing pythonRelaxDepsHook
+    python-dateutil pytz pyxattr pyyaml pyzmq redis requests setuptools six
+    XlsxWriter yara-python zstd;
 
   inherit (self.packages.${system})
     acstore artifacts dfdatetime dfvfs dfwinreg flor libbde-python
@@ -29,10 +30,6 @@ in buildPythonPackage rec {
   };
 
   build-system = [ setuptools ];
-
-  # This is required only as the build process incorrectly assumes xattr
-  # is not installed, despite it being included in dependencies.
-  patches = [ ./no-xattr-dependency.patch ];
 
   dependencies = [
     acstore
@@ -105,6 +102,12 @@ in buildPythonPackage rec {
     yara-python
     zstd
   ];
+
+  pythonRemoveDeps = [ "xattr" ];
+
+  pythonRelaxDeps = [ "defusedxml" ];
+
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
