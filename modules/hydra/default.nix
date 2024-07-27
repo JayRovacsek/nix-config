@@ -39,6 +39,7 @@ let
     "github:numtide/flake-utils"
     "github:numtide/treefmt-nix"
     "github:oddlama/nix-topology"
+    "github:oxalica/rust-overlay"
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
     "github:SenchoPens/fromYaml"

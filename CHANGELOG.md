@@ -19,6 +19,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
+
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
