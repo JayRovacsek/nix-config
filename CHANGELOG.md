@@ -7,6 +7,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Utilise upstream flaresolverr options - ([c8b0ceb](https://github.com/JayRovacsek/nix-config/commit/c8b0ceb5aff53c021136a603ab2560763d127286))
+
 - *(modules)* Provide escape hatch for extra args to be utilised - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
 - *(modules)* Add optional import for microvm-guest module to avoid issue in declarative settings - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))

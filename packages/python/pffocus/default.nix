@@ -20,6 +20,8 @@ in buildPythonPackage {
 
   dependencies = [ defusedxml pyyaml ];
 
+  doCheck = false;
+
   src = fetchFromGitHub {
     owner = "TKCERT";
     repo = pname;

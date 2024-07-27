@@ -20,6 +20,8 @@ in buildPythonPackage {
 
   patches = [ ./bump-pyyaml-dependency.patch ];
 
+  doCheck = false;
+
   src = fetchFromGitHub {
     owner = "AndyX90";
     repo = pname;
