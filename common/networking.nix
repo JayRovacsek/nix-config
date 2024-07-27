@@ -62,10 +62,10 @@ _: {
     blocky = {
       authelia = false;
       ipv4 = null;
-      nodes = [ "192.168.1.1" "192.168.1.2" ];
-      port = 5000;
-      protocol = "http";
-      subdomain = "binarycache";
+      nodes = [ "192.168.1.220" "192.168.6.4" "192.168.6.8" ];
+      port = 53;
+      protocol = "dns";
+      subdomain = null;
     };
 
     code = {
