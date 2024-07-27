@@ -16,6 +16,10 @@
 - *(modules)* Regenerate tailscale keys with per-host configs - ([eeaa19c](https://github.com/JayRovacsek/nix-config/commit/eeaa19c41a098d1829edb01f584203b535f52e77))
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
+
+### 🐛 Bug Fixes
+
+- *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features
