@@ -97,8 +97,7 @@ in {
     binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
   };
 
-  environment.systemPackages =
-    (with pkgs; [ curl wget agenix prismlauncher element-desktop ])
+  environment.systemPackages = (with pkgs; [ curl wget agenix element-desktop ])
     ++ [ trdsql ];
 
   fileSystems."/" = {
@@ -111,16 +110,12 @@ in {
     fsType = "vfat";
   };
 
-  hardware = {
-    cpu = {
-      profile = {
-        cores = 8;
-        speed = 2;
-      };
-      intel.updateMicrocode = true;
+  hardware.cpu = {
+    profile = {
+      cores = 8;
+      speed = 2;
     };
-
-    opengl.driSupport32Bit = true;
+    intel.updateMicrocode = true;
   };
 
   networking = {
