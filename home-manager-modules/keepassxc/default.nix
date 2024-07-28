@@ -33,7 +33,7 @@
           GUI = {
             ApplicationTheme = "dark";
             MinimizeOnClose = true;
-            MinimizeOnStartup = true;
+            MinimizeOnStartup = false;
             MinimizeToTray = true;
             ShowTrayIcon = true;
             TrayIconAppearance = "monochrome-light";

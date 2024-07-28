@@ -23,6 +23,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(linux)* Bump binarycache timeout on nidorina - ([9ef258c](https://github.com/JayRovacsek/nix-config/commit/9ef258cfbcf3fe66b57b07237a5ef801e43dac8b))
+
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
 - *(modules)* Remove regression on remote builders - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
