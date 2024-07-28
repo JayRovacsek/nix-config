@@ -23,6 +23,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
+
 - *(linux)* Bump binarycache timeout on nidorina - ([9ef258c](https://github.com/JayRovacsek/nix-config/commit/9ef258cfbcf3fe66b57b07237a5ef801e43dac8b))
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))

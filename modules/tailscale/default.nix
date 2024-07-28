@@ -15,9 +15,15 @@ in {
     enable = true;
   };
 
-  age.secrets."preauth-${tailnet}" = {
-    file = ../../secrets/tailscale/preauth-${tailnet}.age;
-    mode = if headscale-present then lib.mkForce "0440" else "0400";
-    group = if headscale-present then config.services.headscale.group else "0";
+  age = {
+    identityPaths =
+      [ "/agenix/id-ed25519-${config.networking.hostName}-primary" ];
+
+    secrets."preauth-${tailnet}" = {
+      file = ../../secrets/tailscale/preauth-${tailnet}.age;
+      mode = if headscale-present then lib.mkForce "0440" else "0400";
+      group =
+        if headscale-present then config.services.headscale.group else "0";
+    };
   };
 }
