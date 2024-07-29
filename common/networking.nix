@@ -102,6 +102,14 @@ _: {
       subdomain = "flaresolverr";
     };
 
+    harmonia = {
+      authelia = false;
+      ipv4 = "192.168.1.220";
+      port = 5001;
+      protocol = "http";
+      subdomain = "binarycache";
+    };
+
     headscale = {
       authelia = false;
       ipv4 = "192.168.25.2";

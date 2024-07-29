@@ -33,6 +33,7 @@ in {
 
     settings = {
       auto-optimise-store = true;
+      http-connections = 0;
       sandbox = true;
       substituters = [ "https://binarycache.rovacsek.com/" ];
       trusted-public-keys = [

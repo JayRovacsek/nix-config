@@ -64,6 +64,7 @@ in {
     generations
     gnupg
     grafana-agent
+    harmonia
     hydra
     i18n
     jellyfin
@@ -72,7 +73,6 @@ in {
     lorri
     microvm-host
     nix
-    nix-serve
     nix-topology
     nvidia
     openssh
@@ -165,6 +165,7 @@ in {
   };
 
   networking = {
+    enableIPv6 = false;
     hostId = "acd009f4";
     hostName = "dragonite";
   };
