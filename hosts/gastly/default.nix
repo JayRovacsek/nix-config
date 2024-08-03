@@ -1,13 +1,13 @@
 { config, pkgs, lib, self, ... }:
 let
   inherit (self) common;
-  inherit (self.common.home-manager-module-sets) hyprland-waybar-desktop;
+  inherit (self.common.home-manager-module-sets) hyprland-ironbar-desktop;
 
   inherit (self.lib) merge;
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-waybar-desktop;
+    modules = hyprland-ironbar-desktop;
   };
 
   user-configs = merge [ jay ];
