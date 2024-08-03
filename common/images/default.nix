@@ -20,10 +20,10 @@ let
     format = "amazon";
   };
 
-  linode = let inherit (linode-cfg._module.args) modules;
-  in nixos-generators.nixosGenerate {
+  linode = nixos-generators.nixosGenerate {
     system = "x86_64-linux";
-    inherit modules;
+    modules = with self.nixosModules; [ ../../hosts/ditto linode-image ];
+    specialArgs = { inherit self; };
     format = "linode";
   };
 

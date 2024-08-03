@@ -195,6 +195,11 @@ _: {
       ipv4 = "192.168.5.3";
     };
 
+    openvpn = {
+      port = 1194;
+      protocol = "udp";
+    };
+
     openssh = {
       public-keys = [
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMO6FTToBOIByP9uVP2Ke2jGD/ESxPcXEMhvR7unukNGAAAABHNzaDo= jay@rovacsek.com"

@@ -1,40 +1,71 @@
-{ config, pkgs, self, ... }:
-let
-  inherit (pkgs) system;
-  inherit (self) common;
-  inherit (self.common.home-manager-module-sets) cli;
-  inherit (self.lib) merge;
+{ lib, modulesPath, self, ... }: {
+  imports = with self.nixosModules;
+    [ agenix disable-assertions nix-topology openvpn-server time timesyncd ]
+    ++ [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
-  inherit (self.packages.${system}) ditto-transform;
+  age.identityPaths = [ "/agenix/id-ed25519-diglett-primary" ];
 
-  jay = common.users.jay {
-    inherit config pkgs;
-    modules = cli;
+  boot = {
+    kernel.sysctl."vm.swappiness" = 5;
+    kernelParams = [ "console=ttyS0,19200n8" ];
+    loader = {
+      grub = {
+        device = "/dev/disk/by-label/nixos";
+        extraConfig = ''
+          serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1;
+          terminal_input serial;
+          terminal_output serial
+        '';
+        forceInstall = true;
+        splashImage = lib.mkForce null;
+      };
+      systemd-boot.enable = false;
+      timeout = 5;
+    };
   };
 
-  user-configs = merge [ jay ];
-in {
-  inherit (user-configs) users home-manager;
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
 
-  imports = with self.nixosModules; [
-    agenix
-    clamav
-    disable-assertions
-    nix-topology
-    generations
-    gnupg
-    linode-image
-    lorri
-    nix
-    openssh
-    time
-    timesyncd
-    zsh
-  ];
+  swapDevices = [{ device = "/dev/disk/by-label/linode-swap"; }];
 
-  # Once a ditto, always a ditto.
-  environment.systemPackages = [ ditto-transform ] ++ (with pkgs; [ git ]);
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "yes";
+        PasswordAuthentication = false;
+      };
+    };
+  };
 
-  networking.hostName = "diglett";
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+
+    settings = {
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = "nix-command flakes";
+      http-connections = 0;
+      sandbox = true;
+      trusted-users = [ "@wheel" ];
+    };
+  };
+
+  networking = {
+    firewall.allowedTCPPorts = [ 22 ];
+    hostName = "diglett";
+    interfaces.eth0.useDHCP = true;
+    usePredictableInterfaceNames = false;
+  };
+
   system.stateVersion = "24.05";
+
+  users.users.root.openssh.authorizedKeys.keys =
+    self.common.networking.services.openssh.public-keys;
 }

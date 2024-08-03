@@ -28,13 +28,6 @@ in {
     };
   };
 
-  data.linode_stackscripts.ditto-transform = {
-    filter = {
-      name = "label";
-      values = [ "ditto-transform" ];
-    };
-  };
-
   resource = {
     linode_instance.diglett = {
       inherit region;
@@ -43,11 +36,6 @@ in {
       group = "nixos";
       tags = [ "nixos" ];
       type = "g6-nanode-1";
-      # This currently seems to both error with a message that is unrelated as 
-      # well as not actually work with a stack script :sadpanda:
-      # stackscript_id =
-      #   "\${data.linode_stackscripts.ditto-transform.stackscripts.0.id}";
-      # stackscript_data.target = "diglett";
     };
 
     linode_instance_disk.boot = {

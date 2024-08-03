@@ -31,7 +31,7 @@ let
       # For the configuration we're applying to; check if agenix is present
       # if it is we filter the associated secrets for that of our username-id-ed25519
       # and if present assume these are our authorised keys to be applied in identity files
-      sshKeys = if (hasAttr "secrets" config.age) then
+      sshKeys = if (hasAttr "age" config && hasAttr "secrets" config.age) then
         (filter (x: hasInfix "${name}-id-ed25519" x.name)
           (attrValues config.age.secrets))
       else

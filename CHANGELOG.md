@@ -7,6 +7,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Implement harmonia - ([262a2b9](https://github.com/JayRovacsek/nix-config/commit/262a2b9f0c4516a6ac2c93e2089cc2e51b32eac5))
+
 - *(modules)* Add hydra grafana job - ([7d889b1](https://github.com/JayRovacsek/nix-config/commit/7d889b13063f9d1725d648ccb91e01c1edab17fd))
 
 - *(modules)* Utilise upstream flaresolverr options - ([c8b0ceb](https://github.com/JayRovacsek/nix-config/commit/c8b0ceb5aff53c021136a603ab2560763d127286))
