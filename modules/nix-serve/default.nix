@@ -11,6 +11,8 @@
     };
   };
 
+  nix.gc.automatic = lib.mkForce false;
+
   services.nix-serve = {
     enable = true;
     openFirewall = true;

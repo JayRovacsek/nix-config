@@ -21,11 +21,15 @@
 
 - *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
 
+- *(modules,linux)* Create openvpn-server module - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
+
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
 ### 🐛 Bug Fixes
 
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
+
+- *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(linux)* Remove prism and opengl option from alakazam - ([3d6107a](https://github.com/JayRovacsek/nix-config/commit/3d6107a99c949d74b79e259cda456ff530926c51))
 
@@ -38,6 +42,8 @@
 - *(modules)* Remove regression on remote builders - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
 
 - *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
+
+- *(packages)* Fix linode AMI package & openvpn server - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

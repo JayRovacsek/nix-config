@@ -13,6 +13,8 @@ in {
 
   networking.firewall.allowedTCPPorts = [ harmonia.port ];
 
+  nix.gc.automatic = lib.mkForce false;
+
   services.harmonia = {
     enable = true;
     # Refer to: https://github.com/nix-community/harmonia/?tab=readme-ov-file#harmonia
