@@ -11,7 +11,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-B4g01J03TSy4c5bUVPPUpCtxGpoVG60EPVgzxg0V8z4=";
+    hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
   };
 in {
   imports = [ ../../options/darwin-ollama ];

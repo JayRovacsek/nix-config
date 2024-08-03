@@ -6,7 +6,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-Lf0foTW1F2WZGlxLgMj6f84x2jCIS6/mFHFBdr075Fs=";
+    hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
   };
 in {
   # Extended options for nginx & openvscode-server
