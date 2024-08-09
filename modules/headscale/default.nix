@@ -6,21 +6,14 @@ in {
 
   imports = [ ./acl.nix ../../options/headscale ];
 
-  age = {
-    secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
-      "${lib.strings.removeSuffix ".age" x}" = {
-        file = ../../secrets/tailscale/${x};
-        mode = "0400";
-        owner = config.services.headscale.user;
-      };
-    }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
-      (builtins.attrNames (builtins.readDir ../../secrets/tailscale))));
-
-    identityPaths = [
-      "/agenix/id-ed25519-tailscale-primary"
-      "/agenix/id-ed25519-headscale-primary"
-    ];
-  };
+  age.secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
+    "${lib.strings.removeSuffix ".age" x}" = {
+      file = ../../secrets/tailscale/${x};
+      mode = "0400";
+      owner = config.services.headscale.user;
+    };
+  }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
+    (builtins.attrNames (builtins.readDir ../../secrets/tailscale))));
 
   networking.firewall = {
     allowedTCPPorts = [ port grpcPort metricsPort ];

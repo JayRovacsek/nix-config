@@ -26,7 +26,6 @@ in {
   imports = with self.nixosModules; [
     agenix
     clamav
-    docker
     fonts
     generations
     gnome-keyring
@@ -37,7 +36,6 @@ in {
     hyprland
     i18n
     keybase
-    lix
     logging
     lorri
     microvm-host
@@ -52,6 +50,7 @@ in {
     steam
     systemd-boot
     systemd-networkd
+    tailscale
     time
     timesyncd
     tmp-tmpfs
@@ -97,8 +96,7 @@ in {
     binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
   };
 
-  environment.systemPackages = (with pkgs; [ curl wget agenix element-desktop ])
-    ++ [ trdsql ];
+  environment.systemPackages = with pkgs; [ agenix curl dig trdsql wget ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e78b4f61-9844-4cb3-a144-ff8f8dd37154";

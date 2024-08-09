@@ -276,7 +276,7 @@ in {
             formatter = {
               external = {
                 arguments = [ ];
-                command = "${pkgs.nixfmt}/bin/nixfmt";
+                command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
               };
             };
           };

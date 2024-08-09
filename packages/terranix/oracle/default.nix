@@ -9,7 +9,7 @@ in {
     required_providers = {
       aws = {
         source = "oracle/oci";
-        version = "4.110.0";
+        version = "6.6.0";
       };
     };
   };

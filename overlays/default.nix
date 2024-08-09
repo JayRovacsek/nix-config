@@ -122,10 +122,6 @@
       };
     };
 
-  lix = _final: prev: {
-    inherit (self.inputs.lix.packages.${prev.system}) nix;
-  };
-
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {

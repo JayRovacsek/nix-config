@@ -22,7 +22,7 @@ let
 in {
   nixpkgs.overlays = with self.inputs; [ nixpkgs-wayland.overlay ];
 
-  services.xserver.displayManager.defaultSession = "hyprland";
+  services.displayManager.defaultSession = "hyprland";
 
   programs.hyprland = {
     enable = true;
@@ -50,7 +50,7 @@ in {
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
     };

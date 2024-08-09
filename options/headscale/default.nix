@@ -80,7 +80,7 @@ in {
   };
 
   config = lib.mkIf cfg.use-declarative-users {
-    systemd.services."headscale-user-setup" = {
+    systemd.services.headscale-user-setup = {
       inherit script;
 
       description = "Declarative configuration of Headscale users & keys";

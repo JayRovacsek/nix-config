@@ -8,7 +8,7 @@ No requirements.
 
 | Name                                                      | Version |
 | --------------------------------------------------------- | ------- |
-| <a name="provider_linode"></a> [linode](#provider_linode) | 2.0.0   |
+| <a name="provider_linode"></a> [linode](#provider_linode) | 2.25.0  |
 
 ## Modules
 
@@ -23,7 +23,6 @@ No modules.
 | [linode_instance_disk.boot](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/instance_disk)               | resource    |
 | [linode_instance_disk.swap](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/instance_disk)               | resource    |
 | [linode_images.nixos-base-image](https://registry.terraform.io/providers/linode/linode/latest/docs/data-sources/images)              | data source |
-| [linode_stackscripts.ditto-transform](https://registry.terraform.io/providers/linode/linode/latest/docs/data-sources/stackscripts)   | data source |
 
 ## Inputs
 

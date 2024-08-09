@@ -173,7 +173,6 @@ in {
           "authelia.local" = "192.168.9.2";
           "nextcloud.local" = "192.168.10.2";
           "home-assistant.local" = "192.168.12.2";
-          "cache.local" = "192.168.16.2";
           "minecraft.local" = "192.168.17.5";
           "porygon.local" = "192.168.17.2";
           "valheim.local" = "192.168.17.3";

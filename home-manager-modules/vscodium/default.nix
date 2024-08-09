@@ -14,13 +14,6 @@ let
     hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
   };
 in {
-  imports = [ ../../options/darwin-ollama ];
-
-  services.ollama = {
-    enable = true;
-    models = [ "starcoder2:3b" ];
-  };
-
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -94,7 +87,7 @@ in {
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+          formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
             darwin.expr =
               ''(builtins.getFlake "${nix-options}").options.darwin'';
@@ -118,8 +111,6 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
-      continue.continue
-
       # Nix
       jnoortheen.nix-ide
       mkhl.direnv

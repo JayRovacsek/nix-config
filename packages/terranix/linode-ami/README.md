@@ -8,7 +8,7 @@ No requirements.
 
 | Name                                                      | Version |
 | --------------------------------------------------------- | ------- |
-| <a name="provider_linode"></a> [linode](#provider_linode) | 2.0.0   |
+| <a name="provider_linode"></a> [linode](#provider_linode) | 2.25.0  |
 
 ## Modules
 
@@ -16,10 +16,9 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                    | Type     |
-| ----------------------------------------------------------------------------------------------------------------------- | -------- |
-| [linode_image.nixos-base](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/image)            | resource |
-| [linode_stackscript.transform](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/stackscript) | resource |
+| Name                                                                                                         | Type     |
+| ------------------------------------------------------------------------------------------------------------ | -------- |
+| [linode_image.nixos-base](https://registry.terraform.io/providers/linode/linode/latest/docs/resources/image) | resource |
 
 ## Inputs
 

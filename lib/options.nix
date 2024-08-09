@@ -22,7 +22,6 @@ let
         ../options/networking
         ../options/nix
         ../options/systemd
-        ../options/tailscale
       ];
     }];
   };

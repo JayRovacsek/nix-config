@@ -416,7 +416,7 @@
               conform
               deadnix
               git-cliff
-              nixfmt
+              nixfmt-rfc-style
               nodePackages.prettier
               statix
               trufflehog
@@ -425,7 +425,7 @@
           };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have
-          formatter = pkgs.nixfmt;
+          formatter = pkgs.nixfmt-rfc-style;
 
           # Locally defined packages for flake consumption or consumption
           # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay

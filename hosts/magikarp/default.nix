@@ -9,6 +9,8 @@
     timesyncd
   ];
 
+  age.identityPaths = [ "/agenix/id-ed25519-magikarp-primary" ];
+
   networking.hostName = "magikarp";
 
   microvm = {

@@ -19,7 +19,7 @@ in {
       models = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ "llama3" ];
-        example = [ "llama3" "starcoder2:3b" ];
+        example = [ "llama3" "phi3:3.8b" ];
       };
     };
   };

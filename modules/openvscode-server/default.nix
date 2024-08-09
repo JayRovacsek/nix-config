@@ -77,7 +77,7 @@ in {
       yzhang.markdown-all-in-one
     ];
 
-    extraPackages = with pkgs; [ git nixd nixfmt ];
+    extraPackages = with pkgs; [ git nixd nixfmt-rfc-style ];
     host = "0.0.0.0";
     serverDataDir =
       "${config.users.users.openvscode-server.home}/.config/openvscode-server";
@@ -140,7 +140,7 @@ in {
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+          formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
             darwin.expr =
               ''(builtins.getFlake "${nix-options}").options.darwin'';

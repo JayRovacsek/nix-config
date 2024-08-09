@@ -77,7 +77,6 @@ in {
     nvidia
     openssh
     openvscode-server
-    samba
     smartd
     sudo
     systemd-networkd
@@ -171,27 +170,6 @@ in {
   };
 
   powerManagement.enable = false;
-
-  services = {
-    # This requires the addition of the samba module
-    # to enable shares
-    samba.shares = {
-      isos = {
-        path = "/srv/isos";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public ISO Share";
-      };
-      games = {
-        path = "/srv/games/files";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public Game Files";
-      };
-    };
-  };
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/de692380-3788-4375-8afb-33a6195fa9e6"; }];
