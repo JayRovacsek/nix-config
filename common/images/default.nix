@@ -27,10 +27,17 @@ let
     format = "linode";
   };
 
-  oracle = let inherit (oracle-cfg._module.args) modules;
-  in nixos-generators.nixosGenerate {
+  oracle-aarch64 = nixos-generators.nixosGenerate {
+    system = "aarch64-linux";
+    modules = with self.nixosModules; [ ../../hosts/ditto oracle-image ];
+    specialArgs = { inherit self; };
+    format = "qcow";
+  };
+
+  oracle-x86_64 = nixos-generators.nixosGenerate {
     system = "x86_64-linux";
-    inherit modules;
+    modules = with self.nixosModules; [ ../../hosts/ditto oracle-image ];
+    specialArgs = { inherit self; };
     format = "qcow";
   };
 
@@ -48,6 +55,6 @@ let
       image.config.system.build.sdImage;
   }) [ aarch64 rpi1 rpi2 ];
 
-  images = { inherit aarch64 amazon linode oracle; };
+  images = { inherit aarch64 amazon linode oracle-aarch64 oracle-x86_64; };
 
 in merge ([ images cfgs ] ++ sd-images)

@@ -50,6 +50,10 @@
 - *(packages)* Fix linode AMI package & openvpn server - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
+
+### 🚜 Refactor
+- Remove tailscale custom options - ([41f386a](https://github.com/JayRovacsek/nix-config/commit/41f386ad1897f8e16b238956a5c74f4fe1997d48))
+
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features

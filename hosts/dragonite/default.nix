@@ -56,7 +56,6 @@ in {
     ./disk-config.nix
     ./microvms.nix
     agenix
-    auto-upgrade
     blocky
     clamav
     firefox-syncserver
