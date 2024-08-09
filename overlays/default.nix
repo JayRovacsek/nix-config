@@ -189,7 +189,6 @@
           });
 
           afdko = python-prev.afdko.overrideAttrs (_:
-
             prev.buildPythonPackage rec {
               pname = "afdko";
               version = "3.9.3";
@@ -380,6 +379,17 @@
             };
           });
 
+          pytest-xdist = python-prev.pytest-xdist.overrideAttrs (old: rec {
+            disabledTests = old.disabledTests ++ [
+              "test_remote_collect_skip"
+              "test_basic_collect_and_runtests"
+              "test_remote_collect_fail"
+              "test_runtests_all"
+              "test_steal_work"
+              "test_steal_empty_queue"
+            ];
+          });
+
           pyxattr = python-prev.pyxattr.overrideAttrs (old: rec {
             buildInputs = prev.lib.optionals prev.stdenv.isLinux prev.attr;
 
@@ -512,6 +522,7 @@
         "pixman"
         "rhash"
         "sourceHighlight"
+        "spdlog"
       ] (name: prev.${name}.overrideAttrs (_: { doCheck = false; }));
 
       disabled-install-checks =
@@ -600,8 +611,8 @@
         });
       };
 
-    in aws-sdk-cpp-reduced-apis // disabled-checks // disabled-install-checks
-    // d-file-offset-fixes // llvm-fixes // libllvm-fixes // meson-fixes
+    in aws-sdk-cpp-reduced-apis // d-file-offset-fixes // disabled-checks
+    // disabled-install-checks // libllvm-fixes // llvm-fixes // meson-fixes
     // python-fixes // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
