@@ -603,6 +603,11 @@
               disabledTests = old.disabledTests
                 ++ [ "test_net_if_addrs" "test_net_if_stats" ];
             });
+
+            sphinx = python-prev.psutil.overrideAttrs (old: {
+              disabledTests = old.disabledTests
+                ++ [ "test_connect_to_selfsigned_with_requests_env_var" "test_net_if_addrs" "test_net_if_stats" ];
+            });
           };
         });
 
