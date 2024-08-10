@@ -64,6 +64,8 @@
 
 
 ### 🚜 Refactor
+
+- *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

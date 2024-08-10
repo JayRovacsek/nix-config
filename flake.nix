@@ -142,7 +142,7 @@
     };
 
     nix-monitored = {
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ners/nix-monitored";
     };
 
@@ -172,8 +172,7 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url =
-        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      url = "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
     };
 
     nixpkgs-wayland = {
@@ -243,7 +242,8 @@
     };
   };
 
-  outputs = { self, flake-utils, ... }:
+  outputs =
+    { self, flake-utils, ... }:
     let
       inherit (self.inputs.nixpkgs) lib;
       inherit (lib) recursiveUpdate;
@@ -260,16 +260,42 @@
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
 
-        homeManagerModules = builtins.foldl' (accumulator: module:
+        homeManagerModules = builtins.foldl' (
+          accumulator: module:
           recursiveUpdate {
-            ${module} = args@{ config, darwinConfig ? { }, lib, modulesPath
-              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs
-              , ... }:
-              import ./home-manager-modules/${module} ({
-                inherit config darwinConfig lib modulesPath nixosConfig options
-                  osConfig pkgs self specialArgs;
-              } // args);
-          } accumulator) { } self.common.home-manager-modules;
+            ${module} =
+              args@{
+                config,
+                darwinConfig ? { },
+                lib,
+                modulesPath,
+                nixosConfig ? { },
+                options,
+                osConfig,
+                pkgs,
+                self,
+                specialArgs,
+                ...
+              }:
+              import ./home-manager-modules/${module} (
+                {
+                  inherit
+                    config
+                    darwinConfig
+                    lib
+                    modulesPath
+                    nixosConfig
+                    options
+                    osConfig
+                    pkgs
+                    self
+                    specialArgs
+                    ;
+                }
+                // args
+              );
+          } accumulator
+        ) { } self.common.home-manager-modules;
 
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };
@@ -278,14 +304,36 @@
         lib = import ./lib { inherit self; };
 
         # System modules for system consumption
-        nixosModules = builtins.foldl' (accumulator: module:
+        nixosModules = builtins.foldl' (
+          accumulator: module:
           recursiveUpdate {
-            ${module} = args@{ config, lib, modulesPath, options, pkgs, self
-              , specialArgs, ... }:
-              import ./modules/${module} ({
-                inherit config lib modulesPath options pkgs self specialArgs;
-              } // args);
-          } accumulator) { } self.common.nixos-modules;
+            ${module} =
+              args@{
+                config,
+                lib,
+                modulesPath,
+                options,
+                pkgs,
+                self,
+                specialArgs,
+                ...
+              }:
+              import ./modules/${module} (
+                {
+                  inherit
+                    config
+                    lib
+                    modulesPath
+                    options
+                    pkgs
+                    self
+                    specialArgs
+                    ;
+                }
+                // args
+              );
+          } accumulator
+        ) { } self.common.nixos-modules;
 
         options = self.outputs.lib.options.declarations;
 
@@ -303,7 +351,8 @@
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
-      flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
+      flake-utils-output = flake-utils.lib.eachDefaultSystem (
+        system:
         let
           pkgs = import self.inputs.nixpkgs {
             inherit system;
@@ -312,7 +361,8 @@
               devshell.overlays.default
             ];
           };
-        in {
+        in
+        {
           # Space in which exposed derivations can be ran via
           # nix run .#foo - handy in the future for stuff like deploying
           # via terraform or automation tasks that are relatively 
@@ -334,6 +384,7 @@
                 };
                 nixfmt = {
                   enable = true;
+                  package = pkgs.nixfmt-rfc-style;
                   settings.width = 80;
                 };
                 prettier = {
@@ -377,8 +428,7 @@
                 git-cliff = {
                   enable = true;
                   name = "Git Cliff";
-                  entry =
-                    "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
+                  entry = "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
                   language = "system";
                   pass_filenames = false;
                 };
@@ -394,8 +444,7 @@
                 trufflehog-verified = {
                   enable = pkgs.stdenv.isLinux;
                   name = "Trufflehog Search";
-                  entry =
-                    "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
+                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
                   language = "system";
                   pass_filenames = false;
                 };
@@ -406,8 +455,7 @@
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
           devShells.default = pkgs.devshell.mkShell {
-            devshell.startup.git-hooks.text =
-              self.checks.${system}.git-hooks.shellHook;
+            devshell.startup.git-hooks.text = self.checks.${system}.git-hooks.shellHook;
 
             name = "nix-config";
 
@@ -437,7 +485,8 @@
             inherit pkgs;
             modules = [ self.common.topology ];
           };
-        });
-
-    in flake-utils-output // standard-outputs;
+        }
+      );
+    in
+    flake-utils-output // standard-outputs;
 }
