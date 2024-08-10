@@ -608,6 +608,10 @@
               disabledTests = old.disabledTests
                 ++ [ "test_connect_to_selfsigned_with_requests_env_var" "test_net_if_addrs" "test_net_if_stats" ];
             });
+
+            sphinxcontrib-jquery = python-prev.sphinxcontrib-jquery.overrideAttrs (old: {
+              propagatedBuildInputs = old.propagatedBuildInputs ++ (with python-prev; [ sphinx ]);
+            });
           };
         });
 
