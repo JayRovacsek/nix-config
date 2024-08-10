@@ -509,7 +509,6 @@
         "dav1d"
         "dejagnu"
         "diffutils"
-        "elfutils"
         "fribidi"
         "gnugrep"
         "graphite2"
@@ -540,6 +539,15 @@
 
           NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
         }));
+
+      elfutil-fixes = {
+        elfutil = prev.elfutil.overrideAttrs (old: {
+          postPatch = ''
+            ${old.postPatch}
+            rm tests/Makefile.am
+          '';
+        });
+      };
 
       libllvm-fixes = {
         # For the aws cpp sdk, we need to reduce the apis included for 32 bit systems
@@ -650,8 +658,8 @@
       };
 
     in aws-sdk-cpp-reduced-apis // d-file-offset-fixes // disabled-checks
-    // disabled-install-checks // libllvm-fixes // llvm-fixes // meson-fixes
-    // override-fixes // python-fixes // tpm2-tss-extra-deps;
+    // disabled-install-checks // elfutil-fixes // libllvm-fixes // llvm-fixes
+    // meson-fixes // override-fixes // python-fixes // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
