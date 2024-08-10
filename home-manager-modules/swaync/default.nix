@@ -70,25 +70,19 @@ in
         border-radius = "7px";
         color = "#cdd6f4";
         background-color = "#313244";
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          margin= 7px
-        '';
+        box-shadow = "inset 0 0 0 1px #45475a";
+        margin = "7px";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          background-color= #313244
-        '';
+        box-shadow = "inset 0 0 0 1px #45475a";
+        background-color = "#313244";
         color = "#cdd6f4";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active" = {
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          background-color= #74c7ec
-        '';
+        background-color = "#74c7ec";
+        box-shadow = "inset 0 0 0 1px #45475a";
         color = "#cdd6f4";
       };
 
@@ -128,16 +122,13 @@ in
         border-radius = "7px";
         color = "#cdd6f4";
         background-color = "#313244";
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-                  padding= 8px'';
+        box-shadow = "inset 0 0 0 1px #45475a";
+        padding = "8px";
       };
 
       ".control-center .widget-title button:hover" = {
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          background-color= #585b70
-        '';
+        background-color = "#585b70";
+        box-shadow = "inset 0 0 0 1px #45475a";
         color = "#cdd6f4";
       };
 
@@ -151,10 +142,8 @@ in
         border-radius = "7px";
         color = "#cdd6f4";
         background-color = "#313244";
-        box-shadow = ''
-          inset 0 0 0 1px #45475a; 
-          margin-top= 14px
-        '';
+        box-shadow = "inset 0 0 0 1px #45475a";
+        margin-top = "14px";
       };
 
       ".control-center .notification-row .notification-background .notification" = {
@@ -190,10 +179,8 @@ in
         border-radius = "7px";
         color = "#cdd6f4";
         background-color = "#11111b";
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          margin= 7px
-        '';
+        box-shadow = "inset 0 0 0 1px #45475a";
+        margin = "7px";
       };
 
       ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
@@ -231,18 +218,14 @@ in
       };
 
       ".control-center .notification-row .notification-background:hover" = {
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          background-color= #7f849c
-        '';
+        background-color = "#7f849c";
+        box-shadow = "inset 0 0 0 1px #45475a";
         color = "#cdd6f4";
       };
 
       ".control-center .notification-row .notification-background:active" = {
-        box-shadow = ''
-          inset 0 0 0 1px #45475a;
-          background-color= #74c7ec
-        '';
+        background-color = "#74c7ec";
+        box-shadow = "inset 0 0 0 1px #45475a";
         color = "#cdd6f4";
       };
 
