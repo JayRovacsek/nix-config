@@ -590,6 +590,12 @@
         });
       };
 
+      override-fixes = {
+        elfutils = prev.elfutils.override { enableDebuginfod = false; };
+        libselinux = prev.libselinux.override { enablePython = false; };
+        systemd = prev.systemd.override {withLibBPF = false;};
+      };
+
       python-fixes = prev.lib.genAttrs [
         "python38"
         "python39"
@@ -623,7 +629,7 @@
 
     in aws-sdk-cpp-reduced-apis // d-file-offset-fixes // disabled-checks
     // disabled-install-checks // libllvm-fixes // llvm-fixes // meson-fixes
-    // python-fixes // tpm2-tss-extra-deps;
+    // override-fixes // python-fixes // tpm2-tss-extra-deps;
 
   armv7l-fixes = self.overlays.armv6l-fixes;
 
