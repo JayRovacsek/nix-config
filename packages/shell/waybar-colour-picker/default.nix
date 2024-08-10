@@ -1,4 +1,11 @@
-{ stdenv, pkgs, lib, hyprpicker, wl-clipboard, ... }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  hyprpicker,
+  wl-clipboard,
+  ...
+}:
 with lib;
 let
   pname = "waybar-colour-picker";
@@ -9,15 +16,23 @@ let
     inherit (hyprpicker.meta) platforms;
   };
 
-  waybar-colour-picker-wrapped =
-    pkgs.writeShellScriptBin "waybar-colour-picker" ''
-      ${hyprpicker}/bin/hyprpicker | ${wl-clipboard}/bin/wl-copy
-    '';
+  waybar-colour-picker-wrapped = pkgs.writeShellScriptBin "waybar-colour-picker" ''
+    ${hyprpicker}/bin/hyprpicker | ${wl-clipboard}/bin/wl-copy
+  '';
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenv.mkDerivation {
-  inherit pname version meta phases;
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    ;
 
   buildInputs = [ waybar-colour-picker-wrapped ];
 

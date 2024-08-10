@@ -41,7 +41,8 @@ let
     jobsets = desc;
   };
 
-in {
+in
+{
   jobsets = pkgs.runCommand "spec-jobsets.json" { } ''
     cat >$out <<EOF
     ${builtins.toJSON desc}

@@ -1,8 +1,11 @@
 { config, self, ... }:
-let inherit (self.common.networking.services) loki;
-in {
-  networking.firewall.allowedTCPPorts =
-    [ config.services.loki.configuration.server.http_listen_port ];
+let
+  inherit (self.common.networking.services) loki;
+in
+{
+  networking.firewall.allowedTCPPorts = [
+    config.services.loki.configuration.server.http_listen_port
+  ];
 
   services.loki = {
     enable = true;
@@ -27,7 +30,9 @@ in {
         };
       };
 
-      limits_config = { allow_structured_metadata = false; };
+      limits_config = {
+        allow_structured_metadata = false;
+      };
 
       schema_config.configs = [
         {
@@ -60,8 +65,12 @@ in {
   };
 
   users = {
-    groups.${config.services.loki.group} = { inherit (loki.user) gid; };
-    users.${config.services.loki.user} = { inherit (loki.user) uid; };
+    groups.${config.services.loki.group} = {
+      inherit (loki.user) gid;
+    };
+    users.${config.services.loki.user} = {
+      inherit (loki.user) uid;
+    };
   };
 
 }

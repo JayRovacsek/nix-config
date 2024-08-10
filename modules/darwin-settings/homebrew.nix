@@ -2,14 +2,24 @@
 let
   inherit (config.networking) hostName;
   extraCasks =
-    if hostName == "victreebel" then [ "tableau" "workplace-chat" ] else [ ];
+    if hostName == "victreebel" then
+      [
+        "tableau"
+        "workplace-chat"
+      ]
+    else
+      [ ];
   forceBrewInstall = name: {
     inherit name;
     args = [ "force" ];
   };
-in {
+in
+{
   # Required for homebrew on aarch64, TODO: add x86 locations
-  environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+  environment.systemPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
 
   homebrew = {
     enable = true;
@@ -18,8 +28,12 @@ in {
       cleanup = "zap";
       upgrade = true;
     };
-    brews =
-      builtins.map forceBrewInstall [ "openssh" "pidof" "mas" "mingw-w64" ];
+    brews = builtins.map forceBrewInstall [
+      "openssh"
+      "pidof"
+      "mas"
+      "mingw-w64"
+    ];
 
     casks = [
       "brave-browser"

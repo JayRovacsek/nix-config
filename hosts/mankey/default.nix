@@ -1,4 +1,5 @@
-{ config, self, ... }: {
+{ config, self, ... }:
+{
   # Below required to build deluge-gtk
   environment.noXlibs = false;
 
@@ -16,26 +17,30 @@
   ];
 
   microvm = {
-    interfaces = [{
-      type = "macvtap";
-      id = config.networking.hostName;
-      mac = "02:42:c0:a8:04:82";
-      macvtap = {
-        link = "download";
-        mode = "bridge";
-      };
-    }];
+    interfaces = [
+      {
+        type = "macvtap";
+        id = config.networking.hostName;
+        mac = "02:42:c0:a8:04:82";
+        macvtap = {
+          link = "download";
+          mode = "bridge";
+        };
+      }
+    ];
 
     mem = 1024;
 
-    shares = [{
-      # On the host
-      source = config.services.deluge.config.download_location;
-      # In the MicroVM
-      mountPoint = config.services.deluge.config.download_location;
-      tag = "linux-isos";
-      proto = "virtiofs";
-    }];
+    shares = [
+      {
+        # On the host
+        source = config.services.deluge.config.download_location;
+        # In the MicroVM
+        mountPoint = config.services.deluge.config.download_location;
+        tag = "linux-isos";
+        proto = "virtiofs";
+      }
+    ];
   };
 
   networking.hostName = "mankey";

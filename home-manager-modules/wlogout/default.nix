@@ -32,8 +32,9 @@ let
       "text" = "Suspend";
     }
   ];
-in {
+in
+{
   home.file."${config.xdg.configHome}/wlogout/layout".text =
     builtins.concatStringsSep "\n"
-    (builtins.map (e: builtins.toJSON e) elements);
+      (builtins.map (e: builtins.toJSON e) elements);
 }

@@ -1,6 +1,9 @@
 _: {
-  imports =
-    [ ./hardware-configuration.nix ./modules.nix ./system-packages.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./modules.nix
+    ./system-packages.nix
+  ];
 
   networking = {
     hostId = "4148aee3";

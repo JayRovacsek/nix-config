@@ -1,6 +1,18 @@
-{ lib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage pyyaml pythonOlder setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages)
+    buildPythonPackage
+    pyyaml
+    pythonOlder
+    setuptools
+    ;
+in
+buildPythonPackage rec {
   pname = "acstore";
   version = "20240407";
   pyproject = true;
@@ -20,8 +32,7 @@ in buildPythonPackage rec {
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
-    description =
-      "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
+    description = "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
     downloadPage = "https://github.com/log2timeline/acstore/releases";
     homepage = "https://github.com/log2timeline/acstore";
     license = licenses.asl20;

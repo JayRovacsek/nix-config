@@ -1,1 +1,7 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs; [ htop git ]; }
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    htop
+    git
+  ];
+}

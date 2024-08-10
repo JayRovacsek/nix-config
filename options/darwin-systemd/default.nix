@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.systemd = lib.mkOption {
     type = lib.types.anything;
     default = { };

@@ -1,8 +1,17 @@
 # Taken and modified from https://kevincox.ca/2022/12/09/valheim-server-nixos-v2/
-{ config, pkgs, lib, ... }:
-let cfg = config.services.steam;
-in {
-  options.services.steam = { enable = lib.mkEnableOption "Steam"; };
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.services.steam;
+in
+{
+  options.services.steam = {
+    enable = lib.mkEnableOption "Steam";
+  };
 
   config = lib.mkIf cfg.enable {
     users.users.steamcmd = {
@@ -20,15 +29,23 @@ in {
         "steamcmd@" = {
           after = [ "network-online.target" ];
           wants = [ "network-online.target" ];
-          unitConfig = { StopWhenUnneeded = true; };
+          unitConfig = {
+            StopWhenUnneeded = true;
+          };
           serviceConfig = {
             Type = "oneshot";
             ExecStart = "${
-                pkgs.resholve.writeScript "steam" {
+              pkgs.resholve.writeScript "steam"
+                {
                   interpreter = "${pkgs.zsh}/bin/zsh";
-                  inputs = with pkgs; [ patchelf steamcmd coreutils ];
+                  inputs = with pkgs; [
+                    patchelf
+                    steamcmd
+                    coreutils
+                  ];
                   execer = [ "cannot:${pkgs.steamcmd}/bin/steamcmd" ];
-                } ''
+                }
+                ''
                   set -eux
 
                   instance=''${1:?Instance Missing}
@@ -67,7 +84,7 @@ in {
                     patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 $f || true
                   done
                 ''
-              } %i";
+            } %i";
             PrivateTmp = true;
             Restart = "on-failure";
             StateDirectory = "steamcmd/apps/%i";
@@ -80,7 +97,10 @@ in {
         # Some games might depend on the Steamworks SDK redistributable, so download it.
         steamworks-sdk = {
           wantedBy = [ "multi-user.target" ];
-          wants = [ "steamcmd@1007.service" "steamworks-sdk.timer" ];
+          wants = [
+            "steamcmd@1007.service"
+            "steamworks-sdk.timer"
+          ];
           after = [ "steamcmd@1007.service" ];
 
           serviceConfig = {

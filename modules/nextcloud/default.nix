@@ -1,12 +1,19 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   zfsBootSupported =
     (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
     != { };
 
-  zfsServiceSupported = config.services.zfs.autoScrub.enable
-    || config.services.zfs.autoSnapshot.enable;
-in {
+  zfsServiceSupported =
+    config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-nextcloud-primary" ];
 
@@ -32,7 +39,10 @@ in {
 
   environment.systemPackages = with pkgs; [ ffmpeg-headless ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   services = {
     nextcloud = {
@@ -126,11 +136,18 @@ in {
   # nextcloud, however they are either dependent on nextcloud-setup
   # or phpfpm-nextcloud so we do not need to add the after here as it's
   # implied.
-  systemd.services = let
-    after = lib.optionals (zfsBootSupported || zfsServiceSupported)
-      [ "zfs-mount.service" ];
-  in {
-    nextcloud-setup = { inherit after; };
-    phpfpm-nextcloud = { inherit after; };
-  };
+  systemd.services =
+    let
+      after = lib.optionals (zfsBootSupported || zfsServiceSupported) [
+        "zfs-mount.service"
+      ];
+    in
+    {
+      nextcloud-setup = {
+        inherit after;
+      };
+      phpfpm-nextcloud = {
+        inherit after;
+      };
+    };
 }

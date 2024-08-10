@@ -1,4 +1,5 @@
-{ self, ... }: {
+{ self, ... }:
+{
   imports = [ self.inputs.disko.nixosModules.default ];
 
   fileSystems."/persistent" = {
@@ -29,7 +30,10 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot/firmware";
-                mountOptions = [ "nofail" "noauto" ];
+                mountOptions = [
+                  "nofail"
+                  "noauto"
+                ];
               };
             };
             root = {

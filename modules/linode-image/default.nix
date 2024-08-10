@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   boot = {
     kernelParams = [ "console=ttyS0,19200n8" ];
     loader = {
@@ -26,5 +27,5 @@
     interfaces.eth0.useDHCP = true;
   };
 
-  swapDevices = [{ device = "/dev/sdb"; }];
+  swapDevices = [ { device = "/dev/sdb"; } ];
 }

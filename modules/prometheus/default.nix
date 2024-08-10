@@ -1,6 +1,8 @@
 { config, self, ... }:
-let inherit (self.common.networking.services) exporters-node prometheus;
-in {
+let
+  inherit (self.common.networking.services) exporters-node prometheus;
+in
+{
   networking.firewall.allowedTCPPorts = [ config.services.prometheus.port ];
 
   services.prometheus = {
@@ -9,7 +11,10 @@ in {
     exporters.node = {
       inherit (exporters-node) port;
       enable = true;
-      enabledCollectors = [ "systemd" "processes" ];
+      enabledCollectors = [
+        "systemd"
+        "processes"
+      ];
       openFirewall = true;
     };
 

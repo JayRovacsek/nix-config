@@ -1,7 +1,13 @@
-{ lib, pkgs, self, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
-  packageSettings =
-    lib.optionalAttrs pkgs.stdenv.isDarwin { package = pkgs.firefox-bin; };
+  packageSettings = lib.optionalAttrs pkgs.stdenv.isDarwin {
+    package = pkgs.firefox-bin;
+  };
 
   addons = with pkgs.nur.repos.rycee.firefox-addons; [
     clearurls
@@ -26,7 +32,8 @@ let
   extensions = addons ++ languagePacks ++ dictionaries;
 
   localhost = "http://127.0.0.1/";
-in {
+in
+{
   programs.firefox = {
     enable = true;
 
@@ -85,18 +92,15 @@ in {
         };
         "Nix Pkg Search" = {
           keyword = "np";
-          url =
-            "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&query=%s";
+          url = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&query=%s";
         };
         "Nix Options Search" = {
           keyword = "no";
-          url =
-            "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
+          url = "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
         };
         "Nix Uber Search" = {
           keyword = "ns";
-          url =
-            "https://search.nix.gsc.io/?q=%s&i=nope&files=&excludeFiles=&repos=";
+          url = "https://search.nix.gsc.io/?q=%s&i=nope&files=&excludeFiles=&repos=";
         };
         "Nix Home Manager Options Search" = {
           keyword = "hm";
@@ -104,8 +108,7 @@ in {
         };
         "nib Jira Search" = {
           keyword = "j";
-          url =
-            "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+          url = "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
         };
         "nib Confluence Search" = {
           keyword = "c";
@@ -118,8 +121,7 @@ in {
         };
         "nib Monday Search" = {
           keyword = "m";
-          url =
-            "https://nib-group.monday.com/boards/1933538575/views/65368537?term=%s";
+          url = "https://nib-group.monday.com/boards/1933538575/views/65368537?term=%s";
         };
         "Terraform Search" = {
           keyword = "t";
@@ -188,18 +190,14 @@ in {
         "browser.helperApps.deleteTempFileOnExit" = true;
         "browser.messaging-system.whatsNewPanel.enabled" = false;
         "browser.newtab.preload" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
-          false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
-          false;
-        "browser.newtabpage.activity-stream.asrouter.useruser_prefs.cfr" =
-          false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+        "browser.newtabpage.activity-stream.asrouter.useruser_prefs.cfr" = false;
         "browser.newtabpage.activity-stream.disableSnippets" = true;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
-        "browser.newtabpage.activity-stream.section.highlights.includePocket" =
-          false;
+        "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.showTopSites" = false;
@@ -209,10 +207,8 @@ in {
         "browser.newtabpage.enhanced" = false;
         "browser.newtabpage.introShown" = true;
         "browser.onboarding.enabled" = false;
-        "browser.onboarding.newtour" =
-          "performance,private,addons,customize,default";
-        "browser.onboarding.updatetour" =
-          "performance,library,singlesearch,customize";
+        "browser.onboarding.newtour" = "performance,private,addons,customize,default";
+        "browser.onboarding.updatetour" = "performance,library,singlesearch,customize";
         "browser.pagethumbnails.capturing_disabled" = true;
         "browser.ping-centre.telemetry" = false;
         "browser.pocket.enabled" = false;
@@ -333,8 +329,7 @@ in {
         "healthreport.uploadEnabled" = false;
 
         "identity.mobilepromo.android" = localhost;
-        "identity.sync.tokenserver.uri" =
-          "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
+        "identity.sync.tokenserver.uri" = "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
 
         "intl.locale.matchOS" = true;
 
@@ -412,8 +407,7 @@ in {
         "privacy.globalprivacycontrol.enabled" = true;
         "privacy.globalprivacycontrol.functionality.enabled" = true;
         "privacy.query_stripping" = true;
-        "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" =
-          false;
+        "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" = false;
         "privacy.resistFingerprinting.block_mozAddonManager" = true;
         "privacy.resistFingerprinting.exemptedDomains" = "*.rovacsek.com";
         "privacy.resistFingerprinting.letterboxing" = true;

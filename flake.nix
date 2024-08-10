@@ -412,12 +412,16 @@
                       "Flor"
                       "gastly"
                       "Gastly"
+                      "Iy"
+                      "ND"
                       "no"
                       "noice"
                       "noo"
                       "Ot"
+                      "Pn"
                       "SART"
                       "SYNOPSYS"
+                      "UE"
                       "wih"
                     ];
                     locale = "en-au";

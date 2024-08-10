@@ -2,7 +2,8 @@
 let
   inherit (pkgs) system;
   inherit (self.packages.${system}) mario-homelab-pixelart-wallpaper;
-in {
+in
+{
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -27,20 +28,21 @@ in {
       };
 
       # TIME
-      label = [{
-        # TIME
-        monitor = "";
-        text =
-          ''cmd[update:500] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
-        #color = rgba(255, 255, 255, 0.6)
-        font_size = 64;
-        font_family = "Hack Nerd Font Mono";
-        position = "0, 16";
-        shadow_passes = 3;
-        shadow_size = 4;
-        halign = "center";
-        valign = "center";
-      }];
+      label = [
+        {
+          # TIME
+          monitor = "";
+          text = ''cmd[update:500] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
+          #color = rgba(255, 255, 255, 0.6)
+          font_size = 64;
+          font_family = "Hack Nerd Font Mono";
+          position = "0, 16";
+          shadow_passes = 3;
+          shadow_size = 4;
+          halign = "center";
+          valign = "center";
+        }
+      ];
 
       # INPUT FIELD
       input-field = {
@@ -55,8 +57,7 @@ in {
         font_color = "rgb(200, 200, 200)";
         fade_on_empty = false;
         font_family = "Hack Nerd Font Mono";
-        placeholder_text =
-          "<i><span foreground='##cdd6f4'>Password...</span></i>";
+        placeholder_text = "<i><span foreground='##cdd6f4'>Password...</span></i>";
         hide_input = false;
         position = "0, 50";
         halign = "center";

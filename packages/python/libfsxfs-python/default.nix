@@ -1,6 +1,13 @@
-{ lib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in
+buildPythonPackage rec {
   pname = "libfsxfs-python";
   version = "20240222";
   pyproject = true;

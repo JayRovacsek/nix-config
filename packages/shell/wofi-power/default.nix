@@ -1,4 +1,13 @@
-{ stdenv, pkgs, lib, wofi, gawk, systemd, hyprland, ... }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  wofi,
+  gawk,
+  systemd,
+  hyprland,
+  ...
+}:
 with lib;
 let
   pname = "wofi-power";
@@ -27,10 +36,19 @@ let
     esac
   '';
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenv.mkDerivation {
-  inherit pname version meta phases;
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    ;
 
   buildInputs = [ wofi-power-wrapped ];
 

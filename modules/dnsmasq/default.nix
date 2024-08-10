@@ -7,10 +7,15 @@ let
   cache = import ./cache.nix;
 
   # Files to write to etc
-  etcConfigs = builtins.foldl'
-    (acc: config: acc // (etc.generate-file { inherit config; }))
-    { } [ local cache ];
-in {
+  etcConfigs =
+    builtins.foldl' (acc: config: acc // (etc.generate-file { inherit config; }))
+      { }
+      [
+        local
+        cache
+      ];
+in
+{
   services.dnsmasq = {
     # inherit extraConfig;
 

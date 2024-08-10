@@ -1,4 +1,9 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (pkgs) system;
   inherit (self) common;
@@ -13,7 +18,8 @@ let
   };
 
   user-configs = merge [ jay ];
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   # Once a ditto, always a ditto.

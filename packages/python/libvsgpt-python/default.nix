@@ -1,6 +1,13 @@
-{ lib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in
+buildPythonPackage rec {
   pname = "libvsgpt-python";
   version = "20240228";
   pyproject = true;

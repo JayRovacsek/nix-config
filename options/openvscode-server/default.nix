@@ -1,19 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   inherit (pkgs.vscode-utils) toExtensionJson;
 
   cfg = config.services.openvscode-server;
 
-  extensions-config =
-    pkgs.writeTextDir "share/vscode/extensions/extensions.json"
-    (pkgs.vscode-utils.toExtensionJson cfg.extensions);
+  extensions-config = pkgs.writeTextDir "share/vscode/extensions/extensions.json" (
+    pkgs.vscode-utils.toExtensionJson cfg.extensions
+  );
 
   extensions-merged = pkgs.symlinkJoin {
     name = "extensions";
     paths = cfg.extensions ++ [ extensions-config ];
   };
-in {
+in
+{
   options.services.openvscode-server = {
     extensions = mkOption {
       type = types.listOf types.package;
@@ -61,15 +67,15 @@ in {
 
   config = mkIf cfg.enable {
     environment.etc."openvscode-server/Machine/settings.json" =
-      mkIf (cfg.use-declarative-settings && cfg.settings != { }) {
-        inherit (cfg) user group;
-        text = builtins.toJSON cfg.settings;
-        mode = if cfg.use-immutable-settings then "440" else "640";
-      };
+      mkIf (cfg.use-declarative-settings && cfg.settings != { })
+        {
+          inherit (cfg) user group;
+          text = builtins.toJSON cfg.settings;
+          mode = if cfg.use-immutable-settings then "440" else "640";
+        };
 
-    systemd.tmpfiles.rules = (lib.optional cfg.use-declarative-extensions
-      "L+ ${cfg.serverDataDir}/extensions - - - - ${extensions-merged}/share/vscode/extensions")
-      ++ (lib.optional cfg.use-declarative-settings
-        "L+ ${cfg.serverDataDir}/data/Machine/settings.json - - - - /etc/openvscode-server/Machine/settings.json");
+    systemd.tmpfiles.rules =
+      (lib.optional cfg.use-declarative-extensions "L+ ${cfg.serverDataDir}/extensions - - - - ${extensions-merged}/share/vscode/extensions")
+      ++ (lib.optional cfg.use-declarative-settings "L+ ${cfg.serverDataDir}/data/Machine/settings.json - - - - /etc/openvscode-server/Machine/settings.json");
   };
 }

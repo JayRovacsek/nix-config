@@ -1,6 +1,9 @@
 { self }:
-let inherit (self.common) package-sets;
-in builtins.mapAttrs (name: value:
+let
+  inherit (self.common) package-sets;
+in
+builtins.mapAttrs (
+  name: value:
   let
     inherit (value) lib;
 
@@ -10,7 +13,8 @@ in builtins.mapAttrs (name: value:
     isBleedingEdge = lib.hasSuffix "bleeding-edge" name;
     isStable = !isUnstable && !isBleedingEdge;
 
-  in {
+  in
+  {
     imports = [ ../options/nix ];
 
     # The below options should be suitable mappings of input 
@@ -28,26 +32,35 @@ in builtins.mapAttrs (name: value:
     # OR
     # * utilise only the first nixpkgs input (likely lexicographical order) 
     #
-    nix.sources = (lib.optionals isBleedingEdge [{
-      name = "nixpkgs";
-      source = self.inputs.bleeding-edge;
-    }]) ++ (lib.optionals isUnstable [{
-      name = "nixpkgs";
-      source = self.inputs.nixpkgs;
-    }]) ++ (lib.optionals isStable [{
-      name = "nixpkgs";
-      source = self.inputs.stable;
-    }]) ++ (lib.optionals isDarwin [
-      {
-        name = "darwin";
-        source = self.inputs.nix-darwin;
-      }
-      {
-        name = "darwin-config";
-        source = self;
-      }
-    ]);
+    nix.sources =
+      (lib.optionals isBleedingEdge [
+        {
+          name = "nixpkgs";
+          source = self.inputs.bleeding-edge;
+        }
+      ])
+      ++ (lib.optionals isUnstable [
+        {
+          name = "nixpkgs";
+          source = self.inputs.nixpkgs;
+        }
+      ])
+      ++ (lib.optionals isStable [
+        {
+          name = "nixpkgs";
+          source = self.inputs.stable;
+        }
+      ])
+      ++ (lib.optionals isDarwin [
+        {
+          name = "darwin";
+          source = self.inputs.nix-darwin;
+        }
+        {
+          name = "darwin-config";
+          source = self;
+        }
+      ]);
   }
 
 ) package-sets
-

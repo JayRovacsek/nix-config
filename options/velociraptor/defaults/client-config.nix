@@ -14,7 +14,8 @@ let
     ci_build_url = "";
     compiler = "go1.22.2";
   };
-in {
+in
+{
   inherit version;
   Client = {
     ca_certificate = ''

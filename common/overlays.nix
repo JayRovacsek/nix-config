@@ -2,7 +2,8 @@
 let
   inherit (self.common.overlays) darwin linux system-agnostic;
   inherit (self.inputs) agenix firefox-darwin nur;
-in {
+in
+{
   all = system-agnostic ++ darwin ++ linux;
 
   darwin = [
@@ -22,5 +23,9 @@ in {
     self.overlays.waybar
   ];
 
-  system-agnostic = [ agenix.overlays.default nur.overlay self.overlays.lib ];
+  system-agnostic = [
+    agenix.overlays.default
+    nur.overlay
+    self.overlays.lib
+  ];
 }

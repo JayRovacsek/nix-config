@@ -1,5 +1,9 @@
-{ lib, self, ... }: {
-  imports = with self.nixosModules; [ disable-assertions nix-topology ];
+{ lib, self, ... }:
+{
+  imports = with self.nixosModules; [
+    disable-assertions
+    nix-topology
+  ];
 
   nix = {
     gc = {

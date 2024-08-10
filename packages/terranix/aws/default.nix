@@ -3,7 +3,8 @@ let
   inherit (self.common.tofu.globals) aws;
   inherit (aws) region tags;
   inherit (aws.iam) state-statements;
-in {
+in
+{
   variable = {
     AWS_ACCESS_KEY = {
       type = "string";
@@ -31,7 +32,9 @@ in {
 
   provider.aws = {
     inherit region;
-    default_tags = { inherit tags; };
+    default_tags = {
+      inherit tags;
+    };
     access_key = "\${var.AWS_ACCESS_KEY}";
     secret_key = "\${var.AWS_SECRET_KEY}";
   };

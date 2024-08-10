@@ -1,4 +1,5 @@
-{ self, ... }: {
+{ self, ... }:
+{
   imports = [ self.inputs.disko.nixosModules.default ];
 
   age = {
@@ -85,10 +86,11 @@
           compression = "zstd";
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
-          /* *
-             This is hard-coded as a reference to config here causes infinite
-             recursion. For now, the assumption of /run/agenix is relatively
-             safe.
+          /*
+            *
+            This is hard-coded as a reference to config here causes infinite
+            recursion. For now, the assumption of /run/agenix is relatively
+            safe.
           */
           keylocation = "file:///run/agenix/zfs-fde-key";
           mountpoint = "none";
@@ -96,50 +98,60 @@
           xattr = "sa";
         };
 
-        datasets = builtins.foldl' (acc: dataset:
-          acc // {
-            ${dataset} = {
-              mountpoint = "/srv/${dataset}";
-              type = "zfs_fs";
-            };
-          }) { } [
-            "containers"
-            "databases"
-            "downloads"
-            "games"
-            "isos"
-            "logs"
-            "movies"
-            "music"
-            "nextcloud"
-            "osts"
-            "storage"
-            "tv"
-          ];
+        datasets =
+          builtins.foldl'
+            (
+              acc: dataset:
+              acc
+              // {
+                ${dataset} = {
+                  mountpoint = "/srv/${dataset}";
+                  type = "zfs_fs";
+                };
+              }
+            )
+            { }
+            [
+              "containers"
+              "databases"
+              "downloads"
+              "games"
+              "isos"
+              "logs"
+              "movies"
+              "music"
+              "nextcloud"
+              "osts"
+              "storage"
+              "tv"
+            ];
       };
     };
   };
 
-  services.smartd = let options = "-a -v 1,raw48:54 -v 7,raw48:54";
-  in {
-    devices = [
+  services.smartd =
+    let
+      options = "-a -v 1,raw48:54 -v 7,raw48:54";
+    in
+    {
+      devices = [
 
-      {
-        device = "/dev/disk/by-id/wwn-0x5000c500c892b513";
-        inherit options;
-      }
-      {
-        device = "/dev/disk/by-id/wwn-0x5000c500c7db3a72";
-        inherit options;
-      }
-      {
-        device = "/dev/disk/by-id/wwn-0x5000c500e84f2745";
-        inherit options;
-      }
-      {
-        device = "/dev/disk/by-id/wwn-0x5000c500e82a80a2";
-        inherit options;
-      }
-    ];
-  };
+        {
+          device = "/dev/disk/by-id/wwn-0x5000c500c892b513";
+          inherit options;
+        }
+        {
+          device = "/dev/disk/by-id/wwn-0x5000c500c7db3a72";
+          inherit options;
+        }
+        {
+          device = "/dev/disk/by-id/wwn-0x5000c500e84f2745";
+          inherit options;
+        }
+        {
+          device = "/dev/disk/by-id/wwn-0x5000c500e82a80a2";
+          inherit options;
+        }
+      ];
+    };
 }

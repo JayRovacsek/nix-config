@@ -1,5 +1,6 @@
 { lib, ... }:
-with lib; {
+with lib;
+{
   options.hardware.cpu.profile = {
     cores = mkOption {
       type = types.int;
@@ -9,8 +10,7 @@ with lib; {
     speed = mkOption {
       type = types.int;
       default = 1;
-      description =
-        "The relative speed of CPU cores compared to other systems within configuration";
+      description = "The relative speed of CPU cores compared to other systems within configuration";
     };
   };
 }

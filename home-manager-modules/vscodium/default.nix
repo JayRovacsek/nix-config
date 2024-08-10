@@ -13,7 +13,8 @@ let
     rev = "main";
     hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
   };
-in {
+in
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -22,17 +23,21 @@ in {
     enableExtensionUpdateCheck = false;
     mutableExtensionsDir = false;
 
-    keybindings = [{
-      key = "cmd+`";
-      command = "workbench.action.terminal.toggleTerminal";
-      when = "terminal.active";
-    }];
+    keybindings = [
+      {
+        key = "cmd+`";
+        command = "workbench.action.terminal.toggleTerminal";
+        when = "terminal.active";
+      }
+    ];
 
     userSettings = {
       "[dockercompose]" = {
         "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
       };
-      "[go]" = { "editor.defaultFormatter" = "golang.go"; };
+      "[go]" = {
+        "editor.defaultFormatter" = "golang.go";
+      };
       "[javascript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
@@ -45,16 +50,24 @@ in {
       "[jsonc]" = {
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
-      "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+      "[latex]" = {
+        "editor.defaultFormatter" = "James-Yu.latex-workshop";
+      };
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
       "[typescriptreact]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
-      "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
-      "[yaml]" = { "editor.formatOnSave" = false; };
+      "[xml]" = {
+        "editor.defaultFormatter" = "redhat.vscode-xml";
+      };
+      "[yaml]" = {
+        "editor.formatOnSave" = false;
+      };
 
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
@@ -89,8 +102,7 @@ in {
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr =
-              ''(builtins.getFlake "${nix-options}").options.darwin'';
+            darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
             hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
             nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
@@ -159,4 +171,3 @@ in {
     ];
   };
 }
-

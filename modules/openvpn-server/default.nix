@@ -1,6 +1,13 @@
-{ config, lib, self, ... }:
-let inherit (self.common.networking.services) openvpn;
-in {
+{
+  config,
+  lib,
+  self,
+  ...
+}:
+let
+  inherit (self.common.networking.services) openvpn;
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-openvpn-primary" ];
 
@@ -17,10 +24,8 @@ in {
 
   networking = {
     firewall = {
-      allowedUDPPorts =
-        lib.optionals (openvpn.protocol == "udp") [ openvpn.port ];
-      allowedTCPPorts =
-        lib.optionals (openvpn.protocol == "tcp") [ openvpn.port ];
+      allowedUDPPorts = lib.optionals (openvpn.protocol == "udp") [ openvpn.port ];
+      allowedTCPPorts = lib.optionals (openvpn.protocol == "tcp") [ openvpn.port ];
     };
     nat = {
       enable = true;

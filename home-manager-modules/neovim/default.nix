@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   # Configuration Options
   # https://nix-community.github.io/nixvim/
 
@@ -52,12 +53,13 @@
         popupBorderStyle = "rounded";
 
         closeIfLastWindow = true;
-        extraOptions = { filesystem.filtered_items.visible = true; };
+        extraOptions = {
+          filesystem.filtered_items.visible = true;
+        };
       };
 
       # Better highlighting
-      treesitter.enable =
-        true; # https://github.com/nvim-treesitter/nvim-treesitter
+      treesitter.enable = true; # https://github.com/nvim-treesitter/nvim-treesitter
 
       # Notifications
       notify.enable = true; # https://github.com/rcarriga/nvim-notify

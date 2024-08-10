@@ -1,8 +1,18 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.virtualisation.docker;
-  requiredPackages = with pkgs; [ colima docker ];
-in with lib; {
+  requiredPackages = with pkgs; [
+    colima
+    docker
+  ];
+in
+with lib;
+{
   options = {
     virtualisation.docker = {
       enable = mkOption {

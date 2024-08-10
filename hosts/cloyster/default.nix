@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 let
   inherit (self.common.home-manager-module-sets) hyprland-waybar-desktop;
@@ -11,7 +17,8 @@ let
 
   user-configs = merge [ jay ];
 
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   age = {
@@ -34,8 +41,13 @@ in {
   boot = {
     extraModulePackages = [ ];
     initrd = {
-      availableKernelModules =
-        [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
       kernelModules = [ ];
     };
     kernelModules = [ "kvm-intel" ];
@@ -68,39 +80,40 @@ in {
   };
 
   hardware = {
-    cpu.intel.updateMicrocode =
-      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     firmware = [ self.packages.${pkgs.system}.t2-firmware ];
   };
 
-  imports = (with self.nixosModules; [
-    agenix
-    clamav
-    grafana-agent
-    nix-topology
-    fonts
-    generations
-    gnupg
-    greetd
-    hyprland
-    lorri
-    nix
-    openssh
-    steam
-    systemd-networkd
-    time
-    timesyncd
-    udev
-    zsh
-  ]) ++ [ self.inputs.nixos-hardware.nixosModules.apple-t2 ];
+  imports =
+    (with self.nixosModules; [
+      agenix
+      clamav
+      grafana-agent
+      nix-topology
+      fonts
+      generations
+      gnupg
+      greetd
+      hyprland
+      lorri
+      nix
+      openssh
+      steam
+      systemd-networkd
+      time
+      timesyncd
+      udev
+      zsh
+    ])
+    ++ [ self.inputs.nixos-hardware.nixosModules.apple-t2 ];
 
   networking.hostName = "cloyster";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/f7990683-8a69-46ad-a5c4-cbac8d212ffb"; }];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/f7990683-8a69-46ad-a5c4-cbac8d212ffb"; }
+  ];
 
   system.stateVersion = "23.11";
 }
-

@@ -1,10 +1,21 @@
-{ stdenvNoCC, lib, fetchFromGitHub, coreutils, gawk, procps, eww-wayland, bspwm
-, ... }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  gawk,
+  procps,
+  eww-wayland,
+  bspwm,
+  ...
+}:
 with lib;
 let
   name = "eww-launch-bar";
   version = "0.0.1";
-  meta = { description = "Eww launch-bar script"; };
+  meta = {
+    description = "Eww launch-bar script";
+  };
 
   src = fetchFromGitHub {
     owner = "saimoomedits";
@@ -13,10 +24,20 @@ let
     hash = "sha256-yPSUdLgkwJyAX0rMjBGOuUIDvUKGPcVA5CSaCNcq0e8=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenvNoCC.mkDerivation {
-  inherit name version meta phases src;
+in
+stdenvNoCC.mkDerivation {
+  inherit
+    name
+    version
+    meta
+    phases
+    src
+    ;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/bin

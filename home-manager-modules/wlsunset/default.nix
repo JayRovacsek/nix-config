@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.wlsunset = {
     enable = true;
     package = pkgs.wlsunset;

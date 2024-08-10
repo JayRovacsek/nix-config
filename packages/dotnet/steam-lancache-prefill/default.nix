@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime_8, dotnet-sdk_8 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDotnetModule,
+  dotnet-runtime_8,
+  dotnet-sdk_8,
+}:
 let
   dotnet-runtime = dotnet-runtime_8;
   dotnet-sdk = dotnet-sdk_8;
@@ -29,7 +35,17 @@ let
 
   nugetDeps = ./deps.nix;
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime dotnet-sdk projectFile nugetDeps
-    patches;
+in
+buildDotnetModule {
+  inherit
+    pname
+    version
+    meta
+    src
+    dotnet-runtime
+    dotnet-sdk
+    projectFile
+    nugetDeps
+    patches
+    ;
 }

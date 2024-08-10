@@ -1,10 +1,21 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
 
   inherit (python3Packages)
-    buildPythonPackage pip pyyaml pythonOlder setuptools;
+    buildPythonPackage
+    pip
+    pyyaml
+    pythonOlder
+    setuptools
+    ;
 
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "dtfabric";
   version = "20230520";
   pyproject = true;
@@ -16,7 +27,10 @@ in buildPythonPackage rec {
 
   build-system = [ setuptools ];
 
-  dependencies = [ pip pyyaml ];
+  dependencies = [
+    pip
+    pyyaml
+  ];
 
   disabled = pythonOlder "3.8";
 
@@ -24,8 +38,7 @@ in buildPythonPackage rec {
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
-    description =
-      "dtFabric, or data type fabric, is a project to manage data types and structures, as used in the libyal projects.";
+    description = "dtFabric, or data type fabric, is a project to manage data types and structures, as used in the libyal projects.";
     downloadPage = "https://github.com/libyal/dtfabric/releases";
     homepage = "https://github.com/libyal/dtfabric";
     license = licenses.asl20;

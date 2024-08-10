@@ -1,13 +1,18 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self.lib.microvm) has-microvm is-microvm-host;
 
   microvm = (has-microvm config) && (is-microvm-host config);
   # Microvms persist state via their machine-id, which is simply 
   # an md5 of hostname.
-  microvm-state-dirs =
-    builtins.map (x: "/var/lib/${builtins.hashString "md5" x}")
-    (builtins.attrNames config.microvm.vms);
+  microvm-state-dirs = builtins.map (
+    x: "/var/lib/${builtins.hashString "md5" x}"
+  ) (builtins.attrNames config.microvm.vms);
 
   agenix-in-use = builtins.hasAttr "age" config;
 
@@ -15,12 +20,14 @@ let
   # TODO: check if a filter for enabled is required here in the case of 
   # failure on directory not existing
   authelia = config.services.authelia.instances != { };
-  authelia-instances = lib.optionals authelia
-    (builtins.attrNames config.services.authelia.instances);
+  authelia-instances = lib.optionals authelia (
+    builtins.attrNames config.services.authelia.instances
+  );
 
   # normal-users = lib.filterAttrs (n: v: v.isNormalUser) config.users.users;
 
-in {
+in
+{
   imports = [ self.inputs.impermanence.nixosModules.impermanence ];
 
   fileSystems = {
@@ -28,7 +35,10 @@ in {
       device = "none";
       fsType = "tmpfs";
       neededForBoot = true;
-      options = [ "defaults" "mode=755" ];
+      options = [
+        "defaults"
+        "mode=755"
+      ];
     };
     "/agenix".neededForBoot = true;
   };
@@ -66,28 +76,25 @@ in {
       ## ddclient
       ++ (lib.optional config.services.ddclient.enable "/var/lib/ddclient")
       ## Deluge
-      ++ (lib.optional config.services.deluge.enable
-        config.services.deluge.config.download_location)
+      ++ (lib.optional config.services.deluge.enable config.services.deluge.config.download_location)
       ## Docker
       ++ (lib.optional config.virtualisation.docker.enable "/var/lib/docker")
       ## Mysql
-      ++ (lib.optional config.services.mysql.enable
-        config.services.mysql.dataDir)
+      ++ (lib.optional config.services.mysql.enable config.services.mysql.dataDir)
       ## Grafana
-      ++ (lib.optional config.services.grafana.enable
-        config.services.grafana.dataDir)
+      ++ (lib.optional config.services.grafana.enable config.services.grafana.dataDir)
       # Magic values as per: https://github.com/NixOS/nixpkgs/blob/e92b6015881907e698782c77641aa49298330223/nixos/modules/services/networking/headscale.nix#L10
       ## Headscale
-      ++ (lib.optional config.services.headscale.enable
-        "/var/lib/${config.systemd.services.headscale.serviceConfig.StateDirectory}")
+      ++ (lib.optional config.services.headscale.enable "/var/lib/${config.systemd.services.headscale.serviceConfig.StateDirectory}")
 
       ++ (lib.optionals config.services.xserver.displayManager.lightdm.enable [
         "/var/lib/lightdm"
         "/var/lib/lightdm-data"
       ])
       ++ (lib.optionals microvm ([ "/var/lib/microvms" ] ++ microvm-state-dirs))
-      ++ (lib.optionals config.services.displayManager.sddm.enable
-        [ "/var/lib/sddm" ])
+      ++ (lib.optionals config.services.displayManager.sddm.enable [
+        "/var/lib/sddm"
+      ])
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
   };
 }

@@ -1,10 +1,12 @@
 let
-  primary-key =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAb/50/CQbxIvQcNkryk4Oi6lpaNy6n+clkq3i9L3PA4 ";
-  secondary-key =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBWrOarQspazN9SZrWCz2+mETjf+QX3ZYHu5Nkj9ydvC";
-  keys = [ primary-key secondary-key ];
-in {
+  primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAb/50/CQbxIvQcNkryk4Oi6lpaNy6n+clkq3i9L3PA4 ";
+  secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBWrOarQspazN9SZrWCz2+mETjf+QX3ZYHu5Nkj9ydvC";
+  keys = [
+    primary-key
+    secondary-key
+  ];
+in
+{
   "databases-local-disk-backup-env.age".publicKeys = keys;
   "databases-backblaze-backup-env.age".publicKeys = keys;
 

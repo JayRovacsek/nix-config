@@ -1,23 +1,51 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self.common.networking.services.headscale)
-    derpServerStunPort grpcPort metricsPort port;
-in {
+    derpServerStunPort
+    grpcPort
+    metricsPort
+    port
+    ;
+in
+{
 
-  imports = [ ./acl.nix ../../options/headscale ];
+  imports = [
+    ./acl.nix
+    ../../options/headscale
+  ];
 
-  age.secrets = builtins.foldl' (a: b: a // b) { } (builtins.map (x: {
-    "${lib.strings.removeSuffix ".age" x}" = {
-      file = ../../secrets/tailscale/${x};
-      mode = "0400";
-      owner = config.services.headscale.user;
-    };
-  }) (builtins.filter (z: (lib.strings.hasSuffix ".age" z))
-    (builtins.attrNames (builtins.readDir ../../secrets/tailscale))));
+  age.secrets = builtins.foldl' (a: b: a // b) { } (
+    builtins.map
+      (x: {
+        "${lib.strings.removeSuffix ".age" x}" = {
+          file = ../../secrets/tailscale/${x};
+          mode = "0400";
+          owner = config.services.headscale.user;
+        };
+      })
+      (
+        builtins.filter (z: (lib.strings.hasSuffix ".age" z)) (
+          builtins.attrNames (builtins.readDir ../../secrets/tailscale)
+        )
+      )
+  );
 
   networking.firewall = {
-    allowedTCPPorts = [ port grpcPort metricsPort ];
-    allowedUDPPorts = [ port derpServerStunPort ];
+    allowedTCPPorts = [
+      port
+      grpcPort
+      metricsPort
+    ];
+    allowedUDPPorts = [
+      port
+      derpServerStunPort
+    ];
   };
 
   environment.systemPackages = with pkgs; [ headscale ];
@@ -33,92 +61,112 @@ in {
       {
         id = 1;
         name = "work";
-        keys = [{
-          ephemeral = false;
-          inherit (config.age.secrets.preauth-work) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = false;
+            inherit (config.age.secrets.preauth-work) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 2;
         name = "reverse-proxy";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-reverse-proxy) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-reverse-proxy) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 3;
         name = "nextcloud";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-nextcloud) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-nextcloud) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 4;
         name = "log";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-log) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-log) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 5;
         name = "general";
-        keys = [{
-          ephemeral = false;
-          inherit (config.age.secrets.preauth-general) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = false;
+            inherit (config.age.secrets.preauth-general) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 6;
         name = "game";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-game) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-game) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 7;
         name = "download";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-download) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-download) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 8;
         name = "dns";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-dns) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-dns) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 9;
         name = "auth";
-        keys = [{
-          ephemeral = true;
-          inherit (config.age.secrets.preauth-auth) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = true;
+            inherit (config.age.secrets.preauth-auth) path;
+            reusable = true;
+          }
+        ];
       }
       {
         id = 10;
         name = "admin";
-        keys = [{
-          ephemeral = false;
-          inherit (config.age.secrets.preauth-admin) path;
-          reusable = true;
-        }];
+        keys = [
+          {
+            ephemeral = false;
+            inherit (config.age.secrets.preauth-admin) path;
+            reusable = true;
+          }
+        ];
       }
     ];
 
@@ -163,11 +211,12 @@ in {
         # There's a future in which we can bootstrap tailscale suitably to 
         # simply consume DNS from a suitable node utilising blocky - but it's 
         # still a work in progress.
-        extra_records = lib.optionalAttrs config.services.blocky.enable
-          (lib.mapAttrsToList (name: value: {
+        extra_records = lib.optionalAttrs config.services.blocky.enable (
+          lib.mapAttrsToList (name: value: {
             inherit name value;
             type = "A";
-          }) config.services.blocky.settings.customDNS.mapping);
+          }) config.services.blocky.settings.customDNS.mapping
+        );
       };
 
       # TODO: move this to agenix

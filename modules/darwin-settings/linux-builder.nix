@@ -8,8 +8,12 @@ _: {
     maxJobs = 4;
     config = {
       # Enable cross compilation of the below systems via qemu
-      boot.binfmt.emulatedSystems =
-        [ "aarch64-linux" "x86_64-linux" "armv6l-linux" "armv7l-linux" ];
+      boot.binfmt.emulatedSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
 
       nix.settings = {
         sandbox = true;

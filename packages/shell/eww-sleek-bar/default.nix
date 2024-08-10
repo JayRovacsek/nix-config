@@ -1,14 +1,31 @@
-{ pkgs, stdenvNoCC, lib, fetchFromGitHub, coreutils, eww-wayland, self, ... }:
+{
+  pkgs,
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  eww-wayland,
+  self,
+  ...
+}:
 with lib;
 let
   inherit (pkgs) system;
   inherit (self.packages.${system})
-    eww-battery eww-mem-ad eww-memory eww-music-info eww-pop eww-wifi
-    eww-workspace;
+    eww-battery
+    eww-mem-ad
+    eww-memory
+    eww-music-info
+    eww-pop
+    eww-wifi
+    eww-workspace
+    ;
 
   name = "eww-sleek-bar";
   version = "0.0.1";
-  meta = { description = "A sleek eww bar"; };
+  meta = {
+    description = "A sleek eww bar";
+  };
 
   src = fetchFromGitHub {
     owner = "saimoomedits";
@@ -17,10 +34,20 @@ let
     hash = "sha256-yPSUdLgkwJyAX0rMjBGOuUIDvUKGPcVA5CSaCNcq0e8=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenvNoCC.mkDerivation {
-  inherit name version meta phases src;
+in
+stdenvNoCC.mkDerivation {
+  inherit
+    name
+    version
+    meta
+    phases
+    src
+    ;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/share/scripts $out/share/images

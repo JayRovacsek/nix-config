@@ -1,6 +1,13 @@
 { self, pkgs }:
 let
-  inherit (pkgs) coreutils lib opentofu system terraform-docs tfsec;
+  inherit (pkgs)
+    coreutils
+    lib
+    opentofu
+    system
+    terraform-docs
+    tfsec
+    ;
   inherit (lib) concatMapAttrs;
   inherit (self.common) tofu-stacks;
 
@@ -87,8 +94,7 @@ let
     # Disable as this fails each time as a false positive
     "aws-ec2-enforce-http-token-imds"
   ];
-  tfsec-exclude-statement =
-    "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
+  tfsec-exclude-statement = "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
 
   run-tfsec = ''
     if [[ -e terraform.tfvars ]]; then
@@ -108,44 +114,50 @@ let
     fi
   '';
 
-  terraformProgram = cfg: stack: name: command:
-    builtins.toString (pkgs.writers.writeBash name ''
-      ${removeConfig}
-      ${removeReadme}
-      ${removeState}
-      ${removeVars}
-      ${removeLock}
+  terraformProgram =
+    cfg: stack: name: command:
+    builtins.toString (
+      pkgs.writers.writeBash name ''
+        ${removeConfig}
+        ${removeReadme}
+        ${removeState}
+        ${removeVars}
+        ${removeLock}
 
-      ${useState stack}
-      ${useVars stack}
-      ${useReadme stack}
+        ${useState stack}
+        ${useVars stack}
+        ${useReadme stack}
 
-      ${terraformInit cfg}
+        ${terraformInit cfg}
 
-      ${run-tfsec}
+        ${run-tfsec}
 
-      ${run-tfdoc}
+        ${run-tfdoc}
 
-      ${runTerraformCommand command}
+        ${runTerraformCommand command}
 
-      ${updateReadme stack}
-      ${renameReadme stack}
-      ${removeReadme}
+        ${updateReadme stack}
+        ${renameReadme stack}
+        ${removeReadme}
 
-      ${updateState stack}
-      ${removeState}
+        ${updateState stack}
+        ${removeState}
 
-      ${updateVars stack}
-      ${removeVars}
+        ${updateVars stack}
+        ${removeVars}
 
-      ${removeLock}
+        ${removeLock}
 
-      ${removeConfig}
-    '');
+        ${removeConfig}
+      ''
+    );
 
-  tofu-actions = concatMapAttrs (name: _:
-    let cfg = self.packages.${system}.${name};
-    in {
+  tofu-actions = concatMapAttrs (
+    name: _:
+    let
+      cfg = self.packages.${system}.${name};
+    in
+    {
       "${name}-apply" = {
         type = "app";
         program = terraformProgram cfg name "apply" "apply";
@@ -184,6 +196,8 @@ let
         type = "app";
         program = terraformProgram cfg name "import" "import";
       };
-    }) tofu-stacks;
+    }
+  ) tofu-stacks;
 
-in tofu-actions
+in
+tofu-actions

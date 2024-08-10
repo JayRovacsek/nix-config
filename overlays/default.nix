@@ -1,9 +1,11 @@
-{ self, ... }: {
+{ self, ... }:
+{
   # Required if we want to pin microvm kernel version, the output version
   # will follow prev.linuxPackages
   alt-microvm-kernel = _final: prev: {
-    microvm-kernel = prev.linuxPackages.callPackage
-      (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
+    microvm-kernel = prev.linuxPackages.callPackage (
+      self.inputs.microvm + /pkgs/microvm-kernel.nix
+    ) { };
   };
 
   dockutil-bin = _final: prev: {
@@ -11,9 +13,12 @@
   };
 
   element-desktop = _final: prev: {
-    element-desktop = prev.element-desktop.overrideAttrs (old:
-      let executableName = "element-desktop";
-      in {
+    element-desktop = prev.element-desktop.overrideAttrs (
+      old:
+      let
+        executableName = "element-desktop";
+      in
+      {
         desktopItem = prev.makeDesktopItem {
           name = "element-desktop";
           exec = "${executableName} --disable-gpu %u";
@@ -21,11 +26,16 @@
           desktopName = "Element";
           genericName = "Matrix Client";
           comment = old.meta.description;
-          categories = [ "Network" "InstantMessaging" "Chat" ];
+          categories = [
+            "Network"
+            "InstantMessaging"
+            "Chat"
+          ];
           startupWMClass = "Element";
           mimeTypes = [ "x-scheme-handler/element" ];
         };
-      });
+      }
+    );
   };
 
   fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
@@ -59,63 +69,63 @@
   };
 
   jellyfin-wayland = _final: prev: {
-    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs
-      (_: {
-        autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
+    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs (_: {
+      autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
 
-        postPatch = ''
-          substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
-            --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
-        '';
-      });
+      postPatch = ''
+        substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
+          --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
+      '';
+    });
   };
 
   keepassxc = _final: prev: {
-    keepassxc = if prev.stdenv.isDarwin then
-      prev.stdenvNoCC.mkDerivation (finalAttrs: {
-        pname = "keepassxc";
-        version = "2.7.8";
+    keepassxc =
+      if prev.stdenv.isDarwin then
+        prev.stdenvNoCC.mkDerivation (finalAttrs: {
+          pname = "keepassxc";
+          version = "2.7.8";
 
-        src = prev.fetchurl {
-          url =
-            "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
-          hash = "sha256-RZlan+DgkKnURwlVl2hi70lFXqFme4xaygRuICpkv3k=";
-        };
+          src = prev.fetchurl {
+            url = "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
+            hash = "sha256-RZlan+DgkKnURwlVl2hi70lFXqFme4xaygRuICpkv3k=";
+          };
 
-        sourceRoot = ".";
+          sourceRoot = ".";
 
-        nativeBuildInputs = [ prev.undmg ];
+          nativeBuildInputs = [ prev.undmg ];
 
-        installPhase = ''
-          runHook preInstall
-          mkdir -p $out/Applications
-          cp -r *.app $out/Applications
-          runHook postInstall
-        '';
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out/Applications
+            cp -r *.app $out/Applications
+            runHook postInstall
+          '';
 
-        meta = with prev.lib; {
-          description =
-            "Smooths scrolling and set mouse scroll directions independently";
-          homepage = "http://mos.caldis.me/";
-          sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
-          platforms = platforms.darwin;
-        };
-      })
-    else
-      prev.keepassxc;
+          meta = with prev.lib; {
+            description = "Smooths scrolling and set mouse scroll directions independently";
+            homepage = "http://mos.caldis.me/";
+            sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+            platforms = platforms.darwin;
+          };
+        })
+      else
+        prev.keepassxc;
   };
 
   # TODO; fold any overlay definitions here into the exposed options
   # space within nix-options to nixd will happily identify those auto-completions
-  lib = _final: prev:
+  lib =
+    _final: prev:
     let
-      lib-net = (import "${self.inputs.lib-net}/net.nix" {
-        inherit (self.inputs.nixpkgs) lib;
-      }).lib.net;
+      lib-net =
+        (import "${self.inputs.lib-net}/net.nix" { inherit (self.inputs.nixpkgs) lib; })
+        .lib.net;
 
       net = builtins.removeAttrs (lib-net [ "types" ]);
 
-    in {
+    in
+    {
       lib = prev.lib.recursiveUpdate prev.lib {
         inherit net;
         types.net = lib-net.types;
@@ -125,15 +135,16 @@
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
   makeModulesClosure = _final: prev: {
-    makeModulesClosure = x:
-      prev.makeModulesClosure (x // { allowMissing = true; });
+    makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
   };
 
   moonlight-wayland = _final: prev: {
     moonlight-qt-wayland =
 
-      let waylandFlags = "QT_QPA_PLATFORM=wayland";
-      in prev.moonlight-qt.overrideAttrs (old: rec {
+      let
+        waylandFlags = "QT_QPA_PLATFORM=wayland";
+      in
+      prev.moonlight-qt.overrideAttrs (old: rec {
         runScript = "${waylandFlags} ${prev.moonlight-qt}/bin/${old.pname}";
 
         desktopItem = prev.makeDesktopItem {
@@ -145,7 +156,10 @@
           # icon = "code";
           startupNotify = true;
           startupWMClass = old.pname;
-          categories = [ "Utility" "Game" ];
+          categories = [
+            "Utility"
+            "Game"
+          ];
           keywords = [ "moonlight" ];
         };
       });
@@ -158,11 +172,13 @@
     });
   };
 
-  nix-monitored = _final: prev:
+  nix-monitored =
+    _final: prev:
     let
       nix-monitored = self.inputs.nix-monitored.packages.${prev.system}.default;
       nix = nix-monitored;
-    in {
+    in
+    {
       inherit nix-monitored;
       nixos-rebuild = prev.nixos-rebuild.override { inherit nix; };
       nix-direnv = prev.nix-direnv.override { inherit nix; };
@@ -181,8 +197,8 @@
         rev = "fe7c3b28067a00b0715399d811437545edb83e71";
         sha256 = "sha256-KPCts1MimDQYljoPR4obkbfFT8gH66c542CMG9UW7O0=";
       };
-      propagatedBuildInputs = old.propagatedBuildInputs
-        ++ (with prev.python-prev; [ pylint ]);
+      propagatedBuildInputs =
+        old.propagatedBuildInputs ++ (with prev.python-prev; [ pylint ]);
     });
   };
 

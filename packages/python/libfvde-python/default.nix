@@ -1,6 +1,14 @@
-{ lib, zlib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  zlib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in
+buildPythonPackage rec {
   pname = "libfvde-python";
   version = "20240113";
   pyproject = true;

@@ -1,4 +1,11 @@
-{ lib, stdenv, autoPatchelfHook, fetchurl, coreutils, patchelf }:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  fetchurl,
+  coreutils,
+  patchelf,
+}:
 let
   inherit (stdenv) system;
 
@@ -22,12 +29,12 @@ let
 
   filename = "${pname}-v${version}.0-${kernel}-${arch}";
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      "https://github.com/Velocidex/${pname}/releases/download/v${version}/${filename}";
+    url = "https://github.com/Velocidex/${pname}/releases/download/v${version}/${filename}";
     sha256 = builtins.getAttr system hashes;
   };
 
@@ -40,8 +47,7 @@ in stdenv.mkDerivation rec {
 
   nativeBuiltInputs = [ autoPatchelfHook ];
 
-  optionalPatchelfCommand = ''
-    ${patchelf}/bin/patchelf --set-interpreter "$(${coreutils}/bin/cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}'';
+  optionalPatchelfCommand = ''${patchelf}/bin/patchelf --set-interpreter "$(${coreutils}/bin/cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/${pname}'';
 
   postFixup = ''
     ${optionalPatchelfCommand}
@@ -54,6 +60,9 @@ in stdenv.mkDerivation rec {
     homepage = "https://github.com/Velocidex/velociraptor";
     license = licenses.agpl3Only;
     mainProgram = "velociraptor";
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }

@@ -6,14 +6,18 @@
 with lib;
 let
   defaultValue = "local";
-  default = if (builtins.hasAttr "domain" config.networking) then
-    (if config.networking.domain != null then
-      config.networking.domain
+  default =
+    if (builtins.hasAttr "domain" config.networking) then
+      (
+        if config.networking.domain != null then
+          config.networking.domain
+        else
+          defaultValue
+      )
     else
-      defaultValue)
-  else
-    defaultValue;
-in {
+      defaultValue;
+in
+{
   options.networking = {
     localDomain = mkOption {
       type = types.str;
@@ -21,8 +25,7 @@ in {
       # explicitly define local domains rather than general domains.
       # Overriding the original would probably not be wise.
       inherit default;
-      description =
-        "The domain. It can be left empty if it is auto-detected through DHCP.";
+      description = "The domain. It can be left empty if it is auto-detected through DHCP.";
     };
   };
 }

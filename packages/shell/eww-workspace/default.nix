@@ -1,9 +1,19 @@
-{ stdenvNoCC, lib, fetchFromGitHub, coreutils, gnugrep, bspwm, ... }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  gnugrep,
+  bspwm,
+  ...
+}:
 with lib;
 let
   pname = "eww-workspace";
   version = "0.0.1";
-  meta = { description = "Eww workspace script"; };
+  meta = {
+    description = "Eww workspace script";
+  };
 
   src = fetchFromGitHub {
     owner = "saimoomedits";
@@ -12,10 +22,20 @@ let
     hash = "sha256-yPSUdLgkwJyAX0rMjBGOuUIDvUKGPcVA5CSaCNcq0e8=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenvNoCC.mkDerivation {
-  inherit pname version meta phases src;
+in
+stdenvNoCC.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    src
+    ;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/bin

@@ -1,5 +1,7 @@
-let user = import ../../users/service-accounts/dnsmasq.nix;
-in {
+let
+  user = import ../../users/service-accounts/dnsmasq.nix;
+in
+{
   inherit (user) uid;
   inherit (user.group) gid;
   name = "dnsmasq.d/03-local.conf";

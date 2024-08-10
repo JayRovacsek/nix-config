@@ -1,9 +1,16 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   cfg = config.services.velociraptor;
   inherit (pkgs) system;
   format = pkgs.formats.yaml { };
-in {
+in
+{
   options.services.velociraptor = {
     client = {
       enable = lib.mkEnableOption "Enable velociraptor in client mode";
@@ -46,7 +53,8 @@ in {
 
   config = lib.mkIf (cfg.client.enable || cfg.server.enable) {
     networking.firewall = {
-      allowedTCPPorts = with cfg.server.configuration;
+      allowedTCPPorts =
+        with cfg.server.configuration;
         lib.optionals (cfg.server.enable && cfg.server.openFirewall) [
           API.bind_port
           Frontend.bind_port
@@ -63,9 +71,7 @@ in {
       serviceConfig = {
         Restart = "on-failure";
 
-        ExecStart = "${cfg.package}/bin/velociraptor client -c ${
-            format.generate "config.yaml" cfg.client.configuration
-          } ${lib.escapeShellArgs cfg.client.extraFlags}";
+        ExecStart = "${cfg.package}/bin/velociraptor client -c ${format.generate "config.yaml" cfg.client.configuration} ${lib.escapeShellArgs cfg.client.extraFlags}";
       };
 
       wantedBy = [ "multi-user.target" ];
@@ -79,9 +85,7 @@ in {
       serviceConfig = {
         Restart = "on-failure";
 
-        ExecStart = "${cfg.package}/bin/velociraptor gui -c ${
-            format.generate "config.yaml" cfg.server.configuration
-          } ${lib.escapeShellArgs cfg.server.extraFlags}";
+        ExecStart = "${cfg.package}/bin/velociraptor gui -c ${format.generate "config.yaml" cfg.server.configuration} ${lib.escapeShellArgs cfg.server.extraFlags}";
       };
 
       wantedBy = [ "multi-user.target" ];

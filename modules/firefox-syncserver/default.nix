@@ -1,6 +1,13 @@
-{ config, pkgs, self, ... }:
-let inherit (self.common.networking.services.firefox-syncserver) port;
-in {
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
+let
+  inherit (self.common.networking.services.firefox-syncserver) port;
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-firefox-syncserver-primary" ];
 

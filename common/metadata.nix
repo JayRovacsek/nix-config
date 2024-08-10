@@ -8,9 +8,16 @@ let
   host-identifiers = darwin-host-identifiers ++ linux-host-identifiers;
   linux-host-identifiers = lib.attrNames nixosConfigurations;
 
-  extended = { distributed-builds = distributed-builds.base-configs; };
+  extended = {
+    distributed-builds = distributed-builds.base-configs;
+  };
 
-in {
-  inherit darwin-host-identifiers extended host-identifiers
-    linux-host-identifiers;
+in
+{
+  inherit
+    darwin-host-identifiers
+    extended
+    host-identifiers
+    linux-host-identifiers
+    ;
 }

@@ -8,10 +8,12 @@ let
   # also in the mix
   #
   # TODO: be less hacky
-  system-configs =
-    builtins.fromJSON (builtins.readFile ../static/build-machines.json);
+  system-configs = builtins.fromJSON (
+    builtins.readFile ../static/build-machines.json
+  );
 
-  generate-ssh-config = user: identity-files:
+  generate-ssh-config =
+    user: identity-files:
     builtins.map (cfg: ''
       Host ${cfg.hostName}
         AddKeysToAgent yes
@@ -23,4 +25,7 @@ let
         ${identity-files}
     '') system-configs;
 
-in { inherit generate-ssh-config; }
+in
+{
+  inherit generate-ssh-config;
+}

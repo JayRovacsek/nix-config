@@ -2,7 +2,8 @@
 let
   inherit (self.inputs) nixpkgs;
   inherit (self.common.system) unstable-system;
-in unstable-system {
+in
+unstable-system {
   system = "armv6l-linux";
   modules = [
     "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"

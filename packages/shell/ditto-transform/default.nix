@@ -1,12 +1,17 @@
-{ nixos-rebuild, stdenv, pkgs, lib, ... }:
+{
+  nixos-rebuild,
+  stdenv,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   pname = "ditto-transform";
 
   version = "0.0.1";
   meta = {
-    description =
-      "A simple shell wrapper for nixos to run a rebuild against a target system";
+    description = "A simple shell wrapper for nixos to run a rebuild against a target system";
     platforms = platforms.unix;
   };
 
@@ -21,10 +26,19 @@ let
     fi
   '';
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenv.mkDerivation {
-  inherit pname version meta phases;
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    ;
 
   buildInputs = [ ditto-transform-wrapped ];
 

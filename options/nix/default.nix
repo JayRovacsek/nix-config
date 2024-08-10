@@ -20,7 +20,8 @@ let
       source = mkOption { type = with types; package; };
     };
   };
-in {
+in
+{
   options = {
     nix.sources = mkOption {
       default = [ ];
@@ -28,20 +29,28 @@ in {
     };
   };
 
-  config = let
-    # Create a value of environment.etc."nix/inputs.X" per source
-    # Inherit the enable from code (default true)
-    environment = merge (builtins.map (c: {
-      etc."nix/inputs/${c.name}" = { inherit (c) enable source; };
+  config =
+    let
+      # Create a value of environment.etc."nix/inputs.X" per source
+      # Inherit the enable from code (default true)
+      environment = merge (
+        builtins.map (c: {
+          etc."nix/inputs/${c.name}" = {
+            inherit (c) enable source;
+          };
 
-    }) cfg);
+        }) cfg
+      );
 
-    # Build a list of strings pointing to the above etc entries.
-    # These need to exclude disabled values hence the filter
-    nix.nixPath = lib.mkForce
-      (builtins.map (c: "${c.name}=/etc/nix/inputs/${c.name}")
-        (builtins.filter (c: c.enable) cfg));
+      # Build a list of strings pointing to the above etc entries.
+      # These need to exclude disabled values hence the filter
+      nix.nixPath = lib.mkForce (
+        builtins.map (c: "${c.name}=/etc/nix/inputs/${c.name}") (
+          builtins.filter (c: c.enable) cfg
+        )
+      );
 
+    in
     # If we have an entry or more, create the downstream values as defined above.
-  in mkIf ((builtins.length cfg) != 0) { inherit environment nix; };
+    mkIf ((builtins.length cfg) != 0) { inherit environment nix; };
 }

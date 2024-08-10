@@ -1,11 +1,13 @@
-{ self }: {
+{ self }:
+{
   base-users = import ./base-users.nix { inherit self; };
   colour-schemes = import ./colour-schemes { inherit self; };
   dotnet-packages = builtins.attrNames (builtins.readDir ../packages/dotnet);
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
-  home-manager-modules =
-    builtins.attrNames (builtins.readDir ../home-manager-modules);
+  home-manager-modules = builtins.attrNames (
+    builtins.readDir ../home-manager-modules
+  );
   headscale = import ./headscale.nix { inherit self; };
   images = import ./images { inherit self; };
   keys = import ./keys.nix { inherit self; };
@@ -21,8 +23,7 @@
   package-sets = import ./package-sets.nix { inherit self; };
   python-packages = builtins.attrNames (builtins.readDir ../packages/python);
   rust-packages = builtins.attrNames (builtins.readDir ../packages/rust);
-  resource-packages =
-    builtins.attrNames (builtins.readDir ../packages/resources);
+  resource-packages = builtins.attrNames (builtins.readDir ../packages/resources);
   shell-packages = builtins.attrNames (builtins.readDir ../packages/shell);
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };

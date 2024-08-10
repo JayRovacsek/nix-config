@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   # Required as DNS may not be immediately available on a system if
   # blocky is being used while the bootstrap occurs.
   systemd.services.clamav-freshclam = {
@@ -25,7 +26,14 @@
 
     scanner = {
       enable = true;
-      scanDirectories = [ "/etc" "/home" "/srv" "/tmp" "/var/lib" "/var/tmp" ];
+      scanDirectories = [
+        "/etc"
+        "/home"
+        "/srv"
+        "/tmp"
+        "/var/lib"
+        "/var/tmp"
+      ];
     };
 
     updater = {

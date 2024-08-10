@@ -1,16 +1,23 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self.common.networking.services.hydra) port;
 
-  /* *
-     Hello fellow hydra user! You might be here given some broad
-     search attempt in github to understand what is going on in hydra.
-     Hopefully some of the below might be of value! One word of warning
-     is the folly that is keeping an allowed uris list small it seems nowadays
-     (other than super permissive allow-lists...)
+  /*
+    *
+    Hello fellow hydra user! You might be here given some broad
+    search attempt in github to understand what is going on in hydra.
+    Hopefully some of the below might be of value! One word of warning
+    is the folly that is keeping an allowed uris list small it seems nowadays
+    (other than super permissive allow-lists...)
 
-     Note that the below seem to by case-sensitive if it couldn't get much worse
-     :'(
+    Note that the below seem to by case-sensitive if it couldn't get much worse
+    :'(
   */
   urls = [
     "git+https://git.lix.systems"
@@ -53,7 +60,8 @@ let
     "github:tomyun/base16-fish"
     "https://github.com/NixOS"
   ];
-in {
+in
+{
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key
   # to hydra so that it may evaluate remote builds correctly also otherwise

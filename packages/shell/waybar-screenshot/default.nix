@@ -1,12 +1,21 @@
-{ stdenv, pkgs, lib, grim, slurp, wofi, wf-recorder, gawk, ... }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  grim,
+  slurp,
+  wofi,
+  wf-recorder,
+  gawk,
+  ...
+}:
 with lib;
 let
   pname = "waybar-screenshot";
   version = "0.0.1";
 
   meta = {
-    description =
-      "A simple shell wrapper for record via wf-recorder or screenshotting via grim & slurp";
+    description = "A simple shell wrapper for record via wf-recorder or screenshotting via grim & slurp";
     # TODO: resolve intersect-multiple-lists issue
     inherit (grim.meta) platforms;
   };
@@ -24,10 +33,19 @@ let
     esac
   '';
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenv.mkDerivation {
-  inherit pname version meta phases;
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    ;
 
   buildInputs = [ waybar-screenshot-wrapped ];
 

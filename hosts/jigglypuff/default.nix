@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 let
   inherit (self) common;
@@ -11,7 +17,8 @@ let
   };
 
   user-configs = merge [ jay ];
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   age = {
@@ -36,8 +43,12 @@ in {
 
     kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
 
-    initrd.availableKernelModules =
-      [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
+    initrd.availableKernelModules = [
+      "mmc_block"
+      "usbhid"
+      "usb_storage"
+      "vc4"
+    ];
 
     loader = {
       grub.enable = false;

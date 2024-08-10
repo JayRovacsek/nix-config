@@ -1,22 +1,53 @@
 { config, lib, ... }:
 let
-  inherit (config.services.blocky.settings.ports) dns tls http https;
+  inherit (config.services.blocky.settings.ports)
+    dns
+    tls
+    http
+    https
+    ;
   inherit (lib) concatStrings reverseList;
-  bin-blocks = let
-    bin-chars = [ "b" "i" "n" ];
-    mod-chars = [ "m" "o" "d" ];
-    duolcfmaj-chars = [ "d" "u" "o" "l" "c" "f" "m" "a" "j" ];
-    bin-prefix = concatStrings (reverseList bin-chars);
-    mod-infix = concatStrings (reverseList mod-chars);
-    duolcfmaj-infix = concatStrings (reverseList duolcfmaj-chars);
-  in {
-    "${bin-prefix}.${duolcfmaj-infix}.com" = "0.0.0.0";
-    "${bin-prefix}${mod-infix}.com" = "0.0.0.0";
-    "${bin-prefix}${mod-infix}.com.au" = "0.0.0.0";
-  };
-in {
+  bin-blocks =
+    let
+      bin-chars = [
+        "b"
+        "i"
+        "n"
+      ];
+      mod-chars = [
+        "m"
+        "o"
+        "d"
+      ];
+      duolcfmaj-chars = [
+        "d"
+        "u"
+        "o"
+        "l"
+        "c"
+        "f"
+        "m"
+        "a"
+        "j"
+      ];
+      bin-prefix = concatStrings (reverseList bin-chars);
+      mod-infix = concatStrings (reverseList mod-chars);
+      duolcfmaj-infix = concatStrings (reverseList duolcfmaj-chars);
+    in
+    {
+      "${bin-prefix}.${duolcfmaj-infix}.com" = "0.0.0.0";
+      "${bin-prefix}${mod-infix}.com" = "0.0.0.0";
+      "${bin-prefix}${mod-infix}.com.au" = "0.0.0.0";
+    };
+in
+{
   networking.firewall = {
-    allowedTCPPorts = [ dns tls http https ];
+    allowedTCPPorts = [
+      dns
+      tls
+      http
+      https
+    ];
     allowedUDPPorts = [ dns ];
   };
 
@@ -94,7 +125,10 @@ in {
       # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
       bootstrapDns = {
         upstream = "https://dns.google/dns-query";
-        ips = [ "8.8.8.8" "8.8.4.4" ];
+        ips = [
+          "8.8.8.8"
+          "8.8.4.4"
+        ];
       };
 
       # optional: configuration for caching of DNS responses

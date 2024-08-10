@@ -1,1 +1,4 @@
-{ self, ... }: { nixpkgs.overlays = [ self.overlays.lix ]; }
+{ self, ... }:
+{
+  nixpkgs.overlays = [ self.overlays.lix ];
+}

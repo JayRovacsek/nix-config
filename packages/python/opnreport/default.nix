@@ -1,22 +1,30 @@
-{ lib, fetchFromGitHub, python3Packages, ... }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  ...
+}:
 let
   pname = "OPNReport";
 
   version = "0.1.0";
 
   meta = with lib; {
-    description =
-      "Generate meaningful output from your opnSense configuration backup, like Markdown documentation.";
+    description = "Generate meaningful output from your opnSense configuration backup, like Markdown documentation.";
     homepage = "https://github.com/AndyX90/OPNReport";
     license = licenses.lgpl3Plus;
   };
 
   inherit (python3Packages) buildPythonPackage defusedxml pyyaml;
 
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit pname version meta;
 
-  dependencies = [ defusedxml pyyaml ];
+  dependencies = [
+    defusedxml
+    pyyaml
+  ];
 
   patches = [ ./bump-pyyaml-dependency.patch ];
 

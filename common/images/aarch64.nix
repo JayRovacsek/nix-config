@@ -2,7 +2,8 @@
 let
   inherit (self.inputs) nixpkgs;
   inherit (self.common.system) unstable-system;
-in unstable-system rec {
+in
+unstable-system rec {
   system = "aarch64-linux";
   pkgs = import nixpkgs { inherit system; };
   modules = [

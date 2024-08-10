@@ -8,9 +8,13 @@ let
   };
 
   darwin-settings = lib.optionalAttrs isDarwin {
-    knownNetworkServices = [ "Wi-Fi" "USB 10/100/1000 LAN" ];
+    knownNetworkServices = [
+      "Wi-Fi"
+      "USB 10/100/1000 LAN"
+    ];
   };
 
   cfg.networking = linux-settings // darwin-settings;
 
-in cfg
+in
+cfg

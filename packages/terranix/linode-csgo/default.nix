@@ -16,7 +16,8 @@ let
   # Went to add this via data search so we don't have magic numbers, but seems no 
   # option exists that is good here...
   hostedZoneId = "Z07293822L0ODVN4UL1I4";
-in {
+in
+{
   variable = {
     LINODE_TOKEN = {
       type = "string";
@@ -60,7 +61,9 @@ in {
     cloud = {
       hostname = "app.terraform.io";
       organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
-      workspaces = { inherit name; };
+      workspaces = {
+        inherit name;
+      };
     };
     required_providers = {
       linode = {
@@ -81,7 +84,9 @@ in {
       secret_key = "\${var.AWS_SECRET_KEY}";
     };
 
-    linode = { token = "\${var.LINODE_TOKEN}"; };
+    linode = {
+      token = "\${var.LINODE_TOKEN}";
+    };
   };
 
   data.linode_stackscript.${name}.id = scriptId;

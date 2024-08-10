@@ -1,9 +1,16 @@
-{ config, lib, self, microvm ? false, ... }:
+{
+  config,
+  lib,
+  self,
+  microvm ? false,
+  ...
+}:
 let
   # Agenix is likely required if we have a share from host to guest passing
   # a secret and identity paths has some kind of value.
   agenix-required = config.age.identityPaths != [ ];
-in {
+in
+{
   # Ensure a machine id exists and is stable on the host - this is required
   # to ensure consistent mount of the journald logs back to the host
   environment.etc."machine-id" = {
@@ -21,48 +28,53 @@ in {
     "/var/lib".neededForBoot = true;
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
-  imports = [ ../../options/systemd ]
-    ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
+  imports = [
+    ../../options/systemd
+  ] ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 
-  microvm.shares = (lib.optionals agenix-required [{
-    # On the host
-    source = "/agenix/${config.systemd.machineId}";
-    # In the MicroVM
-    mountPoint = "/agenix";
-    tag = "secrets";
-    proto = "virtiofs";
-  }]) ++ [
-    # 
-    {
-      # On the host
-      source = "/var/lib/${config.systemd.machineId}";
-      # In the MicroVM
-      mountPoint = "/var/lib";
-      tag = "application-persistence";
-      proto = "virtiofs";
-    }
-    # Pass journald logs back to the host as per 
-    # https://astro.github.io/microvm.nix/faq.html#how-to-centralize-logging-with-journald
-    {
-      # On the host
-      source = "/var/lib/microvms/${config.networking.hostName}/journal";
-      # In the MicroVM
-      mountPoint = "/var/log/journal";
-      tag = "journal";
-      proto = "virtiofs";
-      socket = "journal.sock";
-    }
-    # Provide a copy of the host's nix store
-    # TODO: consider removing this as it means a compromised
-    # guest could see and understand more about the host it exists
-    # within
-    {
-      source = "/nix/store";
-      mountPoint = "/nix/.ro-store";
-      tag = "ro-store";
-      proto = "virtiofs";
-    }
-  ];
+  microvm.shares =
+    (lib.optionals agenix-required [
+      {
+        # On the host
+        source = "/agenix/${config.systemd.machineId}";
+        # In the MicroVM
+        mountPoint = "/agenix";
+        tag = "secrets";
+        proto = "virtiofs";
+      }
+    ])
+    ++ [
+      # 
+      {
+        # On the host
+        source = "/var/lib/${config.systemd.machineId}";
+        # In the MicroVM
+        mountPoint = "/var/lib";
+        tag = "application-persistence";
+        proto = "virtiofs";
+      }
+      # Pass journald logs back to the host as per 
+      # https://astro.github.io/microvm.nix/faq.html#how-to-centralize-logging-with-journald
+      {
+        # On the host
+        source = "/var/lib/microvms/${config.networking.hostName}/journal";
+        # In the MicroVM
+        mountPoint = "/var/log/journal";
+        tag = "journal";
+        proto = "virtiofs";
+        socket = "journal.sock";
+      }
+      # Provide a copy of the host's nix store
+      # TODO: consider removing this as it means a compromised
+      # guest could see and understand more about the host it exists
+      # within
+      {
+        source = "/nix/store";
+        mountPoint = "/nix/.ro-store";
+        tag = "ro-store";
+        proto = "virtiofs";
+      }
+    ];
 
   # Ensure we're using networkd & open ssh
   networking = {

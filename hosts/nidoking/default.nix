@@ -1,13 +1,20 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
   inherit (certificate-lib) generate-self-signed;
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
-in {
+in
+{
 
-  imports = with self.nixosModules;
+  imports =
+    with self.nixosModules;
     [
       agenix
       grafana-agent
@@ -18,29 +25,34 @@ in {
       time
       timesyncd
       tmp-tmpfs
-    ] ++ [ self.inputs.sandro-nixos-modules.nixosModule ];
+    ]
+    ++ [ self.inputs.sandro-nixos-modules.nixosModule ];
 
   microvm = {
-    interfaces = [{
-      type = "macvtap";
-      id = config.networking.hostName;
-      mac = "02:42:c0:a8:0a:03";
-      macvtap = {
-        link = "nextcloud";
-        mode = "bridge";
-      };
-    }];
+    interfaces = [
+      {
+        type = "macvtap";
+        id = config.networking.hostName;
+        mac = "02:42:c0:a8:0a:03";
+        macvtap = {
+          link = "nextcloud";
+          mode = "bridge";
+        };
+      }
+    ];
 
     mem = 8192;
 
-    shares = [{
-      # On the host
-      source = "/srv/nextcloud";
-      # In the MicroVM
-      mountPoint = "/srv/nextcloud";
-      tag = "nextcloud";
-      proto = "virtiofs";
-    }];
+    shares = [
+      {
+        # On the host
+        source = "/srv/nextcloud";
+        # In the MicroVM
+        mountPoint = "/srv/nextcloud";
+        tag = "nextcloud";
+        proto = "virtiofs";
+      }
+    ];
 
     vcpu = 4;
   };

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.headscale;
   inherit (lib) mkOption types;
@@ -41,21 +46,21 @@ let
 
   unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
 
-  sql-statement = builtins.concatStringsSep "\n" (lib.imap0 (i: user: ''
-    INSERT OR REPLACE INTO users ('id','created_at','updated_at','name') VALUES (${
-      builtins.toString user.id
-    }, ${unixEpoch},${unixEpoch},'${user.name}');
+  sql-statement = builtins.concatStringsSep "\n" (
+    lib.imap0 (i: user: ''
+      INSERT OR REPLACE INTO users ('id','created_at','updated_at','name') VALUES (${builtins.toString user.id}, ${unixEpoch},${unixEpoch},'${user.name}');
 
-    ${builtins.concatStringsSep "\n" (lib.imap0 (j: key: ''
-      INSERT OR REPLACE INTO pre_auth_keys ('id','key','user_id','reusable','ephemeral','created_at','expiration') VALUES (${
-      # TODO: same constraint as the tailnet primary key - ensure uniqueness
-        builtins.toString (j + (i * 64))
-      },'`cat ${key.path}`',${builtins.toString user.id},${
-        bool-to-int key.reusable
-      },${bool-to-int key.ephemeral},${unixEpoch},${key.expiration});
-    '') user.keys)}
+      ${builtins.concatStringsSep "\n" (
+        lib.imap0 (j: key: ''
+          INSERT OR REPLACE INTO pre_auth_keys ('id','key','user_id','reusable','ephemeral','created_at','expiration') VALUES (${
+            # TODO: same constraint as the tailnet primary key - ensure uniqueness
+            builtins.toString (j + (i * 64))
+          },'`cat ${key.path}`',${builtins.toString user.id},${bool-to-int key.reusable},${bool-to-int key.ephemeral},${unixEpoch},${key.expiration});
+        '') user.keys
+      )}
 
-  '') cfg.users);
+    '') cfg.users
+  );
 
   script = with pkgs; ''
     bash -c "
@@ -66,7 +71,8 @@ let
     END_SQL"
   '';
 
-in {
+in
+{
   options.services.headscale = {
     users = mkOption {
       type = with types; listOf (submodule users);
@@ -90,7 +96,10 @@ in {
       wants = [ "headscale.service" ];
 
       # Required to use nix-shell within our script
-      path = with pkgs; [ bash sqlite-interactive ];
+      path = with pkgs; [
+        bash
+        sqlite-interactive
+      ];
 
       serviceConfig = {
         User = config.services.headscale.user;

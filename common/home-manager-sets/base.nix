@@ -1,1 +1,6 @@
-{ self }: with self.homeManagerModules; [ home-manager xdg ]
+{ self }:
+with self.homeManagerModules;
+[
+  home-manager
+  xdg
+]

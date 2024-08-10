@@ -1,4 +1,9 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (self.common.networking.services.code) port;
 
@@ -8,9 +13,13 @@ let
     rev = "main";
     hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
   };
-in {
+in
+{
   # Extended options for nginx & openvscode-server
-  imports = [ ../../options/nginx ../../options/openvscode-server ];
+  imports = [
+    ../../options/nginx
+    ../../options/openvscode-server
+  ];
 
   age = {
     identityPaths = [ "/agenix/id-ed25519-openvscode-server-primary" ];
@@ -22,7 +31,9 @@ in {
     };
   };
 
-  networking.firewall = { allowedTCPPorts = [ port ]; };
+  networking.firewall = {
+    allowedTCPPorts = [ port ];
+  };
 
   services.openvscode-server = {
     enable = true;
@@ -77,10 +88,13 @@ in {
       yzhang.markdown-all-in-one
     ];
 
-    extraPackages = with pkgs; [ git nixd nixfmt-rfc-style ];
+    extraPackages = with pkgs; [
+      git
+      nixd
+      nixfmt-rfc-style
+    ];
     host = "0.0.0.0";
-    serverDataDir =
-      "${config.users.users.openvscode-server.home}/.config/openvscode-server";
+    serverDataDir = "${config.users.users.openvscode-server.home}/.config/openvscode-server";
     telemetryLevel = "off";
     use-immutable-settings = true;
     withoutConnectionToken = true;
@@ -89,7 +103,9 @@ in {
       "[dockercompose]" = {
         "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
       };
-      "[go]" = { "editor.defaultFormatter" = "golang.go"; };
+      "[go]" = {
+        "editor.defaultFormatter" = "golang.go";
+      };
       "[javascript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
@@ -102,16 +118,24 @@ in {
       "[jsonc]" = {
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
-      "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+      "[latex]" = {
+        "editor.defaultFormatter" = "James-Yu.latex-workshop";
+      };
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
       "[typescriptreact]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
-      "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
-      "[yaml]" = { "editor.formatOnSave" = false; };
+      "[xml]" = {
+        "editor.defaultFormatter" = "redhat.vscode-xml";
+      };
+      "[yaml]" = {
+        "editor.formatOnSave" = false;
+      };
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
       "diffEditor.wordWrap" = "off";
@@ -142,8 +166,7 @@ in {
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr =
-              ''(builtins.getFlake "${nix-options}").options.darwin'';
+            darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
             hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
             nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };

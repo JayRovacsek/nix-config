@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 let
   inherit (self) common;
@@ -12,10 +18,14 @@ let
 
   user-configs = merge [ test ];
 
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
-  environment.systemPackages = with pkgs; [ curl wget ];
+  environment.systemPackages = with pkgs; [
+    curl
+    wget
+  ];
 
   imports = with self.nixosModules; [
     agenix

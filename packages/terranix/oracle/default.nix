@@ -2,7 +2,8 @@
 let
   inherit (self.common.tofu.globals) oci;
   inherit (oci) region;
-in {
+in
+{
   variable = { };
 
   terraform = {
@@ -14,7 +15,9 @@ in {
     };
   };
 
-  provider.oci = { inherit region; };
+  provider.oci = {
+    inherit region;
+  };
 
   data = { };
   resource = {

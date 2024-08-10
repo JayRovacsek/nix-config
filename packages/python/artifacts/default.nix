@@ -1,8 +1,19 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
   inherit (python3Packages)
-    buildPythonPackage pip pythonOlder pyyaml setuptools;
-in buildPythonPackage rec {
+    buildPythonPackage
+    pip
+    pythonOlder
+    pyyaml
+    setuptools
+    ;
+in
+buildPythonPackage rec {
   pname = "artifacts";
   version = "20230928";
   pyproject = true;
@@ -14,7 +25,10 @@ in buildPythonPackage rec {
 
   build-system = [ setuptools ];
 
-  dependencies = [ pip pyyaml ];
+  dependencies = [
+    pip
+    pyyaml
+  ];
 
   disabled = pythonOlder "3.8";
 
@@ -22,8 +36,7 @@ in buildPythonPackage rec {
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
-    description =
-      "A free, community-sourced, machine-readable knowledge base of forensic artifacts that the world can use both as an information source and within other tools.";
+    description = "A free, community-sourced, machine-readable knowledge base of forensic artifacts that the world can use both as an information source and within other tools.";
     homepage = "https://github.com/ForensicArtifacts/artifacts";
     downloadPage = "https://github.com/ForensicArtifacts/artifacts/releases";
     license = licenses.asl20;

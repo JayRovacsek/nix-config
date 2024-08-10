@@ -1,21 +1,41 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
-    base00 base01 base02 base03 base05 base06 base08 base0A base0B base0F scheme
-    author slug;
-in {
+    base00
+    base01
+    base02
+    base03
+    base05
+    base06
+    base08
+    base0A
+    base0B
+    base0F
+    scheme
+    author
+    slug
+    ;
+in
+{
   home = {
-    packages =
-      lib.optionals (!pkgs.zed-editor.meta.broken) (with pkgs; [ zed-editor ]);
+    packages = lib.optionals (!pkgs.zed-editor.meta.broken) (
+      with pkgs; [ zed-editor ]
+    );
 
     file = {
 
-      "${config.xdg.configHome}/zed/themes/${slug}.json".text =
-        builtins.toJSON {
-          "$schema" = "https://zed.dev/schema/themes/v0.1.0.json";
-          inherit author;
-          name = scheme;
-          themes = [{
+      "${config.xdg.configHome}/zed/themes/${slug}.json".text = builtins.toJSON {
+        "$schema" = "https://zed.dev/schema/themes/v0.1.0.json";
+        inherit author;
+        name = scheme;
+        themes = [
+          {
             appearance = "dark";
             name = scheme;
             style = {
@@ -148,8 +168,9 @@ in {
               "warning.background" = null;
               "warning.border" = null;
             };
-          }];
-        };
+          }
+        ];
+      };
 
       "${config.xdg.configHome}/zed/settings.json".text = builtins.toJSON {
         active_pane_magnification = 1;
@@ -166,7 +187,9 @@ in {
           };
           version = "1";
         };
-        auto_install_extensions = { nix = true; };
+        auto_install_extensions = {
+          nix = true;
+        };
         auto_update = false;
         autosave = "off";
         base_keymap = "VSCode";
@@ -198,7 +221,9 @@ in {
         confirm_quit = false;
         current_line_highlight = "all";
         cursor_blink = true;
-        diagnostics = { include_warnings = true; };
+        diagnostics = {
+          include_warnings = true;
+        };
         double_click_in_multibuffer = "select";
         drop_target_size = 0.2;
         enable_language_server = true;
@@ -221,13 +246,18 @@ in {
         ];
         file_types = {
           JSON = [ "flake.lock" ];
-          JSONC = [ "**/.zed/**/*.json" "**/zed/**/*.json" ];
+          JSONC = [
+            "**/.zed/**/*.json"
+            "**/zed/**/*.json"
+          ];
         };
         format_on_save = "on";
         formatter = "auto";
         git = {
           git_gutter = "tracked_files";
-          inline_blame = { enabled = true; };
+          inline_blame = {
+            enabled = true;
+          };
         };
         gutter = {
           code_actions = true;
@@ -252,24 +282,49 @@ in {
           show_parameter_hints = true;
           show_type_hints = true;
         };
-        inline_completions = { disabled_globs = [ ".env" ]; };
+        inline_completions = {
+          disabled_globs = [ ".env" ];
+        };
         journal = {
           hour_format = "hour12";
           path = "~";
         };
         language_servers = [ "${pkgs.nixd}/bin/nixd" ];
         languages = {
-          GraphQL = { prettier = { allowed = true; }; };
-          HTML = { prettier = { allowed = true; }; };
-          JSON = { prettier = { allowed = true; }; };
-          JSONC = { prettier = { allowed = true; }; };
+          GraphQL = {
+            prettier = {
+              allowed = true;
+            };
+          };
+          HTML = {
+            prettier = {
+              allowed = true;
+            };
+          };
+          JSON = {
+            prettier = {
+              allowed = true;
+            };
+          };
+          JSONC = {
+            prettier = {
+              allowed = true;
+            };
+          };
           JavaScript = {
-            language_servers = [ "!typescript-language-server" "vtsls" ];
-            prettier = { allowed = true; };
+            language_servers = [
+              "!typescript-language-server"
+              "vtsls"
+            ];
+            prettier = {
+              allowed = true;
+            };
           };
           Markdown = {
             format_on_save = "on";
-            prettier = { allowed = true; };
+            prettier = {
+              allowed = true;
+            };
           };
           Nix = {
             format_on_save = "on";
@@ -287,12 +342,22 @@ in {
             };
           };
           TSX = {
-            language_servers = [ "!typescript-language-server" "vtsls" ];
-            prettier = { allowed = true; };
+            language_servers = [
+              "!typescript-language-server"
+              "vtsls"
+            ];
+            prettier = {
+              allowed = true;
+            };
           };
           TypeScript = {
-            language_servers = [ "!typescript-language-server" "vtsls" ];
-            prettier = { allowed = true; };
+            language_servers = [
+              "!typescript-language-server"
+              "vtsls"
+            ];
+            prettier = {
+              allowed = true;
+            };
           };
           XML = {
             prettier = {
@@ -300,12 +365,18 @@ in {
               plugins = [ "@prettier/plugin-xml" ];
             };
           };
-          YAML = { prettier = { allowed = true; }; };
+          YAML = {
+            prettier = {
+              allowed = true;
+            };
+          };
         };
         line_indicator_format = "long";
         linked_edits = true;
         lsp = { };
-        message_editor = { auto_replace_emoji_shortcode = true; };
+        message_editor = {
+          auto_replace_emoji_shortcode = true;
+        };
         multi_cursor_modifier = "alt";
         notification_panel = {
           button = false;
@@ -347,7 +418,9 @@ in {
           folder_icons = true;
           git_status = true;
           indent_size = 20;
-          scrollbar = { show = "always"; };
+          scrollbar = {
+            show = "always";
+          };
         };
         redact_private_values = true;
         relative_line_numbers = false;
@@ -381,7 +454,9 @@ in {
           close_position = "right";
           git_status = true;
         };
-        task = { show_status_indicator = true; };
+        task = {
+          show_status_indicator = true;
+        };
         telemetry = {
           diagnostics = false;
           metrics = false;
@@ -396,14 +471,21 @@ in {
           detect_venv = {
             on = {
               activate_script = "default";
-              directories = [ ".env" "env" ".venv" "venv" ];
+              directories = [
+                ".env"
+                "env"
+                ".venv"
+                "venv"
+              ];
             };
           };
           dock = "bottom";
           line_height = "comfortable";
           option_as_meta = false;
           shell = "system";
-          toolbar = { title = true; };
+          toolbar = {
+            title = true;
+          };
           working_directory = "current_project_directory";
         };
         theme = {
@@ -417,7 +499,9 @@ in {
           selections_menu = true;
         };
         ui_font_family = "Hack Nerd Font Mono";
-        ui_font_features = { calt = true; };
+        ui_font_features = {
+          calt = true;
+        };
         ui_font_size = 16;
         ui_font_weight = 400;
         use_auto_surround = true;

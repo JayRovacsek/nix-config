@@ -1,4 +1,5 @@
-{ cfg, ... }: {
+{ cfg, ... }:
+{
   name = "Config";
   value = [
     {

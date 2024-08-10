@@ -1,5 +1,6 @@
 { lib, ... }:
-with lib; {
+with lib;
+{
   options.systemd = {
     machineId = mkOption {
       type = types.str;
@@ -9,8 +10,7 @@ with lib; {
       default = ''
         uninitialized
       '';
-      description = ''
-        The machine ID - this needs to be either "uninitialized\n" or a string adhering to: <link xlink:href="https://www.freedesktop.org/software/systemd/man/machine-id.html">systemd machine-id</link>'';
+      description = ''The machine ID - this needs to be either "uninitialized\n" or a string adhering to: <link xlink:href="https://www.freedesktop.org/software/systemd/man/machine-id.html">systemd machine-id</link>'';
     };
   };
 }

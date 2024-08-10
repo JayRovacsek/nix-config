@@ -1,6 +1,13 @@
-{ config, lib, self, ... }:
-let inherit (self.common.networking.services) harmonia;
-in {
+{
+  config,
+  lib,
+  self,
+  ...
+}:
+let
+  inherit (self.common.networking.services) harmonia;
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-nix-serve-primary" ];
 

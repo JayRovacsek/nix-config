@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, ffmpeg-headless }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ffmpeg-headless,
+}:
 with lib;
 stdenv.mkDerivation {
   pname = "sunset-over-river-in-the-evening";

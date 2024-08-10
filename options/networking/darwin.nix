@@ -1,5 +1,6 @@
 { lib, ... }:
-with lib; {
+with lib;
+{
   options.networking = {
     firewall = mkOption {
       type = with types; anything;

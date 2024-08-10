@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-cloudflare-primary" ];
 

@@ -1,4 +1,5 @@
-{ self }: {
+{ self }:
+{
   authelia = import ./authelia.nix { inherit self; };
   certificates = import ./certificates.nix { inherit self; };
   distributed-builds = import ./distributed-builds.nix { inherit self; };
@@ -11,8 +12,9 @@
   home-manager = import ./home-manager.nix { inherit self; };
   hydra = import ./hydra.nix { inherit self; };
   hyprland = import ./hyprland.nix { inherit self; };
-  intersect-multiple-lists =
-    import ./intersect-multiple-lists.nix { inherit self; };
+  intersect-multiple-lists = import ./intersect-multiple-lists.nix {
+    inherit self;
+  };
   merge = import ./merge.nix { inherit self; };
   nginx = import ./nginx { inherit self; };
   microvm = import ./microvm.nix { inherit self; };

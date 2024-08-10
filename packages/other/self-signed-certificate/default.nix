@@ -1,5 +1,12 @@
-{ lib, stdenv, gnutls, coreutils, writeTextFile, domain ? "localhost"
-, seed ? "0000000000000000000000000000000000000000000000000000000000000000" }:
+{
+  lib,
+  stdenv,
+  gnutls,
+  coreutils,
+  writeTextFile,
+  domain ? "localhost",
+  seed ? "0000000000000000000000000000000000000000000000000000000000000000",
+}:
 let
   pname = "self-signed-certificate";
 
@@ -24,9 +31,11 @@ let
     # reasonable.
     text = ''
       serial = ${
-        builtins.toString (builtins.foldl' (acc: x: acc + x) 0
-          (builtins.map (char: lib.strings.charToInt char)
-            (lib.stringToCharacters domain)))
+        builtins.toString (
+          builtins.foldl' (acc: x: acc + x) 0 (
+            builtins.map (char: lib.strings.charToInt char) (lib.stringToCharacters domain)
+          )
+        )
       }
       activation_date = "0000-01-01 00:00:00 UTC"
       expiration_date = "9999-12-31 23:59:59 UTC"
@@ -49,4 +58,13 @@ let
 
   phases = [ "buildPhase" ];
 
-in stdenv.mkDerivation { inherit pname version meta phases buildPhase; }
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    buildPhase
+    ;
+}

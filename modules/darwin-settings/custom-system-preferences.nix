@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   system.defaults.CustomSystemPreferences = {
     # "com.apple.finder" = {
     #   ShowExternalHardDrivesOnDesktop = true;

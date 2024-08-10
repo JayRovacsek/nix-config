@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.services.ollama;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.services.ollama;
+in
+{
   options = {
     services.ollama = {
       enable = lib.mkOption {
@@ -19,49 +26,66 @@ in {
       models = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ "llama3" ];
-        example = [ "llama3" "phi3:3.8b" ];
+        example = [
+          "llama3"
+          "phi3:3.8b"
+        ];
       };
     };
   };
 
   config = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
     home.packages = [ cfg.package ];
-    launchd.agents = {
-      ollama-serve = {
-        inherit (cfg) enable;
-
-        config = {
-          AbandonProcessGroup = true;
-          ExitTimeOut = 0;
-          KeepAlive = {
-            Crashed = true;
-            SuccessfulExit = false;
-          };
-          Label = "local.ollama-serve";
-          ProcessType = "Background";
-          ProgramArguments = [ "${cfg.package}/bin/ollama" "serve" ];
-          RunAtLoad = true;
-          StandardOutPath = cfg.logFile;
-          StandardErrorPath = cfg.logFile;
-        };
-      };
-    } // builtins.foldl' (acc: model:
-      (acc // {
-        "ollama-run-${model}" = {
+    launchd.agents =
+      {
+        ollama-serve = {
           inherit (cfg) enable;
 
           config = {
             AbandonProcessGroup = true;
             ExitTimeOut = 0;
-            KeepAlive.OtherJobEnabled."local.ollama-serve" = true;
-            Label = "ollama-run-${model}";
+            KeepAlive = {
+              Crashed = true;
+              SuccessfulExit = false;
+            };
+            Label = "local.ollama-serve";
             ProcessType = "Background";
-            ProgramArguments = [ "${cfg.package}/bin/ollama" "run" model ];
+            ProgramArguments = [
+              "${cfg.package}/bin/ollama"
+              "serve"
+            ];
             RunAtLoad = true;
             StandardOutPath = cfg.logFile;
             StandardErrorPath = cfg.logFile;
           };
         };
-      })) { } cfg.models;
+      }
+      // builtins.foldl' (
+        acc: model:
+        (
+          acc
+          // {
+            "ollama-run-${model}" = {
+              inherit (cfg) enable;
+
+              config = {
+                AbandonProcessGroup = true;
+                ExitTimeOut = 0;
+                KeepAlive.OtherJobEnabled."local.ollama-serve" = true;
+                Label = "ollama-run-${model}";
+                ProcessType = "Background";
+                ProgramArguments = [
+                  "${cfg.package}/bin/ollama"
+                  "run"
+                  model
+                ];
+                RunAtLoad = true;
+                StandardOutPath = cfg.logFile;
+                StandardErrorPath = cfg.logFile;
+              };
+            };
+          }
+        )
+      ) { } cfg.models;
   };
 }

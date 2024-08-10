@@ -1,8 +1,12 @@
-{ ... }: {
+{ ... }:
+{
   # Extended options for nginx
   imports = [ ../../options/nginx ];
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   services = {
     nginx = {

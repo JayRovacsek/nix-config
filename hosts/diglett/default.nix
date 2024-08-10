@@ -1,6 +1,20 @@
-{ lib, modulesPath, self, ... }: {
-  imports = with self.nixosModules;
-    [ agenix disable-assertions nix-topology openvpn-server time timesyncd ]
+{
+  lib,
+  modulesPath,
+  self,
+  ...
+}:
+{
+  imports =
+    with self.nixosModules;
+    [
+      agenix
+      disable-assertions
+      nix-topology
+      openvpn-server
+      time
+      timesyncd
+    ]
     ++ [ "${modulesPath}/profiles/qemu-guest.nix" ];
 
   age.identityPaths = [ "/agenix/id-ed25519-diglett-primary" ];
@@ -29,7 +43,7 @@
     fsType = "ext4";
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/linode-swap"; }];
+  swapDevices = [ { device = "/dev/disk/by-label/linode-swap"; } ];
 
   services = {
     openssh = {

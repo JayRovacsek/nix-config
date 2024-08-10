@@ -1,4 +1,9 @@
-{ coreutils, stdenvNoCC, writeTextFile, ... }:
+{
+  coreutils,
+  stdenvNoCC,
+  writeTextFile,
+  ...
+}:
 let
   name = "51-alsa-disable.lua";
   # Note the below should be injected into location blocks of vhosts
@@ -20,7 +25,8 @@ let
       table.insert(alsa_monitor.rules,rule)
     '';
   };
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit name;
 
   phases = [ "installPhase" ];

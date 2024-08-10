@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 let
   pname = "pdscan";
   version = "0.1.8";
@@ -20,4 +24,14 @@ let
 
   doCheck = false;
 
-in buildGoModule { inherit pname version src meta vendorHash doCheck; }
+in
+buildGoModule {
+  inherit
+    pname
+    version
+    src
+    meta
+    vendorHash
+    doCheck
+    ;
+}

@@ -5,8 +5,12 @@ let
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
 
-in {
-  home.packages = [ hack-font pkgs.dejavu_fonts ];
+in
+{
+  home.packages = [
+    hack-font
+    pkgs.dejavu_fonts
+  ];
 
   programs.eww = {
     enable = true;

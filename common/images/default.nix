@@ -13,31 +13,49 @@ let
   linode-cfg = import ./linode.nix { inherit self; };
   oracle-cfg = import ./oracle.nix { inherit self; };
 
-  amazon = let inherit (amazon-cfg._module.args) modules;
-  in nixos-generators.nixosGenerate {
-    system = "x86_64-linux";
-    modules = modules ++ [{ amazonImage.sizeMB = 16 * 1024; }];
-    format = "amazon";
-  };
+  amazon =
+    let
+      inherit (amazon-cfg._module.args) modules;
+    in
+    nixos-generators.nixosGenerate {
+      system = "x86_64-linux";
+      modules = modules ++ [ { amazonImage.sizeMB = 16 * 1024; } ];
+      format = "amazon";
+    };
 
   linode = nixos-generators.nixosGenerate {
     system = "x86_64-linux";
-    modules = with self.nixosModules; [ ../../hosts/ditto linode-image ];
-    specialArgs = { inherit self; };
+    modules = with self.nixosModules; [
+      ../../hosts/ditto
+      linode-image
+    ];
+    specialArgs = {
+      inherit self;
+    };
     format = "linode";
   };
 
   oracle-aarch64 = nixos-generators.nixosGenerate {
     system = "aarch64-linux";
-    modules = with self.nixosModules; [ ../../hosts/ditto oracle-image ];
-    specialArgs = { inherit self; };
+    modules = with self.nixosModules; [
+      ../../hosts/ditto
+      oracle-image
+    ];
+    specialArgs = {
+      inherit self;
+    };
     format = "qcow";
   };
 
   oracle-x86_64 = nixos-generators.nixosGenerate {
     system = "x86_64-linux";
-    modules = with self.nixosModules; [ ../../hosts/ditto oracle-image ];
-    specialArgs = { inherit self; };
+    modules = with self.nixosModules; [
+      ../../hosts/ditto
+      oracle-image
+    ];
+    specialArgs = {
+      inherit self;
+    };
     format = "qcow";
   };
 
@@ -50,11 +68,33 @@ let
     };
   };
 
-  sd-images = builtins.map (image: {
-    "${image.config.networking.hostName}-sdImage" =
-      image.config.system.build.sdImage;
-  }) [ aarch64 rpi1 rpi2 ];
+  sd-images =
+    builtins.map
+      (image: {
+        "${image.config.networking.hostName}-sdImage" =
+          image.config.system.build.sdImage;
+      })
+      [
+        aarch64
+        rpi1
+        rpi2
+      ];
 
-  images = { inherit aarch64 amazon linode oracle-aarch64 oracle-x86_64; };
+  images = {
+    inherit
+      aarch64
+      amazon
+      linode
+      oracle-aarch64
+      oracle-x86_64
+      ;
+  };
 
-in merge ([ images cfgs ] ++ sd-images)
+in
+merge (
+  [
+    images
+    cfgs
+  ]
+  ++ sd-images
+)

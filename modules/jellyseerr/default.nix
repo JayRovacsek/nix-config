@@ -1,4 +1,5 @@
-{ self, ... }: {
+{ self, ... }:
+{
   services = {
     jellyseerr = {
       enable = true;

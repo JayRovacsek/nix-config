@@ -14,20 +14,29 @@ let
     "poliwag"
     "slowpoke"
   ];
-in {
+in
+{
   microvm = {
-    macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
-      self.common.networking.networks;
+    macvlans = builtins.map (
+      vlan: vlan // { parent = "10-wired"; }
+    ) self.common.networking.networks;
 
-    vms = builtins.foldl' (acc: host:
-      acc // {
+    vms = builtins.foldl' (
+      acc: host:
+      acc
+      // {
         ${host} = {
           specialArgs = {
             inherit self;
             microvm = true;
           };
-          config = { ... }: { imports = [ (./. + "/../${host}") ]; };
+          config =
+            { ... }:
+            {
+              imports = [ (./. + "/../${host}") ];
+            };
         };
-      }) { } party;
+      }
+    ) { } party;
   };
 }

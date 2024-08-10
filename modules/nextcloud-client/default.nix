@@ -1,1 +1,4 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs; [ nextcloud-client ]; }
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [ nextcloud-client ];
+}

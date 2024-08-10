@@ -2,7 +2,8 @@
 let
   lockCmd = "${config.programs.hyprlock.package}/bin/hyprlock";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
-in {
+in
+{
   services.hypridle = {
     enable = true;
 

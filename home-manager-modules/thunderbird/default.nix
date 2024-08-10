@@ -16,4 +16,5 @@ let
       };
     };
   };
-in cfg
+in
+cfg

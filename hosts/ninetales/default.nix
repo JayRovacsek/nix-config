@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) darwin-desktop;
@@ -9,7 +15,8 @@ let
     modules = darwin-desktop;
   };
   user-configs = merge [ jay ];
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   age.secrets = {

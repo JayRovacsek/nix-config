@@ -1,11 +1,17 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self.lib) merge;
 
   port = 10080;
 
   prod = !config.services.nginx.test.enable;
-in {
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-acme-primary" ];
 
@@ -24,17 +30,19 @@ in {
   security.acme = lib.mkIf prod {
     acceptTerms = true;
 
-    certs = merge (builtins.map (domain: {
-      "${domain}" = {
-        inherit domain;
-        dnsProvider = "cloudflare";
-        environmentFile = "${config.age.secrets.acme-environment-file.path}";
-        extraDomainNames = [ "*.${domain}" ];
-        reloadServices = [ "nginx" ];
-        # Staging - use if testing, expect to see invalid certs however
-        # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      };
-    }) config.services.nginx.domains);
+    certs = merge (
+      builtins.map (domain: {
+        "${domain}" = {
+          inherit domain;
+          dnsProvider = "cloudflare";
+          environmentFile = "${config.age.secrets.acme-environment-file.path}";
+          extraDomainNames = [ "*.${domain}" ];
+          reloadServices = [ "nginx" ];
+          # Staging - use if testing, expect to see invalid certs however
+          # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+        };
+      }) config.services.nginx.domains
+    );
 
     defaults = {
       inherit (config.services.nginx) group;

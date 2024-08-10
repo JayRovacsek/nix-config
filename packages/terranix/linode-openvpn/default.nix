@@ -2,7 +2,8 @@ _:
 let
   region = "ap-southeast";
   name = "linode-openvpn";
-in {
+in
+{
   variable.LINODE_TOKEN = {
     type = "string";
     description = "Linode API token";
@@ -14,7 +15,9 @@ in {
     cloud = {
       hostname = "app.terraform.io";
       organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
-      workspaces = { inherit name; };
+      workspaces = {
+        inherit name;
+      };
     };
     required_providers.linode.source = "linode/linode";
   };
@@ -73,7 +76,7 @@ in {
         sdb.disk_id = "\${linode_instance_disk.swap.id}";
       };
 
-      interface = [{ purpose = "public"; }];
+      interface = [ { purpose = "public"; } ];
     };
   };
 }

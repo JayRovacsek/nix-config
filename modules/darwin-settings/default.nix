@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     # ./custom-system-preferences.nix
     ./dock.nix

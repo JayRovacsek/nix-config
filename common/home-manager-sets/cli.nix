@@ -2,7 +2,9 @@
 let
   inherit (self.inputs) nixvim;
   inherit (self.common.home-manager-module-sets) base;
-in base ++ (with self.homeManagerModules; [
+in
+base
+++ (with self.homeManagerModules; [
   bat
   direnv
   fzf
@@ -14,4 +16,5 @@ in base ++ (with self.homeManagerModules; [
   nix-index
   starship
   zsh
-]) ++ [ nixvim.homeManagerModules.nixvim ]
+])
+++ [ nixvim.homeManagerModules.nixvim ]

@@ -1,15 +1,31 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
-  nvidia-present = builtins.any (driver: driver == "nvidia")
-    config.services.xserver.videoDrivers;
+  nvidia-present = builtins.any (
+    driver: driver == "nvidia"
+  ) config.services.xserver.videoDrivers;
 
   package = pkgs.hyprland;
 
   # https://wiki.hyprland.org/Nvidia/#how-to-get-hyprland-to-possibly-work-on-nvidia
-  optional-packages =
-    lib.optionals nvidia-present (with pkgs; [ libva nvidia-vaapi-driver ]);
+  optional-packages = lib.optionals nvidia-present (
+    with pkgs;
+    [
+      libva
+      nvidia-vaapi-driver
+    ]
+  );
 
-  systemPackages = (with pkgs; [ libsForQt5.qt5.qtwayland pciutils ])
+  systemPackages =
+    (with pkgs; [
+      libsForQt5.qt5.qtwayland
+      pciutils
+    ])
     ++ optional-packages;
 
   optional-env-values = lib.optionalAttrs nvidia-present {
@@ -19,7 +35,8 @@ let
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-in {
+in
+{
   nixpkgs.overlays = with self.inputs; [ nixpkgs-wayland.overlay ];
 
   services.displayManager.defaultSession = "hyprland";
@@ -52,7 +69,10 @@ in {
   hardware = {
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
     };
     pulseaudio.support32Bit = true;
   };

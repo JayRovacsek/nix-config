@@ -1,6 +1,8 @@
-{ pkgs, self, ... }: {
-  networking.firewall.allowedTCPPorts =
-    [ self.common.networking.services.unifi.port ];
+{ pkgs, self, ... }:
+{
+  networking.firewall.allowedTCPPorts = [
+    self.common.networking.services.unifi.port
+  ];
 
   services.unifi = {
     enable = true;

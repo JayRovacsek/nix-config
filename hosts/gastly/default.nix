@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) hyprland-ironbar-desktop;
@@ -12,7 +18,8 @@ let
 
   user-configs = merge [ jay ];
 
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
@@ -76,8 +83,13 @@ in {
     extraModulePackages = [ ];
 
     initrd = {
-      availableKernelModules =
-        [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
       kernelModules = [ "dm-snapshot" ];
       luks.devices.crypted = {
         device = "/dev/disk/by-uuid/21c13271-a27f-4106-87bb-2ec4c2a043dc";
@@ -89,7 +101,11 @@ in {
     loader.efi.canTouchEfiVariables = true;
   };
 
-  environment.systemPackages = with pkgs; [ curl wget agenix ];
+  environment.systemPackages = with pkgs; [
+    curl
+    wget
+    agenix
+  ];
 
   fileSystems = {
     "/" = {
@@ -104,8 +120,7 @@ in {
   };
 
   hardware = {
-    cpu.intel.updateMicrocode =
-      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     enableRedistributableFirmware = true;
   };
 
@@ -125,8 +140,9 @@ in {
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/907b7556-218a-4516-ae2b-0b310d6b0b19"; }];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/907b7556-218a-4516-ae2b-0b310d6b0b19"; }
+  ];
 
   system.stateVersion = "22.11";
 }

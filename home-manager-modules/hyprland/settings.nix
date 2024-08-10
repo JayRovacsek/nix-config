@@ -1,11 +1,27 @@
-{ config, osConfig, pkgs, self }:
+{
+  config,
+  osConfig,
+  pkgs,
+  self,
+}:
 let
   inherit (pkgs)
-    grim hyprlock slurp swappy lib fuzzel nextcloud-client hyprpaper;
+    grim
+    hyprlock
+    slurp
+    swappy
+    lib
+    fuzzel
+    nextcloud-client
+    hyprpaper
+    ;
   inherit (self.lib.hyprland) generate-monitors;
 
   inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
-    base01 base02 base03;
+    base01
+    base02
+    base03
+    ;
 
   alakazam-monitors = [
     {
@@ -37,29 +53,33 @@ let
       extra = "";
     }
   ];
-  monitor = if osConfig.networking.hostName == "alakazam" then
-    (generate-monitors alakazam-monitors)
-  else
-    [ ",preferred,auto,auto" ];
+  monitor =
+    if osConfig.networking.hostName == "alakazam" then
+      (generate-monitors alakazam-monitors)
+    else
+      [ ",preferred,auto,auto" ];
 
-  nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
-    config.home.packages;
+  nextcloud-present = builtins.any (
+    p: (p.pname or "") == "nextcloud-client"
+  ) config.home.packages;
 
   wallpaper-exec = "${hyprpaper}/bin/hyprpaper";
 
-  nextcloud-exec =
-    lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
+  nextcloud-exec = lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
   exec-once = [ wallpaper-exec ] ++ nextcloud-exec;
 
-in {
+in
+{
   inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";
   input = {
     kb_layout = "us";
     follow_mouse = 1;
-    touchpad = { natural_scroll = false; };
+    touchpad = {
+      natural_scroll = false;
+    };
     sensitivity = 0;
   };
 
@@ -102,7 +122,9 @@ in {
   };
 
   # https://wiki.hyprland.org/Configuring/Variables/#gestures
-  gestures = { workspace_swipe = false; };
+  gestures = {
+    workspace_swipe = false;
+  };
 
   # Window Rules
   # https://wiki.hyprland.org/Configuring/Window-Rules/
@@ -138,15 +160,16 @@ in {
     "$mainMod, mouse_up, workspace, e-1"
 
     # Print Screen
-    ''
-      , code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
+    '', code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
 
     # Lock
     "$mainMod, L, exec, pidof ${hyprlock}/bin/hyprlock || ${hyprlock}/bin/hyprlock"
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging
-  bindm =
-    [ "$mainMod, mouse:272, movewindow" "$mainMod, mouse:273, resizewindow" ];
+  bindm = [
+    "$mainMod, mouse:272, movewindow"
+    "$mainMod, mouse:273, resizewindow"
+  ];
 
 }

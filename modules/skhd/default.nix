@@ -1,6 +1,8 @@
 { pkgs, ... }:
-let inherit (pkgs) bash yabai;
-in {
+let
+  inherit (pkgs) bash yabai;
+in
+{
   launchd.user.agents.skhd.environment.SHELL = "${bash}/bin/bash";
 
   services.skhd = {

@@ -3,8 +3,14 @@
 let
   inherit (pkgs) system;
   inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
-    base00 base01 base03 base05 base08;
-in {
+    base00
+    base01
+    base03
+    base05
+    base08
+    ;
+in
+{
   imports = [ self.inputs.ironbar.homeManagerModules.default ];
 
   programs.ironbar = {
@@ -29,22 +35,26 @@ in {
           show_icons = true;
         }
       ];
-      center = [{
-        type = "clock";
-        format = "%R - %a %d.";
-      }];
+      center = [
+        {
+          type = "clock";
+          format = "%R - %a %d.";
+        }
+      ];
       end = [
         {
           type = "custom";
           class = "screenshot";
-          bar = [{
-            type = "button";
-            name = "screenshot-btn";
-            label = "";
-            on_click = "!${
+          bar = [
+            {
+              type = "button";
+              name = "screenshot-btn";
+              label = "";
+              on_click = "!${
                 self.packages.${system}.waybar-screenshot
               }/bin/waybar-screenshot";
-          }];
+            }
+          ];
         }
         {
           type = "sys_info";
@@ -85,15 +95,14 @@ in {
         {
           type = "custom";
           class = "power-menu";
-          bar = [{
-            type = "button";
-            name = "power-btn";
-            label = "";
-            on_click = "!${
-                pkgs.writeShellScript "power-btn"
-                "${pkgs.procps}/bin/pkill wlogout || ${pkgs.wlogout}/bin/wlogout"
-              }";
-          }];
+          bar = [
+            {
+              type = "button";
+              name = "power-btn";
+              label = "";
+              on_click = "!${pkgs.writeShellScript "power-btn" "${pkgs.procps}/bin/pkill wlogout || ${pkgs.wlogout}/bin/wlogout"}";
+            }
+          ];
         }
       ];
     };
@@ -224,8 +233,7 @@ in {
 
       ".popup-launcher".padding = 0;
 
-      ".popup-launcher .popup-item:not(:first-child)".border-top =
-        "1px solid @color_border";
+      ".popup-launcher .popup-item:not(:first-child)".border-top = "1px solid @color_border";
 
       # -- music --
 

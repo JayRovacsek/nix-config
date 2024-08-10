@@ -1,8 +1,11 @@
 { self, ... }:
 let
   inherit (self.common.tofu.globals.github)
-    public-repositories private-repositories;
-in {
+    public-repositories
+    private-repositories
+    ;
+in
+{
   default-repository-settings = {
     allow_auto_merge = true;
     allow_merge_commit = true;
@@ -74,8 +77,7 @@ in {
     }
     {
       name = "Aurora-Incident-Response";
-      description =
-        "Incident Response Documentation made easy. Developed by Incident Responders for Incident Responders";
+      description = "Incident Response Documentation made easy. Developed by Incident Responders for Incident Responders";
       vulnerability_alerts = false;
       security_and_analysis = {
         secret_scanning.status = "disabled";
@@ -124,18 +126,15 @@ in {
     }
     {
       name = "dev-templates";
-      description =
-        "Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins]";
+      description = "Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins]";
     }
     {
       name = "DHTesp";
-      description =
-        "Optimized DHT library for ESP32/ESP8266 using Arduino framework";
+      description = "Optimized DHT library for ESP32/ESP8266 using Arduino framework";
     }
     {
       name = "dnscrypt-server-docker";
-      description =
-        "A Docker image for a non-censoring, non-logging, DNSSEC-capable, DNSCrypt-enabled DNS resolver";
+      description = "A Docker image for a non-censoring, non-logging, DNSSEC-capable, DNSCrypt-enabled DNS resolver";
       homepage_url = "https://dnscrypt.info";
     }
     {
@@ -165,13 +164,11 @@ in {
     }
     {
       name = "forty";
-      description =
-        "Forty theme - Hugo theme ported from HTML5UP origrinal theme called Forty.";
+      description = "Forty theme - Hugo theme ported from HTML5UP origrinal theme called Forty.";
     }
     {
       name = "headscale";
-      description =
-        "An open source, self-hosted implementation of the Tailscale control server";
+      description = "An open source, self-hosted implementation of the Tailscale control server";
     }
     {
       name = "INFT1004";
@@ -212,8 +209,7 @@ in {
     {
       name = "INFT3970-Individual-Report";
       archived = true;
-      description =
-        "An individual report created for the INFT3970 course at UoN on secure coding practices.";
+      description = "An individual report created for the INFT3970 course at UoN on secure coding practices.";
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
         secret_scanning.status = "disabled";
@@ -255,8 +251,7 @@ in {
     }
     {
       name = "jellyfin-discord-music-bot";
-      description =
-        "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
+      description = "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
       archived = true;
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
@@ -277,8 +272,7 @@ in {
     }
     {
       name = "ncsg-presentation-feb-2021";
-      description =
-        "A presentation for Newcastle Cybersecurity Group, Feb 2021";
+      description = "A presentation for Newcastle Cybersecurity Group, Feb 2021";
       archived = true;
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
@@ -287,8 +281,7 @@ in {
     }
     {
       name = "ncsg-presentation-feb-2022";
-      description =
-        "A presentation for Newcastle Cybersecurity Group, Feb 2022";
+      description = "A presentation for Newcastle Cybersecurity Group, Feb 2022";
       archived = true;
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
@@ -297,8 +290,7 @@ in {
     }
     {
       name = "ncsg-presentation-june-2023";
-      description =
-        "A presentation for Newcastle Cybersecurity Group, June 2023";
+      description = "A presentation for Newcastle Cybersecurity Group, June 2023";
       pages = {
         build_type = "workflow";
         source = {
@@ -336,13 +328,11 @@ in {
     }
     {
       name = "nvidia-patch";
-      description =
-        "This patch removes restriction on maximum number of simultaneous NVENC video encoding sessions imposed by Nvidia to consumer-grade GPUs.";
+      description = "This patch removes restriction on maximum number of simultaneous NVENC video encoding sessions imposed by Nvidia to consumer-grade GPUs.";
     }
     {
       name = "opinionated-development";
-      description =
-        "A flake for applying strong opinions in an extensible manner across development environments";
+      description = "A flake for applying strong opinions in an extensible manner across development environments";
     }
     {
       name = "pf-captive-portal";
@@ -355,13 +345,11 @@ in {
     }
     {
       name = "PoSh-R2";
-      description =
-        "PowerShell - Rapid Response... For the incident responder in you!";
+      description = "PowerShell - Rapid Response... For the incident responder in you!";
     }
     {
       name = "project-euler";
-      description =
-        "A repository to host code related to https://projecteuler.net";
+      description = "A repository to host code related to https://projecteuler.net";
       archived = true;
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
@@ -370,8 +358,7 @@ in {
     }
     {
       name = "project_alias";
-      description =
-        "Alias is a teachable “parasite” that is designed to give users more control over their smart assistants, both when it comes to customisation and privacy. Through a simple app the user can train Alias to react on a custom wake-word/sound, and once trained, Alias can take control over your home assistant by activating it for you.";
+      description = "Alias is a teachable “parasite” that is designed to give users more control over their smart assistants, both when it comes to customisation and privacy. Through a simple app the user can train Alias to react on a custom wake-word/sound, and once trained, Alias can take control over your home assistant by activating it for you.";
     }
     {
       name = "pyautoclick";
@@ -392,8 +379,7 @@ in {
     }
     {
       name = "raspberry-pi-nix";
-      description =
-        "NixOS modules to aid in configuring NixOS for raspberry pi products";
+      description = "NixOS modules to aid in configuring NixOS for raspberry pi products";
     }
     {
       name = "rovacsek";
@@ -408,8 +394,7 @@ in {
     }
     {
       name = "sbomnix";
-      description =
-        "sbomnix is a utility that generates SBOMs from nix packages";
+      description = "sbomnix is a utility that generates SBOMs from nix packages";
     }
     {
       name = "SENG1050Assignment2";
@@ -451,14 +436,12 @@ in {
     }
     {
       name = "stubby-docker";
-      description =
-        "Run Stubby without losing the performance benefits of having a local caching DNS resolver.";
+      description = "Run Stubby without losing the performance benefits of having a local caching DNS resolver.";
     }
     {
       name = "user.js";
       archived = true;
-      description =
-        "Firefox privacy, security and anti-fingerprinting: a comprehensive user.js template for configuration and hardening";
+      description = "Firefox privacy, security and anti-fingerprinting: a comprehensive user.js template for configuration and hardening";
       security_and_analysis = {
         secret_scanning_push_protection.status = "disabled";
         secret_scanning.status = "disabled";
@@ -474,8 +457,7 @@ in {
     }
     {
       name = "vms.nix";
-      description =
-        "NixOS module for QEMU VM's using a similar interface to nixos-containers.";
+      description = "NixOS module for QEMU VM's using a similar interface to nixos-containers.";
     }
     {
       name = "vulnix";
@@ -483,8 +465,7 @@ in {
     }
     {
       name = "vulnix-pre-commit";
-      description =
-        "A simple wrapper for vulnix to check the state of a flake derivation for new or introduced vulnerabilities";
+      description = "A simple wrapper for vulnix to check the state of a flake derivation for new or introduced vulnerabilities";
     }
   ];
   private-repositories = [
@@ -498,8 +479,7 @@ in {
     }
     {
       name = "comparison-tool";
-      description =
-        "A dabble in Go, basic tool for testing regression in internal systems.";
+      description = "A dabble in Go, basic tool for testing regression in internal systems.";
       archived = true;
     }
     {
@@ -508,25 +488,21 @@ in {
     }
     {
       name = "FOR508-notes";
-      description =
-        "A repository to host notes on my participation in the SANS FOR508 course";
+      description = "A repository to host notes on my participation in the SANS FOR508 course";
     }
     {
       name = "jsign-docker";
-      description =
-        "A PoC to avoid needing to use a Windows system to sign Powershell payloads";
+      description = "A PoC to avoid needing to use a Windows system to sign Powershell payloads";
       archived = true;
     }
     {
       name = "maljs";
-      description =
-        "A repo to host some deobfustication of code found on a website";
+      description = "A repo to host some deobfustication of code found on a website";
       archived = true;
     }
     {
       name = "ncsg-content";
-      description =
-        "A staging repo for ncsg content to be converted to markdown";
+      description = "A staging repo for ncsg content to be converted to markdown";
     }
     { name = "ncsg-poc"; }
     {
@@ -539,8 +515,7 @@ in {
     }
     {
       name = "py-maintain-sanity";
-      description =
-        "This is what happens when people don't follow naming conventions.";
+      description = "This is what happens when people don't follow naming conventions.";
       archived = true;
     }
     {

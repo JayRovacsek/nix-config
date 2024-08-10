@@ -1,4 +1,5 @@
-{ self, ... }: {
+{ self, ... }:
+{
   imports = [ self.inputs.disko.nixosModules.default ];
 
   fileSystems."/persistent".neededForBoot = true;
@@ -8,7 +9,11 @@
     devices = {
       nodev."/" = {
         fsType = "tmpfs";
-        mountOptions = [ "size=1G" "defaults" "mode=755" ];
+        mountOptions = [
+          "size=1G"
+          "defaults"
+          "mode=755"
+        ];
       };
       disk.system = {
         type = "disk";
@@ -26,7 +31,10 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot/firmware";
-                mountOptions = [ "nofail" "noauto" ];
+                mountOptions = [
+                  "nofail"
+                  "noauto"
+                ];
               };
             };
             root = {

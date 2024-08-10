@@ -12,4 +12,7 @@ let
     ninetales = "work";
     wigglytuff = "general";
   };
-in { inherit tailnet; }
+in
+{
+  inherit tailnet;
+}

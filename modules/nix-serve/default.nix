@@ -1,6 +1,12 @@
 # This module assumes the existence of a suitably generated keypair
 # To generate this, either follow the instructions here: https://nixos.wiki/wiki/Binary_Cache
-{ config, lib, self, ... }: {
+{
+  config,
+  lib,
+  self,
+  ...
+}:
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-nix-serve-primary" ];
 

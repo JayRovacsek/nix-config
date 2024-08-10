@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 let
   inherit (self) common;
@@ -12,13 +18,21 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = hyprland-desktop-minimal
-      ++ (with self.homeManagerModules; [ mako waybar ]);
+    modules =
+      hyprland-desktop-minimal
+      ++ (with self.homeManagerModules; [
+        mako
+        waybar
+      ]);
   };
 
-  user-configs = merge [ builder jay ];
+  user-configs = merge [
+    builder
+    jay
+  ];
 
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
@@ -62,11 +76,18 @@ in {
       options snd_bcm2835 enable_headphones=1
     '';
 
-    kernelParams =
-      [ "8250.nr_uarts=1" "boot.shell_on_fail" "cma=256M" "console=tty1" ];
+    kernelParams = [
+      "8250.nr_uarts=1"
+      "boot.shell_on_fail"
+      "cma=256M"
+      "console=tty1"
+    ];
   };
 
-  environment.systemPackages = with pkgs; [ alacritty jellyfin-media-player ];
+  environment.systemPackages = with pkgs; [
+    alacritty
+    jellyfin-media-player
+  ];
 
   hardware = {
     # Audio settings to ensure the headphones are the default
