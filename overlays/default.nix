@@ -593,7 +593,7 @@
       override-fixes = {
         elfutils = prev.elfutils.override { enableDebuginfod = false; };
         libselinux = prev.libselinux.override { enablePython = false; };
-        systemd = prev.systemd.override {withLibBPF = false;};
+        systemd = prev.systemd.override { withLibBPF = false; };
       };
 
       python-fixes = prev.lib.genAttrs [
@@ -610,14 +610,36 @@
                 ++ [ "test_net_if_addrs" "test_net_if_stats" ];
             });
 
-            sphinx = python-prev.psutil.overrideAttrs (old: {
-              disabledTests = old.disabledTests
-                ++ [ "test_connect_to_selfsigned_with_requests_env_var" "test_net_if_addrs" "test_net_if_stats" ];
+            pytest-xdist = python-prev.pytest-xdist.overrideAttrs (old: {
+              disabledTests = old.disabledTests ++ [
+                "test_remote_collect_skip"
+                "test_basic_collect_and_runtests"
+                "test_remote_collect_fail"
+                "test_runtests_all"
+                "test_steal_work"
+                "test_steal_empty_queue"
+              ];
             });
 
-            sphinxcontrib-jquery = python-prev.sphinxcontrib-jquery.overrideAttrs (old: {
-              propagatedBuildInputs = old.propagatedBuildInputs ++ (with python-prev; [ sphinx ]);
+            sphinx = python-prev.psutil.overrideAttrs (old: {
+              disabledTests = old.disabledTests ++ [
+                "test_connect_to_selfsigned_with_requests_env_var"
+                "test_net_if_addrs"
+                "test_net_if_stats"
+              ];
             });
+
+            sphinxcontrib-jquery =
+              python-prev.sphinxcontrib-jquery.overrideAttrs (old: {
+                propagatedBuildInputs = old.propagatedBuildInputs
+                  ++ (with python-prev; [ sphinx ]);
+              });
+
+            readthedocs-sphinx-ext =
+              python-prev.readthedocs-sphinx-ext.overrideAttrs (old: {
+                propagatedBuildInputs = old.propagatedBuildInputs
+                  ++ (with python-prev; [ sphinx jinja2 ]);
+              });
           };
         });
 
