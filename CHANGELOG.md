@@ -65,6 +65,8 @@
 
 ### 🚜 Refactor
 
+- *(flake)* Apply nixfmt-rfc style across all nix code - ([35df3d6](https://github.com/JayRovacsek/nix-config/commit/35df3d69265ff2559b09bd76a4752725cb6b93f5))
+
 - *(flake)* Move to nixfmt-rfc-style - ([e3321be](https://github.com/JayRovacsek/nix-config/commit/e3321be68914028ceb315fe87bf90d82c9149a41))
 
 - *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))

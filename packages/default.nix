@@ -108,10 +108,6 @@ let
     shell
     text
     tofu
-    {
-      better-english = callPackage ./better-english { };
-      t2-firmware = callPackage ./t2-firmware { };
-    }
   ];
 
 in
