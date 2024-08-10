@@ -4,14 +4,12 @@ let
   inherit (config.networking) hostName;
 
   tailnet = lookup-tailnet hostName;
-  authFile = config.age.secrets."preauth-${tailnet}".path;
+  authKeyFile = config.age.secrets."preauth-${tailnet}".path;
 
   headscale-present = config.services.headscale.enable;
 in {
-  imports = [ ../../options/tailscale ];
-
   services.tailscale = {
-    inherit authFile tailnet;
+    inherit authKeyFile;
     enable = true;
   };
 
