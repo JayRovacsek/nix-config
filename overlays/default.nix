@@ -509,6 +509,7 @@
         "dav1d"
         "dejagnu"
         "diffutils"
+        "elfutils"
         "fribidi"
         "gnugrep"
         "graphite2"
