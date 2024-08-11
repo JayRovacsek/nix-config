@@ -17,7 +17,7 @@ Notes about deployment diagram:
 - nix-topology does not currently render all services in use, but does do a great job in presenting the more common services thus far & is awesome in engaging proposed changes that would benefit the community
 - the diagram is centered around my home-lab only. Configurations that deploy to AWS, Linode and more exist but are excluded from the diagram for now
 
-![Topology of Deployment](./resources/deployment.svg)
+![Topology of Deployment](../resources/deployment.svg)
 
 ## Why?
 
@@ -30,4 +30,4 @@ If you're here, you likely already use nix, but if you don't;
 take a chance on it: if it doesn't break your current mental model
 of the operationalisation of computing I'd be surprised
 
-![Would I recommend nixos?](./resources/recommend.jpg)
+![Would I recommend nixos?](../resources/recommend.jpg)

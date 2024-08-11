@@ -19,11 +19,11 @@ in
   nixosConfigurations = builtins.removeAttrs self.nixosConfigurations [
     "amazon"
     "butterfree"
-    "diglett"
     "ditto"
     "linode"
     "mew"
     "oracle"
+    "porygon"
     "rpi1"
     "rpi2"
   ];
@@ -31,8 +31,8 @@ in
   nodes = {
     # WAN interfaces
     internet = mkInternet { connections = mkConnection "pfsense" "em1"; };
-    ovpnc1 = mkInternet { connections = mkConnection "pfsense" "ovpnc1"; };
-    ovpnc2 = mkInternet { connections = mkConnection "pfsense" "ovpnc2"; };
+    openvpn1 = mkInternet { connections = mkConnection "pfsense" "ovpnc1"; };
+    openvpn2 = mkInternet { connections = mkConnection "diglett" "eth0"; };
 
     # Simple bindings of interface -> network for most hosts
     # These seem like they'd be for free _if_ I were using 
@@ -41,6 +41,12 @@ in
     # for free :)
     alakazam.interfaces.eth0.network = "lan";
     cloyster.interfaces.wlan0.network = "wlan";
+    diglett = {
+      interfaces = {
+        eth0 = { };
+        tun0.network = "ovpnc2";
+      };
+    };
     dragonite.interfaces =
       let
         interfaces = builtins.foldl' (
@@ -82,6 +88,9 @@ in
           em1 = {
             addresses = [ "192.168.1.1" ];
             network = "lan";
+          };
+          ovpnc2 = {
+            physicalConnections = [ (mkConnection "diglett" "tun0") ];
           };
         }
         // interfaces;
@@ -166,6 +175,9 @@ in
       lan = {
         name = "lan";
         cidrv4 = "192.168.1.0/24";
+      };
+      ovpnc2 = {
+        name = "ovpnc2";
       };
     } networks;
 }
