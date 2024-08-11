@@ -33,6 +33,7 @@ writers.writeYAML ".conform.yaml" {
             "checks"
             "common"
             "darwin"
+            "docs"
             "flake"
             "home-manager-modules"
             "hydra"
@@ -47,6 +48,7 @@ writers.writeYAML ".conform.yaml" {
             "shells"
             "static"
             "tooling"
+            "tree-wide"
             "users"
           ];
         };
