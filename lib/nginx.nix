@@ -1,8 +1,9 @@
 { self }:
 let
-  inherit (self.inputs.nixpkgs) lib;
-  inherit (lib)
+  inherit (self.inputs.nixpkgs.lib)
+    findFirst
     genAttrs
+    hasSuffix
     mkIf
     optionalString
     recursiveUpdate
@@ -12,7 +13,7 @@ let
     { config, subdomain }:
     builtins.map (
       domain:
-      "${subdomain}.${lib.optionalString config.services.nginx.test.enable "test."}${domain}"
+      "${subdomain}.${optionalString config.services.nginx.test.enable "test."}${domain}"
     ) config.services.nginx.domains;
 
   generate-vhosts =
@@ -30,11 +31,9 @@ let
     genAttrs domains (
       domain:
       let
-        root = lib.findFirst (
-          x: lib.hasSuffix x domain
-        ) "" config.services.nginx.domains;
+        root = findFirst (x: hasSuffix x domain) "" config.services.nginx.domains;
 
-        self-signed = lib.findFirst (x: x.domain == domain) {
+        self-signed = findFirst (x: x.domain == domain) {
           keyPath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
           certificatePath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
         } config.services.nginx.test.certificateMap;

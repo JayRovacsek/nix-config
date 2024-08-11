@@ -71,6 +71,10 @@
 
 ### 🚜 Refactor
 
+- *(flake)* Remove dead config files - ([6392de3](https://github.com/JayRovacsek/nix-config/commit/6392de32ed3764010579c58bda08d0befaaf23b3))
+
+- *(flake)* Rename common.networking to common.config - ([6392de3](https://github.com/JayRovacsek/nix-config/commit/6392de32ed3764010579c58bda08d0befaaf23b3))
+
 - *(flake)* Apply nixfmt-rfc style across all nix code - ([35df3d6](https://github.com/JayRovacsek/nix-config/commit/35df3d69265ff2559b09bd76a4752725cb6b93f5))
 
 - *(flake)* Move to nixfmt-rfc-style - ([e3321be](https://github.com/JayRovacsek/nix-config/commit/e3321be68914028ceb315fe87bf90d82c9149a41))
