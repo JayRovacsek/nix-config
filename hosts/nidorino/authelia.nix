@@ -10,7 +10,7 @@ let
     generate-test-access-rules
     ;
 
-  inherit (self.common.networking) services;
+  inherit (self.common.config) services;
 
   authelia-scoped-services = lib.filterAttrs (
     _: v: if builtins.hasAttr "authelia" v then v.authelia else false

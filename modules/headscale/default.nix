@@ -6,7 +6,8 @@
   ...
 }:
 let
-  inherit (self.common.networking.services.headscale)
+  inherit (self.common.config.services.headscale)
+    base_domain
     derpServerStunPort
     grpcPort
     metricsPort
@@ -194,12 +195,12 @@ in
       db_name = "headscale";
 
       dns_config = {
+        inherit base_domain;
         override_local_dns = false;
         magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
         nameservers = [ "192.168.1.220" ];
-        domains = [ "internal.rovacsek.com" ];
-        base_domain = "rovacsek.com.internal";
+        domains = [ base_domain ];
 
         # Because we utilise blocky locally across all machines but 
         # Tailscale will take control of DNS once a client is connected,

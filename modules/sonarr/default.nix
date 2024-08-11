@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services.sonarr) port;
+  inherit (self.common.config.services.sonarr) port;
 in
 {
   # Extended options for sonarr

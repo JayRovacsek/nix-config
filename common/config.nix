@@ -120,6 +120,7 @@ _: {
       port = 8080;
       protocol = "http";
       subdomain = "headscale";
+      base_domain = "rovacsek.com.internal";
 
       derpServerStunPort = 3478;
       grpcPort = 50443;

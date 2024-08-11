@@ -38,7 +38,7 @@ let
         };
 
         media = {
-          inherit (self.common.networking.services.media.user) gid;
+          inherit (self.common.config.services.media.user) gid;
           members = [
             "jay"
             "jellyfin"
@@ -49,7 +49,7 @@ let
       users.media = {
         group = "media";
         isSystemUser = true;
-        inherit (self.common.networking.services.media.user) uid;
+        inherit (self.common.config.services.media.user) uid;
       };
     };
   };

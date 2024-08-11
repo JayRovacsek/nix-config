@@ -1,6 +1,6 @@
 { config, self, ... }:
 let
-  inherit (self.common.networking.services) loki;
+  inherit (self.common.config.services) loki;
 in
 {
   networking.firewall.allowedTCPPorts = [

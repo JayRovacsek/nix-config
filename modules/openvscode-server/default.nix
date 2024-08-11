@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services.code) port;
+  inherit (self.common.config.services.code) port;
 
   nix-options = pkgs.fetchFromGitHub {
     owner = "JayRovacsek";

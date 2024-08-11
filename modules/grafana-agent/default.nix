@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services) loki prometheus telegraf;
+  inherit (self.common.config.services) loki prometheus telegraf;
 
   blocky-enabled = config.services.blocky.enable;
   clamav-enabled = config.services.clamav.daemon.enable;

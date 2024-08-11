@@ -7,7 +7,7 @@
 let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
-  inherit (self.common.networking.services)
+  inherit (self.common.config.services)
     authelia
     code
     deluge
@@ -305,8 +305,8 @@ in
           "127.0.0.1:${config.services.blocky.settings.ports.dns}"
         ])
         ++ (builtins.map (
-          n: "${n}:${builtins.toString self.common.networking.services.blocky.port}"
-        ) self.common.networking.services.blocky.nodes);
+          n: "${n}:${builtins.toString self.common.config.ices.blocky.port}"
+        ) self.common.config.services.blocky.nodes);
 
       ipv4 = true;
       ipv6 = false;

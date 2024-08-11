@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services.hydra) port;
+  inherit (self.common.config.services.hydra) port;
 
   /*
     *

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services) openvpn;
+  inherit (self.common.config.services) openvpn;
 in
 {
   age = {

@@ -18,12 +18,12 @@ in
       ports = {
         http = mkOption {
           type = types.port;
-          default = self.common.networking.services.jellyfin.port;
+          default = self.common.config.services.jellyfin.port;
         };
 
         https = mkOption {
           type = types.port;
-          default = self.common.networking.services.jellyfin.https-port;
+          default = self.common.config.services.jellyfin.https-port;
         };
       };
 

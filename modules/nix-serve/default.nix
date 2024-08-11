@@ -24,6 +24,6 @@
     openFirewall = true;
     secretKeyFile = config.age.secrets."cache-priv-key.pem".path;
 
-    inherit (self.common.networking.services.binarycache) port;
+    inherit (self.common.config.services.binarycache) port;
   };
 }

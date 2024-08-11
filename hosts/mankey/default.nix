@@ -55,11 +55,11 @@
 
   users = {
     groups.media = {
-      inherit (self.common.networking.services.media.user) gid;
+      inherit (self.common.config.services.media.user) gid;
     };
     users.media = {
       group = "media";
-      inherit (self.common.networking.services.media.user) uid;
+      inherit (self.common.config.services.media.user) uid;
       isSystemUser = true;
     };
   };

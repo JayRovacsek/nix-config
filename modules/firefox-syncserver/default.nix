@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services.firefox-syncserver) port;
+  inherit (self.common.config.services.firefox-syncserver) port;
 in
 {
   age = {

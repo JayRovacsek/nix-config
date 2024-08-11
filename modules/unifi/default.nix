@@ -1,7 +1,7 @@
 { pkgs, self, ... }:
 {
   networking.firewall.allowedTCPPorts = [
-    self.common.networking.services.unifi.port
+    self.common.config.services.unifi.port
   ];
 
   services.unifi = {

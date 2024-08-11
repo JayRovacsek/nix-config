@@ -1,6 +1,6 @@
 { pkgs, self, ... }:
 let
-  inherit (self.common.networking.services.telegraf.output.prometheus) port;
+  inherit (self.common.config.services.telegraf.output.prometheus) port;
 in
 {
   networking.firewall.allowedTCPPorts = [ port ];

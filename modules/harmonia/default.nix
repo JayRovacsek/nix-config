@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.common.networking.services) harmonia;
+  inherit (self.common.config.services) harmonia;
 in
 {
   age = {

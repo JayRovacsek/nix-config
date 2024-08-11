@@ -47,7 +47,7 @@
   time.timeZone = "Australia/Sydney";
 
   users.users.root.openssh.authorizedKeys.keys =
-    self.common.networking.services.openssh.public-keys;
+    self.common.config.services.openssh.public-keys;
 
   # Everything beyond here is just space saving. Within REPL utilise:
   # nixosConfigurations.HOST.options.environment.systemPackages.definitionsWithLocations

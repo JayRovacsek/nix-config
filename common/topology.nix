@@ -45,7 +45,7 @@ in
       let
         interfaces = builtins.foldl' (
           acc: vlan: recursiveUpdate acc { ${vlan.name}.network = vlan.name; }
-        ) { } self.common.networking.networks;
+        ) { } self.common.config.networks;
       in
       recursiveUpdate { eth0.network = "lan"; } interfaces;
     gastly.interfaces.wlan0.network = "wlan";
@@ -76,7 +76,7 @@ in
                 virtual = true;
               };
             }
-          ) { } self.common.networking.networks;
+          ) { } self.common.config.networks;
         in
         {
           em1 = {
@@ -101,7 +101,7 @@ in
                 physicalConnections = [ (mkConnection "pfsense" vlan.name) ];
               };
             }
-          ) { } self.common.networking.networks;
+          ) { } self.common.config.networks;
         in
         recursiveUpdate {
           eth0 = {
@@ -160,7 +160,7 @@ in
             cidrv4 = "192.168.${builtins.toString vlan.vlan-tag}.0/24";
           };
         }
-      ) { } self.common.networking.networks;
+      ) { } self.common.config.networks;
     in
     recursiveUpdate {
       lan = {

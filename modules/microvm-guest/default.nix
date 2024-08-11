@@ -114,5 +114,5 @@ in
   };
 
   users.users.root.openssh.authorizedKeys.keys =
-    self.common.networking.services.openssh.public-keys;
+    self.common.config.services.openssh.public-keys;
 }

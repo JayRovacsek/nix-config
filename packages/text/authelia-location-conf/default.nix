@@ -1,6 +1,6 @@
 { self, writeTextFile, ... }:
 let
-  inherit (self.common.networking.services) authelia;
+  inherit (self.common.config.services) authelia;
 in
 writeTextFile {
   name = "authelia-location.conf";

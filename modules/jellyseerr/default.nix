@@ -5,7 +5,7 @@
       enable = true;
       openFirewall = true;
 
-      inherit (self.common.networking.services.jellyseerr) port;
+      inherit (self.common.config.services.jellyseerr) port;
     };
   };
 }

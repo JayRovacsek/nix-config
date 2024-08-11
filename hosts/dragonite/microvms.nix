@@ -19,7 +19,7 @@ in
   microvm = {
     macvlans = builtins.map (
       vlan: vlan // { parent = "10-wired"; }
-    ) self.common.networking.networks;
+    ) self.common.config.networks;
 
     vms = builtins.foldl' (
       acc: host:

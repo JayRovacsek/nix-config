@@ -107,7 +107,7 @@ in
       enable = true;
       openFirewall = true;
 
-      inherit (self.common.networking.services.deluge) port;
+      inherit (self.common.config.services.deluge) port;
     };
   };
 }

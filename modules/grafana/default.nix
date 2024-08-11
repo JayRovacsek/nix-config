@@ -1,6 +1,6 @@
 { config, self, ... }:
 let
-  inherit (self.common.networking.services) grafana loki prometheus;
+  inherit (self.common.config.services) grafana loki prometheus;
 in
 {
   networking.firewall.allowedTCPPorts = [

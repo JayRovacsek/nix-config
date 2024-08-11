@@ -77,7 +77,7 @@ in
         maintenance_window_start = "12";
         overwriteProtocol = "https";
         "profile.enabled" = false;
-        trusted_proxies = [ self.common.networking.services.nginx.ipv4 ];
+        trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
         trusted_domains = [ "192.168.10.3" ];
       };
 
