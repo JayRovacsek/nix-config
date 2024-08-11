@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(home-manager-modules)* Add hyprpaper module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
+
 - *(home-manager-modules)* Add hypridle - ([625aca5](https://github.com/JayRovacsek/nix-config/commit/625aca5cfde4877591dae0d484b28900d9e30bed))
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
@@ -74,6 +76,8 @@
 - *(flake)* Move to nixfmt-rfc-style - ([e3321be](https://github.com/JayRovacsek/nix-config/commit/e3321be68914028ceb315fe87bf90d82c9149a41))
 
 - *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))
+
+- *(home-manager-modules)* Rewrite elements of hyprland module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
