@@ -5,6 +5,8 @@
   self,
 }:
 let
+  inherit (osConfig.networking) hostName;
+
   inherit (pkgs)
     grim
     hyprlock
@@ -13,7 +15,6 @@ let
     lib
     fuzzel
     nextcloud-client
-    hyprpaper
     ;
   inherit (self.lib.hyprland) generate-monitors;
 
@@ -54,7 +55,7 @@ let
     }
   ];
   monitor =
-    if osConfig.networking.hostName == "alakazam" then
+    if hostName == "alakazam" then
       (generate-monitors alakazam-monitors)
     else
       [ ",preferred,auto,auto" ];
@@ -63,11 +64,13 @@ let
     p: (p.pname or "") == "nextcloud-client"
   ) config.home.packages;
 
-  wallpaper-exec = "${hyprpaper}/bin/hyprpaper";
+  swaync-enabled = config.services.swaync.enable;
+
+  swaync-exec = lib.optional swaync-enabled "${config.services.swaync.package}/bin/swaync";
 
   nextcloud-exec = lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = [ wallpaper-exec ] ++ nextcloud-exec;
+  exec-once = nextcloud-exec ++ swaync-exec;
 
 in
 {

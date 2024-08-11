@@ -37,6 +37,8 @@
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
+- *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
+
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
@@ -72,6 +74,8 @@
 - *(flake)* Move to nixfmt-rfc-style - ([e3321be](https://github.com/JayRovacsek/nix-config/commit/e3321be68914028ceb315fe87bf90d82c9149a41))
 
 - *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))
+
+- *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

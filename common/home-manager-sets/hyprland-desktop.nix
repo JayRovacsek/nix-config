@@ -5,5 +5,6 @@ in
 hyprland-desktop-minimal
 ++ (with self.homeManagerModules; [
   desktop-packages-extra
+  hyprpaper
   swaync
 ])
