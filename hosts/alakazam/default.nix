@@ -74,12 +74,13 @@ in
 
   age = {
     identityPaths = [
+      "/agenix/id-ed25519-${config.networking.hostName}-primary"
       "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-terraform-primary"
     ];
 
     secrets = {
-      "git-signing-key" = rec {
+      git-signing-key = rec {
         file = ../../secrets/ssh/git-signing-key.age;
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key";
@@ -90,6 +91,8 @@ in
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
+
+      tailnet-preauth.file = ../../secrets/tailscale/preauth-admin.age;
     };
   };
 

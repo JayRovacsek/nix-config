@@ -31,6 +31,8 @@
 
 - *(modules)* Regenerate tailscale keys with per-host configs - ([eeaa19c](https://github.com/JayRovacsek/nix-config/commit/eeaa19c41a098d1829edb01f584203b535f52e77))
 
+- *(modules,flake)* Re-introduce lix with nix-store regression sorted - ([c904d7c](https://github.com/JayRovacsek/nix-config/commit/c904d7c19e9e96b26b208a9f0d763490d1342de9))
+
 - *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
 
 - *(modules,linux)* Create openvpn-server module - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
