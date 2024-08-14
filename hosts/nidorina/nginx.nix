@@ -305,7 +305,7 @@ in
           "127.0.0.1:${config.services.blocky.settings.ports.dns}"
         ])
         ++ (builtins.map (
-          n: "${n}:${builtins.toString self.common.config.ices.blocky.port}"
+          n: "${n}:${builtins.toString self.common.config.services.blocky.port}"
         ) self.common.config.services.blocky.nodes);
 
       ipv4 = true;

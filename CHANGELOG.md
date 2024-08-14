@@ -68,6 +68,8 @@
 - *(packages)* Fix linode AMI package & openvpn server - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
+
+- *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
 - Remove custom tailscale options - ([8844ab0](https://github.com/JayRovacsek/nix-config/commit/8844ab057bde3b93c17b2ef9c4d5c30b10ebc201))
 
 
