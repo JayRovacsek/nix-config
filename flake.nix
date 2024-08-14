@@ -104,7 +104,16 @@
         flake-compat.follows = "flake-compat";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix.git";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.0";
+    };
+
+    lix-module = {
+      inputs = {
+        lix.follows = "lix";
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.0";
     };
 
     # Microvm module, PoC state for implementation

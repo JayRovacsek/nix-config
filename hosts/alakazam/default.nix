@@ -48,6 +48,7 @@ in
     hyprland
     i18n
     keybase
+    lix
     logging
     lorri
     microvm-host

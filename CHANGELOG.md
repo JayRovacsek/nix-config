@@ -47,6 +47,8 @@
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
+- *(linux)* Resolve nginx entry error - ([a287446](https://github.com/JayRovacsek/nix-config/commit/a287446ff36cc24eb685467d6a584cfbbd220284))
+
 - *(linux)* Remove prism and opengl option from alakazam - ([3d6107a](https://github.com/JayRovacsek/nix-config/commit/3d6107a99c949d74b79e259cda456ff530926c51))
 
 - *(linux)* Bump binarycache timeout on nidorina - ([9ef258c](https://github.com/JayRovacsek/nix-config/commit/9ef258cfbcf3fe66b57b07237a5ef801e43dac8b))

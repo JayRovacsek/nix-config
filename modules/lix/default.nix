@@ -1,4 +1,4 @@
 { self, ... }:
 {
-  nixpkgs.overlays = [ self.overlays.lix ];
+  imports = [ self.inputs.lix-module.nixosModules.default ];
 }
