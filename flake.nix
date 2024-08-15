@@ -3,37 +3,37 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/release-24.05";
 
     # Secrets Management <3
     agenix = {
-      url = "github:ryantm/agenix";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
+      url = "github:ryantm/agenix";
     };
 
     devshell = {
-      url = "github:numtide/devshell";
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
+      url = "github:numtide/devshell";
     };
 
     disko = {
-      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
     };
 
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Adds flake compatibility to start removing the vestiges of 
@@ -82,12 +82,12 @@
     impermanence.url = "github:nix-community/impermanence";
 
     ironbar = {
-      url = "github:JakeStanger/ironbar";
       inputs = {
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
       };
+      url = "github:JakeStanger/ironbar";
     };
 
     lib-aggregate = {
@@ -100,8 +100,8 @@
 
     lix = {
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.0";
@@ -109,9 +109,9 @@
 
     lix-module = {
       inputs = {
+        flake-utils.follows = "flake-utils";
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
       url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.0";
     };
@@ -195,7 +195,6 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
       inputs = {
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
@@ -206,20 +205,21 @@
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
+      url = "github:nix-community/nixvim";
     };
 
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 
     rust-overlay = {
-      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
     };
 
     sandro-nixos-modules = {
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
       url = "github:SuperSandro2000/nixos-modules";
     };

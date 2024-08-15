@@ -5,6 +5,8 @@
 
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
+- *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
+
 - *(home-manager-modules)* Add hyprpaper module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
 
 - *(home-manager-modules)* Add hypridle - ([625aca5](https://github.com/JayRovacsek/nix-config/commit/625aca5cfde4877591dae0d484b28900d9e30bed))
