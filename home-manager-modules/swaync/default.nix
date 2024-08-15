@@ -1,6 +1,20 @@
 { self, ... }:
 let
   inherit (self.lib.generators) to-css;
+  inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
+    base00
+    base01
+    base02
+    base03
+    base04
+    base05
+    base06
+    base08
+    base09
+    base0A
+    base0B
+    base0D
+    ;
 in
 {
   services.swaync = {
@@ -9,31 +23,31 @@ in
       "*" = {
         all = "unset";
         font-size = "14px";
-        font-family = "Ubuntu Nerd Font";
+        font-family = "Hack Nerd Font";
         transition = "200ms";
       };
 
       "trough highlight" = {
-        background = "#cdd6f4";
+        background = "#${base03}";
       };
 
       "scale trough" = {
         margin = "0rem 1rem";
-        background-color = "#313244";
+        background-color = "#${base04}";
         min-height = "8px";
         min-width = "70px";
       };
 
       slider = {
-        background-color = "#89b4fa";
+        background-color = "#${base00}";
       };
 
       ".floating-notifications.background .notification-row .notification-background" = {
-        box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244";
+        box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #${base03}";
         border-radius = "12.6px";
         margin = "18px";
-        background-color = "#1e1e2e";
-        color = "#cdd6f4";
+        background-color = "#${base00}";
+        color = "#${base03}";
         padding = 0;
       };
 
@@ -43,7 +57,7 @@ in
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification.critical" = {
-        box-shadow = "inset 0 0 7px 0 #f38ba8";
+        box-shadow = "inset 0 0 7px 0 #${base03}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification .notification-content" = {
@@ -51,15 +65,15 @@ in
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification .notification-content .summary" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification .notification-content .time" = {
-        color = "#a6adc8";
+        color = "#${base04}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification .notification-content .body" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > *" = {
@@ -68,81 +82,82 @@ in
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action" = {
         border-radius = "7px";
-        color = "#cdd6f4";
-        background-color = "#313244";
-        box-shadow = "inset 0 0 0 1px #45475a";
+        color = "#${base03}";
+        background-color = "#${base04}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
         margin = "7px";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
-        box-shadow = "inset 0 0 0 1px #45475a";
-        background-color = "#313244";
-        color = "#cdd6f4";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        background-color = "#${base04}";
+        color = "#${base03}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active" = {
-        background-color = "#74c7ec";
-        box-shadow = "inset 0 0 0 1px #45475a";
-        color = "#cdd6f4";
+        background-color = "#${base02}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        color = "#${base03}";
+
       };
 
       ".floating-notifications.background .notification-row .notification-background .close-button" = {
         margin = "7px";
         padding = "2px";
         border-radius = "6.3px";
-        color = "#1e1e2e";
-        background-color = "#f38ba8";
+        color = "#${base00}";
+        background-color = "#${base09}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .close-button:hover" = {
-        background-color = "#eba0ac";
-        color = "#1e1e2e";
+        background-color = "#${base08}";
+        color = "#${base00}";
       };
 
       ".floating-notifications.background .notification-row .notification-background .close-button:active" = {
-        background-color = "#f38ba8";
-        color = "#1e1e2e";
+        background-color = "#${base09}";
+        color = "#${base00}";
       };
 
       ".control-center" = {
-        box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244";
+        box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #${base03}";
         border-radius = "12.6px";
         margin = "18px";
-        background-color = "#1e1e2e";
-        color = "#cdd6f4";
+        background-color = "#${base00}";
+        color = "#${base03}";
         padding = "14px";
       };
 
       ".control-center .widget-title > label" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
         font-size = "1.3em";
       };
 
       ".control-center .widget-title button" = {
         border-radius = "7px";
-        color = "#cdd6f4";
-        background-color = "#313244";
-        box-shadow = "inset 0 0 0 1px #45475a";
+        color = "#${base05}";
+        background-color = "#${base00}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
         padding = "8px";
       };
 
       ".control-center .widget-title button:hover" = {
-        background-color = "#585b70";
-        box-shadow = "inset 0 0 0 1px #45475a";
-        color = "#cdd6f4";
+        background-color = "#${base01}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        color = "#${base05}";
       };
 
       ".control-center .widget-title button:active" = {
-        box-shadow = "inset 0 0 0 1px #45475a";
-        background-color = "#74c7ec";
-        color = "#1e1e2e";
+        background-color = "#${base02}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        color = "#${base00}";
       };
 
       ".control-center .notification-row .notification-background" = {
         border-radius = "7px";
-        color = "#cdd6f4";
-        background-color = "#313244";
-        box-shadow = "inset 0 0 0 1px #45475a";
+        color = "#${base05}";
+        background-color = "#${base00}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
         margin-top = "14px";
       };
 
@@ -152,7 +167,7 @@ in
       };
 
       ".control-center .notification-row .notification-background .notification.critical" = {
-        box-shadow = "inset 0 0 7px 0 #f38ba8";
+        box-shadow = "inset 0 0 7px 0 #${base09}";
       };
 
       ".control-center .notification-row .notification-background .notification .notification-content" = {
@@ -160,15 +175,15 @@ in
       };
 
       ".control-center .notification-row .notification-background .notification .notification-content .summary" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
       };
 
       ".control-center .notification-row .notification-background .notification .notification-content .time" = {
-        color = "#a6adc8";
+        color = "#${base04}";
       };
 
       ".control-center .notification-row .notification-background .notification .notification-content .body" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
       };
 
       ".control-center .notification-row .notification-background .notification > *:last-child > *" = {
@@ -177,30 +192,30 @@ in
 
       ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action" = {
         border-radius = "7px";
-        color = "#cdd6f4";
-        background-color = "#11111b";
-        box-shadow = "inset 0 0 0 1px #45475a";
+        color = "#${base03}";
+        background-color = "#${base01}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
         margin = "7px";
       };
 
       ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
-        box-shadow = "inset 0 0 0 1px #45475a";
-        background-color = "#313244";
-        color = "#cdd6f4";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        background-color = "#${base04}";
+        color = "#${base03}";
       };
 
       ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active" = {
-        box-shadow = "inset 0 0 0 1px #45475a";
-        background-color = "#74c7ec";
-        color = "#cdd6f4";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        background-color = "#${base02}";
+        color = "#${base03}";
       };
 
       ".control-center .notification-row .notification-background .close-button" = {
         margin = "7px";
         padding = "2px";
         border-radius = "6.3px";
-        color = "#1e1e2e";
-        background-color = "#eba0ac";
+        color = "#${base00}";
+        background-color = "#${base08}";
       };
 
       ".close-button" = {
@@ -208,49 +223,49 @@ in
       };
 
       ".control-center .notification-row .notification-background .close-button:hover" = {
-        background-color = "#f38ba8";
-        color = "#1e1e2e";
+        background-color = "#${base09}";
+        color = "#${base00}";
       };
 
       ".control-center .notification-row .notification-background .close-button:active" = {
-        background-color = "#f38ba8";
-        color = "#1e1e2e";
+        background-color = "#${base09}";
+        color = "#${base00}";
       };
 
       ".control-center .notification-row .notification-background:hover" = {
-        background-color = "#7f849c";
-        box-shadow = "inset 0 0 0 1px #45475a";
-        color = "#cdd6f4";
+        background-color = "#${base06}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        color = "#${base03}";
       };
 
       ".control-center .notification-row .notification-background:active" = {
-        background-color = "#74c7ec";
-        box-shadow = "inset 0 0 0 1px #45475a";
-        color = "#cdd6f4";
+        background-color = "#${base02}";
+        box-shadow = "inset 0 0 0 1px #${base03}";
+        color = "#${base03}";
       };
 
       ".notification.critical progress" = {
-        background-color = "#f38ba8";
+        background-color = "#${base09}";
       };
 
       ".notification.low progress, .notification.normal progress" = {
-        background-color = "#89b4fa";
+        background-color = "#${base00}";
       };
 
       ".control-center-dnd" = {
         margin-top = "5px";
         border-radius = "8px";
-        background = "#313244";
-        border = "1px solid #45475a";
+        background = "#${base04}";
+        border = "1px solid #${base00}";
         box-shadow = "none";
       };
 
       ".control-center-dnd:checked" = {
-        background = "#313244";
+        background = "#${base04}";
       };
 
       ".control-center-dnd slider" = {
-        background = "#45475a";
+        background = "#${base00}";
         border-radius = "8px";
       };
 
@@ -262,23 +277,23 @@ in
       ".widget-dnd > switch" = {
         font-size = "initial";
         border-radius = "8px";
-        background = "#313244";
-        border = "1px solid #45475a";
+        background = "#${base0D}";
+        border = "1px solid #${base03}";
         box-shadow = "none";
       };
 
       ".widget-dnd > switch:checked" = {
-        background = "#313244";
+        background = "#${base0B}";
       };
 
       ".widget-dnd > switch slider" = {
-        background = "#45475a";
+        background = "#${base00}";
         border-radius = "8px";
-        border = "1px solid #6c7086";
+        border = "1px solid #${base04}";
       };
 
       ".widget-mpris .widget-mpris-player" = {
-        background = "#313244";
+        background = "#${base04}";
         padding = "7px";
       };
 
@@ -296,15 +311,15 @@ in
       };
 
       ".widget-menubar > box > .menu-button-bar > :last-child" = {
-        color = "#f38ba8";
+        color = "#${base09}";
       };
 
       ".power-buttons button:hover, .powermode-buttons button:hover, .screenshot-buttons button:hover" = {
-        background = "#313244";
+        background = "#${base04}";
       };
 
       ".control-center .widget-label > label" = {
-        color = "#cdd6f4";
+        color = "#${base03}";
         font-size = "2rem";
       };
 
@@ -322,20 +337,20 @@ in
 
       ".widget-volume label" = {
         font-size = "1.5rem";
-        color = "#74c7ec";
+        color = "#${base02}";
       };
 
       ".widget-volume trough highlight" = {
-        background = "#74c7ec";
+        background = "#${base02}";
       };
 
       ".widget-backlight trough highlight" = {
-        background = "#f9e2af";
+        background = "#${base0A}";
       };
 
       ".widget-backlight label" = {
         font-size = "1.5rem";
-        color = "#f9e2af";
+        color = "#${base0A}";
       };
 
       ".widget-backlight .KB" = {
