@@ -1,6 +1,5 @@
 { config, lib, ... }:
 let
-
   headscale-present = config.services.headscale.enable;
 
   preauth-key-defined = builtins.hasAttr "tailnet-preauth" config.age.secrets;

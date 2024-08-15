@@ -2,17 +2,17 @@
 {
   # Required if we want to pin microvm kernel version, the output version
   # will follow prev.linuxPackages
-  alt-microvm-kernel = _final: prev: {
+  alt-microvm-kernel = _: prev: {
     microvm-kernel = prev.linuxPackages.callPackage (
       self.inputs.microvm + /pkgs/microvm-kernel.nix
     ) { };
   };
 
-  dockutil-bin = _final: prev: {
+  dockutil-bin = _: prev: {
     dockutil-bin = prev.dockutil.override { fromSource = false; };
   };
 
-  element-desktop = _final: prev: {
+  element-desktop = _: prev: {
     element-desktop = prev.element-desktop.overrideAttrs (
       old:
       let
@@ -38,9 +38,9 @@
     );
   };
 
-  fcitx-engines = _final: prev: { fcitx-engines = prev.fcitx5; };
+  fcitx-engines = _: prev: { fcitx-engines = prev.fcitx5; };
 
-  hello = _final: prev: {
+  hello = _: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
       pname = "hello";
       version = "9001";
@@ -54,21 +54,21 @@
     });
   };
 
-  hello-unfree = _final: prev: {
+  hello-unfree = _: prev: {
     hello-unfree = prev.hello-unfree.overrideAttrs (_old: rec {
       pname = "hello-unfree";
       version = "9002";
     });
   };
 
-  hydra = _final: prev: {
+  hydra = _: prev: {
     hydra_unstable = prev.hydra_unstable.overrideAttrs (old: {
       doCheck = false;
       patches = (old.patches or [ ]) ++ [ ./patches/hydra.patch ];
     });
   };
 
-  jellyfin-wayland = _final: prev: {
+  jellyfin-wayland = _: prev: {
     jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs (_: {
       autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
 
@@ -79,7 +79,7 @@
     });
   };
 
-  keepassxc = _final: prev: {
+  keepassxc = _: prev: {
     keepassxc =
       if prev.stdenv.isDarwin then
         prev.stdenvNoCC.mkDerivation (finalAttrs: {
@@ -116,7 +116,7 @@
   # TODO; fold any overlay definitions here into the exposed options
   # space within nix-options to nixd will happily identify those auto-completions
   lib =
-    _final: prev:
+    _: prev:
     let
       lib-net =
         (import "${self.inputs.lib-net}/net.nix" { inherit (self.inputs.nixpkgs) lib; })
@@ -134,11 +134,11 @@
 
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
-  makeModulesClosure = _final: prev: {
+  makeModulesClosure = _: prev: {
     makeModulesClosure = x: prev.makeModulesClosure (x // { allowMissing = true; });
   };
 
-  moonlight-wayland = _final: prev: {
+  moonlight-wayland = _: prev: {
     moonlight-qt-wayland =
 
       let
@@ -166,14 +166,14 @@
   };
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
-  mpvpaper = _final: prev: {
+  mpvpaper = _: prev: {
     mpvpaper = prev.mpvpaper.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [ ./patches/mpvpaper.patch ];
     });
   };
 
   nix-monitored =
-    _final: prev:
+    _: prev:
     let
       nix-monitored = self.inputs.nix-monitored.packages.${prev.system}.default;
       nix = nix-monitored;
@@ -185,7 +185,7 @@
     };
 
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
-  ranger = _final: prev: {
+  ranger = _: prev: {
     ranger = prev.ranger.overrideAttrs (old: {
       # This isn't 1.9.4 - we simply want to indicate we're utilising
       # a latter version than 1.9.3 and not break logic in home-manager-modules
@@ -202,7 +202,7 @@
     });
   };
 
-  waybar = _final: prev: {
+  waybar = _: prev: {
     inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;
   };
 }
