@@ -102,6 +102,8 @@
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
 - *(modules)* Refactor hyprland module - ([f5ffc17](https://github.com/JayRovacsek/nix-config/commit/f5ffc172f53781033c09c39c2a0b70342283e4d8))
+
+- *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

@@ -13,7 +13,6 @@ base
   lsd
   man
   neovim
-  nix-index
   starship
   zsh
 ])

@@ -1,11 +1,12 @@
 # Nix
 result
+result-man
 
 # Terraform
 .terraform.lock.hcl
+.terraform/
 terraform.tfstate
 terraform.tfstate.backup
-.terraform/
 terraform.tfvars
 
 # Tooling

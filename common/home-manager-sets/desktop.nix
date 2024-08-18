@@ -10,5 +10,4 @@ desktop-minimal
   keepassxc
   slack
   vscodium
-  zed
 ])

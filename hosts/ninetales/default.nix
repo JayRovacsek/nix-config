@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   self,
   ...
 }:
@@ -21,22 +20,22 @@ in
 
   age.secrets = {
     jrovacsek-id-ed25519-sk-type-a-1 = {
-      file = ../../secrets/jay-id-ed25519-sk-type-a-1.age;
+      file = ../../secrets/ssh/jay-id-ed25519-sk-type-a-1.age;
       owner = "jrovacsek";
     };
 
     jrovacsek-id-ed25519-sk-type-a-2 = {
-      file = ../../secrets/jay-id-ed25519-sk-type-a-2.age;
+      file = ../../secrets/ssh/jay-id-ed25519-sk-type-a-2.age;
       owner = "jrovacsek";
     };
 
     jrovacsek-id-ed25519-sk-type-c-1 = {
-      file = ../../secrets/jay-id-ed25519-sk-type-c-1.age;
+      file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-1.age;
       owner = "jrovacsek";
     };
 
     jrovacsek-id-ed25519-sk-type-c-2 = {
-      file = ../../secrets/jay-id-ed25519-sk-type-c-2.age;
+      file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-2.age;
       owner = "jrovacsek";
     };
   };
@@ -50,13 +49,12 @@ in
     dockutil
     documentation
     fonts
-    nix-topology
-    generations
-    grafana-agent
     gnupg
     lorri
     networking
     nix
+    nix-monitored
+    nix-topology
     time
     yabai
     zsh
