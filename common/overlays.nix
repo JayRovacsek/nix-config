@@ -1,7 +1,12 @@
 { self }:
 let
   inherit (self.common.overlays) darwin linux system-agnostic;
-  inherit (self.inputs) agenix firefox-darwin nur;
+  inherit (self.inputs)
+    agenix
+    firefox-darwin
+    nix-monitored
+    nur
+    ;
 in
 {
   all = system-agnostic ++ darwin ++ linux;
@@ -27,5 +32,6 @@ in
     agenix.overlays.default
     nur.overlay
     self.overlays.lib
+    nix-monitored.overlays.default
   ];
 }

@@ -21,6 +21,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Implement ledger module - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
+
 - *(modules)* Implement harmonia - ([262a2b9](https://github.com/JayRovacsek/nix-config/commit/262a2b9f0c4516a6ac2c93e2089cc2e51b32eac5))
 
 - *(modules)* Add hydra grafana job - ([7d889b1](https://github.com/JayRovacsek/nix-config/commit/7d889b13063f9d1725d648ccb91e01c1edab17fd))
@@ -44,6 +46,8 @@
 ### 🐛 Bug Fixes
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
+
+- *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
@@ -103,7 +107,11 @@
 
 - *(modules)* Refactor hyprland module - ([f5ffc17](https://github.com/JayRovacsek/nix-config/commit/f5ffc172f53781033c09c39c2a0b70342283e4d8))
 
+- *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
+
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
+
+- *(tools)* Add entries to gitignore - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

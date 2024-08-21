@@ -477,6 +477,7 @@
               conform
               deadnix
               git-cliff
+              lix
               nixfmt-rfc-style
               nodePackages.prettier
               statix
