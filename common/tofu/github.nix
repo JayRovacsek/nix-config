@@ -39,258 +39,285 @@ in
   private-repository-settings.visibility = "private";
   public-repositories = [
     {
-      name = "after-dark";
-      description = "A dark theme for Zola";
-    }
-    {
-      name = "agenix";
-      description = "age-encrypted secrets for NixOS";
-    }
-    {
-      name = "AOC";
       archived = true;
       description = "Advent of Code Repository";
+      name = "AOC";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
+      archived = true;
       name = "AOC-2018";
-      archived = true;
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "aoc-2022";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "aoc-2023";
-      description = "Advent of code solutions for 2023";
-    }
-    {
-      name = "Aurora-Incident-Response";
       description = "Incident Response Documentation made easy. Developed by Incident Responders for Incident Responders";
-      vulnerability_alerts = false;
+      name = "Aurora-Incident-Response";
       security_and_analysis = {
-        secret_scanning.status = "disabled";
-        secret_scanning_push_protection.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+      vulnerability_alerts = false;
+    }
+    {
+      archived = true;
+      description = "COMP3260 Assignment 1";
+      name = "COMP3260A1";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "automatic1111-webui-nix";
+      archived = true;
+      description = "Git repo for COMP3260 A2";
+      name = "COMP3260A2";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "Optimized DHT library for ESP32/ESP8266 using Arduino framework";
+      name = "DHTesp";
+    }
+    {
+      archived = true;
+      name = "EBUS3030";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "INFT1004 Assignment";
+      name = "INFT1004";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "Group Assignment For INFT1150";
+      name = "INFT1150";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "INFT2012 Assignment";
+      name = "INFT2012";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "Git repository for INFT3970";
+      name = "INFT3970";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      name = "INFT3970-DB";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "An individual report created for the INFT3970 course at UoN on secure coding practices.";
+      name = "INFT3970-Individual-Report";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "A public copy of our INFT3970 Solution";
+      name = "INFT3970-Public";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      name = "INFT3970-Sensors";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "A Powershell incident response framework";
+      name = "Kansa";
+    }
+    { name = "NVIDIA-VGPU-Driver-Archive"; }
+    {
+      description = "PowerShell - Rapid Response... For the incident responder in you!";
+      name = "PoSh-R2";
+    }
+    { name = "PurpleOps"; }
+    {
+      archived = true;
+      name = "SENG1050";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "Assignment Part 2 SENG1050";
+      name = "SENG1050Assignment2";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      name = "SENG2260";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "An opinionated distribution of U-Boot. — https://matrix.to/#/#Tow-Boot:matrix.org?via=matrix.org";
+      name = "Tow-Boot";
+    }
+    {
+      description = "A dark theme for Zola";
+      name = "after-dark";
+    }
+    {
+      description = "age-encrypted secrets for NixOS";
+      name = "agenix";
+    }
+    { name = "ags-config"; }
+    {
+      archived = true;
+      name = "aoc-2022";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "Advent of code solutions for 2023";
+      name = "aoc-2023";
+    }
+    {
       description = "AUTOMATIC1111/stable-diffusion-webui for CUDA on NixOS";
+      name = "automatic1111-webui-nix";
     }
     { name = "aws-incident-response-runbooks"; }
+    { name = "battlenet-lancache-prefill"; }
     {
-      name = "bert";
-      description = "A toy Go program";
       archived = true;
+      description = "A toy Go program";
+      name = "bert";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     { name = "blinky-bed"; }
     {
       name = "blog";
-      pages.source = {
-        branch = "gh-pages";
-        path = "/";
-      };
-    }
-    {
-      name = "COMP3260A1";
-      archived = true;
-      description = "COMP3260 Assignment 1";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "COMP3260A2";
-      archived = true;
-      description = "Git repo for COMP3260 A2";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "dev-templates";
-      description = "Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins]";
-    }
-    {
-      name = "DHTesp";
-      description = "Optimized DHT library for ESP32/ESP8266 using Arduino framework";
-    }
-    {
-      name = "dnscrypt-server-docker";
-      description = "A Docker image for a non-censoring, non-logging, DNSSEC-capable, DNSCrypt-enabled DNS resolver";
-      homepage_url = "https://dnscrypt.info";
-    }
-    {
-      name = "dotfiles";
-      description = "A repository to manage dotfiles and config";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "EBUS3030";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "envytools";
-      description = "Tools for people envious of nvidia's blob driver.";
-    }
-    {
-      name = "fireship.io";
-      description = "Build and ship your app faster  https://fireship.io";
-    }
-    {
-      name = "forty";
-      description = "Forty theme - Hugo theme ported from HTML5UP origrinal theme called Forty.";
-    }
-    {
-      name = "headscale";
-      description = "An open source, self-hosted implementation of the Tailscale control server";
-    }
-    {
-      name = "INFT1004";
-      archived = true;
-      description = "INFT1004 Assignment";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT1150";
-      archived = true;
-      description = "Group Assignment For INFT1150";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT2012";
-      archived = true;
-      description = "INFT2012 Assignment";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT3970";
-      archived = true;
-      description = "Git repository for INFT3970";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT3970-Individual-Report";
-      archived = true;
-      description = "An individual report created for the INFT3970 course at UoN on secure coding practices.";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT3970-DB";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT3970-Public";
-      archived = true;
-      description = "A public copy of our INFT3970 Solution";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "INFT3970-Sensors";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "interrogator";
-      description = "A hobby project for learning Rust a bit better";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "jellyfin-discord-music-bot";
-      description = "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "jim";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "Kansa";
-      description = "A Powershell incident response framework";
-    }
-    {
-      name = "ncsg-presentation-feb-2021";
-      description = "A presentation for Newcastle Cybersecurity Group, Feb 2021";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "ncsg-presentation-feb-2022";
-      description = "A presentation for Newcastle Cybersecurity Group, Feb 2022";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "ncsg-presentation-june-2023";
-      description = "A presentation for Newcastle Cybersecurity Group, June 2023";
       pages = {
         build_type = "workflow";
         source = {
@@ -300,90 +327,238 @@ in
       };
     }
     {
-      name = "nix-config";
+      description = "Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins]";
+      name = "dev-templates";
+    }
+    {
+      description = "A Docker image for a non-censoring, non-logging, DNSSEC-capable, DNSCrypt-enabled DNS resolver";
+      homepage_url = "https://dnscrypt.info";
+      name = "dnscrypt-server-docker";
+    }
+    {
+      archived = true;
+      description = "A repository to manage dotfiles and config";
+      name = "dotfiles";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "Tools for people envious of nvidia's blob driver.";
+      name = "envytools";
+    }
+    {
+      description = "Build and ship your app faster  https://fireship.io";
+      name = "fireship.io";
+    }
+    {
+      description = "Forty theme - Hugo theme ported from HTML5UP origrinal theme called Forty.";
+      name = "forty";
+    }
+    {
+      description = "An open source, self-hosted implementation of the Tailscale control server";
+      name = "headscale";
+    }
+    {
+      archived = true;
+      description = "A hobby project for learning Rust a bit better";
+      name = "interrogator";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "Jellyfin Discord Music Bot is a Discord Bot for the Jellyfin Media Server!";
+      name = "jellyfin-discord-music-bot";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      name = "jim";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    { name = "magic-nix-cache-action"; }
+    { name = "microvm.nix"; }
+    {
+      archived = true;
+      description = "A presentation for Newcastle Cybersecurity Group, Feb 2021";
+      name = "ncsg-presentation-feb-2021";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      archived = true;
+      description = "A presentation for Newcastle Cybersecurity Group, Feb 2022";
+      name = "ncsg-presentation-feb-2022";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+    }
+    {
+      description = "A presentation for Newcastle Cybersecurity Group, June 2023";
+      name = "ncsg-presentation-june-2023";
+      pages = {
+        build_type = "workflow";
+        source = {
+          branch = "main";
+          path = "/";
+        };
+      };
+    }
+    { name = "neovim-flake"; }
+    {
       description = "My nix configs";
+      name = "nix-config";
     }
     { name = "nix-lib-html-reference"; }
     {
-      name = "nixos-m1";
+      description = "A simple reference to option attributes available to common nixos modules for both Linux and Darwin ";
+      name = "nix-options";
+    }
+    {
+      description = "🍁 Generate infrastructure and network diagrams directly from your NixOS configurations";
+      name = "nix-topology";
+    }
+    { name = "nixos-hardware"; }
+    {
       description = "Attempts to get NixOS up on M1 Macs.";
+      name = "nixos-m1";
     }
     {
-      name = "nixos-nvidia-vgpu";
+      description = "Opinionated, shared NixOS configurations.";
+      name = "nixos-modules";
+    }
+    {
       description = "NixOS NVIDIA vGPU Module";
+      name = "nixos-nvidia-vgpu";
     }
+    { name = "nixos-t2-iso"; }
     {
-      name = "nixpkgs";
       allow_auto_merge = false;
       description = "Nix Packages collection & NixOS";
       has_downloads = true;
       has_issues = false;
       has_projects = true;
+      name = "nixpkgs";
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
       vulnerability_alerts = false;
       web_commit_signoff_required = false;
-      security_and_analysis = {
-        secret_scanning.status = "disabled";
-        secret_scanning_push_protection.status = "disabled";
-      };
     }
     {
-      name = "nvidia-patch";
       description = "This patch removes restriction on maximum number of simultaneous NVENC video encoding sessions imposed by Nvidia to consumer-grade GPUs.";
+      name = "nvidia-patch";
     }
     {
-      name = "opinionated-development";
       description = "A flake for applying strong opinions in an extensible manner across development environments";
+      name = "opinionated-development";
     }
     {
-      name = "pf-captive-portal";
+      archived = true;
       description = "Captive Portal for Pfsense";
-      archived = true;
+      name = "pf-captive-portal";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
+    { name = "pf-to-nixos"; }
     {
-      name = "PoSh-R2";
-      description = "PowerShell - Rapid Response... For the incident responder in you!";
-    }
-    {
-      name = "project-euler";
+      archived = true;
       description = "A repository to host code related to https://projecteuler.net";
-      archived = true;
+      name = "project-euler";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "project_alias";
       description = "Alias is a teachable “parasite” that is designed to give users more control over their smart assistants, both when it comes to customisation and privacy. Through a simple app the user can train Alias to react on a custom wake-word/sound, and once trained, Alias can take control over your home assistant by activating it for you.";
+      name = "project_alias";
     }
     {
-      name = "pyautoclick";
+      archived = true;
       description = "Simple autoclicker on request for brother's use.";
-      archived = true;
+      name = "pyautoclick";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
+      archived = true;
       name = "python-oreilly";
-      archived = true;
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "raspberry-pi-nix";
       description = "NixOS modules to aid in configuring NixOS for raspberry pi products";
+      name = "raspberry-pi-nix";
     }
+    { name = "robotnix"; }
     {
-      name = "rovacsek";
       description = "Homepage repo";
+      name = "rovacsek";
       pages = {
         build_type = "legacy";
         source = {
@@ -393,79 +568,62 @@ in
       };
     }
     {
-      name = "sbomnix";
       description = "sbomnix is a utility that generates SBOMs from nix packages";
+      name = "sbomnix";
     }
     {
-      name = "SENG1050Assignment2";
-      archived = true;
-      description = "Assignment Part 2 SENG1050";
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "SENG1050";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "SENG2260";
-      archived = true;
-      security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
-      };
-    }
-    {
-      name = "soe.nix";
       description = "NixOS & darwin SOE Wrapper";
+      name = "soe.nix";
     }
     {
-      name = "speedtestcli-periodic";
       archived = true;
       description = "Temporary application to assist with troubleshooting";
+      name = "speedtestcli-periodic";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "stubby-docker";
       description = "Run Stubby without losing the performance benefits of having a local caching DNS resolver.";
+      name = "stubby-docker";
     }
     {
-      name = "user.js";
+      description = "\"Das U-Boot\" Source Tree";
+      name = "u-boot";
+    }
+    {
       archived = true;
       description = "Firefox privacy, security and anti-fingerprinting: a comprehensive user.js template for configuration and hardening";
+      name = "user.js";
       security_and_analysis = {
-        secret_scanning_push_protection.status = "disabled";
-        secret_scanning.status = "disabled";
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
       };
     }
     {
-      name = "u-boot";
-      description = ''"Das U-Boot" Source Tree'';
-    }
-    {
-      name = "vgpu_unlock_5.12";
       description = "Unlock vGPU functionality for consumer grade GPUs.";
+      name = "vgpu_unlock_5.12";
     }
     {
-      name = "vms.nix";
       description = "NixOS module for QEMU VM's using a similar interface to nixos-containers.";
+      name = "vms.nix";
     }
     {
-      name = "vulnix";
       description = "Vulnerability (CVE) scanner for Nix/NixOS.";
+      name = "vulnix";
     }
     {
-      name = "vulnix-pre-commit";
       description = "A simple wrapper for vulnix to check the state of a flake derivation for new or introduced vulnerabilities";
+      name = "vulnix-pre-commit";
     }
   ];
   private-repositories = [
