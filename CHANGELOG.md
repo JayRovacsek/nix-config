@@ -53,6 +53,8 @@
 
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
+- *(home-manager-modules)* Add bandaid fix for firefox on - ([e1d74d5](https://github.com/JayRovacsek/nix-config/commit/e1d74d5f01da5c6bfce628b011211c61c48d5c22))
+
 - *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
