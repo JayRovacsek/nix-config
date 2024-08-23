@@ -45,6 +45,8 @@
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
+- *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))
+
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
 
 ### 🐛 Bug Fixes
