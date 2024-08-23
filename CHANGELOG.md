@@ -113,6 +113,8 @@
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
+- *(modules)* Minor refactor on dockutil - ([7c40353](https://github.com/JayRovacsek/nix-config/commit/7c403531aeab5ab53dad0db91b3c420033a89fd1))
+
 - *(modules)* Refactor hyprland module - ([f5ffc17](https://github.com/JayRovacsek/nix-config/commit/f5ffc172f53781033c09c39c2a0b70342283e4d8))
 
 - *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
