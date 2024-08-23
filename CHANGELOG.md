@@ -48,6 +48,8 @@
 - *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))
 
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
+- Implement aerospace options and home manager module - ([56481dc](https://github.com/JayRovacsek/nix-config/commit/56481dcec78125be5c6c34b99729b66026546477))
+
 
 ### 🐛 Bug Fixes
 
