@@ -21,6 +21,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Remove binblocks - ([fa3a6db](https://github.com/JayRovacsek/nix-config/commit/fa3a6db9c42bc7ac16a0f5ae39c16284b473b7f4))
+
 - *(modules)* Implement ledger module - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(modules)* Implement harmonia - ([262a2b9](https://github.com/JayRovacsek/nix-config/commit/262a2b9f0c4516a6ac2c93e2089cc2e51b32eac5))
