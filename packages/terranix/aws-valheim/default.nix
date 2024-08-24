@@ -2,7 +2,8 @@
 let
   inherit (self.common.tofu.globals) aws;
   inherit (aws) region tags;
-in {
+in
+{
   variable = {
     AWS_ACCESS_KEY = {
       type = "string";
@@ -30,7 +31,9 @@ in {
   provider = {
     aws = {
       inherit region;
-      default_tags = { inherit tags; };
+      default_tags = {
+        inherit tags;
+      };
       access_key = "\${var.AWS_ACCESS_KEY}";
       secret_key = "\${var.AWS_SECRET_KEY}";
     };
@@ -47,8 +50,7 @@ in {
     aws_s3_bucket_object.ami_object = {
       bucket = "\${aws_s3_bucket.ami_bucket.id}";
       key = "my-custom-ami.vhd"; # Update with the name of your custom AMI file
-      source =
-        "/path/to/custom-ami.vhd"; # Update with the local path to your custom AMI file
+      source = "/path/to/custom-ami.vhd"; # Update with the local path to your custom AMI file
     };
 
     # Register the custom AMI from the S3 bucket
@@ -87,7 +89,9 @@ in {
       # Other instance configuration...
 
       # Ensure the EC2 instance is stopped initially
-      lifecycle = { prevent_destroy = true; };
+      lifecycle = {
+        prevent_destroy = true;
+      };
 
       metadata_options.http_tokens = "required";
     };
@@ -98,8 +102,7 @@ in {
         name = "start_instance_weekly";
         description = "Trigger EC2 instance start once a week";
 
-        schedule_expression =
-          "cron(0 9 ? * SUN *)"; # Update with your desired start time (every Sunday at 9:00 AM UTC)
+        schedule_expression = "cron(0 9 ? * SUN *)"; # Update with your desired start time (every Sunday at 9:00 AM UTC)
 
         # Specify the target for the event rule
         target = {
@@ -113,8 +116,7 @@ in {
         name = "stop_instance_weekly";
         description = "Trigger EC2 instance stop once a week";
 
-        schedule_expression =
-          "cron(0 12 ? * SUN *)"; # Update with your desired stop time (every Sunday at 12:00 PM UTC)
+        schedule_expression = "cron(0 12 ? * SUN *)"; # Update with your desired stop time (every Sunday at 12:00 PM UTC)
 
         # Specify the target for the event rule
         target = {
@@ -127,8 +129,7 @@ in {
     # Create an AWS Lambda function for starting the EC2 instance
     aws_lambda_function = {
       start_function = {
-        filename =
-          "start_instance_lambda.zip"; # Update with the actual filename of your Lambda function code
+        filename = "start_instance_lambda.zip"; # Update with the actual filename of your Lambda function code
         function_name = "start_instance_function";
         role = "\${aws_iam_role.lambda_role.arn}";
         handler = "index.lambda_handler";
@@ -139,8 +140,7 @@ in {
 
       # Create an AWS Lambda function for stopping the EC2 instance
       stop_function = {
-        filename =
-          "stop_instance_lambda.zip"; # Update with the actual filename of your Lambda function code
+        filename = "stop_instance_lambda.zip"; # Update with the actual filename of your Lambda function code
         function_name = "stop_instance_function";
         role = "\${aws_iam_role.lambda_role.arn}";
         handler = "index.lambda_handler";
@@ -157,11 +157,15 @@ in {
 
         assume_role_policy = {
           "Version" = "2012-10-17";
-          "Statement" = [{
-            "Effect" = "Allow";
-            "Principal" = { "Service" = "lambda.amazonaws.com"; };
-            "Action" = "sts:AssumeRole";
-          }];
+          "Statement" = [
+            {
+              "Effect" = "Allow";
+              "Principal" = {
+                "Service" = "lambda.amazonaws.com";
+              };
+              "Action" = "sts:AssumeRole";
+            }
+          ];
         };
       };
     };
@@ -169,8 +173,7 @@ in {
     # Attach necessary IAM policies to the Lambda role
     aws_iam_role_policy_attachment.lambda_policy_attachment = {
       role = "\${aws_iam_role.lambda_role.name}";
-      policy_arn =
-        "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole";
+      policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole";
     };
   };
 }

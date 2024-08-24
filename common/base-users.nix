@@ -10,8 +10,9 @@ let
 
   # Given above list of regular files, create an array of the 
   # user configs loaded as set values.
-  user-configs =
-    attrValues (mapAttrs (name: _: import "${path}/${name}") user-files);
+  user-configs = attrValues (
+    mapAttrs (name: _: import "${path}/${name}") user-files
+  );
 
   # Fold set values by the username as the key and set as
   # the value, enabling us to expose this as a top-level 
@@ -32,4 +33,5 @@ let
   # nix-repl> users.jay                      
   # { extraGroups = [ ... ]; initialHashedPassword = ""; isNormalUser = true; name = "jay"; openssh = { ... }; }
   users = foldl' (x: y: x // { ${y.name} = y; }) { } user-configs;
-in users
+in
+users

@@ -19,10 +19,13 @@ let
     w3m
     zathura
   ];
-in {
+in
+{
   imports = [ ../xdg ];
 
-  home = { inherit packages; };
+  home = {
+    inherit packages;
+  };
 
   xdg.configFile."ranger/rc.conf".text = ''
     set viewmode miller

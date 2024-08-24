@@ -1,4 +1,5 @@
-{ self }: {
+{ self }:
+{
   base = import ./base.nix { inherit self; };
   cli = import ./cli.nix { inherit self; };
   games = import ./games.nix { inherit self; };
@@ -14,15 +15,20 @@
   # Linux desktop alternatives
   gnome-desktop = import ./gnome-desktop.nix { inherit self; };
   hyprland-desktop = import ./hyprland-desktop.nix { inherit self; };
-  hyprland-ags-desktop = import ./hyprland-ags-desktop.nix { inherit self; };
-  hyprland-waybar-desktop =
-    import ./hyprland-waybar-desktop.nix { inherit self; };
+  hyprland-ironbar-desktop = import ./hyprland-ironbar-desktop.nix {
+    inherit self;
+  };
+  hyprland-waybar-desktop = import ./hyprland-waybar-desktop.nix {
+    inherit self;
+  };
 
   # Minimal Linux desktop alternatives
-  hyprland-desktop-minimal =
-    import ./hyprland-desktop-minimal.nix { inherit self; };
+  hyprland-desktop-minimal = import ./hyprland-desktop-minimal.nix {
+    inherit self;
+  };
 
   # Linux desktop + games
-  hyprland-games-desktop = self.common.home-manager-module-sets.hyprland-desktop
+  hyprland-games-desktop =
+    self.common.home-manager-module-sets.hyprland-desktop
     ++ self.common.home-manager-module-sets.games;
 }

@@ -1,7 +1,16 @@
 _:
 let
-  generate-config = { self, config, pkgs, user-settings, modules, stable ? false
-    , overrides ? { }, ... }:
+  generate-config =
+    {
+      self,
+      config,
+      pkgs,
+      user-settings,
+      modules,
+      stable ? false,
+      overrides ? { },
+      ...
+    }:
     # User settings:
     # {
     #   name,
@@ -31,18 +40,21 @@ let
       # For the configuration we're applying to; check if agenix is present
       # if it is we filter the associated secrets for that of our username-id-ed25519
       # and if present assume these are our authorised keys to be applied in identity files
-      sshKeys = if (hasAttr "secrets" config.age) then
-        (filter (x: hasInfix "${name}-id-ed25519" x.name)
-          (attrValues config.age.secrets))
-      else
-        [ ];
+      sshKeys =
+        if (hasAttr "age" config && hasAttr "secrets" config.age) then
+          (filter (x: hasInfix "${name}-id-ed25519" x.name) (
+            attrValues config.age.secrets
+          ))
+        else
+          [ ];
 
       # Create a string that represents the ssh keys we identified as loaded into agenix above
       # to be utilised per known host in our configuration
-      identity-files = if (length sshKeys != 0) then
-        concatStringsSep "\n  " (map (x: "IdentityFile ${x.path}") sshKeys)
-      else
-        "";
+      identity-files =
+        if (length sshKeys != 0) then
+          concatStringsSep "\n  " (map (x: "IdentityFile ${x.path}") sshKeys)
+        else
+          "";
 
       extraHostConfigs = generate-ssh-config name identity-files;
 
@@ -69,28 +81,30 @@ let
         '';
       };
 
-      stripped-user-settings =
-        filterAttrs (name: _: elem name user-attr-names) user-settings;
+      stripped-user-settings = filterAttrs (
+        name: _: elem name user-attr-names
+      ) user-settings;
 
       nixpkgs = if stable then self.inputs.stable else self.inputs.nixpkgs;
 
-      optionalHome = lib.attrsets.optionalAttrs (hasAttr "home" user-settings)
-        user-settings.home;
+      optionalHome = lib.attrsets.optionalAttrs (hasAttr "home" user-settings) user-settings.home;
 
-      accounts = lib.attrsets.optionalAttrs (hasAttr "accounts" user-settings)
-        user-settings.accounts;
+      accounts = lib.attrsets.optionalAttrs (hasAttr "accounts" user-settings) user-settings.accounts;
 
-      # Inverting the logic on recursive update here to increase readability: otherwise 
-      # overrides would need to follow the base config leading to it hiding at the end of
-      # this file.
-    in flippedRecursiveUpdate overrides {
+    in
+    # Inverting the logic on recursive update here to increase readability: otherwise 
+    # overrides would need to follow the base config leading to it hiding at the end of
+    # this file.
+    flippedRecursiveUpdate overrides {
       users.users.${name} = recursiveUpdate {
         shell = if name != "builder" then pkgs.zsh else pkgs.bash;
         home = if isDarwin then "/Users/${name}" else "/home/${name}";
       } stripped-user-settings;
 
       home-manager = {
-        extraSpecialArgs = { inherit self; };
+        extraSpecialArgs = {
+          inherit self;
+        };
 
         users.${name} = {
           home = recursiveUpdate defaultHome optionalHome;
@@ -103,11 +117,13 @@ let
 
   # TODO: clean up the below - it's old as heck and
   # makes me sad.
-  generate-service-user = cfg:
+  generate-service-user =
+    cfg:
     let
       extraGroupExtendedOptions =
         if cfg.name == cfg.group.name then { } else { "${cfg.name}" = { }; };
-    in {
+    in
+    {
       extraUsers = {
         "${cfg.name}" = {
           inherit (cfg) uid extraGroups;
@@ -119,8 +135,13 @@ let
       };
 
       extraGroups = {
-        "${cfg.group.name}" = { inherit (cfg.group) gid members; };
+        "${cfg.group.name}" = {
+          inherit (cfg.group) gid members;
+        };
       } // extraGroupExtendedOptions;
     };
 
-in { inherit generate-config generate-service-user; }
+in
+{
+  inherit generate-config generate-service-user;
+}

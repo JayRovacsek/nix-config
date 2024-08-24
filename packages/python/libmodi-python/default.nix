@@ -1,6 +1,14 @@
-{ lib, zlib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  zlib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages) buildPythonPackage setuptools;
+in
+buildPythonPackage rec {
   pname = "libmodi-python";
   version = "20240305";
   pyproject = true;

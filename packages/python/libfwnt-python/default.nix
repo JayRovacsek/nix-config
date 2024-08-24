@@ -1,4 +1,9 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
   pname = "libfwnt-python";
 
@@ -6,7 +11,8 @@ let
 
   inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
 
-in buildPythonPackage {
+in
+buildPythonPackage {
   pname = "libfwnt-python";
   version = "20240415";
   pyproject = true;

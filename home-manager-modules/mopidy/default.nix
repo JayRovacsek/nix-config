@@ -1,7 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.mopidy = {
     enable = true;
-    extensionPackages = with pkgs; [ mopidy-iris mopidy-jellyfin mopidy-mpris ];
+    extensionPackages = with pkgs; [
+      mopidy-iris
+      mopidy-jellyfin
+      mopidy-mpris
+    ];
     settings = {
       audio = {
         mixer = "software";

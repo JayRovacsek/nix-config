@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime_8, dotnet-sdk_8 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDotnetModule,
+  dotnet-runtime_8,
+  dotnet-sdk_8,
+}:
 let
   dotnet-runtime = dotnet-runtime_8;
   dotnet-sdk = dotnet-sdk_8;
@@ -7,8 +13,7 @@ let
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/battlenet-lancache-prefill";
-    description =
-      "CLI tool to automatically prefill a Lancache with Battle.Net games";
+    description = "CLI tool to automatically prefill a Lancache with Battle.Net games";
     license = licenses.mit;
     inherit (dotnet-runtime.meta) platforms;
   };
@@ -30,7 +35,17 @@ let
 
   nugetDeps = ./deps.nix;
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime dotnet-sdk patches projectFile
-    nugetDeps;
+in
+buildDotnetModule {
+  inherit
+    pname
+    version
+    meta
+    src
+    dotnet-runtime
+    dotnet-sdk
+    patches
+    projectFile
+    nugetDeps
+    ;
 }

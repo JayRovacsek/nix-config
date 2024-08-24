@@ -1,7 +1,7 @@
-{ cfg, config }: {
+{ cfg, config }:
+{
   name = "ServerConfiguration";
-  props = ''
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
+  props = ''xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
   value = [
     {
       name = "LogFileRetentionDays";
@@ -191,18 +191,22 @@
             { name = "LocalMetadataReaderOrder"; }
             {
               name = "DisabledMetadataFetchers";
-              value = [{
-                name = "string";
-                value = "The Open Movie Database";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "The Open Movie Database";
+                }
+              ];
             }
             { name = "MetadataFetcherOrder"; }
             {
               name = "DisabledImageFetchers";
-              value = [{
-                name = "string";
-                value = "The Open Movie Database";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "The Open Movie Database";
+                }
+              ];
             }
             { name = "ImageFetcherOrder"; }
           ];
@@ -218,18 +222,22 @@
             { name = "LocalMetadataReaderOrder"; }
             {
               name = "DisabledMetadataFetchers";
-              value = [{
-                name = "string";
-                value = "TheMovieDb";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "TheMovieDb";
+                }
+              ];
             }
             { name = "MetadataFetcherOrder"; }
             {
               name = "DisabledImageFetchers";
-              value = [{
-                name = "string";
-                value = "TheMovieDb";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "TheMovieDb";
+                }
+              ];
             }
             { name = "ImageFetcherOrder"; }
           ];
@@ -245,10 +253,12 @@
             { name = "LocalMetadataReaderOrder"; }
             {
               name = "DisabledMetadataFetchers";
-              value = [{
-                name = "string";
-                value = "TheAudioDB";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "TheAudioDB";
+                }
+              ];
             }
             { name = "MetadataFetcherOrder"; }
             { name = "DisabledImageFetchers"; }
@@ -266,10 +276,12 @@
             { name = "LocalMetadataReaderOrder"; }
             {
               name = "DisabledMetadataFetchers";
-              value = [{
-                name = "string";
-                value = "TheAudioDB";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "TheAudioDB";
+                }
+              ];
             }
             { name = "MetadataFetcherOrder"; }
             { name = "DisabledImageFetchers"; }
@@ -302,10 +314,12 @@
             { name = "LocalMetadataReaderOrder"; }
             {
               name = "DisabledMetadataFetchers";
-              value = [{
-                name = "string";
-                value = "TheMovieDb";
-              }];
+              value = [
+                {
+                  name = "string";
+                  value = "TheMovieDb";
+                }
+              ];
             }
             { name = "MetadataFetcherOrder"; }
             { name = "DisabledImageFetchers"; }
@@ -389,20 +403,21 @@
     { name = "CodecsUsed"; }
     {
       name = "PluginRepositories";
-      value = [{
-        name = "RepositoryInfo";
-        value = [
-          {
-            name = "Name";
-            value = "Jellyfin Stable";
-          }
-          {
-            name = "Url";
-            value =
-              "https://repo.jellyfin.org/releases/plugin/manifest-stable.json";
-          }
-        ];
-      }];
+      value = [
+        {
+          name = "RepositoryInfo";
+          value = [
+            {
+              name = "Name";
+              value = "Jellyfin Stable";
+            }
+            {
+              name = "Url";
+              value = "https://repo.jellyfin.org/releases/plugin/manifest-stable.json";
+            }
+          ];
+        }
+      ];
     }
     {
       name = "EnableExternalContentInSuggestions";
@@ -423,10 +438,12 @@
     }
     {
       name = "CorsHosts";
-      value = [{
-        name = "string";
-        value = "*";
-      }];
+      value = [
+        {
+          name = "string";
+          value = "*";
+        }
+      ];
     }
     {
       name = "ActivityLogRetentionDays";

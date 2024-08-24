@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   hardware.firmware = [
     (pkgs.stdenvNoCC.mkDerivation {
       name = "firmware";

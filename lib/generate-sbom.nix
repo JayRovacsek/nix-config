@@ -2,62 +2,72 @@
 let
   inherit (self.inputs.stable) lib;
   # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L111
-  generateExtractedLicensingInfos = license:
+  generateExtractedLicensingInfos =
+    license:
     if (builtins.typeOf license) == "list" then
       builtins.map (_x: generateExtractedLicensingInfos) license
     else
       let
         inherit (license) fullName shortName;
         url = if builtins.hasAttr "url" license then license.url else "NA";
-      in [{
-        # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L120
-        crossRefs = lib.optional (builtins.hasAttr "url" license) [{
-          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L126
-          isLive = true;
-          inherit (license) url;
-        }];
-        # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L160
-        # We will not parse the detail from derevation content to avoid
-        # adding a lot of processing time to this function. As nix derivations 
-        # require and/or have a default applied, we can utilise this with confidence.
-        extractedText = fullName;
-        # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L164
-        licenseId = shortName;
-        # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L168
-        name = fullName;
-        # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L172
-        seeAlsos = lib.optional (builtins.hasAttr "url" license) license.url;
-      }];
+      in
+      [
+        {
+          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L120
+          crossRefs = lib.optional (builtins.hasAttr "url" license) [
+            {
+              # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L126
+              isLive = true;
+              inherit (license) url;
+            }
+          ];
+          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L160
+          # We will not parse the detail from derevation content to avoid
+          # adding a lot of processing time to this function. As nix derivations 
+          # require and/or have a default applied, we can utilise this with confidence.
+          extractedText = fullName;
+          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L164
+          licenseId = shortName;
+          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L168
+          name = fullName;
+          # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L172
+          seeAlsos = lib.optional (builtins.hasAttr "url" license) license.url;
+        }
+      ];
 
-  generateLicenseExpression = drv:
+  generateLicenseExpression =
+    drv:
     if (builtins.typeOf drv.meta.license) == "list" then
-      (builtins.concatStringsSep ", "
-        (builtins.map (x: x.fullName) drv.meta.license))
+      (builtins.concatStringsSep ", " (builtins.map (x: x.fullName) drv.meta.license))
     else
       drv.meta.license.fullName;
 
   # Recursive function to generate the SBOM for a derivation and its dependencies
-  generateSbom = drv:
+  generateSbom =
+    drv:
     let
       # Generate the SPDX license expression for the derivation
-      license = if builtins.hasAttr "license" drv.meta then
-        generateLicenseExpression drv.meta.license
-      else
-        builtins.getAttr "meta" drv.meta.license;
+      license =
+        if builtins.hasAttr "license" drv.meta then
+          generateLicenseExpression drv.meta.license
+        else
+          builtins.getAttr "meta" drv.meta.license;
 
       # Get the derivation's dependencies and their SBOMs
 
       # DEPENDENCY_OF / BUILD_DEPENDENCY_OF
-      dependencies = drv.buildInputs ++ drv.propagatedBuildInputs
-        ++ drv.propagatedNativeBuildInputs;
+      dependencies =
+        drv.buildInputs ++ drv.propagatedBuildInputs ++ drv.propagatedNativeBuildInputs;
 
       generatePackages = builtins.map (drv: {
         SPDXID = packageName drv;
-        checksums = [{
-          algorithm = "NIX";
-          # /nix/store/b04fryh003f8amrjcs5fv7i3jldr1vja-ripgrep-13.0.0
-          checksumValue = generateNixChecksum drv;
-        }];
+        checksums = [
+          {
+            algorithm = "NIX";
+            # /nix/store/b04fryh003f8amrjcs5fv7i3jldr1vja-ripgrep-13.0.0
+            checksumValue = generateNixChecksum drv;
+          }
+        ];
         copyrightText = generateLicenseExpression drv;
       });
 
@@ -68,7 +78,8 @@ let
 
       # Combine the dependencies into a list
 
-      packageName = drv:
+      packageName =
+        drv:
         if builtins.hasAttr "name" drv then
           drv.name
         else if builtins.hasAttr "pname" drv then
@@ -82,10 +93,15 @@ let
       # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L42
 
       # Pls no :sadpanda:
-      generateNixChecksum = drv:
-        builtins.head (builtins.filter (x: (builtins.stringLength x) == 32)
-          (builtins.filter (x: (builtins.typeOf x) != "list")
-            (builtins.split "[/-]" drv.outPath)));
+      generateNixChecksum =
+        drv:
+        builtins.head (
+          builtins.filter (x: (builtins.stringLength x) == 32) (
+            builtins.filter (x: (builtins.typeOf x) != "list") (
+              builtins.split "[/-]" drv.outPath
+            )
+          )
+        );
 
       # https://github.com/spdx/spdx-spec/blob/386ce342a28f12d31b77a549261857eda16f9304/schemas/spdx-schema.json#L74
 
@@ -93,15 +109,21 @@ let
       dataLicense = "CC0-1.0";
       documentComment = "Generated by Nix SPDX generator";
 
-      hasExtractedLicensingInfos =
-        generateExtractedLicensingInfos drv.meta.license;
+      hasExtractedLicensingInfos = generateExtractedLicensingInfos drv.meta.license;
 
       name = "${packageName drv}-${drv.version}";
 
       # Generate the SPDX document for the derivation
       spdxDocument = {
-        inherit SPDXID dataLicense documentComment hasExtractedLicensingInfos
-          spdxVersion name packages;
+        inherit
+          SPDXID
+          dataLicense
+          documentComment
+          hasExtractedLicensingInfos
+          spdxVersion
+          name
+          packages
+          ;
 
         # Packages = [{
         #   inherit packageName packageDownloadLocation;
@@ -126,5 +148,7 @@ let
         #   relationships = depList;
         # }];
       };
-    in spdxDocument;
-in generateSbom
+    in
+    spdxDocument;
+in
+generateSbom

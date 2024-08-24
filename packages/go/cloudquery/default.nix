@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 buildGoModule rec {
   version = "0.32.3";
   pname = "cloudquery";
@@ -16,8 +20,7 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/cloudquery/cloudquery";
-    description =
-      "Transform your cloud infrastructure into queryable SQL tables for easy monitoring, governance and security";
+    description = "Transform your cloud infrastructure into queryable SQL tables for easy monitoring, governance and security";
     license = licenses.mpl20;
   };
 }

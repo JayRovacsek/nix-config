@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.gammastep = {
     enable = true;
     enableVerboseLogging = false;

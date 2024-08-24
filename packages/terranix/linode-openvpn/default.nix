@@ -2,7 +2,8 @@ _:
 let
   region = "ap-southeast";
   name = "linode-openvpn";
-in {
+in
+{
   variable.LINODE_TOKEN = {
     type = "string";
     description = "Linode API token";
@@ -14,7 +15,9 @@ in {
     cloud = {
       hostname = "app.terraform.io";
       organization = "TSvY5rCj9RAYyz4z2W7JZ5VwY2ec9EDg";
-      workspaces = { inherit name; };
+      workspaces = {
+        inherit name;
+      };
     };
     required_providers.linode.source = "linode/linode";
   };
@@ -28,13 +31,6 @@ in {
     };
   };
 
-  data.linode_stackscripts.ditto-transform = {
-    filter = {
-      name = "label";
-      values = [ "ditto-transform" ];
-    };
-  };
-
   resource = {
     linode_instance.diglett = {
       inherit region;
@@ -43,11 +39,6 @@ in {
       group = "nixos";
       tags = [ "nixos" ];
       type = "g6-nanode-1";
-      # This currently seems to both error with a message that is unrelated as 
-      # well as not actually work with a stack script :sadpanda:
-      # stackscript_id =
-      #   "\${data.linode_stackscripts.ditto-transform.stackscripts.0.id}";
-      # stackscript_data.target = "diglett";
     };
 
     linode_instance_disk.boot = {
@@ -85,7 +76,7 @@ in {
         sdb.disk_id = "\${linode_instance_disk.swap.id}";
       };
 
-      interface = [{ purpose = "public"; }];
+      interface = [ { purpose = "public"; } ];
     };
   };
 }

@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 let
   inherit (rustPlatform) buildRustPackage;
   pname = "action-validator";
@@ -20,4 +24,13 @@ let
 
   cargoSha256 = "sha256-mBY+J6JcIhV++tO6Dhw5JvYLSwoYZR3lB3l0KTjkcQM=";
 
-in buildRustPackage { inherit pname version src meta cargoSha256; }
+in
+buildRustPackage {
+  inherit
+    pname
+    version
+    src
+    meta
+    cargoSha256
+    ;
+}

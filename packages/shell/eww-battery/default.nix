@@ -1,9 +1,18 @@
-{ stdenvNoCC, lib, fetchFromGitHub, coreutils, gnugrep, ... }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  gnugrep,
+  ...
+}:
 with lib;
 let
   pname = "eww-battery";
   version = "0.0.1";
-  meta = { description = "Eww battery widget"; };
+  meta = {
+    description = "Eww battery widget";
+  };
 
   src = fetchFromGitHub {
     owner = "saimoomedits";
@@ -12,10 +21,20 @@ let
     hash = "sha256-yPSUdLgkwJyAX0rMjBGOuUIDvUKGPcVA5CSaCNcq0e8=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenvNoCC.mkDerivation {
-  inherit pname version meta phases src;
+in
+stdenvNoCC.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    src
+    ;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/bin

@@ -2,19 +2,22 @@
 let
   inherit (self.common.tofu.globals) oci;
   inherit (oci) region;
-in {
+in
+{
   variable = { };
 
   terraform = {
     required_providers = {
       aws = {
         source = "oracle/oci";
-        version = "4.110.0";
+        version = "6.6.0";
       };
     };
   };
 
-  provider.oci = { inherit region; };
+  provider.oci = {
+    inherit region;
+  };
 
   data = { };
   resource = {

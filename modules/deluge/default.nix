@@ -1,8 +1,14 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   user = "media";
   owner = user;
-in {
+in
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-deluge-primary" ];
 
@@ -31,14 +37,20 @@ in {
       del_copy_torrent_file = false;
       dht = true;
       dont_count_slow_torrents = true;
-      enabled_plugins = [ "Extractor" "Label" ];
+      enabled_plugins = [
+        "Extractor"
+        "Label"
+      ];
       enc_in_policy = 1;
       enc_level = 1;
       enc_out_policy = 1;
       geoip_db_location = "${pkgs.geolite-legacy}/share/GeoIP/GeoIP.dat";
       ignore_limits_on_local_network = true;
       info_sent = 0.0;
-      listen_ports = [ 6881 6891 ];
+      listen_ports = [
+        6881
+        6891
+      ];
       listen_reuse_port = true;
       listen_use_sys_port = false;
       lsd = true;
@@ -82,7 +94,12 @@ in {
       utpex = true;
     };
 
-    extraPackages = with pkgs; [ bzip2 gnutar unzip xz ];
+    extraPackages = with pkgs; [
+      bzip2
+      gnutar
+      unzip
+      xz
+    ];
 
     openFirewall = true;
 
@@ -90,7 +107,7 @@ in {
       enable = true;
       openFirewall = true;
 
-      inherit (self.common.networking.services.deluge) port;
+      inherit (self.common.config.services.deluge) port;
     };
   };
 }

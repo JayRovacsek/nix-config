@@ -1,4 +1,5 @@
-{ config, self, ... }: {
+{ config, self, ... }:
+{
   imports = with self.nixosModules; [
     ./authelia.nix
     agenix
@@ -12,15 +13,17 @@
   ];
 
   microvm = {
-    interfaces = [{
-      type = "macvtap";
-      id = config.networking.hostName;
-      mac = "02:42:c0:a8:09:02";
-      macvtap = {
-        link = "auth";
-        mode = "bridge";
-      };
-    }];
+    interfaces = [
+      {
+        type = "macvtap";
+        id = config.networking.hostName;
+        mac = "02:42:c0:a8:09:02";
+        macvtap = {
+          link = "auth";
+          mode = "bridge";
+        };
+      }
+    ];
 
     mem = 1024;
     vcpu = 2;

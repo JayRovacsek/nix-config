@@ -3,8 +3,9 @@ let
   inherit (config.services.headscale) users;
 
   # Below generates group values of "group:$X" for all pre-auth namespaces we've stored
-  groups = builtins.foldl' (x: y: x // y) { }
-    (builtins.map (x: { "group:${x.name}" = [ "${x.name}" ]; }) users);
+  groups = builtins.foldl' (x: y: x // y) { } (
+    builtins.map (x: { "group:${x.name}" = [ "${x.name}" ]; }) users
+  );
 
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   defaultNamespaceCommunication = builtins.map (x: {
@@ -13,34 +14,45 @@ let
     dst = [ "${x.name}:*" ];
   }) users;
 
-  allowAdminToAll = [{
-    action = "accept";
-    src = [ "group:admin" ];
-    dst = [ "*:*" ];
-  }];
+  allowAdminToAll = [
+    {
+      action = "accept";
+      src = [ "group:admin" ];
+      dst = [ "*:*" ];
+    }
+  ];
 
-  allowAllToDNS = [{
-    action = "accept";
-    src = [ "*" ];
-    dst = [ "group:dns:53,8053" ];
-  }];
+  allowAllToDNS = [
+    {
+      action = "accept";
+      src = [ "*" ];
+      dst = [ "group:dns:53,8053" ];
+    }
+  ];
 
   # Not keeping the below - just adding for documentation of things to fix.
   # see also: https://tailscale.com/kb/1103/exit-nodes/#prerequisites
-  allowAllViaExitNodes = [{
-    action = "accept";
-    src = [ "autogroup:members" ];
-    dst = [ "autogroup:internet:*" ];
-  }];
+  allowAllViaExitNodes = [
+    {
+      action = "accept";
+      src = [ "autogroup:members" ];
+      dst = [ "autogroup:internet:*" ];
+    }
+  ];
 
   testPolicies = [ ];
 
   aclConfig = {
     inherit groups;
-    acls = allowAdminToAll ++ allowAllToDNS ++ defaultNamespaceCommunication
-      ++ allowAllViaExitNodes ++ testPolicies;
+    acls =
+      allowAdminToAll
+      ++ allowAllToDNS
+      ++ defaultNamespaceCommunication
+      ++ allowAllViaExitNodes
+      ++ testPolicies;
   };
-in {
+in
+{
   environment.etc."headscale/acls.json" = {
     inherit (config.services.headscale) user group;
     text = builtins.toJSON aclConfig;

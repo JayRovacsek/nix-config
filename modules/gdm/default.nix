@@ -2,7 +2,8 @@
 let
   wayland = config.programs.hyprland.enable;
   enable = true;
-in {
+in
+{
   services.xserver = {
     inherit enable;
     displayManager.gdm = {

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.services.blocky;
 
@@ -6,7 +11,9 @@ let
   configFile = format.generate "config.yaml" cfg.settings;
 
   requiredPackages = with pkgs; [ blocky ];
-in with lib; {
+in
+with lib;
+{
   options = {
     services.blocky = {
       enable = mkOption {

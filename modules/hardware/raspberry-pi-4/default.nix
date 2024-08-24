@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   hardware = {
     deviceTree.filter = "bcm2711-rpi-4*.dtb";
 
@@ -32,7 +33,10 @@
     extraModprobeConfig = ''
       options snd_bcm2835 enable_headphones=1
     '';
-    initrd.availableKernelModules = [ "usb_storage" "usbhid" ];
+    initrd.availableKernelModules = [
+      "usb_storage"
+      "usbhid"
+    ];
 
     kernelPackages = pkgs.linuxPackages_rpi4;
 

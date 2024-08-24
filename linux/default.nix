@@ -4,13 +4,19 @@ let
   inherit (self.common.system) unstable-system;
 
   # Required package-sets
-  inherit (self.common.package-sets)
-    x86_64-linux-unstable aarch64-linux-unstable;
+  inherit (self.common.package-sets) x86_64-linux-unstable aarch64-linux-unstable;
 
   inherit (self.lib.host) make-host make-microvm;
-in {
+in
+{
   # Cloud and hardware specific configurations
-  inherit (self.common.images.configurations) amazon linode oracle rpi1 rpi2;
+  inherit (self.common.images.configurations)
+    amazon
+    linode
+    oracle
+    rpi1
+    rpi2
+    ;
 
   # Base Configuration Hosts
   # Above cloud base images all inherit from this configuration effectively 
@@ -28,7 +34,6 @@ in {
 
   # Hosts
   alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
-  cloyster = make-host x86_64-linux-unstable "cloyster" unstable-system;
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;

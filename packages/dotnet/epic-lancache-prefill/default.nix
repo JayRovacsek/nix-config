@@ -1,12 +1,17 @@
-{ lib, fetchFromGitHub, buildDotnetModule, dotnet-runtime, dotnet-sdk }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDotnetModule,
+  dotnet-runtime,
+  dotnet-sdk,
+}:
 let
   pname = "epic-lancache-prefill";
   version = "1.2.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/epic-lancache-prefill";
-    description =
-      "CLI tool to automatically prefill a Lancache with Battle.Net games";
+    description = "CLI tool to automatically prefill a Lancache with Battle.Net games";
     license = licenses.mit;
     inherit (dotnet-runtime.meta) platforms;
   };
@@ -28,7 +33,17 @@ let
 
   nugetDeps = ./deps.nix;
 
-in buildDotnetModule {
-  inherit pname version meta src dotnet-runtime dotnet-sdk projectFile nugetDeps
-    patches;
+in
+buildDotnetModule {
+  inherit
+    pname
+    version
+    meta
+    src
+    dotnet-runtime
+    dotnet-sdk
+    projectFile
+    nugetDeps
+    patches
+    ;
 }

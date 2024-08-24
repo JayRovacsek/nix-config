@@ -1,6 +1,13 @@
-{ lib, fetchPypi, python3Packages, ... }:
-let inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-in buildPythonPackage rec {
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
+let
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+in
+buildPythonPackage rec {
   pname = "libbde-python";
   version = "20240223";
   pyproject = true;
@@ -18,8 +25,7 @@ in buildPythonPackage rec {
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
-    description =
-      "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
+    description = "ACStore, or Attribute Container Storage, provides a stand-alone implementation to read and write attribute container storage files.";
     downloadPage = "https://github.com/libyal/libbde/releases";
     homepage = "https://github.com/libyal/libbde";
     license = licenses.lgpl3Plus;

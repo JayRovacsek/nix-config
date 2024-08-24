@@ -1,4 +1,9 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
   pname = "phonenumberslite";
   version = "8.13.33";
@@ -12,7 +17,8 @@ let
 
   inherit (python3Packages) buildPythonPackage;
 
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit pname version meta;
 
   doCheck = false;

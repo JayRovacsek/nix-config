@@ -4,13 +4,15 @@ let
     (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
     != { };
 
-  zfsServiceSupported = config.services.zfs.autoScrub.enable
-    || config.services.zfs.autoSnapshot.enable;
+  zfsServiceSupported =
+    config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
 
-  enableNvidia =
-    builtins.any (x: x == "nvidia") config.services.xserver.videoDrivers;
+  enableNvidia = builtins.any (
+    x: x == "nvidia"
+  ) config.services.xserver.videoDrivers;
 
-in {
+in
+{
   virtualisation = {
     oci-containers.backend = "docker";
     docker = {
@@ -21,8 +23,8 @@ in {
     };
   };
 
-  systemd.services.docker.after =
-    lib.optionals (zfsBootSupported || zfsServiceSupported)
-    [ "zfs-mount.service" ];
+  systemd.services.docker.after = lib.optionals (
+    zfsBootSupported || zfsServiceSupported
+  ) [ "zfs-mount.service" ];
   systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
 }

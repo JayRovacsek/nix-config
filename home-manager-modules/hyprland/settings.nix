@@ -1,8 +1,28 @@
-{ config, osConfig, pkgs, self }:
+{
+  config,
+  osConfig,
+  pkgs,
+  self,
+}:
 let
+  inherit (osConfig.networking) hostName;
+
   inherit (pkgs)
-    grim slurp swappy lib systemd fuzzel nextcloud-client hyprpaper;
+    grim
+    hyprlock
+    slurp
+    swappy
+    lib
+    fuzzel
+    nextcloud-client
+    ;
   inherit (self.lib.hyprland) generate-monitors;
+
+  inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
+    base01
+    base02
+    base03
+    ;
 
   alakazam-monitors = [
     {
@@ -34,41 +54,45 @@ let
       extra = "";
     }
   ];
-  monitor = if osConfig.networking.hostName == "alakazam" then
-    (generate-monitors alakazam-monitors)
-  else
-    [ ",preferred,auto,auto" ];
+  monitor =
+    if hostName == "alakazam" then
+      (generate-monitors alakazam-monitors)
+    else
+      [ ",preferred,auto,auto" ];
 
-  waybar-exec = "${systemd}/bin/systemctl --user start waybar.service";
+  nextcloud-present = builtins.any (
+    p: (p.pname or "") == "nextcloud-client"
+  ) config.home.packages;
 
-  nextcloud-present = builtins.any (p: (p.pname or "") == "nextcloud-client")
-    config.home.packages;
+  swaync-enabled = config.services.swaync.enable;
 
-  wallpaper-exec = "${hyprpaper}/bin/hyprpaper";
+  swaync-exec = lib.optional swaync-enabled "${config.services.swaync.package}/bin/swaync";
 
-  nextcloud-exec =
-    lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
+  nextcloud-exec = lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = [ waybar-exec wallpaper-exec ] ++ nextcloud-exec;
+  exec-once = nextcloud-exec ++ swaync-exec;
 
-in {
+in
+{
   inherit exec-once monitor;
 
   env = "XCURSOR_SIZE,24";
   input = {
     kb_layout = "us";
     follow_mouse = 1;
-    touchpad = { natural_scroll = false; };
+    touchpad = {
+      natural_scroll = false;
+    };
     sensitivity = 0;
   };
 
   general = {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
     gaps_in = 5;
-    gaps_out = 20;
+    gaps_out = 5;
     border_size = 2;
-    "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-    "col.inactive_border" = "rgba(595959aa)";
+    "col.active_border" = "rgba(${base03}ee)";
+    "col.inactive_border" = "rgba(${base02}aa)";
 
     layout = "dwindle";
   };
@@ -79,7 +103,7 @@ in {
     drop_shadow = true;
     shadow_range = 4;
     shadow_render_power = 3;
-    "col.shadow" = "rgba(1a1a1aee)";
+    "col.shadow" = "rgba(${base01}ee)";
   };
 
   # https://wiki.hyprland.org/Configuring/Variables/#animations
@@ -100,11 +124,10 @@ in {
     preserve_split = true;
   };
 
-  # https://wiki.hyprland.org/Configuring/Master-Layout/ 
-  master = { new_is_master = true; };
-
   # https://wiki.hyprland.org/Configuring/Variables/#gestures
-  gestures = { workspace_swipe = false; };
+  gestures = {
+    workspace_swipe = false;
+  };
 
   # Window Rules
   # https://wiki.hyprland.org/Configuring/Window-Rules/
@@ -140,12 +163,16 @@ in {
     "$mainMod, mouse_up, workspace, e-1"
 
     # Print Screen
-    ''
-      , code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
+    '', code:107, exec, ${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${swappy}/bin/swappy -f -''
+
+    # Lock
+    "$mainMod, L, exec, pidof ${hyprlock}/bin/hyprlock || ${hyprlock}/bin/hyprlock"
   ];
 
   # Move/resize windows with mainMod + LMB/RMB and dragging
-  bindm =
-    [ "$mainMod, mouse:272, movewindow" "$mainMod, mouse:273, resizewindow" ];
+  bindm = [
+    "$mainMod, mouse:272, movewindow"
+    "$mainMod, mouse:273, resizewindow"
+  ];
 
 }

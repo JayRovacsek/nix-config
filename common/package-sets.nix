@@ -28,17 +28,27 @@ let
 
   config.allowUnfree = true;
 
-  targetGeneration = [ stable unstable bleeding-edge ];
+  targetGeneration = [
+    stable
+    unstable
+    bleeding-edge
+  ];
 
   # Done to make available the packageset identifier via the identifier attribute of
   # the packageset. Mostly everything else will be a derivation
-  identifiers = builtins.foldl' (accumulator: system:
-    accumulator // (builtins.foldl' (accumulator: target:
-      accumulator // {
+  identifiers = builtins.foldl' (
+    accumulator: system:
+    accumulator
+    // (builtins.foldl' (
+      accumulator: target:
+      accumulator
+      // {
         "${system}-${target.name}" = {
           identifier = "${system}-${target.name}";
         };
-      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
+      }
+    ) { } targetGeneration)
+  ) { } flake-utils.lib.defaultSystems;
 
   # Take both of the above and then merge them plus the load of nixpkgs for
   # the input.
@@ -62,21 +72,30 @@ let
   # nix-repl> common.package-sets.aarch64-darwin-stable.identifier
   # "aarch64-darwin-stable"
   #
-  packageSets = builtins.foldl' (accumulator: system:
-    accumulator // (builtins.foldl' (accumulator: target:
-      accumulator // {
-        "${system}-${target.name}" = let
-          pkgs = target.pkgs.legacyPackages.${system};
-          inherit (pkgs.stdenv) isDarwin isLinux;
-          inherit (pkgs.lib.lists) optionals;
-        in import target.pkgs {
-          inherit system config;
-          # Hack is required to contextually add overlays based.
-          # This might be better abstracted into a set that then is
-          # pulled via getAttr, but that'll be a next refactor step
-          # rather than MVP suitable.
-          overlays = system-agnostic ++ (optionals isDarwin darwin)
-            ++ (optionals isLinux linux);
-        };
-      }) { } targetGeneration)) { } flake-utils.lib.defaultSystems;
-in recursiveUpdate identifiers packageSets
+  packageSets = builtins.foldl' (
+    accumulator: system:
+    accumulator
+    // (builtins.foldl' (
+      accumulator: target:
+      accumulator
+      // {
+        "${system}-${target.name}" =
+          let
+            pkgs = target.pkgs.legacyPackages.${system};
+            inherit (pkgs.stdenv) isDarwin isLinux;
+            inherit (pkgs.lib.lists) optionals;
+          in
+          import target.pkgs {
+            inherit system config;
+            # Hack is required to contextually add overlays based.
+            # This might be better abstracted into a set that then is
+            # pulled via getAttr, but that'll be a next refactor step
+            # rather than MVP suitable.
+            overlays =
+              system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
+          };
+      }
+    ) { } targetGeneration)
+  ) { } flake-utils.lib.defaultSystems;
+in
+recursiveUpdate identifiers packageSets

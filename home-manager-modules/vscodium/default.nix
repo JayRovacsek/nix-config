@@ -11,16 +11,10 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-B4g01J03TSy4c5bUVPPUpCtxGpoVG60EPVgzxg0V8z4=";
+    hash = "sha256-Wwj7J4fvsSiDzfQ5vg0oLVgDbZ2IkxSZtM9Swm0oGgU=";
   };
-in {
-  imports = [ ../../options/darwin-ollama ];
-
-  services.ollama = {
-    enable = true;
-    models = [ "starcoder2:3b" ];
-  };
-
+in
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -29,17 +23,21 @@ in {
     enableExtensionUpdateCheck = false;
     mutableExtensionsDir = false;
 
-    keybindings = [{
-      key = "cmd+`";
-      command = "workbench.action.terminal.toggleTerminal";
-      when = "terminal.active";
-    }];
+    keybindings = [
+      {
+        key = "cmd+`";
+        command = "workbench.action.terminal.toggleTerminal";
+        when = "terminal.active";
+      }
+    ];
 
     userSettings = {
       "[dockercompose]" = {
         "editor.defaultFormatter" = "ms-azuretools.vscode-docker";
       };
-      "[go]" = { "editor.defaultFormatter" = "golang.go"; };
+      "[go]" = {
+        "editor.defaultFormatter" = "golang.go";
+      };
       "[javascript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
@@ -52,16 +50,24 @@ in {
       "[jsonc]" = {
         "editor.defaultFormatter" = "vscode.json-language-features";
       };
-      "[latex]" = { "editor.defaultFormatter" = "James-Yu.latex-workshop"; };
-      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+      "[latex]" = {
+        "editor.defaultFormatter" = "James-Yu.latex-workshop";
+      };
+      "[nix]" = {
+        "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      };
       "[typescript]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
       "[typescriptreact]" = {
         "editor.defaultFormatter" = "dbaeumer.vscode-eslint";
       };
-      "[xml]" = { "editor.defaultFormatter" = "redhat.vscode-xml"; };
-      "[yaml]" = { "editor.formatOnSave" = false; };
+      "[xml]" = {
+        "editor.defaultFormatter" = "redhat.vscode-xml";
+      };
+      "[yaml]" = {
+        "editor.formatOnSave" = false;
+      };
 
       "debug.javascript.autoAttachFilter" = "smart";
       "diffEditor.maxComputationTime" = 0;
@@ -94,10 +100,9 @@ in {
       "nix.enableLanguageServer" = true;
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+          formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr =
-              ''(builtins.getFlake "${nix-options}").options.darwin'';
+            darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
             hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
             nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
@@ -118,8 +123,6 @@ in {
     };
 
     extensions = with pkgs.vscode-extensions; [
-      continue.continue
-
       # Nix
       jnoortheen.nix-ide
       mkhl.direnv
@@ -168,4 +171,3 @@ in {
     ];
   };
 }
-

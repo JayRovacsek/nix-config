@@ -4,7 +4,14 @@ _: {
     enableAliases = true;
     settings = {
       classic = false;
-      blocks = [ "permission" "user" "group" "size" "date" "name" ];
+      blocks = [
+        "permission"
+        "user"
+        "group"
+        "size"
+        "date"
+        "name"
+      ];
       color.when = "auto";
       date = "date";
       dereference = false;

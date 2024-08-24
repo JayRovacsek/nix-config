@@ -1,6 +1,8 @@
 { pkgs, self, ... }:
-let inherit (self.common.networking.services.telegraf.output.prometheus) port;
-in {
+let
+  inherit (self.common.config.services.telegraf.output.prometheus) port;
+in
+{
   networking.firewall.allowedTCPPorts = [ port ];
   services = {
     telegraf = {
@@ -8,7 +10,10 @@ in {
       extraConfig = {
         inputs = {
           execd = {
-            command = [ "${pkgs.zfs}/libexec/zfs/zpool_influxdb" "--execd" ];
+            command = [
+              "${pkgs.zfs}/libexec/zfs/zpool_influxdb"
+              "--execd"
+            ];
             data_format = "influx";
             restart_delay = "10s";
             signal = "STDIN";

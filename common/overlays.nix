@@ -1,11 +1,21 @@
 { self }:
 let
   inherit (self.common.overlays) darwin linux system-agnostic;
-  inherit (self.inputs) agenix firefox-darwin nur;
-in {
+  inherit (self.inputs)
+    agenix
+    firefox-darwin
+    nix-monitored
+    nur
+    ;
+in
+{
   all = system-agnostic ++ darwin ++ linux;
 
-  darwin = [ firefox-darwin.overlay self.overlays.keepassxc ];
+  darwin = [
+    firefox-darwin.overlay
+    self.overlays.dockutil-bin
+    self.overlays.keepassxc
+  ];
 
   linux = [
     self.overlays.element-desktop
@@ -15,7 +25,6 @@ in {
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper
     self.overlays.ranger
-    self.overlays.sonarr
     self.overlays.waybar
   ];
 
@@ -23,6 +32,6 @@ in {
     agenix.overlays.default
     nur.overlay
     self.overlays.lib
-    self.overlays.nix-monitored
+    nix-monitored.overlays.default
   ];
 }

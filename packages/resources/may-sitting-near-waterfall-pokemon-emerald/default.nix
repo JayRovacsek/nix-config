@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, ffmpeg-headless }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ffmpeg-headless,
+}:
 with lib;
 stdenv.mkDerivation {
   pname = "may-sitting-near-waterfall-pokemon-emerald";
@@ -21,6 +26,5 @@ stdenv.mkDerivation {
     ${ffmpeg-headless}/bin/ffmpeg -i $src -vcodec libx265 -crf 28 $out/share/wallpaper.mp4
   '';
 
-  meta.description =
-    "May Sitting Near Waterfall Pokemon Emerald Pixel Live Wallpaper";
+  meta.description = "May Sitting Near Waterfall Pokemon Emerald Pixel Live Wallpaper";
 }

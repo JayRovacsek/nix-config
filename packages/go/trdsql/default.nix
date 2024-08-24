@@ -1,12 +1,15 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 let
   pname = "trdsql";
   version = "0.20.0";
 
   meta = with lib; {
     homepage = "https://github.com/noborus/trdsql";
-    description =
-      "CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN.";
+    description = "CLI tool that can execute SQL queries on CSV, LTSV, JSON and TBLN.";
     license = licenses.mit;
   };
 
@@ -21,4 +24,14 @@ let
 
   doCheck = false;
 
-in buildGoModule { inherit pname version src meta vendorHash doCheck; }
+in
+buildGoModule {
+  inherit
+    pname
+    version
+    src
+    meta
+    vendorHash
+    doCheck
+    ;
+}

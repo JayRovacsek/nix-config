@@ -4,16 +4,24 @@ let
 
   inherit (lib) concatMapStringsSep;
 
-  hosts = (builtins.attrNames self.nixosConfigurations)
+  hosts =
+    (builtins.attrNames self.nixosConfigurations)
     ++ (builtins.attrNames self.darwinConfigurations);
 
-  program = builtins.toString
-    (pkgs.writers.writeBash "generate-host-agenix-keys"
-      (concatMapStringsSep "\n" (x: ''
+  program = builtins.toString (
+    pkgs.writers.writeBash "generate-host-agenix-keys" (
+      concatMapStringsSep "\n" (x: ''
         ${openssh}/bin/ssh-keygen -t ed25519 -C "" -f id-ed25519-${x}-primary -P ""
         ${openssh}/bin/ssh-keygen -t ed25519 -C "" -f id-ed25519-${x}-secondary -P ""
-      '') hosts));
+      '') hosts
+    )
+  );
 
   type = "app";
 
-in { generate-host-agenix-keys = { inherit program type; }; }
+in
+{
+  generate-host-agenix-keys = {
+    inherit program type;
+  };
+}

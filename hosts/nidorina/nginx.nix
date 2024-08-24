@@ -1,43 +1,48 @@
-{ config, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
-  inherit (self.common.networking.services)
-    authelia binarycache code deluge firefox-syncserver headscale hydra jellyfin
-    jellyseerr lidarr nextcloud pfsense prowlarr radarr sonarr unifi;
+  inherit (self.common.config.services)
+    authelia
+    code
+    deluge
+    firefox-syncserver
+    harmonia
+    headscale
+    hydra
+    jellyfin
+    jellyseerr
+    lidarr
+    nextcloud
+    pfsense
+    prowlarr
+    radarr
+    sonarr
+    unifi
+    ;
 
   authelia-vhost = generate-vhosts {
     inherit config;
     inherit (authelia) subdomain;
     overrides = {
       default = true;
-      locations = let
-        proxyPass = "${authelia.protocol}://${authelia.ipv4}:${
-            builtins.toString authelia.port
-          }";
-      in {
-        "/" = { inherit proxyPass; };
-        "/api/verify" = { inherit proxyPass; };
-      };
-    };
-  };
-
-  binarycache-vhost = generate-vhosts {
-    inherit config;
-    inherit (binarycache) subdomain;
-    overrides = {
-      enableAuthelia = false;
-      locations."/" = {
-        extraConfig = ''
-          allow 10.0.0.0/8;
-          allow 172.16.0.0/12;
-          allow 192.168.0.0/16;
-          deny all;
-        '';
-        proxyPass = "${binarycache.protocol}://${binarycache.ipv4}:${
-            builtins.toString binarycache.port
-          }";
-      };
+      locations =
+        let
+          proxyPass = "${authelia.protocol}://${authelia.ipv4}:${builtins.toString authelia.port}";
+        in
+        {
+          "/" = {
+            inherit proxyPass;
+          };
+          "/api/verify" = {
+            inherit proxyPass;
+          };
+        };
     };
   };
 
@@ -45,8 +50,7 @@ let
     inherit config;
     inherit (code) subdomain;
     overrides.locations."/" = {
-      proxyPass =
-        "${code.protocol}://${code.ipv4}:${builtins.toString code.port}";
+      proxyPass = "${code.protocol}://${code.ipv4}:${builtins.toString code.port}";
       proxyWebsockets = true;
     };
   };
@@ -54,8 +58,7 @@ let
   deluge-vhost = generate-vhosts {
     inherit config;
     inherit (deluge) subdomain;
-    overrides.locations."/".proxyPass =
-      "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
+    overrides.locations."/".proxyPass = "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
   };
 
   firefox-syncserver-vhost = generate-vhosts {
@@ -63,10 +66,36 @@ let
     inherit (firefox-syncserver) subdomain;
     overrides = {
       enableAuthelia = false;
-      locations."/".proxyPass =
-        "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${
-          builtins.toString firefox-syncserver.port
-        }";
+      locations."/".proxyPass = "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${builtins.toString firefox-syncserver.port}";
+    };
+  };
+
+  harmonia-vhost = generate-vhosts {
+    inherit config;
+    inherit (harmonia) subdomain;
+    overrides = {
+      enableAuthelia = false;
+      locations."/" = {
+        # Ref; https://github.com/nix-community/harmonia/?tab=readme-ov-file#configuration-for-public-binary-cache-on-nixos
+        extraConfig = ''
+          proxy_connect_timeout 300;
+          proxy_set_header Host $host;
+          proxy_redirect http:// https://;
+          proxy_http_version 1.1;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+
+          zstd on;
+          zstd_types application/x-nix-archive;
+
+          allow 10.0.0.0/8;
+          allow 172.16.0.0/12;
+          allow 192.168.0.0/16;
+          deny all;
+        '';
+        proxyPass = "${harmonia.protocol}://${harmonia.ipv4}:${builtins.toString harmonia.port}";
+      };
     };
   };
 
@@ -77,9 +106,7 @@ let
       enableAuthelia = false;
       locations."/" = {
         extraConfig = "";
-        proxyPass = "${headscale.protocol}://${headscale.ipv4}:${
-            builtins.toString headscale.port
-          }";
+        proxyPass = "${headscale.protocol}://${headscale.ipv4}:${builtins.toString headscale.port}";
         proxyWebsockets = true;
       };
     };
@@ -91,8 +118,7 @@ let
     overrides = {
       enableAuthelia = false;
       locations."/" = {
-        proxyPass =
-          "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
+        proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
         extraConfig = ''
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
@@ -108,20 +134,20 @@ let
     inherit (jellyfin) subdomain;
     overrides = {
       enableAuthelia = false;
-      locations = let
-        proxyPass = "${jellyfin.protocol}://${jellyfin.ipv4}:${
-            builtins.toString jellyfin.port
-          }";
-      in {
-        "/" = {
-          extraConfig = "";
-          inherit proxyPass;
+      locations =
+        let
+          proxyPass = "${jellyfin.protocol}://${jellyfin.ipv4}:${builtins.toString jellyfin.port}";
+        in
+        {
+          "/" = {
+            extraConfig = "";
+            inherit proxyPass;
+          };
+          "~ (/jellyfin)?/socket" = {
+            extraConfig = "";
+            inherit proxyPass;
+          };
         };
-        "~ (/jellyfin)?/socket" = {
-          extraConfig = "";
-          inherit proxyPass;
-        };
-      };
     };
   };
 
@@ -130,25 +156,26 @@ let
     inherit (jellyseerr) port subdomain;
     overrides = {
       enableAuthelia = false;
-      locations."/".proxyPass = "${jellyseerr.protocol}://${jellyseerr.ipv4}:${
-          builtins.toString jellyseerr.port
-        }";
+      locations."/".proxyPass = "${jellyseerr.protocol}://${jellyseerr.ipv4}:${builtins.toString jellyseerr.port}";
     };
   };
 
   lidarr-vhost = generate-vhosts {
     inherit config;
     inherit (lidarr) subdomain;
-    overrides.locations = let
-      proxyPass =
-        "${lidarr.protocol}://${lidarr.ipv4}:${builtins.toString lidarr.port}";
-    in {
-      "/" = { inherit proxyPass; };
-      "~ (/lidarr)?/api" = {
-        extraConfig = "";
-        inherit proxyPass;
+    overrides.locations =
+      let
+        proxyPass = "${lidarr.protocol}://${lidarr.ipv4}:${builtins.toString lidarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/lidarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
       };
-    };
   };
 
   localhost-vhost = {
@@ -193,9 +220,7 @@ let
       '';
       locations."/" = {
         extraConfig = "";
-        proxyPass = "${nextcloud.protocol}://${nextcloud.ipv4}:${
-            builtins.toString nextcloud.port
-          }";
+        proxyPass = "${nextcloud.protocol}://${nextcloud.ipv4}:${builtins.toString nextcloud.port}";
       };
     };
   };
@@ -203,76 +228,98 @@ let
   pfsense-vhost = generate-vhosts {
     inherit config;
     inherit (pfsense) subdomain;
-    overrides.locations."/".proxyPass =
-      "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
+    overrides.locations."/".proxyPass = "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
   };
 
   prowlarr-vhost = generate-vhosts {
     inherit config;
     inherit (prowlarr) subdomain;
-    overrides.locations = let
-      proxyPass = "${prowlarr.protocol}://${prowlarr.ipv4}:${
-          builtins.toString prowlarr.port
-        }";
-    in {
-      "/" = { inherit proxyPass; };
-      "~ (/prowlarr)?(/[0-9]+)?/api" = {
-        extraConfig = "";
-        inherit proxyPass;
+    overrides.locations =
+      let
+        proxyPass = "${prowlarr.protocol}://${prowlarr.ipv4}:${builtins.toString prowlarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/prowlarr)?(/[0-9]+)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+        "~ (/prowlarr)?(/[0-9]+)?/download" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
       };
-      "~ (/prowlarr)?(/[0-9]+)?/download" = {
-        extraConfig = "";
-        inherit proxyPass;
-      };
-    };
   };
 
   radarr-vhost = generate-vhosts {
     inherit config;
     inherit (radarr) subdomain;
-    overrides.locations = let
-      proxyPass =
-        "${radarr.protocol}://${radarr.ipv4}:${builtins.toString radarr.port}";
-    in {
-      "/" = { inherit proxyPass; };
-      "~ (/radarr)?/api" = {
-        extraConfig = "";
-        inherit proxyPass;
+    overrides.locations =
+      let
+        proxyPass = "${radarr.protocol}://${radarr.ipv4}:${builtins.toString radarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/radarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
       };
-    };
   };
 
   sonarr-vhost = generate-vhosts {
     inherit config;
     inherit (sonarr) subdomain;
-    overrides.locations = let
-      proxyPass =
-        "${sonarr.protocol}://${sonarr.ipv4}:${builtins.toString sonarr.port}";
-    in {
-      "/" = { inherit proxyPass; };
-      "~ (/sonarr)?/api" = {
-        extraConfig = "";
-        inherit proxyPass;
+    overrides.locations =
+      let
+        proxyPass = "${sonarr.protocol}://${sonarr.ipv4}:${builtins.toString sonarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/sonarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
       };
-    };
   };
 
   unifi-vhost = generate-vhosts {
     inherit config;
     inherit (unifi) subdomain;
-    overrides.locations."/".proxyPass =
-      "${unifi.protocol}://${unifi.ipv4}:${builtins.toString unifi.port}";
+    overrides.locations."/".proxyPass = "${unifi.protocol}://${unifi.ipv4}:${builtins.toString unifi.port}";
   };
-in {
+in
+{
   services.nginx = {
     domains = [ "rovacsek.com" ];
 
+    resolver = {
+      addresses =
+        (lib.optionals config.services.blocky.enable [
+          "127.0.0.1:${config.services.blocky.settings.ports.dns}"
+        ])
+        ++ (builtins.map (
+          n: "${n}:${builtins.toString self.common.config.services.blocky.port}"
+        ) self.common.config.services.blocky.nodes);
+
+      ipv4 = true;
+      ipv6 = false;
+    };
+
+    statusPage = true;
+
     virtualHosts = merge [
       authelia-vhost
-      binarycache-vhost
       code-vhost
       deluge-vhost
       firefox-syncserver-vhost
+      harmonia-vhost
       headscale-vhost
       hydra-vhost
       jellyfin-vhost

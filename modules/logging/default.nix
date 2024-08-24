@@ -1,7 +1,11 @@
-{ self, ... }: {
+{ self, ... }:
+{
   services.prometheus.exporters.node = {
     enable = true;
-    enabledCollectors = [ "systemd" "processes" ];
-    inherit (self.common.networking.services.exporters-node) port;
+    enabledCollectors = [
+      "systemd"
+      "processes"
+    ];
+    inherit (self.common.config.services.exporters-node) port;
   };
 }

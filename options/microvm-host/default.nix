@@ -22,7 +22,8 @@ let
     };
   };
 
-in {
+in
+{
   options = {
     microvm.macvlans = mkOption {
       description = ''
@@ -36,7 +37,8 @@ in {
   config = {
     systemd = {
       network = {
-        networks = builtins.foldl' (acc: interface:
+        networks = builtins.foldl' (
+          acc: interface:
           (recursiveUpdate acc {
             ${interface.parent}.vlan =
               if builtins.hasAttr "${interface.parent}" acc then
@@ -48,9 +50,11 @@ in {
               enable = true;
               inherit (interface) name;
             };
-          })) { } cfg.macvlans;
+          })
+        ) { } cfg.macvlans;
 
-        netdevs = builtins.foldl' (acc: interface:
+        netdevs = builtins.foldl' (
+          acc: interface:
           (recursiveUpdate acc {
             "00-${interface.name}" = {
               netdevConfig = {
@@ -59,7 +63,8 @@ in {
               };
               vlanConfig.Id = interface.vlan-tag;
             };
-          })) { } cfg.macvlans;
+          })
+        ) { } cfg.macvlans;
       };
     };
   };

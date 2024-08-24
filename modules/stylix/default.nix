@@ -3,7 +3,8 @@ let
   inherit (self.common.colour-schemes) tomorrow-night-blue-base16;
 
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
-in {
+in
+{
   stylix = {
     enable = true;
     autoEnable = true;
@@ -33,15 +34,17 @@ in {
         name = "Noto Color Emoji";
       };
 
-      sizes = let
-        small = 10;
-        medium = 12;
-      in {
-        desktop = medium;
-        applications = small;
-        terminal = medium;
-        popups = small;
-      };
+      sizes =
+        let
+          small = 10;
+          medium = 12;
+        in
+        {
+          desktop = medium;
+          applications = small;
+          terminal = medium;
+          popups = small;
+        };
     };
 
     homeManagerIntegration.followSystem = true;

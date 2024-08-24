@@ -1,5 +1,6 @@
 { lib, ... }:
-with lib; {
+with lib;
+{
   options.programs.ssh.extraConfig = mkOption {
     type = with types; lines;
     default = "";

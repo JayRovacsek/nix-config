@@ -1,11 +1,15 @@
-{ stdenv, pkgs, lib, ... }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   pname = "vulnix-pre-commit";
   version = "0.0.1";
   meta = {
-    description =
-      "A simple shell wrapper for vulnix to check for existence of spicy vulns on a system";
+    description = "A simple shell wrapper for vulnix to check for existence of spicy vulns on a system";
     platforms = platforms.unix;
   };
 
@@ -47,10 +51,19 @@ let
     fi;
   '';
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenv.mkDerivation {
-  inherit pname version meta phases;
+in
+stdenv.mkDerivation {
+  inherit
+    pname
+    version
+    meta
+    phases
+    ;
 
   buildInputs = [ vulnix-pre-commit-wrapped ];
 

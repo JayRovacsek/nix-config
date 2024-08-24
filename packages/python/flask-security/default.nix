@@ -1,11 +1,15 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
   pname = "Flask-Security";
   version = "3.0.0";
 
   meta = with lib; {
-    description =
-      "It quickly adds security features to your Flask application.";
+    description = "It quickly adds security features to your Flask application.";
 
     homepage = "https://github.com/mattupstate/flask-security";
     downloadPage = "https://github.com/mattupstate/flask-security/tags";
@@ -34,4 +38,14 @@ let
 
   doCheck = false;
 
-in buildPythonPackage { inherit pname version meta dependencies src doCheck; }
+in
+buildPythonPackage {
+  inherit
+    pname
+    version
+    meta
+    dependencies
+    src
+    doCheck
+    ;
+}

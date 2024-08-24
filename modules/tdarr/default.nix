@@ -15,13 +15,17 @@ let
     extraGroups = [ "media" ];
   };
 
-in {
+in
+{
   virtualisation.oci-containers.containers = docker.generate-config {
     serviceName = name;
     autoStart = true;
     user = builtins.toString config.users.users.${name}.uid;
     image = "haveagitgat/${name}:latest";
-    ports = [ "8265:8265" "8266:8266" ];
+    ports = [
+      "8265:8265"
+      "8266:8266"
+    ];
     volumes = [
       "/srv/containers/${name}/server:/app/server:rw"
       "/srv/containers/${name}/configs:/app/configs:rw"
@@ -41,10 +45,16 @@ in {
       webUIPort = 8265;
     };
 
-    extraOptions = [ "--name=${name}" "--network=bridge" ];
+    extraOptions = [
+      "--name=${name}"
+      "--network=bridge"
+    ];
   };
   users.extraUsers = tdarr-user.extraUsers;
   users.extraGroups = tdarr-user.extraGroups;
 
-  networking.firewall.allowedTCPPorts = [ 8265 8266 ];
+  networking.firewall.allowedTCPPorts = [
+    8265
+    8266
+  ];
 }

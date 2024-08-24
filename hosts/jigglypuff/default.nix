@@ -1,4 +1,10 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 
 let
   inherit (self) common;
@@ -7,11 +13,12 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = cli;
+    modules = cli ++ self.common.home-manager-module-sets.impermanence;
   };
 
   user-configs = merge [ jay ];
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   age = {
@@ -34,8 +41,14 @@ in {
   boot = {
     kernelParams = [ "cma=128M" ];
 
-    initrd.availableKernelModules =
-      [ "mmc_block" "usbhid" "usb_storage" "vc4" ];
+    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
+
+    initrd.availableKernelModules = [
+      "mmc_block"
+      "usbhid"
+      "usb_storage"
+      "vc4"
+    ];
 
     loader = {
       grub.enable = false;
@@ -43,35 +56,27 @@ in {
     };
   };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-    };
-  };
-
   hardware.enableRedistributableFirmware = true;
 
-  imports = (with self.nixosModules; [
+  imports = with self.nixosModules; [
+    ./disk-config.nix
     agenix
     blocky
     fonts
     generations
-    nix-topology
     gnupg
     grafana-agent
+    impermanence
     journald
     logging
-    lorri
     nix
+    nix-topology
     openssh
     sudo
     systemd-networkd
     time
     timesyncd
     zsh
-  ]) ++ [
-    "${self.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
   ];
 
   networking = {
@@ -82,12 +87,7 @@ in {
     usePredictableInterfaceNames = false;
   };
 
-  services.journald.storage = "volatile";
-
-  swapDevices = [{
-    device = "/swapfile";
-    size = 1024;
-  }];
+  programs.fuse.userAllowOther = true;
 
   systemd.network = {
     netdevs."00-vlan-dns" = {

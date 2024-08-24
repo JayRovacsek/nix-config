@@ -3,53 +3,34 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    stable.url = "github:nixos/nixpkgs/release-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     bleeding-edge.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/release-24.05";
 
     # Secrets Management <3
     agenix = {
-      url = "github:ryantm/agenix";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
-    };
-
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ags-config = {
-      url = "github:JayRovacsek/ags-config/1.8.0";
-      inputs = {
-        ags.follows = "ags";
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
-      };
+      url = "github:ryantm/agenix";
     };
 
     devshell = {
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
 
     disko = {
-      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
     };
 
     # Simply required for sane management of Firefox on darwin
     firefox-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Adds flake compatibility to start removing the vestiges of 
@@ -97,12 +78,39 @@
     # Modules to help you handle persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
 
+    ironbar = {
+      inputs = {
+        naersk.follows = "naersk";
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+      url = "github:JakeStanger/ironbar";
+    };
+
     lib-aggregate = {
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs-lib.follows = "nixpkgs";
       };
       url = "github:nix-community/lib-aggregate";
+    };
+
+    lix = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "git-hooks";
+      };
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.0";
+    };
+
+    lix-module = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        lix.follows = "lix";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.0";
     };
 
     # Microvm module, PoC state for implementation
@@ -112,6 +120,11 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix";
+    };
+
+    naersk = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/naersk";
     };
 
     nix-darwin = {
@@ -135,7 +148,7 @@
     };
 
     nix-monitored = {
-      inputs = { nixpkgs.follows = "nixpkgs"; };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ners/nix-monitored";
     };
 
@@ -165,8 +178,7 @@
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url =
-        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      url = "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
     };
 
     nixpkgs-wayland = {
@@ -180,7 +192,6 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
       inputs = {
         devshell.follows = "devshell";
         flake-compat.follows = "flake-compat";
@@ -189,17 +200,32 @@
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
         nixpkgs.follows = "nixpkgs";
+        nuschtosSearch.follows = "nuschtosSearch";
         treefmt-nix.follows = "treefmt-nix";
       };
+      url = "github:nix-community/nixvim";
     };
 
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
 
+    nuschtosSearch = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:NuschtOS/search";
+    };
+
+    rust-overlay = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
+    };
+
     sandro-nixos-modules = {
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
       url = "github:SuperSandro2000/nixos-modules";
     };
@@ -208,8 +234,10 @@
     stylix = {
       inputs = {
         flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
       url = "github:danth/stylix";
     };
@@ -231,7 +259,8 @@
     };
   };
 
-  outputs = { self, flake-utils, ... }:
+  outputs =
+    { self, flake-utils, ... }:
     let
       inherit (self.inputs.nixpkgs) lib;
       inherit (lib) recursiveUpdate;
@@ -248,15 +277,42 @@
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
         };
 
-        homeManagerModules = builtins.foldl' (accumulator: module:
+        homeManagerModules = builtins.foldl' (
+          accumulator: module:
           recursiveUpdate {
-            ${module} = { config, darwinConfig ? { }, lib, modulesPath
-              , nixosConfig ? { }, options, osConfig, pkgs, self, specialArgs }:
-              import ./home-manager-modules/${module} {
-                inherit config darwinConfig lib modulesPath nixosConfig options
-                  osConfig pkgs self specialArgs;
-              };
-          } accumulator) { } self.common.home-manager-modules;
+            ${module} =
+              args@{
+                config,
+                darwinConfig ? { },
+                lib,
+                modulesPath,
+                nixosConfig ? { },
+                options,
+                osConfig,
+                pkgs,
+                self,
+                specialArgs,
+                ...
+              }:
+              import ./home-manager-modules/${module} (
+                {
+                  inherit
+                    config
+                    darwinConfig
+                    lib
+                    modulesPath
+                    nixosConfig
+                    options
+                    osConfig
+                    pkgs
+                    self
+                    specialArgs
+                    ;
+                }
+                // args
+              );
+          } accumulator
+        ) { } self.common.home-manager-modules;
 
         # Automated build configuration for local packages
         hydraJobs = import ./hydra { inherit self lib; };
@@ -265,14 +321,36 @@
         lib = import ./lib { inherit self; };
 
         # System modules for system consumption
-        nixosModules = builtins.foldl' (accumulator: module:
+        nixosModules = builtins.foldl' (
+          accumulator: module:
           recursiveUpdate {
             ${module} =
-              { config, lib, modulesPath, options, pkgs, self, specialArgs }:
-              import ./modules/${module} {
-                inherit config lib modulesPath options pkgs self specialArgs;
-              };
-          } accumulator) { } self.common.nixos-modules;
+              args@{
+                config,
+                lib,
+                modulesPath,
+                options,
+                pkgs,
+                self,
+                specialArgs,
+                ...
+              }:
+              import ./modules/${module} (
+                {
+                  inherit
+                    config
+                    lib
+                    modulesPath
+                    options
+                    pkgs
+                    self
+                    specialArgs
+                    ;
+                }
+                // args
+              );
+          } accumulator
+        ) { } self.common.nixos-modules;
 
         options = self.outputs.lib.options.declarations;
 
@@ -290,7 +368,8 @@
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
-      flake-utils-output = flake-utils.lib.eachDefaultSystem (system:
+      flake-utils-output = flake-utils.lib.eachDefaultSystem (
+        system:
         let
           pkgs = import self.inputs.nixpkgs {
             inherit system;
@@ -299,7 +378,8 @@
               devshell.overlays.default
             ];
           };
-        in {
+        in
+        {
           # Space in which exposed derivations can be ran via
           # nix run .#foo - handy in the future for stuff like deploying
           # via terraform or automation tasks that are relatively 
@@ -321,6 +401,7 @@
                 };
                 nixfmt = {
                   enable = true;
+                  package = pkgs.nixfmt-rfc-style;
                   settings.width = 80;
                 };
                 prettier = {
@@ -348,12 +429,16 @@
                       "Flor"
                       "gastly"
                       "Gastly"
+                      "Iy"
+                      "ND"
                       "no"
                       "noice"
                       "noo"
                       "Ot"
+                      "Pn"
                       "SART"
                       "SYNOPSYS"
+                      "UE"
                       "wih"
                     ];
                     locale = "en-au";
@@ -364,8 +449,7 @@
                 git-cliff = {
                   enable = true;
                   name = "Git Cliff";
-                  entry =
-                    "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
+                  entry = "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
                   language = "system";
                   pass_filenames = false;
                 };
@@ -381,17 +465,7 @@
                 trufflehog-verified = {
                   enable = pkgs.stdenv.isLinux;
                   name = "Trufflehog Search";
-                  entry =
-                    "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
-                  language = "system";
-                  pass_filenames = false;
-                };
-
-                trufflehog-regex = {
-                  enable = pkgs.stdenv.isLinux;
-                  name = "Trufflehog Regex Search";
-                  entry =
-                    "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification -x ./.trufflehog/path_exclusions  --no-update";
+                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
                   language = "system";
                   pass_filenames = false;
                 };
@@ -402,8 +476,7 @@
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
           devShells.default = pkgs.devshell.mkShell {
-            devshell.startup.git-hooks.text =
-              self.checks.${system}.git-hooks.shellHook;
+            devshell.startup.git-hooks.text = self.checks.${system}.git-hooks.shellHook;
 
             name = "nix-config";
 
@@ -412,7 +485,8 @@
               conform
               deadnix
               git-cliff
-              nixfmt
+              lix
+              nixfmt-rfc-style
               nodePackages.prettier
               statix
               trufflehog
@@ -421,7 +495,7 @@
           };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have
-          formatter = pkgs.nixfmt;
+          formatter = pkgs.nixfmt-rfc-style;
 
           # Locally defined packages for flake consumption or consumption
           # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
@@ -433,7 +507,8 @@
             inherit pkgs;
             modules = [ self.common.topology ];
           };
-        });
-
-    in flake-utils-output // standard-outputs;
+        }
+      );
+    in
+    flake-utils-output // standard-outputs;
 }

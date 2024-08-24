@@ -1,9 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (lib.lists) optionals;
 
-  tailscaleExtensions = optionals config.services.tailscale.enable
-    (with pkgs.gnomeExtensions; [ tailscale-status ]);
+  tailscaleExtensions = optionals config.services.tailscale.enable (
+    with pkgs.gnomeExtensions; [ tailscale-status ]
+  );
 
   gnomePackages = with pkgs.gnome; [
     gnome-tweaks
@@ -11,7 +17,8 @@ let
     dconf-editor
     gnome-screenshot
   ];
-  gnomeExtensions = with pkgs.gnomeExtensions;
+  gnomeExtensions =
+    with pkgs.gnomeExtensions;
     [
       caffeine
       screenshot-tool
@@ -19,8 +26,10 @@ let
       pop-shell
       blur-my-shell
       notification-banner-reloaded
-    ] ++ tailscaleExtensions;
-in {
+    ]
+    ++ tailscaleExtensions;
+in
+{
   imports = [ ../redshift ];
 
   services = {

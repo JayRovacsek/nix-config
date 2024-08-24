@@ -1,9 +1,15 @@
-{ lib, fetchPypi, python3Packages, ... }:
+{
+  lib,
+  fetchPypi,
+  python3Packages,
+  ...
+}:
 let
 
   inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
 
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "libfwsi-python";
   version = "20240423";
   pyproject = true;

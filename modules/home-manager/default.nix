@@ -1,5 +1,8 @@
-{ self, ... }: {
+{ self, ... }:
+{
   imports = with self.inputs; [ home-manager.nixosModules.default ];
-  home-manager.extraSpecialArgs = { inherit self; };
+  home-manager.extraSpecialArgs = {
+    inherit self;
+  };
 
 }

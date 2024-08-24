@@ -1,6 +1,13 @@
-{ config, lib, self, ... }:
-let inherit (self.common.networking.services.sonarr) port;
-in {
+{
+  config,
+  lib,
+  self,
+  ...
+}:
+let
+  inherit (self.common.config.services.sonarr) port;
+in
+{
   # Extended options for sonarr
   imports = [ ../../options/sonarr ];
 

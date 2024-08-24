@@ -1,7 +1,13 @@
-{ config, osConfig, lib, ... }:
+{
+  config,
+  osConfig,
+  lib,
+  ...
+}:
 let
   # Check if signing key is configured as expected
-  signingKeyConfigured = builtins.hasAttr "age" osConfig
+  signingKeyConfigured =
+    builtins.hasAttr "age" osConfig
     && builtins.hasAttr "git-signing-key.pub" osConfig.age.secrets;
 
   # Cannot use a reference below in a conditional to build our
@@ -16,14 +22,14 @@ let
     commit.gpgsign = true;
     gpg = {
       format = "ssh";
-      ssh.allowedSignersFile =
-        config.home.file.".ssh/allowed_signers".source.outPath;
+      ssh.allowedSignersFile = config.home.file.".ssh/allowed_signers".source.outPath;
     };
     user.signingkey = osConfig.age.secrets."git-signing-key.pub".path;
     push.autoSetupRemote = true;
   };
 
-in {
+in
+{
   programs.git = {
     enable = true;
     difftastic = {

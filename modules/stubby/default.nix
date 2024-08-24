@@ -33,19 +33,25 @@ let
     tls_port = 853;
   };
 
-  loggingOptions = if version < "22.11" then
-    { }
-  else if version < "23.05" then {
-    debugLogging = true;
-  } else {
-    logLevel = "info";
-  };
-in {
+  loggingOptions =
+    if version < "22.11" then
+      { }
+    else if version < "23.05" then
+      { debugLogging = true; }
+    else
+      { logLevel = "info"; };
+in
+{
   services.stubby = {
     enable = true;
     settings = {
-      upstream_recursive_servers =
-        [ libredns ahaDnsLa ahaDnsNl quadNine appliedPrivacy ];
+      upstream_recursive_servers = [
+        libredns
+        ahaDnsLa
+        ahaDnsNl
+        quadNine
+        appliedPrivacy
+      ];
       edns_client_subnet_private = 1;
       round_robin_upstreams = 1;
       idle_timeout = 10000;

@@ -1,4 +1,9 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (self) common;
   inherit (self.common.home-manager-module-sets) base cli;
@@ -33,29 +38,37 @@ let
         };
 
         media = {
-          inherit (self.common.networking.services.media.user) gid;
-          members = [ "jay" "jellyfin" ];
+          inherit (self.common.config.services.media.user) gid;
+          members = [
+            "jay"
+            "jellyfin"
+          ];
         };
       };
 
       users.media = {
         group = "media";
         isSystemUser = true;
-        inherit (self.common.networking.services.media.user) uid;
+        inherit (self.common.config.services.media.user) uid;
       };
     };
   };
 
-  user-configs = merge [ builder jay jellyfin-user ];
+  user-configs = merge [
+    builder
+    jay
+    jellyfin-user
+  ];
 
-in {
+in
+{
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
     ./backups.nix
     ./disk-config.nix
+    ./microvms.nix
     agenix
-    auto-upgrade
     blocky
     clamav
     firefox-syncserver
@@ -63,6 +76,7 @@ in {
     generations
     gnupg
     grafana-agent
+    harmonia
     hydra
     i18n
     jellyfin
@@ -71,12 +85,10 @@ in {
     lorri
     microvm-host
     nix
-    nix-serve
     nix-topology
     nvidia
     openssh
     openvscode-server
-    samba
     smartd
     sudo
     systemd-networkd
@@ -88,6 +100,7 @@ in {
     udev
     unifi
     zfs
+    zramSwap
     zsh
   ];
 
@@ -109,19 +122,38 @@ in {
   };
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+      "armv6l-linux"
+      "armv7l-linux"
+    ];
 
     blacklistedKernelModules = [ "e1000e" ];
 
     extraModprobeConfig = "options vfio-pci ids=8086:105e,8086:105e";
 
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" ];
-      kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "sd_mod"
+      ];
+      kernelModules = [
+        "vfio_virqfd"
+        "vfio_pci"
+        "vfio_iommu_type1"
+        "vfio"
+      ];
     };
 
     kernel.sysctl."vm.swappiness" = 1;
-    kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+    kernelModules = [
+      "vfio_virqfd"
+      "vfio_pci"
+      "vfio_iommu_type1"
+      "vfio"
+    ];
     kernelParams = [ "amd_iommu=on" ];
 
     loader = {
@@ -129,7 +161,10 @@ in {
       efi.canTouchEfiVariables = true;
     };
 
-    supportedFilesystems = [ "ntfs" "zfs" ];
+    supportedFilesystems = [
+      "ntfs"
+      "zfs"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -163,64 +198,20 @@ in {
     amd.updateMicrocode = true;
   };
 
-  microvm = {
-    macvlans = builtins.map (vlan: vlan // { parent = "10-wired"; })
-      self.common.networking.networks;
-
-    vms = let
-      party = [
-        "bellsprout"
-        "igglybuff"
-        "machop"
-        "magikarp"
-        "mankey"
-        "meowth"
-        "mr-mime"
-        "nidoking"
-        "nidorina"
-        "nidorino"
-        "poliwag"
-        "slowpoke"
-      ];
-    in builtins.foldl' (acc: pokemon:
-      acc // {
-        ${pokemon} = {
-          flake = self;
-          restartIfChanged = true;
-        };
-      }) { } party;
-  };
-
   networking = {
+    enableIPv6 = false;
     hostId = "acd009f4";
     hostName = "dragonite";
   };
 
   powerManagement.enable = false;
 
-  services = {
-    # This requires the addition of the samba module
-    # to enable shares
-    samba.shares = {
-      isos = {
-        path = "/srv/isos";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public ISO Share";
-      };
-      games = {
-        path = "/srv/games/files";
-        browseable = "yes";
-        "read only" = true;
-        "guest ok" = "yes";
-        comment = "Public Game Files";
-      };
-    };
-  };
-
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/de692380-3788-4375-8afb-33a6195fa9e6"; }];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-uuid/de692380-3788-4375-8afb-33a6195fa9e6";
+      priority = 1;
+    }
+  ];
 
   systemd = {
     network.networks."20-wireless".enable = false;

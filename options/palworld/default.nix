@@ -1,6 +1,11 @@
 # Huge thanks to @Zumorica for creating the initial module:
 # https://github.com/Zumorica/GradientOS/blob/main/hosts/asiyah/palworld-server.nix
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.services.palworld;
 
@@ -21,7 +26,8 @@ let
   steamcmd-home = config.users.users.${cfg.steamcmd.name}.home;
 
   steamcmd-install-service = "steamcmd@${steam-id}.service";
-in {
+in
+{
   options.services.palworld = {
     enable = lib.mkEnableOption "Palworld server";
 
@@ -55,8 +61,7 @@ in {
       group = lib.mkOption {
         type = lib.types.str;
         default = "steamcmd";
-        description =
-          "The group that runs steamcmd to install the game server.";
+        description = "The group that runs steamcmd to install the game server.";
       };
     };
   };
@@ -81,8 +86,7 @@ in {
         };
       };
 
-      groups =
-        lib.optionalAttrs (cfg.user.group == "palworld") { palworld = { }; };
+      groups = lib.optionalAttrs (cfg.user.group == "palworld") { palworld = { }; };
     };
 
     systemd.tmpfiles.rules = [
@@ -108,7 +112,9 @@ in {
         WorkingDirectory = "~";
       };
 
-      environment = { SteamAppId = app-id; };
+      environment = {
+        SteamAppId = app-id;
+      };
     };
   };
 }

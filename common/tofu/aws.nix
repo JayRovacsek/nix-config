@@ -8,18 +8,18 @@ let
   state-path = "terraform/state";
   ami-path = "ami";
   state-table = "terraform-state";
-  ddb = [{
-    Effect = "Allow";
-    Action = [
-      "dynamodb:DescribeTable"
-      "dynamodb:GetItem"
-      "dynamodb:PutItem"
-      "dynamodb:DeleteItem"
-    ];
-    Resource = "arn:aws:dynamodb:${region}:${
-        builtins.toString account-id
-      }:table/${state-table}";
-  }];
+  ddb = [
+    {
+      Effect = "Allow";
+      Action = [
+        "dynamodb:DescribeTable"
+        "dynamodb:GetItem"
+        "dynamodb:PutItem"
+        "dynamodb:DeleteItem"
+      ];
+      Resource = "arn:aws:dynamodb:${region}:${builtins.toString account-id}:table/${state-table}";
+    }
+  ];
 
   s3 = [
     {
@@ -29,13 +29,18 @@ let
     }
     {
       Effect = "Allow";
-      Action = [ "s3:GetObject" "s3:PutObject" "s3:DeleteObject" ];
+      Action = [
+        "s3:GetObject"
+        "s3:PutObject"
+        "s3:DeleteObject"
+      ];
       Resource = "arn:aws:s3:::${state-bucket}/${state-path}/*";
     }
   ];
 
   state-statements = ddb ++ s3;
-in {
+in
+{
   buckets = {
     state = {
       name = state-bucket;
@@ -46,8 +51,14 @@ in {
       path = ami-path;
     };
   };
-  dynamo = { state = { name = state-table; }; };
-  iam = { inherit state-statements; };
+  dynamo = {
+    state = {
+      name = state-table;
+    };
+  };
+  iam = {
+    inherit state-statements;
+  };
 
   inherit region account-id;
   tags = {

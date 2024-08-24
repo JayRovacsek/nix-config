@@ -3,7 +3,8 @@ let
   hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
   inherit (pkgs.stdenv) isDarwin;
 
-in {
+in
+{
   home.packages = [ hack-font ];
 
   programs.alacritty = {
@@ -31,7 +32,9 @@ in {
       };
 
       font = {
-        normal = { family = lib.mkForce "Hack Nerd Font"; };
+        normal = {
+          family = lib.mkForce "Hack Nerd Font";
+        };
         offset = {
           x = 0;
           y = 0;

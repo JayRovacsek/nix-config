@@ -15,4 +15,11 @@ let
 
   tooling = import ./tooling.nix { inherit self pkgs; };
 
-in merge [ agenix distributed-builds hydra tofu tooling ]
+in
+merge [
+  agenix
+  distributed-builds
+  hydra
+  tofu
+  tooling
+]

@@ -1,9 +1,17 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   cfg = config.services.sonarr;
   inherit (self.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
-in with lib; {
+in
+with lib;
+{
   options.services.sonarr = {
     openPort = mkOption {
       type = with types; bool;
@@ -63,13 +71,27 @@ in with lib; {
     };
 
     logLevel = mkOption {
-      type = with types; enum [ "fatal" "error" "warn" "info" "debug" ];
+      type =
+        with types;
+        enum [
+          "fatal"
+          "error"
+          "warn"
+          "info"
+          "debug"
+        ];
       default = "info";
       description = "";
     };
 
     authenticationMethod = mkOption {
-      type = with types; enum [ "Basic" "External" "Forms" ];
+      type =
+        with types;
+        enum [
+          "Basic"
+          "External"
+          "Forms"
+        ];
       default = "Forms";
       description = "";
     };
@@ -85,23 +107,27 @@ in with lib; {
 
     environment.etc."sonarr/config.xml" = mkIf (cfg.config-settings != null) {
       inherit (cfg) user group;
-      text = let
-        default-settings = import ./config-settings.nix { inherit cfg config; };
-      in to-xml (recursiveUpdate default-settings cfg.config-settings);
+      text =
+        let
+          default-settings = import ./config-settings.nix { inherit cfg config; };
+        in
+        to-xml (recursiveUpdate default-settings cfg.config-settings);
       mode = "640";
     };
 
     systemd.services.sonarr.preStart =
-      lib.optionalString (cfg.api-key-file != null) ''
-        ${pkgs.coreutils}/bin/cat /etc/sonarr/config.xml | ${pkgs.gnused}/bin/sed "s/deadb33fdeadb33fdeadb33fdeadb33f/$(${pkgs.coreutils}/bin/cat ${cfg.api-key-file})/g" > ${config.services.sonarr.dataDir}/config.xml
-      '';
+      lib.optionalString (cfg.api-key-file != null)
+        ''
+          ${pkgs.coreutils}/bin/cat /etc/sonarr/config.xml | ${pkgs.gnused}/bin/sed "s/deadb33fdeadb33fdeadb33fdeadb33f/$(${pkgs.coreutils}/bin/cat ${cfg.api-key-file})/g" > ${config.services.sonarr.dataDir}/config.xml
+        '';
 
     # Add some smarts behind if we open any, some or all of the 
     # config ports.
     # This is a hack around the fact upstream hardcodes the port configuration
     # option as 8989
     networking.firewall = {
-      allowedTCPPorts = (lib.optional cfg.openPort cfg.ports.http)
+      allowedTCPPorts =
+        (lib.optional cfg.openPort cfg.ports.http)
         ++ (lib.optional cfg.openSslPort cfg.ports.https);
 
       allowedUDPPorts = lib.optional cfg.openSyslogPort cfg.ports.syslog;

@@ -1,9 +1,23 @@
-{ pkgs, lib, fetchPypi, python3Packages, self, ... }:
+{
+  pkgs,
+  lib,
+  fetchPypi,
+  python3Packages,
+  self,
+  ...
+}:
 let
   inherit (pkgs) system;
-  inherit (python3Packages) buildPythonPackage six python-docx jinja2 lxml;
+  inherit (python3Packages)
+    buildPythonPackage
+    six
+    python-docx
+    jinja2
+    lxml
+    ;
   inherit (self.packages.${system}) docxcompose;
-in buildPythonPackage rec {
+in
+buildPythonPackage rec {
   pname = "docxtpl";
   version = "0.16.8";
 
@@ -12,7 +26,13 @@ in buildPythonPackage rec {
     hash = "sha256-Rh09TiYfZw0x3k7uLIw+AK8mhuev21xcy0Zb0GUNpus=";
   };
 
-  dependencies = [ six python-docx jinja2 lxml docxcompose ];
+  dependencies = [
+    six
+    python-docx
+    jinja2
+    lxml
+    docxcompose
+  ];
 
   pythonImportsCheck = [ pname ];
 

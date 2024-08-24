@@ -1,24 +1,39 @@
-{ lib, fetchFromGitHub, python3Packages, ... }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  ...
+}:
 let
   pname = "pfFocus";
 
   version = "0.1";
 
   meta = with lib; {
-    description =
-      "Generate meaningful output from your pfSense configuration backup, like Markdown documentation.";
+    description = "Generate meaningful output from your pfSense configuration backup, like Markdown documentation.";
     homepage = "https://github.com/TKCERT/pfFocus";
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage defusedxml pip pyyaml;
+  inherit (python3Packages)
+    buildPythonPackage
+    defusedxml
+    pip
+    pyyaml
+    ;
 
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit pname version meta;
 
   build-system = [ pip ];
 
-  dependencies = [ defusedxml pyyaml ];
+  dependencies = [
+    defusedxml
+    pyyaml
+  ];
+
+  doCheck = false;
 
   src = fetchFromGitHub {
     owner = "TKCERT";

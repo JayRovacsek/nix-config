@@ -1,4 +1,5 @@
-{ self }: {
+{ self }:
+{
   globals = {
     aws = import ./aws.nix { inherit self; };
     github = import ./github.nix { inherit self; };

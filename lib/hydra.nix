@@ -42,4 +42,7 @@ let
     };
   };
 
-in { inherit generate-spec; }
+in
+{
+  inherit generate-spec;
+}

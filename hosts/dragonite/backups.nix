@@ -1,4 +1,9 @@
-{ config, pkgs, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   inherit (self.lib) merge;
 
@@ -20,8 +25,7 @@ let
     nextcloud-local-disk-backup = merge [
       defaults
       rec {
-        backupPrepareCommand =
-          "${pkgs.restic}/bin/restic -r ${repository} unlock";
+        backupPrepareCommand = "${pkgs.restic}/bin/restic -r ${repository} unlock";
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
           "/srv/nextcloud"
@@ -38,14 +42,15 @@ let
     logs-wasabi-backup = merge [
       defaults
       rec {
-        backupPrepareCommand =
-          "${pkgs.restic}/bin/restic -r ${repository} unlock";
+        backupPrepareCommand = "${pkgs.restic}/bin/restic -r ${repository} unlock";
         environmentFile = config.age.secrets.wasabi-backup-env.path;
-        extraOptions = [ "limit-upload=4096" "compression=max" ];
+        extraOptions = [
+          "limit-upload=4096"
+          "compression=max"
+        ];
         passwordFile = config.age.secrets.logs-password.path;
         paths = [ "/srv/logs" ];
-        repository =
-          "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0v";
+        repository = "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0v";
         timerConfig = {
           OnCalendar = "hourly";
           Persistent = true;
@@ -58,18 +63,19 @@ let
     nextcloud-wasabi-backup = merge [
       defaults
       rec {
-        backupPrepareCommand =
-          "${pkgs.restic}/bin/restic -r ${repository} unlock";
+        backupPrepareCommand = "${pkgs.restic}/bin/restic -r ${repository} unlock";
         environmentFile = config.age.secrets.wasabi-backup-env.path;
-        extraOptions = [ "limit-upload=4096" "compression=max" ];
+        extraOptions = [
+          "limit-upload=4096"
+          "compression=max"
+        ];
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
           "/srv/nextcloud"
           "/var/lib/${builtins.hashString "md5" "nidoking"}/nextcloud"
           "/var/lib/${builtins.hashString "md5" "nidoking"}/mysql"
         ];
-        repository =
-          "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0u";
+        repository = "s3:https://s3.ap-southeast-2.wasabisys.com/sduhk02qkjfwuhoc6onreor4a99dhp0u";
         timerConfig = {
           OnCalendar = "00:05";
           Persistent = true;
@@ -78,7 +84,8 @@ let
       }
     ];
   };
-in {
+in
+{
 
   age = {
     identityPaths = [ "/agenix/id-ed25519-restic-primary" ];

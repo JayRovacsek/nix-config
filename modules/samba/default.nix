@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   services.samba = {
     enable = true;
     securityType = "user";
@@ -15,7 +16,13 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 139 445 ];
-    allowedUDPPorts = [ 137 138 ];
+    allowedTCPPorts = [
+      139
+      445
+    ];
+    allowedUDPPorts = [
+      137
+      138
+    ];
   };
 }

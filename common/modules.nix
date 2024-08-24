@@ -1,12 +1,21 @@
 { self }:
 let
   inherit (self.common)
-    home-manager options package-sets stylix standardise-nix;
+    home-manager
+    options
+    package-sets
+    stylix
+    standardise-nix
+    ;
   inherit (self.inputs.nur.nixosModules) nur;
-in builtins.mapAttrs (package-set: _:
-  home-manager.${package-set} ++ [
+in
+builtins.mapAttrs (
+  package-set: _:
+  home-manager.${package-set}
+  ++ [
     nur
     options.${package-set}
     standardise-nix.${package-set}
     stylix.${package-set}
-  ]) package-sets
+  ]
+) package-sets

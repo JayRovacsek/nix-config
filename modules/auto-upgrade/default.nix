@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;

@@ -1,1 +1,4 @@
-{ lib, ... }: { assertions = lib.mkForce [ ]; }
+{ lib, ... }:
+{
+  assertions = lib.mkForce [ ];
+}

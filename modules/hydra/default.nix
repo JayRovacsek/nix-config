@@ -1,21 +1,28 @@
-{ config, pkgs, lib, self, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  self,
+  ...
+}:
 let
-  inherit (self.common.networking.services.hydra) port;
+  inherit (self.common.config.services.hydra) port;
 
-  /* *
-     Hello fellow hydra user! You might be here given some broad
-     search attempt in github to understand what is going on in hydra.
-     Hopefully some of the below might be of value! One word of warning
-     is the folly that is keeping an allowed uris list small it seems nowadays
-     (other than super permissive allow-lists...)
+  /*
+    *
+    Hello fellow hydra user! You might be here given some broad
+    search attempt in github to understand what is going on in hydra.
+    Hopefully some of the below might be of value! One word of warning
+    is the folly that is keeping an allowed uris list small it seems nowadays
+    (other than super permissive allow-lists...)
 
-     Note that the below seem to by case-sensitive if it couldn't get much worse
-     :'(
+    Note that the below seem to by case-sensitive if it couldn't get much worse
+    :'(
   */
   urls = [
+    "git+https://git.lix.systems"
     "github:aarowill/base16-alacritty"
     "github:astro/microvm.nix"
-    "github:Aylur/ags"
     "github:bandithedoge/nixpkgs-firefox-darwin"
     "github:cachix/git-hooks.nix"
     "github:chriskempson/base16-vim"
@@ -25,6 +32,7 @@ let
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
+    "github:JakeStanger/ironbar"
     "github:JayRovacsek"
     "github:kdrag0n/base16-kitty"
     "github:lnl7/nix-darwin"
@@ -38,6 +46,7 @@ let
     "github:numtide/flake-utils"
     "github:numtide/treefmt-nix"
     "github:oddlama/nix-topology"
+    "github:oxalica/rust-overlay"
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
     "github:SenchoPens/fromYaml"
@@ -51,7 +60,8 @@ let
     "github:tomyun/base16-fish"
     "https://github.com/NixOS"
   ];
-in {
+in
+{
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key
   # to hydra so that it may evaluate remote builds correctly also otherwise

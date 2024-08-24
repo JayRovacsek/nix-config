@@ -1,12 +1,12 @@
 { self, writeTextFile, ... }:
-let inherit (self.common.networking.services) authelia;
-in writeTextFile {
+let
+  inherit (self.common.config.services) authelia;
+in
+writeTextFile {
   name = "authelia-location.conf";
 
   text = ''
-    set $upstream_authelia ${authelia.protocol}://${authelia.ipv4}:${
-      builtins.toString authelia.port
-    }/api/verify;
+    set $upstream_authelia ${authelia.protocol}://${authelia.ipv4}:${builtins.toString authelia.port}/api/verify;
 
     ## Virtual endpoint created by nginx to forward auth requests.
     location /authelia {

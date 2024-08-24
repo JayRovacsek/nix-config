@@ -1,6 +1,9 @@
 { self }:
-let inherit (self.common) package-sets;
-in builtins.mapAttrs (package-set: _:
+let
+  inherit (self.common) package-sets;
+in
+builtins.mapAttrs (
+  package-set: _:
   let
     pkgs = self.common.package-sets.${package-set};
     inherit (pkgs) lib;
@@ -10,5 +13,8 @@ in builtins.mapAttrs (package-set: _:
     darwin-modules = lib.optional isDarwin stylix.darwinModules.stylix;
     linux-modules = lib.optional isLinux stylix.nixosModules.stylix;
     system-module = import ../modules/stylix;
-  in { imports = darwin-modules ++ linux-modules ++ [ system-module ]; })
-package-sets
+  in
+  {
+    imports = darwin-modules ++ linux-modules ++ [ system-module ];
+  }
+) package-sets

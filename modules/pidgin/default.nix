@@ -1,1 +1,1 @@
-_: { programs.pidgin = { enable = true; }; }
+_: { programs.pidgin.enable = true; }

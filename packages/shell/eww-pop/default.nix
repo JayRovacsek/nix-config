@@ -1,9 +1,18 @@
-{ stdenvNoCC, lib, fetchFromGitHub, coreutils, eww-wayland, ... }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  coreutils,
+  eww-wayland,
+  ...
+}:
 with lib;
 let
   name = "eww-music-info";
   version = "0.0.1";
-  meta = { description = "Eww music info widget"; };
+  meta = {
+    description = "Eww music info widget";
+  };
 
   src = fetchFromGitHub {
     owner = "saimoomedits";
@@ -12,10 +21,20 @@ let
     hash = "sha256-yPSUdLgkwJyAX0rMjBGOuUIDvUKGPcVA5CSaCNcq0e8=";
   };
 
-  phases = [ "installPhase" "fixupPhase" ];
+  phases = [
+    "installPhase"
+    "fixupPhase"
+  ];
 
-in stdenvNoCC.mkDerivation {
-  inherit name version meta phases src;
+in
+stdenvNoCC.mkDerivation {
+  inherit
+    name
+    version
+    meta
+    phases
+    src
+    ;
 
   installPhase = ''
     ${coreutils}/bin/mkdir -p $out/bin

@@ -1,4 +1,5 @@
-{ config, self, ... }: {
+{ config, self, ... }:
+{
   imports = with self.nixosModules; [
     agenix
     grafana
@@ -14,17 +15,19 @@
   networking.hostName = "mr-mime";
 
   microvm = {
-    interfaces = [{
-      type = "macvtap";
-      id = config.networking.hostName;
-      mac = "02:42:c0:a8:12:02";
-      macvtap = {
-        link = "log";
-        mode = "bridge";
-      };
-    }];
+    interfaces = [
+      {
+        type = "macvtap";
+        id = config.networking.hostName;
+        mac = "02:42:c0:a8:12:02";
+        macvtap = {
+          link = "log";
+          mode = "bridge";
+        };
+      }
+    ];
 
-    mem = 2048;
+    mem = 4096;
 
     shares = [
       {

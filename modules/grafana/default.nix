@@ -1,8 +1,11 @@
 { config, self, ... }:
-let inherit (self.common.networking.services) grafana loki prometheus;
-in {
-  networking.firewall.allowedTCPPorts =
-    [ config.services.grafana.settings.server.http_port ];
+let
+  inherit (self.common.config.services) grafana loki prometheus;
+in
+{
+  networking.firewall.allowedTCPPorts = [
+    config.services.grafana.settings.server.http_port
+  ];
 
   services.grafana = {
     enable = true;
@@ -30,16 +33,13 @@ in {
           name = "Loki";
           type = "loki";
           access = "proxy";
-          url =
-            "${loki.protocol}://${loki.ipv4}:${builtins.toString loki.port}";
+          url = "${loki.protocol}://${loki.ipv4}:${builtins.toString loki.port}";
         }
         {
           name = "Prometheus";
           type = "prometheus";
           access = "proxy";
-          url = "${prometheus.protocol}://${prometheus.ipv4}:${
-              builtins.toString prometheus.port
-            }";
+          url = "${prometheus.protocol}://${prometheus.ipv4}:${builtins.toString prometheus.port}";
         }
       ];
     };

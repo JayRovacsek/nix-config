@@ -6,4 +6,3 @@ _: {
     generic-extlinux-compatible.configurationLimit = 20;
   };
 }
-

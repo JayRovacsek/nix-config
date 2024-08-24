@@ -14,4 +14,5 @@ let
     "extraGroups"
     "openssh"
   ];
-in attr-names
+in
+attr-names

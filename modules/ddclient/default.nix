@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   age = {
     identityPaths = [ "/agenix/id-ed25519-cloudflare-primary" ];
 
@@ -20,11 +21,11 @@
     inherit (config.services.nginx) domains;
     enable = true;
     interval = "5min";
-    username = "token";
     passwordFile = config.age.secrets.cloudflare-api-key.path;
     protocol = "cloudflare";
     ssl = true;
-    use = "web,web=ifconfig.me/ip";
+    username = "token";
+    usev4 = "web,web=ifconfig.me/ip";
     verbose = true;
     zone = "rovacsek.com";
   };
