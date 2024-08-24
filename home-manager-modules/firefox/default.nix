@@ -36,31 +36,33 @@ let
   cfg = config.programs.firefox;
 in
 {
-  home.file."Library/Application Support/Firefox/profiles.ini" =
-    let
-      profiles =
-        lib.flip lib.mapAttrs' cfg.profiles (
-          _: profile:
-          lib.nameValuePair "Profile${toString profile.id}" {
-            Name = profile.name;
-            Path =
-              if pkgs.stdenv.isDarwin then "Profiles/${profile.path}" else profile.path;
-            IsRelative = 1;
-            Default = if profile.isDefault then 1 else 0;
-          }
-        )
-        // {
-          General = {
-            StartWithLastProfile = 1;
+  home.file = lib.mkIf pkgs.stdenv.isDarwin {
+    "Library/Application Support/Firefox/profiles.ini" =
+      let
+        profiles =
+          lib.flip lib.mapAttrs' cfg.profiles (
+            _: profile:
+            lib.nameValuePair "Profile${toString profile.id}" {
+              Name = profile.name;
+              Path =
+                if pkgs.stdenv.isDarwin then "Profiles/${profile.path}" else profile.path;
+              IsRelative = 1;
+              Default = if profile.isDefault then 1 else 0;
+            }
+          )
+          // {
+            General = {
+              StartWithLastProfile = 1;
+            };
           };
-        };
 
-      profile-ini = lib.generators.toINI { } profiles;
-    in
-    {
-      enable = true;
-      text = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce profile-ini);
-    };
+        profile-ini = lib.generators.toINI { } profiles;
+      in
+      {
+        enable = true;
+        text = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce profile-ini);
+      };
+  };
 
   programs.firefox = {
     enable = true;

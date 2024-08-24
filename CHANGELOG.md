@@ -13,6 +13,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(linux)* Start implementation of rpi0w - ([fe785b8](https://github.com/JayRovacsek/nix-config/commit/fe785b8f8b205a9e61c671caee65f1eee52d2811))
+
 - *(linux)* Disable dragonite auto update - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
 - *(linux)* Move gastly to ironbar - ([f995b82](https://github.com/JayRovacsek/nix-config/commit/f995b82b3ab7ba80e53dcd649b21eabbaa02402b))
