@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(common)* Realign github tofu with config - ([ece132c](https://github.com/JayRovacsek/nix-config/commit/ece132c1e29217b66bf308414c362674f6161d72))
+
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
 - *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
@@ -138,6 +140,10 @@
 - *(tools)* Add entries to gitignore - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
+
+### 📚 Documentation
+
+- *(packages)* Add updated github tfdoc content - ([ece132c](https://github.com/JayRovacsek/nix-config/commit/ece132c1e29217b66bf308414c362674f6161d72))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features
