@@ -13,6 +13,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(linux)* Add zram to gastly - ([c147384](https://github.com/JayRovacsek/nix-config/commit/c14738495899385df0d4eb6e0eb60d7876c94c8f))
+
 - *(linux)* Retire cloyster to lavender tower - ([9a899d5](https://github.com/JayRovacsek/nix-config/commit/9a899d53c4005afce31194b5cd2cd49ff117223d))
 
 - *(linux)* Start implementation of rpi0w - ([fe785b8](https://github.com/JayRovacsek/nix-config/commit/fe785b8f8b205a9e61c671caee65f1eee52d2811))
