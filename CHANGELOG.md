@@ -37,6 +37,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Add basic grafana dashboards - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))
+
 - *(modules)* Add secrets for grafana - ([7744144](https://github.com/JayRovacsek/nix-config/commit/7744144a88d639fcce126ecc2faa9c6e6b9f9284))
 
 - *(modules)* Remove binblocks - ([fa3a6db](https://github.com/JayRovacsek/nix-config/commit/fa3a6db9c42bc7ac16a0f5ae39c16284b473b7f4))
@@ -96,6 +98,8 @@
 - *(linux)* Remove prism and opengl option from alakazam - ([3d6107a](https://github.com/JayRovacsek/nix-config/commit/3d6107a99c949d74b79e259cda456ff530926c51))
 
 - *(linux)* Bump binarycache timeout on nidorina - ([9ef258c](https://github.com/JayRovacsek/nix-config/commit/9ef258cfbcf3fe66b57b07237a5ef801e43dac8b))
+
+- *(linux,modules)* Resolve grafana service issues - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
