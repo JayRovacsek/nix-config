@@ -1,5 +1,9 @@
 { config, self, ... }:
 {
+  age.identityPaths = [
+    "/agenix/id-ed25519-mr-mime-primary"
+  ];
+
   imports = with self.nixosModules; [
     agenix
     grafana

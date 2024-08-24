@@ -51,7 +51,7 @@ in
 
     settings = {
       "auth.anonymous".enabled = false;
-      alerting.enabled = true;
+      alerting.enabled = false;
       analytics.reporting_enabled = false;
 
       security = {
