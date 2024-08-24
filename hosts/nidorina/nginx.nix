@@ -12,6 +12,7 @@ let
     code
     deluge
     firefox-syncserver
+    grafana
     harmonia
     headscale
     hydra
@@ -68,6 +69,12 @@ let
       enableAuthelia = false;
       locations."/".proxyPass = "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${builtins.toString firefox-syncserver.port}";
     };
+  };
+
+  grafana-vhost = generate-vhosts {
+    inherit config;
+    inherit (grafana) subdomain;
+    overrides.locations."/".proxyPass = "${grafana.protocol}://${grafana.ipv4}:${builtins.toString grafana.port}";
   };
 
   harmonia-vhost = generate-vhosts {
@@ -319,6 +326,7 @@ in
       code-vhost
       deluge-vhost
       firefox-syncserver-vhost
+      grafana-vhost
       harmonia-vhost
       headscale-vhost
       hydra-vhost

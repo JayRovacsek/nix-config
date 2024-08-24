@@ -29,6 +29,8 @@
 
 - *(linux)* Move gastly to ironbar - ([f995b82](https://github.com/JayRovacsek/nix-config/commit/f995b82b3ab7ba80e53dcd649b21eabbaa02402b))
 
+- *(linux,images,common)* Rename rpi0w, exclude from hydra - ([1d33cfa](https://github.com/JayRovacsek/nix-config/commit/1d33cfada64df54a76a04f61a9e0017624518eac))
+
 - *(linux,modules)* Add ollama to alakazam - ([ba81918](https://github.com/JayRovacsek/nix-config/commit/ba81918c3d1e675b5c356e24f9880edb51ee95dd))
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))

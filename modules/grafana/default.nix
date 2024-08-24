@@ -3,6 +3,11 @@ let
   inherit (self.common.config.services) grafana loki prometheus;
 in
 {
+  age.secrets.grafana-admin-password = {
+    file = ../../secrets/grafana/admin-password.age;
+    owner = config.systemd.services.grafana.serviceConfig.User;
+  };
+
   networking.firewall.allowedTCPPorts = [
     config.services.grafana.settings.server.http_port
   ];
@@ -46,23 +51,19 @@ in
 
     settings = {
       "auth.anonymous".enabled = false;
-      alerting.enabled = false;
+      alerting.enabled = true;
       analytics.reporting_enabled = false;
-      panels.disable_sanitize_html = true;
 
       security = {
-        # TODO: change before deploy
-        admin_password = "test";
+        admin_password = "$__file{${config.age.secrets.grafana-admin-password.path}}";
         admin_user = "admin";
       };
 
       server = {
-        # domain = "grafana.rovacsek.com";
+        domain = "grafana.rovacsek.com";
         # root_url = "https://${name}.${domain}/";
         enable_gzip = true;
-        # TODO: change prior to deploy
-        enforce_domain = false;
-        # TODO: change prior to deploy
+        enforce_domain = true;
         http_addr = "0.0.0.0";
 
         inherit (grafana) protocol;
