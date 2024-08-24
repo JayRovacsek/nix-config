@@ -10,7 +10,7 @@ let
   supported-packages = builtins.removeAttrs self.packages unsupported-systems;
 
   unsupported-configurations = [
-    "rpi-zero-w"
+    "rpi0w"
     "rpi1"
     "rpi2"
   ];
