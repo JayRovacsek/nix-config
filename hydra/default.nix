@@ -10,15 +10,17 @@ let
   supported-packages = builtins.removeAttrs self.packages unsupported-systems;
 
   unsupported-configurations = [
+    "rpi-zero-w"
     "rpi1"
     "rpi2"
   ];
 
   problematic-packages = [
     "amazon"
-    "linode"
     "linode-ami"
+    "linode"
     "oracle"
+    "rpi0w-sdImage"
     "rpi1-sdImage"
     "rpi2-sdImage"
   ];

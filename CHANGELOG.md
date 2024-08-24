@@ -15,6 +15,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(linux)* Remove swap from zram devices with strong cpus - ([2be11a3](https://github.com/JayRovacsek/nix-config/commit/2be11a3309fb448d2263134e767c8c56ee7b3e87))
+
 - *(linux)* Remove ollama from alakazam for now - ([6614bb6](https://github.com/JayRovacsek/nix-config/commit/6614bb62243fb041a4385c586d9ef0e18244535c))
 
 - *(linux)* Add zram to gastly - ([c147384](https://github.com/JayRovacsek/nix-config/commit/c14738495899385df0d4eb6e0eb60d7876c94c8f))

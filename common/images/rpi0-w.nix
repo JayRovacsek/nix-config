@@ -10,7 +10,7 @@ unstable-system {
     (
       { config, ... }:
       {
-        networking.hostName = "rpi-zero-w";
+        networking.hostName = "rpi0w";
         nixpkgs = {
           config.allowUnsupportedSystem = true;
           crossSystem.system = "armv6l-linux";

@@ -14,6 +14,7 @@ in
     amazon
     linode
     oracle
+    rpi0w
     rpi1
     rpi2
     ;
