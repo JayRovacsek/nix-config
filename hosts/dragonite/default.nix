@@ -206,13 +206,6 @@ in
 
   powerManagement.enable = false;
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/de692380-3788-4375-8afb-33a6195fa9e6";
-      priority = 1;
-    }
-  ];
-
   systemd = {
     network.networks."20-wireless".enable = false;
     services = {

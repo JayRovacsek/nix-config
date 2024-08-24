@@ -105,6 +105,8 @@
 
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 
+- *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
+
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
 - Resolve build-machines generation - ([7920a3c](https://github.com/JayRovacsek/nix-config/commit/7920a3c2b6997c7992dee97e8a36d069b1dcbdba))
 
