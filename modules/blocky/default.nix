@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 let
   inherit (config.services.blocky.settings.ports)
     dns
@@ -6,39 +6,6 @@ let
     http
     https
     ;
-  inherit (lib) concatStrings reverseList;
-  bin-blocks =
-    let
-      bin-chars = [
-        "b"
-        "i"
-        "n"
-      ];
-      mod-chars = [
-        "m"
-        "o"
-        "d"
-      ];
-      duolcfmaj-chars = [
-        "d"
-        "u"
-        "o"
-        "l"
-        "c"
-        "f"
-        "m"
-        "a"
-        "j"
-      ];
-      bin-prefix = concatStrings (reverseList bin-chars);
-      mod-infix = concatStrings (reverseList mod-chars);
-      duolcfmaj-infix = concatStrings (reverseList duolcfmaj-chars);
-    in
-    {
-      "${bin-prefix}.${duolcfmaj-infix}.com" = "0.0.0.0";
-      "${bin-prefix}${mod-infix}.com" = "0.0.0.0";
-      "${bin-prefix}${mod-infix}.com.au" = "0.0.0.0";
-    };
 in
 {
   networking.firewall = {
@@ -68,10 +35,11 @@ in
 
       # optional: use black and white lists to block queries (for example ads, trackers, adult pages etc.)
       blocking = {
-        # definition of blacklist groups. Can be external link (http/https) or local file
-        blackLists = {
+        # definition of denylists groups. Can be external link (http/https) or local file
+        denylists = {
           ads = [
             "https://adaway.org/hosts.txt"
+            "https://nextcloud.rovacsek.com/s/Bpoekcyyo5WPBgm/download/hosts.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/ads.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/phishing.txt"
             "https://raw.githubusercontent.com/blocklistproject/Lists/master/tracking.txt"
@@ -81,7 +49,7 @@ in
           void = [ ];
         };
         # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
-        whiteLists.ads = [ ];
+        allowlists.ads = [ ];
         # definition: which groups should be applied for which client
         clientGroupsBlock = {
           # default will be used, if no special definition for a client name exists
@@ -177,7 +145,7 @@ in
         # if false, queries with unmapped types will be forwarded to the upstream resolver
         filterUnmappedTypes = false;
         # optional: replace domain in the query with other domain before resolver lookup in the mapping
-        mapping = bin-blocks // {
+        mapping = {
           # Local
           "pfsense.local" = "192.168.1.1";
           "ubiquiti_ap.local" = "192.168.1.3";
@@ -258,7 +226,7 @@ in
       };
 
       # optional: If true, blocky will fail to start unless at least one upstream server per group is reachable. Default: false
-      startVerifyUpstream = true;
+      upstreams.init.strategy = "blocking";
 
       upstreams = {
         groups = {

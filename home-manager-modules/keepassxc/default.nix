@@ -9,17 +9,19 @@
   # can interact with keepassxc
   programs.firefox.nativeMessagingHosts = with pkgs; [ keepassxc ];
 
+  # Generate a suitable configuration that applies opinionated defaults    
   home = {
-    # Generate a suitable configuration that applies opinionated defaults    
     file = {
-      "Library/Application Support/Mozilla/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json".text =
-        builtins.toJSON
+      "Library/Application Support/Mozilla/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" =
+        lib.mkIf pkgs.stdenv.isDarwin
           {
-            name = "org.keepassxc.keepassxc_browser";
-            description = "KeePassXC integration with native messaging support";
-            path = "${pkgs.keepassxc}/Applications/KeePassXC.app/Contents/MacOS/keepassxc-proxy";
-            type = "stdio";
-            allowed_extensions = [ "keepassxc-browser@keepassxc.org" ];
+            text = builtins.toJSON {
+              name = "org.keepassxc.keepassxc_browser";
+              description = "KeePassXC integration with native messaging support";
+              path = "${pkgs.keepassxc}/Applications/KeePassXC.app/Contents/MacOS/keepassxc-proxy";
+              type = "stdio";
+              allowed_extensions = [ "keepassxc-browser@keepassxc.org" ];
+            };
           };
 
       "${config.xdg.configHome}/keepassxc/keepassxc.ini".text =
@@ -78,6 +80,7 @@
             Security.IconDownloadFallback = true;
           };
     };
+
     packages = with pkgs; [ keepassxc ];
   };
 }

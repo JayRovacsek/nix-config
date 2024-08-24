@@ -29,39 +29,32 @@ let
 
   anyUserHas = package: (homeBrewHas package || homeManagerHas package);
 
-  alacrittyEntry = [ { path = "${pkgs.alacritty}/Applications/Alacritty.app"; } ];
-  firefoxEntry = [ { path = "${pkgs.firefox-bin}/Applications/Firefox.app"; } ];
-  braveEntry = [ { path = "/Applications/Brave Browser.app"; } ];
-  chromiumEntry = [ { path = "/Applications/Chromium.app"; } ];
-  vscodiumEntry = [ { path = "${pkgs.vscodium}/Applications/VSCodium.app"; } ];
-  keepassEntry = [ { path = "${pkgs.keepassxc}/Applications/KeePassXC.app"; } ];
-  outlookEntry = [ { path = "/Applications/Microsoft Outlook.app"; } ];
-  slackEntry = [ { path = "${pkgs.slack}/Applications/Slack.app"; } ];
-  utmEntry = [ { path = "${pkgs.utm}/Applications/UTM.app"; } ];
-
-  entries =
-    (if anyUserHas "alacritty" then alacrittyEntry else [ ])
-    ++ (if anyUserHas "firefox" then firefoxEntry else [ ])
-    ++ (if anyUserHas "brave-browser" then braveEntry else [ ])
-    ++ (
-      if anyUserHas "eloston-chromium" || anyUserHas "chromium" then
-        chromiumEntry
-      else
-        [ ]
-    )
-    # Gross hack - TODO: fix later
-    ++ (if anyUserHas "vscode" then vscodiumEntry else [ ])
-    ++ (if anyUserHas "keepassxc" then keepassEntry else [ ])
-    ++ (if anyUserHas "Microsoft Outlook" then outlookEntry else [ ])
-    ++ (if anyUserHas "slack" then slackEntry else [ ])
-    ++ (if anyUserHas "utm" then utmEntry else [ ]);
-
+  alacrittyEntry.path = "${pkgs.alacritty}/Applications/Alacritty.app";
+  firefoxEntry.path = "${pkgs.firefox-bin}/Applications/Firefox.app";
+  braveEntry.path = "/Applications/Brave Browser.app";
+  chromiumEntry.path = "/Applications/Chromium.app";
+  vscodiumEntry.path = "${pkgs.vscodium}/Applications/VSCodium.app";
+  keepassEntry.path = "${pkgs.keepassxc}/Applications/KeePassXC.app";
+  outlookEntry.path = "/Applications/Microsoft Outlook.app";
+  slackEntry.path = "${pkgs.slack}/Applications/Slack.app";
+  utmEntry.path = "${pkgs.utm}/Applications/UTM.app";
 in
 {
   imports = [ ../../options/dockutil ];
 
   dockutil = {
     enable = true;
-    inherit entries;
+    entries =
+      (lib.optional anyUserHas "alacritty" alacrittyEntry)
+      ++ (lib.optional (
+        anyUserHas "eloston-chromium" || anyUserHas "chromium"
+      ) chromiumEntry)
+      ++ (lib.optional (anyUserHas "keepassxc") keepassEntry)
+      ++ (lib.optional (anyUserHas "Microsoft Outlook") outlookEntry)
+      ++ (lib.optional (anyUserHas "slack") slackEntry)
+      ++ (lib.optional (anyUserHas "utm") utmEntry)
+      ++ (lib.optional (anyUserHas "vscode") vscodiumEntry)
+      ++ (lib.optional anyUserHas "brave-browser" braveEntry)
+      ++ (lib.optional anyUserHas "firefox" firefoxEntry);
   };
 }

@@ -3,172 +3,21 @@
 
 ### ⛰️  Features
 
-- *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
-
-- *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
-
-- *(home-manager-modules)* Add hyprpaper module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
-
-- *(home-manager-modules)* Add hypridle - ([625aca5](https://github.com/JayRovacsek/nix-config/commit/625aca5cfde4877591dae0d484b28900d9e30bed))
-
-- *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
-
-- *(linux)* Disable dragonite auto update - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
-
-- *(linux)* Move gastly to ironbar - ([f995b82](https://github.com/JayRovacsek/nix-config/commit/f995b82b3ab7ba80e53dcd649b21eabbaa02402b))
-
-- *(linux,modules)* Add ollama to alakazam - ([ba81918](https://github.com/JayRovacsek/nix-config/commit/ba81918c3d1e675b5c356e24f9880edb51ee95dd))
-
-- *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
-
-- *(modules)* Implement ledger module - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
-
-- *(modules)* Implement harmonia - ([262a2b9](https://github.com/JayRovacsek/nix-config/commit/262a2b9f0c4516a6ac2c93e2089cc2e51b32eac5))
-
-- *(modules)* Add hydra grafana job - ([7d889b1](https://github.com/JayRovacsek/nix-config/commit/7d889b13063f9d1725d648ccb91e01c1edab17fd))
-
-- *(modules)* Utilise upstream flaresolverr options - ([c8b0ceb](https://github.com/JayRovacsek/nix-config/commit/c8b0ceb5aff53c021136a603ab2560763d127286))
-
-- *(modules)* Provide escape hatch for extra args to be utilised - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
-
-- *(modules)* Add optional import for microvm-guest module to avoid issue in declarative settings - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
-
-- *(modules)* Regenerate tailscale keys with per-host configs - ([eeaa19c](https://github.com/JayRovacsek/nix-config/commit/eeaa19c41a098d1829edb01f584203b535f52e77))
-
-- *(modules,flake)* Re-introduce lix with nix-store regression sorted - ([c904d7c](https://github.com/JayRovacsek/nix-config/commit/c904d7c19e9e96b26b208a9f0d763490d1342de9))
-
-- *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
-
-- *(modules,linux)* Create openvpn-server module - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
-
-- *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
-
-### 🐛 Bug Fixes
-
-- *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
-
-- *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
-
-- *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
-
-- *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
-
-- *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
-
-- *(linux)* Resolve tailscale module issues - ([655a96a](https://github.com/JayRovacsek/nix-config/commit/655a96aca945874ff1588820486af27734912236))
-
-- *(linux)* Resolve nginx entry error - ([a287446](https://github.com/JayRovacsek/nix-config/commit/a287446ff36cc24eb685467d6a584cfbbd220284))
-
-- *(linux)* Remove prism and opengl option from alakazam - ([3d6107a](https://github.com/JayRovacsek/nix-config/commit/3d6107a99c949d74b79e259cda456ff530926c51))
-
-- *(linux)* Bump binarycache timeout on nidorina - ([9ef258c](https://github.com/JayRovacsek/nix-config/commit/9ef258cfbcf3fe66b57b07237a5ef801e43dac8b))
-
-- *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
-
-- *(modules)* Disable nix gc on binary cache modules - ([724021f](https://github.com/JayRovacsek/nix-config/commit/724021ff80ca129fcc6eb963ab143192c67d2fd9))
-
-- *(modules)* Move tailscale identities to hostname based - ([67a8be1](https://github.com/JayRovacsek/nix-config/commit/67a8be15e6b6c4d012c5f239225bca7c53b8ab73))
-
-- *(modules)* Remove regression on remote builders - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
-
-- *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
-
-- *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
-
-- *(packages)* Resolve issues with moving packages - ([19c3cbf](https://github.com/JayRovacsek/nix-config/commit/19c3cbfbb1be6b570fd4c6ffcc7c72850514eced))
-
-- *(packages)* Fix linode AMI package & openvpn server - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
-
-- *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
-
-- *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
-- Resolve build-machines generation - ([7920a3c](https://github.com/JayRovacsek/nix-config/commit/7920a3c2b6997c7992dee97e8a36d069b1dcbdba))
-
-- Remove custom tailscale options - ([8844ab0](https://github.com/JayRovacsek/nix-config/commit/8844ab057bde3b93c17b2ef9c4d5c30b10ebc201))
-
-
-### 🚜 Refactor
-
-- *(common,lib)* Remove or standardise some more code - ([76761f5](https://github.com/JayRovacsek/nix-config/commit/76761f5fa162afb7e7dcae33ab37c9aa1424d794))
-
-- *(flake)* Reorder input attributes - ([891d549](https://github.com/JayRovacsek/nix-config/commit/891d549387fecf8b4e4d8fef5433f82afbab9e17))
-
-- *(flake)* Remove dead config files - ([6392de3](https://github.com/JayRovacsek/nix-config/commit/6392de32ed3764010579c58bda08d0befaaf23b3))
-
-- *(flake)* Rename common.networking to common.config - ([6392de3](https://github.com/JayRovacsek/nix-config/commit/6392de32ed3764010579c58bda08d0befaaf23b3))
-
-- *(flake)* Apply nixfmt-rfc style across all nix code - ([35df3d6](https://github.com/JayRovacsek/nix-config/commit/35df3d69265ff2559b09bd76a4752725cb6b93f5))
-
-- *(flake)* Move to nixfmt-rfc-style - ([e3321be](https://github.com/JayRovacsek/nix-config/commit/e3321be68914028ceb315fe87bf90d82c9149a41))
-
-- *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))
-
-- *(home-manager-modules)* Rewrite elements of hyprland module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
-
-- *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
-
-- *(modules)* Refactor hyprland module - ([f5ffc17](https://github.com/JayRovacsek/nix-config/commit/f5ffc172f53781033c09c39c2a0b70342283e4d8))
-
-- *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
-
-- *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
-
-- *(tools)* Add entries to gitignore - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
-- Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
-
-## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
-
-### ⛰️  Features
-
-- *(common,linux)* Add ironbar home manager set to common - ([3bd1ec9](https://github.com/JayRovacsek/nix-config/commit/3bd1ec96556ca0b09cf7a3173118a898a409e852))
-
 - *(darwin)* Remove keepassxc brew install - ([a27a7f5](https://github.com/JayRovacsek/nix-config/commit/a27a7f5b3555e85f57c6c7cd39699bb0e2ba5e2c))
-
-- *(flake,home-manager-modules)* Remove ags - ([3b340be](https://github.com/JayRovacsek/nix-config/commit/3b340be635892f5a33a88ae8561808d7b6e6ccd3))
-
-- *(home-manager-modules)* Add wlogout module - ([ac27624](https://github.com/JayRovacsek/nix-config/commit/ac27624c8b8555d1e58a7db723387d3ad455523c))
-
-- *(home-manager-modules)* Add hyprlock - ([3fd1e07](https://github.com/JayRovacsek/nix-config/commit/3fd1e07107230aac3f6210159cbb984d1cafe44d))
-
-- *(home-manager-modules)* Integrate colour better with ironbar & hyprland - ([284e1bb](https://github.com/JayRovacsek/nix-config/commit/284e1bbf70b96c674eb690d90dd0d1eadd83326f))
-
-- *(home-manager-modules)* Add ironbar config - ([3b56d70](https://github.com/JayRovacsek/nix-config/commit/3b56d70edbcf379fe05c329fd79eb8d603682b38))
-
-- *(home-manager-modules)* Customise zed theme & settings - ([8111e4f](https://github.com/JayRovacsek/nix-config/commit/8111e4f6ce59c89e505441be202bf4a7e540bcf2))
-
-- *(home-manager-modules)* Add zed home manager module & default settings - ([ecd343e](https://github.com/JayRovacsek/nix-config/commit/ecd343ed6c49efd4479750152a132541947fa071))
 
 - *(home-manager-modules)* Add ollama options for darwin - ([3e98d65](https://github.com/JayRovacsek/nix-config/commit/3e98d65ce27095614a229cab75a4cfdbea352198))
 
-- *(home-manager-modules,darwin)* Add utm as a module - ([83721d3](https://github.com/JayRovacsek/nix-config/commit/83721d30f031b39949f9ad143899cb41d805cd8e))
-
-- *(home-manager-modules,lib)* Add handling for duplicate css keys - ([a2a43e2](https://github.com/JayRovacsek/nix-config/commit/a2a43e2588a1a9cb3654730a5b8a18f172542163))
-
-- *(home-manager-modules,lib)* Nixify ironbar style file - ([a2a43e2](https://github.com/JayRovacsek/nix-config/commit/a2a43e2588a1a9cb3654730a5b8a18f172542163))
-
-- *(hydra)* Add lix to hydra allowed uris - ([a0da1a4](https://github.com/JayRovacsek/nix-config/commit/a0da1a4d4617938fc01ecf8a4b14c16bc6d03552))
-
 - *(iac)* Realign github & add velo-workshop - ([847e76b](https://github.com/JayRovacsek/nix-config/commit/847e76be5e4826305c4dc43e2243c0e497edb395))
 
-- *(linux)* Migrate wigglytuff to impermanence - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
-
-- *(linux)* Move wigglytuff to impermanence - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
-
-- *(linux)* Remove swapfile on jigglypuff & use pi3 kernel - ([d04a417](https://github.com/JayRovacsek/nix-config/commit/d04a41767e4197ccc7972ec36e4daebc9e597fd3))
-
-- *(linux,modules,home-manager-modules)* Migrate jigglypuff to impermanence - ([a11c706](https://github.com/JayRovacsek/nix-config/commit/a11c706bb9d8364086a2e67bb13e826a818af5cd))
-
-- *(modules)* Add ollama module - ([3e8f773](https://github.com/JayRovacsek/nix-config/commit/3e8f773313b302b4b290121f27f9968925ba354b))
+- *(images)* Start to minimise rpi1 - ([e05c2c9](https://github.com/JayRovacsek/nix-config/commit/e05c2c965e5d6c2357934af4342aec54dcddb366))
 
 - *(modules)* Add systemd-boot module - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
 
 - *(modules,common,linux)* Resolve unifi not being nixified - ([6e6c9c2](https://github.com/JayRovacsek/nix-config/commit/6e6c9c2e439d4ad02c2c8f1e6325e3ee787d2ae9))
 
-- *(modules,linux,darwin)* Add lix to modules & implement for some hosts - ([a696b74](https://github.com/JayRovacsek/nix-config/commit/a696b74f57fe85ca3da2c25858eb95ffbe41d78c))
-
 - *(modules,options)* Implement velociraptor modules - ([d4d1471](https://github.com/JayRovacsek/nix-config/commit/d4d1471108d1c67444e5556c330daf22cb0d4122))
 
-- *(options,darwin)* Re-add user ollama service on darwin - ([7b267ac](https://github.com/JayRovacsek/nix-config/commit/7b267acc31af0adc20554450c7df01725109c851))
+- *(overlays)* Add overrides block for packages requiring optional capabilities disabled - ([66c3262](https://github.com/JayRovacsek/nix-config/commit/66c32622239c6c51dc99259c16bb8f6a9b968714))
 
 - *(packages)* Add velociraptor package - ([bb4ba58](https://github.com/JayRovacsek/nix-config/commit/bb4ba58ad18e2b95e0b84d9128747f56bd363a65))
 - Update nix-options to 24.05 also - ([fab8c60](https://github.com/JayRovacsek/nix-config/commit/fab8c60c1629c0966a45665aff68ab4e208a4cf1))
@@ -178,44 +27,28 @@
 
 - *(flake)* Resolve dead inputs - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
-- *(home-manager-modules)* Remove old config option from hyprland - ([63cd7b1](https://github.com/JayRovacsek/nix-config/commit/63cd7b125c5b6976217b4e161202036b5d1c1ad9))
-
-- *(home-manager-modules)* Add notifications, shift mem and temp interval - ([28f3b8d](https://github.com/JayRovacsek/nix-config/commit/28f3b8d90c66fd5e76ad7a67d06ffe7867a78eab))
-
-- *(home-manager-modules)* Resolve issue with tuigreet holding old hyprland sesh - ([430b9b6](https://github.com/JayRovacsek/nix-config/commit/430b9b68e29a2ec64229b3eb5080330b6725efcc))
-
-- *(home-manager-modules)* Correct path for zed settings - ([af2d887](https://github.com/JayRovacsek/nix-config/commit/af2d8873c489fb4275b0803c604ada49c3a95fd2))
-
 - *(home-manager-modules)* Remove python from vscode - ([f49e4b4](https://github.com/JayRovacsek/nix-config/commit/f49e4b415f2f80990f50b5fd046137885a594deb))
 
 - *(home-manager-modules)* Resolve ollama issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
 - *(home-manager-modules)* Resolve vscode plugin issues - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
 
-- *(linux)* Add fuse allow other for jigglypuff - ([e9de8fc](https://github.com/JayRovacsek/nix-config/commit/e9de8fcca3dc245ae487af33a8493944da7a90bc))
-
-- *(linux)* Correct impermanence on jigglypuff - ([7e0b548](https://github.com/JayRovacsek/nix-config/commit/7e0b548347634f65ee44a23daa853613204f7089))
-
 - *(linux)* Move alakazam to systemd boot - ([15d8754](https://github.com/JayRovacsek/nix-config/commit/15d875473a2d8eace6a7802bc737fdbece30009a))
-
-- *(modules)* Resolve removed opengl option - ([e7678ef](https://github.com/JayRovacsek/nix-config/commit/e7678efaefbdbf470d9c861f4997744bbd7eb44f))
-
-- *(modules)* Add ssh directory to impermanence mounts - ([9dd190a](https://github.com/JayRovacsek/nix-config/commit/9dd190afe3dfb197632d3032876b470481ad312e))
 
 - *(modules)* Resolve loki v12 -> v13 changes - ([0f18ebf](https://github.com/JayRovacsek/nix-config/commit/0f18ebf54033e291bee32bf52171676514563862))
 
-- *(modules,home-manager-modules)* Remove vulkan from hyprland - ([115f75f](https://github.com/JayRovacsek/nix-config/commit/115f75fada8a465e2bb47e5c1e801a4e37c8d432))
+- *(overlays)* Attempt to remove tests for elfutils - ([1d6e55b](https://github.com/JayRovacsek/nix-config/commit/1d6e55b94f1b6fa2b238c2641b8e9f5fc737c4d7))
 
-- *(options)* Shift dock-util to binary source to avoid issues with swift - ([522d43e](https://github.com/JayRovacsek/nix-config/commit/522d43e80061aaa29e5a4079596313cba233c62c))
+- *(overlays)* Add python fixes and lint file - ([b4200e2](https://github.com/JayRovacsek/nix-config/commit/b4200e2e477a950321fa42d59b41045f581d3589))
+
+- *(overlays)* Add propagated input to sphinx dep - ([08fb9da](https://github.com/JayRovacsek/nix-config/commit/08fb9da4ccdab382118c51dce098b6d2e458c4b7))
+
+- *(overlays)* Fix sphinx tests - ([a39e830](https://github.com/JayRovacsek/nix-config/commit/a39e830c91d361ac8ec3db6d1167bad5b8c0becd))
+
+- *(overlays)* Add elfutils to disabled checks for now - ([134109f](https://github.com/JayRovacsek/nix-config/commit/134109f99eb14118107d4d5f4d8bdcfe965a62ff))
 
 - *(overlays)* Update keepassxc overlay version - ([69f5b1b](https://github.com/JayRovacsek/nix-config/commit/69f5b1b1babef57bbac59e91685636bb44810bc7))
-
-- *(packages)* Resolve deterministic cert not including base domain - ([0afb74c](https://github.com/JayRovacsek/nix-config/commit/0afb74ca93907a581c294ff4ae36faac26efcda3))
-- Move impermanence to it's own package set - ([13d0b9e](https://github.com/JayRovacsek/nix-config/commit/13d0b9e58eba90afdb035163f4f23b2f0cbfccc2))
-
-- Resolve eval issues - ([b8e346d](https://github.com/JayRovacsek/nix-config/commit/b8e346d910a1b087960f4bb2dd796fd3209f160d))
-
-- Resolve missing module file - ([b87be83](https://github.com/JayRovacsek/nix-config/commit/b87be83443f655ba1cfb8c809ea89477c0b0981e))
+- Resolve pytest-xdist & spdlog issues - ([cb8ec3c](https://github.com/JayRovacsek/nix-config/commit/cb8ec3c7d0ee76b6398b14971f5c4e8f57133e8d))
 
 - Resolve vscodium issues on aarch64-linux - ([e283bcb](https://github.com/JayRovacsek/nix-config/commit/e283bcbb81b23ebc9d35aadf01e7e74ff4baa5dc))
 
@@ -223,12 +56,6 @@
 
 
 ### 🚜 Refactor
-
-- *(checks)* Remove custom trufflehog check - ([a696b74](https://github.com/JayRovacsek/nix-config/commit/a696b74f57fe85ca3da2c25858eb95ffbe41d78c))
-
-- *(linux)* Remove a large chunk of dead or redundant code - ([658a820](https://github.com/JayRovacsek/nix-config/commit/658a82073d4c570f8f2a1f00203094767824b4fb))
-
-- *(modules)* Simplify fonts module - ([bc22ac0](https://github.com/JayRovacsek/nix-config/commit/bc22ac036029b34e674bf43eb1cb85a64111cda0))
 - Reorder inputs - ([21d0ebd](https://github.com/JayRovacsek/nix-config/commit/21d0ebde647dfec1b065f74c3b9bb43810873041))
 
 ## [0.0.7](https://github.com/JayRovacsek/nix-config/compare/v0.0.6..v0.0.7) - 2024-05-19
@@ -519,6 +346,10 @@
 
 - *(options)* Remove custom tailscale options - they appear to be resolved upstream - ([45aa879](https://github.com/JayRovacsek/nix-config/commit/45aa87909377c85100b39366e523075ec07b50fd))
 
+- *(overlays)* Add dav1d and aws-c-common to skipped tests - ([b3274eb](https://github.com/JayRovacsek/nix-config/commit/b3274ebd56fe2ddf349c8e8de16ebe5f0432f884))
+
+- *(overlays)* Resolve failed armv6/7 builds of fribidi & pixman - ([d67aa2d](https://github.com/JayRovacsek/nix-config/commit/d67aa2d227c6ed9a2ddec6be186fa016cb480cfe))
+
 - *(packages)* Resolve xattr dependency issues for dfvfs and plaso - ([66147c1](https://github.com/JayRovacsek/nix-config/commit/66147c138c672d80689fcada93d77db1bdf3c795))
 
 - *(packages)* Update battlenet prefill & resolve moved submodule csproj file - ([c03cbff](https://github.com/JayRovacsek/nix-config/commit/c03cbff9ceed5f557133f72dcc8a64880280c76f))
@@ -530,6 +361,8 @@
 - *(tooling)* Change pre-commit for trufflehog to only linux - ([5fef734](https://github.com/JayRovacsek/nix-config/commit/5fef734110488a0ac50376ab5911b655a3e0d124))
 
 - *(tooling)* Correct use of remote (git) in generating conform yaml - ([03e598c](https://github.com/JayRovacsek/nix-config/commit/03e598cc687190491e77cb2f8a2b2ca19c507a4e))
+- Resolve meson build failure - ([a09b8f3](https://github.com/JayRovacsek/nix-config/commit/a09b8f37f542b3b04668a1a45eef33074569565f))
+
 
 ### 🚜 Refactor
 
@@ -548,29 +381,15 @@
 
 ### ⛰️  Features
 
-- *(home-manager-modules)* Expose hm-modules via flake attribute at top level - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
-
 - *(linux)* Re-introduce auto-updates to dragonite - ([efcc88c](https://github.com/JayRovacsek/nix-config/commit/efcc88cef665df90e8ca5a051cc17cb74e53fd7e))
 
 - *(linux)* Remove update flake from microvms - ([c44b4a0](https://github.com/JayRovacsek/nix-config/commit/c44b4a0fd252e814d3b1fe01bf69ff1a621aa908))
 
 - *(linux)* Change microvms to restart if changed on host - ([c44b4a0](https://github.com/JayRovacsek/nix-config/commit/c44b4a0fd252e814d3b1fe01bf69ff1a621aa908))
 
-- *(linux)* Move to stable updateFlake ref - ([aa8adf4](https://github.com/JayRovacsek/nix-config/commit/aa8adf4c27280813fc405560b38df2463086bcca))
-
-- *(linux)* Change cloyster to waybar - ([0b01017](https://github.com/JayRovacsek/nix-config/commit/0b0101739b1754df8d69e6f93e848c7cc59c8d5b))
-
-- *(tooling)* Remove checks run - working on this elsewhere - ([c18e23e](https://github.com/JayRovacsek/nix-config/commit/c18e23e4de826bf07cfc171c9baeb8c66269bfbd))
-
 ### 🐛 Bug Fixes
 
-- *(darwin)* Resolve darwin config issues - ([9e4a063](https://github.com/JayRovacsek/nix-config/commit/9e4a06358189f466078b0b8d22dbb6fd2cedcc03))
-
 - *(home-manager-modules)* Resolve firefox bookmark issue with github - ([fa99493](https://github.com/JayRovacsek/nix-config/commit/fa994939199c78f6729989c425a84526d086eab2))
-
-- *(home-manager-modules)* Add editor session variable to nixvim - ([b7dcaa5](https://github.com/JayRovacsek/nix-config/commit/b7dcaa515e4b026183968f4720059b18b73b2ac8))
-
-- *(lib)* Fix use of extraSpecialArgs for home manager - ([31a152f](https://github.com/JayRovacsek/nix-config/commit/31a152f0963d39662d78cc6cdab523520eb0007e))
 
 - *(linux)* Resolve issue with dragonite missing i18n settings after refactor - ([efcc88c](https://github.com/JayRovacsek/nix-config/commit/efcc88cef665df90e8ca5a051cc17cb74e53fd7e))
 
@@ -582,35 +401,17 @@
 
 - *(linux)* Resolve incorrect use of home-manager-modules on wigglytuff - ([1dbbf32](https://github.com/JayRovacsek/nix-config/commit/1dbbf3264f8c2aaa226908d6f3c8426ec9528ce3))
 
-- *(options)* Move network to local - ([5fd2dd1](https://github.com/JayRovacsek/nix-config/commit/5fd2dd1e301cb7ca6ab48df5b0bb208ecdf84205))
-
 - *(tooling)* Remove checks configuration - ([3502cb3](https://github.com/JayRovacsek/nix-config/commit/3502cb3587f17aaaf0d1e71177c44ade1aee6e52))
 
 ### 🚜 Refactor
 
-- *(apps)* Remove act app - ([b6c40d3](https://github.com/JayRovacsek/nix-config/commit/b6c40d325f73503ef9042fd89c1924cf70d423d4))
-
 - *(darwin)* Rename merged user config to user-configs - ([5ca9a4e](https://github.com/JayRovacsek/nix-config/commit/5ca9a4ef54da9cd1846f20231cc3cf53502fe2eb))
-
-- *(darwin)* Remove use of flake options - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
 
 - *(flake)* Remove home manager configurations - ([5ca9a4e](https://github.com/JayRovacsek/nix-config/commit/5ca9a4ef54da9cd1846f20231cc3cf53502fe2eb))
 
-- *(flake)* Refactor modules and hm-modules to use self in specialArgs - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
-
-- *(home-manager-modules)* Remove use of flake throughout - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
-
 - *(linux)* Rename merged user config to user-configs - ([5ca9a4e](https://github.com/JayRovacsek/nix-config/commit/5ca9a4ef54da9cd1846f20231cc3cf53502fe2eb))
-
-- *(linux)* Remove use of flake options - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
-
-- *(modules)* Remove use of flake throughout - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
 - Remove all modules files in favour of single file - ([cc424c5](https://github.com/JayRovacsek/nix-config/commit/cc424c53972aea0ee1f5cc24b3f2fae61d4de09b))
 
-
-### 🧪 Testing
-
-- *(linux)* Swap alakazam back to waybar for now - ([b6c40d3](https://github.com/JayRovacsek/nix-config/commit/b6c40d325f73503ef9042fd89c1924cf70d423d4))
 ## [0.0.3](https://github.com/JayRovacsek/nix-config/compare/v0.0.2..v0.0.3) - 2024-03-22
 
 ### ⛰️  Features
@@ -623,7 +424,13 @@
 
 - *(flake)* Enable system agnostic overlays to be utilised in flake - ([25b9149](https://github.com/JayRovacsek/nix-config/commit/25b9149a83e27c6120ceb0b21ca45892506f18ed))
 
+- *(home-manager-modules)* Expose hm-modules via flake attribute at top level - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
+
 - *(home-manager-modules)* Change from neovim-flake to nixvim - ([d9cb899](https://github.com/JayRovacsek/nix-config/commit/d9cb8999b83b23f0554d5df42ac8399be5e10259))
+
+- *(linux)* Move to stable updateFlake ref - ([aa8adf4](https://github.com/JayRovacsek/nix-config/commit/aa8adf4c27280813fc405560b38df2463086bcca))
+
+- *(linux)* Change cloyster to waybar - ([0b01017](https://github.com/JayRovacsek/nix-config/commit/0b0101739b1754df8d69e6f93e848c7cc59c8d5b))
 
 - *(linux)* Add upower to alakazam for testing - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))
 
@@ -655,6 +462,8 @@
 
 - *(packages)* Implement prettierignore config as a package - ([305ef53](https://github.com/JayRovacsek/nix-config/commit/305ef53311a60df3997652c668f331b1f25ca313))
 
+- *(tooling)* Remove checks run - working on this elsewhere - ([c18e23e](https://github.com/JayRovacsek/nix-config/commit/c18e23e4de826bf07cfc171c9baeb8c66269bfbd))
+
 - *(tooling)* Implement gh actions check via nix-github-actions - ([fe0f91b](https://github.com/JayRovacsek/nix-config/commit/fe0f91beb1a3ba5a579f2af4901c87a4fd56e499))
 
 - *(tooling)* Move conform generator to tooling app - ([7da9c17](https://github.com/JayRovacsek/nix-config/commit/7da9c177b236765a87672543345e287ff9ae1ec5))
@@ -679,6 +488,10 @@
 
 ### 🐛 Bug Fixes
 
+- *(darwin)* Resolve darwin config issues - ([9e4a063](https://github.com/JayRovacsek/nix-config/commit/9e4a06358189f466078b0b8d22dbb6fd2cedcc03))
+
+- *(home-manager-modules)* Add editor session variable to nixvim - ([b7dcaa5](https://github.com/JayRovacsek/nix-config/commit/b7dcaa515e4b026183968f4720059b18b73b2ac8))
+
 - *(home-manager-modules)* Update ags module to reflect new branch in ags-config - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))
 
 - *(hydra)* Add numtide devshell to allowed uris - ([baace17](https://github.com/JayRovacsek/nix-config/commit/baace179453734de90f47f2ab560eb2de0664146))
@@ -688,6 +501,8 @@
 - *(hydra)* Resolve git token to being readable for hydra services via group - ([ff76d36](https://github.com/JayRovacsek/nix-config/commit/ff76d3698aa29bcbe566f41d9a4d948ef8dc0d80))
 
 - *(hydra)* Remove checks from hydra jobs - ([2e7233d](https://github.com/JayRovacsek/nix-config/commit/2e7233de66f7b4abd0ad655c02cc43ae51d849a1))
+
+- *(lib)* Fix use of extraSpecialArgs for home manager - ([31a152f](https://github.com/JayRovacsek/nix-config/commit/31a152f0963d39662d78cc6cdab523520eb0007e))
 
 - *(linux)* Move updateFlake of microvms to stable ref - ([6a6b1c1](https://github.com/JayRovacsek/nix-config/commit/6a6b1c1bed833709573582d2dbc39334fc421587))
 
@@ -715,6 +530,8 @@
 
 - *(modules)* Remove non-loki code from loki module - ([3adec3b](https://github.com/JayRovacsek/nix-config/commit/3adec3b28d03f74f2dd78c17fb34fad60686cbc3))
 
+- *(options)* Move network to local - ([5fd2dd1](https://github.com/JayRovacsek/nix-config/commit/5fd2dd1e301cb7ca6ab48df5b0bb208ecdf84205))
+
 - *(overlays)* Resolve git-cliff darwin build - ([4afa8d1](https://github.com/JayRovacsek/nix-config/commit/4afa8d1e9b3216954e57928896529521551f5e0a))
 
 - *(packages)* Mark backgroundremover as broken - ([5860ef6](https://github.com/JayRovacsek/nix-config/commit/5860ef6b5f5e455a1cbbeb4cf2cfe1f8c58a56c2))
@@ -733,7 +550,19 @@
 
 - *(apps)* Remove act app - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
 
+- *(apps)* Remove act app - ([b6c40d3](https://github.com/JayRovacsek/nix-config/commit/b6c40d325f73503ef9042fd89c1924cf70d423d4))
+
+- *(darwin)* Remove use of flake options - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
+
+- *(flake)* Refactor modules and hm-modules to use self in specialArgs - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
+
+- *(home-manager-modules)* Remove use of flake throughout - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
+
 - *(home-manager-modules)* Implement mopidy in hm rather than system - ([d3ed33e](https://github.com/JayRovacsek/nix-config/commit/d3ed33ef9b99b5f1691279f762c50d8f51627422))
+
+- *(linux)* Remove use of flake options - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
+
+- *(modules)* Remove use of flake throughout - ([8160775](https://github.com/JayRovacsek/nix-config/commit/8160775c74a725f4f698747c1b480c18fb718588))
 
 ### 📚 Documentation
 
@@ -742,6 +571,8 @@
 ### 🧪 Testing
 
 - *(linux)* Swap alakazam back to waybar for now - ([3e900ab](https://github.com/JayRovacsek/nix-config/commit/3e900abcba82611d33094f1917bc5f09a572167d))
+
+- *(linux)* Swap alakazam back to waybar for now - ([b6c40d3](https://github.com/JayRovacsek/nix-config/commit/b6c40d325f73503ef9042fd89c1924cf70d423d4))
 
 ### ⚫ Common
 

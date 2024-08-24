@@ -34,7 +34,6 @@ in
 
   # Hosts
   alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
-  cloyster = make-host x86_64-linux-unstable "cloyster" unstable-system;
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;

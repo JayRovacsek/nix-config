@@ -40,6 +40,7 @@ No modules.
 | [github_branch_default.Kansa](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)                          | resource |
 | [github_branch_default.magic-nix-cache-action](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)         | resource |
 | [github_branch_default.microvm-nix](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)                    | resource |
+| [github_branch_default.ncsg-presentation-august-2024](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)  | resource |
 | [github_branch_default.ncsg-presentation-june-2023](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)    | resource |
 | [github_branch_default.neovim-flake](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)                   | resource |
 | [github_branch_default.nix-config](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/branch_default)                     | resource |
@@ -119,6 +120,7 @@ No modules.
 | [github_repository.microvm-nix](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)                            | resource |
 | [github_repository.ncsg-content](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)                           | resource |
 | [github_repository.ncsg-poc](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)                               | resource |
+| [github_repository.ncsg-presentation-august-2024](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)          | resource |
 | [github_repository.ncsg-presentation-feb-2021](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)             | resource |
 | [github_repository.ncsg-presentation-feb-2022](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)             | resource |
 | [github_repository.ncsg-presentation-june-2023](https://registry.terraform.io/providers/integrations/github/6.2.3/docs/resources/repository)            | resource |

@@ -18,10 +18,7 @@
     };
 
     devshell = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
     };
 
@@ -203,6 +200,7 @@
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
         nixpkgs.follows = "nixpkgs";
+        nuschtosSearch.follows = "nuschtosSearch";
         treefmt-nix.follows = "treefmt-nix";
       };
       url = "github:nix-community/nixvim";
@@ -210,6 +208,14 @@
 
     # Like the Arch User Repository, but better :)
     nur.url = "github:nix-community/NUR";
+
+    nuschtosSearch = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:NuschtOS/search";
+    };
 
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -228,8 +234,10 @@
     stylix = {
       inputs = {
         flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
       url = "github:danth/stylix";
     };

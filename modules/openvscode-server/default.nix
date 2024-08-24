@@ -11,7 +11,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-iLrjuU+Xw9/Z1pnaGrSN38ZK2akWvtRljHLSMRm+IEc=";
+    hash = "sha256-Wwj7J4fvsSiDzfQ5vg0oLVgDbZ2IkxSZtM9Swm0oGgU=";
   };
 in
 {
