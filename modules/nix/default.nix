@@ -39,6 +39,8 @@ in
 
     settings = {
       auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = "nix-command flakes";
       http-connections = 0;
       sandbox = true;
       substituters = [ "https://binarycache.rovacsek.com/" ];
@@ -50,10 +52,5 @@ in
         "builder"
       ];
     };
-
-    extraOptions = lib.concatStringsSep "\n" [
-      "experimental-features = nix-command flakes"
-      "builders-use-substitutes = true"
-    ];
   };
 }

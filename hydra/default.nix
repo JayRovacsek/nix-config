@@ -19,6 +19,8 @@ let
     "amazon"
     "linode-ami"
     "linode"
+    "oracle-aarch64"
+    "oracle-x86_64"
     "oracle"
     "rpi0w-sdImage"
     "rpi1-sdImage"

@@ -37,6 +37,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Utilise production package for nvidia - ([a84bf24](https://github.com/JayRovacsek/nix-config/commit/a84bf249f6266be2d84343e62f253d9148df7653))
+
 - *(modules)* Add basic grafana dashboards - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))
 
 - *(modules)* Add secrets for grafana - ([7744144](https://github.com/JayRovacsek/nix-config/commit/7744144a88d639fcce126ecc2faa9c6e6b9f9284))
