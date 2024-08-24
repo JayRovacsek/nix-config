@@ -5,6 +5,7 @@ let
 
   # SD Installer Images / Configs
   aarch64 = import ./aarch64.nix { inherit self; };
+  rpi0-w = import ./rpi0-w.nix { inherit self; };
   rpi1 = import ./rpi1.nix { inherit self; };
   rpi2 = import ./rpi2.nix { inherit self; };
 
@@ -64,7 +65,12 @@ let
       amazon = amazon-cfg;
       linode = linode-cfg;
       oracle = oracle-cfg;
-      inherit aarch64 rpi1 rpi2;
+      inherit
+        aarch64
+        rpi1
+        rpi2
+        rpi0-w
+        ;
     };
   };
 
@@ -76,6 +82,7 @@ let
       })
       [
         aarch64
+        rpi0-w
         rpi1
         rpi2
       ];

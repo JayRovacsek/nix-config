@@ -21,6 +21,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Remove binblocks - ([fa3a6db](https://github.com/JayRovacsek/nix-config/commit/fa3a6db9c42bc7ac16a0f5ae39c16284b473b7f4))
+
 - *(modules)* Implement ledger module - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(modules)* Implement harmonia - ([262a2b9](https://github.com/JayRovacsek/nix-config/commit/262a2b9f0c4516a6ac2c93e2089cc2e51b32eac5))
@@ -45,13 +47,19 @@
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
+- *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))
+
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
+- Implement aerospace options and home manager module - ([56481dc](https://github.com/JayRovacsek/nix-config/commit/56481dcec78125be5c6c34b99729b66026546477))
+
 
 ### 🐛 Bug Fixes
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
+
+- *(home-manager-modules)* Add bandaid fix for firefox on - ([e1d74d5](https://github.com/JayRovacsek/nix-config/commit/e1d74d5f01da5c6bfce628b011211c61c48d5c22))
 
 - *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
@@ -110,6 +118,8 @@
 - *(home-manager-modules)* Rewrite elements of hyprland module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
+
+- *(modules)* Minor refactor on dockutil - ([7c40353](https://github.com/JayRovacsek/nix-config/commit/7c403531aeab5ab53dad0db91b3c420033a89fd1))
 
 - *(modules)* Refactor hyprland module - ([f5ffc17](https://github.com/JayRovacsek/nix-config/commit/f5ffc172f53781033c09c39c2a0b70342283e4d8))
 
