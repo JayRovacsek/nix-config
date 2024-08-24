@@ -31,9 +31,13 @@
 
 - *(linux,images,common)* Rename rpi0w, exclude from hydra - ([1d33cfa](https://github.com/JayRovacsek/nix-config/commit/1d33cfada64df54a76a04f61a9e0017624518eac))
 
+- *(linux,modules)* Move grafana behind authelia - ([7744144](https://github.com/JayRovacsek/nix-config/commit/7744144a88d639fcce126ecc2faa9c6e6b9f9284))
+
 - *(linux,modules)* Add ollama to alakazam - ([ba81918](https://github.com/JayRovacsek/nix-config/commit/ba81918c3d1e675b5c356e24f9880edb51ee95dd))
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
+
+- *(modules)* Add secrets for grafana - ([7744144](https://github.com/JayRovacsek/nix-config/commit/7744144a88d639fcce126ecc2faa9c6e6b9f9284))
 
 - *(modules)* Remove binblocks - ([fa3a6db](https://github.com/JayRovacsek/nix-config/commit/fa3a6db9c42bc7ac16a0f5ae39c16284b473b7f4))
 

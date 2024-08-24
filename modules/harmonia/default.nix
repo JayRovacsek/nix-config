@@ -32,6 +32,6 @@ in
       workers = 8;
     };
 
-    signKeyPath = config.age.secrets."harmonia-priv-key.pem".path;
+    signKeyPaths = [ config.age.secrets."harmonia-priv-key.pem".path ];
   };
 }
