@@ -39,6 +39,8 @@
 
 - *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
 
+- *(modules,linux)* Implement zramSwap module - ([a6c4098](https://github.com/JayRovacsek/nix-config/commit/a6c409881250bb24de8ef56ab75d8c62cb20a3c7))
+
 - *(modules,linux)* Create openvpn-server module - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
