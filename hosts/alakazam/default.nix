@@ -69,6 +69,7 @@ in
     tmp-tmpfs
     tmux
     udev
+    zramSwap
     zsh
   ];
 
@@ -153,7 +154,10 @@ in
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/b8d2e5ee-095e-4daa-8b2b-ddcfc5b67ac9"; }
+    {
+      device = "/dev/disk/by-uuid/b8d2e5ee-095e-4daa-8b2b-ddcfc5b67ac9";
+      priority = 1;
+    }
   ];
 
   system.stateVersion = "22.11";
