@@ -37,7 +37,6 @@ let
   keepassEntry.path = "${pkgs.keepassxc}/Applications/KeePassXC.app";
   outlookEntry.path = "/Applications/Microsoft Outlook.app";
   slackEntry.path = "${pkgs.slack}/Applications/Slack.app";
-  utmEntry.path = "${pkgs.utm}/Applications/UTM.app";
 in
 {
   imports = [ ../../options/dockutil ];
@@ -45,16 +44,15 @@ in
   dockutil = {
     enable = true;
     entries =
-      (lib.optional anyUserHas "alacritty" alacrittyEntry)
+      (lib.optional (anyUserHas "alacritty") alacrittyEntry)
+      ++ (lib.optional (anyUserHas "firefox") firefoxEntry)
       ++ (lib.optional (
-        anyUserHas "eloston-chromium" || anyUserHas "chromium"
+        (anyUserHas "eloston-chromium") || (anyUserHas "chromium")
       ) chromiumEntry)
+      ++ (lib.optional (anyUserHas "brave-browser") braveEntry)
       ++ (lib.optional (anyUserHas "keepassxc") keepassEntry)
-      ++ (lib.optional (anyUserHas "Microsoft Outlook") outlookEntry)
-      ++ (lib.optional (anyUserHas "slack") slackEntry)
-      ++ (lib.optional (anyUserHas "utm") utmEntry)
+      ++ [ outlookEntry ]
       ++ (lib.optional (anyUserHas "vscode") vscodiumEntry)
-      ++ (lib.optional anyUserHas "brave-browser" braveEntry)
-      ++ (lib.optional anyUserHas "firefox" firefoxEntry);
+      ++ (lib.optional (anyUserHas "slack") slackEntry);
   };
 }
