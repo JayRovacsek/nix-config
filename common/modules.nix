@@ -14,7 +14,7 @@ builtins.mapAttrs (
   home-manager.${package-set}
   ++ [
     nur
-    options.${package-set}
+    options.${package-set}.minimal
     standardise-nix.${package-set}
     stylix.${package-set}
   ]

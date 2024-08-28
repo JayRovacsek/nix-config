@@ -67,6 +67,8 @@
 
 - *(modules,linux)* Create openvpn-server module - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
+- *(modules,options)* Add hydra auto upgrade - ([2db3dd9](https://github.com/JayRovacsek/nix-config/commit/2db3dd919f380970dbb8fba18746ba5b97d35a75))
+
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
 - *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))

@@ -6,16 +6,16 @@ builtins.mapAttrs (
   package-set: _:
   let
     pkgs = self.common.package-sets.${package-set};
-    inherit (pkgs.lib.lists) optionals;
+    inherit (pkgs.lib) filterAttrs optionals;
     inherit (pkgs.stdenv) isLinux isDarwin;
 
     darwin = optionals isDarwin [
       ../options/blocky
       ../options/darwin-systemd
-      ../options/docker
+      ../options/docker-darwin
       ../options/dockutil
-      ../options/networking/darwin.nix
-      ../options/ssh
+      ../options/networking-darwin
+      ../options/ssh-darwin
     ];
 
     generic = [
@@ -26,9 +26,21 @@ builtins.mapAttrs (
 
     linux = optionals isLinux [ ../options/systemd ];
 
-    imports = darwin ++ generic ++ linux;
+    # For all directories within the options folder,
+    # assume they include a default.nix and load that
+    all = {
+      imports = builtins.map (v: ../options/${v}) (
+        builtins.attrNames (
+          filterAttrs (_: v: v == "directory") (builtins.readDir ../options)
+        )
+      );
+    };
+
+    minimal = {
+      imports = darwin ++ generic ++ linux;
+    };
   in
   {
-    inherit imports;
+    inherit all minimal;
   }
 ) package-sets
