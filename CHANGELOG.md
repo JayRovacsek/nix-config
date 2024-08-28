@@ -81,6 +81,8 @@
 
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
+- *(home-manager-modules)* Resolve screen issues - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
+
 - *(home-manager-modules)* Resolve firefox and keepass issues - ([94aaa04](https://github.com/JayRovacsek/nix-config/commit/94aaa043ce5360ae0a7731833a2633f70e805e54))
 
 - *(home-manager-modules)* Add bandaid fix for firefox on - ([e1d74d5](https://github.com/JayRovacsek/nix-config/commit/e1d74d5f01da5c6bfce628b011211c61c48d5c22))
@@ -88,6 +90,8 @@
 - *(home-manager-modules)* Resolve sway css -> nix migration issues - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
+
+- *(hydra)* Remove problematic packages from hydra - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(hydra)* Resolve inclusion of broken config - ([3431e9c](https://github.com/JayRovacsek/nix-config/commit/3431e9ce335feb8c7fc1c72edd1d24b8eb99d92f))
 
@@ -150,6 +154,8 @@
 - *(home-manager-modules)* Rewrite elements of hyprland module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
+
+- *(modules)* Remove extra config element from nix - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(modules)* Minor refactor on dockutil - ([7c40353](https://github.com/JayRovacsek/nix-config/commit/7c403531aeab5ab53dad0db91b3c420033a89fd1))
 
