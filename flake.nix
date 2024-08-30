@@ -437,6 +437,7 @@
                       "Ot"
                       "Pn"
                       "SART"
+                      "strat"
                       "SYNOPSYS"
                       "UE"
                       "wih"

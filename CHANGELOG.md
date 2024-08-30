@@ -15,6 +15,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
+
 - *(linux)* Remove swap from zram devices with strong cpus - ([2be11a3](https://github.com/JayRovacsek/nix-config/commit/2be11a3309fb448d2263134e767c8c56ee7b3e87))
 
 - *(linux)* Remove ollama from alakazam for now - ([6614bb6](https://github.com/JayRovacsek/nix-config/commit/6614bb62243fb041a4385c586d9ef0e18244535c))
@@ -157,6 +159,8 @@
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
+- *(modules)* Clean up dockutil - ([bf3068a](https://github.com/JayRovacsek/nix-config/commit/bf3068a2689b66e1c43b44766c724a115bfdf9a6))
+
 - *(modules)* Remove extra config element from nix - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(modules)* Minor refactor on dockutil - ([7c40353](https://github.com/JayRovacsek/nix-config/commit/7c403531aeab5ab53dad0db91b3c420033a89fd1))
@@ -165,7 +169,7 @@
 
 - *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
-- *(options)* Add minimal and all options as exposed common attributes - ([4380c1e](https://github.com/JayRovacsek/nix-config/commit/4380c1e8752cf6268085b33960c21936724d21c7))
+- *(options)* Add minimal and all options as exposed common attributes - ([870ca29](https://github.com/JayRovacsek/nix-config/commit/870ca29c00f68e8cfa111e967135448db0426eff))
 
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
 
