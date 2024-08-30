@@ -457,6 +457,10 @@ in
       description = "My nix configs";
       name = "nix-config";
     }
+    {
+      description = "A proof of concept in avoiding follows abuse for a large number of flakes";
+      name = "nix-inputs";
+    }
     { name = "nix-lib-html-reference"; }
     {
       description = "A simple reference to option attributes available to common nixos modules for both Linux and Darwin ";

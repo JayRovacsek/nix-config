@@ -165,7 +165,7 @@
 
 - *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
-- *(options)* Add minimal and all options as exposed common attributes - ([870ca29](https://github.com/JayRovacsek/nix-config/commit/870ca29c00f68e8cfa111e967135448db0426eff))
+- *(options)* Add minimal and all options as exposed common attributes - ([4380c1e](https://github.com/JayRovacsek/nix-config/commit/4380c1e8752cf6268085b33960c21936724d21c7))
 
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
 
