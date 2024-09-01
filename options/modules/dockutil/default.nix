@@ -46,7 +46,7 @@ in
 
   config =
     with lib;
-    mkIf cfg.enable (
+    mkIf (pkgs.stdenv.isDarwin && cfg.enable) (
       let
         normalize = path: if hasSuffix ".app" path then path + "/" else path;
 

@@ -1,5 +1,5 @@
 _: {
-  imports = [ ../../options/velociraptor ];
+  imports = [ ../../options/modules/velociraptor ];
 
   services.velociraptor.client.enable = true;
 }

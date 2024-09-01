@@ -73,6 +73,8 @@
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
+- *(packages)* Package mdtable - ([c1bbf68](https://github.com/JayRovacsek/nix-config/commit/c1bbf68c2ad154b8dadf9733717a68d5057be7a6))
+
 - *(packages)* Package tablemark - ([858f817](https://github.com/JayRovacsek/nix-config/commit/858f817e84725a0f643e0ca678ac4ac4e86bf2d3))
 
 - *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))

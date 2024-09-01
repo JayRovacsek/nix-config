@@ -17,8 +17,8 @@ in
 {
   # Extended options for nginx & openvscode-server
   imports = [
-    ../../options/nginx
-    ../../options/openvscode-server
+    ../../options/modules/nginx
+    ../../options/modules/openvscode-server
   ];
 
   age = {

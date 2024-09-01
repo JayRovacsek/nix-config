@@ -39,7 +39,7 @@ let
   slackEntry.path = "${pkgs.slack}/Applications/Slack.app";
 in
 {
-  imports = [ ../../options/dockutil ];
+  imports = [ ../../options/modules/dockutil ];
 
   dockutil = {
     enable = true;

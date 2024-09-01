@@ -1,7 +1,7 @@
 { ... }:
 {
   # Extended options for nginx
-  imports = [ ../../options/nginx ];
+  imports = [ ../../options/modules/nginx ];
 
   networking.firewall.allowedTCPPorts = [
     80

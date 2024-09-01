@@ -29,7 +29,7 @@ in
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
   imports = [
-    ../../options/systemd
+    ../../options/modules/systemd
   ] ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 
   microvm.shares =

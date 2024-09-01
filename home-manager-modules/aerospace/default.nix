@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ../../options/aerospace ];
+  imports = [ ../../options/home-manager-modules/aerospace ];
   programs.aerospace = {
     enable = true;
 

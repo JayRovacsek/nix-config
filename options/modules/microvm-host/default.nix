@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkOption recursiveUpdate types;
   cfg = config.microvm;
@@ -34,7 +39,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf pkgs.stdenv.isLinux {
     systemd = {
       network = {
         networks = builtins.foldl' (

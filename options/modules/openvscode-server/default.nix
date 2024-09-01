@@ -6,8 +6,6 @@
 }:
 with lib;
 let
-  inherit (pkgs.vscode-utils) toExtensionJson;
-
   cfg = config.services.openvscode-server;
 
   extensions-config = pkgs.writeTextDir "share/vscode/extensions/extensions.json" (
@@ -65,7 +63,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
     environment.etc."openvscode-server/Machine/settings.json" =
       mkIf (cfg.use-declarative-settings && cfg.settings != { })
         {

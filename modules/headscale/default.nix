@@ -18,7 +18,7 @@ in
 
   imports = [
     ./acl.nix
-    ../../options/headscale
+    ../../options/modules/headscale
   ];
 
   age.secrets = builtins.foldl' (a: b: a // b) { } (

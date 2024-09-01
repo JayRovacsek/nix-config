@@ -16,8 +16,8 @@ in
   # included to localise DNS for end-to-end encrypted DNS.
   imports = [
     ../blocky
-    ../../options/networking
-    ../../options/systemd
+    ../../options/modules/networking
+    ../../options/modules/systemd
   ];
 
   networking = {

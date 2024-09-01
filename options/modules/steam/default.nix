@@ -13,7 +13,7 @@ in
     enable = lib.mkEnableOption "Steam";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (pkgs.stdenv.isLinux && cfg.enable) {
     users.users.steamcmd = {
       isSystemUser = true;
       group = config.users.groups.steamcmd.name;

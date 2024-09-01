@@ -1,6 +1,6 @@
 _: {
   # Add extended options to linux builders
-  imports = [ ../../options/linux-builder ];
+  imports = [ ../../options/modules/linux-builder ];
 
   nix.linux-builder = {
     enable = true;

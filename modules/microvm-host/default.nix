@@ -77,7 +77,7 @@ in
   imports = [
     self.inputs.microvm.nixosModules.host
     ../systemd-networkd
-    ../../options/microvm-host
+    ../../options/modules/microvm-host
   ];
 
   nix.settings = {

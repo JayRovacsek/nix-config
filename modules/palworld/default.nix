@@ -1,7 +1,7 @@
 _: {
   imports = [
-    ../../options/palworld
-    ../../options/steam
+    ../../options/modules/palworld
+    ../../options/modules/steam
   ];
 
   services.palworld.enable = true;

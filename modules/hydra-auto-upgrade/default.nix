@@ -1,5 +1,5 @@
 _: {
-  imports = [ ../../options/hydra-auto-upgrade ];
+  imports = [ ../../options/modules/hydra-auto-upgrade ];
 
   system.hydraAutoUpgrade = {
     enable = true;

@@ -1,6 +1,6 @@
 _: {
   # Extended options for jellyfin
-  imports = [ ../../options/jellyfin ];
+  imports = [ ../../options/modules/jellyfin ];
 
   # TODO: add logic to ensure the unit loads _after_ zfs
   # mounts if they exist as they may be utilised.

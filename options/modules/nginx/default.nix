@@ -94,7 +94,7 @@ with lib;
 
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
     services.nginx = {
       test = mkIf cfg.test.enable {
         domains = builtins.map (x: "test.${x}") cfg.domains;

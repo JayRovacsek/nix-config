@@ -15,7 +15,7 @@ builtins.mapAttrs (
 
   in
   {
-    imports = [ ../options/nix ];
+    imports = [ ../options/modules/nix ];
 
     # The below options should be suitable mappings of input 
     # nixpkgs versions. In my case I utilise stable, unstable and 

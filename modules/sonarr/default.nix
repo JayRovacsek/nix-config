@@ -9,7 +9,7 @@ let
 in
 {
   # Extended options for sonarr
-  imports = [ ../../options/sonarr ];
+  imports = [ ../../options/modules/sonarr ];
 
   age = {
     identityPaths = [ "/agenix/id-ed25519-sonarr-primary" ];

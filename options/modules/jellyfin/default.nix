@@ -94,7 +94,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://jellyfin.org/docs/general/networking/#port-bindings

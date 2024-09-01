@@ -8,7 +8,7 @@
 
 with lib;
 let
-  inherit (pkgs) system;
+  inherit (pkgs) stdenv system;
   inherit (self.packages.${system}) aerospace;
 
   cfg = config.programs.aerospace;
@@ -57,7 +57,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && stdenv.isDarwin) {
     home.packages = [
       cfg.package
     ] ++ lib.optional cfg.enableJankyBorders cfg.jankybordersPackage;

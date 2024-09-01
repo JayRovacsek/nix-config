@@ -13,7 +13,7 @@ let
 in
 with lib;
 {
-  config = mkIf cfg.enable {
+  config = mkIf (stdenv.isDarwin && cfg.enable) {
     nix.buildMachines = [
       {
         hostName = "linux-builder";

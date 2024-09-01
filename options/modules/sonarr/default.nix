@@ -103,7 +103,7 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
 
     environment.etc."sonarr/config.xml" = mkIf (cfg.config-settings != null) {
       inherit (cfg) user group;

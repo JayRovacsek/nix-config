@@ -16,17 +16,9 @@ let
       inherit system;
       pkgs = import nixpkgs { inherit system; };
       modules = [
+        self.common.options.x86_64-linux-unstable.minimal
         {
           system.stateVersion = "24.05";
-
-          imports = [
-            ../options/flake
-            ../options/hardware
-            ../options/headscale
-            ../options/networking
-            ../options/nix
-            ../options/systemd
-          ];
         }
       ];
     };
@@ -39,29 +31,43 @@ let
       inherit system;
       pkgs = import nixpkgs { inherit system; };
       modules = [
+        self.common.options.x86_64-darwin-unstable.minimal
         {
           system.stateVersion = "24.05";
-
-          imports = [
-            ../options/blocky
-            ../options/docker
-            ../options/dockutil
-            ../options/hardware
-            ../options/networking/darwin.nix
-            ../options/nix
-            ../options/ssh
-          ];
         }
       ];
     };
 
-  home-manager-stub =
+  darwin-home-manager-stub =
+    let
+      system = "x86_64-darwin";
+    in
+    homeManagerConfiguration {
+      pkgs = import nixpkgs { inherit system; };
+      modules = [
+        self.common.options.x86_64-darwin-unstable.all-home-manager-modules
+        {
+          home = {
+            enableNixpkgsReleaseCheck = false;
+            homeDirectory = "/";
+            stateVersion = "23.11";
+            username = "stub";
+          };
+        }
+      ];
+      extraSpecialArgs = {
+        inherit self;
+      };
+    };
+
+  linux-home-manager-stub =
     let
       system = "x86_64-linux";
     in
     homeManagerConfiguration {
       pkgs = import nixpkgs { inherit system; };
       modules = [
+        self.common.options.x86_64-linux-unstable.all-home-manager-modules
         {
           home = {
             enableNixpkgsReleaseCheck = false;
@@ -79,8 +85,9 @@ let
 in
 {
   declarations = merge [
-    nix-stub.options
+    darwin-home-manager-stub.options
     darwin-stub.options
-    home-manager-stub.options
+    linux-home-manager-stub.options
+    nix-stub.options
   ];
 }

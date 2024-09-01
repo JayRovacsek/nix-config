@@ -66,7 +66,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (pkgs.stdenv.isLinux && cfg.enable) {
     services.steam.enable = true;
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
