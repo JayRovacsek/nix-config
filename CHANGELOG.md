@@ -71,6 +71,8 @@
 
 - *(modules,options)* Add hydra auto upgrade - ([2db3dd9](https://github.com/JayRovacsek/nix-config/commit/2db3dd919f380970dbb8fba18746ba5b97d35a75))
 
+- *(options,lib)* Self reference for available options - ([c33f661](https://github.com/JayRovacsek/nix-config/commit/c33f6613e5463f25383f5e6708f4fa7f17b25d29))
+
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
 - *(packages)* Package mdtable - ([c1bbf68](https://github.com/JayRovacsek/nix-config/commit/c1bbf68c2ad154b8dadf9733717a68d5057be7a6))

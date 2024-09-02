@@ -141,12 +141,5 @@ in
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/907b7556-218a-4516-ae2b-0b310d6b0b19";
-      priority = 1;
-    }
-  ];
-
   system.stateVersion = "22.11";
 }
