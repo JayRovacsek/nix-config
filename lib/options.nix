@@ -8,7 +8,7 @@ let
 
   # System differences (options) between arch shouldn't exist, but
   # that's going to remain an assumption for now
-  nix-stub =
+  linux =
     let
       system = "x86_64-linux";
     in
@@ -17,13 +17,11 @@ let
       pkgs = import nixpkgs { inherit system; };
       modules = [
         self.common.options.x86_64-linux-unstable.minimal
-        {
-          system.stateVersion = "24.05";
-        }
+        { system.stateVersion = "24.05"; }
       ];
     };
 
-  darwin-stub =
+  darwin =
     let
       system = "x86_64-darwin";
     in
@@ -32,13 +30,11 @@ let
       pkgs = import nixpkgs { inherit system; };
       modules = [
         self.common.options.x86_64-darwin-unstable.minimal
-        {
-          system.stateVersion = "24.05";
-        }
+        { system.stateVersion = 4; }
       ];
     };
 
-  darwin-home-manager-stub =
+  darwin-home-manager =
     let
       system = "x86_64-darwin";
     in
@@ -60,7 +56,7 @@ let
       };
     };
 
-  linux-home-manager-stub =
+  linux-home-manager =
     let
       system = "x86_64-linux";
     in
@@ -82,12 +78,19 @@ let
       };
     };
 
+  home-manager-options = merge [
+    darwin-home-manager
+    linux-home-manager
+  ];
+
 in
 {
+  inherit darwin linux;
+  home-manager = home-manager-options;
+
   declarations = merge [
-    darwin-home-manager-stub.options
-    darwin-stub.options
-    linux-home-manager-stub.options
-    nix-stub.options
+    darwin.options
+    home-manager-options.options
+    linux.options
   ];
 }

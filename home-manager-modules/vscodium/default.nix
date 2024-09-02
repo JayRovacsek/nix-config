@@ -1,19 +1,4 @@
-{ pkgs, ... }:
-let
-  # This is done to avoid circular dependencies within the flake lockfile.
-  # There is very little point downloading two copies of all inputs of this 
-  # flake. As you cannot supply the flake itself as a followable input
-  # to other inputs.
-  # In reality, the source likely will match if you ensure update cycles,
-  # however this is kinda gross still as the lockfile is littered with
-  # references to X_2 for all inputs.
-  nix-options = pkgs.fetchFromGitHub {
-    owner = "JayRovacsek";
-    repo = "nix-options";
-    rev = "main";
-    hash = "sha256-Wwj7J4fvsSiDzfQ5vg0oLVgDbZ2IkxSZtM9Swm0oGgU=";
-  };
-in
+{ pkgs, self, ... }:
 {
   programs.vscode = {
     enable = true;
@@ -102,9 +87,9 @@ in
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
-            hm.expr = ''(builtins.getFlake "${nix-options}").options.hm'';
-            nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
+            darwin.expr = ''(builtins.getFlake "${self}").lib.options.options.darwin'';
+            home-manager.expr = ''(builtins.getFlake "${self}").lib.options.options.home-manager'';
+            linux.expr = ''(builtins.getFlake "${self}").lib.options.options.linux'';
           };
         };
       };
