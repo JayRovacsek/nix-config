@@ -101,7 +101,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.0";
+      url = "git+https://git.lix.systems/lix-project/lix";
     };
 
     lix-module = {

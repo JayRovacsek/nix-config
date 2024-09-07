@@ -15,6 +15,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(iac)* Archive nix-options - ([ebd54e6](https://github.com/JayRovacsek/nix-config/commit/ebd54e6caf5a283a01e5652e68324b06c9b45ec8))
+
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
 
 - *(linux)* Remove swap device from gastly - ([3c8fb5f](https://github.com/JayRovacsek/nix-config/commit/3c8fb5fd43be24e0a9db585f8bc455bd9d886b79))
