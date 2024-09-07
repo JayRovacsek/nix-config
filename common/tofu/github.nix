@@ -463,6 +463,7 @@ in
     }
     { name = "nix-lib-html-reference"; }
     {
+      archived = true;
       description = "A simple reference to option attributes available to common nixos modules for both Linux and Darwin ";
       name = "nix-options";
     }
