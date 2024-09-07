@@ -8,7 +8,7 @@ No requirements.
 
 | Name                                                      | Version |
 | --------------------------------------------------------- | ------- |
-| <a name="provider_linode"></a> [linode](#provider_linode) | 2.25.0  |
+| <a name="provider_linode"></a> [linode](#provider_linode) | 2.27.0  |
 
 ## Modules
 
@@ -35,3 +35,18 @@ No modules.
 No outputs.
 
 <!-- END_TF_DOCS -->
+
+## Deployed Resources
+
+| resource             | image                                              | label | linode_id                     | size  |
+| -------------------- | -------------------------------------------------- | ----- | ----------------------------- | ----- |
+| linode_instance_disk | ${data.linode_images.nixos-base-image.images.0.id} | boot  | ${linode_instance.diglett.id} | 15000 |
+| linode_instance_disk | undefined                                          | swap  | ${linode_instance.diglett.id} | 512   |
+
+| resource               | booted | devices | helpers | interface | kernel       | label       | linode_id                     | root_device |
+| ---------------------- | ------ | ------- | ------- | --------- | ------------ | ----------- | ----------------------------- | ----------- |
+| linode_instance_config | true   | ...     | ...     | ...       | linode/grub2 | boot_config | ${linode_instance.diglett.id} | /dev/sda    |
+
+| resource        | group | label   | region       | tags | type        |
+| --------------- | ----- | ------- | ------------ | ---- | ----------- |
+| linode_instance | nixos | diglett | ap-southeast | ...  | g6-nanode-1 |

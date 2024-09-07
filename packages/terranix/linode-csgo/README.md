@@ -42,3 +42,26 @@ No modules.
 No outputs.
 
 <!-- END_TF_DOCS -->
+
+## Deployed Resources
+
+| resource           | name                | provider | records | ttl | type | zone_id               |
+| ------------------ | ------------------- | -------- | ------- | --- | ---- | --------------------- |
+| aws_route53_record | noobhealthyfuns.com | aws      | ...     | 300 | A    | Z07293822L0ODVN4UL1I4 |
+
+## records
+
+|${resource.linode_instance.linode-csgo.ip_address}|
+|resource       |group      |image                                          |label      |provider|region      |root_pass           |stackscript_data|stackscript_id|tags|type         |
+|---------------|-----------|-----------------------------------------------|-----------|--------|------------|--------------------|----------------|--------------|----|-------------|
+|linode_instance|linode-csgo|${data.linode_stackscript.linode-csgo.images.0}|linode-csgo|linode |ap-southeast|${var.ROOT_PASSWORD}|... |401700 |... |g6-standard-2|
+
+## stackscript_data
+
+| autoteambalance | buyanywhere | friendlyfire | gslt                     | maxrounds | motd               | rconpassword             | roundtime | servername         | svpassword |
+| --------------- | ----------- | ------------ | ------------------------ | --------- | ------------------ | ------------------------ | --------- | ------------------ | ---------- |
+| Disabled        | Disabled    | Enabled      | ${var.GAME_SERVER_TOKEN} | 15        | Noob Healthy Funs! | ${var.GAME_SERVER_TOKEN} | 5         | Noob Healthy Funs! |            |
+
+## tags
+
+|linode-csgo|

@@ -2,11 +2,17 @@
 let
   inherit (pkgs)
     coreutils
+    findutils
+    gnused
+    jq
     lib
     opentofu
+    nodePackages
     system
     terraform-docs
     tfsec
+    toybox
+    tv
     ;
   inherit (lib) concatMapAttrs;
   inherit (self.common) tofu-stacks;
@@ -76,8 +82,33 @@ let
   updateVars = stack: update stack vars;
   updateReadme = stack: update stack readme;
 
-  run-tfdoc = ''
+  generate-documentation = stack: cfg: ''
+    # Add tfdoc outputs
     ${terraform-docs}/bin/terraform-docs markdown table --output-file stack-readme.md --output-mode inject .
+
+    # Push a newline after tfdoc generated content & heading
+    echo >> stack-readme.md
+    echo "## Deployed Resources" >> stack-readme.md
+
+    # For each resource of the stack generate a json file, injecting the type per entry
+    ${jq}/bin/jq '.resource | to_entries | map(.key) | .[]' ${cfg} \
+    | ${findutils}/bin/xargs -I {} sh -c 'jq --arg type "{}" ".resource.{} \
+    | to_entries | map(.value | {resource: \$type} + .)" ${cfg} > ./packages/terranix/${stack}/{}.json'
+
+    # Use the generated json files to propulate tables describing the deployed
+    # resources
+    ${findutils}/bin/find ./packages/terranix/${stack} -type f -name "*.json" \
+    | ${toybox}/bin/rev | ${coreutils}/bin/cut -d '/' -f 1 | rev | ${gnused}/bin/sed 's/.json//g' \
+    | ${findutils}/bin/xargs -I {} sh -c 'echo >> stack-readme.md && ${tv}/bin/tv --style markdown \
+    ./packages/terranix/${stack}/{}.json >> stack-readme.md'
+
+    ${findutils}/bin/find ./packages/terranix/${stack} -type f -name "*.json" -exec rm {} \;
+
+    # Make headers consistent with tfdoc
+    ${gnused}/bin/sed -i 's/^# /## /' stack-readme.md
+
+    # Lint the file
+    ${nodePackages.prettier}/bin/prettier -w stack-readme.md
   '';
 
   tfsec-ignored-checks = [
@@ -132,7 +163,7 @@ let
 
         ${run-tfsec}
 
-        ${run-tfdoc}
+        ${generate-documentation stack cfg}
 
         ${runTerraformCommand command}
 

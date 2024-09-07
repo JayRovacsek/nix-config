@@ -35,3 +35,13 @@ No modules.
 No outputs.
 
 <!-- END_TF_DOCS -->
+
+## Deployed Resources
+
+| resource       | description                                  | name              | policy                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| -------------- | -------------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| aws_iam_policy | A policy to enable state reading and writing | tf-state-modifier | {"Statement":[{"Action":["dynamodb:DescribeTable","dynamodb:GetItem","dynamodb:PutItem","dynamodb:DeleteItem"],"Effect":"Allow","Resource":"arn:aws:dynamodb:ap-southeast-2:372627124797:table/terraform-state"},{"Action":["s3:ListBucket"],"Effect":"Allow","Resource":"arn:aws:s3:::676728e1b95-terraform"},{"Action":["s3:GetObject","s3:PutObject","s3:DeleteObject"],"Effect":"Allow","Resource":"arn:aws:s3:::676728e1b95-terraform/terraform/state/\*"}],"Version":"2012-10-17"} |
+
+| resource     | name     | path     |
+| ------------ | -------- | -------- |
+| aws_iam_user | deployer | /system/ |
