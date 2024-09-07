@@ -88,6 +88,8 @@
 - *(packages)* Implement aerospace package - ([9f53268](https://github.com/JayRovacsek/nix-config/commit/9f5326827c0c07e36b3d15c3c1cff4cd98cf089a))
 
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
+
+- *(tooling,iac)* Augment existing documentation step for tofu stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
 - Implement aerospace options and home manager module - ([56481dc](https://github.com/JayRovacsek/nix-config/commit/56481dcec78125be5c6c34b99729b66026546477))
 
 
@@ -192,6 +194,8 @@
 
 
 ### 📚 Documentation
+
+- *(iac)* Regenerate documentation for existing stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
 
 - *(packages)* Add updated github tfdoc content - ([ece132c](https://github.com/JayRovacsek/nix-config/commit/ece132c1e29217b66bf308414c362674f6161d72))
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21

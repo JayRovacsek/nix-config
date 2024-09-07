@@ -8,7 +8,7 @@ in
 
   terraform = {
     required_providers = {
-      aws = {
+      oci = {
         source = "oracle/oci";
         version = "6.6.0";
       };
