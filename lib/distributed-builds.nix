@@ -37,36 +37,21 @@ let
   generate-base-config =
     hostname: parent-set:
     let
-      system = parent-set.${hostname}.config;
-      emulated-systems = lib.optionals (builtins.hasAttr "boot" system) system.boot.binfmt.emulatedSystems;
+      inherit (parent-set.${hostname}) config;
+      profile = hardware-profile config;
+      inherit (config.nixpkgs) system;
     in
     {
-      systems = [ system.nixpkgs.system ] ++ emulated-systems;
-      maxJobs = (hardware-profile system).cores;
-      sshUser = "builder";
-
-      # WARNING: pretty big assumption that localDomain exists on the target system plus
-      # assumption we are using "local" as local domain identifier.
-      # This is only temporary until we get into tailscale as the transport mechanism here
-      hostName = "${system.networking.hostName}.${
-        if builtins.hasAttr "localDomain" system.networking then
-          system.networking.localDomain
-        else
-          "local"
+      hostName = "${config.networking.hostName}.${
+        config.networking.localDomain or "local"
       }";
-      # If we don't have the system-features attribute, we know
-      supportedFeatures =
-        if builtins.hasAttr "system-features" system.nix.settings then
-          system.nix.settings.system-features
-        else
-          [ ];
-      # This is gross as it runs the code twice rather than once.
-      # TODO: figure how to make it a single pass
-      speedFactor =
-        let
-          inherit (hardware-profile system) cores speed;
-        in
-        builtins.mul cores speed;
+      maxJobs = profile.cores;
+      publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+      speedFactor = builtins.mul profile.cores profile.speed;
+      sshUser = "builder";
+      supportedFeatures = config.nix.settings.system-features or [ ];
+      inherit system;
+      systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
     };
 
   generate-system-ssh-extra-config =

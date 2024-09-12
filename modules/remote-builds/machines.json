@@ -1,0 +1,28 @@
+[
+  {
+    "hostName": "alakazam.local",
+    "mandatoryFeatures": [],
+    "maxJobs": 8,
+    "protocol": "ssh",
+    "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFkcjVkaW9UeTNtTUs3VGpydUxid2tnMENLYWJ3TTVXT2VyckdJNC9MM1cgcm9vdEBhbGFrYXphbQo=%",
+    "speedFactor": 16,
+    "sshKey": "/run/agenix/builder-id-ed25519",
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "system": "x86_64-linux",
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+  },
+  {
+    "hostName": "dragonite.local",
+    "mandatoryFeatures": [],
+    "maxJobs": 24,
+    "protocol": "ssh",
+    "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK%",
+    "speedFactor": 96,
+    "sshKey": "/run/agenix/builder-id-ed25519",
+    "sshUser": "builder",
+    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
+    "system": "x86_64-linux",
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+  }
+]

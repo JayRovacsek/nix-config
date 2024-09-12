@@ -28,7 +28,7 @@ in
         owner = "j.rovacsek";
       in
       {
-        "git-signing-key" = {
+        git-signing-key = {
           inherit owner;
           file = ../../secrets/ssh/git-signing-key.age;
           path = "/Users/${owner}/.ssh/git-signing-key";
@@ -40,24 +40,24 @@ in
           path = "/Users/${owner}/.ssh/git-signing-key.pub";
         };
 
-        "j.rovacsek-id-ed25519-sk-type-a-1" = {
+        type-a-1 = {
           inherit owner;
-          file = ../../secrets/ssh/jay-id-ed25519-sk-type-a-1.age;
+          file = ../../secrets/ssh/type-a-1.age;
         };
 
-        "j.rovacsek-id-ed25519-sk-type-a-2" = {
+        type-a-2 = {
           inherit owner;
-          file = ../../secrets/ssh/jay-id-ed25519-sk-type-a-2.age;
+          file = ../../secrets/ssh/type-a-2.age;
         };
 
-        "j.rovacsek-id-ed25519-sk-type-c-1" = {
+        type-c-1 = {
           inherit owner;
-          file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-1.age;
+          file = ../../secrets/ssh/type-c-1.age;
         };
 
-        "j.rovacsek-id-ed25519-sk-type-c-2" = {
+        type-c-2 = {
           inherit owner;
-          file = ../../secrets/ssh/jay-id-ed25519-sk-type-c-2.age;
+          file = ../../secrets/ssh/type-c-2.age;
         };
       };
   };

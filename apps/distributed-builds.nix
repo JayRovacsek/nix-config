@@ -7,9 +7,9 @@ let
 
   program = builtins.toString (
     pkgs.writers.writeBash "copy-configs" ''
-      ${coreutils}/bin/mkdir -p ./static/
-      ${coreutils}/bin/cp ${configs} ./static/build-machines.json
-      ${git}/bin/git add ./static/build-machines.json
+      ${coreutils}/bin/mkdir -p ./modules/remote-builds/
+      ${coreutils}/bin/cp ${configs} ./modules/remote-builds/build-machines.json
+      ${git}/bin/git add ./modules/remote-builds/build-machines.json
     ''
   );
 

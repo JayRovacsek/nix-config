@@ -113,6 +113,8 @@
 
 - *(hydra)* Resolve inclusion of broken config - ([3431e9c](https://github.com/JayRovacsek/nix-config/commit/3431e9ce335feb8c7fc1c72edd1d24b8eb99d92f))
 
+- *(iac)* Correct provider name in oracle tofu stack - ([b2ba376](https://github.com/JayRovacsek/nix-config/commit/b2ba376cc3b3c54c90138a92f307f21c5ec428d0))
+
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
 - *(linux)* Resolve tailscale module issues - ([655a96a](https://github.com/JayRovacsek/nix-config/commit/655a96aca945874ff1588820486af27734912236))

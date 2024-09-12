@@ -31,4 +31,6 @@
   hyprland-games-desktop =
     self.common.home-manager-module-sets.hyprland-desktop
     ++ self.common.home-manager-module-sets.games;
+
+  ssh = [ self.homeManagerModules.ssh ];
 }

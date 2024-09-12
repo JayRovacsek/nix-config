@@ -206,6 +206,8 @@ in
 
   powerManagement.enable = false;
 
+  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK%";
+
   systemd = {
     network.networks."20-wireless".enable = false;
     services = {

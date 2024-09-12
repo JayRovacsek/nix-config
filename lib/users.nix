@@ -3,7 +3,6 @@ let
   generate-config =
     {
       self,
-      config,
       pkgs,
       user-settings,
       modules,
@@ -23,40 +22,14 @@ let
     with builtins;
     let
       inherit (pkgs) lib stdenv;
-      inherit (stdenv) isLinux isDarwin;
+      inherit (stdenv) isDarwin;
       inherit (user-settings) name;
       inherit (lib) recursiveUpdate;
-      inherit (lib.strings) hasInfix;
       inherit (lib.attrsets) filterAttrs;
-      inherit (self.inputs) home-manager;
       inherit (self.common) user-attr-names;
-      inherit (self.lib.ssh) generate-ssh-config;
 
       # Also described below, making the recursive update easier to follow
       flippedRecursiveUpdate = x: y: recursiveUpdate y x;
-
-      home = if isLinux then "/home/${name}" else "/Users/${name}";
-
-      # For the configuration we're applying to; check if agenix is present
-      # if it is we filter the associated secrets for that of our username-id-ed25519
-      # and if present assume these are our authorised keys to be applied in identity files
-      sshKeys =
-        if (hasAttr "age" config && hasAttr "secrets" config.age) then
-          (filter (x: hasInfix "${name}-id-ed25519" x.name) (
-            attrValues config.age.secrets
-          ))
-        else
-          [ ];
-
-      # Create a string that represents the ssh keys we identified as loaded into agenix above
-      # to be utilised per known host in our configuration
-      identity-files =
-        if (length sshKeys != 0) then
-          concatStringsSep "\n  " (map (x: "IdentityFile ${x.path}") sshKeys)
-        else
-          "";
-
-      extraHostConfigs = generate-ssh-config name identity-files;
 
       # This will pin nixpkgs in a user context to whatever
       # the system nixpkgs version is - assuming it is set to
@@ -69,16 +42,6 @@ let
         # stateVersion = "22.11";
 
         sessionVariables.NIX_PATH = "nixpkgs=${builtins.toString pkgs.path}";
-
-        file.".ssh/config".text = ''
-          Host github.com
-            HostName github.com
-            User git
-            AddKeysToAgent yes
-            ${if ((length sshKeys) != 0) then identity-files else ""}
-
-          ${concatStringsSep "\n\n" extraHostConfigs}
-        '';
       };
 
       stripped-user-settings = filterAttrs (

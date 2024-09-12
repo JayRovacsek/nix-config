@@ -6,11 +6,6 @@
 }:
 
 let
-  inherit (self.common.home-manager-module-sets)
-    base
-    hyprland-ironbar-desktop
-    games
-    ;
   inherit (self.lib) merge;
 
   inherit (pkgs) system;
@@ -18,12 +13,14 @@ let
 
   builder = self.common.users.builder {
     inherit config pkgs;
-    modules = base;
+    modules = self.common.home-manager-module-sets.base;
   };
 
   jay = self.common.users.jay {
     inherit config pkgs;
-    modules = hyprland-ironbar-desktop ++ games;
+    modules =
+      with self.common.home-manager-module-sets;
+      hyprland-ironbar-desktop ++ games ++ ssh;
   };
 
   user-configs = merge [
@@ -59,6 +56,8 @@ in
     nvidia
     openssh
     pipewire
+    remote-builds
+    ssh
     steam
     systemd-boot
     systemd-networkd
@@ -75,7 +74,6 @@ in
   age = {
     identityPaths = [
       "/agenix/id-ed25519-${config.networking.hostName}-primary"
-      "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-terraform-primary"
     ];
 
@@ -125,6 +123,7 @@ in
     agenix
     curl
     dig
+    r2modman
     trdsql
     wget
   ];
@@ -151,6 +150,8 @@ in
     hostId = "ef26b1be";
     hostName = "alakazam";
   };
+
+  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFkcjVkaW9UeTNtTUs3VGpydUxid2tnMENLYWJ3TTVXT2VyckdJNC9MM1cgcm9vdEBhbGFrYXphbQo=%";
 
   system.stateVersion = "22.11";
 
