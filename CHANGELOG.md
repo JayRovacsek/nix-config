@@ -137,6 +137,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Add optional agenix mount in impermanence - ([4802e9e](https://github.com/JayRovacsek/nix-config/commit/4802e9e512399ef7c8b9814f80473557110b5f97))
+
 - *(modules)* Swap use of harmonia options to resolve deprecated option - ([22bf49e](https://github.com/JayRovacsek/nix-config/commit/22bf49ed1f6efd5d2c12cb3ba010ee4f006f8432))
 
 - *(modules)* Disable nix gc on binary cache modules - ([724021f](https://github.com/JayRovacsek/nix-config/commit/724021ff80ca129fcc6eb963ab143192c67d2fd9))
