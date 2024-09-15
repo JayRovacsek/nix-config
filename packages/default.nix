@@ -108,6 +108,7 @@ let
     shell
     text
     tofu
+    { inherit (self.inputs.disko.packages.${system}) disko disko-install; }
   ];
 
 in
