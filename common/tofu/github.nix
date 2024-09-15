@@ -365,6 +365,9 @@ in
       name = "headscale";
     }
     {
+      name = "hydra-badge-api";
+    }
+    {
       archived = true;
       description = "A hobby project for learning Rust a bit better";
       name = "interrogator";
