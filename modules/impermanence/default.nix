@@ -23,9 +23,6 @@ let
   authelia-instances = lib.optionals authelia (
     builtins.attrNames config.services.authelia.instances
   );
-
-  # normal-users = lib.filterAttrs (n: v: v.isNormalUser) config.users.users;
-
 in
 {
   imports = [ self.inputs.impermanence.nixosModules.impermanence ];
@@ -40,7 +37,7 @@ in
         "mode=755"
       ];
     };
-    "/agenix".neededForBoot = true;
+    "/agenix" = lib.mkIf agenix-in-use { neededForBoot = true; };
   };
 
   boot.tmp = {
