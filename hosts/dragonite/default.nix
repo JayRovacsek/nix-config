@@ -6,17 +6,16 @@
 }:
 let
   inherit (self) common;
-  inherit (self.common.home-manager-module-sets) base cli;
   inherit (self.lib) merge;
 
   builder = common.users.builder {
     inherit config pkgs;
-    modules = base;
+    modules = self.common.home-manager-module-sets.base;
   };
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = cli;
+    modules = with self.common.home-manager-module-sets; cli ++ ssh;
   };
 
   jellyfin-user = {
@@ -90,6 +89,7 @@ in
     openssh
     openvscode-server
     smartd
+    ssh
     sudo
     systemd-networkd
     telegraf
@@ -206,7 +206,7 @@ in
 
   powerManagement.enable = false;
 
-  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK%";
+  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK";
 
   systemd = {
     network.networks."20-wireless".enable = false;
