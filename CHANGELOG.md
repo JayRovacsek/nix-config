@@ -185,6 +185,8 @@
 
 - *(modules,home-manager-modules)* Clean up hyprland env vars - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
+- *(modules,home-manager-modules,options)* Align with upstream code - ([cd249fa](https://github.com/JayRovacsek/nix-config/commit/cd249fa1272f118dc68e5cc7f46260b27b834682))
+
 - *(options)* Split options into hm & module segments - ([6c895ad](https://github.com/JayRovacsek/nix-config/commit/6c895ad8af77925d7971e7514e98f4ff5f4fe17d))
 
 - *(options)* Add minimal and all options as exposed common attributes - ([870ca29](https://github.com/JayRovacsek/nix-config/commit/870ca29c00f68e8cfa111e967135448db0426eff))
