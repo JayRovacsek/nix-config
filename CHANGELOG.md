@@ -105,6 +105,8 @@
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
+- *(home-manager-modules)* Resolve hyprland monitors issue - ([0604658](https://github.com/JayRovacsek/nix-config/commit/060465861dfcc06d8d261853baec1e946e2afa60))
+
 - *(home-manager-modules)* Resolve screen issues - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(home-manager-modules)* Resolve firefox and keepass issues - ([94aaa04](https://github.com/JayRovacsek/nix-config/commit/94aaa043ce5360ae0a7731833a2633f70e805e54))

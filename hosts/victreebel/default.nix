@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -7,13 +8,12 @@
 let
   inherit (pkgs) system;
 
-  inherit (self.common.home-manager-module-sets) darwin-desktop;
   inherit (self.lib) merge;
   inherit (self.packages.${system}) cloudquery cvemap trdsql;
 
   jay = self.common.users."j.rovacsek" {
     inherit config pkgs;
-    modules = darwin-desktop;
+    modules = with self.common.home-manager-module-sets; darwin-desktop ++ ssh;
   };
 
   user-configs = merge [ jay ];
@@ -40,22 +40,22 @@ in
           path = "/Users/${owner}/.ssh/git-signing-key.pub";
         };
 
-        type-a-1 = {
+        type-a-1 = lib.mkForce {
           inherit owner;
           file = ../../secrets/ssh/type-a-1.age;
         };
 
-        type-a-2 = {
+        type-a-2 = lib.mkForce {
           inherit owner;
           file = ../../secrets/ssh/type-a-2.age;
         };
 
-        type-c-1 = {
+        type-c-1 = lib.mkForce {
           inherit owner;
           file = ../../secrets/ssh/type-c-1.age;
         };
 
-        type-c-2 = {
+        type-c-2 = lib.mkForce {
           inherit owner;
           file = ../../secrets/ssh/type-c-2.age;
         };
@@ -83,6 +83,7 @@ in
     nix
     nix-monitored
     skhd
+    ssh
     time
     yabai
     zsh
