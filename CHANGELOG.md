@@ -101,6 +101,8 @@
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
+- *(darwin)* Add ssh module to victreebel - ([f8ea52a](https://github.com/JayRovacsek/nix-config/commit/f8ea52a9c7886edc4f2ac8b6807eadb604dcd91d))
+
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))

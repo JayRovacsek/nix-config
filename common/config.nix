@@ -1,4 +1,205 @@
 _: {
+  hosts = {
+    "alakazam" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "alakazam";
+      ips = [ "192.168.1.221" ];
+    };
+    "authelia" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "authelia";
+      ips = [ "192.168.9.2" ];
+    };
+    "car_bed" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "car_bed";
+      ips = [ "192.168.3.10" ];
+    };
+    "deluge" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "deluge";
+      ips = [ "192.168.4.130" ];
+    };
+    "dragonite" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "dragonite";
+      ips = [ "192.168.1.220" ];
+    };
+    "duplicati" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "duplicati";
+      ips = [ "192.168.1.223" ];
+    };
+    "flare-solverr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "flare-solverr";
+      ips = [ "192.168.4.138" ];
+    };
+    "home-assistant" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "home-assistant";
+      ips = [ "192.168.12.2" ];
+    };
+    "igglybuff" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "igglybuff";
+      ips = [ "192.168.6.8" ];
+    };
+    "jackett" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "jackett";
+      ips = [ "192.168.4.129" ];
+    };
+    "jellyfin" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "jellyfin";
+      ips = [ "192.168.5.4" ];
+    };
+    "jigglypuff" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "jigglypuff";
+      ips = [ "192.168.6.4" ];
+    };
+    "lidarr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "lidarr";
+      ips = [ "192.168.4.133" ];
+    };
+    "minecraft" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "minecraft";
+      ips = [ "192.168.17.5" ];
+    };
+    "nextcloud" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "nextcloud";
+      ips = [ "192.168.10.2" ];
+    };
+    "palworld.rovacsek.com" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "palworld.rovacsek.com";
+      ips = [ "192.168.17.2" ];
+    };
+    pfsense = rec {
+      domains = [
+        "local"
+        "rovacsek.com"
+      ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "pfsense";
+      ips = [
+        "192.168.1.1"
+      ];
+    };
+
+    "porygon" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "porygon";
+      ips = [ "192.168.17.2" ];
+    };
+    "prowlarr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "prowlarr";
+      ips = [ "192.168.4.137" ];
+    };
+    "radarr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "radarr";
+      ips = [ "192.168.4.132" ];
+    };
+    "sonarr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "sonarr";
+      ips = [ "192.168.4.131" ];
+    };
+    "speedtest" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "speedtest";
+      ips = [ "192.168.1.222" ];
+    };
+    "stubby" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "stubby";
+      ips = [ "192.168.6.3" ];
+    };
+    "swag" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "swag";
+      ips = [ "192.168.5.3" ];
+    };
+    "tdarr-node-01" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "tdarr-node-01";
+      ips = [ "192.168.4.136" ];
+    };
+    "tdarr" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "tdarr";
+      ips = [ "192.168.4.135" ];
+    };
+    "terraria" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "terraria";
+      ips = [ "192.168.17.4" ];
+    };
+    "tv" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "tv";
+      ips = [ "192.168.3.2" ];
+    };
+    "ubiquiti_ap" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "ubiquiti_ap";
+      ips = [ "192.168.1.3" ];
+    };
+    "valheim" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "valheim";
+      ips = [ "192.168.17.3" ];
+    };
+    "victreebel" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "victreebel";
+      ips = [ "192.168.7.12" ];
+    };
+    "wigglytuff" = rec {
+      domains = [ "local" ];
+      fqdns = builtins.map (d: "${hostname}.${d}") domains;
+      hostname = "wigglytuff";
+      ips = [ "192.168.3.4" ];
+    };
+  };
+
   networks = [
     {
       name = "iot";
@@ -151,6 +352,19 @@ _: {
       subdomain = "jellyfin";
 
       https-port = 8920;
+
+      groups.jellyfin = {
+        gid = 10001;
+        members = [ "jellyfin" ];
+      };
+
+      users.jellyfin = {
+        createHome = false;
+        description = "User account generated for running a specific service";
+        group = "jellyfin";
+        isSystemUser = true;
+        uid = 998;
+      };
     };
 
     jellyseerr = {
@@ -182,9 +396,18 @@ _: {
       };
     };
 
-    media.user = {
-      gid = 400;
-      uid = 400;
+    media = {
+      groups.media = {
+        gid = 400;
+        members = [
+          "jellyfin"
+        ];
+      };
+      users.media = {
+        group = "media";
+        isSystemUser = true;
+        uid = 400;
+      };
     };
 
     nextcloud = {
