@@ -173,6 +173,8 @@
 
 - *(common,lib)* Remove or standardise some more code - ([76761f5](https://github.com/JayRovacsek/nix-config/commit/76761f5fa162afb7e7dcae33ab37c9aa1424d794))
 
+- *(flake)* Start moving common network to common - ([b274931](https://github.com/JayRovacsek/nix-config/commit/b274931d05e0cfa1d05e62dfcd6ff4593f135927))
+
 - *(flake)* Reorder input attributes - ([891d549](https://github.com/JayRovacsek/nix-config/commit/891d549387fecf8b4e4d8fef5433f82afbab9e17))
 
 - *(flake)* Remove dead config files - ([6392de3](https://github.com/JayRovacsek/nix-config/commit/6392de32ed3764010579c58bda08d0befaaf23b3))

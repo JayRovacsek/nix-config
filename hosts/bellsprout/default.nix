@@ -58,13 +58,6 @@
   system.stateVersion = "24.05";
 
   users = {
-    groups.media = {
-      inherit (self.common.config.services.media.user) gid;
-    };
-    users.media = {
-      group = "media";
-      inherit (self.common.config.services.media.user) uid;
-      isSystemUser = true;
-    };
+    inherit (self.common.config.services.media) groups users;
   };
 }

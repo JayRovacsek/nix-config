@@ -28,7 +28,7 @@ let
         uid = 998;
       };
 
-      groups = {
+      groups = self.common.config.services.media.groups // {
         users.gid = 100;
 
         jellyfin = {
@@ -36,20 +36,14 @@ let
           members = [ "jellyfin" ];
         };
 
-        media = {
-          inherit (self.common.config.services.media.user) gid;
-          members = [
-            "jay"
-            "jellyfin"
-          ];
-        };
+        media.members = [
+          "jay"
+          "jellyfin"
+          "media"
+        ];
       };
 
-      users.media = {
-        group = "media";
-        isSystemUser = true;
-        inherit (self.common.config.services.media.user) uid;
-      };
+      inherit (self.common.config.services.media) users;
     };
   };
 

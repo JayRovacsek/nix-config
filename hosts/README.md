@@ -24,12 +24,6 @@ Work in progress declarative AWS AMI instance - could be beautiful if I could gi
 
 ![Butterfree](https://archives.bulbagarden.net/media/upload/c/c4/Spr_2c_012.png?raw=true)
 
-## Cloyster
-
-x86 Macbook
-
-![Cloyster](https://archives.bulbagarden.net/media/upload/c/c0/Spr_2c_091.png?raw=true)
-
 ## Diglett
 
 Small Linode instance for running openvpn to provide a tunnel upstream for networks
@@ -113,9 +107,15 @@ Microvm running radarr
 
 ## Porygon
 
-Microvm running Palworld dedicated server
+Microvm running various game servers
 
 ![Porygon](https://archives.bulbagarden.net/media/upload/5/57/Spr_2c_137.png?raw=true)
+
+## Slowpoke
+
+Microvm running flare-solverrr
+
+![Slowpoke](https://archives.bulbagarden.net/media/upload/9/92/Spr_2c_079.png?raw=true)
 
 ## Victreebel
 
