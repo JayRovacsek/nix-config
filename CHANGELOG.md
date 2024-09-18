@@ -127,6 +127,8 @@
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
+- *(linux)* Remove agenix from jigglypuff - ([792dcaf](https://github.com/JayRovacsek/nix-config/commit/792dcaf177edaad76da69f297580a9f493e9edd5))
+
 - *(linux)* Resolve changed media definition - ([1bc7e03](https://github.com/JayRovacsek/nix-config/commit/1bc7e039b0ac5b99f0bb23e475920c929fc183fd))
 
 - *(linux)* Resolve tailscale module issues - ([655a96a](https://github.com/JayRovacsek/nix-config/commit/655a96aca945874ff1588820486af27734912236))
