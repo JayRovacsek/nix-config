@@ -13,30 +13,13 @@ let
 
   jay = common.users.jay {
     inherit config pkgs;
-    modules = cli ++ self.common.home-manager-module-sets.impermanence;
+    modules = cli;
   };
 
   user-configs = merge [ jay ];
 in
 {
   inherit (user-configs) users home-manager;
-
-  age = {
-    secrets = {
-      "git-signing-key" = rec {
-        file = ../../secrets/ssh/git-signing-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key";
-      };
-
-      "git-signing-key.pub" = rec {
-        file = ../../secrets/ssh/git-signing-key.pub.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key.pub";
-      };
-    };
-    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
-  };
 
   boot = {
     kernelParams = [ "cma=128M" ];
@@ -54,13 +37,17 @@ in
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
     };
+
+    supportedFilesystems = {
+      btrfs = lib.mkForce false;
+      zfs = lib.mkForce false;
+    };
   };
 
   hardware.enableRedistributableFirmware = true;
 
   imports = with self.nixosModules; [
     ./disk-config.nix
-    agenix
     blocky
     fonts
     generations
@@ -76,6 +63,7 @@ in
     systemd-networkd
     time
     timesyncd
+    zramSwap
     zsh
   ];
 
