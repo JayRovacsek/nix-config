@@ -71,6 +71,8 @@
 
 - *(modules,flake)* Re-introduce lix with nix-store regression sorted - ([c904d7c](https://github.com/JayRovacsek/nix-config/commit/c904d7c19e9e96b26b208a9f0d763490d1342de9))
 
+- *(modules,hydra)* Introduce hydra badge api into config - ([c615eb9](https://github.com/JayRovacsek/nix-config/commit/c615eb9a97d7aec6a34b9fafac5838a8ca93eeff))
+
 - *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
 
 - *(modules,linux)* Implement zramSwap module - ([a6c4098](https://github.com/JayRovacsek/nix-config/commit/a6c409881250bb24de8ef56ab75d8c62cb20a3c7))

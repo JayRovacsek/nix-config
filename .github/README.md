@@ -1,5 +1,11 @@
 # nix-config
 
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fhydra.rovacsek.com%2Fbadge%2Fnix-config%2Fmain&style=for-the-badge&cacheSeconds=60&link=https%3A%2F%2Fhydra.rovacsek.com%2Fjobset%2Fnix-config%2Fmain%2Flatest-eval)
+
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fhydra.rovacsek.com%2Fbadge%2Fnix-config%2Fstaging&style=for-the-badge&cacheSeconds=60&link=https%3A%2F%2Fhydra.rovacsek.com%2Fjobset%2Fnix-config%2Fstaging%2Flatest-eval)
+
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fhydra.rovacsek.com%2Fbadge%2Fnix-config%2Ftesting&style=for-the-badge&cacheSeconds=60&link=https%3A%2F%2Fhydra.rovacsek.com%2Fjobset%2Fnix-config%2Ftesting%2Flatest-eval)
+
 ![What in tarnation](https://github.com/JayRovacsek/ncsg-presentation-feb-2022/blob/main/resources/what-in.jpg?raw=true)
 
 This repo contains my flake'd nix configs
@@ -15,7 +21,7 @@ In terms of deployed resources; [nix-topology](https://github.com/oddlama/nix-to
 Notes about deployment diagram:
 
 - nix-topology does not currently render all services in use, but does do a great job in presenting the more common services thus far & is awesome in engaging proposed changes that would benefit the community
-- the diagram is centered around my home-lab only. Configurations that deploy to AWS, Linode and more exist but are excluded from the diagram for now
+- the diagram is centred around my home-lab only. Configurations that deploy to AWS, Linode and more exist but are excluded from the diagram for now
 
 ![Topology of Deployment](../resources/deployment.svg)
 
