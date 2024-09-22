@@ -373,6 +373,7 @@ _: {
       authelia = false;
       ipv4 = "192.168.1.220";
       port = 3000;
+      badge-port = 8081;
       protocol = "http";
       subdomain = "hydra";
     };

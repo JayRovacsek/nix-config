@@ -457,6 +457,28 @@
         "type": "github"
       }
     },
+    "hydra-badge-api": {
+      "inputs": {
+        "devshell": ["devshell"],
+        "flake-utils": ["flake-utils"],
+        "git-hooks": ["git-hooks"],
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1726966064,
+        "narHash": "sha256-6ngsEjQzss7DLjOSTFqFCBkzocnpICSB0akfREzHCS0=",
+        "owner": "JayRovacsek",
+        "repo": "hydra-badge-api",
+        "rev": "0e7f170025ed3739e7d0809598f21dfd6976f3b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JayRovacsek",
+        "ref": "poc",
+        "repo": "hydra-badge-api",
+        "type": "github"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1725690722,
@@ -919,6 +941,7 @@
         "git-hooks": "git-hooks",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
+        "hydra-badge-api": "hydra-badge-api",
         "impermanence": "impermanence",
         "ironbar": "ironbar",
         "lib-aggregate": "lib-aggregate",

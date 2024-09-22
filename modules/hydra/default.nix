@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (self.common.config.services.hydra) port;
+  inherit (self.common.config.services.hydra) badge-port port;
 
   /*
     *
@@ -62,6 +62,8 @@ let
   ];
 in
 {
+  imports = [ self.inputs.hydra-badge-api.nixosModules.default ];
+
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key
   # to hydra so that it may evaluate remote builds correctly also otherwise
@@ -96,6 +98,11 @@ in
 
   services.hydra = {
     enable = true;
+    badgeApi = {
+      enable = true;
+      instance = config.services.hydra.hydraURL;
+      port = badge-port;
+    };
     # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
     extraConfig = ''
       compress_build_logs = 1

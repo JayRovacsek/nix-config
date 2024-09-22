@@ -124,14 +124,25 @@ let
     inherit (hydra) subdomain;
     overrides = {
       enableAuthelia = false;
-      locations."/" = {
-        proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          add_header Front-End-Https on;
-        '';
+      locations = {
+        "/" = {
+          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            add_header Front-End-Https on;
+          '';
+        };
+        "^~ ^/badge/(.+?)/(.+?)$" = {
+          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.badge-port}$request_uri";
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+          '';
+        };
       };
     };
   };
