@@ -1,13 +1,16 @@
 { self }:
 let
-  region = "ap-southeast-2";
   account-id = 372627124797;
+  region = "ap-southeast-2";
 
-  state-bucket = "676728e1b95-terraform";
-  ami-bucket = "676728e1b96-terraform";
-  state-path = "terraform/state";
+  ami-bucket = "amis-${builtins.toString account-id}";
   ami-path = "ami";
+  log-bucket = "logs-${builtins.toString account-id}";
+  log-path = "terraform/logs";
+  state-bucket = "terraform-state-${builtins.toString account-id}";
+  state-path = "terraform/state";
   state-table = "terraform-state";
+
   ddb = [
     {
       Effect = "Allow";
@@ -49,6 +52,10 @@ in
     ami = {
       name = ami-bucket;
       path = ami-path;
+    };
+    log = {
+      name = log-bucket;
+      path = log-path;
     };
   };
   dynamo = {

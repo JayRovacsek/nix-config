@@ -14,15 +14,17 @@ let
   linode-cfg = import ./linode.nix { inherit self; };
   oracle-cfg = import ./oracle.nix { inherit self; };
 
-  amazon =
-    let
-      inherit (amazon-cfg._module.args) modules;
-    in
-    nixos-generators.nixosGenerate {
-      system = "x86_64-linux";
-      modules = modules ++ [ { amazonImage.sizeMB = 16 * 1024; } ];
-      format = "amazon";
+  amazon = nixos-generators.nixosGenerate {
+    system = "x86_64-linux";
+    modules = with self.nixosModules; [
+      ../../hosts/ditto
+      amazon-image
+    ];
+    specialArgs = {
+      inherit self;
     };
+    format = "amazon";
+  };
 
   linode = nixos-generators.nixosGenerate {
     system = "x86_64-linux";

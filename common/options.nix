@@ -58,11 +58,18 @@ builtins.mapAttrs (
       );
     };
 
+    terranix = import ../options/terranix { inherit self; };
+
     minimal = {
       imports = darwin ++ generic ++ linux;
     };
   in
   {
-    inherit all-home-manager-modules all-modules minimal;
+    inherit
+      all-home-manager-modules
+      all-modules
+      minimal
+      terranix
+      ;
   }
 ) package-sets

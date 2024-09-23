@@ -7,6 +7,8 @@
 
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
+- *(flake)* Update hydra-api-input to default branch - ([38a25c4](https://github.com/JayRovacsek/nix-config/commit/38a25c4f72d967a07c70df880486890be3740069))
+
 - *(flake)* Unpin lix input - ([edecadb](https://github.com/JayRovacsek/nix-config/commit/edecadbcf26402c3f406ee002a738c91627011f2))
 
 - *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
