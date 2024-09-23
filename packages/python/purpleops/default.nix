@@ -14,6 +14,8 @@ let
 
   meta = with lib; {
     inherit version;
+    # Broken as it depends on flask-security upstream
+    broken = true;
     description = "An open-source self-hosted purple team management web application";
     homepage = "https://github.com/CyberCX-STA/PurpleOps";
     license = licenses.asl20;
