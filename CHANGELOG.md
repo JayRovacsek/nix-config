@@ -25,6 +25,8 @@
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
 
+- *(linux)* Add badge endpoint to nginx for nidorina - ([a07799d](https://github.com/JayRovacsek/nix-config/commit/a07799da82031d8b452dcffd2374a87a7fd75c75))
+
 - *(linux)* Remove swap device from gastly - ([3c8fb5f](https://github.com/JayRovacsek/nix-config/commit/3c8fb5fd43be24e0a9db585f8bc455bd9d886b79))
 
 - *(linux)* Remove swap from zram devices with strong cpus - ([2be11a3](https://github.com/JayRovacsek/nix-config/commit/2be11a3309fb448d2263134e767c8c56ee7b3e87))

@@ -124,6 +124,20 @@ let
     "aws-ec2-enable-at-rest-encryption"
     # Disable as this fails each time as a false positive
     "aws-ec2-enforce-http-token-imds"
+    # Not worth the extra cost, using AWS managed keys
+    "aws-dynamodb-enable-at-rest-encryption"
+    "aws-dynamodb-table-customer-key"
+    "aws-s3-encryption-customer-key"
+    # False positives it seems
+    "aws-s3-block-public-acls"
+    "aws-s3-block-public-policy"
+    "aws-s3-enable-bucket-encryption"
+    "aws-s3-enable-versioning"
+    "aws-s3-ignore-public-acls"
+    "aws-s3-no-public-buckets"
+    "aws-s3-specify-public-access-block"
+    # Recovery generally not required for my use-cases
+    "aws-dynamodb-enable-recovery"
   ];
   tfsec-exclude-statement = "--exclude ${builtins.concatStringsSep "," tfsec-ignored-checks}";
 
