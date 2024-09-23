@@ -96,6 +96,8 @@
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
 
 - *(tooling,iac)* Augment existing documentation step for tofu stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
+- Add shield.io badges - ([83e7ebd](https://github.com/JayRovacsek/nix-config/commit/83e7ebd0db8978860cfd8d52cf4902cfaeda2740))
+
 - Implement aerospace options and home manager module - ([56481dc](https://github.com/JayRovacsek/nix-config/commit/56481dcec78125be5c6c34b99729b66026546477))
 
 

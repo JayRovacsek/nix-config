@@ -63,7 +63,7 @@ in
       "/agenix/id-ed25519-wireless-primary"
     ];
 
-    secrets."wireless.env" = {
+    secrets.wireless-env = {
       file = ../../secrets/wireless/wireless-iot.env.age;
       mode = "0400";
       symlink = false;
@@ -89,24 +89,12 @@ in
     jellyfin-media-player
   ];
 
-  hardware = {
-    # Audio settings to ensure the headphones are the default
-    pulseaudio = {
+  hardware.raspberry-pi."4" = {
+    apply-overlays-dtmerge.enable = true;
+    # Enable GPU acceleration
+    fkms-3d = {
       enable = true;
-      # Default to the 3.5mm jack as output
-      extraConfig = ''
-        set-default-sink alsa_output.platform-bcm2835_audio.stereo-fallback.2
-      '';
-      package = pkgs.pulseaudioFull;
-    };
-
-    raspberry-pi."4" = {
-      apply-overlays-dtmerge.enable = true;
-      # Enable GPU acceleration
-      fkms-3d = {
-        enable = true;
-        cma = 1024;
-      };
+      cma = 1024;
     };
   };
 
@@ -115,9 +103,9 @@ in
     hostId = "d2a7b80b";
     wireless = {
       enable = true;
-      environmentFile = config.age.secrets."wireless.env".path;
+      secretsFile = config.age.secrets.wireless-env.path;
       interfaces = [ "wlan0" ];
-      networks."@SSID@".psk = "@PSK@";
+      networks."Ooo Ooo Net IOT".pskRaw = "ext:PSK";
     };
   };
 

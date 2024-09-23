@@ -49,7 +49,7 @@ in
 
   age = {
     secrets = {
-      "git-signing-key" = rec {
+      git-signing-key = rec {
         file = ../../secrets/ssh/git-signing-key.age;
         owner = builtins.head (builtins.attrNames jay.users.users);
         path = "/home/${owner}/.ssh/git-signing-key";
@@ -61,14 +61,14 @@ in
         path = "/home/${owner}/.ssh/git-signing-key.pub";
       };
 
-      "terraform-api-key" = rec {
+      terraform-api-key = rec {
         file = ../../secrets/terraform/terraform-api-key.age;
         owner = builtins.head (builtins.attrNames jay.users.users);
         mode = "400";
         path = "/home/${owner}/.terraform.d/credentials.tfrc.json";
       };
 
-      "wireless.env" = {
+      wireless-env = {
         file = ../../secrets/wireless/wireless-home.env.age;
         mode = "0400";
       };
@@ -129,10 +129,10 @@ in
     hostName = "gastly";
     wireless = {
       enable = true;
-      environmentFile = config.age.secrets."wireless.env".path;
+      secretsFile = config.age.secrets.wireless-env.path;
       interfaces = [ "wlp58s0" ];
-      networks."@SSID@" = {
-        psk = "@PSK@";
+      networks."Ooo Ooo Net" = {
+        pskRaw = "ext:PSK";
         priority = 10;
         authProtocols = [ "WPA-PSK" ];
       };
