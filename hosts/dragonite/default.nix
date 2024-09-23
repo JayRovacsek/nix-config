@@ -82,6 +82,7 @@ in
     nvidia
     openssh
     openvscode-server
+    remote-builds
     smartd
     ssh
     sudo

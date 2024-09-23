@@ -173,6 +173,8 @@
 
 - *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
 
+- *(packages)* Mark purpleops as broken - ([d9a7eaa](https://github.com/JayRovacsek/nix-config/commit/d9a7eaab4554e3f0a955255aebcefe3c2b2ef269))
+
 - *(packages)* Resolve issues with moving packages - ([19c3cbf](https://github.com/JayRovacsek/nix-config/commit/19c3cbfbb1be6b570fd4c6ffcc7c72850514eced))
 
 - *(packages)* Fix linode AMI package & openvpn server - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
