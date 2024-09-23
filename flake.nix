@@ -82,7 +82,7 @@
         git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:JayRovacsek/hydra-badge-api/poc";
+      url = "github:JayRovacsek/hydra-badge-api";
     };
 
     # Modules to help you handle persistent state on systems with ephemeral root storage.

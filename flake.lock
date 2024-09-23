@@ -465,16 +465,15 @@
         "nixpkgs": ["nixpkgs"]
       },
       "locked": {
-        "lastModified": 1726966064,
-        "narHash": "sha256-6ngsEjQzss7DLjOSTFqFCBkzocnpICSB0akfREzHCS0=",
+        "lastModified": 1726990347,
+        "narHash": "sha256-lYCnr6ndUMbNnxGijx88OaABRLK5oluLAw889Dh/vxo=",
         "owner": "JayRovacsek",
         "repo": "hydra-badge-api",
-        "rev": "0e7f170025ed3739e7d0809598f21dfd6976f3b2",
+        "rev": "ae44d4afcc81f3d03b1cb980774a70ece04f246e",
         "type": "github"
       },
       "original": {
         "owner": "JayRovacsek",
-        "ref": "poc",
         "repo": "hydra-badge-api",
         "type": "github"
       }
