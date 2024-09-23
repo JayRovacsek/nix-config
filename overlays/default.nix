@@ -1,13 +1,5 @@
 { self, ... }:
 {
-  # Required if we want to pin microvm kernel version, the output version
-  # will follow prev.linuxPackages
-  alt-microvm-kernel = _: prev: {
-    microvm-kernel = prev.linuxPackages.callPackage (
-      self.inputs.microvm + /pkgs/microvm-kernel.nix
-    ) { };
-  };
-
   dockutil-bin = _: prev: {
     dockutil-bin = prev.dockutil.override { fromSource = false; };
   };

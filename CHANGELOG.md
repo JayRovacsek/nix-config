@@ -205,6 +205,8 @@
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
 
+- *(iac)* Remove disabled assertions from aws image - ([912eae2](https://github.com/JayRovacsek/nix-config/commit/912eae26f5ec106776146709aac9109f015c838b))
+
 - *(modules)* Clean up dockutil - ([bf3068a](https://github.com/JayRovacsek/nix-config/commit/bf3068a2689b66e1c43b44766c724a115bfdf9a6))
 
 - *(modules)* Remove extra config element from nix - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
