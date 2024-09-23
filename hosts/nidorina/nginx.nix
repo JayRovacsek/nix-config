@@ -126,6 +126,7 @@ let
       enableAuthelia = false;
       locations = {
         "/" = {
+          priority = 200;
           proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
           extraConfig = ''
             proxy_set_header Host $host;
@@ -134,7 +135,8 @@ let
             add_header Front-End-Https on;
           '';
         };
-        "^~ ^/badge/(.+?)/(.+?)$" = {
+        "~ ^/(badge)" = {
+          priority = 100;
           proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.badge-port}$request_uri";
           extraConfig = ''
             proxy_set_header Host $host;

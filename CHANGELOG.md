@@ -135,6 +135,8 @@
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
+- *(linux)* Enable root login on ditto to enable userless system definitions - ([98dd08a](https://github.com/JayRovacsek/nix-config/commit/98dd08aeca9d1471e7dd908c2d0dc0f8f2e9cdad))
+
 - *(linux)* Remove agenix from jigglypuff - ([792dcaf](https://github.com/JayRovacsek/nix-config/commit/792dcaf177edaad76da69f297580a9f493e9edd5))
 
 - *(linux)* Resolve changed media definition - ([1bc7e03](https://github.com/JayRovacsek/nix-config/commit/1bc7e039b0ac5b99f0bb23e475920c929fc183fd))
