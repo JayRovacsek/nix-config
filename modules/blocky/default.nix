@@ -48,7 +48,7 @@ in
 
           void = [ ];
         };
-        # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blacklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
+        # definition of whitelist groups. Attention: if the same group has black and whitelists, whitelists will be used to disable particular blocklist entries. If a group has only whitelist entries -> this means only domains from this list are allowed, all other domains will be blocked
         allowlists.ads = [ ];
         # definition: which groups should be applied for which client
         clientGroupsBlock = {
@@ -90,7 +90,7 @@ in
         };
       };
 
-      # optional: use these DNS servers to resolve blacklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
+      # optional: use these DNS servers to resolve blocklist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
       bootstrapDns = {
         upstream = "https://dns.google/dns-query";
         ips = [
