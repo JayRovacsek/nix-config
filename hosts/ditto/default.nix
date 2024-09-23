@@ -30,7 +30,7 @@
     openssh = {
       enable = true;
       settings = {
-        PermitRootLogin = "yes";
+        PermitRootLogin = lib.mkForce "yes";
         PasswordAuthentication = false;
       };
     };
