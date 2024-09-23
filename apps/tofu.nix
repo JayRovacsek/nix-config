@@ -112,7 +112,7 @@ let
   '';
 
   tfsec-ignored-checks = [
-    # Kinda by descign most the time
+    # Kinda by design most the time
     "github-repositories-private"
     # Not all repos will be suitable for this to be applied
     "github-repositories-enable_vulnerability_alerts"
