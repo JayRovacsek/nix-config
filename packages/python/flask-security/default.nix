@@ -10,7 +10,7 @@ let
 
   meta = with lib; {
     description = "It quickly adds security features to your Flask application.";
-
+    broken = true;
     homepage = "https://github.com/mattupstate/flask-security";
     downloadPage = "https://github.com/mattupstate/flask-security/tags";
     license = licenses.mit;

@@ -10,6 +10,7 @@ let
   supported-packages = builtins.removeAttrs self.packages unsupported-systems;
 
   unsupported-configurations = [
+    "amazon"
     "rpi0w"
     "rpi1"
     "rpi2"

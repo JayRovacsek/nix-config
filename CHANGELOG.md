@@ -238,6 +238,8 @@
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
 
 - *(tools)* Add entries to gitignore - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
+- Align comments with upstream terms - ([125adc3](https://github.com/JayRovacsek/nix-config/commit/125adc30ab054a55a5542dab24897b223c136cc0))
+
 - Remove tailscale custom options - ([b5b5cc6](https://github.com/JayRovacsek/nix-config/commit/b5b5cc6ae9fd7450e33117613ee6bfec40d6a663))
 
 
