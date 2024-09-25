@@ -1,4 +1,12 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
+let
+  nix-options = pkgs.fetchFromGitHub {
+    owner = "JayRovacsek";
+    repo = "nix-options";
+    rev = "main";
+    hash = "sha256-D/qp1+JFZhEA7vZshKsN/nRtlpQ/+IvlOL5a8cqGFsI=";
+  };
+in
 {
   programs.vscode = {
     enable = true;
@@ -87,9 +95,9 @@
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr = ''(builtins.getFlake "${self}").lib.options.options.darwin'';
-            home-manager.expr = ''(builtins.getFlake "${self}").lib.options.options.home-manager'';
-            linux.expr = ''(builtins.getFlake "${self}").lib.options.options.linux'';
+            darwin.expr = ''(builtins.getFlake "${nix-options}").options.options.darwin'';
+            home-manager.expr = ''(builtins.getFlake "${nix-options}").options.options.home-manager'';
+            nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
         };
       };

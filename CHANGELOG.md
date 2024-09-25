@@ -19,6 +19,8 @@
 
 - *(home-manager-modules)* Add swaync - ([fcc1fb8](https://github.com/JayRovacsek/nix-config/commit/fcc1fb8f81c31c06bea2f6b905dca5b987212fe8))
 
+- *(iac)* Un archive nix-options, eval on each change is ridiculous - ([a8de228](https://github.com/JayRovacsek/nix-config/commit/a8de2283d1b1925a7f8aab64d29c5dce4279f299))
+
 - *(iac)* Move aws state stack, add false positives to tofu app - ([ca670b5](https://github.com/JayRovacsek/nix-config/commit/ca670b5f541b908ba300a0fcb8f8efbc722a76b5))
 
 - *(iac)* Add hydra-badge-api repository to github - ([9a121af](https://github.com/JayRovacsek/nix-config/commit/9a121af011f1398fef7d76947f282cf1ce911814))

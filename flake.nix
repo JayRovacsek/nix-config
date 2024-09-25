@@ -429,6 +429,7 @@
                     ignored-words = [
                       "Adge"
                       "ags"
+                      "analyzer"
                       "authorized"
                       "ba"
                       "browseable"
