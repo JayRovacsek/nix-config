@@ -131,6 +131,8 @@
 
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
 
+- *(hydra)* Avoid building amazon image for now - ([604d779](https://github.com/JayRovacsek/nix-config/commit/604d7797bee5765327bc0b3fbe4ff160c17417c6))
+
 - *(hydra)* Remove problematic packages from hydra - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(hydra)* Resolve inclusion of broken config - ([3431e9c](https://github.com/JayRovacsek/nix-config/commit/3431e9ce335feb8c7fc1c72edd1d24b8eb99d92f))
@@ -174,6 +176,8 @@
 - *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
 
 - *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
+
+- *(packages)* Mark flask security as broken - ([604d779](https://github.com/JayRovacsek/nix-config/commit/604d7797bee5765327bc0b3fbe4ff160c17417c6))
 
 - *(packages)* Mark purpleops as broken - ([d9a7eaa](https://github.com/JayRovacsek/nix-config/commit/d9a7eaab4554e3f0a955255aebcefe3c2b2ef269))
 

@@ -1,6 +1,6 @@
 { self, lib }:
 let
-  inherit (lib) filterAttrs hasAttr mapAttrs;
+  inherit (lib) filterAttrs mapAttrs;
 
   unsupported-systems = [
     "aarch64-darwin"
@@ -37,11 +37,8 @@ let
   non-broken-packages = mapAttrs (
     _: value:
     filterAttrs (
-      _: v:
-      if hasAttr "meta" v then
-        (!(v.meta.broken ? false) && !(v.meta.unsupported ? false))
-      else
-        false
+      _: v: (!(v.meta.broken or false) && !(v.meta.unsupported or false))
+
     ) value
   ) non-problematic-packages;
 in
