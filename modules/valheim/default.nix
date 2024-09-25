@@ -31,8 +31,6 @@
       backend = "podman";
       containers.valheim = {
         environment = {
-          SERVER_NAME = "Poopy Bum Bum";
-          SERVER_PASS = "birry birry";
           SERVER_PUBLIC = "false";
           RESTART_CRON = "";
           TZ = config.time.timeZone;

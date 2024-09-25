@@ -117,7 +117,7 @@ in
     minimumDiskFree = 25;
     minimumDiskFreeEvaluator = 50;
     notificationSender = "";
-    package = pkgs.hydra_unstable;
+    package = pkgs.hydra;
     inherit port;
     smtpHost = null;
     tracker = "";

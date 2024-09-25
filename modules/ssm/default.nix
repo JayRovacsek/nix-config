@@ -1,1 +1,1 @@
-_: { services.ssm-agent.enable = true; }
+_: { services.amazon-ssm-agent.enable = true; }
