@@ -103,7 +103,7 @@ in
       };
     }
     {
-      description = "Optimized DHT library for ESP32/ESP8266 using Arduino framework";
+      description = "Optimised DHT library for ESP32/ESP8266 using Arduino framework";
       name = "DHTesp";
     }
     {
@@ -466,7 +466,6 @@ in
     }
     { name = "nix-lib-html-reference"; }
     {
-      archived = true;
       description = "A simple reference to option attributes available to common nixos modules for both Linux and Darwin ";
       name = "nix-options";
     }
