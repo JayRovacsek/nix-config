@@ -99,7 +99,12 @@ let
   packages = merge [
     dotnet
     go
-    (builtins.removeAttrs images [ "configurations" ])
+    (builtins.removeAttrs images [
+      "aarch64"
+      "amazon"
+      "linode"
+      "configurations"
+    ])
     node
     other
     python

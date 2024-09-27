@@ -79,6 +79,8 @@
 
 - *(modules,flake)* Re-introduce lix with nix-store regression sorted - ([c904d7c](https://github.com/JayRovacsek/nix-config/commit/c904d7c19e9e96b26b208a9f0d763490d1342de9))
 
+- *(modules,home-manager-modules)* Re-add nix-options - ([46f85b4](https://github.com/JayRovacsek/nix-config/commit/46f85b4fe8ff776ef5ee3bd8a2ded8383920247b))
+
 - *(modules,hydra)* Introduce hydra badge api into config - ([c615eb9](https://github.com/JayRovacsek/nix-config/commit/c615eb9a97d7aec6a34b9fafac5838a8ca93eeff))
 
 - *(modules,lib)* Add KTLS & resolver to nginx - ([5f4e578](https://github.com/JayRovacsek/nix-config/commit/5f4e578b33f3373e3f69ba509fc692c5c2b75324))
@@ -180,6 +182,8 @@
 - *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
 
 - *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
+
+- *(packages)* Remove broken packages - ([99dcb0c](https://github.com/JayRovacsek/nix-config/commit/99dcb0cbe459bd02f869e3e2440f598eb58a652b))
 
 - *(packages)* Mark flask security as broken - ([604d779](https://github.com/JayRovacsek/nix-config/commit/604d7797bee5765327bc0b3fbe4ff160c17417c6))
 
