@@ -46,6 +46,7 @@ let
         config.networking.localDomain or "local"
       }";
       maxJobs = profile.cores;
+      protocol = "ssh";
       publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
       speedFactor = builtins.mul profile.cores profile.speed;
       sshUser = "builder";
