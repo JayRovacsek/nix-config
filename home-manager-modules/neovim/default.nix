@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   # Configuration Options
   # https://nix-community.github.io/nixvim/
 
   home = {
     packages = with pkgs; [ zathura ];
-    sessionVariables.EDITOR = "${config.programs.nixvim.package}/bin/nvim";
   };
 
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
@@ -17,7 +17,7 @@
     package = pkgs.neovim-unwrapped;
 
     # Global Options
-    options = {
+    opts = {
       # Line Numbers
       number = true;
       relativenumber = false;

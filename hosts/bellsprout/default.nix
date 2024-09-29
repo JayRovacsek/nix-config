@@ -1,7 +1,5 @@
 { config, self, ... }:
 {
-  environment.noXlibs = false;
-
   imports = with self.nixosModules; [
     agenix
     grafana-agent

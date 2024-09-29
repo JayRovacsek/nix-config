@@ -11,6 +11,8 @@
 
 - *(flake)* Unpin lix input - ([edecadb](https://github.com/JayRovacsek/nix-config/commit/edecadbcf26402c3f406ee002a738c91627011f2))
 
+- *(flake,iac,hydra,packages)* Minor issue resolutions to a range of properties - ([73225fd](https://github.com/JayRovacsek/nix-config/commit/73225fd8264e1042e4687e1616d1797db5cabdaa))
+
 - *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
 
 - *(home-manager-modules)* Add hyprpaper module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))

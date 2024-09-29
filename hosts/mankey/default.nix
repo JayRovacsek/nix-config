@@ -1,8 +1,5 @@
 { config, self, ... }:
 {
-  # Below required to build deluge-gtk
-  environment.noXlibs = false;
-
   fileSystems.${config.services.deluge.config.download_location}.neededForBoot =
     true;
 

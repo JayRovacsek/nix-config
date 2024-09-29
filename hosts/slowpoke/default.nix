@@ -10,8 +10,6 @@
     timesyncd
   ];
 
-  environment.noXlibs = false;
-
   networking.hostName = "slowpoke";
 
   microvm = {
