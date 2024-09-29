@@ -1,6 +1,6 @@
 { self, pkgs }:
 let
-  inherit (pkgs) coreutils git;
+  inherit (pkgs) coreutils;
   inherit (self.lib.distributed-builds) base-configs;
 
   configs = builtins.toFile "build-machines.json" (builtins.toJSON base-configs);
@@ -8,8 +8,8 @@ let
   program = builtins.toString (
     pkgs.writers.writeBash "copy-configs" ''
       ${coreutils}/bin/mkdir -p ./modules/remote-builds/
-      ${coreutils}/bin/cp ${configs} ./modules/remote-builds/build-machines.json
-      ${git}/bin/git add ./modules/remote-builds/build-machines.json
+      ${coreutils}/bin/cat ${configs} > ./modules/remote-builds/machines.json
+      ${pkgs.nodePackages.prettier}/bin/prettier -w ./modules/remote-builds/machines.json
     ''
   );
 

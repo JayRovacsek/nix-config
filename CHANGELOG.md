@@ -137,6 +137,8 @@
 
 - *(home-manager-modules)* Change keepass to not minimise on start - ([15bb2e2](https://github.com/JayRovacsek/nix-config/commit/15bb2e227e33989ce756446e8db07bd5982c4783))
 
+- *(hydra)* Add explicit protocol - ([98c84bc](https://github.com/JayRovacsek/nix-config/commit/98c84bc7c08e443e0ca3c1545d2d5bbfb63fc826))
+
 - *(hydra)* Resolve logic for broken packages - ([156769d](https://github.com/JayRovacsek/nix-config/commit/156769dbb82f0dd40e4f51f75943a7725ddf75f1))
 
 - *(hydra)* Avoid building amazon image for now - ([604d779](https://github.com/JayRovacsek/nix-config/commit/604d7797bee5765327bc0b3fbe4ff160c17417c6))

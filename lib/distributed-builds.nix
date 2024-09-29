@@ -10,7 +10,7 @@ let
   ) linux-host-identifiers;
 
   linux-base-configs = builtins.map (
-    host: generate-base-config host nixosConfigurations
+    host: generate-base-configs host nixosConfigurations
   ) linux-suitable-hosts;
 
   darwin-suitable-hosts = builtins.filter (
@@ -19,10 +19,10 @@ let
   ) darwin-host-identifiers;
 
   darwin-base-configs = builtins.map (
-    host: generate-base-config host darwinConfigurations
+    host: generate-base-configs host darwinConfigurations
   ) darwin-suitable-hosts;
 
-  base-configs = linux-base-configs ++ darwin-base-configs;
+  base-configs = lib.flatten (linux-base-configs ++ darwin-base-configs);
 
   hardware-profile =
     system:
@@ -34,25 +34,43 @@ let
         speed = 1;
       };
 
-  generate-base-config =
+  generate-base-configs =
     hostname: parent-set:
     let
       inherit (parent-set.${hostname}) config;
       profile = hardware-profile config;
       inherit (config.nixpkgs) system;
-    in
-    {
-      hostName = "${config.networking.hostName}.${
-        config.networking.localDomain or "local"
-      }";
-      maxJobs = profile.cores;
-      protocol = "ssh";
-      publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+      ips = self.common.config.hosts.${hostname}.ips or [ ];
+      unique-ips = lib.unique (builtins.map (x: x.address) ips);
       speedFactor = builtins.mul profile.cores profile.speed;
-      sshUser = "builder";
-      supportedFeatures = config.nix.settings.system-features or [ ];
-      systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
-    };
+    in
+    if speedFactor == 1 then
+      [ ]
+    else
+      [
+        {
+          hostName = "${config.networking.hostName}.${
+            config.networking.localDomain or "local"
+          }";
+          maxJobs = profile.cores;
+          protocol = "ssh";
+          publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+          inherit speedFactor;
+          sshUser = "builder";
+          supportedFeatures = config.nix.settings.system-features or [ ];
+          systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
+        }
+      ]
+      ++ builtins.map (ip: {
+        hostName = ip;
+        maxJobs = profile.cores;
+        protocol = "ssh";
+        publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+        inherit speedFactor;
+        sshUser = "builder";
+        supportedFeatures = config.nix.settings.system-features or [ ];
+        systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
+      }) unique-ips;
 
   generate-system-ssh-extra-config =
     configs: identity-file:
@@ -70,5 +88,5 @@ let
 
 in
 {
-  inherit base-configs generate-base-config generate-system-ssh-extra-config;
+  inherit base-configs generate-base-configs generate-system-ssh-extra-config;
 }
