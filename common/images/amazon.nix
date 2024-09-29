@@ -10,9 +10,6 @@ let
     ../../hosts/ditto
     amazon-image
     zsh
-    {
-      amazonImage.sizeMB = 16 * 1024;
-    }
   ];
   specialArgs = {
     inherit self;

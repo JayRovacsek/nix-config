@@ -22,7 +22,7 @@ let
     hash = "sha256-lJHGx/GFddIwVVXRj75Z/l5CH/yuw/uIhr02Qkjruww=";
   };
 
-  cargoSha256 = "sha256-mBY+J6JcIhV++tO6Dhw5JvYLSwoYZR3lB3l0KTjkcQM=";
+  cargoHash = "sha256-mBY+J6JcIhV++tO6Dhw5JvYLSwoYZR3lB3l0KTjkcQM=";
 
 in
 buildRustPackage {
@@ -31,6 +31,6 @@ buildRustPackage {
     version
     src
     meta
-    cargoSha256
+    cargoHash
     ;
 }

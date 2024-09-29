@@ -5,7 +5,7 @@
   coreutils,
   gawk,
   procps,
-  eww-wayland,
+  eww,
   bspwm,
   ...
 }:
@@ -44,7 +44,7 @@ stdenvNoCC.mkDerivation {
     ${coreutils}/bin/cp $src/eww/bar/launch_bar $out/bin
 
     substituteInPlace $out/bin/launch_bar \
-      --replace 'EWW="$HOME/.local/bin/eww/eww' 'EWW="${eww-wayland}/bin/eww' \
+      --replace 'EWW="$HOME/.local/bin/eww/eww' 'EWW="${eww}/bin/eww' \
       --replace 'touch' '${coreutils}/bin/touch' \
       --replace 'awk' '${gawk}/bin/awk' \
       --replace 'killall' '${coreutils}/bin/killall' \

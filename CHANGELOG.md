@@ -143,6 +143,8 @@
 
 - *(hydra)* Resolve inclusion of broken config - ([3431e9c](https://github.com/JayRovacsek/nix-config/commit/3431e9ce335feb8c7fc1c72edd1d24b8eb99d92f))
 
+- *(hydra,packages)* Remove raw configurations from packages - ([7827dfb](https://github.com/JayRovacsek/nix-config/commit/7827dfbafe936e3ef9d236d637197915f415599f))
+
 - *(iac)* Resolve typo - ([b5b3e5b](https://github.com/JayRovacsek/nix-config/commit/b5b3e5b05e10e2ff3e1deedbbed5ca3ce853efc6))
 
 - *(iac)* Correct provider name in oracle tofu stack - ([b2ba376](https://github.com/JayRovacsek/nix-config/commit/b2ba376cc3b3c54c90138a92f307f21c5ec428d0))

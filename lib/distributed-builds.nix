@@ -50,7 +50,6 @@ let
       speedFactor = builtins.mul profile.cores profile.speed;
       sshUser = "builder";
       supportedFeatures = config.nix.settings.system-features or [ ];
-      inherit system;
       systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
     };
 
