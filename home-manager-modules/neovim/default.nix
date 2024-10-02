@@ -99,6 +99,7 @@
         enable = true;
         settings.pdf_viewer = "zathura";
       };
+      web-devicons.enable = true;
     };
 
     # Plugin Definitions (nixpkgs)

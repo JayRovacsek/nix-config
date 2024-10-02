@@ -270,6 +270,10 @@
 - *(iac)* Regenerate documentation for existing stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
 
 - *(packages)* Add updated github tfdoc content - ([ece132c](https://github.com/JayRovacsek/nix-config/commit/ece132c1e29217b66bf308414c362674f6161d72))
+
+### 🧪 Testing
+- Regenerate hosts to include ip ranges - ([6fde308](https://github.com/JayRovacsek/nix-config/commit/6fde308956417e6062a78675b5b5c7f4272adce0))
+
 ## [0.0.8](https://github.com/JayRovacsek/nix-config/compare/v0.0.7..v0.0.8) - 2024-07-21
 
 ### ⛰️  Features
