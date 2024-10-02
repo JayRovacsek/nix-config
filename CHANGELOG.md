@@ -5,6 +5,8 @@
 
 - *(common)* Realign github tofu with config - ([ece132c](https://github.com/JayRovacsek/nix-config/commit/ece132c1e29217b66bf308414c362674f6161d72))
 
+- *(darwin)* Enable remote builds on victreebel - ([59368c8](https://github.com/JayRovacsek/nix-config/commit/59368c8b491278f1d8bbd99943a2b8f2ad551ef9))
+
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
 - *(flake)* Update hydra-api-input to default branch - ([38a25c4](https://github.com/JayRovacsek/nix-config/commit/38a25c4f72d967a07c70df880486890be3740069))

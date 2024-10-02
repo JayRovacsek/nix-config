@@ -1,4 +1,5 @@
-_: {
+{ pkgs, ... }:
+{
   # Add extended options to linux builders
   imports = [ ../../options/modules/linux-builder ];
 
@@ -8,12 +9,16 @@ _: {
     maxJobs = 4;
     config = {
       # Enable cross compilation of the below systems via qemu
-      boot.binfmt.emulatedSystems = [
-        "aarch64-linux"
-        "x86_64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-      ];
+      # This requires a list that does not match the system of the host
+      # transposed to linux; hence the filter.
+      boot.binfmt.emulatedSystems =
+        builtins.filter (x: x != "${pkgs.stdenv.hostPlatform.uname.processor}-linux")
+          [
+            "aarch64-linux"
+            "x86_64-linux"
+            "armv6l-linux"
+            "armv7l-linux"
+          ];
 
       nix.settings = {
         sandbox = true;
