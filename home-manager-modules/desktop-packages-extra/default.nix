@@ -16,12 +16,7 @@ let
     # Productivity
     gimp
     nextcloud-client
-    (
-      if osConfig.programs.hyprland.enable then
-        jellyfin-media-player-wayland
-      else
-        jellyfin-media-player
-    )
+    jellyfin-media-player
 
     # Communication
     signal-desktop

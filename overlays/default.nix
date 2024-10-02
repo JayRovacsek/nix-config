@@ -30,8 +30,6 @@
     );
   };
 
-  fcitx-engines = _: prev: { fcitx-engines = prev.fcitx5; };
-
   hello = _: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
       pname = "hello";
@@ -57,17 +55,6 @@
     hydra_unstable = prev.hydra_unstable.overrideAttrs (old: {
       doCheck = false;
       patches = (old.patches or [ ]) ++ [ ./patches/hydra.patch ];
-    });
-  };
-
-  jellyfin-wayland = _: prev: {
-    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs (_: {
-      autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
-
-      postPatch = ''
-        substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
-          --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
-      '';
     });
   };
 
