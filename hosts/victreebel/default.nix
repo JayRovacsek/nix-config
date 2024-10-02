@@ -82,6 +82,7 @@ in
     networking
     nix
     nix-monitored
+    remote-builds
     skhd
     ssh
     time
