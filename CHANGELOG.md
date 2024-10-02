@@ -267,6 +267,8 @@
 
 - *(options)* Add minimal and all options as exposed common attributes - ([870ca29](https://github.com/JayRovacsek/nix-config/commit/870ca29c00f68e8cfa111e967135448db0426eff))
 
+- *(overlays)* Remove redundant overlays - ([0a4b762](https://github.com/JayRovacsek/nix-config/commit/0a4b76292fc36ca390305ed5ecd1e18c89abe4b2))
+
 - *(overlays)* Remove dead code - ([d07d225](https://github.com/JayRovacsek/nix-config/commit/d07d225d03b2fd8a5842f622dfbd9868ea7d2373))
 
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
