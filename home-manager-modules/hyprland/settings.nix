@@ -33,7 +33,7 @@ let
       extra = "transform,1";
     }
     {
-      name = "DP-4";
+      name = "DP-2";
       resolution = "1920x1080";
       position = "1080x420";
       scale = "1";

@@ -40,53 +40,21 @@ let
       inherit (parent-set.${hostname}) config;
       profile = hardware-profile config;
       inherit (config.nixpkgs) system;
-      ips = self.common.config.hosts.${hostname}.ips or [ ];
-      unique-ips = lib.unique (builtins.map (x: x.address) ips);
-      speedFactor = builtins.mul profile.cores profile.speed;
     in
-    if speedFactor == 1 then
-      [ ]
-    else
-      [
-        {
-          hostName = "${config.networking.hostName}.${
-            config.networking.localDomain or "local"
-          }";
-          maxJobs = profile.cores;
-          protocol = "ssh";
-          publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
-          inherit speedFactor;
-          sshUser = "builder";
-          supportedFeatures = config.nix.settings.system-features or [ ];
-          systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
-        }
-      ]
-      ++ builtins.map (ip: {
-        hostName = ip;
-        maxJobs = profile.cores;
-        protocol = "ssh";
-        publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
-        inherit speedFactor;
-        sshUser = "builder";
-        supportedFeatures = config.nix.settings.system-features or [ ];
-        systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
-      }) unique-ips;
-
-  generate-system-ssh-extra-config =
-    configs: identity-file:
-    lib.concatStringsSep "\n\n" (
-      builtins.map (cfg: ''
-        Host ${cfg.hostName}
-          HostName ${cfg.hostName}
-          User ${cfg.sshUser}
-          IdentitiesOnly yes
-          ConnectTimeout 3
-          StrictHostKeyChecking=accept-new
-          IdentityFile ${identity-file}
-      '') configs
-    );
-
+    {
+      hostName = "${config.networking.hostName}.${
+        config.networking.localDomain or "local"
+      }";
+      maxJobs = profile.cores;
+      protocol = "ssh";
+      # publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+      # publicHostKey = null;
+      speedFactor = builtins.mul profile.cores profile.speed;
+      sshUser = "builder";
+      supportedFeatures = config.nix.settings.system-features or [ ];
+      systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
+    };
 in
 {
-  inherit base-configs generate-base-configs generate-system-ssh-extra-config;
+  inherit base-configs generate-base-configs;
 }
