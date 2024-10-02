@@ -43,7 +43,7 @@ in
     extensions = with pkgs.vscode-extensions; [
       # Nix
       jnoortheen.nix-ide
-      arrterian.nix-env-selector
+      mkhl.direnv
 
       # JS/TS
       dbaeumer.vscode-eslint
@@ -57,17 +57,8 @@ in
       # TOML
       tamasfe.even-better-toml
 
-      # Go
-      golang.go
-
       # Terraform
       hashicorp.terraform
-
-      # Latex
-      james-yu.latex-workshop
-
-      # Rust
-      rust-lang.rust-analyzer
 
       # Spellcheck
       streetsidesoftware.code-spell-checker

@@ -132,17 +132,8 @@ in
       # TOML
       tamasfe.even-better-toml
 
-      # Go
-      golang.go
-
       # Terraform
       hashicorp.terraform
-
-      # Latex
-      james-yu.latex-workshop
-
-      # Rust
-      rust-lang.rust-analyzer
 
       # Spellcheck
       streetsidesoftware.code-spell-checker
