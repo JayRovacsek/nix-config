@@ -245,6 +245,8 @@
 
 - *(flake)* Move readme to subfolder - ([8c9a1c7](https://github.com/JayRovacsek/nix-config/commit/8c9a1c7370cf110f394f5aa845e0c1a1176a234b))
 
+- *(home-manager-modules)* Remove redundant firefox ini fixes - ([1b28038](https://github.com/JayRovacsek/nix-config/commit/1b28038c6ae64184847c3f6dcdf466b9fa50bcd5))
+
 - *(home-manager-modules)* Rewrite elements of hyprland module - ([dc1630b](https://github.com/JayRovacsek/nix-config/commit/dc1630b3dd0e0a94e70076b4c89968755ea4fa45))
 
 - *(home-manager-modules)* Remove redundant comment - ([84e9f73](https://github.com/JayRovacsek/nix-config/commit/84e9f73a552d12d1cef31da1d3f57e3c980e1f52))
