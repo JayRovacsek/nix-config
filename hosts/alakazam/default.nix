@@ -34,6 +34,7 @@ in
 
   imports = with self.nixosModules; [
     agenix
+    bluetooth
     clamav
     fonts
     generations

@@ -54,11 +54,15 @@ let
       extra = "";
     }
   ];
+
   monitor =
     if hostName == "alakazam" then
       (generate-monitors alakazam-monitors)
     else
       [ ",preferred,auto,auto" ];
+
+  bluetooth-enabled =
+    osConfig.hardware.bluetooth.enable || osConfig.services.blueman.enable;
 
   nextcloud-present = builtins.any (
     p: (p.pname or "") == "nextcloud-client"
@@ -66,11 +70,13 @@ let
 
   swaync-enabled = config.services.swaync.enable;
 
+  bluetooth-exec = lib.optional bluetooth-enabled "${pkgs.blueman}/bin/blueman-applet";
+
   swaync-exec = lib.optional swaync-enabled "${config.services.swaync.package}/bin/swaync";
 
   nextcloud-exec = lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
 
-  exec-once = nextcloud-exec ++ swaync-exec;
+  exec-once = bluetooth-exec ++ nextcloud-exec ++ swaync-exec;
 
 in
 {
