@@ -85,6 +85,8 @@
 
 - *(modules,flake)* Re-introduce lix with nix-store regression sorted - ([c904d7c](https://github.com/JayRovacsek/nix-config/commit/c904d7c19e9e96b26b208a9f0d763490d1342de9))
 
+- *(modules,home-manager-modules)* Implement minimal bluetooth module - ([c7c7e79](https://github.com/JayRovacsek/nix-config/commit/c7c7e7906faf3c5abde3b555c75e996d743c0e4d))
+
 - *(modules,home-manager-modules)* Remove some vsc plugins - ([6d7793a](https://github.com/JayRovacsek/nix-config/commit/6d7793a353727d800331c50177e62a704595ad0d))
 
 - *(modules,home-manager-modules)* Re-add nix-options - ([46f85b4](https://github.com/JayRovacsek/nix-config/commit/46f85b4fe8ff776ef5ee3bd8a2ded8383920247b))
