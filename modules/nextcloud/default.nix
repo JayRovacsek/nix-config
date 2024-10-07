@@ -83,7 +83,7 @@ in
 
       https = true;
       maxUploadSize = "10G";
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
