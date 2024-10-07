@@ -137,8 +137,8 @@ in
       # Ensure plugin configurations match our expectations
       ${pkgs.coreutils}/bin/mkdir -p $dataDir/config/Geyser-Fabric
       ${pkgs.coreutils}/bin/mkdir -p $dataDir/config/floodgate
-      ${pkgs.coreutils}/bin/ln -f ${geyser-config} $dataDir/config/Geyser-Fabric/config.yml
-      ${pkgs.coreutils}/bin/ln -f ${floodgate-config} $dataDir/config/floodgate/config.yml
+      ${pkgs.coreutils}/bin/cat ${geyser-config} > $dataDir/config/Geyser-Fabric/config.yml
+      ${pkgs.coreutils}/bin/cat ${floodgate-config} > $dataDir/config/floodgate/config.yml
     '';
   };
 }

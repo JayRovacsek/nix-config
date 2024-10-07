@@ -152,7 +152,7 @@ in
     hostName = "alakazam";
   };
 
-  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFkcjVkaW9UeTNtTUs3VGpydUxid2tnMENLYWJ3TTVXT2VyckdJNC9MM1cgcm9vdEBhbGFrYXphbQo=";
+  programs.ssh.publicHostKeyBase64 = "YWxha2F6YW0ubG9jYWwgc3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFkcjVkaW9UeTNtTUs3VGpydUxid2tnMENLYWJ3TTVXT2VyckdJNC9MM1cK";
 
   system.stateVersion = "22.11";
 

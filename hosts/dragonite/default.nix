@@ -201,7 +201,7 @@ in
 
   powerManagement.enable = false;
 
-  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK";
+  programs.ssh.publicHostKeyBase64 = "ZHJhZ29uaXRlLmxvY2FsIHNzaC1lZDI1NTE5IEFBQUFDM056YUMxbFpESTFOVEU1QUFBQUlQVmtZUkFWY1k1TXNUc3RpTE9sR2g4Zk5TdU1vVFMyWER3cENYeEJFMnYxCg==";
 
   systemd = {
     network.networks."20-wireless".enable = false;

@@ -8,14 +8,18 @@ let
     ;
 in
 {
-  networking.firewall = {
-    allowedTCPPorts = [
-      dns
-      tls
-      http
-      https
-    ];
-    allowedUDPPorts = [ dns ];
+  networking = {
+    firewall = {
+      allowedTCPPorts = [
+        dns
+        tls
+        http
+        https
+      ];
+      allowedUDPPorts = [ dns ];
+    };
+
+    nameservers = [ "127.0.0.1" ];
   };
 
   systemd.services.blocky = {
