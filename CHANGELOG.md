@@ -193,6 +193,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Resolve issues with linking across multiple block devices - ([961cc44](https://github.com/JayRovacsek/nix-config/commit/961cc4411cbc4e2037b95c0d31da39de9b69a642))
+
 - *(modules)* Remove ip based machine configs from remote builds - ([c517ccd](https://github.com/JayRovacsek/nix-config/commit/c517ccd7afb156e593c2e4dd58a8f1dc2012e5aa))
 
 - *(modules)* Resolve issue with linux-builder on darwin - ([d72db57](https://github.com/JayRovacsek/nix-config/commit/d72db575ce240d8f4230b90e51bdf3bb638d5364))
