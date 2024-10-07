@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 {
@@ -12,7 +13,7 @@
     };
 
     settings = {
-      auto-optimise-store = true;
+      auto-optimise-store = pkgs.stdenv.isLinux;
       builders-use-substitutes = true;
       experimental-features = "nix-command flakes";
       http-connections = 0;

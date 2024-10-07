@@ -10,5 +10,14 @@ with lib;
         networking firewalls values.
       '';
     };
+
+    nameservers = mkOption {
+      type = with types; listOf str;
+      default = [ ];
+      description = ''
+        A darwin stub to primarily ignore the inclusion of 
+        networking firewalls values.
+      '';
+    };
   };
 }
