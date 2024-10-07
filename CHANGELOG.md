@@ -105,6 +105,8 @@
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
 
+- *(packages)* Implement minecraft bedrock server package - ([f300107](https://github.com/JayRovacsek/nix-config/commit/f300107418f50d97d0da2b0847156992cfa632df))
+
 - *(packages)* Expose disko packages - ([78f0a74](https://github.com/JayRovacsek/nix-config/commit/78f0a74a0e454d58c543218d7e00b742a84ffdc3))
 
 - *(packages)* Package mdtable - ([c1bbf68](https://github.com/JayRovacsek/nix-config/commit/c1bbf68c2ad154b8dadf9733717a68d5057be7a6))

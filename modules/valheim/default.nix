@@ -1,20 +1,13 @@
-{ config, ... }:
+{ config, self, ... }:
+let
+  inherit (self.common.config.services) valheim;
+  string-ports = builtins.map (x: builtins.toString x) valheim.ports;
+in
 {
-  networking.firewall.allowedUDPPorts = [
-    2456
-    2457
-  ];
+  networking.firewall.allowedUDPPorts = valheim.ports;
 
   users = {
-    groups.valheim = {
-      gid = 10105;
-      members = [ "valheim" ];
-    };
-    users.valheim = {
-      group = "valheim";
-      isSystemUser = true;
-      uid = 10105;
-    };
+    inherit (valheim) groups users;
   };
 
   virtualisation = {
@@ -144,15 +137,14 @@
           "--cap-add=sys_nice"
         ];
         image = "ghcr.io/lloesche/valheim-server";
-        ports = [
-          "2456-2457:2456-2457/udp"
-        ];
-        volumes = [
-          "/srv/games/servers/2024-valheim-server/config:/config"
-          "/srv/games/servers/2024-valheim-server/data:/opt/valheim"
-        ];
+        ports =
+          let
+            range = builtins.concatStringsSep "-" string-ports;
+          in
+          [
+            "${range}:${range}/${valheim.protocol}"
+          ];
       };
     };
   };
-
 }

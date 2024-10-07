@@ -293,6 +293,11 @@ _: {
       subdomain = "authelia";
     };
 
+    bedrock-connect = {
+      ipv4 = "192.168.17.2";
+      port = 19134;
+    };
+
     binarycache = {
       authelia = false;
       ipv4 = "192.168.1.220";
@@ -452,6 +457,13 @@ _: {
       };
     };
 
+    minecraft = {
+      ipv4 = "192.168.17.2";
+      bedrock-port = 19133;
+      java-port = 25565;
+      subdomain = "minecraft";
+    };
+
     nextcloud = {
       authelia = false;
       ipv4 = "192.168.10.3";
@@ -535,6 +547,28 @@ _: {
       port = 8443;
       protocol = "https";
       subdomain = "unifi";
+    };
+
+    valheim = {
+      authelia = false;
+      ipv4 = "192.168.17.2";
+      ports = [
+        2456
+        2457
+      ];
+      protocol = "udp";
+      subdomain = "valheim";
+
+      groups.valheim = {
+        gid = 10105;
+        members = [ "valheim" ];
+      };
+
+      users.valheim = {
+        group = "valheim";
+        isSystemUser = true;
+        uid = 10105;
+      };
     };
   };
 }

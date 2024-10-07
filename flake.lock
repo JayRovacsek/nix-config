@@ -626,6 +626,26 @@
         "type": "github"
       }
     },
+    "nix-minecraft": {
+      "inputs": {
+        "flake-compat": ["flake-compat"],
+        "flake-utils": ["flake-utils"],
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1728006367,
+        "narHash": "sha256-Bdf5twzinaacnn1JBogvxq0S8Ytm+25mWD2cfJ7fvpo=",
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "rev": "a3a7888df1b87bdababfd9f0b00b574ee4c2e204",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
     "nix-monitored": {
       "inputs": {
         "nixpkgs": ["nixpkgs"]
@@ -903,6 +923,7 @@
         "nix-darwin": "nix-darwin",
         "nix-eval-jobs": "nix-eval-jobs",
         "nix-github-actions": "nix-github-actions",
+        "nix-minecraft": "nix-minecraft",
         "nix-monitored": "nix-monitored",
         "nix-topology": "nix-topology",
         "nixos-generators": "nixos-generators",

@@ -13,6 +13,7 @@ let
     "nidorino"
     "poliwag"
     "slowpoke"
+    "porygon"
   ];
 in
 {

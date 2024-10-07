@@ -157,6 +157,15 @@
       url = "github:nix-community/nix-github-actions";
     };
 
+    nix-minecraft = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:Infinidoge/nix-minecraft";
+    };
+
     nix-monitored = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ners/nix-monitored";
