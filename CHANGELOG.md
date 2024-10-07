@@ -33,6 +33,8 @@
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
 
+- *(linux)* Revive porygon, add services to it - ([3fc5dad](https://github.com/JayRovacsek/nix-config/commit/3fc5dad8d4f28f9460751697840b7b855816e86e))
+
 - *(linux)* Give all microvms a common ancestor - ([31ca60f](https://github.com/JayRovacsek/nix-config/commit/31ca60f5e45d819e9536a2d5fc1e19a5550460b6))
 
 - *(linux)* Add badge endpoint to nginx for nidorina - ([a07799d](https://github.com/JayRovacsek/nix-config/commit/a07799da82031d8b452dcffd2374a87a7fd75c75))
@@ -104,6 +106,8 @@
 - *(options,lib)* Self reference for available options - ([c33f661](https://github.com/JayRovacsek/nix-config/commit/c33f6613e5463f25383f5e6708f4fa7f17b25d29))
 
 - *(overlays)* Remove sonarr overlay - ([9cfa50d](https://github.com/JayRovacsek/nix-config/commit/9cfa50d0adb4f03cab8b75ad59d1b66caafbaa29))
+
+- *(packages)* Implement bedrock connect & geyser minecraft - ([3fc5dad](https://github.com/JayRovacsek/nix-config/commit/3fc5dad8d4f28f9460751697840b7b855816e86e))
 
 - *(packages)* Implement minecraft bedrock server package - ([f300107](https://github.com/JayRovacsek/nix-config/commit/f300107418f50d97d0da2b0847156992cfa632df))
 

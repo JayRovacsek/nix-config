@@ -19,6 +19,7 @@ in
 
   linux = [
     self.overlays.element-desktop
+    self.overlays.jellyfin-wayland
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
     self.overlays.mpvpaper

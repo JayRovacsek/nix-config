@@ -1,11 +1,14 @@
 {
+  config,
   pkgs,
   lib,
   osConfig,
   ...
 }:
 let
-  inherit (lib.strings) hasInfix;
+  using-wayland =
+    with config.wayland.windowManager;
+    (hyprland.enable || river.enable || sway.enable);
 
   darwin-packages = [ ];
 
@@ -16,7 +19,7 @@ let
     # Productivity
     gimp
     nextcloud-client
-    jellyfin-media-player
+    (if using-wayland then jellyfin-media-player-wayland else jellyfin-media-player)
 
     # Communication
     signal-desktop
@@ -25,7 +28,7 @@ let
 
   # TODO: refactor this into a getAttr rather than if statement.
   cfg =
-    if hasInfix "darwin" osConfig.nixpkgs.system then
+    if lib.hasInfix "darwin" osConfig.nixpkgs.system then
       { home.packages = darwin-packages; }
     else
       { home.packages = linux-packages; };
