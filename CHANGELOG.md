@@ -236,6 +236,8 @@
 - *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
 
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
+- Add zsh as user shell - ([dd6f4fd](https://github.com/JayRovacsek/nix-config/commit/dd6f4fdd605474c2bf221109f3256903c90fba68))
+
 - Remove system level zsh - ([b3a0f0b](https://github.com/JayRovacsek/nix-config/commit/b3a0f0b68b422d266f45ea76bd98f355d0d21b68))
 
 - Resolve eval issues - ([54773ee](https://github.com/JayRovacsek/nix-config/commit/54773eeeed0ba9e5bd530a78916e3c327479bb7d))

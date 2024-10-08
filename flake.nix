@@ -46,8 +46,6 @@
 
     flake-root.url = "github:srid/flake-root";
 
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-
     flake-utils = {
       inputs.systems.follows = "systems";
       url = "github:numtide/flake-utils";
@@ -249,6 +247,17 @@
       url = "github:SuperSandro2000/nixos-modules";
     };
 
+    sbomnix = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        flake-root.follows = "flake-root";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:tiiuae/sbomnix";
+    };
+
     # Software bill of materials package
     stylix = {
       inputs = {
@@ -375,8 +384,6 @@
 
         # Overlays for when stuff really doesn't fit in the round hole
         overlays = import ./overlays { inherit self; };
-
-        schemas = (import ./schemas) // self.inputs.flake-schemas.schemas;
 
         # System configurations
         nixosConfigurations = import ./linux { inherit self; };

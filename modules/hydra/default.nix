@@ -27,7 +27,6 @@ let
     "github:cachix/git-hooks.nix"
     "github:chriskempson/base16-vim"
     "github:danth/stylix"
-    "github:DeterminateSystems/flake-schemas"
     "github:edolstra/flake-compat"
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
