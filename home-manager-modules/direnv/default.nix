@@ -1,12 +1,9 @@
-{ config, osConfig, ... }:
+{ config, ... }:
 let
   enable = true;
-  enableBashIntegration =
-    config.programs.bash.enable && osConfig.programs.bash.enable;
-  enableFishIntegration =
-    config.programs.fish.enable && osConfig.programs.fish.enable;
-  enableZshIntegration =
-    config.programs.zsh.enable && osConfig.programs.zsh.enable;
+  enableBashIntegration = config.programs.bash.enable;
+  enableFishIntegration = config.programs.fish.enable;
+  enableZshIntegration = config.programs.zsh.enable;
 
   nix-direnv.enable = true;
 

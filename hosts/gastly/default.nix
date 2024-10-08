@@ -44,7 +44,6 @@ in
     timesyncd
     udev
     zramSwap
-    zsh
   ];
 
   age = {

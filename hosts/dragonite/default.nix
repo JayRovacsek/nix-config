@@ -96,7 +96,6 @@ in
     unifi
     zfs
     zramSwap
-    zsh
   ];
 
   age = {

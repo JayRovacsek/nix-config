@@ -36,7 +36,6 @@ in
     nix-topology
     time
     timesyncd
-    zsh
     self.inputs.nixos-wsl.nixosModules.wsl
   ];
 

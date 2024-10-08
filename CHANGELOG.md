@@ -231,6 +231,8 @@
 
 - *(packages)* Resolve broken packages - ([74fbe6f](https://github.com/JayRovacsek/nix-config/commit/74fbe6fcbe1046512778970f6b47f4bbb8709a7f))
 
+- *(packages,hydra)* Remove bedrock server package, add uris to hydra - ([2d341d0](https://github.com/JayRovacsek/nix-config/commit/2d341d08008a60b6c38159195887058a9c680f18))
+
 - *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
 
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))

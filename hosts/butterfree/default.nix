@@ -38,7 +38,6 @@ in
     ssm
     time
     timesyncd
-    zsh
   ];
 
   networking.hostName = "butterfree";

@@ -177,6 +177,30 @@ _: {
         }
         {
           address = "192.168.17.2";
+          fqdn = "geo.hivebedrock.network";
+        }
+        {
+          address = "192.168.17.2";
+          fqdn = "hivebedrock.network";
+        }
+        {
+          address = "192.168.17.2";
+          fqdn = "play.inpvp.net";
+        }
+        {
+          address = "192.168.17.2";
+          fqdn = "mco.lbsg.net";
+        }
+        {
+          address = "192.168.17.2";
+          fqdn = "play.galaxite.net";
+        }
+        {
+          address = "192.168.17.2";
+          fqdn = "play.enchanted.gg";
+        }
+        {
+          address = "192.168.17.2";
           fqdn = "palworld.local";
         }
         {

@@ -14,6 +14,8 @@ let
   };
 in
 {
+  home.sessionVariables.SHELL = "${lib.getExe config.programs.zsh.package}";
+
   programs.zsh = {
     autosuggestion.enable = true;
     enable = true;

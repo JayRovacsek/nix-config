@@ -69,7 +69,6 @@ in
     tmux
     udev
     zramSwap
-    zsh
   ];
 
   age = {
