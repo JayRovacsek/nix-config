@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -26,6 +27,7 @@ let
   user-configs = merge [
     builder
     jay
+    { users.users.jay.shell = lib.getExe pkgs.zsh; }
   ];
 
 in

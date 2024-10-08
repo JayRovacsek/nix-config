@@ -45,6 +45,7 @@ in
     hyprland
     i18n
     impermanence
+    journald
     lorri
     nix
     nix-topology
@@ -111,16 +112,12 @@ in
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  services = {
-    journald.storage = "volatile";
-    timesyncd.servers = lib.mkForce [
-      # "129.6.15.28"
-      "137.92.140.80" # -> ntp.ise.canberra.edu.au
-      "138.194.21.154" # -> ntp.mel.nml.csiro.au
-      "129.6.15.28" # -> time-a-g.nist.gov
-      "129.6.15.29" # -> time-b-g.nist.gov
-    ];
-  };
+  services.timesyncd.servers = lib.mkForce [
+    "137.92.140.80" # -> ntp.ise.canberra.edu.au
+    "138.194.21.154" # -> ntp.mel.nml.csiro.au
+    "129.6.15.28" # -> time-a-g.nist.gov
+    "129.6.15.29" # -> time-b-g.nist.gov
+  ];
 
   system.stateVersion = "24.05";
 }

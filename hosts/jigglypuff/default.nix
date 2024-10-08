@@ -76,6 +76,13 @@ in
 
   programs.fuse.userAllowOther = true;
 
+  services.timesyncd.servers = lib.mkForce [
+    "137.92.140.80" # -> ntp.ise.canberra.edu.au
+    "138.194.21.154" # -> ntp.mel.nml.csiro.au
+    "129.6.15.28" # -> time-a-g.nist.gov
+    "129.6.15.29" # -> time-b-g.nist.gov
+  ];
+
   systemd.network = {
     netdevs."00-vlan-dns" = {
       enable = true;
