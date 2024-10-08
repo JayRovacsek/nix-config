@@ -1,8 +1,8 @@
 { self }:
 let
-  inherit (self.common.system) unstable-system;
-  inherit (self.nixosModules) disable-assertions oracle-image;
   inherit (self.common.package-sets) x86_64-linux-unstable;
+  inherit (self.common.system) unstable-system;
+  inherit (self.nixosModules) disable-assertions oracle-image zsh;
 
   inherit (x86_64-linux-unstable) system identifier pkgs;
   base = self.common.modules.${identifier};
@@ -10,6 +10,7 @@ let
     ../../hosts/ditto
     disable-assertions
     oracle-image
+    zsh
   ];
   specialArgs = {
     inherit self;

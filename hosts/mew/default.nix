@@ -36,6 +36,7 @@ in
     nix
     time
     timesyncd
+    zsh
   ];
 
   networking = {

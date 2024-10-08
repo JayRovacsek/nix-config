@@ -64,6 +64,7 @@ in
     time
     timesyncd
     zramSwap
+    zsh
   ];
 
   networking = {

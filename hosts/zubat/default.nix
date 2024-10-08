@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   self,
   ...
 }:
@@ -37,6 +36,7 @@ in
     time
     timesyncd
     self.inputs.nixos-wsl.nixosModules.wsl
+    zsh
   ];
 
   networking.hostName = "zubat";

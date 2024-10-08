@@ -60,7 +60,7 @@ let
     # this file.
     flippedRecursiveUpdate overrides {
       users.users.${name} = recursiveUpdate {
-        shell = pkgs.bash;
+        shell = if name != "builder" then pkgs.zsh else pkgs.bash;
         home = if isDarwin then "/Users/${name}" else "/home/${name}";
       } stripped-user-settings;
 

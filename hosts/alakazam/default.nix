@@ -27,7 +27,6 @@ let
   user-configs = merge [
     builder
     jay
-    { users.users.jay.shell = lib.getExe pkgs.zsh; }
   ];
 
 in
@@ -71,6 +70,7 @@ in
     tmux
     udev
     zramSwap
+    zsh
   ];
 
   age = {

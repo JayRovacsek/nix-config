@@ -87,6 +87,7 @@ in
     ssh
     time
     yabai
+    zsh
   ];
 
   networking = {
