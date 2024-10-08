@@ -32,6 +32,7 @@ let
     "github:GNOME/gnome-shell"
     "github:hercules-ci/flake-parts"
     "github:hercules-ci/gitignore.nix"
+    "github:Infinidoge/nix-minecraft"
     "github:JakeStanger/ironbar"
     "github:JayRovacsek"
     "github:kdrag0n/base16-kitty"
@@ -92,9 +93,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ port ];
 
-  nix.extraOptions = ''
-    allowed-uris = ${lib.concatStringsSep " " urls}
-  '';
+  nix.settings.allowed-uris = lib.concatStringsSep " " urls;
 
   services.hydra = {
     enable = true;
