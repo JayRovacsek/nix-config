@@ -151,7 +151,8 @@ in
       pkief.material-icon-theme
 
       # Markdown
-      yzhang.markdown-all-in-one
+      bierner.markdown-mermaid
+      bierner.markdown-preview-github-styles
     ];
   };
 }

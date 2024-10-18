@@ -85,8 +85,8 @@
           jsonls.enable = true;
           eslint.enable = true;
           nixd.enable = true;
-          typst-lsp.enable = true;
-          ts-ls.enable = true;
+          typst_lsp.enable = true;
+          ts_ls.enable = true;
           terraformls.enable = true;
           yamlls.enable = true;
         };

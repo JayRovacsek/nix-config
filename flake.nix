@@ -275,8 +275,9 @@
     # Opentofu via the nix language
     terranix = {
       inputs = {
-        flake-utils.follows = "flake-utils";
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
       url = "github:terranix/terranix";
     };
