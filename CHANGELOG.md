@@ -195,6 +195,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Add mongodb option to unifi - ([af57d26](https://github.com/JayRovacsek/nix-config/commit/af57d26ba52710df4ec12a1d27798f57fab8aa50))
+
 - *(modules)* Add nameserver to tailscale config - ([4114056](https://github.com/JayRovacsek/nix-config/commit/4114056d782a8b43b80936d47fe8b12d48e46f0e))
 
 - *(modules)* Resolve issues with linking across multiple block devices - ([961cc44](https://github.com/JayRovacsek/nix-config/commit/961cc4411cbc4e2037b95c0d31da39de9b69a642))
