@@ -9,6 +9,6 @@
     extraJvmOptions = [ "-Djava.net.preferIPv4Stack=true" ];
     openFirewall = true;
     unifiPackage = pkgs.unifi8;
-    mongodbPackage = pkgs.mongodb-6_0;
+    mongodbPackage = pkgs.mongodb-7_0;
   };
 }
