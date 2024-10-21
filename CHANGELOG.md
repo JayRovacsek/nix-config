@@ -195,6 +195,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Add websocket proxy to jellyfin - ([8f3d11b](https://github.com/JayRovacsek/nix-config/commit/8f3d11bd21ca59ecdee4eb7043de45c4aeb0623c))
+
 - *(modules)* Utilise mongodb-ce for unifi - ([89b1510](https://github.com/JayRovacsek/nix-config/commit/89b15100d72a406864e54f24390b9424550bec72))
 
 - *(modules)* Move mongo package to a supported version - ([3efb242](https://github.com/JayRovacsek/nix-config/commit/3efb24219a282fa39512e765ca9aa91120e2403e))

@@ -14,18 +14,21 @@ in
         type = lib.types.bool;
         default = false;
       };
+
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.ollama;
       };
+
       logFile = lib.mkOption {
         type = lib.types.str;
         default = "/tmp/ollama.log";
         example = "/var/log/ollama.log";
       };
+
       models = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ "llama3" ];
+        default = [ ];
         example = [
           "llama3"
           "phi3:3.8b"

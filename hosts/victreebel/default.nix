@@ -13,10 +13,14 @@ let
 
   jay = self.common.users."j.rovacsek" {
     inherit config pkgs;
-    modules = with self.common.home-manager-module-sets; darwin-desktop ++ ssh;
+    modules =
+      with self.common.home-manager-module-sets;
+      darwin-desktop ++ ai ++ ssh;
   };
 
-  user-configs = merge [ jay ];
+  user-configs = merge [
+    jay
+  ];
 in
 {
   inherit (user-configs) users home-manager;

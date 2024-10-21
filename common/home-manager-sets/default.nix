@@ -1,5 +1,6 @@
 { self }:
 {
+  ai = import ./ai.nix { inherit self; };
   base = import ./base.nix { inherit self; };
   cli = import ./cli.nix { inherit self; };
   games = import ./games.nix { inherit self; };
