@@ -166,6 +166,7 @@ let
           "~ (/jellyfin)?/socket" = {
             extraConfig = "";
             inherit proxyPass;
+            proxyWebsockets = true;
           };
         };
     };
