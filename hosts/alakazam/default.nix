@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   self,
   ...
@@ -21,7 +20,7 @@ let
     inherit config pkgs;
     modules =
       with self.common.home-manager-module-sets;
-      hyprland-ironbar-desktop ++ games ++ ssh;
+      hyprland-ironbar-desktop ++ games ++ ssh ++ impermanence;
   };
 
   user-configs = merge [
@@ -34,9 +33,11 @@ in
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
+    ./disk-config.nix
     agenix
     bluetooth
-    clamav
+    # Currently broken
+    # clamav
     fonts
     generations
     gnome-keyring
@@ -46,12 +47,10 @@ in
     home-manager
     hyprland
     i18n
-    keybase
+    impermanence
     lix
     logging
     lorri
-    microvm-host
-    nextcloud-client
     nix
     nix-monitored
     nix-topology
@@ -63,7 +62,8 @@ in
     steam
     systemd-boot
     systemd-networkd
-    tailscale
+    # May also be broken
+    # tailscale
     time
     timesyncd
     tmp-tmpfs
@@ -76,24 +76,9 @@ in
   age = {
     identityPaths = [
       "/agenix/id-ed25519-${config.networking.hostName}-primary"
-      "/agenix/id-ed25519-terraform-primary"
     ];
 
-    secrets = {
-      git-signing-key = rec {
-        file = ../../secrets/ssh/git-signing-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key";
-      };
-
-      "git-signing-key.pub" = rec {
-        file = ../../secrets/ssh/git-signing-key.pub.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key.pub";
-      };
-
-      tailnet-preauth.file = ../../secrets/tailscale/preauth-admin.age;
-    };
+    secrets.tailnet-preauth.file = ../../secrets/tailscale/preauth-admin.age;
   };
 
   boot = {
@@ -106,10 +91,6 @@ in
         "sd_mod"
       ];
       kernelModules = [ "dm-snapshot" ];
-      luks.devices.crypted = {
-        device = "/dev/disk/by-uuid/7cf02c33-9404-45af-9e53-2fa65aa59027";
-        preLVM = true;
-      };
     };
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
@@ -130,16 +111,6 @@ in
     wget
   ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e78b4f61-9844-4cb3-a144-ff8f8dd37154";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3BA7-CA2B";
-    fsType = "vfat";
-  };
-
   hardware.cpu = {
     profile = {
       cores = 8;
@@ -152,6 +123,8 @@ in
     hostId = "ef26b1be";
     hostName = "alakazam";
   };
+
+  programs.fuse.userAllowOther = true;
 
   programs.ssh.publicHostKeyBase64 = "YWxha2F6YW0ubG9jYWwgc3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFkcjVkaW9UeTNtTUs3VGpydUxid2tnMENLYWJ3TTVXT2VyckdJNC9MM1cK";
 

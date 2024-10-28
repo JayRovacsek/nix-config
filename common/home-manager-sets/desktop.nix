@@ -8,6 +8,7 @@ desktop-minimal
   discord
   firefox
   keepassxc
+  nextcloud-client
   slack
   vscodium
 ])

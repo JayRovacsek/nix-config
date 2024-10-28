@@ -1,13 +1,49 @@
 {
   config,
   lib,
+  osConfig,
   self,
   ...
 }:
 let
-  nextcloud-present = builtins.any (
-    p: (p.pname or "") == "nextcloud-client"
-  ) config.home.packages;
+  /**
+    Beware: the below is kinda cursed, but I'm kinda chuffed with it.
+    The intent is to describe a function that can be curried so that the
+    assessment of common traits between system and home settings can be
+    evaluated without duplicating too much code.
+  */
+  package-has =
+    cfg: package: fn:
+    # Check if the package exists as a program option in home-manager
+    if (builtins.hasAttr package cfg.programs) then
+      cfg.programs."${package}".enable
+    # Alternatively as a service
+    else if (builtins.hasAttr package cfg.services) then
+      cfg.services."${package}".enable
+    else
+      fn;
+
+  home-packages-has =
+    package:
+    package-has config package (
+      builtins.any (p: package == (p.name or p.name or "")) config.home.packages
+    );
+
+  system-packages-has =
+    package:
+    package-has osConfig package (
+      builtins.any (
+        p: package == (p.name or p.name or "")
+      ) osConfig.environment.systemPackages
+    );
+
+  # The final boss of curries
+  any-packages-has =
+    package:
+    builtins.any (f: f package) [
+      home-packages-has
+      system-packages-has
+    ];
 
   # HERE BE DRAGONS!
   #
@@ -32,35 +68,55 @@ let
 in
 {
   imports = [ self.inputs.impermanence.nixosModules.home-manager.impermanence ];
-  # TODO: valudate need for:
-  # libvirt light lsd lutris matplotlib mimeapps.list Moonlight Game Streaming Project mopidy mpv nautilus neofetch Nextcloud nix nixpkgs nwg-bar nwg-dock nwg-dock-hyprland nwg-panel partitionmanagerrc pokemmo pop-shell procps pudb pulse QtProject.conf Ryujinx Signal Slack sniffnet starship.toml stylix sunshine swaylock systemd teamviewer Thonny unity3d Unknown Organization user-dirs.locale Vencord VirtualBox vlc VSCodium waybar WebCord wireshark Yubico zoom.conf zoomus.conf
-
-  # TODO: write keepers for:
-  # discord / webcord
-  # lutris
-  # keybase
-  # libreoffice
 
   # NOTE:
   # Only directories that are not nix-generated need to be considered here.
   # If nix would generate the location based on config options therefore creating a symlink
   # we do not need to keep the value as it's already in the store
-  # 
-  # Well, I'm pretty sure anyway :)
 
   home.persistence."/persistent/home/${config.home.username}" = {
     directories =
       [
-        "Pictures"
-        "Videos"
         ".gnupg"
+        # TEMPORARY TO ENABLE TRANSITION - REMOVE
+        "restic"
         ".ssh"
         ".local/share/keyrings"
-        ".local/share/direnv"
-        # TODO: write a basic package lib set that handles the checking of nextcloud across both home packages
-        # as well as places like homebrew or mas apps - already quasi-done in dockutil, but in a terrbile way.
       ]
-      ++ (lib.optional nextcloud-present "Nextcloud")
+      ## Direnv
+      ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
+
+      ## Firefox; note that ".cache/mozilla/firefox" could be 
+      # added to the below to retain the browser cache, but I'm going to see
+      # how it goes just nuking that directory for now.
+      ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
+
+      ## Keybase
+      ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
+
+      ## Lutris
+      ++ (lib.optionals (home-packages-has "lutris") [ ".config/lutris" ])
+
+      ++ (lib.optionals (home-packages-has "nextcloud-client") [ "Nextcloud" ])
+
+      ## Slack
+      ++ (lib.optionals (home-packages-has "slack") [ ".config/Slack" ])
+
+      ## Signal
+      ++ (lib.optionals (home-packages-has "signal-desktop") [ ".config/Signal" ])
+
+      # Steam
+      ++ (lib.optionals (any-packages-has "steam") [
+        ".steam"
+        ".local/share/Steam"
+      ])
+
+      ## Webcord / Vencord
+      ++ (lib.optionals (home-packages-has "webcord-vencord") [ ".config/Vencord" ])
+
+      ## Zoom
+      ++ (lib.optionals (home-packages-has "zoom-us") [ ".zoom" ])
+
       # Adds all XDG created directories if the user has opted into creating directories via this option
       ++ xdg-user-dirs;
     files = [ ];

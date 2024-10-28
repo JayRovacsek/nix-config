@@ -35,8 +35,8 @@ let
   allowAllViaExitNodes = [
     {
       action = "accept";
-      src = [ "autogroup:members" ];
-      dst = [ "autogroup:internet:*" ];
+      src = [ "member" ];
+      dst = [ "internet:*" ];
     }
   ];
 

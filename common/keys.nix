@@ -17,6 +17,8 @@ _: {
   gastly-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpnckiLeMt47JxwfUUrDaG/e7yYWgVoxIlgG/EZBuy+";
   igglybuff-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpveJK04VEhTAUPKglsuQO17iBaRAztqAy+UeafheZ6";
   igglybuff-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH3dl4hNR2FXjE30TXVCTNMF38NYZ49D6dogM2b08dJq";
+  jay-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGmCaNc3S5RyUfhYFh+vc7orsxZ+6seVeofK/HzhONvR";
+  jay-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHZMzOaEIyOPtJiGb72nkiW+E3C+ex4Pu92tdBuLxUmw";
   jigglypuff-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILrdlArx15OrZAvfHfv0q5USrZCX201CkqhT7QIaSUqu";
   jigglypuff-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9NUHTVu238jt1fpMQj2mw3PSVH+kJ6izJsAx80Cpjs";
   machop-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA139Ww8h115z6OtNufgPG5ccEVJAyQo9bcx2faIgHJE";

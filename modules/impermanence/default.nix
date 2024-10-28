@@ -57,6 +57,12 @@ in
         "/var/lib/systemd"
         "/var/log"
         "/var/tmp"
+        # TODO: dynamically manage the below
+        {
+          directory = "/home/jay";
+          user = "jay";
+          group = "users";
+        }
       ]
 
       # TODO: map directories to correct owner and systemd state directories.
@@ -67,6 +73,8 @@ in
       ++ (lib.optional agenix-in-use "/agenix")
       ## Authelia
       ++ (lib.optionals authelia authelia-instances)
+      ## Bluetooth
+      ++ (lib.optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
       ## ClamAV
       ++ (lib.optional config.services.clamav.daemon.enable "/var/lib/clamav")
       # Magic values as per: https://github.com/NixOS/nixpkgs/blob/e92b6015881907e698782c77641aa49298330223/nixos/modules/services/networking/ddclient.nix#L6C3-L6C10
@@ -76,8 +84,9 @@ in
       ++ (lib.optional config.services.deluge.enable config.services.deluge.config.download_location)
       ## Docker
       ++ (lib.optional config.virtualisation.docker.enable "/var/lib/docker")
-      ## Mysql
-      ++ (lib.optional config.services.mysql.enable config.services.mysql.dataDir)
+      ## Greetd
+      # Note that tuigreet is assumed; if it is not utilised an empty directory exists
+      ++ (lib.optional config.services.greetd.enable "/var/cache/tuigreet")
       ## Grafana
       ++ (lib.optional config.services.grafana.enable config.services.grafana.dataDir)
       # Magic values as per: https://github.com/NixOS/nixpkgs/blob/e92b6015881907e698782c77641aa49298330223/nixos/modules/services/networking/headscale.nix#L10
@@ -88,10 +97,15 @@ in
         "/var/lib/lightdm"
         "/var/lib/lightdm-data"
       ])
+      # Microvms
       ++ (lib.optionals microvm ([ "/var/lib/microvms" ] ++ microvm-state-dirs))
+      ## Mysql
+      ++ (lib.optional config.services.mysql.enable config.services.mysql.dataDir)
+      ## SDDM
       ++ (lib.optionals config.services.displayManager.sddm.enable [
         "/var/lib/sddm"
       ])
+      ## Tailscale
       ++ (lib.optional config.services.tailscale.enable "/var/lib/tailscale");
   };
 }

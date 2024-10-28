@@ -1,7 +1,7 @@
 {
   name = "jay";
   isNormalUser = true;
-  initialHashedPassword = "$6$LRvlOuUlmWfOtbKW$JuSDUvL0ykqAhFi80rMdWrc89wDz/uJ1Mt6WuHpsa/7kxSTWlz5O0f7xRvFvJ6nxEePUkxx/52FuHHl3rEhj61";
+  hashedPassword = "$y$j9T$2m8ZFikkQ3kVzMcpK6MsX0$oaiezoEN4keswQ2EqLqSaeQvwUo4qvMTSKzqLFWKhpC";
   extraGroups = [
     "audio"
     "docker"
@@ -18,8 +18,8 @@
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIDuG5e8MReihLwtKk3/rbXcZKNfiapcqAhWu//fC0aMKAAAABHNzaDo= jay@rovacsek.com"
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILDjbVDfVzpcxnx9fl4pBr6eKAJdSyX4JLyBK02N9YeFAAAABHNzaDo= jay@rovacsek.com"
   ];
-  home = {
-    file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaL4kr1XUQWWuj+iFjXeIiE6zhRDQFbOs+6toGSW9+5";
+  home.file = {
+    ".config/git/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaL4kr1XUQWWuj+iFjXeIiE6zhRDQFbOs+6toGSW9+5";
   };
   accounts.email.accounts.git = {
     address = "jay@rovacsek.com";

@@ -32,18 +32,6 @@ in
         owner = "j.rovacsek";
       in
       {
-        git-signing-key = {
-          inherit owner;
-          file = ../../secrets/ssh/git-signing-key.age;
-          path = "/Users/${owner}/.ssh/git-signing-key";
-        };
-
-        "git-signing-key.pub" = {
-          inherit owner;
-          file = ../../secrets/ssh/git-signing-key.pub.age;
-          path = "/Users/${owner}/.ssh/git-signing-key.pub";
-        };
-
         type-a-1 = lib.mkForce {
           inherit owner;
           file = ../../secrets/ssh/type-a-1.age;

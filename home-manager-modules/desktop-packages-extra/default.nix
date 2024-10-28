@@ -18,7 +18,6 @@ let
 
     # Productivity
     gimp
-    nextcloud-client
     (if using-wayland then jellyfin-media-player-wayland else jellyfin-media-player)
 
     # Communication

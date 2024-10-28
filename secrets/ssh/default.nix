@@ -8,7 +8,7 @@ let
 in
 {
   # Secrets SSH keys - in this instance all hard-tokens so 
-  # threat modeling would require physical access to fully
+  # threat modelling would require physical access to fully
   # compromise anyway.
   # Here we use a prefix of $USERNAME- so we can dynamically 
   # generate suitable configs re; identity files and whatnot
@@ -19,8 +19,4 @@ in
 
   # SSH key used for remote builds
   "builder-id-ed25519.age".publicKeys = sshKeys;
-
-  # SSH Signing Key
-  "git-signing-key.age".publicKeys = sshKeys;
-  "git-signing-key.pub.age".publicKeys = sshKeys;
 }

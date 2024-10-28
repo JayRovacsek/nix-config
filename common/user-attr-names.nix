@@ -7,11 +7,12 @@ let
   # TODO: revisit this some time in the future to validate there
   # isn't an obvious way.
   attr-names = [
-    "name"
+    "extraGroups"
+    "hashedPassword"
+    "initialHashedPassword"
     "isNormalUser"
     "isSystemUser"
-    "initialHashedPassword"
-    "extraGroups"
+    "name"
     "openssh"
   ];
 in

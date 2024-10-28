@@ -1,49 +1,59 @@
 {
   config,
-  osConfig,
-  lib,
   ...
 }:
-let
-  # Check if signing key is configured as expected
-  signingKeyConfigured =
-    builtins.hasAttr "age" osConfig
-    && builtins.hasAttr "git-signing-key.pub" osConfig.age.secrets;
+{
+  age = {
+    identityPaths = [
+      # JUST A CLONE OF SSH - MOVE TO USER KEY
+      "/agenix/id-ed25519-jay-primary"
+    ];
+    secrets = {
+      git-signing-key = {
+        file = ../../secrets/git/git-signing-key.age;
+        mode = "400";
+        path = "${config.xdg.configHome}/git/git-signing-key";
+      };
 
-  # Cannot use a reference below in a conditional to build our
-  # desired config as it causes infinite recursion. We'll just assume
-  # a signers file is configured in the standard location to get around
-  # this.
-  useExtraConfig = signingKeyConfigured;
-
-  # Create a set with signing config present for systems that 
-  # can support it
-  extraConfig = lib.attrsets.optionalAttrs useExtraConfig {
-    commit.gpgsign = true;
-    gpg = {
-      format = "ssh";
-      ssh.allowedSignersFile = config.home.file.".ssh/allowed_signers".source.outPath;
+      # This doesn't need to be a secret, however the assessment of the public key
+      # leads to git checking the same location for a private key. If we don't add
+      # this as a secret, it'll exist in a location that is not matching the 
+      # private key, causing signing failures.
+      git-signing-key-pub = {
+        file = ../../secrets/git/git-signing-key-pub.age;
+        mode = "400";
+        path = "${config.xdg.configHome}/git/git-signing-key.pub";
+      };
     };
-    user.signingkey = osConfig.age.secrets."git-signing-key.pub".path;
-    push.autoSetupRemote = true;
   };
 
-in
-{
   programs.git = {
-    enable = true;
+
     difftastic = {
-      enable = true;
       background = "dark";
       color = "auto";
+      enable = true;
     };
+
+    enable = true;
+
+    extraConfig = {
+      commit.gpgsign = true;
+      gpg = {
+        format = "ssh";
+        ssh.allowedSignersFile =
+          config.home.file.".config/git/allowed_signers".source.outPath;
+      };
+      push.autoSetupRemote = true;
+      user.signingkey = config.age.secrets.git-signing-key-pub.path;
+    };
+
     lfs = {
       enable = true;
       skipSmudge = true;
     };
+
     userEmail = "jay@rovacsek.com";
     userName = "jayrovacsek";
-
-    inherit extraConfig;
   };
 }

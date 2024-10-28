@@ -99,23 +99,6 @@ in
     zsh
   ];
 
-  age = {
-    secrets = {
-      "git-signing-key" = rec {
-        file = ../../secrets/ssh/git-signing-key.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key";
-      };
-
-      "git-signing-key.pub" = rec {
-        file = ../../secrets/ssh/git-signing-key.pub.age;
-        owner = builtins.head (builtins.attrNames jay.users.users);
-        path = "/home/${owner}/.ssh/git-signing-key.pub";
-      };
-    };
-    identityPaths = [ "/agenix/id-ed25519-ssh-primary" ];
-  };
-
   boot = {
     binfmt.emulatedSystems = [
       "aarch64-linux"

@@ -5,6 +5,7 @@ let
 in
 base
 ++ (with self.homeManagerModules; [
+  agenix
   bat
   direnv
   fzf

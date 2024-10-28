@@ -14,7 +14,6 @@ let
     swappy
     lib
     fuzzel
-    nextcloud-client
     ;
   inherit (self.lib.hyprland) generate-monitors;
 
@@ -40,7 +39,7 @@ let
       extra = "";
     }
     {
-      name = "DP-3";
+      name = "DP-1";
       resolution = "1920x1080";
       position = "3000x420";
       scale = "1";
@@ -64,19 +63,13 @@ let
   bluetooth-enabled =
     osConfig.hardware.bluetooth.enable || osConfig.services.blueman.enable;
 
-  nextcloud-present = builtins.any (
-    p: (p.pname or "") == "nextcloud-client"
-  ) config.home.packages;
-
   swaync-enabled = config.services.swaync.enable;
 
   bluetooth-exec = lib.optional bluetooth-enabled "${pkgs.blueman}/bin/blueman-applet";
 
   swaync-exec = lib.optional swaync-enabled "${config.services.swaync.package}/bin/swaync";
 
-  nextcloud-exec = lib.optional nextcloud-present "${nextcloud-client}/bin/nextcloud";
-
-  exec-once = bluetooth-exec ++ nextcloud-exec ++ swaync-exec;
+  exec-once = bluetooth-exec ++ swaync-exec;
 
 in
 {

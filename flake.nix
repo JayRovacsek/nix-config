@@ -386,6 +386,8 @@
         # Overlays for when stuff really doesn't fit in the round hole
         overlays = import ./overlays { inherit self; };
 
+        secrets = import ./secrets { inherit self; };
+
         # System configurations
         nixosConfigurations = import ./linux { inherit self; };
         darwinConfigurations = import ./darwin { inherit self; };
