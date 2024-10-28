@@ -106,7 +106,6 @@ in
     agenix
     curl
     dig
-    r2modman
     trdsql
     wget
   ];

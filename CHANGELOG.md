@@ -153,6 +153,8 @@
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
+- *(home-manager-modules)* Only reference signing file if suitable - ([a14fd1b](https://github.com/JayRovacsek/nix-config/commit/a14fd1b4aff14e2f0659eebe8d5642a6e9fc73ab))
+
 - *(home-manager-modules)* Resolve screen ordering issue - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
 - *(home-manager-modules)* Add       web-devicons plugin - ([8ddc456](https://github.com/JayRovacsek/nix-config/commit/8ddc456e9b767435b63d86e14eff2ebcc473e716))

@@ -111,6 +111,9 @@ in
         "Nextcloud"
       ])
 
+      ## r2modman
+      ++ (lib.optionals (home-packages-has "r2modman") [ ".config/r2modman" ])
+
       ## Slack
       ++ (lib.optionals (home-packages-has "slack") [ ".config/Slack" ])
 

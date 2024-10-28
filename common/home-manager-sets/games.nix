@@ -1,1 +1,6 @@
-{ self }: with self.homeManagerModules; [ lutris ]
+{ self }:
+with self.homeManagerModules;
+[
+  lutris
+  r2modman
+]
