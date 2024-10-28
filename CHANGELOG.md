@@ -9,6 +9,8 @@
 
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
+- *(flake)* Expose secret public key configurations via outputs - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
+
 - *(flake)* Update hydra-api-input to default branch - ([38a25c4](https://github.com/JayRovacsek/nix-config/commit/38a25c4f72d967a07c70df880486890be3740069))
 
 - *(flake)* Unpin lix input - ([edecadb](https://github.com/JayRovacsek/nix-config/commit/edecadbcf26402c3f406ee002a738c91627011f2))
@@ -34,6 +36,10 @@
 - *(iac)* Archive nix-options - ([ebd54e6](https://github.com/JayRovacsek/nix-config/commit/ebd54e6caf5a283a01e5652e68324b06c9b45ec8))
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
+
+- *(linux)* Move alakazam to impermanence - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
+
+- *(linux)* Migrate alakazam to disko - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
 - *(linux)* Revive porygon, add services to it - ([3fc5dad](https://github.com/JayRovacsek/nix-config/commit/3fc5dad8d4f28f9460751697840b7b855816e86e))
 
@@ -124,6 +130,8 @@
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
 
 - *(tooling,iac)* Augment existing documentation step for tofu stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
+- Introduce a home-manager agenix module - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
+
 - Add remote builds to dragonite - ([4f41649](https://github.com/JayRovacsek/nix-config/commit/4f41649c23f326241300290618951c61e5fd3b15))
 
 - Add shield.io badges - ([83e7ebd](https://github.com/JayRovacsek/nix-config/commit/83e7ebd0db8978860cfd8d52cf4902cfaeda2740))
@@ -142,6 +150,8 @@
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
+
+- *(home-manager-modules)* Resolve screen ordering issue - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
 - *(home-manager-modules)* Add       web-devicons plugin - ([8ddc456](https://github.com/JayRovacsek/nix-config/commit/8ddc456e9b767435b63d86e14eff2ebcc473e716))
 

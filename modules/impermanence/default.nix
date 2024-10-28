@@ -57,12 +57,6 @@ in
         "/var/lib/systemd"
         "/var/log"
         "/var/tmp"
-        # TODO: dynamically manage the below
-        {
-          directory = "/home/jay";
-          user = "jay";
-          group = "users";
-        }
       ]
 
       # TODO: map directories to correct owner and systemd state directories.

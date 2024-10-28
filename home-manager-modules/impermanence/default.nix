@@ -26,14 +26,14 @@ let
   home-packages-has =
     package:
     package-has config package (
-      builtins.any (p: package == (p.name or p.name or "")) config.home.packages
+      builtins.any (p: package == (p.pname or p.name or "")) config.home.packages
     );
 
   system-packages-has =
     package:
     package-has osConfig package (
       builtins.any (
-        p: package == (p.name or p.name or "")
+        p: package == (p.pname or p.name or "")
       ) osConfig.environment.systemPackages
     );
 
@@ -77,11 +77,13 @@ in
   home.persistence."/persistent/home/${config.home.username}" = {
     directories =
       [
-        ".gnupg"
         # TEMPORARY TO ENABLE TRANSITION - REMOVE
         "restic"
-        ".ssh"
+
+        ".cache/nix"
+        ".gnupg"
         ".local/share/keyrings"
+        ".ssh"
       ]
       ## Direnv
       ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
@@ -91,13 +93,23 @@ in
       # how it goes just nuking that directory for now.
       ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
 
+      # Jellyfin
+      ++ (lib.optionals (home-packages-has "jellyfin-media-player") [
+        ".local/share/Jellyfin Media Player"
+        ".local/share/jellyfinmediaplayer"
+      ])
+
       ## Keybase
       ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
 
       ## Lutris
       ++ (lib.optionals (home-packages-has "lutris") [ ".config/lutris" ])
 
-      ++ (lib.optionals (home-packages-has "nextcloud-client") [ "Nextcloud" ])
+      ++ (lib.optionals (home-packages-has "nextcloud-client") [
+        ".config/Nextcloud"
+        ".local/share/Nextcloud"
+        "Nextcloud"
+      ])
 
       ## Slack
       ++ (lib.optionals (home-packages-has "slack") [ ".config/Slack" ])
