@@ -71,6 +71,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Remove persistent home directory - ([f44d805](https://github.com/JayRovacsek/nix-config/commit/f44d8059243292572de6a05f41849cae0231adb1))
+
 - *(modules)* Utilise production package for nvidia - ([a84bf24](https://github.com/JayRovacsek/nix-config/commit/a84bf249f6266be2d84343e62f253d9148df7653))
 
 - *(modules)* Add basic grafana dashboards - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))
@@ -256,6 +258,8 @@
 - *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
 
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
+- Use pname before name for assessment of impermanence - ([f44d805](https://github.com/JayRovacsek/nix-config/commit/f44d8059243292572de6a05f41849cae0231adb1))
+
 - Re-add zsh, disabling auto-completion however - ([0aa27f6](https://github.com/JayRovacsek/nix-config/commit/0aa27f61724ff71839b37954b862eb16c3ea224d))
 
 - Add zsh as user shell - ([dd6f4fd](https://github.com/JayRovacsek/nix-config/commit/dd6f4fdd605474c2bf221109f3256903c90fba68))

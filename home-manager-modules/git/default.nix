@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   ...
 }:
 {
@@ -42,7 +43,8 @@
       gpg = {
         format = "ssh";
         ssh.allowedSignersFile =
-          config.home.file.".config/git/allowed_signers".source.outPath;
+          lib.mkIf (builtins.hasAttr ".config/git/allowed_signers" config.home.file)
+            config.home.file.".config/git/allowed_signers".source.outPath;
       };
       push.autoSetupRemote = true;
       user.signingkey = config.age.secrets.git-signing-key-pub.path;
