@@ -120,11 +120,14 @@ in
       ## Signal
       ++ (lib.optionals (home-packages-has "signal-desktop") [ ".config/Signal" ])
 
-      # Steam
+      ## Steam
       ++ (lib.optionals (any-packages-has "steam") [
         ".steam"
         ".local/share/Steam"
       ])
+
+      ## VSCodium
+      ++ (lib.optionals (home-packages-has "vscodium") [ ".config/VSCodium" ])
 
       ## Webcord / Vencord
       ++ (lib.optionals (home-packages-has "webcord-vencord") [ ".config/Vencord" ])
