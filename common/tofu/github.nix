@@ -455,6 +455,17 @@ in
         };
       };
     }
+    {
+      description = "A presentation for Newcastle Cybersecurity Group, October 2024";
+      name = "ncsg-presentation-october-2024";
+      pages = {
+        build_type = "workflow";
+        source = {
+          branch = "main";
+          path = "/";
+        };
+      };
+    }
     { name = "neovim-flake"; }
     {
       description = "My nix configs";
