@@ -17,6 +17,8 @@
 
 - *(flake,iac,hydra,packages)* Minor issue resolutions to a range of properties - ([73225fd](https://github.com/JayRovacsek/nix-config/commit/73225fd8264e1042e4687e1616d1797db5cabdaa))
 
+- *(home-manager-modules)* Add vscodium state dir - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
+
 - *(home-manager-modules)* Implement r2modman module - ([de71633](https://github.com/JayRovacsek/nix-config/commit/de71633e438206ebebf4ee66ab63c77198df1a56))
 
 - *(home-manager-modules)* Align swaync with system colours - ([3e5e300](https://github.com/JayRovacsek/nix-config/commit/3e5e3001cdf07afc29d83ac80ca2e9dffaa266f2))
@@ -40,6 +42,8 @@
 - *(iac)* Archive nix-options - ([ebd54e6](https://github.com/JayRovacsek/nix-config/commit/ebd54e6caf5a283a01e5652e68324b06c9b45ec8))
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
+
+- *(linux)* Bump rootfs size on alakazam - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
 
 - *(linux)* Move alakazam to impermanence - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
@@ -156,6 +160,8 @@
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
+
+- *(home-manager-modules)* Add xdg applications for firefox - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
 
 - *(home-manager-modules)* Only reference signing file if suitable - ([a14fd1b](https://github.com/JayRovacsek/nix-config/commit/a14fd1b4aff14e2f0659eebe8d5642a6e9fc73ab))
 

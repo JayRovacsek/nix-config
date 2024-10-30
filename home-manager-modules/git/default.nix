@@ -1,14 +1,16 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 {
   age = {
-    identityPaths = [
-      # JUST A CLONE OF SSH - MOVE TO USER KEY
-      "/agenix/id-ed25519-jay-primary"
-    ];
+    identityPaths =
+      (lib.optionals pkgs.stdenv.isLinux [ "/agenix/id-ed25519-jay-primary" ])
+      ++ (lib.optionals pkgs.stdenv.isDarwin [
+        "/private/var/agenix/id-ed25519-jay-primary"
+      ]);
     secrets = {
       git-signing-key = {
         file = ../../secrets/git/git-signing-key.age;
