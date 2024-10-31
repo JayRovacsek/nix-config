@@ -59,9 +59,6 @@ in
         "/var/tmp"
       ]
 
-      # TODO: map directories to correct owner and systemd state directories.
-      # akind to headscale below (plus user)
-
       # Optional inclusions depending on configuration
       ## Agenix
       ++ (lib.optional agenix-in-use "/agenix")

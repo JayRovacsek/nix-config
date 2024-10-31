@@ -64,7 +64,7 @@ let
 
   script = with pkgs; ''
     bash -c "
-    ${pkgs.sqlite-interactive}/bin/sqlite3 ${cfg.settings.db_path} <<'END_SQL'
+    ${pkgs.sqlite-interactive}/bin/sqlite3 ${cfg.settings.database.path} <<'END_SQL'
 
     ${sql-statement}
 

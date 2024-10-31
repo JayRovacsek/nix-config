@@ -13,11 +13,49 @@ let
     metricsPort
     port
     ;
+
+  inherit (config.services.headscale) users;
+
+  # Below generates group values of "group:$X" for all users
+  groups = builtins.foldl' (
+    accumulator: user: accumulator // { "group:${user.name}" = [ "${user.name}" ]; }
+  ) { } users;
+
+  # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
+  allow-to-self = builtins.map (x: {
+    action = "accept";
+    src = [ "group:${x.name}" ];
+    dst = [ "${x.name}:*" ];
+  }) users;
+
+  allow-admin-to-all = [
+    {
+      action = "accept";
+      src = [ "group:admin" ];
+      dst = [ "*:*" ];
+    }
+  ];
+
+  allow-all-to-dns = [
+    {
+      action = "accept";
+      src = [ "*" ];
+      dst = [ "group:dns:53,8053" ];
+    }
+  ];
+
+  # Ref: https://tailscale.com/kb/1103/exit-nodes#prerequisites
+  allow-all-to-internet-via-exit-node = [
+    {
+      action = "accept";
+      src = [ "member" ];
+      dst = [ "internet:*" ];
+    }
+  ];
+
 in
 {
-
   imports = [
-    ./acl.nix
     ../../options/modules/headscale
   ];
 
@@ -173,7 +211,16 @@ in
 
     # This will override settings that are not exposed as nix module options
     settings = {
-      acl_policy_path = "/etc/headscale/acls.json";
+      policy.path = builtins.toFile "acl.json" (
+        builtins.toJSON {
+          inherit groups;
+          acls =
+            allow-admin-to-all
+            ++ allow-all-to-dns
+            ++ allow-to-self
+            ++ allow-all-to-internet-via-exit-node;
+        }
+      );
 
       ## TODO: Address the below to use my own options.
       # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
@@ -189,17 +236,19 @@ in
 
       ephemeral_node_inactivity_timeout = "5m";
 
-      db_user = config.services.headscale.user;
-      db_type = "sqlite3";
-      db_path = "/var/lib/headscale/db.sqlite";
-      db_name = "headscale";
+      database = {
+        inherit (config.services.headscale) user;
+        type = "sqlite3";
+        path = "/var/lib/headscale/db.sqlite";
+        name = "headscale";
+      };
 
-      dns_config = {
+      dns = {
         inherit base_domain;
         override_local_dns = false;
         magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
-        nameservers = [ "192.168.1.220" ];
+        nameservers.global = [ "192.168.1.220" ];
         domains = [ base_domain ];
 
         # Because we utilise blocky locally across all machines but 

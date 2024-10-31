@@ -153,6 +153,8 @@
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
+- *(darwin)* Resolve migration issues to age hm onm darwin - ([039e41e](https://github.com/JayRovacsek/nix-config/commit/039e41e8b3cc1303fa3a6334b3561adec4a2319c))
+
 - *(darwin)* Resolve auto-optimise issues on darwin - ([288d237](https://github.com/JayRovacsek/nix-config/commit/288d237e7b36209f0b780d43dd1d57835e9ddfd4))
 
 - *(darwin)* Add ssh module to victreebel - ([f8ea52a](https://github.com/JayRovacsek/nix-config/commit/f8ea52a9c7886edc4f2ac8b6807eadb604dcd91d))
