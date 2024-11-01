@@ -36,8 +36,7 @@ in
     ./disk-config.nix
     agenix
     bluetooth
-    # Currently broken
-    # clamav
+    clamav
     fonts
     generations
     gnome-keyring

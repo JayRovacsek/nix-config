@@ -272,6 +272,8 @@
 - *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
 
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
+- Resolve headscale build issues - ([b3f93b6](https://github.com/JayRovacsek/nix-config/commit/b3f93b6da403b461f9220ad0e91e4ae69118e1f4))
+
 - Use pname before name for assessment of impermanence - ([f44d805](https://github.com/JayRovacsek/nix-config/commit/f44d8059243292572de6a05f41849cae0231adb1))
 
 - Re-add zsh, disabling auto-completion however - ([0aa27f6](https://github.com/JayRovacsek/nix-config/commit/0aa27f61724ff71839b37954b862eb16c3ea224d))

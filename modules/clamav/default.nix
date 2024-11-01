@@ -14,7 +14,7 @@
         ExtendedDetectionInfo = true;
         FollowDirectorySymlinks = true;
         FollowFileSymlinks = true;
-        LogFile = "/var/log/clamd.log";
+        LogFile = "/tmp/clamd.log";
         LogSyslog = true;
         LogTime = true;
         MaxDirectoryRecursion = 30;
