@@ -111,6 +111,10 @@ in
         "Nextcloud"
       ])
 
+      ++ (lib.optionals (home-packages-has "ollama") [
+        ".ollama"
+      ])
+
       ## r2modman
       ++ (lib.optionals (home-packages-has "r2modman") [ ".config/r2modman" ])
 
@@ -122,8 +126,14 @@ in
 
       ## Steam
       ++ (lib.optionals (any-packages-has "steam") [
-        ".steam"
-        ".local/share/Steam"
+        {
+          directory = ".local/share/Steam";
+          method = "symlink";
+        }
+        {
+          directory = ".steam";
+          method = "symlink";
+        }
       ])
 
       ## VSCodium

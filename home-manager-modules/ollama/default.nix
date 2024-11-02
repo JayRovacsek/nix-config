@@ -106,7 +106,10 @@ in
 
   services.ollama = {
     enable = true;
-    models = [ "codegemma:2b" ];
+    models = [
+      "codegemma:2b"
+      "nomic-embed-text"
+    ];
     tabAutocompleteModel = "codegemma:2b";
   };
 }

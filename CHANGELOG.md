@@ -31,6 +31,8 @@
 
 - *(home-manager-modules,common)* Add ai modules - ([324ae70](https://github.com/JayRovacsek/nix-config/commit/324ae70039dea42a75ae1e255bc662bc1e51e54d))
 
+- *(home-manager-modules,options)* Extend ollama to linux - ([399650f](https://github.com/JayRovacsek/nix-config/commit/399650fb19cde5efcda659c47f99e2f8b28b8143))
+
 - *(iac)* Add ncsg october 2024 repo - ([ef13ea9](https://github.com/JayRovacsek/nix-config/commit/ef13ea93d5166d4ac8f8081fbe5f5971a7de508a))
 
 - *(iac)* Un archive nix-options, eval on each change is ridiculous - ([a8de228](https://github.com/JayRovacsek/nix-config/commit/a8de2283d1b1925a7f8aab64d29c5dce4279f299))
