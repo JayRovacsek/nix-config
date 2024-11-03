@@ -9,6 +9,10 @@
 
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
+- *(flake)* Pin nuschtos-modules to avoid eval error - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
+
+- *(flake)* Ping flaresolverr input to avoid using a build from source candidate - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
+
 - *(flake)* Expose secret public key configurations via outputs - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
 - *(flake)* Update hydra-api-input to default branch - ([38a25c4](https://github.com/JayRovacsek/nix-config/commit/38a25c4f72d967a07c70df880486890be3740069))
@@ -208,6 +212,8 @@
 - *(iac)* Correct provider name in oracle tofu stack - ([b2ba376](https://github.com/JayRovacsek/nix-config/commit/b2ba376cc3b3c54c90138a92f307f21c5ec428d0))
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
+
+- *(linux)* Bump memory of meowth - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
 
 - *(linux)* Enable root login on ditto to enable userless system definitions - ([98dd08a](https://github.com/JayRovacsek/nix-config/commit/98dd08aeca9d1471e7dd908c2d0dc0f8f2e9cdad))
 

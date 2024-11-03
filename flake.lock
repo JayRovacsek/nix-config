@@ -418,11 +418,11 @@
         "nixpkgs": ["nixpkgs"]
       },
       "locked": {
-        "lastModified": 1729384606,
-        "narHash": "sha256-zdZi0xfUbq26dcKC4Ur0T+aarBhuDC7CW3KeXFDErU0=",
+        "lastModified": 1730667562,
+        "narHash": "sha256-50IXcrJ+1gsXen7PLJCAfhVIvbQAkqW72nBytGyrlJI=",
         "owner": "JayRovacsek",
         "repo": "hydra-badge-api",
-        "rev": "06261266404ac5e8b9c3a3a488298fca3a671208",
+        "rev": "7479884e1fc5c42904dcdcbdf3f211c63e8317ef",
         "type": "github"
       },
       "original": {
