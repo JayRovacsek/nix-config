@@ -21,6 +21,7 @@ let
     modules =
       hyprland-desktop-minimal
       ++ (with self.homeManagerModules; [
+        impermanence
         mako
         waybar
       ]);
@@ -34,6 +35,15 @@ let
 in
 {
   inherit (user-configs) users home-manager;
+
+  boot.supportedFilesystems = {
+    btrfs = lib.mkForce false;
+    cifs = lib.mkForce false;
+    f2fs = lib.mkForce false;
+    ntfs = lib.mkForce false;
+    xfs = lib.mkForce false;
+    zfs = lib.mkForce false;
+  };
 
   imports = with self.nixosModules; [
     ./disk-config.nix
@@ -60,7 +70,6 @@ in
 
   age = {
     identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-wireless-primary"
     ];
 
@@ -111,6 +120,8 @@ in
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
+
+  programs.fuse.userAllowOther = true;
 
   services.timesyncd.servers = lib.mkForce [
     "137.92.140.80" # -> ntp.ise.canberra.edu.au
