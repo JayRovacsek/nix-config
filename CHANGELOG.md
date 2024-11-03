@@ -45,6 +45,8 @@
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
 
+- *(linux)* Move wigglytuff home to impermanence - ([4e2cd27](https://github.com/JayRovacsek/nix-config/commit/4e2cd27a763cb9fab9a4b61e13d07364edd94b98))
+
 - *(linux)* Bump rootfs size on alakazam - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
 
 - *(linux)* Move alakazam to impermanence - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))

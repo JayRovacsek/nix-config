@@ -7,6 +7,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/release-24.05";
 
+    flaresolverr-pin.url = "github:nixos/nixpkgs/ebbc0409688869938bbcf630da1c1c13744d2a7b";
+
     # Secrets Management <3
     agenix = {
       inputs = {
@@ -239,12 +241,12 @@
       url = "github:oxalica/rust-overlay";
     };
 
-    sandro-nixos-modules = {
+    nuschtos-modules = {
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:SuperSandro2000/nixos-modules";
+      url = "github:NuschtOS/nixos-modules/70d3b88b52af86098b7e008622871265ec39c800";
     };
 
     sbomnix = {
@@ -468,6 +470,7 @@
                       "normalizer"
                       "Ot"
                       "Pn"
+                      "Recognize"
                       "sanitize"
                       "SART"
                       "strat"

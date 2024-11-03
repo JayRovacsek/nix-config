@@ -304,6 +304,22 @@
         "type": "github"
       }
     },
+    "flaresolverr-pin": {
+      "locked": {
+        "lastModified": 1721411720,
+        "narHash": "sha256-74Y9UdhWyT3lo94SnwZTKpzE6hBA1o7aOjCq4mqAYng=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ebbc0409688869938bbcf630da1c1c13744d2a7b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ebbc0409688869938bbcf630da1c1c13744d2a7b",
+        "type": "github"
+      }
+    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -883,6 +899,26 @@
         "type": "github"
       }
     },
+    "nuschtos-modules": {
+      "inputs": {
+        "flake-utils": ["flake-utils"],
+        "nixpkgs": ["nixpkgs"]
+      },
+      "locked": {
+        "lastModified": 1730135838,
+        "narHash": "sha256-4ECzq5+4bAoMlwadEZvh8rZLHlYlxiQkiTZds//tRMY=",
+        "owner": "NuschtOS",
+        "repo": "nixos-modules",
+        "rev": "70d3b88b52af86098b7e008622871265ec39c800",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "repo": "nixos-modules",
+        "rev": "70d3b88b52af86098b7e008622871265ec39c800",
+        "type": "github"
+      }
+    },
     "nuschtosSearch": {
       "inputs": {
         "flake-utils": ["flake-utils"],
@@ -914,6 +950,7 @@
         "flake-parts": "flake-parts",
         "flake-root": "flake-root",
         "flake-utils": "flake-utils",
+        "flaresolverr-pin": "flaresolverr-pin",
         "git-hooks": "git-hooks",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
@@ -938,9 +975,9 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "nixvim": "nixvim",
         "nur": "nur",
+        "nuschtos-modules": "nuschtos-modules",
         "nuschtosSearch": "nuschtosSearch",
         "rust-overlay": "rust-overlay",
-        "sandro-nixos-modules": "sandro-nixos-modules",
         "sbomnix": "sbomnix",
         "stable": "stable",
         "stylix": "stylix",
@@ -964,25 +1001,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "sandro-nixos-modules": {
-      "inputs": {
-        "flake-utils": ["flake-utils"],
-        "nixpkgs": ["nixpkgs"]
-      },
-      "locked": {
-        "lastModified": 1730237369,
-        "narHash": "sha256-pbQbWf5ERehk+GH3xNkIb0C3OVmwpOZs630kIj9yNIE=",
-        "owner": "SuperSandro2000",
-        "repo": "nixos-modules",
-        "rev": "a678fa2e3f17dc59cfde6a05532999b8cf8eff5e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SuperSandro2000",
-        "repo": "nixos-modules",
         "type": "github"
       }
     },

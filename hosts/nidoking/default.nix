@@ -26,7 +26,7 @@ in
       timesyncd
       tmp-tmpfs
     ]
-    ++ [ self.inputs.sandro-nixos-modules.nixosModule ];
+    ++ [ self.inputs.nuschtos-modules.nixosModule ];
 
   microvm = {
     interfaces = [
