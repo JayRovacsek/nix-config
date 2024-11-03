@@ -286,6 +286,8 @@
 - *(static)* Update build configs - ([3ab0dda](https://github.com/JayRovacsek/nix-config/commit/3ab0ddaa8eb135235b02bf9988379926476bead2))
 
 - *(tooling)* Add scopes to conform configuration - ([99a07f5](https://github.com/JayRovacsek/nix-config/commit/99a07f59513cfd6824a8d21875d4c8f95356f88d))
+- Bump hydra-api version - ([d8733fb](https://github.com/JayRovacsek/nix-config/commit/d8733fb5a56b69f0d40b255dd430307569225a23))
+
 - Use /tmp for clamav logs - ([cfa9793](https://github.com/JayRovacsek/nix-config/commit/cfa9793d72dcd415999d35dca8fbc349e3980114))
 
 - Resolve headscale build issues - ([b3f93b6](https://github.com/JayRovacsek/nix-config/commit/b3f93b6da403b461f9220ad0e91e4ae69118e1f4))
