@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -181,6 +182,8 @@ in
     hostId = "acd009f4";
     hostName = "dragonite";
   };
+
+  nix.buildMachines = lib.mkForce [ ];
 
   powerManagement.enable = false;
 

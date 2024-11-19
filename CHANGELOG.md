@@ -227,6 +227,8 @@
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
+- *(linux)* Bump slowpoke's ram to 1gb - ([4a39754](https://github.com/JayRovacsek/nix-config/commit/4a39754e985c7f709ccd87dd68661c921f3c99d3))
+
 - *(linux)* Bump memory of meowth - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
 
 - *(linux)* Enable root login on ditto to enable userless system definitions - ([98dd08a](https://github.com/JayRovacsek/nix-config/commit/98dd08aeca9d1471e7dd908c2d0dc0f8f2e9cdad))
