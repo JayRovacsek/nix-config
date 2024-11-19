@@ -183,6 +183,8 @@
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
+- *(home-manager-modules)* Remove deprecated hyprland options - ([4b0933a](https://github.com/JayRovacsek/nix-config/commit/4b0933a0027e8e1379726020be836a87cdb80e24))
+
 - *(home-manager-modules)* Resolve steam issues and add ollama persistence - ([ffa0941](https://github.com/JayRovacsek/nix-config/commit/ffa094151974ac2f237defa69dd562b3fb45f565))
 
 - *(home-manager-modules)* Add xdg applications for firefox - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
