@@ -18,7 +18,6 @@ let
   inherit (self.lib.hyprland) generate-monitors;
 
   inherit (self.common.colour-schemes.tomorrow-night-blue-base16)
-    base01
     base02
     base03
     ;
@@ -98,11 +97,8 @@ in
 
   # https://wiki.hyprland.org/Configuring/Variables/#decoration
   decoration = {
+    inactive_opacity = 0.9;
     rounding = 5;
-    drop_shadow = true;
-    shadow_range = 4;
-    shadow_render_power = 3;
-    "col.shadow" = "rgba(${base01}ee)";
   };
 
   # https://wiki.hyprland.org/Configuring/Variables/#animations
@@ -130,7 +126,6 @@ in
 
   # Window Rules
   # https://wiki.hyprland.org/Configuring/Window-Rules/
-  windowrule = "opacity 1.0 override 0.9 override,^(.*)$";
 
   # https://wiki.hyprland.org/Configuring/Keywords/
   "$mainMod" = "SUPER";

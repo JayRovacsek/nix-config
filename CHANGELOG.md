@@ -249,6 +249,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Resolve dynamic dns issues - ([6a3f5a4](https://github.com/JayRovacsek/nix-config/commit/6a3f5a49e9b55253b636ceade64d94748dcd8585))
+
 - *(modules)* Allow hydra access to nuschtos - ([fac7645](https://github.com/JayRovacsek/nix-config/commit/fac7645145fd775ca56ad89e20764c7ae42b51f6))
 
 - *(modules)* Add websocket proxy to jellyfin - ([8f3d11b](https://github.com/JayRovacsek/nix-config/commit/8f3d11bd21ca59ecdee4eb7043de45c4aeb0623c))
