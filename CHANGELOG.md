@@ -169,6 +169,8 @@
 
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 
+- *(flake)* Unpin flaresolverr and nuschtos - ([85d1763](https://github.com/JayRovacsek/nix-config/commit/85d1763feba08beb43664bd85d71c4c7d8be06c0))
+
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
 - *(home-manager-modules)* Resolve steam issues and add ollama persistence - ([ffa0941](https://github.com/JayRovacsek/nix-config/commit/ffa094151974ac2f237defa69dd562b3fb45f565))

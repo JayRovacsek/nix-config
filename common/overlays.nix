@@ -4,7 +4,6 @@ let
   inherit (self.inputs)
     agenix
     firefox-darwin
-    nix-monitored
     nur
     ;
 in
@@ -31,6 +30,6 @@ in
     agenix.overlays.default
     nur.overlay
     self.overlays.lib
-    nix-monitored.overlays.default
+    self.overlays.nixd
   ];
 }

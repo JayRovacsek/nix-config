@@ -17,6 +17,8 @@
       url = "github:ryantm/agenix";
     };
 
+    crane.url = "github:ipetkov/crane";
+
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -88,6 +90,7 @@
 
     ironbar = {
       inputs = {
+        crane.follows = "crane";
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
@@ -109,7 +112,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.0";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.1";
     };
 
     lix-module = {
@@ -118,7 +121,7 @@
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.0";
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.1-1";
     };
 
     # Microvm module, PoC state for implementation
