@@ -17,7 +17,7 @@ in
   programs.zsh = {
     autosuggestion.enable = true;
     enable = true;
-    enableCompletion = true;
+    enableCompletion = false;
     enableVteIntegration = true;
 
     oh-my-zsh = {
