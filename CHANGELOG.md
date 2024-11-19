@@ -23,6 +23,8 @@
 
 - *(flake,iac,hydra,packages)* Minor issue resolutions to a range of properties - ([73225fd](https://github.com/JayRovacsek/nix-config/commit/73225fd8264e1042e4687e1616d1797db5cabdaa))
 
+- *(home-manager-modules)* Add thunderbird to impermanence - ([a866613](https://github.com/JayRovacsek/nix-config/commit/a866613829fbe4034310e0906f88b513d52a3a2f))
+
 - *(home-manager-modules)* Add vscodium state dir - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
 
 - *(home-manager-modules)* Implement r2modman module - ([de71633](https://github.com/JayRovacsek/nix-config/commit/de71633e438206ebebf4ee66ab63c77198df1a56))
