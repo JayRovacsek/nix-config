@@ -136,6 +136,9 @@ in
         }
       ])
 
+      ## Thunderbird
+      ++ (lib.optionals (home-packages-has "thunderbird") [ ".thunderbird" ])
+
       ## VSCodium
       ++ (lib.optionals (home-packages-has "vscodium") [ ".config/VSCodium" ])
 

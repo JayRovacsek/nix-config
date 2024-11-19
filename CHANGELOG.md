@@ -9,6 +9,8 @@
 
 - *(docs)* Refactor topology & readme to correct current deployment - ([02bd873](https://github.com/JayRovacsek/nix-config/commit/02bd873c5e5bd2a2cf36ed92c0fad719ded0dbdd))
 
+- *(flake)* Bump lix to 2.91.1 - ([c6f6f4b](https://github.com/JayRovacsek/nix-config/commit/c6f6f4b4a27a8cf4be077e436d643936b92fdf7c))
+
 - *(flake)* Pin nuschtos-modules to avoid eval error - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
 
 - *(flake)* Ping flaresolverr input to avoid using a build from source candidate - ([98221a9](https://github.com/JayRovacsek/nix-config/commit/98221a98dd7bb4a3e6354b386dcfe33bc89b10c2))
@@ -168,6 +170,8 @@
 - *(darwin)* Add ssh module to victreebel - ([f8ea52a](https://github.com/JayRovacsek/nix-config/commit/f8ea52a9c7886edc4f2ac8b6807eadb604dcd91d))
 
 - *(darwin)* Start resolving issues with ninetales - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
+
+- *(flake)* Add crane input to avoid issues on ironbar - ([c6f6f4b](https://github.com/JayRovacsek/nix-config/commit/c6f6f4b4a27a8cf4be077e436d643936b92fdf7c))
 
 - *(flake)* Unpin flaresolverr and nuschtos - ([85d1763](https://github.com/JayRovacsek/nix-config/commit/85d1763feba08beb43664bd85d71c4c7d8be06c0))
 
