@@ -31,5 +31,6 @@ in
     nur.overlay
     self.overlays.lib
     self.overlays.nixd
+    self.overlays.nix-monitored
   ];
 }

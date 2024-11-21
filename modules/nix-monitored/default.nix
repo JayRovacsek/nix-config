@@ -1,6 +1,4 @@
-{ self, ... }:
+{ pkgs, ... }:
 {
-  imports = [ self.inputs.nix-monitored.nixosModules.default ];
-
-  nix.monitored.enable = true;
+  environment.systemPackages = with pkgs; [ nix-monitored ];
 }

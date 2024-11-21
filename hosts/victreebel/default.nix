@@ -15,7 +15,10 @@ let
     inherit config pkgs;
     modules =
       with self.common.home-manager-module-sets;
-      darwin-desktop ++ ai ++ ssh;
+      darwin-desktop
+      ++ ai
+      ++ ssh
+      ++ [ { programs.thunderbird.enable = lib.mkForce false; } ];
   };
 
   user-configs = merge [

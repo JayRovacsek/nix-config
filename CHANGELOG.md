@@ -185,6 +185,8 @@
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
+- *(home-manager-modules)* Add previous profile to thunderbird config - ([58469c1](https://github.com/JayRovacsek/nix-config/commit/58469c1197b41062165ef07b0f03fd1500397e37))
+
 - *(home-manager-modules)* Add thunderbird to impermanence - ([264b5ab](https://github.com/JayRovacsek/nix-config/commit/264b5ab57717a5a5e444e815dcff051336e15223))
 
 - *(home-manager-modules)* Rewrite elements of thunderbird - ([5c48fd6](https://github.com/JayRovacsek/nix-config/commit/5c48fd6c253576c4d86bec35a5262405b48d9fff))

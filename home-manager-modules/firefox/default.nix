@@ -57,7 +57,7 @@ in
           url = "https://duckduckgo.com/?q=%s";
         };
         "Brave Search" = {
-          keyword = "g";
+          keyword = "b";
           url = "https://search.brave.com/search?q=%s";
         };
         # Get wrecked, force myself to not use the googs
@@ -67,7 +67,7 @@ in
         };
         "Google AU Search" = {
           keyword = "ga";
-          url = "https://www.google.com.au/search?q=%a";
+          url = "https://www.google.com.au/search?q=%s";
         };
         "Youtube" = {
           keyword = "y";
@@ -118,9 +118,9 @@ in
           keyword = "ngh";
           url = "https://github.com/nib-group?q=%s&type=&language=";
         };
-        "nib Monday Search" = {
-          keyword = "m";
-          url = "https://nib-group.monday.com/boards/1933538575/views/65368537?term=%s";
+        "searx.be" = {
+          keyword = "g";
+          url = "https://searx.be/search?q=%s";
         };
         "Terraform Search" = {
           keyword = "t";

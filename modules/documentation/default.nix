@@ -1,1 +1,8 @@
-_: { documentation.man.enable = true; }
+_: {
+  documentation = {
+    doc.enable = false;
+    enable = true;
+    info.enable = false;
+    man.enable = true;
+  };
+}
