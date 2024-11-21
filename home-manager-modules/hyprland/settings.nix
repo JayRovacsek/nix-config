@@ -96,10 +96,7 @@ in
   };
 
   # https://wiki.hyprland.org/Configuring/Variables/#decoration
-  decoration = {
-    inactive_opacity = 0.9;
-    rounding = 5;
-  };
+  decoration.rounding = 5;
 
   # https://wiki.hyprland.org/Configuring/Variables/#animations
   animations = {

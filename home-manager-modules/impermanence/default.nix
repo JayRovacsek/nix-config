@@ -146,7 +146,10 @@ in
       ++ (lib.optionals (home-packages-has "vscodium") [ ".config/VSCodium" ])
 
       ## Webcord / Vencord
-      ++ (lib.optionals (home-packages-has "webcord-vencord") [ ".config/Vencord" ])
+      ++ (lib.optionals (home-packages-has "webcord-vencord") [
+        ".config/Vencord"
+        ".config/Webcord"
+      ])
 
       ## Zoom
       ++ (lib.optionals (home-packages-has "zoom-us") [ ".zoom" ])
