@@ -10,5 +10,6 @@ desktop-minimal
   keepassxc
   nextcloud-client
   slack
+  thunderbird
   vscodium
 ])

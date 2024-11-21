@@ -22,7 +22,6 @@ let
 
     # Communication
     signal-desktop
-    thunderbird
   ];
 
   # TODO: refactor this into a getAttr rather than if statement.

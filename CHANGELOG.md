@@ -23,6 +23,8 @@
 
 - *(flake,iac,hydra,packages)* Minor issue resolutions to a range of properties - ([73225fd](https://github.com/JayRovacsek/nix-config/commit/73225fd8264e1042e4687e1616d1797db5cabdaa))
 
+- *(home-manager-modules)* Implement atuin - ([f7bd0fb](https://github.com/JayRovacsek/nix-config/commit/f7bd0fb1ab1de3dfa58581c086ddcb7e17bd89a9))
+
 - *(home-manager-modules)* Disable zsh completions (conflict with modules) - ([0556b8a](https://github.com/JayRovacsek/nix-config/commit/0556b8a4010afa743b0b07a9a37fd419721807af))
 
 - *(home-manager-modules)* Add thunderbird to impermanence - ([a866613](https://github.com/JayRovacsek/nix-config/commit/a866613829fbe4034310e0906f88b513d52a3a2f))
