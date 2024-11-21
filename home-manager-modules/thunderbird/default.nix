@@ -1,9 +1,13 @@
 _: {
   programs.thunderbird = {
     enable = true;
-    profiles.jay = {
+    profiles."gx3vop3t" = {
       isDefault = true;
-      settings = { };
+      settings = {
+        "calendar.alarms.playsound" = false;
+        "calendar.alarms.show" = false;
+        "calendar.alarms.showmissed" = false;
+      };
     };
     settings = {
       "general.useragent.override" = "";
