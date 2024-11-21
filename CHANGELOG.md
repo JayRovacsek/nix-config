@@ -247,6 +247,8 @@
 
 - *(linux,home-manager-modules)* Further eval issue resolutions - ([9c2011d](https://github.com/JayRovacsek/nix-config/commit/9c2011d674abd903d5e4daa13da48cad02daad83))
 
+- *(linux,hydra)* Temporarily force dragonite to only build locally - ([b8695ed](https://github.com/JayRovacsek/nix-config/commit/b8695edeb98508984263d3f1ef8e02fa8de9894d))
+
 - *(linux,hydra)* Resolve remote builder key references - ([62b5253](https://github.com/JayRovacsek/nix-config/commit/62b5253ac8cdee0b6bf4ce884b1eb00cc9ecc554))
 
 - *(linux,modules)* Resolve grafana service issues - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))

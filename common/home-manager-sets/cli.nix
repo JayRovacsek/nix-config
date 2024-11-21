@@ -6,6 +6,7 @@ in
 base
 ++ (with self.homeManagerModules; [
   agenix
+  atuin
   bat
   direnv
   fzf

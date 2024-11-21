@@ -85,6 +85,9 @@ in
         ".local/share/keyrings"
         ".ssh"
       ]
+      ## Atuin
+      ++ (lib.optionals (home-packages-has "atuin") [ ".local/share/atuin" ])
+
       ## Direnv
       ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
 
