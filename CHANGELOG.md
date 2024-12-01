@@ -301,6 +301,8 @@
 
 - *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
 
+- *(modules,iac,hydra)* Resolve remote builds on dragonite - ([5c4ef9b](https://github.com/JayRovacsek/nix-config/commit/5c4ef9b872dcce9de190c70d394246643905d8dd))
+
 - *(overlays)* Reintroduce jellyfin overlay - ([c9f5fb8](https://github.com/JayRovacsek/nix-config/commit/c9f5fb87dcf741a11e3afbc13c7dc758fb97fcfe))
 
 - *(packages)* Remove broken packages - ([99dcb0c](https://github.com/JayRovacsek/nix-config/commit/99dcb0cbe459bd02f869e3e2440f598eb58a652b))
