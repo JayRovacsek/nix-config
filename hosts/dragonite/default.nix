@@ -183,8 +183,6 @@ in
     hostName = "dragonite";
   };
 
-  nix.buildMachines = lib.mkForce [ ];
-
   powerManagement.enable = false;
 
   programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK";

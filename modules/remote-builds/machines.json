@@ -4,291 +4,39 @@
     "maxJobs": 8,
     "protocol": "ssh-ng",
     "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=",
-    "speedFactor": 16,
+    "speedFactor": 8,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
     "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
-    "hostName": "ditto.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
+    "hostName": "alakazam.local",
+    "maxJobs": 8,
+    "protocol": "ssh",
     "publicHostKey": null,
-    "speedFactor": 1,
+    "speedFactor": 8,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "bellsprout.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "butterfree.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "diglett.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "ditto.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
     "hostName": "dragonite.local",
     "maxJobs": 24,
     "protocol": "ssh-ng",
     "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK",
-    "speedFactor": 96,
+    "speedFactor": 48,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
     "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   },
   {
-    "hostName": "gastly.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
+    "hostName": "dragonite.local",
+    "maxJobs": 24,
+    "protocol": "ssh",
     "publicHostKey": null,
-    "speedFactor": 1,
+    "speedFactor": 48,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "igglybuff.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "jigglypuff.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": [
-      "nixos-test",
-      "benchmark",
-      "big-parallel",
-      "kvm",
-      "gccarch-armv8-a"
-    ],
-    "systems": ["aarch64-linux"]
-  },
-  {
-    "hostName": "ditto.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "machop.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "magikarp.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "mankey.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "meowth.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "mew.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "mr-mime.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "nidoking.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "nidorina.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "nidorino.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "ditto.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "poliwag.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "porygon.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "slowpoke.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "wigglytuff.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": [
-      "nixos-test",
-      "benchmark",
-      "big-parallel",
-      "kvm",
-      "gccarch-armv8-a"
-    ],
-    "systems": ["aarch64-linux"]
-  },
-  {
-    "hostName": "zubat.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux"]
-  },
-  {
-    "hostName": "ninetales.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": [],
-    "systems": ["aarch64-darwin"]
-  },
-  {
-    "hostName": "victreebel.local",
-    "maxJobs": 1,
-    "protocol": "ssh-ng",
-    "publicHostKey": null,
-    "speedFactor": 1,
-    "sshUser": "builder",
-    "supportedFeatures": [],
-    "systems": ["aarch64-darwin"]
+    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
   }
 ]

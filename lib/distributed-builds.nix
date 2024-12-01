@@ -22,7 +22,9 @@ let
     host: generate-base-configs host darwinConfigurations
   ) darwin-suitable-hosts;
 
-  base-configs = lib.flatten (linux-base-configs ++ darwin-base-configs);
+  base-configs = builtins.filter (cfg: cfg.speedFactor > 1) (
+    lib.flatten (linux-base-configs ++ darwin-base-configs)
+  );
 
   hardware-profile =
     system:
@@ -41,19 +43,32 @@ let
       profile = hardware-profile config;
       inherit (config.nixpkgs) system;
     in
-    {
-      hostName = "${config.networking.hostName}.${
-        config.networking.localDomain or "local"
-      }";
-      maxJobs = profile.cores;
-      protocol = "ssh-ng";
-      publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
-      # publicHostKey = null;
-      speedFactor = builtins.mul profile.cores profile.speed;
-      sshUser = "builder";
-      supportedFeatures = config.nix.settings.system-features or [ ];
-      systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
-    };
+    [
+      {
+        hostName = "${config.networking.hostName}.${
+          config.networking.localDomain or "local"
+        }";
+        maxJobs = profile.cores;
+        protocol = "ssh-ng";
+        publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+        speedFactor = builtins.ceil (builtins.mul profile.cores profile.speed / 2);
+        sshUser = "builder";
+        supportedFeatures = config.nix.settings.system-features or [ ];
+        systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
+      }
+      {
+        hostName = "${config.networking.hostName}.${
+          config.networking.localDomain or "local"
+        }";
+        maxJobs = profile.cores;
+        protocol = "ssh";
+        publicHostKey = null;
+        speedFactor = builtins.ceil (builtins.mul profile.cores profile.speed / 2);
+        sshUser = "builder";
+        supportedFeatures = config.nix.settings.system-features or [ ];
+        systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
+      }
+    ];
 in
 {
   inherit base-configs generate-base-configs;

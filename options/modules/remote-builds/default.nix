@@ -34,9 +34,7 @@ let
     else
       base-configs;
 
-  fast-configs = builtins.filter (
-    machine: machine.speedFactor != 1
-  ) build-configs;
+  fast-configs = builtins.filter (machine: machine.speedFactor > 1) build-configs;
 
   key-merged-configs = builtins.map (
     machine: machine // { inherit (cfg) sshKey; }

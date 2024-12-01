@@ -265,6 +265,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Remove deprecated raspberry pi option - ([f3eac60](https://github.com/JayRovacsek/nix-config/commit/f3eac607ee2f6bc4175682f0d6d6f657a935804b))
+
 - *(modules)* Resolve dynamic dns issues - ([6a3f5a4](https://github.com/JayRovacsek/nix-config/commit/6a3f5a49e9b55253b636ceade64d94748dcd8585))
 
 - *(modules)* Allow hydra access to nuschtos - ([fac7645](https://github.com/JayRovacsek/nix-config/commit/fac7645145fd775ca56ad89e20764c7ae42b51f6))
