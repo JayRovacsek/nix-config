@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libscca-python";
-  version = "20240215";
+  version = "20240427";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-hes6R8xO0ZlEtalRz0NHaFuW7v0J5P6AKAFSNqoYjWw=";
+    hash = "sha256-4Z3atLkaB4XFf0zPcrCC2wVNrogSzBktqNv4kWJuN5U=";
   };
 
   build-system = [ setuptools ];

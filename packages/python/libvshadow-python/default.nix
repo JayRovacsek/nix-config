@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libvshadow-python";
-  version = "20240229";
+  version = "20240504";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-3tp3ceYfa557jzAsUlCgr+GOjRmnq9Va5x7so3UX/aY=";
+    hash = "sha256-RBB+M2SzyrWJOXKVFohuIB7EWpCrLAtdvz8GkLzGxJQ=";
   };
 
   build-system = [ setuptools ];

@@ -10,12 +10,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libmodi-python";
-  version = "20240305";
+  version = "20240507";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-cZy1/RdFbT6OwIT/+MCVpdzRO8sz0P3I6EtcI9HdfNI=";
+    hash = "sha256-9YOXSTaJwl3cVdCacze0idNfoad88UCtojXJ3PZ6pC0=";
   };
 
   build-system = [ setuptools ];

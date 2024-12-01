@@ -25,7 +25,7 @@ let
   arch = builtins.getAttr nix-arch arch-map;
 
   pname = "velociraptor";
-  version = "0.72";
+  version = "0.73";
 
   filename = "${pname}-v${version}.0-${kernel}-${arch}";
 

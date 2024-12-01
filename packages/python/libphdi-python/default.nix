@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libphdi-python";
-  version = "20240307";
+  version = "20240508";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-qn4iZkVpWcm2leVWpJx0l3BFYBY3U8nsR6EzgBz1Uak=";
+    hash = "sha256-dXVH9X2lZpYqK5ki7yXC2YSCdCsiWy7rwFy8EXetohU=";
   };
 
   build-system = [ setuptools ];

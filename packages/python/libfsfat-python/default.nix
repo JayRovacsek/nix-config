@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfsfat-python";
-  version = "20240220";
+  version = "20240501";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-eABliX9tg+AMjbtr0g1BbjZUbgJE+uIljCB7GIMWs2w=";
+    hash = "sha256-75eftmduyuG8nJ/gOjm5inBhe+WVi+j5cFTtoBb3ngM=";
   };
 
   build-system = [ setuptools ];

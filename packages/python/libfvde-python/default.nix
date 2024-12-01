@@ -10,12 +10,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfvde-python";
-  version = "20240113";
+  version = "20240502";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-GN9Je1s2w2o/ps9zZaZgajJiuHWd8vbAmHpqRfBdssg=";
+    hash = "sha256-QEJ4VEXkLryDMPzqsuTkRSJfcG1/kKuhJ/WHy4Lq/nQ=";
   };
 
   build-system = [ setuptools ];

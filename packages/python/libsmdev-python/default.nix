@@ -11,12 +11,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libsmdev-python";
-  version = "20240309";
+  version = "20240505";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-ERRXEggcxoRob3nnC9hQ9JMOfuvc9CXIOKFlrblcg9g=";
+    hash = "sha256-IPzeHCxrFgqyeIYOVdJK3VVGGMmnrBCStO8CAZwYG+0=";
   };
 
   build-system = [ setuptools ];

@@ -265,6 +265,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Utilise nur flaresolverr package that works - ([ebb0415](https://github.com/JayRovacsek/nix-config/commit/ebb04159e65629230ed9d87f62b804d1d6f38eea))
+
 - *(modules)* Remove deprecated raspberry pi option - ([f3eac60](https://github.com/JayRovacsek/nix-config/commit/f3eac607ee2f6bc4175682f0d6d6f657a935804b))
 
 - *(modules)* Resolve dynamic dns issues - ([6a3f5a4](https://github.com/JayRovacsek/nix-config/commit/6a3f5a49e9b55253b636ceade64d94748dcd8585))

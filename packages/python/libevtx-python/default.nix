@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libevtx-python";
-  version = "20240204";
+  version = "20240504";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-ndEyCnp8H8D9y8bw5i3noEeSMo+R9FmavaM/FeQbCyI=";
+    hash = "sha256-YkrFbZnVe1rMWNvLIaz1lsKuQFk433knSta4ENIIrdY=";
   };
 
   build-system = [ setuptools ];

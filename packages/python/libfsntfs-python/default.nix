@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfsntfs-python";
-  version = "20240119";
+  version = "20240501";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Ts400b8VQpDLHlGJvHokUsHiS/OhGTtB27Sn2foqAUY=";
+    hash = "sha256-ga0MahssX2o+s1QzojxJCG1AwtnrMzw9TtzyuMbIKBk=";
   };
 
   build-system = [ setuptools ];

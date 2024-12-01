@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libbde-python";
-  version = "20240223";
+  version = "20240502";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-6Au2V4rZ1YAa4gumZXbiWs0DeJQbEM9oJJVjsjJCiYA=";
+    hash = "sha256-CzCmnmpIrfBCCpcrPK16D9uO1LWv53PjYE5YMKbgRjI=";
   };
 
   build-system = [ setuptools ];

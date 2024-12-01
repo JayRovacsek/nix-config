@@ -15,12 +15,12 @@ let
 in
 buildPythonPackage rec {
   pname = "artifacts";
-  version = "20230928";
+  version = "20240518";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-uRjyl35Xl+BuTfERNRumsm2LdEag62TuxrLz+n3xy48=";
+    hash = "sha256-0FWOt/qHYZjeHasjKO9Im9mlI7h82gaZqR0BDWMFEj4=";
   };
 
   build-system = [ setuptools ];

@@ -7,7 +7,7 @@
 }:
 let
   pname = "epic-lancache-prefill";
-  version = "1.2.0";
+  version = "2.1.0";
 
   meta = with lib; {
     homepage = "https://github.com/tpill90/epic-lancache-prefill";
@@ -21,7 +21,7 @@ let
     repo = "epic-lancache-prefill";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-4BGERyENmIjR+txMdzQsOIMqzhawEWRjnbB0FrUmgyE=";
+    hash = "sha256-L3NUT6V1ixX2FNWzuHFRP3R/bA6udBwxpS/MLiEJ020=";
   };
 
   patches = [ ./no-appcontext.patch ];

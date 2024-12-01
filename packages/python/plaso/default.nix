@@ -85,12 +85,12 @@ let
 in
 buildPythonPackage rec {
   pname = "plaso";
-  version = "20240308";
+  version = "20240826";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-pRYppmsIRBJHlPipM7cLpvWqLNJ5QiX9+/thI83/Gvc=";
+    hash = "sha256-Q+Jn4vUprFFMwusiNv6Cb+gz2wOl3y9lEFNrlZcVqaE=";
   };
 
   build-system = [ setuptools ];

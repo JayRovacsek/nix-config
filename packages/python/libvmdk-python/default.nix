@@ -10,12 +10,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libvmdk-python";
-  version = "20240303";
+  version = "20240510";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-v4/9iiMfOtF12DQIThLkL29NmVP1lNK0fwbLsZIX0v4=";
+    hash = "sha256-bFd1sq2/Z1lGf9tWvkaSbKcJleO9WmNf5MFbdGavpz8=";
   };
 
   build-system = [ setuptools ];

@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libvsapm-python";
-  version = "20240226";
+  version = "20240503";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-hiorYQ3xw6+rBKD0fn2lY2yzPcVxljYcmd13sUfYrkE=";
+    hash = "sha256-QLsfTZhdCysfdQNIyE62wDRfBEuqdiio0u9B5qOlSIM=";
   };
 
   build-system = [ setuptools ];

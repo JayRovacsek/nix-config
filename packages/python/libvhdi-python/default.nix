@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libvhdi-python";
-  version = "20240303";
+  version = "20240509";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-p5Se/gk6g2DdBEYk1IkwAs5VvkTnbq4Xe+7WNlnvKCc=";
+    hash = "sha256-5hyA2suR9DQh9IvKVWSvD7ujw5RWjL0B3Y+aCXblLvQ=";
   };
 
   build-system = [ setuptools ];

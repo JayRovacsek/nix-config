@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfsext-python";
-  version = "20240301";
+  version = "20240501";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-BZ8Jta4YoGMraoSbVheYi5BV8AdWjbPi142BdvRTW7g=";
+    hash = "sha256-sOqYWJBhjdHp5f3UEqHAHRQwXBmGaaMsQtvfB+wXUyY=";
   };
 
   build-system = [ setuptools ];

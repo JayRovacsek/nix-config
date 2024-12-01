@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libvsgpt-python";
-  version = "20240228";
+  version = "20240504";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-6knIN5K0m0s5Wp7++tEuCBhhhu+Ego2OvRv87RAA3lQ=";
+    hash = "sha256-fEVlO1+wVReOn4ryMP80gT1N5cHE/VuqGs4fgtG1XcI=";
   };
 
   build-system = [ setuptools ];

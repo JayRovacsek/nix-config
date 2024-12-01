@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libsigscan-python";
-  version = "20240219";
+  version = "20240505";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-iSsEQyHrBMcr+p+Vyei9J05+PXCWAvsR6G2EMVTXNGU=";
+    hash = "sha256-pCyXpLFSq738mA8/wMsgcsMPECfjIqxeKn83FpWOqN8=";
   };
 
   build-system = [ setuptools ];

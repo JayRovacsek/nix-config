@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libluksde-python";
-  version = "20240114";
+  version = "20240503";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-3memvir7wBXruXgmVG83aw6NI/T/jIw2mWnJFuoPuBc=";
+    hash = "sha256-vBNIQQ3Q0aJoaKoKytH5cxi7GluZYaJLzBPy7hXUUqw=";
   };
 
   build-system = [ setuptools ];
