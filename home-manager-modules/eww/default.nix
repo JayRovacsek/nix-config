@@ -3,8 +3,7 @@ let
   inherit (pkgs) system;
   inherit (self.packages.${system}) eww-sleek-bar;
 
-  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
-
+  hack-font = pkgs.nerd-fonts.hack;
 in
 {
   home.packages = [

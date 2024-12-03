@@ -5,7 +5,7 @@
     # Stable / Unstable split in packages
     bleeding-edge.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    stable.url = "github:nixos/nixpkgs/release-24.05";
+    stable.url = "github:nixos/nixpkgs/release-24.11";
 
     # Secrets Management <3
     agenix = {
@@ -35,7 +35,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Adds flake compatibility to start removing the vestiges of 
+    # Adds flake compatibility to start removing the vestiges of
     # shell.nix and move us towards the more modern nix develop
     # setting while tricking some services/plugins to still be able to
     # use the shell.nix file.
@@ -191,7 +191,7 @@
     # Apply opinions on hardware that are driven by community
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Nixos modules to be used in the Windows Subsystem for Linux  
+    # Nixos modules to be used in the Windows Subsystem for Linux
     nixos-wsl = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -302,8 +302,8 @@
         common = import ./common { inherit self; };
 
         githubActions = self.inputs.nix-github-actions.lib.mkGithubMatrix {
-          # TODO: 
-          # re-introduce darwin packages 
+          # TODO:
+          # re-introduce darwin packages
           # checks for pre-commits
           # nixosConfigurations for all suitable hosts
           checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
@@ -396,7 +396,7 @@
         darwinConfigurations = import ./darwin { inherit self; };
       };
 
-      # Systems we want to wrap all outputs below in. This is split into 
+      # Systems we want to wrap all outputs below in. This is split into
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
@@ -414,11 +414,11 @@
         {
           # Space in which exposed derivations can be ran via
           # nix run .#foo - handy in the future for stuff like deploying
-          # via terraform or automation tasks that are relatively 
-          # procedural 
+          # via terraform or automation tasks that are relatively
+          # procedural
           apps = import ./apps { inherit self pkgs; };
 
-          # Pre-commit hooks to enforce formatting, lining, find 
+          # Pre-commit hooks to enforce formatting, lining, find
           # antipatterns and ensure they don't reach upstream
           checks = {
             git-hooks = self.inputs.git-hooks.lib.${system}.run {

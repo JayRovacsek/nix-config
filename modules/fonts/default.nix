@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+  hack-font = pkgs.nerd-fonts.hack;
 in
 {
   fonts.packages =

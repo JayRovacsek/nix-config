@@ -2,7 +2,7 @@
 let
   inherit (self.common.colour-schemes) tomorrow-night-blue-base16;
 
-  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+  hack-font = pkgs.nerd-fonts.hack;
 in
 {
   stylix = {
@@ -13,7 +13,7 @@ in
       sansSerif = {
         # So the below is super wonky - on aarch64 builds for the rpi3 it'll
         # receive a invalid shasum, but no other time. For now we'll utilise
-        # the same font package between sansSerif and serif to resolve this 
+        # the same font package between sansSerif and serif to resolve this
         # but it may cause wonkiness in some settings re; fonts
         package = pkgs.dejavu_fonts;
         name = "DejaVu Sans";

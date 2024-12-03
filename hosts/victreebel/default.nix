@@ -6,10 +6,7 @@
   ...
 }:
 let
-  inherit (pkgs) system;
-
   inherit (self.lib) merge;
-  inherit (self.packages.${system}) cloudquery cvemap trdsql;
 
   jay = self.common.users."j.rovacsek" {
     inherit config pkgs;
@@ -57,12 +54,13 @@ in
       };
   };
 
-  environment.systemPackages = with pkgs; [
-    agenix
-    cloudquery
-    cvemap
-    trdsql
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      agenix
+    ];
+
+    variables.EDITOR = "nvim";
+  };
 
   imports = with self.nixosModules; [
     agenix

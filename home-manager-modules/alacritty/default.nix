@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  hack-font = pkgs.nerdfonts.override { fonts = [ "Hack" ]; };
+  hack-font = pkgs.nerd-fonts.hack;
   inherit (pkgs.stdenv) isDarwin;
 
 in

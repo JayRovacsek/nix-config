@@ -163,8 +163,8 @@
   };
 
   nixd = _: prev: {
-    nixd = prev.nixd.override { nix = prev.nixVersions.latest; };
-    nixt = prev.nixt.override { nix = prev.nixVersions.latest; };
+    nixd = prev.nixd.override { nix = prev.nixVersions.stable; };
+    nixt = prev.nixt.override { nix = prev.nixVersions.stable; };
   };
 
   nix-monitored = _: prev: {
