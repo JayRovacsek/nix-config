@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  coreutils,
 }:
 buildGoModule rec {
   version = "6.12.2";
@@ -14,9 +15,17 @@ buildGoModule rec {
     hash = "sha256-hHllESbNCd+NZYi/wTcalPtawNmlL8c+vi6db2UmRb0=";
   };
 
-  vendorHash = "sha256-SdPqjFnKakU4bajGu/AROmbgYTBHnB9iac9snaryMhU=";
+  sourceRoot = "source/cli";
 
-  doCheck = false;
+  vendorHash = "sha256-0TglUg/3i1Sbyz9TUhwr+GaZ2CPGwxfAfxZ/iZKw7l0=";
+
+  ## These tests assume network access
+  postPatch = ''
+    ${coreutils}/bin/rm cmd/addon_download_test.go
+    ${coreutils}/bin/rm cmd/addon_publish_test.go
+    ${coreutils}/bin/rm cmd/plugin_publish_test.go
+    ${coreutils}/bin/rm cmd/switch_test.go
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/cloudquery/cloudquery";

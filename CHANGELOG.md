@@ -171,6 +171,8 @@
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
+- *(darwin)* Resolve issues with rebuilding on darwin - ([f6715da](https://github.com/JayRovacsek/nix-config/commit/f6715da1899aab4b60fc278c04ebd06e3be0b75b))
+
 - *(darwin)* Update nix-darwin to rebuild victreebel - ([abc7f8b](https://github.com/JayRovacsek/nix-config/commit/abc7f8b04083bdb7c5efd9037ce0ff3519d88371))
 
 - *(darwin)* Resolve migration issues to age hm onm darwin - ([039e41e](https://github.com/JayRovacsek/nix-config/commit/039e41e8b3cc1303fa3a6334b3561adec4a2319c))
