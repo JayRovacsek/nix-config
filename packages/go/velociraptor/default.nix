@@ -10,8 +10,8 @@ let
   inherit (stdenv) system;
 
   hashes = {
-    "x86_64-linux" = "sha256-MOpUxYqqwNbnWVLbdcYi9RhPtkCafH05jnNNYAY7i/o=";
-    "aarch64-linux" = "sha256-zog33A66HPFQrOOMk8coG5HwQQw7z0EtMFAVhtypEgs=";
+    "x86_64-linux" = "sha256-0R+BkfRK+kFWLUvwgGcrfjyhI0XRlyRYr1XPCpQWWP4=";
+    "aarch64-linux" = "sha256-GkntPHcyY4hBM3t/Lijs0FT28QtYnnvVWYANW8ynp40=";
   };
 
   arch-map = {
@@ -27,7 +27,9 @@ let
   pname = "velociraptor";
   version = "0.73";
 
-  filename = "${pname}-v${version}.0-${kernel}-${arch}";
+  minor-version = "3";
+
+  filename = "${pname}-v${version}.${minor-version}-${kernel}-${arch}";
 
 in
 stdenv.mkDerivation rec {
