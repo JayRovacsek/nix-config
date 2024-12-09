@@ -153,6 +153,7 @@ in
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
       "nix.enableLanguageServer" = true;
+      "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
       "nix.serverSettings" = {
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
