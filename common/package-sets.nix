@@ -1,7 +1,7 @@
 { self }:
 let
-  # The intention of this construct is to expose a flake-level generation of 
-  # any number of packagesets to be consumed without boilerplate 
+  # The intention of this construct is to expose a flake-level generation of
+  # any number of packagesets to be consumed without boilerplate
   inherit (self) inputs;
   # Inputs that expose overlays we require
   inherit (self.inputs) flake-utils;
@@ -9,7 +9,7 @@ let
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
-  # Wrap packagesets in a way that makes it a little more 
+  # Wrap packagesets in a way that makes it a little more
   # easy to utilise below
   stable = {
     pkgs = inputs.stable;
@@ -26,7 +26,17 @@ let
     name = "bleeding-edge";
   };
 
-  config.allowUnfree = true;
+  config = {
+    allowUnfree = true;
+
+    # Added until *arr packages update from dotnet 6
+    permittedInsecurePackages = [
+      "aspnetcore-runtime-6.0.36"
+      "aspnetcore-runtime-wrapped-6.0.36"
+      "dotnet-sdk-6.0.428"
+      "dotnet-sdk-wrapped-6.0.428"
+    ];
+  };
 
   targetGeneration = [
     stable
@@ -56,16 +66,16 @@ let
   # Effectively the end product should expose via repl:
   #
   # nix-repl> common.package-sets
-  # aarch64-darwin-stable = { ... }; 
-  # aarch64-darwin-unstable = { ... }; 
-  # aarch64-linux-stable = { ... }; 
-  # aarch64-linux-unstable = { ... }; 
-  # x86_64-darwin-stable = { ... }; 
-  # x86_64-darwin-unstable = { ... }; 
-  # x86_64-linux-stable = { ... }; 
+  # aarch64-darwin-stable = { ... };
+  # aarch64-darwin-unstable = { ... };
+  # aarch64-linux-stable = { ... };
+  # aarch64-linux-unstable = { ... };
+  # x86_64-darwin-stable = { ... };
+  # x86_64-darwin-unstable = { ... };
+  # x86_64-linux-stable = { ... };
   # x86_64-linux-unstable = { ... };
   #
-  # Each will add the "identifier" property to the set to avoid need of 
+  # Each will add the "identifier" property to the set to avoid need of
   # further hacks to understand from a system perspective what has been applied to
   # it.
   #
