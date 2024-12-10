@@ -64,7 +64,6 @@ in
 
   hardware = {
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    firmware = [ self.packages.${pkgs.system}.t2-firmware ];
   };
 
   imports =
