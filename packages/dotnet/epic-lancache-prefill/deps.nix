@@ -9,11 +9,6 @@
     hash = "sha256-8MWfDkTyotnouLwZASK27lM32NoGCLPLr4sBBqPkJFI=";
   })
   (fetchNuGet {
-    pname = "AutoMapper";
-    version = "11.0.1";
-    hash = "sha256-47l2b8IWIyaOKl5KTpVAPeEL6ZMGlzoFCWby2QIrPfw=";
-  })
-  (fetchNuGet {
     pname = "ByteSize";
     version = "2.1.1";
     hash = "sha256-ZPiO0zdDX3F9QkQLWLbkyeicRZZoOGnS5vo55RttS2w=";
@@ -44,14 +39,14 @@
     hash = "sha256-AgCfhDvBb/xOLxNvFoZPYuiSBWEhXihHTBvYqLS+WFM=";
   })
   (fetchNuGet {
+    pname = "Microsoft.AspNetCore.WebUtilities";
+    version = "2.2.0";
+    hash = "sha256-UdfOwSWqOUXdb0mGrSMx6Z+d536/P+v5clSRZyN5QTM=";
+  })
+  (fetchNuGet {
     pname = "Microsoft.CodeAnalysis.BannedApiAnalyzers";
     version = "3.3.4";
     hash = "sha256-YPTHTZ8xRPMLADdcVYRO/eq3O9uZjsD+OsGRZE+0+e8=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.CSharp";
-    version = "4.5.0";
-    hash = "sha256-dAhj/CgXG5VIy2dop1xplUsLje7uBPFjxasz9rdFIgY=";
   })
   (fetchNuGet {
     pname = "Microsoft.CSharp";
@@ -59,39 +54,14 @@
     hash = "sha256-Enknv2RsFF68lEPdrf5M+BpV1kHoLTVRApKUwuk/pj0=";
   })
   (fetchNuGet {
-    pname = "Microsoft.IdentityModel.Abstractions";
-    version = "6.34.0";
-    hash = "sha256-Al1vWcfH//XZRKSg5JE2nEHMb8Z6kekMHccJEmYo9jU=";
+    pname = "Microsoft.Extensions.Primitives";
+    version = "2.2.0";
+    hash = "sha256-DMCTC3HW+sHaRlh/9F1sDwof+XgvVp9IzAqzlZWByn4=";
   })
   (fetchNuGet {
-    pname = "Microsoft.IdentityModel.JsonWebTokens";
-    version = "6.34.0";
-    hash = "sha256-+h0uNBMx6zh/f96+WiSR6c89G1alBOCuTx+VpDxuATA=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.IdentityModel.Logging";
-    version = "6.34.0";
-    hash = "sha256-a0IPOjmYsIT2/HFAdhaN/32X3c8GYCFZ5sRiCGO2pDo=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.IdentityModel.Tokens";
-    version = "6.34.0";
-    hash = "sha256-lO/gLOFYkwCEm98Zn+4X20dXMwYoD+y4Urpx8n3mcu4=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.NETCore.Platforms";
-    version = "1.1.0";
-    hash = "sha256-FeM40ktcObQJk4nMYShB61H/E8B7tIKfl9ObJ0IOcCM=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.NETCore.Platforms";
-    version = "5.0.0";
-    hash = "sha256-LIcg1StDcQLPOABp4JRXIs837d7z0ia6+++3SF3jl1c=";
-  })
-  (fetchNuGet {
-    pname = "Microsoft.NETCore.Targets";
-    version = "1.1.0";
-    hash = "sha256-0AqQ2gMS8iNlYkrD+BxtIg7cXMnr9xZHtKAuN4bjfaQ=";
+    pname = "Microsoft.Net.Http.Headers";
+    version = "2.2.0";
+    hash = "sha256-pb8AoacSvy8hGNGodU6Lhv1ooWtUSCZwjmwd89PM1HA=";
   })
   (fetchNuGet {
     pname = "Microsoft.VisualStudio.Threading.Analyzers";
@@ -99,44 +69,9 @@
     hash = "sha256-1ke2CCKndVws3lgfEuEhKgnm+h706XhfKcpBNyypcDU=";
   })
   (fetchNuGet {
-    pname = "Microsoft.Win32.Registry";
-    version = "5.0.0";
-    hash = "sha256-9kylPGfKZc58yFqNKa77stomcoNnMeERXozWJzDcUIA=";
-  })
-  (fetchNuGet {
     pname = "NStack.Core";
     version = "0.17.1";
     hash = "sha256-sVuArQwL2dzytCei2fhCNg1Bcm4vntPb+PpXStk3rqM=";
-  })
-  (fetchNuGet {
-    pname = "protobuf-net";
-    version = "3.2.16";
-    hash = "sha256-Pi3/BVMBHLWCPv4RPRy/HFVWtmqbgYWyFr6iKzDFlF8=";
-  })
-  (fetchNuGet {
-    pname = "protobuf-net.Core";
-    version = "3.2.16";
-    hash = "sha256-hQHcKXIQpHORy8bdWicvx8EUKWfGvK7kyFTtg2eE9gM=";
-  })
-  (fetchNuGet {
-    pname = "runtime.any.System.Runtime";
-    version = "4.3.0";
-    hash = "sha256-qwhNXBaJ1DtDkuRacgHwnZmOZ1u9q7N8j0cWOLYOELM=";
-  })
-  (fetchNuGet {
-    pname = "runtime.any.System.Text.Encoding";
-    version = "4.3.0";
-    hash = "sha256-Q18B9q26MkWZx68exUfQT30+0PGmpFlDgaF0TnaIGCs=";
-  })
-  (fetchNuGet {
-    pname = "runtime.native.System";
-    version = "4.3.0";
-    hash = "sha256-ZBZaodnjvLXATWpXXakFgcy6P+gjhshFXmglrL5xD5Y=";
-  })
-  (fetchNuGet {
-    pname = "runtime.unix.System.Private.Uri";
-    version = "4.3.0";
-    hash = "sha256-c5tXWhE/fYbJVl9rXs0uHh3pTsg44YD1dJvyOA0WoMs=";
   })
   (fetchNuGet {
     pname = "Spectre.Console.Analyzer";
@@ -144,59 +79,24 @@
     hash = "sha256-jlDQ0YaR11ghCjFR/tiNnuXJrYcMu6HQSGealyvbXm8=";
   })
   (fetchNuGet {
-    pname = "SteamKit2";
-    version = "2.5.0-beta.1";
-    hash = "sha256-AWDxvsyb9Wjb6KbwTII1CBQCzaDi7DvLhiJ88goSIRk=";
-  })
-  (fetchNuGet {
-    pname = "System.Collections.Immutable";
-    version = "7.0.0";
-    hash = "sha256-9an2wbxue2qrtugYES9awshQg+KfJqajhnhs45kQIdk=";
-  })
-  (fetchNuGet {
-    pname = "System.IdentityModel.Tokens.Jwt";
-    version = "6.34.0";
-    hash = "sha256-nv+tAb/Gw2W026gBgoAT53Oj5LOonHYGG1UntQheHpQ=";
-  })
-  (fetchNuGet {
-    pname = "System.Private.Uri";
-    version = "4.3.0";
-    hash = "sha256-fVfgcoP4AVN1E5wHZbKBIOPYZ/xBeSIdsNF+bdukIRM=";
-  })
-  (fetchNuGet {
-    pname = "System.Runtime";
-    version = "4.3.0";
-    hash = "sha256-51813WXpBIsuA6fUtE5XaRQjcWdQ2/lmEokJt97u0Rg=";
-  })
-  (fetchNuGet {
-    pname = "System.Security.AccessControl";
-    version = "5.0.0";
-    hash = "sha256-ueSG+Yn82evxyGBnE49N4D+ngODDXgornlBtQ3Omw54=";
-  })
-  (fetchNuGet {
-    pname = "System.Security.Cryptography.Cng";
+    pname = "System.Buffers";
     version = "4.5.0";
-    hash = "sha256-9llRbEcY1fHYuTn3vGZaCxsFxSAqXl4bDA6Rz9b0pN4=";
+    hash = "sha256-THw2znu+KibfJRfD7cE3nRYHsm7Fyn5pjOOZVonFjvs=";
   })
   (fetchNuGet {
-    pname = "System.Security.Principal.Windows";
-    version = "5.0.0";
-    hash = "sha256-CBOQwl9veFkrKK2oU8JFFEiKIh/p+aJO+q9Tc2Q/89Y=";
+    pname = "System.Memory";
+    version = "4.5.1";
+    hash = "sha256-7JhQNSvE6JigM1qmmhzOX3NiZ6ek82R4whQNb+FpBzg=";
   })
   (fetchNuGet {
-    pname = "System.Text.Encoding";
-    version = "4.3.0";
-    hash = "sha256-GctHVGLZAa/rqkBNhsBGnsiWdKyv6VDubYpGkuOkBLg=";
+    pname = "System.Runtime.CompilerServices.Unsafe";
+    version = "4.5.1";
+    hash = "sha256-Lucrfpuhz72Ns+DOS7MjuNT2KWgi+m4bJkg87kqXmfU=";
   })
   (fetchNuGet {
     pname = "System.Text.Encodings.Web";
-    version = "4.7.2";
-    hash = "sha256-CUZOulSeRy1CGBm7mrNrTumA9od9peKiIDR/Nb1B4io=";
-  })
-  (fetchNuGet {
-    pname = "System.Text.Json";
-    version = "4.7.2";
-    hash = "sha256-xA8PZwxX9iOJvPbfdi7LWjM2RMVJ7hmtEqS9JvgNsoM=";
+    version = "4.5.0";
+    hash = "sha256-o+jikyFOG30gX57GoeZztmuJ878INQ5SFMmKovYqLWs=";
   })
   (fetchNuGet {
     pname = "System.Threading.Tasks.Extensions";

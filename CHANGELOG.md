@@ -317,6 +317,8 @@
 
 - *(overlays)* Reintroduce jellyfin overlay - ([c9f5fb8](https://github.com/JayRovacsek/nix-config/commit/c9f5fb87dcf741a11e3afbc13c7dc758fb97fcfe))
 
+- *(packages)* Remove more tests that use network calls from cloudquery - ([ae52efe](https://github.com/JayRovacsek/nix-config/commit/ae52efe81909a697387653073c62bd5ecaaca06e))
+
 - *(packages)* Remove tests that use network calls from cloudquery - ([4ce3d71](https://github.com/JayRovacsek/nix-config/commit/4ce3d712dee7ae816419831a3f6211b488c78c4a))
 
 - *(packages)* Add minor version for velociraptor and resolve hashes - ([24c2687](https://github.com/JayRovacsek/nix-config/commit/24c26879694c418e8b7dbf0c4a96399e402ced2d))
