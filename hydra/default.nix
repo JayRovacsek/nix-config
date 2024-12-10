@@ -26,6 +26,7 @@ let
     "rpi0w-sdImage"
     "rpi1-sdImage"
     "rpi2-sdImage"
+    "rpi5-sdImage"
   ];
 
   # Strip items that hydra just cannot handle
@@ -45,10 +46,10 @@ in
 {
   devShells = removeAttrs self.devShells unsupported-systems;
 
-  # Wrap nixos configuration testing via the system.build.toplevel 
+  # Wrap nixos configuration testing via the system.build.toplevel
   # attribute which which ensure both build suitability as well as
   # create a binary-cache entry for all shared elements.
-  # 
+  #
   # Remove any systems matching the names in unsupported-configurations
   nixosConfigurations = builtins.mapAttrs (_: v: v.config.system.build.toplevel) (
     filterAttrs (
@@ -56,7 +57,7 @@ in
     ) self.nixosConfigurations
   );
 
-  # Strip out below known issue packages when it comes to 
+  # Strip out below known issue packages when it comes to
   # hydra evaluation.
   packages = non-broken-packages;
 }

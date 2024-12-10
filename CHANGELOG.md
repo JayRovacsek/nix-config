@@ -97,6 +97,8 @@
 
 - *(linux,modules,flake)* Migrate from imperative to declarative microvms - ([a280577](https://github.com/JayRovacsek/nix-config/commit/a28057709d2904b7a0bae8029d72ca8937faa6b1))
 
+- *(modules)* Move microvm guests to hardened linux - ([9cb1258](https://github.com/JayRovacsek/nix-config/commit/9cb1258924a89c13592729a4187ce4f882909e5b))
+
 - *(modules)* Change lix to from nixpkgs - ([26c5ed0](https://github.com/JayRovacsek/nix-config/commit/26c5ed06a26e698a5af0f71054165f417340afa6))
 
 - *(modules)* Remove persistent home directory - ([f44d805](https://github.com/JayRovacsek/nix-config/commit/f44d8059243292572de6a05f41849cae0231adb1))

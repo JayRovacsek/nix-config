@@ -17,10 +17,11 @@ in
     rpi0w
     rpi1
     rpi2
+    rpi5
     ;
 
   # Base Configuration Hosts
-  # Above cloud base images all inherit from this configuration effectively 
+  # Above cloud base images all inherit from this configuration effectively
   # so exposure here is more to give a consistent base and be enabled to add tweaks
   # at a level in which it is inherited from all base-images
   # This host otherwise is simply a very base headless install
