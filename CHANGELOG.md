@@ -269,6 +269,8 @@
 
 - *(linux,hydra)* Resolve remote builder key references - ([62b5253](https://github.com/JayRovacsek/nix-config/commit/62b5253ac8cdee0b6bf4ce884b1eb00cc9ecc554))
 
+- *(linux,iac)* Add host stub for rpi5 image, remove sd image from jobs - ([9f63dcd](https://github.com/JayRovacsek/nix-config/commit/9f63dcddb11b6edee433b5dce08deed69f06b1fe))
+
 - *(linux,modules)* Resolve grafana service issues - ([d93cf00](https://github.com/JayRovacsek/nix-config/commit/d93cf00f98209bc140d4b5d8ab8a75cbf28f9107))
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))

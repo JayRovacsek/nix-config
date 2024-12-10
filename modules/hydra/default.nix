@@ -48,6 +48,8 @@ let
     "github:NuschtOS/nixos-modules"
     "github:oddlama/nix-topology"
     "github:oxalica/rust-overlay"
+    "github:raspberrypi"
+    "github:RPi-Distro"
     "github:ryantm/agenix"
     "github:SenchoPens/base16.nix"
     "github:SenchoPens/fromYaml"

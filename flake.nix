@@ -237,17 +237,22 @@
       url = "github:NuschtOS/search";
     };
 
-    rust-overlay = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:oxalica/rust-overlay";
-    };
-
     nuschtos-modules = {
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:NuschtOS/nixos-modules";
+    };
+
+    raspberry-pi-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/raspberry-pi-nix";
+    };
+
+    rust-overlay = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:oxalica/rust-overlay";
     };
 
     sbomnix = {

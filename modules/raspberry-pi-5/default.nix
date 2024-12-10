@@ -4,7 +4,10 @@
   ...
 }:
 {
-  imports = [ self.inputs.nixos-hardware.nixosModules.raspberry-pi-5 ];
+  imports = with self.inputs; [
+    nixos-hardware.nixosModules.raspberry-pi-5
+    raspberry-pi-nix.nixosModules.raspberry-pi
+  ];
 
   boot = {
     supportedFilesystems = {
@@ -18,4 +21,6 @@
       zfs = lib.mkForce false;
     };
   };
+
+  raspberry-pi-nix.board = "bcm2712";
 }

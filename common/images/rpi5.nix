@@ -1,13 +1,13 @@
 { self }:
 let
-  inherit (self.inputs) nixpkgs;
+  inherit (self.inputs) raspberry-pi-nix;
   inherit (self.common.system) unstable-system;
 
   inherit (self.common.package-sets) aarch64-linux-unstable;
   inherit (aarch64-linux-unstable) system identifier pkgs;
 
   modules = self.common.modules.${identifier} ++ [
-    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    raspberry-pi-nix.nixosModules.sd-image
     self.nixosModules.raspberry-pi-5
     {
       networking.hostName = "rpi5";
