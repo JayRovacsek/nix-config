@@ -27,15 +27,16 @@ in
       acc
       // {
         ${host} = {
-          specialArgs = {
-            inherit self;
-            microvm = true;
-          };
           config =
             { ... }:
             {
               imports = [ (./. + "/../${host}") ];
             };
+
+          specialArgs = {
+            inherit self;
+            microvm = true;
+          };
         };
       }
     ) { } party;

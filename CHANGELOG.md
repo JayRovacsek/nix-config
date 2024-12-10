@@ -305,6 +305,8 @@
 
 - *(modules)* Resolve a range of changed options based on trace feedback - ([32cf11b](https://github.com/JayRovacsek/nix-config/commit/32cf11b486eae1bdc95e7e6c5a2c8e677a8a349f))
 
+- *(modules,home-manager-modules)* Add explicit formatter path - ([127d401](https://github.com/JayRovacsek/nix-config/commit/127d401ec6f47f236999df32fa86d2ba010a7453))
+
 - *(modules,home-manager-modules)* Resolve hash of options repo - ([bd32665](https://github.com/JayRovacsek/nix-config/commit/bd326650c2098cf1e8549f55f00fac45112a434a))
 
 - *(modules,iac,hydra)* Resolve remote builds on dragonite - ([5c4ef9b](https://github.com/JayRovacsek/nix-config/commit/5c4ef9b872dcce9de190c70d394246643905d8dd))

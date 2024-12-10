@@ -45,7 +45,7 @@
   };
 
   hello-unfree = _: prev: {
-    hello-unfree = prev.hello-unfree.overrideAttrs (_old: rec {
+    hello-unfree = prev.hello-unfree.overrideAttrs (_old: {
       pname = "hello-unfree";
       version = "9002";
     });
