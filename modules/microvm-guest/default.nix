@@ -1,8 +1,9 @@
 {
   config,
   lib,
-  self,
   microvm ? false,
+  modulesPath,
+  self,
   ...
 }:
 let
@@ -20,7 +21,7 @@ in
     '';
   };
 
-  # This means the filesystem will be mounted prior to agenix attempting to 
+  # This means the filesystem will be mounted prior to agenix attempting to
   # decrypt secrets with associated keys - otherwise agenix will error as it
   # runs far earlier than when the mount will occur
   # See also: https://github.com/ryantm/agenix/issues/45
@@ -29,6 +30,7 @@ in
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
   imports = [
+    "${modulesPath}/profiles/hardened.nix"
     ../../options/modules/systemd
   ] ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 
@@ -44,7 +46,7 @@ in
       }
     ])
     ++ [
-      # 
+      #
       {
         # On the host
         source = "/var/lib/${config.systemd.machineId}";
@@ -53,7 +55,7 @@ in
         tag = "application-persistence";
         proto = "virtiofs";
       }
-      # Pass journald logs back to the host as per 
+      # Pass journald logs back to the host as per
       # https://astro.github.io/microvm.nix/faq.html#how-to-centralize-logging-with-journald
       {
         # On the host
@@ -88,7 +90,7 @@ in
   systemd = {
     # Blunt approach to ensuring stable machine id.
     # TODO: review if there might be a better method to generating this
-    # however this is likely not problematic while duplicate host names 
+    # however this is likely not problematic while duplicate host names
     # are unlikely to exist within an environment.
     machineId = builtins.hashString "md5" config.networking.hostName;
 
