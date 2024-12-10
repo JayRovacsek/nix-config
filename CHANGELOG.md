@@ -57,6 +57,8 @@
 
 - *(iac)* Add nix-inputs to assess viability of concept - ([6d9e809](https://github.com/JayRovacsek/nix-config/commit/6d9e809bc041f2de8a8d1f197bb78f9622962c30))
 
+- *(images,modules)* Add basic pi5 sd image and module - ([1425bb1](https://github.com/JayRovacsek/nix-config/commit/1425bb13ab4339a767c5efe67e479227be4bad66))
+
 - *(linux)* Move wigglytuff home to impermanence - ([4e2cd27](https://github.com/JayRovacsek/nix-config/commit/4e2cd27a763cb9fab9a4b61e13d07364edd94b98))
 
 - *(linux)* Bump rootfs size on alakazam - ([a8d4b42](https://github.com/JayRovacsek/nix-config/commit/a8d4b42980bd4139261e9ddaf2cfa5cfd483ea5a))
