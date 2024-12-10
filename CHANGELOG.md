@@ -275,6 +275,8 @@
 
 - *(linux,modules)* Add uris to hydra allowed, bump mr-mime RAM - ([d0a9e5a](https://github.com/JayRovacsek/nix-config/commit/d0a9e5af5428420f37c98c92926483aaf5ae7c53))
 
+- *(modules)* Move rpi5 over to nix-community flake - ([9b956b4](https://github.com/JayRovacsek/nix-config/commit/9b956b413329fcbc35f5b7f32cc7a8cb62db9364))
+
 - *(modules)* Add permitted eol packages to packagesets - ([2dfb902](https://github.com/JayRovacsek/nix-config/commit/2dfb90204f0ee85daabca2555605d9acd30e66df))
 
 - *(modules)* Utilise nur flaresolverr package that works - ([ebb0415](https://github.com/JayRovacsek/nix-config/commit/ebb04159e65629230ed9d87f62b804d1d6f38eea))
