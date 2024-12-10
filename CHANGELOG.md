@@ -413,6 +413,8 @@
 
 - *(overlays)* Remove redundant variables - ([d8a39e6](https://github.com/JayRovacsek/nix-config/commit/d8a39e6cc06823b7a69bf19d0e3143baadae7050))
 
+- *(packages)* Remove t2 firmware package - ([c817465](https://github.com/JayRovacsek/nix-config/commit/c817465fb8171f55622f1b59637622058a3ac292))
+
 - *(tools)* Add entries to gitignore - ([98b4385](https://github.com/JayRovacsek/nix-config/commit/98b4385fedde6fe00852f2f395d0ef25174a17a9))
 - Remove ai from alakazam - ([f1b1612](https://github.com/JayRovacsek/nix-config/commit/f1b1612094f9e19153ea80534cbf430145fee80d))
 

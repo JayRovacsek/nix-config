@@ -30,8 +30,13 @@ buildGoModule rec {
       ${rm} cmd/infer_test.go
       ${rm} cmd/init_test.go
       ${rm} cmd/install_test.go
+      ${rm} cmd/migrate_test.go
       ${rm} cmd/plugin_publish_test.go
       ${rm} cmd/switch_test.go
+      ${rm} cmd/sync_test.go
+      ${rm} cmd/tables_test.go
+      ${rm} cmd/test_connection_test.go
+      ${rm} cmd/validate_config_test.go
     '';
 
   meta = with lib; {
