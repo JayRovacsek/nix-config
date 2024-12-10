@@ -47,17 +47,17 @@ let
 
   # HERE BE DRAGONS!
   #
-  # So, this takes the defined xdg dirs and splits the absolute path; assuming 
+  # So, this takes the defined xdg dirs and splits the absolute path; assuming
   # a prefix of anything then /$USERNAME/ e.g. /home/foo/ where foo is the username.
   #
   # This would seem like a good idea generally, but there is a obvious flaw here
   # where a user might opt to make a directory that includes their username in it
   # e.g. /home/foo/bar/baz/foo/a - while generally unlikely to cause issue, this would
   # absolutely have a bug where data WILL BE LOST if this happens and the below code
-  # is the only code used. 
+  # is the only code used.
   #
   # It could trivially be resolved via a check for linux / darwin,
-  # then stripping the normal patterns off the front of the string. But I'm this deep now and 
+  # then stripping the normal patterns off the front of the string. But I'm this deep now and
   # uncaring to solve it - the below should generally work also.
   xdg-user-dirs = lib.optionals config.xdg.userDirs.createDirectories (
     builtins.map (x: lib.last (lib.splitString "/${config.home.username}/" x)) (
@@ -91,7 +91,7 @@ in
       ## Direnv
       ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
 
-      ## Firefox; note that ".cache/mozilla/firefox" could be 
+      ## Firefox; note that ".cache/mozilla/firefox" could be
       # added to the below to retain the browser cache, but I'm going to see
       # how it goes just nuking that directory for now.
       ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
@@ -101,6 +101,9 @@ in
         ".local/share/Jellyfin Media Player"
         ".local/share/jellyfinmediaplayer"
       ])
+
+      ## Keepassxc
+      ++ (lib.optionals (home-packages-has "keepassxc") [ ".cache/keepassxc" ])
 
       ## Keybase
       ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
