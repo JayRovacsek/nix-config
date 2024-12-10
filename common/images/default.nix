@@ -8,6 +8,7 @@ let
   rpi0w = import ./rpi0-w.nix { inherit self; };
   rpi1 = import ./rpi1.nix { inherit self; };
   rpi2 = import ./rpi2.nix { inherit self; };
+  rpi5 = import ./rpi5.nix { inherit self; };
 
   # Cloud Base Images
   amazon-cfg = import ./amazon.nix { inherit self; };
@@ -72,6 +73,7 @@ let
         rpi0w
         rpi1
         rpi2
+        rpi5
         ;
     };
   };
@@ -87,6 +89,7 @@ let
         rpi0w
         rpi1
         rpi2
+        rpi5
       ];
 
   images = {

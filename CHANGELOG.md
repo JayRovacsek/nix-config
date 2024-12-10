@@ -383,6 +383,8 @@
 
 - *(iac)* Remove disabled assertions from aws image - ([912eae2](https://github.com/JayRovacsek/nix-config/commit/912eae26f5ec106776146709aac9109f015c838b))
 
+- *(linux,overlays)* Minor refactors to remove dead code - ([47fbd99](https://github.com/JayRovacsek/nix-config/commit/47fbd99819cb5ba4d70539610eec2c43218bb2d1))
+
 - *(modules)* Clean up dockutil - ([bf3068a](https://github.com/JayRovacsek/nix-config/commit/bf3068a2689b66e1c43b44766c724a115bfdf9a6))
 
 - *(modules)* Remove extra config element from nix - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
