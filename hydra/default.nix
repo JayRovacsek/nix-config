@@ -11,9 +11,6 @@ let
 
   unsupported-configurations = [
     "amazon"
-    "rpi0w"
-    "rpi1"
-    "rpi2"
   ];
 
   problematic-packages = [
@@ -23,9 +20,7 @@ let
     "oracle-aarch64"
     "oracle-x86_64"
     "oracle"
-    "rpi0w-sdImage"
-    "rpi1-sdImage"
-    "rpi2-sdImage"
+    "rpi4-sdImage"
     "rpi5-sdImage"
   ];
 

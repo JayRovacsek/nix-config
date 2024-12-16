@@ -2,7 +2,6 @@
   config,
   lib,
   microvm ? false,
-  modulesPath,
   self,
   ...
 }:
@@ -30,7 +29,8 @@ in
   } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
   imports = [
-    "${modulesPath}/profiles/hardened.nix"
+    # TODO: reintroduce this once solved for nextcloud
+    # "${modulesPath}/profiles/hardened.nix"
     ../../options/modules/systemd
   ] ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 

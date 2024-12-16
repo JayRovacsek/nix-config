@@ -6,7 +6,7 @@ let
   # Required package-sets
   inherit (self.common.package-sets) x86_64-linux-unstable aarch64-linux-unstable;
 
-  inherit (self.lib.host) make-host make-microvm;
+  inherit (self.lib.host) extend-host make-host make-microvm;
 in
 {
   # Cloud and hardware specific configurations
@@ -14,9 +14,7 @@ in
     amazon
     linode
     oracle
-    rpi0w
-    rpi1
-    rpi2
+    rpi4
     rpi5
     ;
 
@@ -39,7 +37,8 @@ in
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
-  wigglytuff = make-host aarch64-linux-unstable "wigglytuff" unstable-system;
+  wartortle = extend-host self.common.images.configurations.rpi5 "wartortle";
+  wigglytuff = extend-host self.common.images.configurations.rpi4 "wigglytuff";
 
   ## WSL Configuration
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;

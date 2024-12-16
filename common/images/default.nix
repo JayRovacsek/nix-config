@@ -3,12 +3,28 @@ let
   inherit (self.lib) merge;
   inherit (self.inputs) nixos-generators;
 
+  modules = [
+    self.inputs.raspberry-pi-nix.nixosModules.sd-image
+    {
+      # As we are only ever building this via binfmt allocations
+      # disable compression as the performance of achieving compression is
+      # not worth the few GB of disk savings at best
+      sdImage.compressImage = false;
+    }
+  ];
+
+  rpi4 = import ./rpi4.nix { inherit self; };
+  rpi5 = import ./rpi5.nix { inherit self; };
+
   # SD Installer Images / Configs
   aarch64 = import ./aarch64.nix { inherit self; };
-  rpi0w = import ./rpi0-w.nix { inherit self; };
-  rpi1 = import ./rpi1.nix { inherit self; };
-  rpi2 = import ./rpi2.nix { inherit self; };
-  rpi5 = import ./rpi5.nix { inherit self; };
+  rpi4-sd-image = rpi4.extendModules {
+    inherit modules;
+  };
+
+  rpi5-sd-image = rpi5.extendModules {
+    inherit modules;
+  };
 
   # Cloud Base Images
   amazon-cfg = import ./amazon.nix { inherit self; };
@@ -70,9 +86,7 @@ let
       oracle = oracle-cfg;
       inherit
         aarch64
-        rpi0w
-        rpi1
-        rpi2
+        rpi4
         rpi5
         ;
     };
@@ -86,10 +100,8 @@ let
       })
       [
         aarch64
-        rpi0w
-        rpi1
-        rpi2
-        rpi5
+        rpi4-sd-image
+        rpi5-sd-image
       ];
 
   images = {

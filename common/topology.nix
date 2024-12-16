@@ -24,8 +24,8 @@ in
     "mew"
     "oracle"
     "porygon"
-    "rpi1"
-    "rpi2"
+    "rpi4"
+    "rpi5"
   ];
 
   nodes = {
@@ -35,8 +35,8 @@ in
     openvpn2 = mkInternet { connections = mkConnection "diglett" "eth0"; };
 
     # Simple bindings of interface -> network for most hosts
-    # These seem like they'd be for free _if_ I were using 
-    # networking.interface options, but I'm explicitly using 
+    # These seem like they'd be for free _if_ I were using
+    # networking.interface options, but I'm explicitly using
     # systemd-networkd rules. TODO: See if I can get the below
     # for free :)
     alakazam.interfaces.eth0.network = "lan";

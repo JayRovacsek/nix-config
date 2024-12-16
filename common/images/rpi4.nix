@@ -1,16 +1,14 @@
 { self }:
 let
-  inherit (self.inputs) raspberry-pi-nix;
   inherit (self.common.system) unstable-system;
 
   inherit (self.common.package-sets) aarch64-linux-unstable;
   inherit (aarch64-linux-unstable) system identifier pkgs;
 
   modules = self.common.modules.${identifier} ++ [
-    raspberry-pi-nix.nixosModules.sd-image
-    self.nixosModules.raspberry-pi-5
+    self.nixosModules.raspberry-pi-4
     {
-      networking.hostName = "rpi5";
+      networking.hostName = "rpi4";
 
       services.openssh = {
         enable = true;

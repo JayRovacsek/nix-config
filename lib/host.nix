@@ -5,23 +5,38 @@ let
   # package-set should be an attr akin to:
   # {
   #   identifier = "ARCH-FAMILY-IDENTIFIER"
-  #   pkgs = NIXPKGS; 
+  #   pkgs = NIXPKGS;
   #   system = NIXPKGS-IDENTIFIER
   # }
-  # 
+  #
   # As an example for unstable x86_64 linux:
   # {
   #   identifier = "x86_64-linux-unstable"
-  #   pkgs = NIXPKGS; 
+  #   pkgs = NIXPKGS;
   #   system = "x86_64-linux"
   # }
-  #  
+  #
   # Name should refer to what folder the system lives in within the hosts
   # folder (and commonly applied as that system's hostname etc)
-  # system-builder should be a function to build a system such as 
+  # system-builder should be a function to build a system such as
   # pkgs.lib.nixosSystem
   # or from nix-darwin:
   # pkgs.lib.darwinSystem
+
+  extend-host =
+    cfg: name:
+    let
+      modules = [ ../hosts/${name} ];
+      specialArgs = {
+        inherit self;
+      };
+    in
+    cfg.extendModules {
+      inherit
+        modules
+        specialArgs
+        ;
+    };
 
   make-host =
     package-set: name: system-builder:
@@ -68,5 +83,10 @@ let
 
 in
 {
-  inherit make-host make-microvm make-minimal-microvm;
+  inherit
+    extend-host
+    make-host
+    make-microvm
+    make-minimal-microvm
+    ;
 }

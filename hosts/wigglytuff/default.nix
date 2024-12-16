@@ -36,15 +36,6 @@ in
 {
   inherit (user-configs) users home-manager;
 
-  boot.supportedFilesystems = {
-    btrfs = lib.mkForce false;
-    cifs = lib.mkForce false;
-    f2fs = lib.mkForce false;
-    ntfs = lib.mkForce false;
-    xfs = lib.mkForce false;
-    zfs = lib.mkForce false;
-  };
-
   imports = with self.nixosModules; [
     ./disk-config.nix
     agenix
@@ -57,10 +48,10 @@ in
     impermanence
     journald
     lorri
+    minimal-boot-filesystems
     nix
     nix-topology
     openssh
-    self.inputs.nixos-hardware.nixosModules.raspberry-pi-4
     sudo
     systemd-networkd
     time
@@ -99,17 +90,8 @@ in
     jellyfin-media-player
   ];
 
-  hardware.raspberry-pi."4" = {
-    apply-overlays-dtmerge.enable = true;
-    # Enable GPU acceleration
-    fkms-3d = {
-      enable = true;
-      cma = 1024;
-    };
-  };
-
   networking = {
-    hostName = "wigglytuff";
+    hostName = lib.mkForce "wigglytuff";
     hostId = "d2a7b80b";
     wireless = {
       enable = true;
@@ -123,12 +105,14 @@ in
 
   programs.fuse.userAllowOther = true;
 
-  services.timesyncd.servers = lib.mkForce [
-    "137.92.140.80" # -> ntp.ise.canberra.edu.au
-    "138.194.21.154" # -> ntp.mel.nml.csiro.au
-    "129.6.15.28" # -> time-a-g.nist.gov
-    "129.6.15.29" # -> time-b-g.nist.gov
-  ];
+  services = {
+    openssh.settings.PermitRootLogin = lib.mkForce "no";
 
-  system.stateVersion = "24.05";
+    timesyncd.servers = lib.mkForce [
+      "137.92.140.80" # -> ntp.ise.canberra.edu.au
+      "138.194.21.154" # -> ntp.mel.nml.csiro.au
+      "129.6.15.28" # -> time-a-g.nist.gov
+      "129.6.15.29" # -> time-b-g.nist.gov
+    ];
+  };
 }

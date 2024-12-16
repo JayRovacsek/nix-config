@@ -193,6 +193,8 @@
 
 - *(flake)* Pin lix input correctly - ([445dadc](https://github.com/JayRovacsek/nix-config/commit/445dadc549fc19352fe9b4cf6533b9b2654583e0))
 
+- *(home-manager-modules)* Resolve screen ordering issue - ([4d5052f](https://github.com/JayRovacsek/nix-config/commit/4d5052f5dc21b455bcfbcb8a55eb5ba3a4bc82c7))
+
 - *(home-manager-modules)* Resolve impermanence for keepassxc - ([c01b1be](https://github.com/JayRovacsek/nix-config/commit/c01b1beb2229cce3a845c364205308b7356fd7f1))
 
 - *(home-manager-modules)* Add previous profile to thunderbird config - ([58469c1](https://github.com/JayRovacsek/nix-config/commit/58469c1197b41062165ef07b0f03fd1500397e37))
