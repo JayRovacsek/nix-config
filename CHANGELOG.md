@@ -162,6 +162,8 @@
 - *(packages)* Update github tenancy - ([5be83d5](https://github.com/JayRovacsek/nix-config/commit/5be83d5a089edfbe17f5460390484061119dfdf9))
 
 - *(tooling,iac)* Augment existing documentation step for tofu stacks - ([ff3f21a](https://github.com/JayRovacsek/nix-config/commit/ff3f21add9133e09d7d033622093c5f7630e9362))
+- Remove rpi0, 1 and 2 configs, add 4 as an extension case - ([5c6f8e5](https://github.com/JayRovacsek/nix-config/commit/5c6f8e57c083230d71e56cb1229873746736c6c7))
+
 - Introduce a home-manager agenix module - ([810b6b1](https://github.com/JayRovacsek/nix-config/commit/810b6b1ba3f5a46040d3a555c178f8f281fd0572))
 
 - Add remote builds to dragonite - ([4f41649](https://github.com/JayRovacsek/nix-config/commit/4f41649c23f326241300290618951c61e5fd3b15))
