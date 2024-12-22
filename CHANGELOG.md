@@ -177,6 +177,8 @@
 
 - *(common)* Add aarch and x86 images for oracle - ([157b366](https://github.com/JayRovacsek/nix-config/commit/157b366a184d508b517a829d74794c4cea670a24))
 
+- *(darwin)* Remove some mas apps from darwin configs - ([d7474a0](https://github.com/JayRovacsek/nix-config/commit/d7474a088f086dfeb7c4d688fbba3bd81d6bf22d))
+
 - *(darwin)* Resolve issues with rebuilding on darwin - ([f6715da](https://github.com/JayRovacsek/nix-config/commit/f6715da1899aab4b60fc278c04ebd06e3be0b75b))
 
 - *(darwin)* Update nix-darwin to rebuild victreebel - ([abc7f8b](https://github.com/JayRovacsek/nix-config/commit/abc7f8b04083bdb7c5efd9037ce0ff3519d88371))
@@ -240,6 +242,8 @@
 - *(hydra)* Remove problematic packages from hydra - ([5b906b3](https://github.com/JayRovacsek/nix-config/commit/5b906b3a4063feb585d4548ec8249eb95f483409))
 
 - *(hydra)* Resolve inclusion of broken config - ([3431e9c](https://github.com/JayRovacsek/nix-config/commit/3431e9ce335feb8c7fc1c72edd1d24b8eb99d92f))
+
+- *(hydra,iac)* Resolve evaluation issues with rpi4 base image - ([e7c0753](https://github.com/JayRovacsek/nix-config/commit/e7c0753a44ab59b5070c561a6871f6fd05c9d58e))
 
 - *(hydra,packages)* Remove raw configurations from packages - ([7827dfb](https://github.com/JayRovacsek/nix-config/commit/7827dfbafe936e3ef9d236d637197915f415599f))
 

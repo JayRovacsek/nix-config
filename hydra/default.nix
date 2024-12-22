@@ -11,11 +11,6 @@ let
 
   unsupported-configurations = [
     "amazon"
-    # Temporary, need to solve for root fs definitions
-    "rpi4"
-    "rpi5"
-    "wartortle"
-    "wigglytuff"
   ];
 
   problematic-packages = [
