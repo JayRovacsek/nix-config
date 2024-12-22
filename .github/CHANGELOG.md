@@ -1,5 +1,5 @@
 
-## [unreleased]
+## [0.0.9](https://github.com/JayRovacsek/nix-config/compare/v0.0.8..v0.0.9) - 2024-12-22
 
 ### ⛰️  Features
 
@@ -252,6 +252,8 @@
 - *(iac)* Resolve typo - ([b5b3e5b](https://github.com/JayRovacsek/nix-config/commit/b5b3e5b05e10e2ff3e1deedbbed5ca3ce853efc6))
 
 - *(iac)* Correct provider name in oracle tofu stack - ([b2ba376](https://github.com/JayRovacsek/nix-config/commit/b2ba376cc3b3c54c90138a92f307f21c5ec428d0))
+
+- *(iac,images)* Re-add hydra jobs - ([9106967](https://github.com/JayRovacsek/nix-config/commit/910696782ed8a3eaa375c1595a816b10d8f31285))
 
 - *(lib)* Fix failure case for users where age might not be present - ([119e24d](https://github.com/JayRovacsek/nix-config/commit/119e24de7b00ae3a2654dd5e092c448a9db45e0c))
 
