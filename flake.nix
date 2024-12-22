@@ -494,7 +494,7 @@
                 git-cliff = {
                   enable = true;
                   name = "Git Cliff";
-                  entry = "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
+                  entry = "${pkgs.git-cliff}/bin/git-cliff --output .github/CHANGELOG.md";
                   language = "system";
                   pass_filenames = false;
                 };
