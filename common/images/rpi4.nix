@@ -8,6 +8,9 @@ let
   modules = self.common.modules.${identifier} ++ [
     self.nixosModules.raspberry-pi-4
     {
+      # This is just a stub to enable hydra evaluation
+      fileSystems."/".device = "none";
+
       networking.hostName = "rpi4";
 
       services.openssh = {
