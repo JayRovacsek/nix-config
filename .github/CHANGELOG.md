@@ -1,6 +1,10 @@
 
 ## [unreleased]
 
+### 🐛 Bug Fixes
+
+- *(linux,iac)* Resolve memories exif issues by pinning input pkg - ([52e209a](https://github.com/JayRovacsek/nix-config/commit/52e209a1a15a76063f30411b8c85fc1c52316bd2))
+
 ### 🚜 Refactor
 
 - *(tooling)* Move changelog output to github folder - ([b754933](https://github.com/JayRovacsek/nix-config/commit/b754933d32f5ac231d11202219f9c334558e8bc0))
