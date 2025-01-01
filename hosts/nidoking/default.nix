@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -59,12 +60,21 @@ in
 
   networking.hostName = "nidoking";
 
+  nixpkgs.overlays = [
+    self.overlays.exiftool-12-70
+  ];
+
   services = {
     nextcloud = {
       configureMemories = true;
-      configureRecognize = true;
+      configureRecognize = false;
       hostName = "nextcloud.rovacsek.com";
-      settings.datadirectory = "/srv/nextcloud";
+      settings = {
+        datadirectory = "/srv/nextcloud";
+        # Handle for version requirement of current memories install
+        # See also: https://github.com/NuschtOS/nixos-modules/blob/e28ac24205fc6e0a78889b790326f99ee594b718/modules/nextcloud.nix#L103C13-L103C60
+        "memories.exiftool" = lib.mkForce (lib.getExe pkgs.exiftool-12-70);
+      };
     };
 
     nginx = {

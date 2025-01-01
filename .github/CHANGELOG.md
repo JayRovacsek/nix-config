@@ -1,4 +1,9 @@
 
+## [unreleased]
+
+### 🚜 Refactor
+
+- *(tooling)* Move changelog output to github folder - ([b754933](https://github.com/JayRovacsek/nix-config/commit/b754933d32f5ac231d11202219f9c334558e8bc0))
 ## [0.0.9](https://github.com/JayRovacsek/nix-config/compare/v0.0.8..v0.0.9) - 2024-12-22
 
 ### ⛰️  Features
