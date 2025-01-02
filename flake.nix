@@ -461,6 +461,7 @@
                       "authorized"
                       "ba"
                       "browseable"
+                      "center"
                       "crypted"
                       "customize"
                       "dota"
@@ -510,7 +511,7 @@
                 trufflehog-verified = {
                   enable = pkgs.stdenv.isLinux;
                   name = "Trufflehog Search";
-                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail --no-update";
+                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
                   language = "system";
                   pass_filenames = false;
                 };

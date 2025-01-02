@@ -10,6 +10,7 @@ base
   bat
   direnv
   fzf
+  ghostty
   git
   jq
   lsd

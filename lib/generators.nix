@@ -25,6 +25,24 @@ let
       ) attrs
     );
 
+  to-ghostty =
+    attrs:
+    concatLines (
+      mapAttrsToList (
+        name: value:
+        if (builtins.typeOf value == "list") then
+          builtins.concatStringsSep "\n" (
+            builtins.map (v: "${name} = ${builtins.toString v}") value
+          )
+        else if (builtins.typeOf value == "bool") then
+          if value then "${name} = true" else "${name} = false"
+        else if (builtins.typeOf value == "string") then
+          "${name} = \"${builtins.toString value}\""
+        else
+          "${name} = ${builtins.toString value}"
+      ) attrs
+    );
+
   to-xml =
     {
       name,
@@ -52,5 +70,5 @@ let
 
 in
 {
-  inherit to-css to-xml;
+  inherit to-css to-ghostty to-xml;
 }
