@@ -1,4 +1,4 @@
 { self, ... }:
 {
-  imports = [ self.inputs.nur.nixosModules.nur ];
+  imports = [ self.inputs.nur.modules.nixos.default ];
 }

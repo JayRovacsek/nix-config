@@ -27,7 +27,7 @@ in
 
   system-agnostic = [
     agenix.overlays.default
-    nur.overlay
+    nur.overlays.default
     self.overlays.lib
     self.overlays.nixd
     self.overlays.nix-monitored

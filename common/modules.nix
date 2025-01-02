@@ -7,14 +7,13 @@ let
     stylix
     standardise-nix
     ;
-  inherit (self.inputs.nur.nixosModules) nur;
 in
 builtins.mapAttrs (
   package-set: _:
   home-manager.${package-set}
   ++ [
-    nur
     options.${package-set}.minimal
+    self.inputs.nur.modules.nixos.default
     standardise-nix.${package-set}
     stylix.${package-set}
   ]
