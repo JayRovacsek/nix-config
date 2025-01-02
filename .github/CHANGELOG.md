@@ -1,6 +1,10 @@
 
 ## [unreleased]
 
+### ⛰️  Features
+
+- *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
+
 ### 🐛 Bug Fixes
 
 - *(linux,iac)* Resolve memories exif issues by pinning input pkg - ([52e209a](https://github.com/JayRovacsek/nix-config/commit/52e209a1a15a76063f30411b8c85fc1c52316bd2))

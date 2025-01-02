@@ -116,11 +116,11 @@ _: {
       hostname = "nidoking";
       ips = [
         {
-          address = "192.168.10.2";
+          address = "192.168.10.3";
           fqdn = "nidoking.local";
         }
         {
-          address = "192.168.10.2";
+          address = "192.168.10.3";
           fqdn = "nextcloud.local";
         }
       ];
