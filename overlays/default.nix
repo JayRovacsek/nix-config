@@ -30,6 +30,16 @@
     );
   };
 
+  exiftool-12-70 = _: prev: {
+    exiftool-12-70 = prev.exiftool.overrideAttrs (_: rec {
+      version = "12.70";
+      src = prev.fetchurl {
+        url = "https://exiftool.org/Image-ExifTool-${version}.tar.gz";
+        hash = "sha256-TLJSJEXMPj870TkExq6uraX8Wl4kmNerrSlX3LQsr/4=";
+      };
+    });
+  };
+
   hello = _: prev: {
     hello = prev.hello.overrideAttrs (_old: rec {
       pname = "hello";

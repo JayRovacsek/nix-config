@@ -82,7 +82,7 @@ in
       };
 
       https = true;
-      maxUploadSize = "10G";
+      maxUploadSize = "20G";
       package = pkgs.nextcloud30;
       phpOptions = {
         "date.timezone" = config.time.timeZone;
@@ -130,9 +130,9 @@ in
   };
 
   # If boot or zfs services are utilised, ensure zfs mounts are completed
-  # prior to starting nextcloud related services. 
-  # Note that both nextcloud-cron and nextcloud-update-plugins 
-  # as well as other services such as nginx exist also as part of 
+  # prior to starting nextcloud related services.
+  # Note that both nextcloud-cron and nextcloud-update-plugins
+  # as well as other services such as nginx exist also as part of
   # nextcloud, however they are either dependent on nextcloud-setup
   # or phpfpm-nextcloud so we do not need to add the after here as it's
   # implied.
