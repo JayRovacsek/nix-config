@@ -109,7 +109,10 @@ in
       ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
 
       ## Lutris
-      ++ (lib.optionals (home-packages-has "lutris") [ ".config/lutris" ])
+      ++ (lib.optionals (home-packages-has "lutris") [
+        ".config/lutris"
+        "Games"
+      ])
 
       ++ (lib.optionals (home-packages-has "nextcloud-client") [
         ".config/Nextcloud"
