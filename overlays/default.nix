@@ -58,17 +58,6 @@
     });
   };
 
-  jellyfin-wayland = _: prev: {
-    jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs (_: {
-      autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
-
-      postPatch = ''
-        substituteInPlace resources/meta/com.github.iwalton3.jellyfin-media-player.desktop \
-          --replace 'Exec=jellyfinmediaplayer' 'Exec=env QT_QPA_PLATFORM=xcb jellyfinmediaplayer'
-      '';
-    });
-  };
-
   keepassxc = _: prev: {
     keepassxc =
       if prev.stdenv.isDarwin then

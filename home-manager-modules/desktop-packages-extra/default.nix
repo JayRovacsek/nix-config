@@ -1,15 +1,10 @@
 {
-  config,
   pkgs,
   lib,
   osConfig,
   ...
 }:
 let
-  using-wayland =
-    with config.wayland.windowManager;
-    (hyprland.enable || river.enable || sway.enable);
-
   darwin-packages = [ ];
 
   linux-packages = with pkgs; [
@@ -18,7 +13,7 @@ let
 
     # Productivity
     gimp
-    (if using-wayland then jellyfin-media-player-wayland else jellyfin-media-player)
+    jellyfin-media-player
 
     # Communication
     signal-desktop

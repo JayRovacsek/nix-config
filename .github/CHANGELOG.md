@@ -7,6 +7,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(common)* Correct nidoking ip - ([189899f](https://github.com/JayRovacsek/nix-config/commit/189899fbef02361400c47a67fd1c73c89d841483))
+
 - *(linux,iac)* Resolve memories exif issues by pinning input pkg - ([52e209a](https://github.com/JayRovacsek/nix-config/commit/52e209a1a15a76063f30411b8c85fc1c52316bd2))
 
 ### 🚜 Refactor
