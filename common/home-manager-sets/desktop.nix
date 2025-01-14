@@ -7,6 +7,7 @@ desktop-minimal
   alacritty
   discord
   firefox
+  ghostty
   keepassxc
   nextcloud-client
   slack

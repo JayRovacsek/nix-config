@@ -1,17 +1,32 @@
 {
+  config,
   osConfig,
   ...
 }:
 let
   stylix-present = builtins.hasAttr "stylix" osConfig;
+
+  enableBashIntegration = config.programs.bash.enable;
+  enableFishIntegration = config.programs.fish.enable;
+  enableZshIntegration = config.programs.zsh.enable;
+  installBatSyntax = config.bat.enable;
+  installVimSyntax =
+    with config.programs;
+    (vim.enable || neovim.enable || nixvim.enable);
+
 in
 {
-  imports = [
-    ../../options/home-manager-modules/ghostty
-  ];
-
   programs.ghostty = {
     enable = true;
+
+    inherit
+      enableBashIntegration
+      enableFishIntegration
+      enableZshIntegration
+      installBatSyntax
+      installVimSyntax
+      ;
+
     settings = {
       "abnormal-command-exit-runtime" = 250;
       "adw-toolbar-style" = "flat";

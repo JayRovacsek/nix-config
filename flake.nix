@@ -58,7 +58,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         gitignore.follows = "gitignore";
-        nixpkgs-stable.follows = "stable";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/git-hooks.nix";
@@ -246,7 +245,6 @@
     };
 
     raspberry-pi-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/raspberry-pi-nix";
     };
 
