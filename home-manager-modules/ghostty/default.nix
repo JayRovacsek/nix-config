@@ -9,7 +9,7 @@ let
   enableBashIntegration = config.programs.bash.enable;
   enableFishIntegration = config.programs.fish.enable;
   enableZshIntegration = config.programs.zsh.enable;
-  installBatSyntax = config.bat.enable;
+  installBatSyntax = config.programs.bat.enable;
   installVimSyntax =
     with config.programs;
     (vim.enable || neovim.enable || nixvim.enable);
