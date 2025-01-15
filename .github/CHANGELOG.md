@@ -21,6 +21,14 @@
 
 - *(linux,iac)* Resolve memories exif issues by pinning input pkg - ([52e209a](https://github.com/JayRovacsek/nix-config/commit/52e209a1a15a76063f30411b8c85fc1c52316bd2))
 
+- *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))
+
+### ⚙️ Options
+
+- *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))
+
+- *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))
+
 ### 🚜 Refactor
 
 - *(home-manager-modules)* Remove ghostty as it is supported upstream - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))
