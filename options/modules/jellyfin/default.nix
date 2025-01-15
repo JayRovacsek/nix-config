@@ -11,6 +11,12 @@ let
   CacheDirectory = "jellyfin";
   inherit (self.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
+
+  default-encoding-settings = import ./encoding-settings.nix {
+    inherit config pkgs;
+  };
+  default-system-settings = import ./system-settings.nix { inherit config; };
+
 in
 {
   options = {
@@ -58,13 +64,13 @@ in
 
       system-settings = mkOption {
         type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
+        default = lib.optionalAttrs cfg.use-declarative-settings default-system-settings;
         description = lib.mdDoc "System settings for Jellyfin.";
       };
 
       encoding-settings = mkOption {
         type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
+        default = lib.optionalAttrs cfg.use-declarative-settings default-encoding-settings;
         description = lib.mdDoc "Encoding settings for Jellyfin.";
       };
 
@@ -84,12 +90,6 @@ in
         type = types.nullOr types.attrs;
         default = if cfg.use-declarative-settings then { } else null;
         description = lib.mdDoc "Logging settings for Jellyfin.";
-      };
-
-      dlna-settings = mkOption {
-        type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
-        description = lib.mdDoc "DLNA settings for Jellyfin.";
       };
     };
   };
@@ -114,26 +114,14 @@ in
           if cfg.cache-dir == null then "/var/cache/${CacheDirectory}" else cfg.cache-dir
         }'";
       };
+
+      path = [ pkgs.jellyfin-ffmpeg ];
     };
 
     environment.etc = mkIf cfg.use-declarative-settings {
-      "jellyfin/config/system.xml" = mkIf (cfg.system-settings != null) {
-        inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./system-settings.nix { inherit cfg config; };
-          in
-          to-xml (recursiveUpdate default-settings cfg.system-settings);
-        mode = "640";
-      };
-
       "jellyfin/config/encoding.xml" = mkIf (cfg.encoding-settings != null) {
         inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./encoding-settings.nix { inherit pkgs; };
-          in
-          to-xml (recursiveUpdate default-settings cfg.encoding-settings);
+        text = to-xml cfg.encoding-settings;
         mode = "640";
       };
 
@@ -157,13 +145,9 @@ in
         mode = "640";
       };
 
-      "jellyfin/config/dlna.xml" = mkIf (cfg.dlna-settings != null) {
+      "jellyfin/config/system.xml" = mkIf (cfg.system-settings != null) {
         inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./dlna-settings.nix { inherit cfg config; };
-          in
-          to-xml (recursiveUpdate default-settings cfg.dlna-settings);
+        text = to-xml cfg.system-settings;
         mode = "640";
       };
 
@@ -188,7 +172,6 @@ in
               "${cfg.data-dir}/config";
         in
         [
-          "L+ ${config-dir}/dlna.xml - - - - /etc/jellyfin/config/dlna.xml"
           "L+ ${config-dir}/encoding.xml - - - - /etc/jellyfin/config/encoding.xml"
           "L+ ${config-dir}/logging.default.json - - - - /etc/jellyfin/config/logging.default.json"
           "L+ ${config-dir}/network.xml - - - - /etc/jellyfin/config/network.xml"

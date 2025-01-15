@@ -1,4 +1,5 @@
-_: {
+{ pkgs, ... }:
+{
   # Extended options for jellyfin
   imports = [ ../../options/modules/jellyfin ];
 
@@ -11,16 +12,29 @@ _: {
     data-dir = null;
     cache-dir = null;
     metadata-dir = null;
-    # Available, but useless to us as our settings already exist as default
-    # dlna-settings = { };
-    # encoding-settings = { };
-    # logging-settings = { };
-    # network-settings = { };
-    # notification-settings = { };
-    # system-settings = { };
     use-declarative-settings = true;
 
     user = "media";
     group = "media";
   };
+
+  # As per: https://wiki.nixos.org/wiki/Jellyfin#Intro_Skipper_plugin
+  nixpkgs.overlays = with pkgs; [
+    (_: prev: {
+      jellyfin-web = prev.jellyfin-web.overrideAttrs (
+        _: _: {
+          installPhase = ''
+            runHook preInstall
+
+            ${gnused}/bin/sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
+
+            ${coreutils}/bin/mkdir -p $out/share
+            ${coreutils}/bin/cp -a dist $out/share/jellyfin-web
+
+            runHook postInstall
+          '';
+        }
+      );
+    })
+  ];
 }

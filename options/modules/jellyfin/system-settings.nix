@@ -1,15 +1,63 @@
-{ cfg, config }:
+{ config, ... }:
 {
   name = "ServerConfiguration";
   props = ''xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"'';
   value = [
     {
-      name = "LogFileRetentionDays";
-      value = 14;
+      name = "ActivityLogRetentionDays";
+      value = 30;
     }
     {
-      name = "IsStartupWizardCompleted";
+      name = "AllowClientLogUpload";
       value = true;
+    }
+    {
+      name = "AutoRunWebApp";
+      value = true;
+    }
+    { name = "CastReceiverApplications"; }
+    {
+      name = "ChapterImageResolution";
+      value = "MatchSource";
+    }
+    { name = "CodecsUsed"; }
+    { name = "ContentTypes"; }
+    {
+      name = "CorsHosts";
+      value = [
+        {
+          name = "string";
+          value = "*";
+        }
+      ];
+    }
+    {
+      name = "DisableLiveTvChannelUserDataName";
+      value = true;
+    }
+    {
+      name = "DisplaySpecialsWithinSeasons";
+      value = true;
+    }
+    {
+      name = "DummyChapterDuration";
+      value = 0;
+    }
+    {
+      name = "EnableCaseSensitiveItemIds";
+      value = true;
+    }
+    {
+      name = "EnableExternalContentInSuggestions";
+      value = true;
+    }
+    {
+      name = "EnableFolderView";
+      value = false;
+    }
+    {
+      name = "EnableGroupingIntoCollections";
+      value = false;
     }
     {
       name = "EnableMetrics";
@@ -20,103 +68,51 @@
       value = true;
     }
     {
+      name = "EnableSlowResponseWarning";
+      value = true;
+    }
+    {
+      name = "ImageExtractionTimeoutMs";
+      value = 0;
+    }
+    {
+      name = "ImageSavingConvention";
+      value = "Legacy";
+    }
+    {
+      name = "InactiveSessionThreshold";
+      value = 0;
+    }
+    {
       name = "IsPortAuthorized";
       value = true;
     }
     {
-      name = "AutoRunWebApp";
+      name = "IsStartupWizardCompleted";
       value = true;
     }
     {
-      name = "QuickConnectAvailable";
-      value = true;
+      name = "LibraryMetadataRefreshConcurrency";
+      value = 0;
     }
     {
-      name = "EnableCaseSensitiveItemIds";
-      value = true;
+      name = "LibraryMonitorDelay";
+      value = 60;
     }
     {
-      name = "DisableLiveTvChannelUserDataName";
-      value = true;
+      name = "LibraryScanFanoutConcurrency";
+      value = 0;
     }
     {
-      name = "MetadataPath";
-      value = cfg.metadata-dir;
-    }
-    { name = "MetadataNetworkPath"; }
-    {
-      name = "PreferredMetadataLanguage";
-      value = "en";
+      name = "LibraryUpdateDuration";
+      value = 30;
     }
     {
-      name = "MetadataCountryCode";
-      value = "AU";
+      name = "LogFileRetentionDays";
+      value = 14;
     }
     {
-      name = "SortReplaceCharacters";
-      value = [
-        {
-          name = "string";
-          value = ".";
-        }
-        {
-          name = "string";
-          value = "+";
-        }
-        {
-          name = "string";
-          value = "%";
-        }
-      ];
-    }
-    {
-      name = "SortRemoveCharacters";
-      value = [
-        {
-          name = "string";
-          value = ",";
-        }
-        {
-          name = "string";
-          value = "&amp;";
-        }
-        {
-          name = "string";
-          value = "-";
-        }
-        {
-          name = "string";
-          value = "{";
-        }
-        {
-          name = "string";
-          value = "}";
-        }
-        {
-          name = "string";
-          value = "'";
-        }
-      ];
-    }
-    {
-      name = "SortRemoveWords";
-      value = [
-        {
-          name = "string";
-          value = "the";
-        }
-        {
-          name = "string";
-          value = "a";
-        }
-        {
-          name = "string";
-          value = "an";
-        }
-      ];
-    }
-    {
-      name = "MinResumePct";
+      name = "MaxAudiobookResume";
       value = 5;
     }
     {
@@ -124,29 +120,10 @@
       value = 90;
     }
     {
-      name = "MinResumeDurationSeconds";
-      value = 300;
+      name = "MetadataCountryCode";
+      value = "AU";
     }
-    {
-      name = "MinAudiobookResume";
-      value = 5;
-    }
-    {
-      name = "MaxAudiobookResume";
-      value = 5;
-    }
-    {
-      name = "LibraryMonitorDelay";
-      value = 60;
-    }
-    {
-      name = "EnableDashboardResponseCaching";
-      value = true;
-    }
-    {
-      name = "ImageSavingConvention";
-      value = "Legacy";
-    }
+    { name = "MetadataNetworkPath"; }
     {
       name = "MetadataOptions";
       value = [
@@ -367,46 +344,34 @@
         }
       ];
     }
+    { name = "MetadataPath"; }
     {
-      name = "SkipDeserializationForBasicTypes";
-      value = true;
+      name = "MinAudiobookResume";
+      value = 5;
     }
     {
-      name = "ServerName";
-      value = config.networking.hostName;
+      name = "MinResumeDurationSeconds";
+      value = 300;
     }
     {
-      name = "UICulture";
-      value = "en-GB";
+      name = "MinResumePct";
+      value = 5;
     }
     {
-      name = "SaveMetadataHidden";
-      value = false;
+      name = "ParallelImageEncodingLimit";
+      value = 0;
     }
-    { name = "ContentTypes"; }
-    {
-      name = "RemoteClientBitrateLimit";
-      value = 20000000;
-    }
-    {
-      name = "EnableFolderView";
-      value = false;
-    }
-    {
-      name = "EnableGroupingIntoCollections";
-      value = false;
-    }
-    {
-      name = "DisplaySpecialsWithinSeasons";
-      value = true;
-    }
-    { name = "CodecsUsed"; }
+    { name = "PathSubstitutions"; }
     {
       name = "PluginRepositories";
       value = [
         {
           name = "RepositoryInfo";
           value = [
+            {
+              name = "Enabled";
+              value = true;
+            }
             {
               name = "Name";
               value = "Jellyfin Stable";
@@ -420,16 +385,31 @@
       ];
     }
     {
-      name = "EnableExternalContentInSuggestions";
+      name = "PreferredMetadataLanguage";
+      value = "en";
+    }
+    {
+      name = "QuickConnectAvailable";
       value = true;
     }
     {
-      name = "ImageExtractionTimeoutMs";
-      value = 0;
+      name = "RemoteClientBitrateLimit";
+      value = 100000000;
     }
-    { name = "PathSubstitutions"; }
     {
-      name = "EnableSlowResponseWarning";
+      name = "RemoveOldPlugins";
+      value = false;
+    }
+    {
+      name = "SaveMetadataHidden";
+      value = false;
+    }
+    {
+      name = "ServerName";
+      value = config.networking.hostName;
+    }
+    {
+      name = "SkipDeserializationForBasicTypes";
       value = true;
     }
     {
@@ -437,33 +417,133 @@
       value = 500;
     }
     {
-      name = "CorsHosts";
+      name = "SortRemoveCharacters";
       value = [
         {
           name = "string";
-          value = "*";
+          value = ",";
+        }
+        {
+          name = "string";
+          value = "&amp;";
+        }
+        {
+          name = "string";
+          value = "-";
+        }
+        {
+          name = "string";
+          value = "{";
+        }
+        {
+          name = "string";
+          value = "}";
+        }
+        {
+          name = "string";
+          value = "'";
         }
       ];
     }
     {
-      name = "ActivityLogRetentionDays";
-      value = 30;
+      name = "SortRemoveWords";
+      value = [
+        {
+          name = "string";
+          value = "the";
+        }
+        {
+          name = "string";
+          value = "a";
+        }
+        {
+          name = "string";
+          value = "an";
+        }
+      ];
     }
     {
-      name = "LibraryScanFanoutConcurrency";
-      value = 0;
+      name = "SortReplaceCharacters";
+      value = [
+        {
+          name = "string";
+          value = ".";
+        }
+        {
+          name = "string";
+          value = "+";
+        }
+        {
+          name = "string";
+          value = "%";
+        }
+      ];
     }
     {
-      name = "LibraryMetadataRefreshConcurrency";
-      value = 0;
+      name = "TrickplayOptions";
+      value = [
+        {
+          name = "EnableHwAcceleration";
+          value = true;
+        }
+        {
+          name = "EnableHwEncoding";
+          value = true;
+        }
+        {
+          name = "EnableKeyFrameOnlyExtraction";
+          value = true;
+        }
+        {
+          name = "ScanBehavior";
+          value = "NonBlocking";
+        }
+        {
+          name = "ProcessPriority";
+          value = "BelowNormal";
+        }
+        {
+          name = "Interval";
+          value = 10000;
+        }
+        {
+          name = "WidthResolutions";
+          value = [
+            {
+              name = "int";
+              value = 320;
+            }
+          ];
+        }
+        {
+          name = "TileWidth";
+          value = 10;
+        }
+        {
+          name = "TileHeight";
+          value = 10;
+        }
+        {
+          name = "Qscale";
+          value = 4;
+        }
+        {
+          name = "JpegQuality";
+          value = 90;
+        }
+        {
+          name = "ProcessThreads";
+          value = 1;
+        }
+        {
+          name = "Interval";
+          value = 10000;
+        }
+      ];
     }
     {
-      name = "RemoveOldPlugins";
-      value = false;
-    }
-    {
-      name = "AllowClientLogUpload";
-      value = true;
+      name = "UICulture";
+      value = "en-GB";
     }
   ];
 }
