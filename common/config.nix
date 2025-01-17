@@ -331,6 +331,14 @@ _: {
       subdomain = "authelia";
     };
 
+    bazarr = {
+      authelia = true;
+      ipv4 = "192.168.4.139";
+      port = 6767;
+      protocol = "http";
+      subdomain = "bazarr";
+    };
+
     bedrock-connect = {
       ipv4 = "192.168.17.2";
       port = 19134;
