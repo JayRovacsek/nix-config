@@ -17,6 +17,8 @@
 
 - *(common)* Correct nidoking ip - ([189899f](https://github.com/JayRovacsek/nix-config/commit/189899fbef02361400c47a67fd1c73c89d841483))
 
+- *(flake)* Allow duplicate nixpkgs on raspberry-pi flake - ([eba10f1](https://github.com/JayRovacsek/nix-config/commit/eba10f140a0c9f0611dee69349ada76b4c2a87b5))
+
 - *(flake)* Deduplicate input sources - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
