@@ -47,6 +47,8 @@
 
 - *(home-manager-modules)* Remove ghostty as it is supported upstream - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))
 
+- *(linux)* Stop porygon from running - ([383f96d](https://github.com/JayRovacsek/nix-config/commit/383f96d7053ea3e6b541f0b207379617bea455bd))
+
 - *(overlays)* Remove jellyfin-wayland overlay - ([0123de7](https://github.com/JayRovacsek/nix-config/commit/0123de72eb72098ad2ee9fa2499eae008495274e))
 
 - *(tooling)* Move changelog output to github folder - ([b754933](https://github.com/JayRovacsek/nix-config/commit/b754933d32f5ac231d11202219f9c334558e8bc0))

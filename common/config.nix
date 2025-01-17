@@ -140,6 +140,20 @@ _: {
       ];
     };
 
+    oddish = {
+      hostname = "oddish";
+      ips = [
+        {
+          address = "192.168.4.139";
+          fqdn = "oddish.local";
+        }
+        {
+          address = "192.168.4.139";
+          fqdn = "bazarr.local";
+        }
+      ];
+    };
+
     pfsense = {
       hostname = "pfsense";
       ips = [

@@ -54,6 +54,7 @@ in
   nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
   nidorina = make-microvm x86_64-linux-unstable "nidorina" unstable-system;
   nidorino = make-microvm x86_64-linux-unstable "nidorino" unstable-system;
+  oddish = make-microvm x86_64-linux-unstable "oddish" unstable-system;
   poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
   porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
   slowpoke = make-microvm x86_64-linux-unstable "slowpoke" unstable-system;
