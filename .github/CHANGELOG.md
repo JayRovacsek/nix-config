@@ -27,6 +27,10 @@
 
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
 
+- *(home-manager-modules)* Add ssh ghostty xterm variable to not bust remote sessions - ([7347385](https://github.com/JayRovacsek/nix-config/commit/7347385fa16d13ade7de4ead66165ba6010de7fc))
+
+- *(home-manager-modules)* Remove hardcoded hostnames from ssh config match blocks - ([7347385](https://github.com/JayRovacsek/nix-config/commit/7347385fa16d13ade7de4ead66165ba6010de7fc))
+
 - *(home-manager-modules)* Change typst lsp for tinymist - ([b0d0f8d](https://github.com/JayRovacsek/nix-config/commit/b0d0f8dd54a2852c3c76869a823b204e8ab21247))
 
 - *(home-manager-modules)* Resolve hyprland display issue on alakazam - ([6c0acb6](https://github.com/JayRovacsek/nix-config/commit/6c0acb68cfa3cbc2e5d5efd57d5c021dad80771b))
