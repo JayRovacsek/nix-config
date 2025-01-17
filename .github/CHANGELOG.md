@@ -7,6 +7,8 @@
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
 
+- *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
+
 - *(overlays)* Add exif 12.7 overlay - ([63d1df6](https://github.com/JayRovacsek/nix-config/commit/63d1df67c4cd6373d0edae5bb8a696efd58596f2))
 - Remove code server - ([b5740bc](https://github.com/JayRovacsek/nix-config/commit/b5740bc09e1942a207cc18a69639bb253ad632df))
 
@@ -14,6 +16,8 @@
 ### 🐛 Bug Fixes
 
 - *(common)* Correct nidoking ip - ([189899f](https://github.com/JayRovacsek/nix-config/commit/189899fbef02361400c47a67fd1c73c89d841483))
+
+- *(flake)* Deduplicate input sources - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
 

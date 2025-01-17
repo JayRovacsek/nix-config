@@ -72,11 +72,13 @@ in
           "OC\\Preview\\PNG"
           "OC\\Preview\\HEIC"
         ];
+        "files.chunked_upload.max_size" = 0;
         log_type = "file";
         loglevel = 2;
         maintenance_window_start = "12";
         overwriteProtocol = "https";
         "profile.enabled" = false;
+        preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
         trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
         trusted_domains = [ "192.168.10.3" ];
       };
@@ -100,8 +102,8 @@ in
         display_errors = "stderr";
         error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
         expose_php = "Off";
-        max_execution_time = "30";
-        max_input_time = "90";
+        max_execution_time = "3600";
+        max_input_time = "3600";
         output_buffering = "0";
         short_open_tag = "Off";
       };
