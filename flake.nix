@@ -226,7 +226,14 @@
     };
 
     # Like the Arch User Repository, but better :)
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:nix-community/NUR";
+    };
 
     nuschtosSearch = {
       inputs = {
@@ -245,6 +252,7 @@
     };
 
     raspberry-pi-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/raspberry-pi-nix";
     };
 
@@ -269,6 +277,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
+        git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -477,6 +486,7 @@
                       "normalizer"
                       "Ot"
                       "Pn"
+                      "prioritize"
                       "Recognize"
                       "sanitize"
                       "SART"

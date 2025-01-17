@@ -60,7 +60,7 @@ in
       max_connections_global = 200;
       max_connections_per_second = 40;
       max_connections_per_torrent = -1;
-      max_download_speed = 6000.0;
+      max_download_speed = 16000.0;
       max_download_speed_per_torrent = -1;
       max_upload_slots_global = 8;
       max_upload_slots_per_torrent = -1;
