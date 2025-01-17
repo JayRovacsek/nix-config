@@ -9,7 +9,6 @@ let
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
     authelia
-    code
     deluge
     firefox-syncserver
     grafana
@@ -47,19 +46,11 @@ let
     };
   };
 
-  code-vhost = generate-vhosts {
-    inherit config;
-    inherit (code) subdomain;
-    overrides.locations."/" = {
-      proxyPass = "${code.protocol}://${code.ipv4}:${builtins.toString code.port}";
-      proxyWebsockets = true;
-    };
-  };
-
   deluge-vhost = generate-vhosts {
     inherit config;
     inherit (deluge) subdomain;
-    overrides.locations."/".proxyPass = "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
+    overrides.locations."/".proxyPass =
+      "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
   };
 
   firefox-syncserver-vhost = generate-vhosts {
@@ -67,14 +58,16 @@ let
     inherit (firefox-syncserver) subdomain;
     overrides = {
       enableAuthelia = false;
-      locations."/".proxyPass = "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${builtins.toString firefox-syncserver.port}";
+      locations."/".proxyPass =
+        "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${builtins.toString firefox-syncserver.port}";
     };
   };
 
   grafana-vhost = generate-vhosts {
     inherit config;
     inherit (grafana) subdomain;
-    overrides.locations."/".proxyPass = "${grafana.protocol}://${grafana.ipv4}:${builtins.toString grafana.port}";
+    overrides.locations."/".proxyPass =
+      "${grafana.protocol}://${grafana.ipv4}:${builtins.toString grafana.port}";
   };
 
   harmonia-vhost = generate-vhosts {
@@ -177,7 +170,8 @@ let
     inherit (jellyseerr) port subdomain;
     overrides = {
       enableAuthelia = false;
-      locations."/".proxyPass = "${jellyseerr.protocol}://${jellyseerr.ipv4}:${builtins.toString jellyseerr.port}";
+      locations."/".proxyPass =
+        "${jellyseerr.protocol}://${jellyseerr.ipv4}:${builtins.toString jellyseerr.port}";
     };
   };
 
@@ -249,7 +243,8 @@ let
   pfsense-vhost = generate-vhosts {
     inherit config;
     inherit (pfsense) subdomain;
-    overrides.locations."/".proxyPass = "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
+    overrides.locations."/".proxyPass =
+      "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
   };
 
   prowlarr-vhost = generate-vhosts {
@@ -313,7 +308,8 @@ let
   unifi-vhost = generate-vhosts {
     inherit config;
     inherit (unifi) subdomain;
-    overrides.locations."/".proxyPass = "${unifi.protocol}://${unifi.ipv4}:${builtins.toString unifi.port}";
+    overrides.locations."/".proxyPass =
+      "${unifi.protocol}://${unifi.ipv4}:${builtins.toString unifi.port}";
   };
 in
 {
@@ -337,7 +333,6 @@ in
 
     virtualHosts = merge [
       authelia-vhost
-      code-vhost
       deluge-vhost
       firefox-syncserver-vhost
       grafana-vhost

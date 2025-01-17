@@ -81,7 +81,6 @@ in
     nix-topology
     nvidia
     openssh
-    openvscode-server
     remote-builds
     smartd
     ssh
