@@ -29,6 +29,8 @@
 
 - *(linux,iac)* Resolve memories exif issues by pinning input pkg - ([52e209a](https://github.com/JayRovacsek/nix-config/commit/52e209a1a15a76063f30411b8c85fc1c52316bd2))
 
+- *(modules)* Resolve upload issues for nextcloud - ([725b938](https://github.com/JayRovacsek/nix-config/commit/725b93858fd3e2eeee98a88cdb04e58cb14db8fd))
+
 - *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))
 
 ### ⚙️ Options

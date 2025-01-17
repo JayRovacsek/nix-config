@@ -80,15 +80,15 @@
           enable = true;
           servers = {
             bashls.enable = true;
-            pylsp.enable = true;
-            html.enable = true;
             cssls.enable = true;
-            jsonls.enable = true;
             eslint.enable = true;
+            html.enable = true;
+            jsonls.enable = true;
             nixd.enable = true;
-            typst_lsp.enable = true;
-            ts_ls.enable = true;
+            pylsp.enable = true;
             terraformls.enable = true;
+            tinymist.enable = true;
+            ts_ls.enable = true;
             yamlls.enable = true;
           };
         };
