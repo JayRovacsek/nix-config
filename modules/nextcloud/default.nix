@@ -59,33 +59,12 @@ in
       };
 
       configureRedis = true;
-
       database.createLocally = true;
-
       enableImagemagick = true;
-
-      settings = {
-        enabledPreviewProviders = [
-          "OC\\Preview\\BMP"
-          "OC\\Preview\\GIF"
-          "OC\\Preview\\JPEG"
-          "OC\\Preview\\PNG"
-          "OC\\Preview\\HEIC"
-        ];
-        "files.chunked_upload.max_size" = 0;
-        log_type = "file";
-        loglevel = 2;
-        maintenance_window_start = "12";
-        overwriteProtocol = "https";
-        "profile.enabled" = false;
-        preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
-        trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
-        trusted_domains = [ "192.168.10.3" ];
-      };
-
       https = true;
       maxUploadSize = "20G";
       package = pkgs.nextcloud30;
+
       phpOptions = {
         "date.timezone" = config.time.timeZone;
         "opcache.enable_cli" = "1";
@@ -112,6 +91,28 @@ in
       # (written as JSON, in the same form as the services.nextcloud.
       # extraOptions option), for example {"redis":{"password":"secret"}}.
       secretFile = config.age.secrets.nextcloud-secret-file.path;
+
+      settings = {
+        default_locale = "en_AU";
+        enabledPreviewProviders = [
+          "OC\\Preview\\BMP"
+          "OC\\Preview\\GIF"
+          "OC\\Preview\\JPEG"
+          "OC\\Preview\\PNG"
+          "OC\\Preview\\HEIC"
+        ];
+        "files.chunked_upload.max_size" = 0;
+        log_type = "file";
+        loglevel = 2;
+        maintenance_window_start = "12";
+        "memcache.local" = ''\OC\Memcache\Redis'';
+        overwriteProtocol = "https";
+        "profile.enabled" = false;
+        preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+        reduce_to_languages = [ "en" ];
+        trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
+        trusted_domains = [ "192.168.10.3" ];
+      };
     };
 
     prometheus.exporters = {

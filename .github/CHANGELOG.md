@@ -9,6 +9,8 @@
 
 - *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
+- *(modules,linux)* Create bazarr module and host - ([f5a1184](https://github.com/JayRovacsek/nix-config/commit/f5a118416d9c03acae1df7c8ca85d211fff6180c))
+
 - *(overlays)* Add exif 12.7 overlay - ([63d1df6](https://github.com/JayRovacsek/nix-config/commit/63d1df67c4cd6373d0edae5bb8a696efd58596f2))
 - Remove code server - ([b5740bc](https://github.com/JayRovacsek/nix-config/commit/b5740bc09e1942a207cc18a69639bb253ad632df))
 
