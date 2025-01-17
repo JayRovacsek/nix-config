@@ -1,37 +1,19 @@
 {
   config,
+  lib,
   osConfig,
   pkgs,
+  self,
   ...
 }:
 let
-  hosts = [
-    "alakazam.local"
-    "bellsprout.local"
-    "butterfree.local"
-    "diglett.local"
-    "ditto.local"
-    "dragonite.local"
-    "gastly.local"
-    "igglybuff.local"
-    "jigglypuff.local"
-    "machop.local"
-    "magikarp.local"
-    "mankey.local"
-    "meowth.local"
-    "mew.local"
-    "mr-mime.local"
-    "nidoking.local"
-    "nidorina.local"
-    "nidorino.local"
-    "ninetales.local"
-    "poliwag.local"
-    "porygon.local"
-    "slowpoke.local"
-    "victreebel.local"
-    "wigglytuff.local"
-    "zubat.local"
-  ];
+  inherit (self.common.config) hosts;
+
+  # For all hosts defined in the common.config attributes; take their
+  # fqdn and create an entry for them in our ssh config
+  targets = builtins.foldl' (
+    acc: x: acc ++ (builtins.foldl' (a: y: a ++ [ y.fqdn ]) [ ] x.ips)
+  ) [ ] (builtins.attrValues hosts);
 
   identityFile = with osConfig.age.secrets; [
     type-a-1.path
@@ -53,11 +35,15 @@ let
         identitiesOnly = true;
         hostname = x;
         inherit identityFile;
+
+        setEnv = lib.optionalAttrs config.programs.ghostty.enable {
+          TERM = "xterm-256color";
+        };
         user = config.home.username;
       };
     }
     // acc
-  ) { } hosts;
+  ) { } targets;
 in
 {
   programs.ssh = {

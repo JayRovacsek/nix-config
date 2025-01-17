@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(common)* Add bazarr config entry - ([7f048ff](https://github.com/JayRovacsek/nix-config/commit/7f048ffca34bd29d5b5a2b11b6aba7081d96684c))
+
 - *(home-manager-modules)* Handle lutris default install location - ([62501d1](https://github.com/JayRovacsek/nix-config/commit/62501d19daedaeae05eee08b5e27498948690a37))
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))

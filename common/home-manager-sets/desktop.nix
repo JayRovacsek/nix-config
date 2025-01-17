@@ -4,7 +4,6 @@ let
 in
 desktop-minimal
 ++ (with self.homeManagerModules; [
-  alacritty
   discord
   firefox
   ghostty

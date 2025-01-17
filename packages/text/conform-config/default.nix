@@ -1,5 +1,5 @@
 { writers, ... }:
-# TODO: figure if I can ever remove the hardcoded site value on the 
+# TODO: figure if I can ever remove the hardcoded site value on the
 # last line of the config
 writers.writeYAML ".conform.yaml" {
   policies = [
@@ -8,7 +8,7 @@ writers.writeYAML ".conform.yaml" {
       spec = {
         gpg.required = true;
         header = {
-          length = 80;
+          length = 140;
           imperative = true;
           case = "lower";
           invalidLastCharacters = ".";
