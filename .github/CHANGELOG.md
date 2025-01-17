@@ -21,6 +21,8 @@
 
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
 
+- *(home-manager-modules)* Change typst lsp for tinymist - ([b0d0f8d](https://github.com/JayRovacsek/nix-config/commit/b0d0f8dd54a2852c3c76869a823b204e8ab21247))
+
 - *(home-manager-modules)* Resolve hyprland display issue on alakazam - ([6c0acb6](https://github.com/JayRovacsek/nix-config/commit/6c0acb68cfa3cbc2e5d5efd57d5c021dad80771b))
 
 - *(home-manager-modules)* Resolve broken ghostty module - ([f519a1c](https://github.com/JayRovacsek/nix-config/commit/f519a1ce26fe196a7e19532f9585a6381235d014))

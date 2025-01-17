@@ -251,10 +251,9 @@
       url = "github:NuschtOS/nixos-modules";
     };
 
-    raspberry-pi-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/raspberry-pi-nix";
-    };
+    # Duplicate nixpkgs input is expected here: we want to align with upstream
+    # to avoid cache misses leading to kernel compiles
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
 
     rust-overlay = {
       inputs.nixpkgs.follows = "nixpkgs";
