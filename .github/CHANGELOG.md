@@ -47,6 +47,8 @@
 
 - *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))
 
+- *(modules,home-manager-modules)* Update gnome to work with stylix - ([e2ae69f](https://github.com/JayRovacsek/nix-config/commit/e2ae69f0d82d6ad6b82fca3a9f57f1c89c592e39))
+
 ### ⚙️ Options
 
 - *(modules)* Resolve jellyfin settings issues - ([77d9838](https://github.com/JayRovacsek/nix-config/commit/77d983893bc3282e177864d05b5c59b24c4ee953))

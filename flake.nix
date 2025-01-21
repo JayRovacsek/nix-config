@@ -123,13 +123,12 @@
       url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.1-1";
     };
 
-    # Microvm module, PoC state for implementation
     microvm = {
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:astro/microvm.nix";
+      url = "github:astro/microvm.nix/e8d5f12b834a59187c7ec147a8952a0567f97939";
     };
 
     naersk = {
