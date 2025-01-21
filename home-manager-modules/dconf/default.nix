@@ -11,15 +11,6 @@ let
         dconf = {
           enable = true;
           settings = {
-            "org/gnome/desktop/background" = {
-              color-shading-type = "solid";
-              picture-options = "zoom";
-              picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/adwaita-l.webp";
-              picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/adwaita-d.webp";
-              primary-color = "#3071AE";
-              secondary-color = "#000000";
-            };
-
             "org/gnome/desktop/input-sources" = {
               per-window = false;
               sources = [
@@ -39,7 +30,6 @@ let
               font-antialiasing = "grayscale";
               font-hinting = "slight";
               gtk-im-module = "gtk-im-context-simple";
-              gtk-theme = "Adwaita-dark";
               icon-theme = "Adwaita";
             };
 
@@ -80,13 +70,15 @@ let
               application-id = "codium.desktop";
             };
 
-            "org/gnome/desktop/notifications/application/com-github-iwalton3-jellyfin-media-player" = {
-              application-id = "com.github.iwalton3.jellyfin-media-player.desktop";
-            };
+            "org/gnome/desktop/notifications/application/com-github-iwalton3-jellyfin-media-player" =
+              {
+                application-id = "com.github.iwalton3.jellyfin-media-player.desktop";
+              };
 
-            "org/gnome/desktop/notifications/application/com-nextcloud-desktopclient-nextcloud" = {
-              application-id = "com.nextcloud.desktopclient.nextcloud.desktop";
-            };
+            "org/gnome/desktop/notifications/application/com-nextcloud-desktopclient-nextcloud" =
+              {
+                application-id = "com.nextcloud.desktopclient.nextcloud.desktop";
+              };
 
             "org/gnome/desktop/notifications/application/discord" = {
               application-id = "discord.desktop";
@@ -124,9 +116,10 @@ let
               application-id = "org.gnome.eog.desktop";
             };
 
-            "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" = {
-              application-id = "org.gnome.Evolution-alarm-notify.desktop";
-            };
+            "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" =
+              {
+                application-id = "org.gnome.Evolution-alarm-notify.desktop";
+              };
 
             "org/gnome/desktop/notifications/application/org-gnome-fileroller" = {
               application-id = "org.gnome.FileRoller.desktop";

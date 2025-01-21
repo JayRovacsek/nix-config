@@ -11,7 +11,7 @@ let
     with pkgs.gnomeExtensions; [ tailscale-status ]
   );
 
-  gnomePackages = with pkgs.gnome; [
+  gnomePackages = with pkgs; [
     gnome-tweaks
     nautilus
     dconf-editor
@@ -22,7 +22,6 @@ let
     [
       caffeine
       screenshot-tool
-      sensory-perception
       pop-shell
       blur-my-shell
       notification-banner-reloaded
@@ -49,22 +48,22 @@ in
   environment = {
     # If using gnome desktop manager, exclude these from installation
     gnome.excludePackages = with pkgs; [
-      gnome.cheese
+      cheese
       gnome-photos
-      gnome.gnome-music
-      gnome.gedit
+      gnome-music
+      gedit
       epiphany
       evince
-      gnome.gnome-characters
-      gnome.totem
-      gnome.tali
-      gnome.iagno
-      gnome.hitori
-      gnome.atomix
-      gnome.gnome-weather
-      gnome.gnome-contacts
-      gnome.gnome-maps
-      gnome.geary
+      gnome-characters
+      totem
+      tali
+      iagno
+      hitori
+      atomix
+      gnome-weather
+      gnome-contacts
+      gnome-maps
+      geary
       gnome-tour
       gnome-connections
     ];

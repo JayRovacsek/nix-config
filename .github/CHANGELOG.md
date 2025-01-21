@@ -55,6 +55,8 @@
 
 ### 🚜 Refactor
 
+- *(home-manager-modules)* Remove r2modman from game set - ([4740228](https://github.com/JayRovacsek/nix-config/commit/4740228e373f1fd2a74d278c20c8d155b6a3380f))
+
 - *(home-manager-modules)* Remove ghostty as it is supported upstream - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))
 
 - *(linux)* Stop porygon from running - ([383f96d](https://github.com/JayRovacsek/nix-config/commit/383f96d7053ea3e6b541f0b207379617bea455bd))
