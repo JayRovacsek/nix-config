@@ -9,6 +9,7 @@ let
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
     authelia
+    bazarr
     deluge
     firefox-syncserver
     grafana
@@ -44,6 +45,23 @@ let
           };
         };
     };
+  };
+
+  bazarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (bazarr) subdomain;
+    overrides.locations =
+      let
+        proxyPass = "${bazarr.protocol}://${bazarr.ipv4}:${builtins.toString bazarr.port}";
+      in
+      {
+
+        "/" = { inherit proxyPass; };
+        "~ (/bazarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+      };
   };
 
   deluge-vhost = generate-vhosts {
@@ -333,6 +351,7 @@ in
 
     virtualHosts = merge [
       authelia-vhost
+      bazarr-vhost
       deluge-vhost
       firefox-syncserver-vhost
       grafana-vhost

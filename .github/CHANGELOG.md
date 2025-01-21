@@ -25,6 +25,8 @@
 
 - *(flake)* Deduplicate input sources - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
+- *(flake,module)* Resolve booting issues for microvms by pinning temporarily - ([3a08859](https://github.com/JayRovacsek/nix-config/commit/3a08859c949c9a5d627a822259ae21c0558718c6))
+
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
 
 - *(home-manager-modules)* Add ssh ghostty xterm variable to not bust remote sessions - ([7347385](https://github.com/JayRovacsek/nix-config/commit/7347385fa16d13ade7de4ead66165ba6010de7fc))
