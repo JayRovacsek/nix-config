@@ -1,29 +1,30 @@
 {
   pkgs,
   lib,
-  osConfig,
+  # osConfig,
+  self,
   ...
 }:
-let
-  darwin-packages = [ ];
-
-  linux-packages = with pkgs; [
-    # Browsers
-    brave
-
-    # Productivity
-    gimp
-    jellyfin-media-player
-
-    # Communication
-    signal-desktop
+{
+  nixpkgs.overlays = [
+    self.overlays.jellyfin-wayland
   ];
 
-  # TODO: refactor this into a getAttr rather than if statement.
-  cfg =
-    if lib.hasInfix "darwin" osConfig.nixpkgs.system then
-      { home.packages = darwin-packages; }
-    else
-      { home.packages = linux-packages; };
-in
-cfg
+  home.packages =
+    (lib.optionals pkgs.stdenv.isLinux (
+      with pkgs;
+      [
+        brave
+
+        # Productivity
+        gimp
+        jellyfin-media-player-wayland
+
+        # Communication
+        signal-desktop
+      ]
+    ))
+    ++ (lib.optionals pkgs.stdenv.isDarwin [
+
+    ]);
+}

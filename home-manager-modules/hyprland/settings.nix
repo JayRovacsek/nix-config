@@ -33,7 +33,7 @@ let
     }
     # Position 2
     {
-      name = "DP-5";
+      name = "DP-3";
       resolution = "1920x1080";
       position = "1080x420";
       scale = "1";

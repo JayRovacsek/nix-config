@@ -11,6 +11,8 @@
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
 
+- *(linux)* Implement tentacruel microvm for home-assistant - ([ab2e63b](https://github.com/JayRovacsek/nix-config/commit/ab2e63b9f87f27d4afabdcc90b2dac41e07693db))
+
 - *(linux,iac)* Add bazarr exposure via subdomain - ([ade69c5](https://github.com/JayRovacsek/nix-config/commit/ade69c55ed5055ebd0d8e459b6053f82af5eb950))
 
 - *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
