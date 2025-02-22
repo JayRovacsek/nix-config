@@ -4,5 +4,8 @@ _: {
     ../../options/modules/steam
   ];
 
-  services.palworld.enable = true;
+  services.palworld = {
+    enable = true;
+    dataDir = "/srv/games/servers/palworld/feb-2025";
+  };
 }

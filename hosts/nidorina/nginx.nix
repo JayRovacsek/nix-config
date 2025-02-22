@@ -15,6 +15,7 @@ let
     grafana
     harmonia
     headscale
+    home-assistant
     hydra
     jellyfin
     jellyseerr
@@ -127,6 +128,34 @@ let
         proxyPass = "${headscale.protocol}://${headscale.ipv4}:${builtins.toString headscale.port}";
         proxyWebsockets = true;
       };
+    };
+  };
+
+  home-assistant-vhost = generate-vhosts {
+    inherit config;
+    inherit (home-assistant) subdomain;
+    overrides = {
+      enableAuthelia = true;
+      locations =
+        let
+          proxyPass = "${home-assistant.protocol}://${home-assistant.ipv4}:${builtins.toString home-assistant.port}";
+        in
+        {
+          "/" = {
+            inherit proxyPass;
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_buffering off;
+            '';
+          };
+
+          "~ ^/(api|local|media)/" = {
+            extraConfig = "";
+            inherit proxyPass;
+          };
+        };
     };
   };
 
@@ -357,6 +386,7 @@ in
       grafana-vhost
       harmonia-vhost
       headscale-vhost
+      home-assistant-vhost
       hydra-vhost
       jellyfin-vhost
       jellyseerr-vhost

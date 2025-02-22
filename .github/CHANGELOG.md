@@ -5,6 +5,8 @@
 
 - *(common)* Add bazarr config entry - ([7f048ff](https://github.com/JayRovacsek/nix-config/commit/7f048ffca34bd29d5b5a2b11b6aba7081d96684c))
 
+- *(home-manager-modules)* Add nur hm module - ([e5bb102](https://github.com/JayRovacsek/nix-config/commit/e5bb102282979eb4829c947ddbeb1bf33a9dd357))
+
 - *(home-manager-modules)* Handle lutris default install location - ([62501d1](https://github.com/JayRovacsek/nix-config/commit/62501d19daedaeae05eee08b5e27498948690a37))
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
@@ -22,6 +24,8 @@
 ### 🐛 Bug Fixes
 
 - *(common)* Correct nidoking ip - ([189899f](https://github.com/JayRovacsek/nix-config/commit/189899fbef02361400c47a67fd1c73c89d841483))
+
+- *(darwin)* Resolve issues with darwin configurations - ([e5bb102](https://github.com/JayRovacsek/nix-config/commit/e5bb102282979eb4829c947ddbeb1bf33a9dd357))
 
 - *(flake)* Allow duplicate nixpkgs on raspberry-pi flake - ([eba10f1](https://github.com/JayRovacsek/nix-config/commit/eba10f140a0c9f0611dee69349ada76b4c2a87b5))
 

@@ -238,6 +238,20 @@ _: {
       ];
     };
 
+    tentacruel = {
+      hostname = "tentacruel";
+      ips = [
+        {
+          address = "192.168.12.2";
+          fqdn = "tentacruel.local";
+        }
+        {
+          address = "192.168.12.2";
+          fqdn = "home-assistant.local";
+        }
+      ];
+    };
+
     tv = {
       hostname = "tv";
       ips = [
@@ -307,6 +321,10 @@ _: {
     {
       name = "nextcloud";
       vlan-tag = 10;
+    }
+    {
+      name = "home-assistant";
+      vlan-tag = 12;
     }
     {
       name = "game";
@@ -418,6 +436,14 @@ _: {
       derpServerStunPort = 3478;
       grpcPort = 50443;
       metricsPort = 9090;
+    };
+
+    home-assistant = {
+      authelia = true;
+      ipv4 = "192.168.12.2";
+      port = 8123;
+      protocol = "http";
+      subdomain = "home-assistant";
     };
 
     hydra = {

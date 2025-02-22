@@ -29,6 +29,11 @@ let
 in
 {
   options.services.palworld = {
+    dataDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/palworld";
+    };
+
     enable = lib.mkEnableOption "Palworld server";
 
     port = lib.mkOption {
@@ -77,13 +82,15 @@ in
       users = lib.optionalAttrs (cfg.user.name == "palworld") {
         palworld = {
           isSystemUser = true;
-          home = "/var/lib/palworld";
+          home = cfg.dataDir;
           createHome = true;
           homeMode = "750";
           inherit (cfg.user) group;
 
           extraGroups = [ cfg.steamcmd.group ];
         };
+
+        ${cfg.steamcmd.name}.home = lib.mkForce cfg.dataDir;
       };
 
       groups = lib.optionalAttrs (cfg.user.group == "palworld") { palworld = { }; };
@@ -108,8 +115,8 @@ in
         Nice = "-5";
         PrivateTmp = true;
         Restart = "on-failure";
-        User = config.users.users.palworld.name;
-        WorkingDirectory = "~";
+        User = cfg.user.name;
+        WorkingDirectory = cfg.dataDir;
       };
 
       environment = {

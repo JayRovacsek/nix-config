@@ -13,7 +13,9 @@ let
     "nidorino"
     "oddish"
     "poliwag"
+    "porygon"
     "slowpoke"
+    "tentacruel"
   ];
 in
 {
