@@ -79,6 +79,8 @@
 
 - *(linux)* Stop porygon from running - ([383f96d](https://github.com/JayRovacsek/nix-config/commit/383f96d7053ea3e6b541f0b207379617bea455bd))
 
+- *(modules)* Resolve use of hardware.pulseaudio and reorder rpi settings - ([aaae487](https://github.com/JayRovacsek/nix-config/commit/aaae487ad42ef66b826c0771f71e905bc989ec6b))
+
 - *(modules)* Remove samba module - ([23903c8](https://github.com/JayRovacsek/nix-config/commit/23903c8436a4566e015d67bd18e33765d937718c))
 
 - *(overlays)* Remove jellyfin-wayland overlay - ([0123de7](https://github.com/JayRovacsek/nix-config/commit/0123de72eb72098ad2ee9fa2499eae008495274e))
