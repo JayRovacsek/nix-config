@@ -203,7 +203,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         lib-aggregate.follows = "lib-aggregate";
-        nix-eval-jobs.follows = "nix-eval-jobs";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:nix-community/nixpkgs-wayland";

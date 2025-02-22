@@ -13,7 +13,6 @@ builtins.mapAttrs (
   home-manager.${package-set}
   ++ [
     options.${package-set}.minimal
-    self.inputs.nur.modules.nixos.default
     standardise-nix.${package-set}
     stylix.${package-set}
   ]

@@ -1,6 +1,7 @@
 {
   config,
   osConfig,
+  pkgs,
   ...
 }:
 let
@@ -17,7 +18,7 @@ let
 in
 {
   programs.ghostty = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
 
     inherit
       enableBashIntegration

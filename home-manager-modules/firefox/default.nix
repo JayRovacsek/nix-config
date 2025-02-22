@@ -28,11 +28,13 @@ let
     else
       [ ];
   dictionaries = with self.packages.${pkgs.system}; [ better-english ];
-  extensions = addons ++ languagePacks ++ dictionaries;
+  extensions.packages = addons ++ languagePacks ++ dictionaries;
 
   localhost = "http://127.0.0.1/";
 in
 {
+  nixpkgs.overlays = with self.inputs; [ self.inputs.firefox-darwin.overlay ];
+
   programs.firefox = {
     enable = true;
 
@@ -328,7 +330,8 @@ in
         "healthreport.uploadEnabled" = false;
 
         "identity.mobilepromo.android" = localhost;
-        "identity.sync.tokenserver.uri" = "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
+        "identity.sync.tokenserver.uri" =
+          "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
 
         "intl.locale.matchOS" = true;
 

@@ -60,8 +60,6 @@ in
     zsh
   ];
 
-  services.nix-daemon.enable = true;
-
   networking = {
     computerName = "ninetales";
     hostName = "ninetales";

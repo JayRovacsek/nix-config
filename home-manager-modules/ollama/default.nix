@@ -107,9 +107,9 @@ in
   services.ollama = {
     enable = true;
     models = [
-      "codegemma:2b"
+      "deepseek-r1:7b"
       "nomic-embed-text"
     ];
-    tabAutocompleteModel = "codegemma:2b";
+    tabAutocompleteModel = "deepseek-r1:7b";
   };
 }

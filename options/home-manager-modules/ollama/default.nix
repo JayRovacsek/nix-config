@@ -118,16 +118,6 @@ in
 {
   options = {
     services.ollama = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
-
-      package = lib.mkOption {
-        type = lib.types.package;
-        default = pkgs.ollama;
-      };
-
       logFile = lib.mkOption {
         type = lib.types.str;
         default = "/tmp/ollama.log";
@@ -151,5 +141,5 @@ in
     };
   };
 
-  config = darwin-configuration // linux-configuration;
+  config = lib.recursiveUpdate darwin-configuration linux-configuration;
 }

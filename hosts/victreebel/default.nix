@@ -62,6 +62,9 @@ in
     variables.EDITOR = "nvim";
   };
 
+  # This is really only required due to a broken install
+  ids.gids.nixbld = 350;
+
   imports = with self.nixosModules; [
     agenix
     darwin-settings
@@ -88,8 +91,6 @@ in
     hostName = "victreebel";
     localHostName = "victreebel";
   };
-
-  services.nix-daemon.enable = true;
 
   system.stateVersion = 4;
 }

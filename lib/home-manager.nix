@@ -10,7 +10,6 @@ let
       inherit (pkgs.stdenv) isLinux;
 
       base = {
-        home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
       };
 
@@ -18,12 +17,12 @@ let
     if isLinux then
       [
         base
-        home-manager.nixosModules.home-manager
+        home-manager.nixosModules.default
       ]
     else
       [
         base
-        home-manager.darwinModule
+        home-manager.darwinModules.default
       ];
 in
 fn

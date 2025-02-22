@@ -8,4 +8,6 @@ in
   home = {
     inherit packages;
   };
+
+  nixpkgs.config.allowUnfree = true;
 }

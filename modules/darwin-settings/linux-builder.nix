@@ -16,8 +16,6 @@
           [
             "aarch64-linux"
             "x86_64-linux"
-            "armv6l-linux"
-            "armv7l-linux"
           ];
 
       nix.settings = {

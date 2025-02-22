@@ -14,7 +14,6 @@ builtins.mapAttrs (
       ../options/modules/docker-darwin
       ../options/modules/dockutil
       ../options/modules/networking-darwin
-      ../options/modules/ssh-darwin
       ../options/modules/systemd-darwin
     ];
 
