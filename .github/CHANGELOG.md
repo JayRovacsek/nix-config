@@ -67,6 +67,8 @@
 
 ### 🚜 Refactor
 
+- *(home-manager-modules)* Use optionals rather than osConfig for home-manager package set - ([5fbcee4](https://github.com/JayRovacsek/nix-config/commit/5fbcee4cfd7e82ddb24b27269a423b639bb0da21))
+
 - *(home-manager-modules)* Remove r2modman from game set - ([4740228](https://github.com/JayRovacsek/nix-config/commit/4740228e373f1fd2a74d278c20c8d155b6a3380f))
 
 - *(home-manager-modules)* Remove ghostty as it is supported upstream - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))

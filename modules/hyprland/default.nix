@@ -62,7 +62,6 @@ in
         vaapiVdpau
       ];
     };
-    pulseaudio.support32Bit = true;
   };
 
   nixpkgs.overlays = with self.inputs; [ nixpkgs-wayland.overlay ];
@@ -77,6 +76,7 @@ in
   services = {
     dbus.enable = true;
     displayManager.defaultSession = "hyprland";
+    pulseaudio.support32Bit = true;
   };
 
   xdg.portal.enable = true;
