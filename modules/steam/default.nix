@@ -1,7 +1,7 @@
 _: {
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = false;
-    gamescopeSession.enable = false;
+    remotePlay.openFirewall = true;
+    gamescopeSession.enable = true;
   };
 }
