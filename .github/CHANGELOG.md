@@ -15,6 +15,8 @@
 
 - *(linux,iac)* Add bazarr exposure via subdomain - ([ade69c5](https://github.com/JayRovacsek/nix-config/commit/ade69c55ed5055ebd0d8e459b6053f82af5eb950))
 
+- *(modules)* Enable remote play and firewall open for gamescope & steam - ([1d2f249](https://github.com/JayRovacsek/nix-config/commit/1d2f249fa57ca145fb676fce3c234285d805da8c))
+
 - *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
 - *(modules,linux)* Create bazarr module and host - ([f5a1184](https://github.com/JayRovacsek/nix-config/commit/f5a118416d9c03acae1df7c8ca85d211fff6180c))
@@ -76,6 +78,8 @@
 - *(home-manager-modules)* Remove ghostty as it is supported upstream - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))
 
 - *(linux)* Stop porygon from running - ([383f96d](https://github.com/JayRovacsek/nix-config/commit/383f96d7053ea3e6b541f0b207379617bea455bd))
+
+- *(modules)* Remove samba module - ([23903c8](https://github.com/JayRovacsek/nix-config/commit/23903c8436a4566e015d67bd18e33765d937718c))
 
 - *(overlays)* Remove jellyfin-wayland overlay - ([0123de7](https://github.com/JayRovacsek/nix-config/commit/0123de72eb72098ad2ee9fa2499eae008495274e))
 

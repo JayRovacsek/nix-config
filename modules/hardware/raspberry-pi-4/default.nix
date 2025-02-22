@@ -1,34 +1,5 @@
 { pkgs, ... }:
 {
-  hardware = {
-    deviceTree.filter = "bcm2711-rpi-4*.dtb";
-
-    # Required for the Wireless firmware
-    enableRedistributableFirmware = true;
-
-    pulseaudio = {
-      enable = true;
-      # Default to the 3.5mm jack as output
-      extraConfig = ''
-        set-default-sink alsa_output.platform-bcm2835_audio.stereo-fallback.2
-      '';
-      package = pkgs.pulseaudioFull;
-    };
-
-    raspberry-pi."4" = {
-      # The below seem broken as of recent. See also: https://github.com/NixOS/nixos-hardware/issues/631
-      # audio.enable = true;
-      # Enable GPU acceleration
-      # fkms-3d = {
-      #   enable = true;
-      #   cma = 1024;
-      # };
-      poe-hat.enable = false;
-      pwm0.enable = false;
-      tc358743.enable = false;
-    };
-  };
-
   boot = {
     extraModprobeConfig = ''
       options snd_bcm2835 enable_headphones=1
@@ -53,5 +24,34 @@
       generic-extlinux-compatible.enable = true;
       grub.enable = false;
     };
+  };
+
+  hardware = {
+    deviceTree.filter = "bcm2711-rpi-4*.dtb";
+
+    # Required for the Wireless firmware
+    enableRedistributableFirmware = true;
+
+    raspberry-pi."4" = {
+      # The below seem broken as of recent. See also: https://github.com/NixOS/nixos-hardware/issues/631
+      # audio.enable = true;
+      # Enable GPU acceleration
+      # fkms-3d = {
+      #   enable = true;
+      #   cma = 1024;
+      # };
+      poe-hat.enable = false;
+      pwm0.enable = false;
+      tc358743.enable = false;
+    };
+  };
+
+  services.pulseaudio = {
+    enable = true;
+    # Default to the 3.5mm jack as output
+    extraConfig = ''
+      set-default-sink alsa_output.platform-bcm2835_audio.stereo-fallback.2
+    '';
+    package = pkgs.pulseaudioFull;
   };
 }
