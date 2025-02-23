@@ -21,6 +21,8 @@
 
 - *(modules,linux)* Create bazarr module and host - ([f5a1184](https://github.com/JayRovacsek/nix-config/commit/f5a118416d9c03acae1df7c8ca85d211fff6180c))
 
+- *(overlays)* Readd jellyfin overlay for wayland - ([0f2e817](https://github.com/JayRovacsek/nix-config/commit/0f2e81765fa7e41faa6a100b409cea35ad5472ea))
+
 - *(overlays)* Add exif 12.7 overlay - ([63d1df6](https://github.com/JayRovacsek/nix-config/commit/63d1df67c4cd6373d0edae5bb8a696efd58596f2))
 - Remove code server - ([b5740bc](https://github.com/JayRovacsek/nix-config/commit/b5740bc09e1942a207cc18a69639bb253ad632df))
 

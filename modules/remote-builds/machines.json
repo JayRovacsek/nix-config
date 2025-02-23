@@ -7,7 +7,7 @@
     "speedFactor": 8,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux"]
   },
   {
     "hostName": "alakazam.local",
@@ -17,7 +17,7 @@
     "speedFactor": 8,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux"]
   },
   {
     "hostName": "dragonite.local",
@@ -27,7 +27,7 @@
     "speedFactor": 48,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux"]
   },
   {
     "hostName": "dragonite.local",
@@ -37,6 +37,6 @@
     "speedFactor": 48,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux", "armv6l-linux", "armv7l-linux"]
+    "systems": ["x86_64-linux", "aarch64-linux"]
   }
 ]
