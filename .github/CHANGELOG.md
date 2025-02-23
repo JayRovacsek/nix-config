@@ -81,6 +81,8 @@
 
 - *(linux)* Stop porygon from running - ([383f96d](https://github.com/JayRovacsek/nix-config/commit/383f96d7053ea3e6b541f0b207379617bea455bd))
 
+- *(linux,flake)* Remove armv6 and armv7 binfmt registrations - ([be6a4d2](https://github.com/JayRovacsek/nix-config/commit/be6a4d2fbaca565c49de976d2c7bee2ebe325da6))
+
 - *(modules)* Resolve use of hardware.pulseaudio and reorder rpi settings - ([aaae487](https://github.com/JayRovacsek/nix-config/commit/aaae487ad42ef66b826c0771f71e905bc989ec6b))
 
 - *(modules)* Remove samba module - ([23903c8](https://github.com/JayRovacsek/nix-config/commit/23903c8436a4566e015d67bd18e33765d937718c))

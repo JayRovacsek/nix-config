@@ -36,6 +36,7 @@ in
   alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
   dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
+  ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
   wartortle = extend-host self.common.images.configurations.rpi5 "wartortle";
   wigglytuff = extend-host self.common.images.configurations.rpi4 "wigglytuff";
