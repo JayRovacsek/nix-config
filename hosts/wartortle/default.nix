@@ -11,7 +11,7 @@ let
 
   jay = self.common.users.jay {
     inherit config pkgs;
-    modules = with self.common.home-manager-module-sets; cli;
+    modules = with self.common.home-manager-module-sets; cli ++ impermanence;
   };
 
   user-configs = merge [
@@ -22,10 +22,12 @@ in
   inherit (user-configs) users home-manager;
 
   imports = with self.nixosModules; [
+    ./disk-config.nix
     agenix
     generations
     grafana-agent
     home-manager
+    impermanence
     logging
     nix
     openssh
