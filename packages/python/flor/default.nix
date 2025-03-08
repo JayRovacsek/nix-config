@@ -20,11 +20,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "flor" ];
 
-  meta = with lib; {
+  meta = rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Flor - An efficient Bloom filter implementation in Python";
     downloadPage = "https://github.com/DCSO/flor/releases";
     homepage = "https://github.com/DCSO/flor";
-    license = licenses.bsd3;
+    license = lib.licenses.bsd3;
   };
 }

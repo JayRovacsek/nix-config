@@ -23,11 +23,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyesedb" ];
 
-  meta = with lib; {
+  meta = rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libesedb";
     homepage = "https://github.com/libyal/libesedb";
     downloadPage = "https://github.com/libyal/libesedb/releases";
-    license = licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Plus;
   };
 }

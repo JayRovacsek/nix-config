@@ -24,11 +24,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyevt" ];
 
-  meta = with lib; {
+  meta = rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libevt";
     homepage = "https://github.com/libyal/libevt";
     downloadPage = "https://github.com/libyal/libevt/releases";
-    license = licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Plus;
   };
 }

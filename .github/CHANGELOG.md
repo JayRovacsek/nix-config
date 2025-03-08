@@ -11,6 +11,8 @@
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
 
+- *(linux)* Move raspberry pis over to impermanence - ([f3076e5](https://github.com/JayRovacsek/nix-config/commit/f3076e57b34dcafbb2dee21a0519214c589d0b33))
+
 - *(linux)* Add ivysaur host for rpi5 - ([ccae3ba](https://github.com/JayRovacsek/nix-config/commit/ccae3ba15fa165d5127f2b54bff7d95bdfd43272))
 
 - *(linux)* Implement tentacruel microvm for home-assistant - ([ab2e63b](https://github.com/JayRovacsek/nix-config/commit/ab2e63b9f87f27d4afabdcc90b2dac41e07693db))

@@ -26,11 +26,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyewf" ];
 
-  meta = with lib; {
+  meta = rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libewf";
     downloadPage = "https://github.com/libyal/libewf/releases";
     homepage = "https://github.com/libyal/libewf";
-    license = licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Plus;
   };
 }

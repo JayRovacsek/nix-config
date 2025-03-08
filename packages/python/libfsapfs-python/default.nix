@@ -26,11 +26,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyfsapfs" ];
 
-  meta = with lib; {
+  meta = rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libfsapfs";
     downloadPage = "https://github.com/libyal/libfsapfs/releases";
     homepage = "https://github.com/libyal/libfsapfs";
-    license = licenses.lgpl3Plus;
+    license = lib.licenses.lgpl3Plus;
   };
 }
