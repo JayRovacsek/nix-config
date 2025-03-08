@@ -28,6 +28,8 @@
 - *(overlays)* Readd jellyfin overlay for wayland - ([0f2e817](https://github.com/JayRovacsek/nix-config/commit/0f2e81765fa7e41faa6a100b409cea35ad5472ea))
 
 - *(overlays)* Add exif 12.7 overlay - ([63d1df6](https://github.com/JayRovacsek/nix-config/commit/63d1df67c4cd6373d0edae5bb8a696efd58596f2))
+
+- *(packages)* Remove unused packages - ([356e9de](https://github.com/JayRovacsek/nix-config/commit/356e9de8c652779a5f5c1b42a15c350e23965cdd))
 - Remove code server - ([b5740bc](https://github.com/JayRovacsek/nix-config/commit/b5740bc09e1942a207cc18a69639bb253ad632df))
 
 
@@ -44,6 +46,8 @@
 - *(flake,module)* Resolve booting issues for microvms by pinning temporarily - ([3a08859](https://github.com/JayRovacsek/nix-config/commit/3a08859c949c9a5d627a822259ae21c0558718c6))
 
 - *(flake,modules)* Resolve nur module issues - ([4c4693b](https://github.com/JayRovacsek/nix-config/commit/4c4693ba69650342e980bf5e7f54f02d1a115d3d))
+
+- *(flake,packages)* Resolve evaluation errors - ([ac1991a](https://github.com/JayRovacsek/nix-config/commit/ac1991acf21f215cb2277db3f056781dfbee65c8))
 
 - *(home-manager-modules)* Add ssh ghostty xterm variable to not bust remote sessions - ([7347385](https://github.com/JayRovacsek/nix-config/commit/7347385fa16d13ade7de4ead66165ba6010de7fc))
 

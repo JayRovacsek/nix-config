@@ -10,12 +10,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfsapfs-python";
-  version = "20240218";
+  version = "20240429";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-88F2RrVw9+JitNyg3mnkkMaWHKBDZoYxdvfeDRe+slw=";
+    hash = "sha256-ibxeT0WjT2GlcfMhEz1NAWTUGnIatuqyKur+XbWcKe0=";
   };
 
   build-system = [ setuptools ];

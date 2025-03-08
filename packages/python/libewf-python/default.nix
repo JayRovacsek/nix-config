@@ -10,12 +10,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libewf-python";
-  version = "20231119";
+  version = "20240506";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-35hPmLSVZnAQTputkeputePD2pVwYOt7qerbAe8CE4I=";
+    hash = "sha256-QSgdeDQTblS12naUkiZtR24cVQWyRadVzglZapgphUI=";
   };
 
   build-system = [ setuptools ];

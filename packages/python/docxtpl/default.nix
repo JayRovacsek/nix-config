@@ -19,11 +19,11 @@ let
 in
 buildPythonPackage rec {
   pname = "docxtpl";
-  version = "0.19.0";
+  version = "0.19.1";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-nLrP5Y7PnrSB8o9gBDwgDz4CIFwPQdcQMo4lWKy++6k=";
+    hash = "sha256-WDaqtVg6guLoGwhvrhMM6U3AgPa3/g5D+D9OPj5drs8=";
   };
 
   dependencies = [
