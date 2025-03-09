@@ -62,6 +62,16 @@ _: {
       ];
     };
 
+    ivysaur = {
+      hostname = "ivysaur";
+      ips = [
+        {
+          address = "192.168.1.5";
+          fqdn = "ivysaur.local";
+        }
+      ];
+    };
+
     jigglypuff = {
       hostname = "jigglypuff";
       ips = [
@@ -278,6 +288,16 @@ _: {
         {
           address = "192.168.7.12";
           fqdn = "victreebel.local";
+        }
+      ];
+    };
+
+    wartortle = {
+      hostname = "wartortle";
+      ips = [
+        {
+          address = "192.168.1.6";
+          fqdn = "wartortle.local";
         }
       ];
     };
