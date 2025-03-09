@@ -5,7 +5,7 @@
   fileSystems = {
     "/" = {
       fsType = lib.mkForce "tmpfs";
-      device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
+      device = lib.mkForce "none";
     };
     "/persistent".neededForBoot = true;
   };

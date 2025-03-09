@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(common)* Add ivysaur and wartortle configs to host map - ([01ac09f](https://github.com/JayRovacsek/nix-config/commit/01ac09f2cf9661539708dbbe6369a64548088492))
+
 - *(common)* Add bazarr config entry - ([7f048ff](https://github.com/JayRovacsek/nix-config/commit/7f048ffca34bd29d5b5a2b11b6aba7081d96684c))
 
 - *(home-manager-modules)* Add nur hm module - ([e5bb102](https://github.com/JayRovacsek/nix-config/commit/e5bb102282979eb4829c947ddbeb1bf33a9dd357))
