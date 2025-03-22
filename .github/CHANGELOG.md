@@ -85,6 +85,8 @@
 
 ### 🚜 Refactor
 
+- *(common)* Remove sd from rpi images by default - ([9c12b35](https://github.com/JayRovacsek/nix-config/commit/9c12b35ca12ad169333e65e850f551ac0e6c1316))
+
 - *(home-manager-modules)* Use optionals rather than osConfig for home-manager package set - ([5fbcee4](https://github.com/JayRovacsek/nix-config/commit/5fbcee4cfd7e82ddb24b27269a423b639bb0da21))
 
 - *(home-manager-modules)* Remove r2modman from game set - ([4740228](https://github.com/JayRovacsek/nix-config/commit/4740228e373f1fd2a74d278c20c8d155b6a3380f))
