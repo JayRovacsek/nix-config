@@ -77,9 +77,6 @@ in
   home.persistence."/persistent/home/${config.home.username}" = {
     directories =
       [
-        # TEMPORARY TO ENABLE TRANSITION - REMOVE
-        "restic"
-
         ".cache/nix"
         ".gnupg"
         ".local/share/keyrings"

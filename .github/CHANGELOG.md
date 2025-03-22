@@ -27,6 +27,8 @@
 
 - *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
 
+- *(modules,linux)* Add new open setting to nvidia & force to false on alakazam - ([0cffd10](https://github.com/JayRovacsek/nix-config/commit/0cffd1035b2fb15e5a7724216465361b88ff6149))
+
 - *(modules,linux)* Create bazarr module and host - ([f5a1184](https://github.com/JayRovacsek/nix-config/commit/f5a118416d9c03acae1df7c8ca85d211fff6180c))
 
 - *(overlays)* Readd jellyfin overlay for wayland - ([0f2e817](https://github.com/JayRovacsek/nix-config/commit/0f2e81765fa7e41faa6a100b409cea35ad5472ea))
