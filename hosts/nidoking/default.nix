@@ -67,7 +67,6 @@ in
   services = {
     nextcloud = {
       configureMemories = true;
-      configureRecognize = false;
       hostName = "nextcloud.rovacsek.com";
       settings = {
         datadirectory = "/srv/nextcloud";

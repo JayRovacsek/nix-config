@@ -55,6 +55,8 @@
 
 - *(flake,packages)* Resolve evaluation errors - ([ac1991a](https://github.com/JayRovacsek/nix-config/commit/ac1991acf21f215cb2277db3f056781dfbee65c8))
 
+- *(home-manager-modules)* Migrate vscode and firefox settings to new upstream settings structures - ([224ab5b](https://github.com/JayRovacsek/nix-config/commit/224ab5b46edacb2f2f9f953ccd91feb434feb94b))
+
 - *(home-manager-modules)* Remove restic mapping from impermanence - ([d167b8e](https://github.com/JayRovacsek/nix-config/commit/d167b8e5aacf089d18b71139abcaa1134de2889d))
 
 - *(home-manager-modules)* Add ssh ghostty xterm variable to not bust remote sessions - ([7347385](https://github.com/JayRovacsek/nix-config/commit/7347385fa16d13ade7de4ead66165ba6010de7fc))
