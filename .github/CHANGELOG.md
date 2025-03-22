@@ -23,6 +23,8 @@
 
 - *(linux,iac)* Add bazarr exposure via subdomain - ([ade69c5](https://github.com/JayRovacsek/nix-config/commit/ade69c55ed5055ebd0d8e459b6053f82af5eb950))
 
+- *(modules)* Upgrade nextcloud to v31 - ([75e9514](https://github.com/JayRovacsek/nix-config/commit/75e95148c971b73f16bd8cbb3216d65d25029d0e))
+
 - *(modules)* Enable remote play and firewall open for gamescope & steam - ([1d2f249](https://github.com/JayRovacsek/nix-config/commit/1d2f249fa57ca145fb676fce3c234285d805da8c))
 
 - *(modules)* Bump deluge download limit - ([a1a4b7a](https://github.com/JayRovacsek/nix-config/commit/a1a4b7a3d48964b2db7cca2ce97b5d3d1869ffd7))
