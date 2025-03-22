@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   self,
@@ -33,7 +34,11 @@ let
   localhost = "http://127.0.0.1/";
 in
 {
-  nixpkgs.overlays = with self.inputs; [ self.inputs.firefox-darwin.overlay ];
+  nixpkgs.overlays = [ self.inputs.firefox-darwin.overlay ];
+
+  stylix = lib.mkIf (builtins.hasAttr "stylix" config) {
+    targets.firefox.profileNames = [ "jay" ];
+  };
 
   programs.firefox = {
     enable = true;
@@ -44,90 +49,90 @@ in
 
       search = {
         force = true;
-        default = "DuckDuckGo";
-        order = [ "DuckDuckGo" ];
+        default = "ddg";
+        order = [ "ddg" ];
         engines = {
-          "Bing".metaData.hidden = true;
-          "eBay".metaData.hidden = true;
-          "Google".metaData.hidden = true;
-          "Wikipedia (en)".hidden = true;
+          "bing".metaData.hidden = true;
+          "ebay".metaData.hidden = true;
+          "google".metaData.hidden = true;
+          "wikipedia".hidden = true;
         };
       };
       bookmarks = {
-        "Duck Duck Go" = {
-          keyword = "d";
-          url = "https://duckduckgo.com/?q=%s";
-        };
-        "Brave Search" = {
-          keyword = "b";
-          url = "https://search.brave.com/search?q=%s";
-        };
-        # Get wrecked, force myself to not use the googs
-        "Google Search" = {
-          keyword = "google";
-          url = "https://www.google.com/search?q=%s";
-        };
-        "Google AU Search" = {
-          keyword = "ga";
-          url = "https://www.google.com.au/search?q=%s";
-        };
-        "Youtube" = {
-          keyword = "y";
-          url = "https://www.youtube.com/results?search_query=%s";
-        };
-        "Noogle" = {
-          keyword = "noo";
-          url = "https://noogle.dev/?term=%22%s%22";
-        };
-        "Github Code Search" = {
-          keyword = "cs";
-          url = "https://github.com/search?type=code&q=%s";
-        };
-        "Github Nix Code Search" = {
-          keyword = "ncs";
-          url = "https://github.com/search?type=code&q=language%3Anix+%s";
-        };
-        "Dockerhub Search" = {
-          keyword = "dh";
-          url = "https://hub.docker.com/search?q=%s";
-        };
-        "Nix Pkg Search" = {
-          keyword = "np";
-          url = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&query=%s";
-        };
-        "Nix Options Search" = {
-          keyword = "no";
-          url = "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
-        };
-        "Nix Uber Search" = {
-          keyword = "ns";
-          url = "https://search.nix.gsc.io/?q=%s&i=nope&files=&excludeFiles=&repos=";
-        };
-        "Nix Home Manager Options Search" = {
-          keyword = "hm";
-          url = "https://mipmip.github.io/home-manager-option-search/?query=";
-        };
-        "nib Jira Search" = {
-          keyword = "j";
-          url = "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
-        };
-        "nib Confluence Search" = {
-          keyword = "c";
-          url = "https://nibgroup.atlassian.net/wiki/search/?text=%s";
+        force = true;
+        settings = [
+          {
+            name = "Duck Duck Go";
+            keyword = "d";
+            url = "https://duckduckgo.com/?q=%s";
+          }
+          {
+            name = "Brave Search";
+            keyword = "b";
+            url = "https://search.brave.com/search?q=%s";
+          }
+          {
+            name = "Youtube";
+            keyword = "y";
+            url = "https://www.youtube.com/results?search_query=%s";
+          }
+          {
+            name = "Noogle";
+            keyword = "noo";
+            url = "https://noogle.dev/?term=%22%s%22";
+          }
+          {
+            name = "Github Code Search";
+            keyword = "cs";
+            url = "https://github.com/search?type=code&q=%s";
+          }
+          {
+            name = "Github Nix Code Search";
+            keyword = "ncs";
+            url = "https://github.com/search?type=code&q=language%3Anix+%s";
+          }
+          {
+            name = "Dockerhub Search";
+            keyword = "dh";
+            url = "https://hub.docker.com/search?q=%s";
+          }
+          {
+            name = "Nix Pkg Search";
+            keyword = "np";
+            url = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&query=%s";
+          }
+          {
+            name = "Nix Options Search";
+            keyword = "no";
+            url = "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
+          }
 
-        };
-        "nib Github Search" = {
-          keyword = "ngh";
-          url = "https://github.com/nib-group?q=%s&type=&language=";
-        };
-        "searx.be" = {
-          keyword = "g";
-          url = "https://searx.be/search?q=%s";
-        };
-        "Terraform Search" = {
-          keyword = "t";
-          url = "https://registry.terraform.io/search/providers?q=%s";
-        };
+          {
+            name = "Nix Home Manager Options Search";
+            keyword = "hm";
+            url = "https://home-manager-options.extranix.com/?query=%s";
+          }
+          {
+            name = "nib Jira Search";
+            keyword = "j";
+            url = "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
+          }
+          {
+            name = "nib Confluence Search";
+            keyword = "c";
+            url = "https://nibgroup.atlassian.net/wiki/search/?text=%s";
+          }
+          {
+            name = "nib Github Search";
+            keyword = "ngh";
+            url = "https://github.com/nib-group?q=%s&type=&language=";
+          }
+          {
+            name = "Terraform Search";
+            keyword = "t";
+            url = "https://registry.terraform.io/search/providers?q=%s";
+          }
+        ];
       };
 
       settings = {
