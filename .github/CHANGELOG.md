@@ -61,6 +61,8 @@
 
 - *(home-manager-modules)* Resolve broken ghostty module - ([f519a1c](https://github.com/JayRovacsek/nix-config/commit/f519a1ce26fe196a7e19532f9585a6381235d014))
 
+- *(linux)* Resolve impermanence root fs issue for wartortle and ivysaur - ([79aa103](https://github.com/JayRovacsek/nix-config/commit/79aa1034a88e53eadd57be60b2eed126883735d6))
+
 - *(linux)* Resolve any uses of hardware.pulseaudio - ([779d42b](https://github.com/JayRovacsek/nix-config/commit/779d42b83fac0e2b9beac7cdcd07663b68ee797a))
 
 - *(linux,common)* Move ghostty to desktop rather than cli - ([2f27edb](https://github.com/JayRovacsek/nix-config/commit/2f27edb391129a641046469d2264a0d89f7e3316))
