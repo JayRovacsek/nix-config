@@ -9,7 +9,7 @@
         unit_system = "metric";
       };
       http = {
-        server_host = "127.0.0.1";
+        server_host = [ "127.0.0.1" ];
         server_port = self.common.config.services.home-assistant.port;
         trusted_proxies = [
           self.common.config.services.nginx.ipv4

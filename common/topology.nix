@@ -40,7 +40,10 @@ in
     # systemd-networkd rules. TODO: See if I can get the below
     # for free :)
     alakazam.interfaces.eth0.network = "lan";
-    cloyster.interfaces.wlan0.network = "wlan";
+    cloyster = {
+      deviceType = "nixos";
+      interfaces.wlan0.network = "wlan";
+    };
     diglett = {
       interfaces = {
         eth0 = { };
@@ -54,8 +57,11 @@ in
         ) { } self.common.config.networks;
       in
       recursiveUpdate { eth0.network = "lan"; } interfaces;
+
     gastly.interfaces.wlan0.network = "wlan";
+    ivysaur.interfaces.eth0.network = "lan";
     jigglypuff.interfaces.vlan-dns.network = "dns";
+    wartortle.interfaces.eth0.network = "lan";
     wigglytuff.interfaces.wlan0.network = "iot";
     zubat.interfaces.eth0.network = "lan";
 
@@ -121,6 +127,8 @@ in
             network = "lan";
             physicalConnections = [
               (mkConnection "alakazam" "eth0")
+              (mkConnection "ivysaur" "eth0")
+              (mkConnection "wartortle" "eth0")
               (mkConnection "zubat" "eth0")
             ];
           };
