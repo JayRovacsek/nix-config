@@ -47,6 +47,8 @@
 
 - *(common)* Correct nidoking ip - ([189899f](https://github.com/JayRovacsek/nix-config/commit/189899fbef02361400c47a67fd1c73c89d841483))
 
+- *(common,modules)* Resolve ha server host setting and topology issues - ([fa0facc](https://github.com/JayRovacsek/nix-config/commit/fa0facc8385ce0fe0d5366e8235d56b6d15bae37))
+
 - *(darwin)* Resolve issues with darwin configurations - ([e5bb102](https://github.com/JayRovacsek/nix-config/commit/e5bb102282979eb4829c947ddbeb1bf33a9dd357))
 
 - *(flake)* Allow duplicate nixpkgs on raspberry-pi flake - ([eba10f1](https://github.com/JayRovacsek/nix-config/commit/eba10f140a0c9f0611dee69349ada76b4c2a87b5))
