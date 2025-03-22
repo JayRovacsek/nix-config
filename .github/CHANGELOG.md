@@ -1,5 +1,5 @@
 
-## [unreleased]
+## [0.1.0](https://github.com/JayRovacsek/nix-config/compare/v0.0.9..v0.1.0) - 2025-03-22
 
 ### ⛰️  Features
 
@@ -124,6 +124,10 @@
 - *(overlays)* Remove jellyfin-wayland overlay - ([0123de7](https://github.com/JayRovacsek/nix-config/commit/0123de72eb72098ad2ee9fa2499eae008495274e))
 
 - *(tooling)* Move changelog output to github folder - ([b754933](https://github.com/JayRovacsek/nix-config/commit/b754933d32f5ac231d11202219f9c334558e8bc0))
+
+### 📚 Documentation
+- Regenerate topology documentation - ([b956278](https://github.com/JayRovacsek/nix-config/commit/b95627847c27c7451c91c641aa12e2decce28aca))
+
 ## [0.0.9](https://github.com/JayRovacsek/nix-config/compare/v0.0.8..v0.0.9) - 2024-12-22
 
 ### ⛰️  Features
