@@ -95,6 +95,8 @@
 
 ### 🚜 Refactor
 
+- *(common)* Add home-manager to impermanence module set - ([04b280d](https://github.com/JayRovacsek/nix-config/commit/04b280d4c43210e969f29846482fc86b9d9b52dd))
+
 - *(common)* Remove sd from rpi images by default - ([9c12b35](https://github.com/JayRovacsek/nix-config/commit/9c12b35ca12ad169333e65e850f551ac0e6c1316))
 
 - *(home-manager-modules)* Use optionals rather than osConfig for home-manager package set - ([5fbcee4](https://github.com/JayRovacsek/nix-config/commit/5fbcee4cfd7e82ddb24b27269a423b639bb0da21))

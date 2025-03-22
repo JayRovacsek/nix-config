@@ -12,6 +12,9 @@ let
 
   zfsServiceSupported =
     config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
+
+  package = pkgs.nextcloud31;
+  packages = pkgs.nextcloud31Packages;
 in
 {
   age = {
@@ -58,12 +61,25 @@ in
         dbtype = "mysql";
       };
 
+      extraApps = {
+        inherit (packages.apps)
+          calendar
+          contacts
+          files_automatedtagging
+          files_mindmap
+          previewgenerator
+          recognize
+          registration
+          twofactor_webauthn
+          ;
+      };
+
       configureRedis = true;
       database.createLocally = true;
       enableImagemagick = true;
       https = true;
       maxUploadSize = "20G";
-      package = pkgs.nextcloud30;
+      inherit package;
 
       phpOptions = {
         "date.timezone" = config.time.timeZone;
