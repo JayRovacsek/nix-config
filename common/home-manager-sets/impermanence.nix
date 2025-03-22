@@ -1,1 +1,6 @@
-{ self }: with self.homeManagerModules; [ impermanence ]
+{ self }:
+with self.homeManagerModules;
+[
+  home-manager
+  impermanence
+]
