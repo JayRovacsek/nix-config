@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -106,12 +107,16 @@ in
     wget
   ];
 
-  hardware.cpu = {
-    profile = {
-      cores = 8;
-      speed = 2;
+  hardware = {
+    cpu = {
+      profile = {
+        cores = 8;
+        speed = 2;
+      };
+      intel.updateMicrocode = true;
     };
-    intel.updateMicrocode = true;
+    # System uses a 1060 - so not recommended to use open modules
+    nvidia.open = lib.mkForce false;
   };
 
   networking = {
