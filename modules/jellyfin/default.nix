@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+_: {
   # Extended options for jellyfin
   imports = [ ../../options/modules/jellyfin ];
 
@@ -17,24 +16,4 @@
     user = "media";
     group = "media";
   };
-
-  # As per: https://wiki.nixos.org/wiki/Jellyfin#Intro_Skipper_plugin
-  nixpkgs.overlays = with pkgs; [
-    (_: prev: {
-      jellyfin-web = prev.jellyfin-web.overrideAttrs (
-        _: _: {
-          installPhase = ''
-            runHook preInstall
-
-            ${gnused}/bin/sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
-
-            ${coreutils}/bin/mkdir -p $out/share
-            ${coreutils}/bin/cp -a dist $out/share/jellyfin-web
-
-            runHook postInstall
-          '';
-        }
-      );
-    })
-  ];
 }

@@ -13,6 +13,8 @@
 
 - *(home-manager-modules,lib)* Implement ghostty module - ([6594b3d](https://github.com/JayRovacsek/nix-config/commit/6594b3de5eeaae499adf412ab33ada0a0606ae24))
 
+- *(linux)* Add blocky and nix-topology to rpi5s - ([8bc4f96](https://github.com/JayRovacsek/nix-config/commit/8bc4f96a37179322c76a80049abbb4078d46ead2))
+
 - *(linux)* Move raspberry pis over to impermanence - ([f3076e5](https://github.com/JayRovacsek/nix-config/commit/f3076e57b34dcafbb2dee21a0519214c589d0b33))
 
 - *(linux)* Add ivysaur host for rpi5 - ([ccae3ba](https://github.com/JayRovacsek/nix-config/commit/ccae3ba15fa165d5127f2b54bff7d95bdfd43272))
