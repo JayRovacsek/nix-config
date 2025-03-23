@@ -105,6 +105,8 @@ with lib;
 
   config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
 
+    services.sonarr.settings.server.port = cfg.ports.http;
+
     environment.etc."sonarr/config.xml" = mkIf (cfg.config-settings != null) {
       inherit (cfg) user group;
       text =
@@ -121,7 +123,7 @@ with lib;
           ${pkgs.coreutils}/bin/cat /etc/sonarr/config.xml | ${pkgs.gnused}/bin/sed "s/deadb33fdeadb33fdeadb33fdeadb33f/$(${pkgs.coreutils}/bin/cat ${cfg.api-key-file})/g" > ${config.services.sonarr.dataDir}/config.xml
         '';
 
-    # Add some smarts behind if we open any, some or all of the 
+    # Add some smarts behind if we open any, some or all of the
     # config ports.
     # This is a hack around the fact upstream hardcodes the port configuration
     # option as 8989

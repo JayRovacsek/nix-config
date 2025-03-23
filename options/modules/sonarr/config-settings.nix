@@ -33,10 +33,6 @@
       value = cfg.authenticationMethod;
     }
     {
-      name = "UpdateMechanism";
-      value = "BuiltIn";
-    }
-    {
       name = "Branch";
       value = "main";
     }
@@ -45,20 +41,28 @@
       value = true;
     }
     {
-      name = "SslCertHash";
-      value = "";
-    }
-    {
       name = "UrlBase";
       value = "";
     }
     {
-      name = "SyslogPort";
-      value = cfg.ports.syslog;
+      name = "SslCertPassword";
+      value = "";
+    }
+    {
+      name = "SslCertPath";
+      value = "";
+    }
+    {
+      name = "AuthenticationRequired";
+      value = "Enabled";
+    }
+    {
+      name = "InstanceName";
+      value = "Sonarr";
     }
     {
       name = "AnalyticsEnabled";
-      value = false;
+      value = cfg.settings.log.analyticsEnabled;
     }
   ];
 }

@@ -6,6 +6,10 @@
 - *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
 
 - *(modules)* Re-add jellyfin intro skipper overlay - ([7dfcc4e](https://github.com/JayRovacsek/nix-config/commit/7dfcc4e47ab18a857cad59d456e5774768ee94a0))
+
+### 🐛 Bug Fixes
+
+- *(modules,packages)* Remove eww-wayland - ([f5159f5](https://github.com/JayRovacsek/nix-config/commit/f5159f5fcad7b5d05d684014b411cc47636c8829))
 ## [0.1.0](https://github.com/JayRovacsek/nix-config/compare/v0.0.9..v0.1.0) - 2025-03-22
 
 ### ⛰️  Features
