@@ -1,4 +1,9 @@
 
+## [unreleased]
+
+### ⛰️  Features
+
+- *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
 ## [0.1.0](https://github.com/JayRovacsek/nix-config/compare/v0.0.9..v0.1.0) - 2025-03-22
 
 ### ⛰️  Features
