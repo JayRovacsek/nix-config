@@ -5,19 +5,19 @@
   coreutils,
 }:
 buildGoModule rec {
-  version = "6.12.2";
+  version = "6.16.0";
   pname = "cloudquery";
 
   src = fetchFromGitHub {
     owner = "cloudquery";
     repo = "cloudquery";
     rev = "v${version}";
-    hash = "sha256-hHllESbNCd+NZYi/wTcalPtawNmlL8c+vi6db2UmRb0=";
+    hash = "sha256-4UxYReimGpKHzjUbg5rzwskaPnyOLrF7EJ0sAaBmGSc=";
   };
 
   sourceRoot = "source/cli";
 
-  vendorHash = "sha256-0TglUg/3i1Sbyz9TUhwr+GaZ2CPGwxfAfxZ/iZKw7l0=";
+  vendorHash = "sha256-4Bje9srG0QNZqeQbDlC26tqoFNBTOO6hzG6QsW+dfxI=";
 
   ## These tests assume network access
   postPatch =
