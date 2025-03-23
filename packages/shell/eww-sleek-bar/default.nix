@@ -1,14 +1,12 @@
 {
   pkgs,
   stdenvNoCC,
-  lib,
   fetchFromGitHub,
   coreutils,
-  eww-wayland,
+  eww,
   self,
   ...
 }:
-with lib;
 let
   inherit (pkgs) system;
   inherit (self.packages.${system})
@@ -57,7 +55,7 @@ stdenvNoCC.mkDerivation {
 
     substituteInPlace $out/share/eww.yuck \
       --replace '(defwindow bar' '(defwindow bar :monitor 0 :monitor 1 :monitor 2 :monitor 3' \
-      --replace '(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")' '(defvar eww "${eww-wayland}/bin/eww -c $HOME/.config/eww")' \
+      --replace '(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")' '(defvar eww "${eww}/bin/eww -c $HOME/.config/eww")' \
       --replace '~/.config/eww/bar' '~/.config/eww' \
       --replace '$HOME/.config/eww/bar' '$HOME/.config/eww' \
       --replace './scripts/' '$out/share/scripts'

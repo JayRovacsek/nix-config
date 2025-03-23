@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   coreutils,
-  eww-wayland,
+  eww,
   ...
 }:
 with lib;
@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation {
     ${coreutils}/bin/cp $src/eww/bar/scripts/pop $out/bin
 
     substituteInPlace $out/bin/pop \
-      --replace 'EWW_BIN="$HOME/.local/bin/eww/eww"' 'EWW_BIN=${eww-wayland}/bin/eww' \
+      --replace 'EWW_BIN="$HOME/.local/bin/eww/eww"' 'EWW_BIN=${eww}/bin/eww' \
       --replace 'rm' '${coreutils}/bin/rm' \
       --replace 'touch' '${coreutils}/bin/touch'
   '';
