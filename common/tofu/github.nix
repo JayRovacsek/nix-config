@@ -314,6 +314,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     { name = "blinky-bed"; }
     {
@@ -347,6 +348,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       description = "Tools for people envious of nvidia's blob driver.";
@@ -379,6 +381,15 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
+    }
+    {
+      has_issues = false;
+      has_projects = false;
+      homepage_url = "https://www.cyber.gov.au/ism/";
+      name = "ism-oscal";
+      vulnerability_alerts = false;
+      web_commit_signoff_required = true;
     }
     {
       archived = true;
@@ -392,6 +403,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       archived = true;
@@ -404,6 +416,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     { name = "magic-nix-cache-action"; }
     { name = "microvm.nix"; }
@@ -419,6 +432,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       archived = true;
@@ -432,8 +446,10 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
+      archived = true;
       description = "A presentation for Newcastle Cybersecurity Group, June 2023";
       name = "ncsg-presentation-june-2023";
       pages = {
@@ -443,8 +459,18 @@ in
           path = "/";
         };
       };
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+      vulnerability_alerts = false;
     }
     {
+      archived = true;
       description = "A presentation for Newcastle Cybersecurity Group, August 2024";
       name = "ncsg-presentation-august-2024";
       pages = {
@@ -454,6 +480,15 @@ in
           path = "/";
         };
       };
+      security_and_analysis = {
+        secret_scanning = {
+          status = "disabled";
+        };
+        secret_scanning_push_protection = {
+          status = "disabled";
+        };
+      };
+      vulnerability_alerts = false;
     }
     {
       description = "A presentation for Newcastle Cybersecurity Group, October 2024";
@@ -505,6 +540,7 @@ in
       has_issues = false;
       has_projects = true;
       name = "nixpkgs";
+      delete_branch_on_merge = false;
       security_and_analysis = {
         secret_scanning = {
           status = "disabled";
@@ -515,6 +551,16 @@ in
       };
       vulnerability_alerts = false;
       web_commit_signoff_required = false;
+    }
+    {
+      name = "north-south-ride";
+      pages = {
+        build_type = "workflow";
+        source = {
+          branch = "main";
+          path = "/";
+        };
+      };
     }
     {
       description = "This patch removes restriction on maximum number of simultaneous NVENC video encoding sessions imposed by Nvidia to consumer-grade GPUs.";
@@ -567,6 +613,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       archived = true;
@@ -579,6 +626,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       description = "NixOS modules to aid in configuring NixOS for raspberry pi products";
@@ -616,6 +664,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       description = "Run Stubby without losing the performance benefits of having a local caching DNS resolver.";
@@ -624,6 +673,17 @@ in
     {
       description = "\"Das U-Boot\" Source Tree";
       name = "u-boot";
+    }
+    {
+      name = "uptime";
+      pages = {
+        build_type = "legacy";
+        source = {
+          branch = "gh-pages";
+          path = "/";
+        };
+      };
+      web_commit_signoff_required = false;
     }
     {
       archived = true;
@@ -637,6 +697,7 @@ in
           status = "disabled";
         };
       };
+      vulnerability_alerts = false;
     }
     {
       description = "Unlock vGPU functionality for consumer grade GPUs.";
