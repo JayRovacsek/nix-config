@@ -51,7 +51,7 @@ in
         disabled = false;
         format = "🕙[$time]($style) ";
         time_format = "%T";
-        utc_time_offset = "+10";
+        utc_time_offset = "local";
       };
 
       command_timeout = 5000;

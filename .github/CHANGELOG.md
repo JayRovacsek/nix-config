@@ -3,6 +3,8 @@
 
 ### ⛰️  Features
 
+- *(iac)* Add untitled talk to repositories - ([a2ed006](https://github.com/JayRovacsek/nix-config/commit/a2ed00665e4b91315274395aee8edcf970b84e28))
+
 - *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
 
 - *(modules)* Re-add jellyfin intro skipper overlay - ([7dfcc4e](https://github.com/JayRovacsek/nix-config/commit/7dfcc4e47ab18a857cad59d456e5774768ee94a0))
