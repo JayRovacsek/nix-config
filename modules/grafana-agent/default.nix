@@ -151,74 +151,80 @@ in
     [ "systemd-journal" ] ++ (lib.optional clamav-enabled "clamav")
   );
 
-  services.grafana-agent = {
+  services.alloy = {
     enable = true;
 
-    settings = {
-      logs.configs = [
-        {
-          name = "logging";
-          clients = [
-            {
-              url = "${loki.protocol}://${loki.ipv4}:${builtins.toString loki.port}/${loki.push-api}";
-            }
-          ];
-          positions.filename = "\${STATE_DIRECTORY}/loki_positions.yaml";
-          scrape_configs = [
-            {
-              job_name = "journal";
-              journal = {
-                max_age = "12h";
-                labels = {
-                  host = config.networking.hostName;
-                  job = "systemd-journal";
-                };
-              };
-              relabel_configs =
-                lib.mapAttrsToList
-                  (source: target: {
-                    source_labels = lib.singleton source;
-                    target_label = target;
-                  })
-                  {
-                    "__journal__systemd_unit" = "systemd_unit";
-                    "__journal__systemd_user_unit" = "systemd_user_unit";
-                  };
-            }
-          ] ++ (lib.optional clamav-enabled clamav-promtail-config);
-        }
-      ];
+    extraFlags = [
+      "--config.format=static"
+    ];
 
-      metrics = {
-        global = {
-          evaluation_interval = "15s";
-          remote_write = [
-            {
-              url = "${prometheus.protocol}://${prometheus.ipv4}:${builtins.toString prometheus.port}/${prometheus.write-api}";
-            }
-          ];
-          scrape_interval = "15s";
-          scrape_timeout = "5s";
-        };
-
-        configs = [
+    configPath = builtins.toFile "settings.json" (
+      builtins.toJSON {
+        logs.configs = [
           {
-            name = "prometheus_scrape_configs";
-            scrape_configs =
-              (lib.optional blocky-enabled blocky-prom-config)
-              ++ (lib.optionals hydra-enabled [
-                hydra-prom-config
-                hydra-notify-prom-config
-              ])
-              ++ (lib.optional mysql-enabled mysql-prom-config)
-              ++ (lib.optional nextcloud-enabled nextcloud-prom-config)
-              ++ (lib.optional nginx-enabled nginx-prom-config)
-              ++ (lib.optional node-enabled node-prom-config)
-              ++ (lib.optional redis-enabled redis-prom-config)
-              ++ (lib.optional telegraf-enabled zfs-telegraf-config);
+            name = "logging";
+            clients = [
+              {
+                url = "${loki.protocol}://${loki.ipv4}:${builtins.toString loki.port}/${loki.push-api}";
+              }
+            ];
+            positions.filename = "\${STATE_DIRECTORY}/loki_positions.yaml";
+            scrape_configs = [
+              {
+                job_name = "journal";
+                journal = {
+                  max_age = "12h";
+                  labels = {
+                    host = config.networking.hostName;
+                    job = "systemd-journal";
+                  };
+                };
+                relabel_configs =
+                  lib.mapAttrsToList
+                    (source: target: {
+                      source_labels = lib.singleton source;
+                      target_label = target;
+                    })
+                    {
+                      "__journal__systemd_unit" = "systemd_unit";
+                      "__journal__systemd_user_unit" = "systemd_user_unit";
+                    };
+              }
+            ] ++ (lib.optional clamav-enabled clamav-promtail-config);
           }
         ];
-      };
-    };
+
+        metrics = {
+          global = {
+            evaluation_interval = "15s";
+            remote_write = [
+              {
+                url = "${prometheus.protocol}://${prometheus.ipv4}:${builtins.toString prometheus.port}/${prometheus.write-api}";
+              }
+            ];
+            scrape_interval = "15s";
+            scrape_timeout = "5s";
+          };
+
+          configs = [
+            {
+              name = "prometheus_scrape_configs";
+              scrape_configs =
+                (lib.optional blocky-enabled blocky-prom-config)
+                ++ (lib.optionals hydra-enabled [
+                  hydra-prom-config
+                  hydra-notify-prom-config
+                ])
+                ++ (lib.optional mysql-enabled mysql-prom-config)
+                ++ (lib.optional nextcloud-enabled nextcloud-prom-config)
+                ++ (lib.optional nginx-enabled nginx-prom-config)
+                ++ (lib.optional node-enabled node-prom-config)
+                ++ (lib.optional redis-enabled redis-prom-config)
+                ++ (lib.optional telegraf-enabled zfs-telegraf-config);
+            }
+          ];
+        };
+      }
+    );
   };
 }
