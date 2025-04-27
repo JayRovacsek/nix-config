@@ -39,9 +39,9 @@ in
   imports = with self.nixosModules; [
     ./disk-config.nix
     agenix
+    alloy
     generations
     gnupg
-    grafana-agent
     greetd
     hyprland
     i18n

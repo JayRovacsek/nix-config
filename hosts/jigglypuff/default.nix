@@ -48,11 +48,11 @@ in
 
   imports = with self.nixosModules; [
     ./disk-config.nix
+    alloy
     blocky
     fonts
     generations
     gnupg
-    grafana-agent
     impermanence
     journald
     logging

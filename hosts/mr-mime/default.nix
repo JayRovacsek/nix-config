@@ -6,12 +6,12 @@
 
   imports = with self.nixosModules; [
     agenix
+    alloy
     grafana
-    grafana-agent
     loki
     microvm-guest
-    prometheus
     nix-topology
+    prometheus
     time
     timesyncd
   ];

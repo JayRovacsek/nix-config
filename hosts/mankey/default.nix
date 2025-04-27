@@ -5,10 +5,10 @@
 
   imports = with self.nixosModules; [
     agenix
+    alloy
     deluge
-    grafana-agent
-    nix-topology
     microvm-guest
+    nix-topology
     time
     timesyncd
   ];

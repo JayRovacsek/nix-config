@@ -24,11 +24,11 @@ in
 
   imports = with self.nixosModules; [
     agenix
+    alloy
     clamav
-    grafana-agent
-    nix-topology
     fonts
     generations
+    nix-topology
     gnupg
     greetd
     grub

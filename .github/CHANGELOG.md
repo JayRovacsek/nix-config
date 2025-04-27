@@ -11,6 +11,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(home-manager-modules)* Move to new alloy service option - ([ddac982](https://github.com/JayRovacsek/nix-config/commit/ddac98288c372a3a506a6ad728148dc1ca32d289))
+
 - *(home-manager-modules)* Don't set timezones explicitly - ([c5b294e](https://github.com/JayRovacsek/nix-config/commit/c5b294e96f41fd78f9e1f0942089e2cfcd742792))
 
 - *(modules,options)* Handle for new sonarr settings option for http port - ([7668c3f](https://github.com/JayRovacsek/nix-config/commit/7668c3feec5c9549d853f70f19de173c34c3d0b8))

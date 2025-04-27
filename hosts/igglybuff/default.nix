@@ -7,8 +7,8 @@
 {
   imports = with self.nixosModules; [
     agenix
+    alloy
     blocky
-    grafana-agent
     logging
     microvm-guest
     nix-topology
@@ -40,7 +40,7 @@
   # This is extremely important as this host does not utilise the
   # systemd networkd module, therefore not inheriting the
   # disabled resolved service.
-  # 
+  #
   # Blocky doesn't like that punk resolvd taking 53 off them
   services.resolved.enable = false;
 

@@ -62,13 +62,13 @@ in
     ./disk-config.nix
     ./microvms.nix
     agenix
+    alloy
     blocky
     clamav
     firefox-syncserver
     fonts
     generations
     gnupg
-    grafana-agent
     harmonia
     hydra
     i18n

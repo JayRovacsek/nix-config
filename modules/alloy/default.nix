@@ -147,7 +147,7 @@ let
   };
 in
 {
-  systemd.services.grafana-agent.serviceConfig.SupplementaryGroups = lib.mkForce (
+  systemd.services.alloy.serviceConfig.SupplementaryGroups = lib.mkForce (
     [ "systemd-journal" ] ++ (lib.optional clamav-enabled "clamav")
   );
 
@@ -196,7 +196,6 @@ in
 
         metrics = {
           global = {
-            evaluation_interval = "15s";
             remote_write = [
               {
                 url = "${prometheus.protocol}://${prometheus.ipv4}:${builtins.toString prometheus.port}/${prometheus.write-api}";

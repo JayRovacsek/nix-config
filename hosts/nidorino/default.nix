@@ -3,11 +3,11 @@
   imports = with self.nixosModules; [
     ./authelia.nix
     agenix
+    alloy
     authelia
-    grafana-agent
     microvm-guest
-    nix-topology
     nginx
+    nix-topology
     time
     timesyncd
   ];

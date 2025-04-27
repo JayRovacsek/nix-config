@@ -2,7 +2,7 @@
 {
   imports = with self.nixosModules; [
     agenix
-    grafana-agent
+    alloy
     home-assistant
     microvm-guest
     nix-topology

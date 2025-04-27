@@ -2,8 +2,8 @@
 {
   imports = with self.nixosModules; [
     agenix
+    alloy
     bazarr
-    grafana-agent
     microvm-guest
     nix-topology
     time

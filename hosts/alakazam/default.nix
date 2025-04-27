@@ -35,13 +35,13 @@ in
   imports = with self.nixosModules; [
     ./disk-config.nix
     agenix
+    alloy
     bluetooth
     clamav
     fonts
     generations
     gnome-keyring
     gnupg
-    grafana-agent
     greetd
     home-manager
     hyprland

@@ -2,7 +2,7 @@
 {
   imports = with self.nixosModules; [
     agenix
-    grafana-agent
+    alloy
     microvm-guest
     nix-topology
     sonarr

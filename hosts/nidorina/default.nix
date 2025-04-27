@@ -4,8 +4,8 @@
     (with self.nixosModules; [
       acme
       agenix
+      alloy
       ddclient
-      grafana-agent
       microvm-guest
       nginx
       nix-topology

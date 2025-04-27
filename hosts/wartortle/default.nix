@@ -24,9 +24,9 @@ in
   imports = with self.nixosModules; [
     ./disk-config.nix
     agenix
+    alloy
     blocky
     generations
-    grafana-agent
     home-manager
     impermanence
     logging

@@ -69,9 +69,8 @@ in
   imports =
     (with self.nixosModules; [
       agenix
+      alloy
       clamav
-      grafana-agent
-      nix-topology
       fonts
       generations
       gnupg
@@ -79,6 +78,7 @@ in
       hyprland
       lorri
       nix
+      nix-topology
       openssh
       steam
       systemd-networkd

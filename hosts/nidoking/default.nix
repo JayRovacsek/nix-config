@@ -18,7 +18,7 @@ in
     with self.nixosModules;
     [
       agenix
-      grafana-agent
+      alloy
       microvm-guest
       nextcloud
       nginx
