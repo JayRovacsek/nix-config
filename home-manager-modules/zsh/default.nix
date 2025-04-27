@@ -7,7 +7,6 @@
 }:
 let
   inherit (self.lib) merge;
-  inherit (pkgs) fetchFromGitHub;
 
   bat = lib.optionalAttrs config.programs.bat.enable {
     less = "${pkgs.bat}/bin/bat --color always";
@@ -31,14 +30,24 @@ in
 
     plugins = [
       {
-        name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
-        src = fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.8.0";
-          sha256 = "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=";
-        };
+        name = "zsh-autocomplete";
+        src = "${pkgs.zsh-completions}/share/zsh-autocomplete";
+      }
+      {
+        file = "nix-shell.plugin.zsh";
+        name = "zsh-nix-shell";
+        src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+      }
+      {
+        file = "nix-zsh-completions.plugin.zsh";
+        name = "nix-zsh-completions";
+        src = "${pkgs.nix-zsh-completions}/share/zsh/plugins/nix";
+      }
+      {
+        file = "you-should-use.plugin.zsh";
+        name = "zsh-you-should-use";
+        src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
       }
     ];
 
