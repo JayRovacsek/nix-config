@@ -68,7 +68,6 @@ in
           files_automatedtagging
           files_mindmap
           previewgenerator
-          recognize
           registration
           twofactor_webauthn
           ;
