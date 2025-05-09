@@ -9,6 +9,8 @@
 
 - *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
 
+- *(lib)* Add capability to override values within repository settings - ([167cc6d](https://github.com/JayRovacsek/nix-config/commit/167cc6db0fc85a5ee49240e11558e190df209518))
+
 - *(linux)* Disable porygon for now - ([4422355](https://github.com/JayRovacsek/nix-config/commit/442235552ae08e26130cb0bb9c317ac076099f65))
 
 - *(modules)* Re-add jellyfin intro skipper overlay - ([7dfcc4e](https://github.com/JayRovacsek/nix-config/commit/7dfcc4e47ab18a857cad59d456e5774768ee94a0))

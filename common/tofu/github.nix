@@ -571,6 +571,9 @@ in
       name = "opinionated-development";
     }
     {
+      name = "oscalnix";
+    }
+    {
       archived = true;
       description = "Captive Portal for Pfsense";
       name = "pf-captive-portal";
@@ -712,6 +715,17 @@ in
       name = "vulnix";
     }
     {
+      overrides.name = "slashnew-presentation-may-2025";
+      name = "untitled-talk";
+      pages = {
+        build_type = "workflow";
+        source = {
+          branch = "main";
+          path = "/";
+        };
+      };
+    }
+    {
       description = "A simple wrapper for vulnix to check the state of a flake derivation for new or introduced vulnerabilities";
       name = "vulnix-pre-commit";
     }
@@ -802,7 +816,6 @@ in
       description = "Projects for University";
       archived = true;
     }
-    { name = "untitled-talk"; }
     {
       name = "watchrs";
       archived = true;
