@@ -39,9 +39,9 @@ let
     in
     {
       "${resource-name}" = {
-        repository = repository.name;
-        branch = "main";
-        rename = true;
+        repository = repository.overrides.name or repository.name;
+        branch = repository.overrides.branch or "main";
+        rename = repository.overrides.rename or true;
       };
     };
 

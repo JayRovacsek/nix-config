@@ -5,6 +5,8 @@
 
 - *(home-manager-modules)* Augment zsh plugins - ([f0ffa58](https://github.com/JayRovacsek/nix-config/commit/f0ffa58a9835874aa1faeffba69785b7b21ae6cc))
 
+- *(iac)* Add oscalnix and move talk to public - ([d743805](https://github.com/JayRovacsek/nix-config/commit/d743805e6dfcab9cf60bf15b1a2a8f31f3f0bd12))
+
 - *(iac)* Add untitled talk to repositories - ([a2ed006](https://github.com/JayRovacsek/nix-config/commit/a2ed00665e4b91315274395aee8edcf970b84e28))
 
 - *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
