@@ -1,5 +1,6 @@
 { self, ... }:
 let
+  inherit (self.inputs.nixpkgs) lib;
   inherit (self.common.tofu.globals) github;
   inherit (github)
     default-repository-settings
@@ -18,7 +19,12 @@ let
       resource-name = sanitise-resource-name repository.name;
     in
     {
-      "${resource-name}" = default-repository-settings // overrides // repository;
+      "${resource-name}" =
+        default-repository-settings
+        // overrides
+        // (removeAttrs (lib.recursiveUpdate repository (repository.overrides or { })) [
+          "overrides"
+        ]);
     };
   generate-public-repository =
     repository: generate-repository repository public-repository-settings;
