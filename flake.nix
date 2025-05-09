@@ -90,6 +90,8 @@
     ironbar = {
       inputs = {
         crane.follows = "crane";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
