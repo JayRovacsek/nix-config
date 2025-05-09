@@ -23,6 +23,8 @@
 
 - *(home-manager-modules)* Don't set timezones explicitly - ([c5b294e](https://github.com/JayRovacsek/nix-config/commit/c5b294e96f41fd78f9e1f0942089e2cfcd742792))
 
+- *(lib)* Ensure github  default branches also use overrides where possible - ([59513b8](https://github.com/JayRovacsek/nix-config/commit/59513b8326766ae877b4a28948332cadfdbbb673))
+
 - *(modules)* Remove recognize from nextcloud apps temporarily as it is broken - ([abfb2e9](https://github.com/JayRovacsek/nix-config/commit/abfb2e9edbd6fa4494b6808bc15ded0fa842c4c7))
 
 - *(modules,options)* Handle for new sonarr settings option for http port - ([7668c3f](https://github.com/JayRovacsek/nix-config/commit/7668c3feec5c9549d853f70f19de173c34c3d0b8))
