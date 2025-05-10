@@ -21,6 +21,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(home-manager-modules)* Resolve removed lsd option - ([0a6c076](https://github.com/JayRovacsek/nix-config/commit/0a6c076e2f89fc7fa07a75c749be2a645fbaab32))
+
 - *(home-manager-modules)* Move to new alloy service option - ([ddac982](https://github.com/JayRovacsek/nix-config/commit/ddac98288c372a3a506a6ad728148dc1ca32d289))
 
 - *(home-manager-modules)* Don't set timezones explicitly - ([c5b294e](https://github.com/JayRovacsek/nix-config/commit/c5b294e96f41fd78f9e1f0942089e2cfcd742792))
