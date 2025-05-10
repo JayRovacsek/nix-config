@@ -35,6 +35,8 @@
 
 - *(modules,packages)* Remove eww-wayland - ([f5159f5](https://github.com/JayRovacsek/nix-config/commit/f5159f5fcad7b5d05d684014b411cc47636c8829))
 
+- *(packages)* Remove action-validator as it is packaged upstream nowadays - ([d4d7b2b](https://github.com/JayRovacsek/nix-config/commit/d4d7b2b12b134b9719cc87fee217836aac23479a))
+
 ### 🚜 Refactor
 
 - *(modules)* Update steam to include proton-ge and handle wayland better - ([8b1efdb](https://github.com/JayRovacsek/nix-config/commit/8b1efdb4b066f5367f5a754b714b13ee45de462d))
