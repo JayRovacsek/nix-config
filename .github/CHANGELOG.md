@@ -5,6 +5,8 @@
 
 - *(home-manager-modules)* Augment zsh plugins - ([f0ffa58](https://github.com/JayRovacsek/nix-config/commit/f0ffa58a9835874aa1faeffba69785b7b21ae6cc))
 
+- *(hydra,linux,modules)* Update lix inputs and move to lix hydra - ([f866e9c](https://github.com/JayRovacsek/nix-config/commit/f866e9c2c0f3c1f87fe64a5a6bf337b83b970d9f))
+
 - *(iac)* Add oscalnix and move talk to public - ([d743805](https://github.com/JayRovacsek/nix-config/commit/d743805e6dfcab9cf60bf15b1a2a8f31f3f0bd12))
 
 - *(iac)* Add untitled talk to repositories - ([a2ed006](https://github.com/JayRovacsek/nix-config/commit/a2ed00665e4b91315274395aee8edcf970b84e28))

@@ -1,7 +1,19 @@
-_: {
+{ config, ... }:
+let
+  enableBashIntegration = config.programs.bash.enable;
+  enableFishIntegration = config.programs.fish.enable;
+  enableZshIntegration = config.programs.zsh.enable;
+in
+{
   programs.lsd = {
     enable = true;
-    enableAliases = true;
+
+    inherit
+      enableBashIntegration
+      enableFishIntegration
+      enableZshIntegration
+      ;
+
     settings = {
       classic = false;
       blocks = [
