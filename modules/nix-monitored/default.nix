@@ -1,4 +1,14 @@
-{ pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ nix-monitored ];
+  lib,
+  pkgs,
+  self,
+  ...
+}:
+{
+  imports = [ self.inputs.nix-monitored.nixosModules.default ];
+
+  nix = {
+    monitored.enable = true;
+    package = lib.mkForce pkgs.nix-monitored;
+  };
 }

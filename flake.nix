@@ -113,7 +113,16 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.91.1";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.0";
+    };
+
+    lix-hydra = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        lix.follows = "lix";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "git+https://git.lix.systems/lix-project/hydra";
     };
 
     lix-module = {
@@ -122,7 +131,7 @@
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=refs/tags/2.91.1-1";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
     };
 
     microvm = {
@@ -537,7 +546,6 @@
               conform
               deadnix
               git-cliff
-              lix
               nixfmt-rfc-style
               nodePackages.prettier
               statix

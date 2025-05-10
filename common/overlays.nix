@@ -29,7 +29,5 @@ in
     agenix.overlays.default
     nur.overlays.default
     self.overlays.lib
-    self.overlays.nixd
-    self.overlays.nix-monitored
   ];
 }

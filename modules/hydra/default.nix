@@ -64,7 +64,12 @@ let
   ];
 in
 {
-  imports = [ self.inputs.hydra-badge-api.nixosModules.default ];
+  nixpkgs.overlays = [ self.inputs.lix-hydra.overlays.default ];
+
+  imports = [
+    self.nixosModules.lix
+    self.inputs.hydra-badge-api.nixosModules.default
+  ];
 
   # If Hydra is present, we assume a builder user is also present generally
   # to enable remote builds. However we need to force ownership of the key

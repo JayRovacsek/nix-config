@@ -1,4 +1,6 @@
-{ self, ... }:
+{ pkgs, self, ... }:
 {
-  imports = [ self.inputs.lix-module.nixosModules.lixFromNixpkgs ];
+  imports = [ self.inputs.lix-module.nixosModules.default ];
+
+  nix.package = pkgs.lix;
 }
