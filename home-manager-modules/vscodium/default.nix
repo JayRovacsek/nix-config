@@ -4,7 +4,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-y2BrpAll2f1tRbWtXCPuW64buFqGaV2o3vjltFcI3RQ=";
+    hash = "sha256-ZLaNrbR8ozzgJ181CXByic89pp+zxMWKMyU5/qxbfzA=";
   };
 in
 {
