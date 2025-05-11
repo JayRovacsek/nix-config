@@ -172,16 +172,6 @@
     });
   };
 
-  nixd = _: prev: {
-    nixd = prev.nixd.override { nix = prev.nixVersions.stable; };
-    nixt = prev.nixt.override { nix = prev.nixVersions.stable; };
-  };
-
-  nix-monitored = _: prev: {
-    nix-monitored =
-      self.inputs.nix-monitored.packages.${prev.stdenv.system}.default;
-  };
-
   # See also: https://github.com/BKSalman/nix_config/commit/8d94944af411bfff74edafce18ea1d0ca4789bb9
   ranger = _: prev: {
     ranger = prev.ranger.overrideAttrs (old: {

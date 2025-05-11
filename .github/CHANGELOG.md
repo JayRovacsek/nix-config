@@ -21,6 +21,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(common)* Move alacritty to preferred terminal program by default - ([6e7b1f5](https://github.com/JayRovacsek/nix-config/commit/6e7b1f5545091fd9ceba0fad56e811563aed8793))
+
 - *(common)* Correct the reading of package directories to conform to x/y/default.nix structure - ([fd01000](https://github.com/JayRovacsek/nix-config/commit/fd01000f3c7e475ca44fe528a27c8a4e2e09f9bb))
 
 - *(home-manager-modules)* Resolve code options - ([d36b3b6](https://github.com/JayRovacsek/nix-config/commit/d36b3b63dcda4c9d611b6dfb1006352d93140bf4))
