@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   nix-options = pkgs.fetchFromGitHub {
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-D/qp1+JFZhEA7vZshKsN/nRtlpQ/+IvlOL5a8cqGFsI=";
+    hash = "sha256-WJXBKCYJkD7B6wwUY+CHriexVX/+Bsw5AHg83QVBQLY=";
   };
 in
 {
@@ -17,45 +17,53 @@ in
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
 
-      extensions = with pkgs.vscode-extensions; [
-        # Nix
-        jnoortheen.nix-ide
-        mkhl.direnv
+      extensions =
+        with pkgs.vscode-extensions;
+        [
+          # Nix
+          jnoortheen.nix-ide
+          mkhl.direnv
 
-        # JS/TS
-        dbaeumer.vscode-eslint
+          # JS/TS
+          dbaeumer.vscode-eslint
 
-        # XML
-        redhat.vscode-xml
+          # XML
+          redhat.vscode-xml
 
-        # YAML
-        redhat.vscode-yaml
+          # YAML
+          redhat.vscode-yaml
 
-        # TOML
-        tamasfe.even-better-toml
+          # TOML
+          tamasfe.even-better-toml
 
-        # Terraform
-        hashicorp.terraform
+          # Terraform
+          hashicorp.terraform
 
-        # Spellcheck
-        streetsidesoftware.code-spell-checker
+          # Spellcheck
+          streetsidesoftware.code-spell-checker
 
-        # Shell
-        timonwong.shellcheck
+          # Shell
+          timonwong.shellcheck
 
-        # Docker
-        ms-azuretools.vscode-docker
+          # Docker
+          ms-azuretools.vscode-docker
 
-        # Theme
-        zhuangtongfa.material-theme
+          # Theme
+          zhuangtongfa.material-theme
 
-        # Icons
-        pkief.material-icon-theme
+          # Icons
+          pkief.material-icon-theme
 
-        # Markdown
-        bierner.markdown-mermaid
-        bierner.markdown-preview-github-styles
-      ];
+          # Markdown
+          bierner.markdown-mermaid
+          bierner.markdown-preview-github-styles
+        ]
+        ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
+          # Python
+          # Turns out that the below are not supported on aarch64 linux
+          ms-python.python
+          ms-python.debugpy
+        ];
 
       keybindings = [
         {
@@ -107,10 +115,8 @@ in
         "debug.javascript.autoAttachFilter" = "smart";
         "diffEditor.maxComputationTime" = 0;
         "diffEditor.wordWrap" = "off";
-
         "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
         "direnv.restart.automatic" = true;
-
         "editor.bracketPairColorization.enabled" = true;
         "editor.fontFamily" = "Hack Nerd Font Mono";
         "editor.fontLigatures" = false;
@@ -127,10 +133,7 @@ in
         "git.autofetch" = false;
         "git.confirmSync" = false;
         "git.enableSmartCommit" = true;
-        "go.toolsManagement.autoUpdate" = true;
         "javascript.updateImportsOnFileMove.enabled" = "always";
-        "latex-workshop.view.pdf.viewer" = "tab";
-
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
         "nix.enableLanguageServer" = true;
         "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";

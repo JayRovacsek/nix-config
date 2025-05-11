@@ -11,7 +11,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-D/qp1+JFZhEA7vZshKsN/nRtlpQ/+IvlOL5a8cqGFsI=";
+    hash = "sha256-WJXBKCYJkD7B6wwUY+CHriexVX/+Bsw5AHg83QVBQLY=";
   };
 in
 {
@@ -146,10 +146,7 @@ in
       "git.autofetch" = false;
       "git.confirmSync" = false;
       "git.enableSmartCommit" = true;
-      "go.toolsManagement.autoUpdate" = true;
       "javascript.updateImportsOnFileMove.enabled" = "always";
-      "latex-workshop.view.pdf.viewer" = "tab";
-
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
       "nix.enableLanguageServer" = true;

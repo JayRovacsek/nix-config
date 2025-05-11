@@ -21,6 +21,8 @@
 
 ### 🐛 Bug Fixes
 
+- *(common)* Correct the reading of package directories to conform to x/y/default.nix structure - ([fd01000](https://github.com/JayRovacsek/nix-config/commit/fd01000f3c7e475ca44fe528a27c8a4e2e09f9bb))
+
 - *(home-manager-modules)* Resolve removed lsd option - ([0a6c076](https://github.com/JayRovacsek/nix-config/commit/0a6c076e2f89fc7fa07a75c749be2a645fbaab32))
 
 - *(home-manager-modules)* Move to new alloy service option - ([ddac982](https://github.com/JayRovacsek/nix-config/commit/ddac98288c372a3a506a6ad728148dc1ca32d289))
