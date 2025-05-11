@@ -50,6 +50,8 @@
 - *(modules)* Update steam to include proton-ge and handle wayland better - ([8b1efdb](https://github.com/JayRovacsek/nix-config/commit/8b1efdb4b066f5367f5a754b714b13ee45de462d))
 
 - *(modules)* Migrate grafana agent to alloy - ([8d646a6](https://github.com/JayRovacsek/nix-config/commit/8d646a648d095c136d604d4f3508695e1ca500ee))
+
+- *(overlays)* Remove redundant nixd and nix-monitored overlays - ([873dec7](https://github.com/JayRovacsek/nix-config/commit/873dec7e3fb35e1c15395393ad2cbe3f2398c09b))
 ## [0.1.0](https://github.com/JayRovacsek/nix-config/compare/v0.0.9..v0.1.0) - 2025-03-22
 
 ### ⛰️  Features

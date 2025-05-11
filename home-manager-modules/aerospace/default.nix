@@ -1,10 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ../../options/home-manager-modules/aerospace ];
   programs.aerospace = {
     enable = true;
 
-    settings = {
+    userSettings = {
       start-at-login = true;
 
       # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
@@ -62,10 +61,12 @@
           "alt-slash" = "layout tiles horizontal vertical";
 
           # Focus active window in direction
-          "alt-left" = "focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors";
+          "alt-left" =
+            "focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors";
           "alt-down" = "focus down";
           "alt-up" = "focus up";
-          "alt-right" = "focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors";
+          "alt-right" =
+            "focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors";
 
           # move a window in direction
           # "alt-shift-left" = "move left";
