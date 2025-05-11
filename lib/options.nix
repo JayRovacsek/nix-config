@@ -46,7 +46,7 @@ let
           home = {
             enableNixpkgsReleaseCheck = false;
             homeDirectory = "/";
-            stateVersion = "23.11";
+            stateVersion = "25.05";
             username = "stub";
           };
         }
@@ -68,7 +68,7 @@ let
           home = {
             enableNixpkgsReleaseCheck = false;
             homeDirectory = "/";
-            stateVersion = "23.11";
+            stateVersion = "25.05";
             username = "stub";
           };
         }

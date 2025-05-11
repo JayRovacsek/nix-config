@@ -51,6 +51,8 @@
 
 - *(modules)* Migrate grafana agent to alloy - ([8d646a6](https://github.com/JayRovacsek/nix-config/commit/8d646a648d095c136d604d4f3508695e1ca500ee))
 
+- *(options,home-manager-modules,packages)* Deprecate aerospace in favour of upstream implementation - ([8c3a8b4](https://github.com/JayRovacsek/nix-config/commit/8c3a8b4fdac517832d41ac2c3eaf3b29fd81d316))
+
 - *(overlays)* Remove redundant nixd and nix-monitored overlays - ([873dec7](https://github.com/JayRovacsek/nix-config/commit/873dec7e3fb35e1c15395393ad2cbe3f2398c09b))
 ## [0.1.0](https://github.com/JayRovacsek/nix-config/compare/v0.0.9..v0.1.0) - 2025-03-22
 
