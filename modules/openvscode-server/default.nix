@@ -155,8 +155,8 @@ in
         nixd = {
           formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
           "options" = {
-            darwin.expr = ''(builtins.getFlake "${nix-options}").options.options.darwin'';
-            home-manager.expr = ''(builtins.getFlake "${nix-options}").options.options.home-manager'';
+            darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
+            home-manager.expr = ''(builtins.getFlake "${nix-options}").options.home-manager'';
             nixos.expr = ''(builtins.getFlake "${nix-options}").options.nixos'';
           };
         };

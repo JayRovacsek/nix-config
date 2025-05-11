@@ -33,6 +33,8 @@
 
 - *(modules)* Remove recognize from nextcloud apps temporarily as it is broken - ([abfb2e9](https://github.com/JayRovacsek/nix-config/commit/abfb2e9edbd6fa4494b6808bc15ded0fa842c4c7))
 
+- *(modules,home-manager-modules)* Add py tools to code and update options - ([7c6f4fc](https://github.com/JayRovacsek/nix-config/commit/7c6f4fc8957a0110fcf38b40f911ba88749dd39f))
+
 - *(modules,options)* Handle for new sonarr settings option for http port - ([7668c3f](https://github.com/JayRovacsek/nix-config/commit/7668c3feec5c9549d853f70f19de173c34c3d0b8))
 
 - *(modules,packages)* Remove eww-wayland - ([f5159f5](https://github.com/JayRovacsek/nix-config/commit/f5159f5fcad7b5d05d684014b411cc47636c8829))
