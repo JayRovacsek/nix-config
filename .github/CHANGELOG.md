@@ -13,6 +13,8 @@
 
 - *(iac)* Sync github with nix definitions - ([004080e](https://github.com/JayRovacsek/nix-config/commit/004080eb5087360894440781906864059705901a))
 
+- *(iac,tooling)* Add flake lock update workflow - ([57533ed](https://github.com/JayRovacsek/nix-config/commit/57533ed60361f691e5f8089d1047d89f9a59a8a5))
+
 - *(lib)* Update state versions in exposed options lib - ([0276300](https://github.com/JayRovacsek/nix-config/commit/02763006b0921298c4221f83fecbc48f54f8c6ce))
 
 - *(lib)* Add capability to override values within repository settings - ([167cc6d](https://github.com/JayRovacsek/nix-config/commit/167cc6db0fc85a5ee49240e11558e190df209518))
