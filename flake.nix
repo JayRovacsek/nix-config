@@ -278,7 +278,6 @@
     stylix = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         git-hooks.follows = "git-hooks";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
@@ -509,14 +508,6 @@
                 };
 
                 # Custom hooks
-                git-cliff = {
-                  enable = true;
-                  name = "Git Cliff";
-                  entry = "${pkgs.git-cliff}/bin/git-cliff --output .github/CHANGELOG.md";
-                  language = "system";
-                  pass_filenames = false;
-                };
-
                 statix-write = {
                   enable = true;
                   name = "Statix Write";

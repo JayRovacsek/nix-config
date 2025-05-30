@@ -7,7 +7,7 @@ writeTextFile {
     .pre-commit-config.yaml
     .prettierignore
     *.nix
-    CHANGELOG.md
+    flake.lock
     result
   '';
 }
