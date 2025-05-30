@@ -37,7 +37,6 @@ in
 
     casks = [
       "brave-browser"
-      "eloston-chromium"
       "gimp"
       "jellyfin-media-player"
       "keepingyouawake"
