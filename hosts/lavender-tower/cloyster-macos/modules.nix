@@ -2,7 +2,6 @@
   imports = [
     ../../modules/docker-darwin
     ../../modules/darwin-settings
-    ../../modules/dockutil
     ../../modules/documentation
     ../../modules/fonts
     ../../modules/gnupg

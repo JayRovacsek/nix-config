@@ -46,7 +46,6 @@ in
     agenix
     darwin-settings
     docker-darwin
-    dockutil
     documentation
     fonts
     gnupg

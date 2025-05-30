@@ -5,6 +5,7 @@ in
 desktop
 ++ (with self.homeManagerModules; [
   alacritty
+  dock
   utm
 ])
 ++ [

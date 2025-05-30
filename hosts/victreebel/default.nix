@@ -25,6 +25,8 @@ in
 {
   inherit (user-configs) users home-manager;
 
+  system.primaryUser = "j.rovacsek";
+
   age = {
     identityPaths = [ "/private/var/agenix/id-ed25519-ssh-primary" ];
     secrets =
@@ -69,7 +71,6 @@ in
     agenix
     darwin-settings
     docker-darwin
-    dockutil
     documentation
     fonts
     gnupg
@@ -77,7 +78,6 @@ in
     lorri
     networking
     nix
-    nix-monitored
     remote-builds
     skhd
     ssh

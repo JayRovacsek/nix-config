@@ -12,7 +12,6 @@ builtins.mapAttrs (
     darwin = optionals isDarwin [
       ../options/modules/blocky-darwin
       ../options/modules/docker-darwin
-      ../options/modules/dockutil
       ../options/modules/networking-darwin
       ../options/modules/systemd-darwin
     ];
