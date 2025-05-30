@@ -3,7 +3,6 @@ let
   inherit (self.common.overlays) darwin linux system-agnostic;
   inherit (self.inputs)
     agenix
-    firefox-darwin
     nur
     ;
 in
@@ -11,7 +10,6 @@ in
   all = system-agnostic ++ darwin ++ linux;
 
   darwin = [
-    firefox-darwin.overlay
     self.overlays.dockutil-bin
     self.overlays.keepassxc
   ];

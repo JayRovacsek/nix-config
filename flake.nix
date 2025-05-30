@@ -29,12 +29,6 @@
       url = "github:nix-community/disko";
     };
 
-    # Simply required for sane management of Firefox on darwin
-    firefox-darwin = {
-      url = "github:bandithedoge/nixpkgs-firefox-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Adds flake compatibility to start removing the vestiges of
     # shell.nix and move us towards the more modern nix develop
     # setting while tricking some services/plugins to still be able to

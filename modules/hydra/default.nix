@@ -23,7 +23,6 @@ let
     "git+https://git.lix.systems"
     "github:aarowill/base16-alacritty"
     "github:astro/microvm.nix"
-    "github:bandithedoge/nixpkgs-firefox-darwin"
     "github:cachix/git-hooks.nix"
     "github:chriskempson/base16-vim"
     "github:danth/stylix"

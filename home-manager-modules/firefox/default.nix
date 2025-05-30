@@ -34,8 +34,6 @@ let
   localhost = "http://127.0.0.1/";
 in
 {
-  nixpkgs.overlays = [ self.inputs.firefox-darwin.overlay ];
-
   stylix = lib.mkIf (builtins.hasAttr "stylix" config) {
     targets.firefox.profileNames = [ "jay" ];
   };
