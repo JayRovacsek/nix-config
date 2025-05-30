@@ -84,11 +84,11 @@
       if prev.stdenv.isDarwin then
         prev.stdenvNoCC.mkDerivation (finalAttrs: {
           pname = "keepassxc";
-          version = "2.7.8";
+          version = "2.7.10";
 
           src = prev.fetchurl {
             url = "https://github.com/keepassxreboot/${finalAttrs.pname}/releases/download/${finalAttrs.version}/KeePassXC-${finalAttrs.version}-arm64.dmg";
-            hash = "sha256-RZlan+DgkKnURwlVl2hi70lFXqFme4xaygRuICpkv3k=";
+            hash = "sha256-Sm6Aw2X02CinM58IYMNtlu4+P4tiOGksWh++684l+54=";
           };
 
           sourceRoot = ".";
@@ -103,8 +103,6 @@
           '';
 
           meta = with prev.lib; {
-            description = "Smooths scrolling and set mouse scroll directions independently";
-            homepage = "http://mos.caldis.me/";
             sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
             platforms = platforms.darwin;
           };
