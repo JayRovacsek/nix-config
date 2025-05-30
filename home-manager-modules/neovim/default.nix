@@ -85,7 +85,7 @@
             html.enable = true;
             jsonls.enable = true;
             nixd.enable = true;
-            pylsp.enable = true;
+            pylsp.enable = pkgs.stdenv.isLinux;
             terraformls.enable = true;
             tinymist.enable = true;
             ts_ls.enable = true;
