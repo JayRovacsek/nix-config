@@ -27,9 +27,6 @@ in
           # JS/TS
           dbaeumer.vscode-eslint
 
-          # XML
-          redhat.vscode-xml
-
           # YAML
           redhat.vscode-yaml
 
@@ -63,6 +60,9 @@ in
           # Turns out that the below are not supported on aarch64 linux
           ms-python.python
           ms-python.debugpy
+
+          # XML
+          redhat.vscode-xml
         ];
 
       keybindings = [
