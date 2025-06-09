@@ -17,8 +17,6 @@
       url = "github:ryantm/agenix";
     };
 
-    crane.url = "github:ipetkov/crane";
-
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -83,12 +81,9 @@
 
     ironbar = {
       inputs = {
-        crane.follows = "crane";
         flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
       };
       url = "github:JakeStanger/ironbar";
     };
@@ -251,11 +246,6 @@
     # Duplicate nixpkgs input is expected here: we want to align with upstream
     # to avoid cache misses leading to kernel compiles
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
-
-    rust-overlay = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:oxalica/rust-overlay";
-    };
 
     sbomnix = {
       inputs = {
