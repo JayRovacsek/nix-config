@@ -5,7 +5,7 @@
     # Stable / Unstable split in packages
     bleeding-edge.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    stable.url = "github:nixos/nixpkgs/release-24.11";
+    stable.url = "github:nixos/nixpkgs/release-25.05";
 
     # Secrets Management <3
     agenix = {
