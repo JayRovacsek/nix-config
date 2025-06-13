@@ -61,8 +61,6 @@ in
     steam
     systemd-boot
     systemd-networkd
-    # May also be broken
-    # tailscale
     time
     timesyncd
     tmp-tmpfs
