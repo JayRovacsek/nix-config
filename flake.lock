@@ -635,15 +635,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1748534951,
-        "narHash": "sha256-k2FiQHMJDPKJ6e5Zn4c20yvjhPLYBn4EHMYsmjywLsw=",
-        "ref": "refs/heads/main",
-        "rev": "8bbce50523009b2684499c52c65d7f7086c3cb44",
-        "revCount": 4261,
+        "lastModified": 1745663458,
+        "narHash": "sha256-Ya8oBjYYQCnmbH7Qciaeo9LfmkJxg9Z7PuX3+zJUAOI=",
+        "rev": "95bb3ba23f69d474c88ec0ec9c35fd53fffeb3f1",
+        "revCount": 4256,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/hydra"
       },
       "original": {
+        "rev": "95bb3ba23f69d474c88ec0ec9c35fd53fffeb3f1",
         "type": "git",
         "url": "https://git.lix.systems/lix-project/hydra"
       }

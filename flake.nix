@@ -111,7 +111,7 @@
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "git+https://git.lix.systems/lix-project/hydra";
+      url = "git+https://git.lix.systems/lix-project/hydra?rev=95bb3ba23f69d474c88ec0ec9c35fd53fffeb3f1";
     };
 
     lix-module = {
