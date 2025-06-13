@@ -11,7 +11,6 @@ let
     "nidoking"
     "nidorina"
     "nidorino"
-    "oddish"
     "poliwag"
     "slowpoke"
     "tentacruel"
