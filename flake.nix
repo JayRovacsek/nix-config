@@ -450,6 +450,7 @@
                       "ags"
                       "analyzer"
                       "Analyzers"
+                      "authorization"
                       "authorized"
                       "ba"
                       "browseable"

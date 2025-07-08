@@ -107,13 +107,15 @@ in
       instance = config.services.hydra.hydraURL;
       port = badge-port;
     };
-    # READ INTO: https://hydra.nixos.org/build/196107287/download/1/hydra/plugins/index.html?highlight=github#github-status
+    # READ INTO: https://hydra.nixos.org/build/301194429/download/1/hydra/plugins/index.html?highlight=github#github-status
     extraConfig = ''
       compress_build_logs = 1
+      <github_authorization>
+        Include ${config.age.secrets.hydra-github-token.path}
+      </github_authorization>
       <githubstatus>
         jobs = .*
         useShortContext = true
-        Include ${config.age.secrets.hydra-github-token.path}
       </githubstatus>
     '';
     hydraURL = "https://hydra.rovacsek.com";

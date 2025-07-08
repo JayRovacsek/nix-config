@@ -61,13 +61,6 @@
     });
   };
 
-  hydra = _: prev: {
-    hydra_unstable = prev.hydra_unstable.overrideAttrs (old: {
-      doCheck = false;
-      patches = (old.patches or [ ]) ++ [ ./patches/hydra.patch ];
-    });
-  };
-
   jellyfin-wayland = _: prev: {
     jellyfin-media-player-wayland = prev.jellyfin-media-player.overrideAttrs (_: {
       autoPatchelfIgnoreMissingDeps = [ "libcuda.so.1" ];
