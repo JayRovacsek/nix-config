@@ -10,6 +10,7 @@ in
 buildPythonPackage rec {
   pname = "Flor";
   version = "1.1.3";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;

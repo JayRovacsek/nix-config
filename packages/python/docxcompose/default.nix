@@ -10,6 +10,7 @@ in
 buildPythonPackage rec {
   pname = "docxcompose";
   version = "1.4.0";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
