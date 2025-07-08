@@ -160,7 +160,7 @@ in
 
     configPath = builtins.toFile "settings.json" (
       builtins.toJSON {
-        integrations.node_exporter.enable = true;
+        integrations.node_exporter.enabled = true;
 
         logs.configs = [
           {
