@@ -10,21 +10,25 @@ let
   inherit (pkgs) system;
   inherit (python3Packages)
     buildPythonPackage
-    six
-    python-docx
     jinja2
     lxml
+    python-docx
+    setuptools
+    six
     ;
   inherit (self.packages.${system}) docxcompose;
 in
 buildPythonPackage rec {
   pname = "docxtpl";
   version = "0.19.1";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-WDaqtVg6guLoGwhvrhMM6U3AgPa3/g5D+D9OPj5drs8=";
   };
+
+  build-system = [ setuptools ];
 
   dependencies = [
     six
