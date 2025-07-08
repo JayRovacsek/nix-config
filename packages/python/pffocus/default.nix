@@ -25,6 +25,7 @@ let
 in
 buildPythonPackage {
   inherit pname version meta;
+  pyproject = true;
 
   build-system = [ pip ];
 

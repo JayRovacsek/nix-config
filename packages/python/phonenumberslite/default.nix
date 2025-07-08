@@ -20,6 +20,7 @@ let
 in
 buildPythonPackage {
   inherit pname version meta;
+  pyproject = true;
 
   doCheck = false;
 

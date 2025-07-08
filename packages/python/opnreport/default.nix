@@ -15,16 +15,24 @@ let
     license = licenses.lgpl3Plus;
   };
 
-  inherit (python3Packages) buildPythonPackage defusedxml pyyaml;
+  inherit (python3Packages)
+    buildPythonPackage
+    defusedxml
+    pyyaml
+    setuptools
+    ;
 
 in
 buildPythonPackage {
   inherit pname version meta;
+  pyproject = true;
 
   dependencies = [
     defusedxml
     pyyaml
   ];
+
+  build-system = [ setuptools ];
 
   patches = [ ./bump-pyyaml-dependency.patch ];
 
