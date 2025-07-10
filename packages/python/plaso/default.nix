@@ -23,8 +23,9 @@ let
     pip
     psutil
     pyparsing
-    pythonRelaxDepsHook
     python-dateutil
+    pythonOlder
+    pythonRelaxDepsHook
     pytz
     pyxattr
     pyyaml
@@ -106,7 +107,6 @@ buildPythonPackage rec {
     dfvfs
     dfwinreg
     flor
-    future
     libbde-python
     libcaes-python
     libcreg-python
@@ -167,7 +167,7 @@ buildPythonPackage rec {
     XlsxWriter
     yara-python
     zstd
-  ];
+  ] ++ (lib.optionals (pythonOlder "3.13") [ future ]);
 
   pythonRemoveDeps = [ "xattr" ];
 
