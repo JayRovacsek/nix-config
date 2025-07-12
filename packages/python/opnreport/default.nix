@@ -18,6 +18,7 @@ let
   inherit (python3Packages)
     buildPythonPackage
     defusedxml
+    pythonRelaxDepsHook
     pyyaml
     setuptools
     ;
@@ -34,7 +35,12 @@ buildPythonPackage {
 
   build-system = [ setuptools ];
 
-  patches = [ ./bump-pyyaml-dependency.patch ];
+  pythonRelaxDeps = [
+    "defusedxml"
+    "pyyaml"
+  ];
+
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   doCheck = false;
 

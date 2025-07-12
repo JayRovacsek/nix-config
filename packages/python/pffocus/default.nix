@@ -20,12 +20,24 @@ let
     defusedxml
     pip
     pyyaml
+    setuptools
+    pythonRelaxDepsHook
     ;
 
 in
 buildPythonPackage {
   inherit pname version meta;
   pyproject = true;
+
+  nativeBuildInputs = [
+    setuptools
+    pythonRelaxDepsHook
+  ];
+
+  pythonRelaxDeps = [
+    "defusedxml"
+    "pyyaml"
+  ];
 
   build-system = [ pip ];
 

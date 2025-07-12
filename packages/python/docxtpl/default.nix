@@ -11,6 +11,7 @@ let
   inherit (python3Packages)
     buildPythonPackage
     jinja2
+    poetry-core
     lxml
     python-docx
     setuptools
@@ -22,6 +23,12 @@ buildPythonPackage rec {
   pname = "docxtpl";
   version = "0.19.1";
   pyproject = true;
+
+  pythonRemoveDeps = [ "black" ];
+
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
   src = fetchPypi {
     inherit pname version;

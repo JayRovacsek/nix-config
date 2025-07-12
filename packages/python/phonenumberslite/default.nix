@@ -15,12 +15,16 @@ let
     license = licenses.asl20;
   };
 
-  inherit (python3Packages) buildPythonPackage;
+  inherit (python3Packages) buildPythonPackage setuptools;
 
 in
 buildPythonPackage {
   inherit pname version meta;
   pyproject = true;
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   doCheck = false;
 
