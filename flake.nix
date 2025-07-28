@@ -144,7 +144,6 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
-        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -260,9 +259,6 @@
     # Software bill of materials package
     stylix = {
       inputs = {
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "git-hooks";
-        home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
         systems.follows = "systems";
