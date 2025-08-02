@@ -100,6 +100,8 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-regression.follows = "nixpkgs";
+        nix_2_18.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.2";
@@ -144,7 +146,6 @@
     nix-eval-jobs = {
       inputs = {
         flake-parts.follows = "flake-parts";
-        nix-github-actions.follows = "nix-github-actions";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -213,6 +214,7 @@
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         nuschtosSearch.follows = "nuschtosSearch";
+        systems.follows = "systems";
       };
       url = "github:nix-community/nixvim";
     };
@@ -246,23 +248,22 @@
     # to avoid cache misses leading to kernel compiles
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
 
+    # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         flake-root.follows = "flake-root";
+        git-hooks-nix.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
       url = "github:tiiuae/sbomnix";
     };
 
-    # Software bill of materials package
     stylix = {
       inputs = {
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "git-hooks";
-        home-manager.follows = "home-manager";
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
         systems.follows = "systems";
