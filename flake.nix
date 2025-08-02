@@ -100,11 +100,15 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
+        # These shouldn't be overridden, but generally cause a large amount
+        # of extra store paths to be populated, being old nixpkgs references.
+        # The use of these attributes from my current understanding is just testing
+        # for lix, which we utilise pinned versions anyway.
         nixpkgs-regression.follows = "nixpkgs";
         nix_2_18.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.2";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.3";
     };
 
     lix-hydra = {
