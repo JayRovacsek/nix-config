@@ -3,7 +3,7 @@ let
   inherit (pkgs) system;
 
   wayland-present = builtins.any (x: x) [
-    osConfig.services.xserver.displayManager.gdm.wayland
+    osConfig.services.displayManager.gdm.wayland
     osConfig.programs.hyprland.enable
     osConfig.programs.xwayland.enable
   ];
