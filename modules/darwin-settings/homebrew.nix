@@ -1,14 +1,5 @@
-{ config, ... }:
+_:
 let
-  inherit (config.networking) hostName;
-  extraCasks =
-    if hostName == "victreebel" then
-      [
-        "tableau"
-        "workplace-chat"
-      ]
-    else
-      [ ];
   forceBrewInstall = name: {
     inherit name;
     args = [ "force" ];
@@ -29,27 +20,13 @@ in
       upgrade = true;
     };
     brews = builtins.map forceBrewInstall [
-      "openssh"
-      "pidof"
-      "mas"
       "mingw-w64"
     ];
 
     casks = [
-      "brave-browser"
-      "gimp"
-      "jellyfin-media-player"
       "keepingyouawake"
-      "microsoft-remote-desktop"
       "nextcloud"
-      "raycast"
       "signal"
-      "zed"
-      "zoom"
-    ] ++ extraCasks;
-
-    masApps = {
-      "Tailscale" = 1475387142;
-    };
+    ];
   };
 }

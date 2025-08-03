@@ -13,9 +13,22 @@ let
     modules =
       with self.common.home-manager-module-sets;
       darwin-desktop
-      ++ ai
       ++ ssh
-      ++ [ { programs.thunderbird.enable = lib.mkForce false; } ];
+      ++ [
+        { programs.thunderbird.enable = lib.mkForce false; }
+        {
+          home.packages = with pkgs; [
+            # Required for work operations
+            awscli2
+            # Alterative browser to test assumptions
+            brave
+            # Music
+            jellyfin
+            # Calls
+            zoom-us
+          ];
+        }
+      ];
   };
 
   user-configs = merge [
@@ -24,8 +37,6 @@ let
 in
 {
   inherit (user-configs) users home-manager;
-
-  system.primaryUser = "j.rovacsek";
 
   age = {
     identityPaths = [ "/private/var/agenix/id-ed25519-ssh-primary" ];
@@ -58,7 +69,16 @@ in
 
   environment = {
     systemPackages = with pkgs; [
+      # Manage secrets
       agenix
+      # Get mac application information via cli
+      mas
+      # Make ssh on mac actually sane
+      openssh
+      # Make launcher on mac actually sane
+      raycast
+      # pidof and whatnot
+      toybox
     ];
 
     variables.EDITOR = "nvim";
@@ -67,24 +87,27 @@ in
   # This is really only required due to a broken install
   ids.gids.nixbld = 350;
 
-  imports = with self.nixosModules; [
-    agenix
-    darwin-settings
-    docker-darwin
-    documentation
-    fonts
-    gnupg
-    lix
-    lorri
-    networking
-    nix
-    remote-builds
-    skhd
-    ssh
-    time
-    yabai
-    zsh
-  ];
+  imports = (
+    with self.nixosModules;
+    [
+      agenix
+      darwin-settings
+      docker-darwin
+      documentation
+      fonts
+      gnupg
+      lix
+      lorri
+      networking
+      nix
+      remote-builds
+      skhd
+      ssh
+      time
+      yabai
+      zsh
+    ]
+  );
 
   networking = {
     computerName = "victreebel";
@@ -92,5 +115,10 @@ in
     localHostName = "victreebel";
   };
 
-  system.stateVersion = 4;
+  nix.package = lib.mkForce pkgs.lixPackageSets.latest.lix;
+
+  system = {
+    primaryUser = "j.rovacsek";
+    stateVersion = 4;
+  };
 }
