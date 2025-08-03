@@ -10,30 +10,10 @@
     "systems": ["x86_64-linux", "aarch64-linux"]
   },
   {
-    "hostName": "alakazam.local",
-    "maxJobs": 8,
-    "protocol": "ssh",
-    "publicHostKey": null,
-    "speedFactor": 8,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux"]
-  },
-  {
     "hostName": "dragonite.local",
     "maxJobs": 24,
     "protocol": "ssh-ng",
     "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK",
-    "speedFactor": 48,
-    "sshUser": "builder",
-    "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],
-    "systems": ["x86_64-linux", "aarch64-linux"]
-  },
-  {
-    "hostName": "dragonite.local",
-    "maxJobs": 24,
-    "protocol": "ssh",
-    "publicHostKey": null,
     "speedFactor": 48,
     "sshUser": "builder",
     "supportedFeatures": ["nixos-test", "benchmark", "big-parallel", "kvm"],

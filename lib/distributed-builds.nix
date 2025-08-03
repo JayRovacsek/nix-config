@@ -36,6 +36,9 @@ let
         speed = 1;
       };
 
+  # Only ssh-ng configurations are generated, if ssh type is needed, we should explicitly
+  # define this in the remote builds option. However ssh as a type is realistically an
+  # antipattern as it requires manual changes on the target environments to work unlike ssh-ng
   generate-base-configs =
     hostname: parent-set:
     let
@@ -51,18 +54,6 @@ let
         maxJobs = profile.cores;
         protocol = "ssh-ng";
         publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
-        speedFactor = builtins.ceil (builtins.mul profile.cores profile.speed / 2);
-        sshUser = "builder";
-        supportedFeatures = config.nix.settings.system-features or [ ];
-        systems = [ system ] ++ (config.boot.binfmt.emulatedSystems or [ ]);
-      }
-      {
-        hostName = "${config.networking.hostName}.${
-          config.networking.localDomain or "local"
-        }";
-        maxJobs = profile.cores;
-        protocol = "ssh";
-        publicHostKey = null;
         speedFactor = builtins.ceil (builtins.mul profile.cores profile.speed / 2);
         sshUser = "builder";
         supportedFeatures = config.nix.settings.system-features or [ ];

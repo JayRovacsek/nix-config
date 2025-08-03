@@ -29,7 +29,11 @@ let
   # Which will provide a path to a suitable file also.
 
   build-configs =
-    if (builtins.typeOf cfg.machineConfigs == "path") then
+    if (builtins.typeOf cfg.machineConfigs == "list") then
+      cfg.machineConfigs
+    else if (builtins.typeOf cfg.machineConfigs == "set") then
+      [ cfg.machineConfigs ]
+    else if (builtins.typeOf cfg.machineConfigs == "path") then
       builtins.fromJSON (builtins.readFile cfg.machineConfigs)
     else
       base-configs;
@@ -60,7 +64,13 @@ in
 
     machineConfigs = lib.mkOption {
       default = null;
-      type = with lib.types; nullOr path;
+      type =
+        with lib.types;
+        oneOf [
+          attrs
+          (listOf attrs)
+          path
+        ];
     };
   };
 
