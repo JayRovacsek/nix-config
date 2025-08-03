@@ -105,9 +105,6 @@ let
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection $connection_upgrade;
 
-          zstd on;
-          zstd_types application/x-nix-archive;
-
           allow 10.0.0.0/8;
           allow 172.16.0.0/12;
           allow 192.168.0.0/16;
