@@ -12,7 +12,17 @@
       # This requires a list that does not match the system of the host
       # transposed to linux; hence the filter.
       boot.binfmt.emulatedSystems =
-        builtins.filter (x: x != "${pkgs.stdenv.hostPlatform.uname.processor}-linux")
+        builtins.filter
+          (
+            x:
+            x != "${
+              # This is fragile as it asssumes just aarch and x86, but will do for now. It seems at some point
+              # upstream might have changed the values exposed here to be different to what I originally observed
+              # or that testing just never caught binfmt being applied to the current system arch
+              if pkgs.stdenv.hostPlatform.uname.processor == "arm64" then "aarch64" else "x86_64"
+
+            }-linux"
+          )
           [
             "aarch64-linux"
             "x86_64-linux"
