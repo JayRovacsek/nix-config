@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -182,6 +183,29 @@ in
   powerManagement.enable = false;
 
   programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK";
+
+  remoteBuilds = lib.mkForce {
+    machineConfigs = [
+      {
+        hostName = "alakazam.local";
+        maxJobs = 8;
+        protocol = "ssh";
+        publicHostKey = null;
+        speedFactor = 8;
+        sshUser = "builder";
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+      }
+    ];
+  };
 
   systemd = {
     network.networks."20-wireless".enable = false;

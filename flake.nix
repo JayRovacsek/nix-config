@@ -100,9 +100,15 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
+        # These shouldn't be overridden, but generally cause a large amount
+        # of extra store paths to be populated, being old nixpkgs references.
+        # The use of these attributes from my current understanding is just testing
+        # for lix, which we utilise pinned versions anyway.
+        nixpkgs-regression.follows = "nixpkgs";
+        nix_2_18.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.2";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.3";
     };
 
     lix-hydra = {
@@ -212,6 +218,7 @@
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         nuschtosSearch.follows = "nuschtosSearch";
+        systems.follows = "systems";
       };
       url = "github:nix-community/nixvim";
     };
@@ -245,20 +252,22 @@
     # to avoid cache misses leading to kernel compiles
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
 
+    # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         flake-root.follows = "flake-root";
+        git-hooks-nix.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
       url = "github:tiiuae/sbomnix";
     };
 
-    # Software bill of materials package
     stylix = {
       inputs = {
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
         systems.follows = "systems";

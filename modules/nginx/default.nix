@@ -13,7 +13,6 @@
       enable = true;
       enableReload = true;
       recommendedTlsSettings = true;
-      recommendedZstdSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;

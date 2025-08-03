@@ -19,7 +19,7 @@ let
   # If a flake has less than 5 hosts it's likely fine, but still will likely
   # double build time.
   #
-  # To avoid this cost, look at either using the 
+  # To avoid this cost, look at either using the
   # apps.${system}.generate-distributed-build-configs program
   # Or include these options into a host config, then from the REPL
   # run:
@@ -29,16 +29,26 @@ let
   # Which will provide a path to a suitable file also.
 
   build-configs =
-    if (builtins.typeOf cfg.machineConfigs == "path") then
+    if (builtins.typeOf cfg.machineConfigs == "list") then
+      cfg.machineConfigs
+    else if (builtins.typeOf cfg.machineConfigs == "set") then
+      [ cfg.machineConfigs ]
+    else if (builtins.typeOf cfg.machineConfigs == "path") then
       builtins.fromJSON (builtins.readFile cfg.machineConfigs)
     else
       base-configs;
 
   fast-configs = builtins.filter (machine: machine.speedFactor > 1) build-configs;
 
+  not-self = builtins.filter (
+    machine:
+    machine.hostName
+    != "${config.networking.hostName}.${config.networking.localDomain}"
+  ) fast-configs;
+
   key-merged-configs = builtins.map (
     machine: machine // { inherit (cfg) sshKey; }
-  ) fast-configs;
+  ) not-self;
 in
 {
   options.remoteBuilds = {
@@ -54,7 +64,13 @@ in
 
     machineConfigs = lib.mkOption {
       default = null;
-      type = with lib.types; nullOr path;
+      type =
+        with lib.types;
+        oneOf [
+          attrs
+          (listOf attrs)
+          path
+        ];
     };
   };
 

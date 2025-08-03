@@ -126,6 +126,29 @@ in
 
   programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
 
+  remoteBuilds = lib.mkForce {
+    machineConfigs = [
+      {
+        hostName = "dragonite.local";
+        maxJobs = 24;
+        protocol = "ssh-ng";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBWa1lSQVZjWTVNc1RzdGlMT2xHaDhmTlN1TW9UUzJYRHdwQ1h4QkUydjEgcm9vdEBkcmFnb25pdGUK";
+        speedFactor = 48;
+        sshUser = "builder";
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+      }
+    ];
+  };
+
   system.stateVersion = "22.11";
 
   systemd.services = {
