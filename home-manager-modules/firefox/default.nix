@@ -6,10 +6,6 @@
   ...
 }:
 let
-  packageSettings = lib.optionalAttrs pkgs.stdenv.isDarwin {
-    package = pkgs.firefox-bin;
-  };
-
   addons = with pkgs.nur.repos.rycee.firefox-addons; [
     clearurls
     darkreader
@@ -40,6 +36,8 @@ in
 
   programs.firefox = {
     enable = true;
+
+    package = pkgs.firefox;
 
     profiles.jay = {
       id = 0;
@@ -510,7 +508,7 @@ in
         "widget.non-native-theme.enabled" = true;
       };
     };
-  } // packageSettings;
+  };
 
   xdg = lib.mkIf pkgs.stdenv.isLinux {
     mimeApps = {
