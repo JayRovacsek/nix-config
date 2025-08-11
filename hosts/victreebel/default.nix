@@ -22,10 +22,6 @@ let
             awscli2
             # Alterative browser to test assumptions
             brave
-            # Music
-            jellyfin
-            # Calls
-            zoom-us
           ];
         }
       ];

@@ -24,9 +24,11 @@ in
     ];
 
     casks = [
+      "jellyfin-media-player"
       "keepingyouawake"
       "nextcloud"
       "signal"
+      "zoom"
     ];
   };
 }
