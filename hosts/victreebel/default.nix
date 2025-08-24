@@ -20,7 +20,7 @@ let
           home.packages = with pkgs; [
             # Required for work operations
             awscli2
-            # Alterative browser to test assumptions
+            # Alternative browser to test assumptions
             brave
           ];
         }
@@ -83,27 +83,24 @@ in
   # This is really only required due to a broken install
   ids.gids.nixbld = 350;
 
-  imports = (
-    with self.nixosModules;
-    [
-      agenix
-      darwin-settings
-      docker-darwin
-      documentation
-      fonts
-      gnupg
-      lix
-      lorri
-      networking
-      nix
-      remote-builds
-      skhd
-      ssh
-      time
-      yabai
-      zsh
-    ]
-  );
+  imports = with self.nixosModules; [
+    agenix
+    darwin-settings
+    docker-darwin
+    documentation
+    fonts
+    gnupg
+    lix
+    lorri
+    networking
+    nix
+    remote-builds
+    skhd
+    ssh
+    time
+    yabai
+    zsh
+  ];
 
   networking = {
     computerName = "victreebel";
