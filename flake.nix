@@ -108,7 +108,7 @@
         nix_2_18.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.93.3";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=release-2.93";
     };
 
     lix-hydra = {
@@ -126,7 +126,7 @@
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
+      url = "git+https://git.lix.systems/lix-project/nixos-module.git?ref=release-2.93";
     };
 
     microvm = {
