@@ -7,7 +7,7 @@
 let
   hyperland-present = config.programs.hyprland.enable;
   # TODO: add other WM configurations where I might use them and greetd.
-  # If utilised without hyprland the syntax of the default session will be 
+  # If utilised without hyprland the syntax of the default session will be
   # invalid
   cmd =
     if hyperland-present then
@@ -16,7 +16,7 @@ let
       "";
 
   command = lib.concatStringsSep " " [
-    "${pkgs.greetd.tuigreet}/bin/tuigreet"
+    "${pkgs.tuigreet}/bin/tuigreet"
     "--greeting"
     "'Welcome to NixOS!'"
     "--asterisks"
