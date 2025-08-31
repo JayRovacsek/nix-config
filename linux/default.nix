@@ -43,6 +43,9 @@ in
   ## WSL Configuration
   zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
 
+  ## W10 Migration Base Install Host
+  grimer = make-host x86_64-linux-unstable "grimer" unstable-system;
+
   ## MicroVMs
   bellsprout = make-microvm x86_64-linux-unstable "bellsprout" unstable-system;
   igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
