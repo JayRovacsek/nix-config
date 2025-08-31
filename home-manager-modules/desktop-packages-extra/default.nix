@@ -18,7 +18,7 @@
 
         # Productivity
         gimp
-        jellyfin-media-player-wayland
+        feishin
 
         # Communication
         signal-desktop
