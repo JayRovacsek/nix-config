@@ -71,7 +71,6 @@ in
     generations
     gnupg
     harmonia
-    hydra
     i18n
     jellyfin
     jellyseerr
