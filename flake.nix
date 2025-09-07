@@ -17,6 +17,16 @@
       url = "github:ryantm/agenix";
     };
 
+    buildbot-nix = {
+      url = "github:nix-community/buildbot-nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        hercules-ci-effects.follows = "hercules-ci-effects";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -58,6 +68,14 @@
     gitignore = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hercules-ci/gitignore.nix";
+    };
+
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     # Home management module
@@ -117,7 +135,7 @@
         lix.follows = "lix";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "git+https://git.lix.systems/lix-project/hydra?ref=lix-2.93";
+      url = "git+https://git.lix.systems/lix-project/hydra";
     };
 
     lix-module = {

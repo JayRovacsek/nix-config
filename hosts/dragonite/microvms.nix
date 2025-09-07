@@ -5,6 +5,8 @@ let
     "igglybuff"
     "machop"
     "magikarp"
+    "magnemite"
+    "magneton"
     "mankey"
     "meowth"
     "mr-mime"

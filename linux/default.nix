@@ -51,6 +51,8 @@ in
   igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
   machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
   magikarp = make-microvm x86_64-linux-unstable "magikarp" unstable-system;
+  magnemite = make-microvm x86_64-linux-unstable "magnemite" unstable-system;
+  magneton = make-microvm x86_64-linux-unstable "magneton" unstable-system;
   mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
   meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
   mr-mime = make-microvm x86_64-linux-unstable "mr-mime" unstable-system;

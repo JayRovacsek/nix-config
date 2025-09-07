@@ -10,6 +10,7 @@ let
   inherit (self.common.config.services)
     authelia
     bazarr
+    buildbot
     deluge
     firefox-syncserver
     grafana
@@ -63,6 +64,32 @@ let
           inherit proxyPass;
         };
       };
+  };
+
+  buildbot-vhost = generate-vhosts {
+    inherit config;
+    inherit (buildbot) subdomain;
+    overrides = {
+      enableAuthelia = false;
+      extraConfig = ''
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      '';
+      locations = {
+        "/".proxyPass =
+          "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}";
+        "/sse" = {
+          proxyPass = "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}/sse";
+          extraConfig = "proxy_buffering off;";
+        };
+        "/ws" = {
+          proxyPass = "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}/ws";
+          proxyWebsockets = true;
+          extraConfig = "proxy_read_timeout 6000s;";
+        };
+      };
+    };
   };
 
   deluge-vhost = generate-vhosts {
@@ -378,6 +405,7 @@ in
     virtualHosts = merge [
       authelia-vhost
       bazarr-vhost
+      buildbot-vhost
       deluge-vhost
       firefox-syncserver-vhost
       grafana-vhost

@@ -102,6 +102,26 @@ _: {
       ];
     };
 
+    magnemite = {
+      hostname = "magnemite";
+      ips = [
+        {
+          address = "192.168.5.5";
+          fqdn = "magnemite.local";
+        }
+      ];
+    };
+
+    magneton = {
+      hostname = "magneton";
+      ips = [
+        {
+          address = "192.168.5.6";
+          fqdn = "magneton.local";
+        }
+      ];
+    };
+
     mankey = {
       hostname = "mankey";
       ips = [
@@ -401,6 +421,16 @@ _: {
       port = 53;
       protocol = "dns";
       subdomain = null;
+    };
+
+    buildbot = {
+      authelia = false;
+      ipv4 = "192.168.5.5";
+      port = 8010;
+      pbPort = 9989;
+      pbProtocol = "tcp";
+      protocol = "http";
+      subdomain = "buildbot";
     };
 
     code = {
