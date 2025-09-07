@@ -49,7 +49,8 @@
     ];
 
     branches = {
-      permanent-branches.matchGlob = "(staging|testing)";
+      staging.matchGlob = "staging";
+      testing.matchGlob = "testing";
     };
 
     enable = true;
