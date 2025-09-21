@@ -48,6 +48,13 @@
       "JayRovacsek"
     ];
 
+    buildSystems = [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
+
     branches = {
       staging.matchGlob = "staging";
       testing.matchGlob = "testing";
@@ -65,13 +72,17 @@
       oauthSecretFile = config.age.secrets.oauth-secret.path;
       oauthId = "Iv23liBwfcmM679PFgrn";
       webhookSecretFile = config.age.secrets.webhook-secret.path;
+
+      repoAllowlist = [
+        "JayRovacsek/nix-config"
+      ];
     };
 
     useHTTPS = true;
 
     pullBased.repositories = {
       nix-config = {
-        url = "https://github.com/JayRovacsek/nix-config.git";
+        url = "https://github.com/JayRovacsek/nix-config";
         defaultBranch = "main";
       };
     };
