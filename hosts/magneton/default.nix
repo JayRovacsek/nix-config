@@ -12,7 +12,9 @@
     buildbot-worker
     logging
     microvm-guest
+    nix
     nix-topology
+    remote-builds
     time
     timesyncd
   ];
@@ -30,7 +32,7 @@
       }
     ];
 
-    mem = 20480;
+    mem = 32768;
     vcpu = 10;
 
     writableStoreOverlay = "/nix/.rw-store";
@@ -43,6 +45,8 @@
       }
     ];
   };
+
+  nix.settings.auto-optimise-store = lib.mkForce false;
 
   networking = {
     dhcpcd.enable = false;

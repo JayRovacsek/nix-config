@@ -12,7 +12,9 @@
     buildbot-coordinator
     logging
     microvm-guest
+    nix
     nix-topology
+    remote-builds
     time
     timesyncd
   ];
@@ -29,6 +31,8 @@
         };
       }
     ];
+
+    mem = 4096;
 
     shares = [
       {
