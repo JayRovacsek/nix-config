@@ -18,4 +18,4 @@ base
   starship
   zsh
 ])
-++ [ nixvim.homeManagerModules.nixvim ]
+++ [ nixvim.homeModules.nixvim ]
