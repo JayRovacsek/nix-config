@@ -1,6 +1,9 @@
 { config, ... }:
 {
-  imports = [ ../../options/modules/remote-builds ];
+  imports = [
+    ../../options/modules/networking
+    ../../options/modules/remote-builds
+  ];
 
   age = {
     identityPaths = [
