@@ -204,12 +204,11 @@ in
           # format for resolver: [net:]host:[port][/path]. net could be empty (default, shortcut for tcp+udp), tcp+udp, tcp, udp, tcp-tls or https (DoH). If port is empty, default port will be used (53 for udp and tcp, 853 for tcp-tls, 443 for https (Doh))
           # this configuration is mandatory, please define at least one external DNS resolver
           default = [
-            "tcp-tls:dot.libredns.gr:853"
-            "tcp-tls:dot1.applied-privacy.net:853"
-            "tcp-tls:dot.nl.ahadns.net:853"
-            "tcp-tls:dot.la.ahadns.net:853"
+            "https://doh-de.blahdns.com/dns-query"
+            "https://doh-sg.blahdns.com/dns-query"
+            "https://doh.applied-privacy.net/query"
+            "https://doh.libredns.gr/dns-query"
             "https://doh.mullvad.net/dns-query"
-            "https://doh-jp.blahdns.com/dns-query"
           ];
 
           # optional: use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
