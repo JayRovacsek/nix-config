@@ -59,6 +59,7 @@ in
     remote-builds
     ssh
     steam
+    sudo
     systemd-boot
     systemd-networkd
     time
