@@ -499,6 +499,7 @@
                       "Normalized"
                       "normalizer"
                       "Ot"
+                      "personalization"
                       "Pn"
                       "prioritize"
                       "Recognize"
