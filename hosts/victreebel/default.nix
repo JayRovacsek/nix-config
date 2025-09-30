@@ -108,8 +108,6 @@ in
     localHostName = "victreebel";
   };
 
-  nix.package = lib.mkForce pkgs.lixPackageSets.latest.lix;
-
   system = {
     primaryUser = "j.rovacsek";
     stateVersion = 4;

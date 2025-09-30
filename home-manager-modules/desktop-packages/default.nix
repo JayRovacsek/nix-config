@@ -17,10 +17,6 @@ let
     # package to back both SSH and git
     openssh
 
-    # Need to work on the below - but this _should_ be in shell.nix but vscode doesn't work this way just yet.
-    nodejs
-    nodePackages.typescript
-
     # Secrets Management
     yubikey-personalization
 
