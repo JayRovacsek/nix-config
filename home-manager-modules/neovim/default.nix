@@ -46,16 +46,14 @@
 
         neo-tree = {
           enable = true;
-          enableDiagnostics = false;
-          enableGitStatus = true;
-          enableModifiedMarkers = true;
-          enableRefreshOnWrite = true;
-
-          popupBorderStyle = "rounded";
-
-          closeIfLastWindow = true;
-          extraOptions = {
+          settings = {
+            closeIfLastWindow = true;
+            enableDiagnostics = false;
+            enableGitStatus = true;
+            enableModifiedMarkers = true;
+            enableRefreshOnWrite = true;
             filesystem.filtered_items.visible = true;
+            popupBorderStyle = "rounded";
           };
         };
 
