@@ -20,7 +20,7 @@
 
       # This doesn't need to be a secret, however the assessment of the public key
       # leads to git checking the same location for a private key. If we don't add
-      # this as a secret, it'll exist in a location that is not matching the 
+      # this as a secret, it'll exist in a location that is not matching the
       # private key, causing signing failures.
       git-signing-key-pub = {
         file = ../../secrets/git/git-signing-key-pub.age;
@@ -33,9 +33,11 @@
   programs.git = {
 
     difftastic = {
-      background = "dark";
-      color = "auto";
       enable = true;
+      options = {
+        background = "dark";
+        color = "auto";
+      };
     };
 
     enable = true;
