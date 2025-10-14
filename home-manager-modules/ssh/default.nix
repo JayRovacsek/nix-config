@@ -49,6 +49,8 @@ in
   programs.ssh = {
     enable = true;
 
+    enableDefaultConfig = false;
+
     matchBlocks = host-configs // {
       "github.com" = {
         inherit identityFile;
