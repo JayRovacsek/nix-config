@@ -13,7 +13,9 @@ let
     if (builtins.hasAttr package config.programs) then
       config.programs."${package}".enable
     else
-      builtins.any (p: lib.hasPrefix package (p.pname or p.name)) config.home.packages;
+      builtins.any (
+        p: lib.hasPrefix package (p.pname or p.name)
+      ) config.home.packages;
 
   # Logic becomes that a user has installed an application with X
   # name via homebrew nix module - this notably is possible to include masApps
@@ -21,9 +23,13 @@ let
   homeBrewHas =
     package:
     (
-      builtins.elem package (builtins.map (x: x.pname or x.name) osConfig.homebrew.casks)
+      builtins.elem package (
+        builtins.map (x: x.pname or x.name) osConfig.homebrew.casks
+      )
       || builtins.elem package (builtins.map (x: x.name) osConfig.homebrew.casks)
-      || builtins.elem package (builtins.map (x: x.pname or x.name) osConfig.homebrew.brews)
+      || builtins.elem package (
+        builtins.map (x: x.pname or x.name) osConfig.homebrew.brews
+      )
       || builtins.elem package (builtins.map (x: x.name) osConfig.homebrew.brews)
       || builtins.elem package (builtins.attrNames osConfig.homebrew.masApps)
     );
@@ -32,7 +38,11 @@ let
 
   alacrittyEntry.path = "${pkgs.alacritty}/Applications/Alacritty.app";
   braveEntry.path = "${pkgs.brave}/Applications/Brave Browser.app";
-  firefoxEntry.path = "${pkgs.firefox}/Applications/Firefox.app";
+  firefoxEntry.path = "${
+    pkgs.firefox.overrideAttrs (_: {
+      gtk_modules = [ ];
+    })
+  }/Applications/Firefox.app";
   keepassEntry.path = "${pkgs.keepassxc}/Applications/KeePassXC.app";
   outlookEntry.path = "/Applications/Microsoft Outlook.app";
   slackEntry.path = "${pkgs.slack}/Applications/Slack.app";

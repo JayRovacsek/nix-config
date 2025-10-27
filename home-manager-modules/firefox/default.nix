@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   lib,
   pkgs,
   self,
@@ -27,7 +28,8 @@ let
   dictionaries = with self.packages.${pkgs.system}; [ better-english ];
   extensions.packages = addons ++ languagePacks ++ dictionaries;
 
-  localhost = "http://127.0.0.1/";
+  loopback = "127.0.0.1";
+  localhost = "http://${loopback}/";
 in
 {
   stylix = lib.mkIf (builtins.hasAttr "stylix" config) {
@@ -37,7 +39,14 @@ in
   programs.firefox = {
     enable = true;
 
-    package = pkgs.firefox;
+    package =
+      if pkgs.stdenv.isDarwin then
+        # https://github.com/NixOS/nixpkgs/issues/451884
+        pkgs.firefox.overrideAttrs (_: {
+          gtk_modules = [ ];
+        })
+      else
+        pkgs.firefox;
 
     profiles.jay = {
       id = 0;
@@ -370,7 +379,11 @@ in
         "network.protocol-handler.external.ms-windows-store" = false;
         "network.proxy.socks_remote_dns" = true;
         "network.trr.mode" = 3;
-        "network.trr.uri" = "https://doh.libredns.gr/dns-query";
+        "network.trr.uri" =
+          if osConfig.services.blocky.enable then
+            "https://${loopback}:${builtins.toString osConfig.services.blocky.settings.ports.https}/dns-query"
+          else
+            "https://doh.libredns.gr/dns-query";
 
         "nglayout.initialpaint.delay" = 0;
 
