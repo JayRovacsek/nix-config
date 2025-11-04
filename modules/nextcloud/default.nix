@@ -13,8 +13,8 @@ let
   zfsServiceSupported =
     config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
 
-  package = pkgs.nextcloud31;
-  packages = pkgs.nextcloud31Packages;
+  package = pkgs.nextcloud32;
+  packages = pkgs.nextcloud32Packages;
 in
 {
   age = {
@@ -66,7 +66,6 @@ in
           calendar
           contacts
           files_automatedtagging
-          files_mindmap
           previewgenerator
           registration
           twofactor_webauthn
