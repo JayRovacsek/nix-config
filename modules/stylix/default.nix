@@ -30,7 +30,7 @@ in
       };
 
       emoji = {
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts;
         name = "Noto Color Emoji";
       };
 

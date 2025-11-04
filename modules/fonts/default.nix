@@ -6,7 +6,7 @@ in
   fonts.packages =
     (with pkgs; [
       dejavu_fonts
-      noto-fonts-emoji
+      noto-fonts
     ])
     ++ [ hack-font ];
 }
