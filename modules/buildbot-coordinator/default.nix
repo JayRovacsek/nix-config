@@ -67,8 +67,8 @@
     domain = "buildbot.rovacsek.com";
 
     github = {
-      authType.app.id = 1911209;
-      authType.app.secretKeyFile = config.age.secrets.github-app-secret.path;
+      appId = 1911209;
+      appSecretKeyFile = config.age.secrets.github-app-secret.path;
       oauthSecretFile = config.age.secrets.oauth-secret.path;
       oauthId = "Iv23liBwfcmM679PFgrn";
       webhookSecretFile = config.age.secrets.webhook-secret.path;
