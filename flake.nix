@@ -7,7 +7,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/release-25.05";
 
-    # Secrets Management <3
     agenix = {
       inputs = {
         home-manager.follows = "home-manager";
@@ -37,10 +36,6 @@
       url = "github:nix-community/disko";
     };
 
-    # Adds flake compatibility to start removing the vestiges of
-    # shell.nix and move us towards the more modern nix develop
-    # setting while tricking some services/plugins to still be able to
-    # use the shell.nix file.
     flake-compat = {
       flake = false;
       url = "github:edolstra/flake-compat";
@@ -55,7 +50,6 @@
       url = "github:numtide/flake-utils";
     };
 
-    # Adds configurable pre-commit options to our flake :)
     git-hooks = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -78,7 +72,6 @@
       };
     };
 
-    # Home management module
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
@@ -94,7 +87,6 @@
       url = "github:JayRovacsek/hydra-badge-api";
     };
 
-    # Modules to help you handle persistent state on systems with ephemeral root storage.
     impermanence.url = "github:nix-community/impermanence";
 
     ironbar = {
@@ -203,16 +195,13 @@
       url = "github:oddlama/nix-topology";
     };
 
-    # Generate system images easily
     nixos-generators = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nixos-generators";
     };
 
-    # Apply opinions on hardware that are driven by community
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Nixos modules to be used in the Windows Subsystem for Linux
     nixos-wsl = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -241,7 +230,6 @@
       url = "github:nix-community/nixvim";
     };
 
-    # Like the Arch User Repository, but better :)
     nur = {
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -266,11 +254,8 @@
       url = "github:NuschtOS/nixos-modules";
     };
 
-    # Duplicate nixpkgs input is expected here: we want to align with upstream
-    # to avoid cache misses leading to kernel compiles
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
 
-    # Software bill of materials package
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -295,7 +280,6 @@
 
     systems.url = "github:nix-systems/default";
 
-    # Opentofu via the nix language
     terranix = {
       inputs = {
         flake-parts.follows = "flake-parts";
