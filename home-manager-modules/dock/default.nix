@@ -38,11 +38,7 @@ let
 
   alacrittyEntry.path = "${pkgs.alacritty}/Applications/Alacritty.app";
   braveEntry.path = "${pkgs.brave}/Applications/Brave Browser.app";
-  firefoxEntry.path = "${
-    pkgs.firefox.overrideAttrs (_: {
-      gtk_modules = [ ];
-    })
-  }/Applications/Firefox.app";
+  firefoxEntry.path = "${pkgs.firefox}/Applications/Firefox.app";
   keepassEntry.path = "${pkgs.keepassxc}/Applications/KeePassXC.app";
   outlookEntry.path = "/Applications/Microsoft Outlook.app";
   slackEntry.path = "${pkgs.slack}/Applications/Slack.app";

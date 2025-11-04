@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   lib,
   pkgs,
   self,
@@ -39,14 +38,7 @@ in
   programs.firefox = {
     enable = true;
 
-    package =
-      if pkgs.stdenv.isDarwin then
-        # https://github.com/NixOS/nixpkgs/issues/451884
-        pkgs.firefox.overrideAttrs (_: {
-          gtk_modules = [ ];
-        })
-      else
-        pkgs.firefox;
+    package = pkgs.firefox;
 
     profiles.jay = {
       id = 0;
@@ -379,11 +371,7 @@ in
         "network.protocol-handler.external.ms-windows-store" = false;
         "network.proxy.socks_remote_dns" = true;
         "network.trr.mode" = 3;
-        "network.trr.uri" =
-          if osConfig.services.blocky.enable then
-            "https://${loopback}:${builtins.toString osConfig.services.blocky.settings.ports.https}/dns-query"
-          else
-            "https://doh.libredns.gr/dns-query";
+        "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
 
         "nglayout.initialpaint.delay" = 0;
 
