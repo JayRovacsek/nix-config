@@ -31,18 +31,9 @@
   };
 
   programs.git = {
-
-    difftastic = {
-      enable = true;
-      options = {
-        background = "dark";
-        color = "auto";
-      };
-    };
-
     enable = true;
 
-    extraConfig = {
+    settings = {
       commit.gpgsign = true;
       gpg = {
         format = "ssh";
@@ -51,15 +42,12 @@
             config.home.file.".config/git/allowed_signers".source.outPath;
       };
       push.autoSetupRemote = true;
-      user.signingkey = config.age.secrets.git-signing-key-pub.path;
-    };
 
-    lfs = {
-      enable = true;
-      skipSmudge = true;
+      user = {
+        email = "jay@rovacsek.com";
+        name = "jayrovacsek";
+        signingkey = config.age.secrets.git-signing-key-pub.path;
+      };
     };
-
-    userEmail = "jay@rovacsek.com";
-    userName = "jayrovacsek";
   };
 }

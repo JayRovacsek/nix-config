@@ -8,6 +8,7 @@ base
   agenix
   atuin
   bat
+  difftastic
   direnv
   fzf
   git
