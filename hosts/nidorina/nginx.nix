@@ -77,8 +77,7 @@ let
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       '';
       locations = {
-        "/".proxyPass =
-          "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}";
+        "/".proxyPass = "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}";
         "/sse" = {
           proxyPass = "${buildbot.protocol}://${buildbot.ipv4}:${builtins.toString buildbot.port}/sse";
           extraConfig = "proxy_buffering off;";
@@ -296,13 +295,13 @@ let
         extraConfig = ''
           index index.php index.html /index.php$request_uri;
 
-            proxy_buffering off;
-            proxy_hide_header Referrer-Policy;
-            proxy_hide_header X-Content-Type-Options;
-            proxy_hide_header X-Frame-Options;
-            proxy_hide_header X-XSS-Protection;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Real-IP $remote_addr;
+          proxy_buffering off;
+          proxy_hide_header Referrer-Policy;
+          proxy_hide_header X-Content-Type-Options;
+          proxy_hide_header X-Frame-Options;
+          proxy_hide_header X-XSS-Protection;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Real-IP $remote_addr;
 
           client_max_body_size 10G;
           fastcgi_buffers 64 4K;
