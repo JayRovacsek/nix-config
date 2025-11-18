@@ -6,9 +6,15 @@
   ...
 }:
 {
-  nixpkgs.overlays = [
-    self.overlays.jellyfin-wayland
-  ];
+  nixpkgs = {
+    config.permittedInsecurePackages = [
+      "electron-36.9.5"
+      "qtwebengine-5.15.19"
+    ];
+    overlays = [
+      self.overlays.jellyfin-wayland
+    ];
+  };
 
   home.packages =
     (lib.optionals pkgs.stdenv.isLinux (
@@ -18,7 +24,6 @@
 
         # Productivity
         gimp
-        feishin
 
         # Communication
         signal-desktop

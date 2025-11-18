@@ -5,7 +5,6 @@ in
 desktop-minimal
 ++ (with self.homeManagerModules; [
   alacritty
-  discord
   firefox
   keepassxc
   nextcloud-client

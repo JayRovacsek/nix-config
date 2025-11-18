@@ -9,9 +9,6 @@
 let
   inherit (self.lib) merge;
 
-  inherit (pkgs) system;
-  inherit (self.packages.${system}) trdsql;
-
   builder = self.common.users.builder {
     inherit config pkgs;
     modules = self.common.home-manager-module-sets.base;
@@ -102,7 +99,6 @@ in
     agenix
     curl
     dig
-    trdsql
     wget
   ];
 
