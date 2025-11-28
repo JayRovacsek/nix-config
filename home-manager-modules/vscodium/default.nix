@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   nix-options = pkgs.fetchFromGitHub {
     owner = "JayRovacsek";
@@ -63,7 +68,8 @@ in
 
           # XML
           redhat.vscode-xml
-        ];
+        ]
+        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
 
       keybindings = [
         {
