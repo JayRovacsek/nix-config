@@ -11,4 +11,5 @@ desktop-minimal
   slack
   thunderbird
   vscodium
+  zed
 ])
