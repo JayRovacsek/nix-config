@@ -27,7 +27,6 @@ in
       "jellyfin-media-player"
       "keepingyouawake"
       "nextcloud"
-      "signal"
       "zoom"
     ];
   };
