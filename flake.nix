@@ -224,10 +224,9 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        nuschtosSearch.follows = "nuschtosSearch";
         systems.follows = "systems";
       };
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/main";
     };
 
     nur = {
@@ -236,14 +235,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:nix-community/NUR";
-    };
-
-    nuschtosSearch = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "github:NuschtOS/search";
     };
 
     nuschtos-modules = {
