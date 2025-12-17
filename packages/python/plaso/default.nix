@@ -34,7 +34,7 @@ let
     requests
     setuptools
     six
-    XlsxWriter
+    xlsxwriter
     yara-python
     zstd
     ;
@@ -164,10 +164,11 @@ buildPythonPackage rec {
     redis
     requests
     six
-    XlsxWriter
+    xlsxwriter
     yara-python
     zstd
-  ] ++ (lib.optionals (pythonOlder "3.13") [ future ]);
+  ]
+  ++ (lib.optionals (pythonOlder "3.13") [ future ]);
 
   pythonRemoveDeps = [ "xattr" ];
 
