@@ -8,7 +8,7 @@
     enableConfig = true;
 
     devices = {
-      nodev."/" = {
+      nodev."/tmp" = {
         fsType = "tmpfs";
         mountOptions = [
           "size=2G"
