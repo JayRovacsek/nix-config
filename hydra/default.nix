@@ -11,6 +11,7 @@ let
 
   unsupported-configurations = [
     "amazon"
+    "butterfree"
   ];
 
   problematic-packages = [
