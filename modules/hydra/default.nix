@@ -63,10 +63,8 @@ let
   ];
 in
 {
-  nixpkgs.overlays = [ self.inputs.lix-hydra.overlays.default ];
 
   imports = [
-    self.nixosModules.lix
     self.inputs.hydra-badge-api.nixosModules.default
   ];
 
