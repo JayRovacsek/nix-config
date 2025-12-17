@@ -1,12 +1,9 @@
-{ lib, self, ... }:
+{ self, ... }:
 {
   imports = [ self.inputs.disko.nixosModules.default ];
 
   fileSystems = {
-    "/" = {
-      fsType = lib.mkForce "tmpfs";
-      device = lib.mkForce "none";
-    };
+    "/".options = [ "size=1G" ];
     "/persistent".neededForBoot = true;
   };
 

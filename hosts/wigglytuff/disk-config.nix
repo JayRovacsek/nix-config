@@ -2,7 +2,10 @@
 {
   imports = [ self.inputs.disko.nixosModules.default ];
 
-  fileSystems."/persistent".neededForBoot = true;
+  fileSystems = {
+    "/".options = [ "size=1G" ];
+    "/persistent".neededForBoot = true;
+  };
 
   disko = {
     enableConfig = true;

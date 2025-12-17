@@ -2,21 +2,15 @@
 {
   imports = [ self.inputs.disko.nixosModules.default ];
 
-  fileSystems."/persistent".neededForBoot = true;
+  fileSystems = {
+    "/".options = [ "size=4G" ];
+    "/persistent".neededForBoot = true;
+  };
 
   disko = {
     enableConfig = true;
 
     devices = {
-      nodev."/tmp" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "size=2G"
-          "defaults"
-          "mode=755"
-        ];
-      };
-
       disk = {
         main = {
           type = "disk";
