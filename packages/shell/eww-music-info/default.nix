@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   coreutils,
-  mpc-cli,
+  mpc,
   ffmpeg-headless,
   ...
 }:
@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
     ${coreutils}/bin/cp $src/eww/bar/scripts/music_info $out/bin
 
     substituteInPlace $out/bin/music_info \
-      --replace 'mpc' '${mpc-cli}/bin/mpc' \
+      --replace 'mpc' '${mpc}/bin/mpc' \
       --replace 'ffmpeg' '${ffmpeg-headless}/bin/ffmpeg'
   '';
 }
