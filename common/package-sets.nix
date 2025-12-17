@@ -28,8 +28,6 @@ let
 
   config = {
     allowUnfree = true;
-
-    # Added until *arr packages update from dotnet 6
     permittedInsecurePackages = [ ];
   };
 
