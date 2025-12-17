@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_1_hardened;
+    kernelPackages = pkgs.linuxPackages_hardened;
 
     loader = {
       grub = {
