@@ -42,5 +42,5 @@ in
   ];
 
   networking.hostName = "butterfree";
-  system.stateVersion = "23.05";
+  system.stateVersion = "25.11";
 }
