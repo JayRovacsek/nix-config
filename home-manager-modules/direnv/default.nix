@@ -1,12 +1,23 @@
-{ config, ... }:
+{
+  config,
+  osConfig,
+  pkgs,
+  ...
+}:
 let
   enable = true;
   enableBashIntegration = config.programs.bash.enable;
   enableFishIntegration = config.programs.fish.enable;
   enableZshIntegration = config.programs.zsh.enable;
 
-  nix-direnv.enable = true;
-
+  nix-direnv = {
+    enable = true;
+    package =
+      if osConfig.nix.package.pname == "lix" then
+        pkgs.lixPackageSets.stable.nix-direnv
+      else
+        pkgs.nix-direnv;
+  };
 in
 {
   programs.direnv = {
