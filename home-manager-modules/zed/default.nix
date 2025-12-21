@@ -19,8 +19,6 @@ let
     ++ (with self.packages.${system}; [ cst-lsp ]);
 in
 {
-  home.packages = required_packages;
-
   programs.zed-editor = {
     enable = true;
 
