@@ -34,8 +34,8 @@
         roles = [ "embed" ];
       }
       {
-        name = "devstral-small-2";
-        model = "devstral-small-2";
+        name = "gemma3:4b";
+        model = "gemma3:4b";
         roles = [
           "autocomplete"
           "chat"
