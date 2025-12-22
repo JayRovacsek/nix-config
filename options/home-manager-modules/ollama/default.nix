@@ -182,5 +182,8 @@ in
     };
   };
 
-  config = lib.recursiveUpdate darwin-configuration linux-configuration;
+  config = lib.mkMerge [
+    darwin-configuration
+    linux-configuration
+  ];
 }

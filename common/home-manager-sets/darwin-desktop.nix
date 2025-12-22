@@ -1,8 +1,9 @@
 { self }:
 let
-  inherit (self.common.home-manager-module-sets) desktop;
+  inherit (self.common.home-manager-module-sets) ai desktop;
 in
-desktop
+ai
+++ desktop
 ++ (with self.homeManagerModules; [
   alacritty
   dock

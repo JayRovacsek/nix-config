@@ -81,7 +81,7 @@ in
   };
 
   # This is really only required due to a broken install
-  # ids.gids.nixbld = 350;
+  ids.gids.nixbld = 350;
 
   imports = with self.nixosModules; [
     agenix
@@ -95,10 +95,10 @@ in
     networking
     nix
     remote-builds
-    skhd
     ssh
-    time
+    skhd
     yabai
+    time
     zsh
   ];
 

@@ -49,8 +49,8 @@ _: {
   slowpoke-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaCUi9otulZfg9Qc58SEiaKkJNLf2K6ODpFly0Q37Xk";
   victreebel-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINHnszx7Jrq1wtW9wwmuk3ehWswgrn/dcRfIJM3QXxfG";
   victreebel-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMnMmBRZhce8ADtcG84UM2JgNoHXFi7zoR3BG51Oosvf";
-  vileplume-primary-key = "X";
-  vileplume-secondary-key = "X";
+  vileplume-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHZRWZkhrTWFu4i9xDrtfSMInMkv+DUPhcyFB4msUe0";
+  vileplume-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBiRkhb7YYU/R/Cq11jjLWE6UE7Aqo2rOIGLu5lXvao6";
   wigglytuff-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB84c9n+Bx6YlrL9Xyul+hnzWiFGiA1S/CwvhuHVq7Fd";
   wigglytuff-secondary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcX/8/ytI937OBL6HhQfY2DZEFvpHcMhc09et7H6xRz";
   zubat-primary-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2/9Gz4MEx3p2qN+fusdrx0p+3GfsF1J1NpRons5KqU";

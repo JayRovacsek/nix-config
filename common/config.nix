@@ -314,7 +314,12 @@ _: {
 
     vileplume = {
       hostname = "vileplume";
-      ips = [ ];
+      ips = [
+        {
+          address = "192.168.7.15";
+          fqdn = "vileplume.local";
+        }
+      ];
     };
 
     wartortle = {

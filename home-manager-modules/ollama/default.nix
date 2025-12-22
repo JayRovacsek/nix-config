@@ -18,11 +18,17 @@
         inherit (config.services.ollama) models;
       };
 
-  programs.vscode.profiles.default.extensions =
-    lib.mkIf config.programs.vscode.enable
-      [
-        pkgs.vscode-extensions.continue.continue
-      ];
+  programs.vscode.profiles.default = {
+    extensions = lib.mkIf config.programs.vscode.enable [
+      pkgs.vscode-extensions.continue.continue
+    ];
+    userSettings = {
+      "file://${config.home.homeDirectory}/.vscode-oss/extensions/Continue.continue/config-yaml-schema.json" =
+        [
+          ".continue/**/*.yaml"
+        ];
+    };
+  };
 
   services.ollama = {
     enable = true;
