@@ -312,6 +312,11 @@ _: {
       ];
     };
 
+    vileplume = {
+      hostname = "vileplume";
+      ips = [ ];
+    };
+
     wartortle = {
       hostname = "wartortle";
       ips = [
