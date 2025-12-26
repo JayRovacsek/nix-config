@@ -22,12 +22,10 @@
     extensions = lib.mkIf config.programs.vscode.enable [
       pkgs.vscode-extensions.continue.continue
     ];
-    userSettings = {
-      "file://${config.home.homeDirectory}/.vscode-oss/extensions/Continue.continue/config-yaml-schema.json" =
-        [
-          ".continue/**/*.yaml"
-        ];
-    };
+    userSettings."yaml.schemas"."file://${config.home.homeDirectory}/.vscode-oss/extensions/Continue.continue/config-yaml-schema.json" =
+      [
+        ".continue/**/*.yaml"
+      ];
   };
 
   services.ollama = {
