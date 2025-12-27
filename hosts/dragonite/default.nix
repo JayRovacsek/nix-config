@@ -65,7 +65,6 @@ in
     agenix
     alloy
     blocky
-    clamav
     firefox-syncserver
     fonts
     generations
