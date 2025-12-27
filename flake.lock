@@ -1254,7 +1254,7 @@
       "flake": false,
       "locked": {
         "lastModified": 1740765145,
-        "narHash": "sha256-sr3T8pHUF0nxc+N7NAybXM3HRmnIWxtt6sI8b0g7txM=",
+        "narHash": "sha256-hoCsGc4+RC/2LmxDtswLBL5ZhWlw4vSiL4Vkl39r2MU=",
         "owner": "raspberrypi",
         "repo": "linux",
         "rev": "5985ce32e511f4e8279a841a1b06a8c7d972b386",
@@ -1271,7 +1271,7 @@
       "flake": false,
       "locked": {
         "lastModified": 1740503700,
-        "narHash": "sha256-6d7ZOEtoiKK8uUKAoz8zKPRRvFZySTbAxaw1JAbB4mo=",
+        "narHash": "sha256-Y8+ot4Yi3UKwlZK3ap15rZZ16VZDvmeFkD46+6Ku7bE=",
         "owner": "raspberrypi",
         "repo": "linux",
         "rev": "2e071057fded90e789c0101498e45a1778be93fe",
