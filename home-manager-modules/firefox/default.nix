@@ -129,6 +129,11 @@ in
             keyword = "t";
             url = "https://registry.terraform.io/search/providers?q=%s";
           }
+          {
+            name = "Unified Nix Search";
+            keyword = "n";
+            url = "https://searchix.ovh/?query=%s";
+          }
         ];
       };
 
