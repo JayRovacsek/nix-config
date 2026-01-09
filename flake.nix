@@ -245,8 +245,6 @@
       url = "github:NuschtOS/nixos-modules";
     };
 
-    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
-
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
@@ -500,7 +498,7 @@
                 };
 
                 trufflehog-verified = {
-                  enable = pkgs.stdenv.isLinux;
+                  enable = false;
                   name = "Trufflehog Search";
                   entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
                   language = "system";
