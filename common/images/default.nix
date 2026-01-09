@@ -4,7 +4,7 @@ let
   inherit (self.inputs) nixos-generators;
 
   modules = [
-    self.inputs.raspberry-pi-nix.nixosModules.sd-image
+    self.nixosModules.raspberry-pi-sd-image
     {
       # As we are only ever building this via binfmt allocations
       # disable compression as the performance of achieving compression is

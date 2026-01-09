@@ -3,10 +3,7 @@
   ...
 }:
 {
-  imports = with self.inputs; [
-    raspberry-pi-nix.nixosModules.raspberry-pi
+  imports = [
     self.nixosModules.minimal-boot-filesystems
   ];
-
-  raspberry-pi-nix.board = "bcm2711";
 }
