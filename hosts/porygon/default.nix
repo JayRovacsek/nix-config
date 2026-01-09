@@ -5,7 +5,7 @@
     alloy
     microvm-guest
     nix-topology
-    palworld
+    valheim
     time
     timesyncd
   ];
