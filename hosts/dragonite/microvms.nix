@@ -12,6 +12,7 @@ let
     "nidorina"
     "nidorino"
     "poliwag"
+    "porygon"
     "slowpoke"
     "tentacruel"
   ];
