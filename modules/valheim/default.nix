@@ -55,10 +55,6 @@ in
           VPCFG_FireSource_enabled = "true";
           VPCFG_FireSource_autoFuel = "true";
 
-          VPCFG_Items_enabled = "true";
-          VPCFG_Items_noTeleportPrevention = "true";
-          VPCFG_Items_itemsFloatInWater = "true";
-
           VPCFG_Smelter_enabled = "true";
           VPCFG_Smelter_maximumOre = "100";
           VPCFG_Smelter_maximumCoal = "200";
@@ -72,9 +68,17 @@ in
           VPCFG_Furnace_autoDeposit = "true";
           VPCFG_Furnace_autoFuel = "true";
 
+          VPCFG_Game_enabled = "true";
+          VPCFG_Game_bigPortalNames = "true";
+
+          VPCFG_Items_enabled = "true";
+          VPCFG_Items_noTeleportPrevention = "true";
+          VPCFG_Items_itemsFloatInWater = "true";
+
           VPCFG_Hud_enabled = "true";
           VPCFG_Hud_showRequiredItems = "true";
           VPCFG_Hud_displayBowAmmoCounts = "2";
+          VPCFG_Hud_experienceGainedNotifications = "true";
 
           VPCFG_Kiln_enabled = "true";
           VPCFG_Kiln_maximumWood = "250";
@@ -144,6 +148,11 @@ in
           [
             "${range}:${range}/${valheim.protocol}"
           ];
+
+        volumes = [
+          "/srv/games/servers/valheim/2026-valheim-server/config:/config"
+          "/srv/games/servers/valheim/2026-valheim-server/data:/opt/valheim"
+        ];
       };
     };
   };
