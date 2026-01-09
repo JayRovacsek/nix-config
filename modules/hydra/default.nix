@@ -96,7 +96,28 @@ in
 
   networking.firewall.allowedTCPPorts = [ port ];
 
-  nix.settings.allowed-uris = lib.concatStringsSep " " urls;
+  nix = {
+    buildMachines = [
+      {
+        hostName = "localhost";
+        maxJobs = 64;
+        protocol = null;
+        speedFactor = 8;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        system = null;
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+      }
+    ];
+    settings.allowed-uris = lib.concatStringsSep " " urls;
+  };
 
   services.hydra = {
     enable = true;
