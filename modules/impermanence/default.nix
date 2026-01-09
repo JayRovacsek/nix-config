@@ -8,7 +8,7 @@ let
   inherit (self.lib.microvm) has-microvm is-microvm-host;
 
   microvm = (has-microvm config) && (is-microvm-host config);
-  # Microvms persist state via their machine-id, which is simply 
+  # Microvms persist state via their machine-id, which is simply
   # an md5 of hostname.
   microvm-state-dirs = builtins.map (
     x: "/var/lib/${builtins.hashString "md5" x}"
@@ -17,7 +17,7 @@ let
   agenix-in-use = builtins.hasAttr "age" config;
 
   # If instances are defined, assume they may be all utilised
-  # TODO: check if a filter for enabled is required here in the case of 
+  # TODO: check if a filter for enabled is required here in the case of
   # failure on directory not existing
   authelia = config.services.authelia.instances != { };
   authelia-instances = lib.optionals authelia (
@@ -38,11 +38,6 @@ in
       ];
     };
     "/agenix" = lib.mkIf agenix-in-use { neededForBoot = true; };
-  };
-
-  boot.tmp = {
-    useTmpfs = true;
-    cleanOnBoot = true;
   };
 
   environment.persistence."/persistent" = {
