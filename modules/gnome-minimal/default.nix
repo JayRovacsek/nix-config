@@ -1,11 +1,8 @@
 {
   pkgs,
-  self,
   ...
 }:
 {
-  imports = [ self.nixosModules.gnome-minimal ];
-
   environment = {
     gnome.excludePackages = with pkgs; [
       cheese
