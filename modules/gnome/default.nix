@@ -2,8 +2,10 @@
   config,
   pkgs,
   lib,
+  self,
   ...
 }:
+
 let
   inherit (lib.lists) optionals;
 
@@ -21,7 +23,6 @@ let
     with pkgs.gnomeExtensions;
     [
       caffeine
-      screenshot-tool
       pop-shell
       blur-my-shell
       notification-banner-reloaded
@@ -29,7 +30,10 @@ let
     ++ tailscaleExtensions;
 in
 {
-  imports = [ ../redshift ];
+  imports = [
+    self.nixosModules.gnome-minimal
+    ../redshift
+  ];
 
   services = {
     # Gnome wants this by default, I really don't need it.
@@ -46,28 +50,6 @@ in
   };
 
   environment = {
-    # If using gnome desktop manager, exclude these from installation
-    gnome.excludePackages = with pkgs; [
-      cheese
-      gnome-photos
-      gnome-music
-      gedit
-      epiphany
-      evince
-      gnome-characters
-      totem
-      tali
-      iagno
-      hitori
-      atomix
-      gnome-weather
-      gnome-contacts
-      gnome-maps
-      geary
-      gnome-tour
-      gnome-connections
-    ];
-
     systemPackages = with pkgs; [ gjs ] ++ gnomePackages ++ gnomeExtensions;
   };
 }
