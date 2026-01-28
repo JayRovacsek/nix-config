@@ -50,11 +50,23 @@ Personal laptop; a secondary testing ground when I'm on the move
 
 ![Gastly](https://archives.bulbagarden.net/media/upload/5/59/Spr_2c_092.png?raw=true)
 
+## Grimer
+
+Proof of concept installer image
+
+![Grimer](https://archives.bulbagarden.net/media/upload/3/3a/Spr_2c_088.png?raw=true)
+
 ## Igglybuff
 
 A microvm providing DNS services
 
 ![Igglybuff](https://archives.bulbagarden.net/media/upload/e/e7/Spr_2c_174.png?raw=true)
+
+## Ivysaur
+
+A raspberry pi 4 that runs DNS services
+
+![Ivysaur](https://archives.bulbagarden.net/media/upload/2/2a/Spr_2c_002.png?raw=true)
 
 ## Jigglypuff
 
@@ -75,6 +87,18 @@ A microvm providing the headscale control server instance for overlay networks
 
 ![Magikarp](https://archives.bulbagarden.net/media/upload/f/f2/Spr_2c_129.png?raw=true)
 
+## Magnemite
+
+Microvm hosting buildbot coordinator
+
+![Magnemite](https://archives.bulbagarden.net/media/upload/a/a0/Spr_2c_081.png?raw=true)
+
+## Magneton
+
+Microvm hosting buildbot worker
+
+![Magneton](https://archives.bulbagarden.net/media/upload/2/26/Spr_2c_082.png?raw=true)
+
 ## Mankey
 
 Microvm hosting deluge
@@ -93,11 +117,47 @@ Testing ground for configuration suitability - intended to be simply virtual via
 
 ![Mew](https://archives.bulbagarden.net/media/upload/f/f3/Spr_2c_151.png?raw=true)
 
+## Mr Mime
+
+Microvm hosting observability stack (Grafana, Loki, Prometheus)
+
+![Mr Mime](https://archives.bulbagarden.net/media/upload/7/70/Spr_2c_122.png?raw=true)
+
 ## Nidoking
 
 Microvm running Nextcloud
 
 ![Nidoking](https://archives.bulbagarden.net/media/upload/9/9c/Spr_2c_034.png?raw=true)
+
+## Nidorina
+
+Microvm acting as the primary reverse proxy
+
+![Nidorina](https://archives.bulbagarden.net/media/upload/6/6e/Spr_2c_030.png?raw=true)
+
+## Nidorino
+
+Microvm hosting Authelia authentication service
+
+![Nidorino](https://archives.bulbagarden.net/media/upload/1/13/Spr_2c_033.png?raw=true)
+
+## Ninetales
+
+Personal aarch64 Macbook
+
+![Ninetales](https://archives.bulbagarden.net/media/upload/3/32/Spr_2c_038.png?raw=true)
+
+## Oddish
+
+Microvm hosting bazarr
+
+![Oddish](https://archives.bulbagarden.net/media/upload/c/cd/Spr_2c_043.png?raw=true)
+
+## Onix
+
+Orange Pi 5 Plus hosting Anubis and Blocky
+
+![Onix](https://archives.bulbagarden.net/media/upload/8/85/Spr_2c_095.png?raw=true)
 
 ## Poliwag
 
@@ -117,11 +177,29 @@ Microvm running flare-solverrr
 
 ![Slowpoke](https://archives.bulbagarden.net/media/upload/9/92/Spr_2c_079.png?raw=true)
 
+## Tentacruel
+
+Microvm hosting Home Assistant
+
+![Tentacruel](https://archives.bulbagarden.net/media/upload/9/9e/Spr_2c_073.png?raw=true)
+
 ## Victreebel
 
 Work aarch64 Macbook
 
 ![Victreebel](https://archives.bulbagarden.net/media/upload/3/3f/Spr_2c_071.png?raw=true)
+
+## Vileplume
+
+Work aarch64 Macbook
+
+![Vileplume](https://archives.bulbagarden.net/media/upload/7/73/Spr_2c_045.png?raw=true)
+
+## Wartortle
+
+A raspberry pi 4 that runs DNS services
+
+![Wartortle](https://archives.bulbagarden.net/media/upload/5/5d/Spr_2c_008.png?raw=true)
 
 ## Wigglytuff
 
