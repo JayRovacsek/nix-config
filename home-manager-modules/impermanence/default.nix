@@ -2,7 +2,6 @@
   config,
   lib,
   osConfig,
-  self,
   ...
 }:
 let
@@ -67,99 +66,93 @@ let
 
 in
 {
-  imports = [ self.inputs.impermanence.nixosModules.home-manager.impermanence ];
-
   # NOTE:
   # Only directories that are not nix-generated need to be considered here.
   # If nix would generate the location based on config options therefore creating a symlink
   # we do not need to keep the value as it's already in the store
 
-  home.persistence."/persistent/home/${config.home.username}" = {
-    directories =
-      [
-        ".cache/nix"
-        ".gnupg"
-        ".local/share/keyrings"
-        ".ssh"
-      ]
-      ## Atuin
-      ++ (lib.optionals (home-packages-has "atuin") [ ".local/share/atuin" ])
+  home.persistence."/persistent" = {
+    directories = [
+      ".cache/nix"
+      ".gnupg"
+      ".local/share/keyrings"
+      ".ssh"
+    ]
+    ## Atuin
+    ++ (lib.optionals (home-packages-has "atuin") [ ".local/share/atuin" ])
 
-      ## Direnv
-      ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
+    ## Direnv
+    ++ (lib.optionals (home-packages-has "direnv") [ ".local/share/direnv" ])
 
-      ## Firefox; note that ".cache/mozilla/firefox" could be
-      # added to the below to retain the browser cache, but I'm going to see
-      # how it goes just nuking that directory for now.
-      ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
+    ## Firefox; note that ".cache/mozilla/firefox" could be
+    # added to the below to retain the browser cache, but I'm going to see
+    # how it goes just nuking that directory for now.
+    ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
 
-      # Jellyfin
-      ++ (lib.optionals (home-packages-has "jellyfin-media-player") [
-        ".local/share/Jellyfin Media Player"
-        ".local/share/jellyfinmediaplayer"
-      ])
+    # Jellyfin
+    ++ (lib.optionals (home-packages-has "jellyfin-media-player") [
+      ".local/share/Jellyfin Media Player"
+      ".local/share/jellyfinmediaplayer"
+    ])
 
-      ## Keepassxc
-      ++ (lib.optionals (home-packages-has "keepassxc") [ ".cache/keepassxc" ])
+    ## Keepassxc
+    ++ (lib.optionals (home-packages-has "keepassxc") [ ".cache/keepassxc" ])
 
-      ## Keybase
-      ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
+    ## Keybase
+    ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
 
-      ## Lutris
-      ++ (lib.optionals (home-packages-has "lutris") [
-        ".config/lutris"
-        "Games"
-      ])
+    ## Lutris
+    ++ (lib.optionals (home-packages-has "lutris") [
+      ".config/lutris"
+      "Games"
+    ])
 
-      ++ (lib.optionals (home-packages-has "nextcloud-client") [
-        ".config/Nextcloud"
-        ".local/share/Nextcloud"
-        "Nextcloud"
-      ])
+    ++ (lib.optionals (home-packages-has "nextcloud-client") [
+      ".config/Nextcloud"
+      ".local/share/Nextcloud"
+      "Nextcloud"
+    ])
 
-      ++ (lib.optionals (home-packages-has "ollama") [
-        ".ollama"
-      ])
+    ++ (lib.optionals (home-packages-has "ollama") [
+      ".ollama"
+    ])
 
-      ## r2modman
-      ++ (lib.optionals (home-packages-has "r2modman") [ ".config/r2modman" ])
+    ## r2modman
+    ++ (lib.optionals (home-packages-has "r2modman") [ ".config/r2modman" ])
 
-      ## Slack
-      ++ (lib.optionals (home-packages-has "slack") [ ".config/Slack" ])
+    ## Slack
+    ++ (lib.optionals (home-packages-has "slack") [ ".config/Slack" ])
 
-      ## Signal
-      ++ (lib.optionals (home-packages-has "signal-desktop") [ ".config/Signal" ])
+    ## Signal
+    ++ (lib.optionals (home-packages-has "signal-desktop") [ ".config/Signal" ])
 
-      ## Steam
-      ++ (lib.optionals (any-packages-has "steam") [
-        {
-          directory = ".local/share/Steam";
-          method = "symlink";
-        }
-        {
-          directory = ".steam";
-          method = "symlink";
-        }
-      ])
+    ## Steam
+    ++ (lib.optionals (any-packages-has "steam") [
+      {
+        directory = ".local/share/Steam";
+      }
+      {
+        directory = ".steam";
+      }
+    ])
 
-      ## Thunderbird
-      ++ (lib.optionals (home-packages-has "thunderbird") [ ".thunderbird" ])
+    ## Thunderbird
+    ++ (lib.optionals (home-packages-has "thunderbird") [ ".thunderbird" ])
 
-      ## VSCodium
-      ++ (lib.optionals (home-packages-has "vscodium") [ ".config/VSCodium" ])
+    ## VSCodium
+    ++ (lib.optionals (home-packages-has "vscodium") [ ".config/VSCodium" ])
 
-      ## Webcord / Vencord
-      ++ (lib.optionals (home-packages-has "webcord-vencord") [
-        ".config/Vencord"
-        ".config/Webcord"
-      ])
+    ## Webcord / Vencord
+    ++ (lib.optionals (home-packages-has "webcord-vencord") [
+      ".config/Vencord"
+      ".config/Webcord"
+    ])
 
-      ## Zoom
-      ++ (lib.optionals (home-packages-has "zoom-us") [ ".zoom" ])
+    ## Zoom
+    ++ (lib.optionals (home-packages-has "zoom-us") [ ".zoom" ])
 
-      # Adds all XDG created directories if the user has opted into creating directories via this option
-      ++ xdg-user-dirs;
+    # Adds all XDG created directories if the user has opted into creating directories via this option
+    ++ xdg-user-dirs;
     files = [ ];
-    allowOther = true;
   };
 }

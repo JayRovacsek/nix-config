@@ -37,7 +37,9 @@ in
         "mode=755"
       ];
     };
-    "/agenix" = lib.mkIf agenix-in-use { neededForBoot = true; };
+    # "/agenix" = lib.mkIf agenix-in-use {
+    #   neededForBoot = true;
+    # };
   };
 
   environment.persistence."/persistent" = {
