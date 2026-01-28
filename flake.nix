@@ -87,7 +87,13 @@
       url = "github:JayRovacsek/hydra-badge-api";
     };
 
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+      url = "github:nix-community/impermanence";
+    };
 
     ironbar = {
       inputs = {
@@ -186,7 +192,10 @@
     };
 
     nix-topology = {
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
       url = "github:oddlama/nix-topology";
     };
 
