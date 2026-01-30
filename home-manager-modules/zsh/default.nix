@@ -15,6 +15,7 @@ in
 {
   programs.zsh = {
     autosuggestion.enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
     enable = true;
     enableCompletion = false;
     enableVteIntegration = true;
