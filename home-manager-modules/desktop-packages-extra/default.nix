@@ -22,6 +22,8 @@
       [
         brave
 
+        jellyfin-media-player
+
         # Productivity
         gimp
 
