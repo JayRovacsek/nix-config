@@ -100,9 +100,6 @@
         };
         web-devicons.enable = true;
       };
-
-      # Plugin Definitions (nixpkgs)
-      extraPlugins = with pkgs.vimPlugins; [ nvchad ];
     };
 
     zsh.sessionVariables.EDITOR = "nvim";
