@@ -418,6 +418,8 @@
           # Pre-commit hooks to enforce formatting, lining, find
           # antipatterns and ensure they don't reach upstream
           checks = {
+            authelia-nginx = import ./tests/authelia-nginx.nix { inherit pkgs self; };
+
             git-hooks = self.inputs.git-hooks.lib.${system}.run {
               src = self;
               hooks = {

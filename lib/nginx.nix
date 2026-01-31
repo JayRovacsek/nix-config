@@ -33,7 +33,7 @@ let
       let
         root = findFirst (x: hasSuffix x domain) "" config.services.nginx.domains;
 
-        self-signed = findFirst (x: x.domain == domain) {
+        self-signed = findFirst (x: hasSuffix x.domain domain) {
           keyPath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
           certificatePath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
         } config.services.nginx.test.certificateMap;
