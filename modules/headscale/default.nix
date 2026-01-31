@@ -7,7 +7,6 @@
 }:
 let
   inherit (self.common.config.services.headscale)
-    base_domain
     derpServerStunPort
     grpcPort
     metricsPort
@@ -15,17 +14,37 @@ let
     ;
 
   inherit (config.services.headscale) users;
+  # Use the configured value for ACL generation
+  inherit (config.services.headscale.settings.dns) base_domain;
+  # Default value from flake common config
+  defaultBaseDomain = self.common.config.services.headscale.base_domain;
 
   # Below generates group values of "group:$X" for all users
-  groups = builtins.foldl' (
-    accumulator: user: accumulator // { "group:${user.name}" = [ "${user.name}" ]; }
+  user-groups = builtins.foldl' (
+    accumulator: user:
+    let
+      # Use the name as-is if it has an @, otherwise add the suffix
+      member =
+        if lib.strings.hasInfix "@" user.name then
+          user.name
+        else
+          "${user.name}@${base_domain}";
+    in
+    accumulator // { "group:${user.name}" = [ member ]; }
   ) { } users;
 
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   allow-to-self = builtins.map (x: {
     action = "accept";
     src = [ "group:${x.name}" ];
-    dst = [ "${x.name}:*" ];
+    dst = [
+      (
+        if lib.strings.hasInfix "@" x.name then
+          "${x.name}:*"
+        else
+          "${x.name}@${base_domain}:*"
+      )
+    ];
   }) users;
 
   allow-admin-to-all = [
@@ -48,8 +67,11 @@ let
   allow-all-to-internet-via-exit-node = [
     {
       action = "accept";
-      src = [ "member" ];
-      dst = [ "internet:*" ];
+      src = [ "*" ];
+      dst = [
+        "0.0.0.0/0:*"
+        "::/0:*"
+      ];
     }
   ];
 
@@ -96,9 +118,17 @@ in
 
     use-declarative-users = true;
 
+    acl = {
+      groups = user-groups;
+      acls =
+        allow-admin-to-all
+        ++ allow-all-to-dns
+        ++ allow-to-self
+        ++ allow-all-to-internet-via-exit-node;
+    };
+
     users = [
       {
-        id = 1;
         name = "work";
         keys = [
           {
@@ -109,7 +139,6 @@ in
         ];
       }
       {
-        id = 2;
         name = "reverse-proxy";
         keys = [
           {
@@ -120,7 +149,6 @@ in
         ];
       }
       {
-        id = 3;
         name = "nextcloud";
         keys = [
           {
@@ -131,7 +159,6 @@ in
         ];
       }
       {
-        id = 4;
         name = "log";
         keys = [
           {
@@ -142,7 +169,6 @@ in
         ];
       }
       {
-        id = 5;
         name = "general";
         keys = [
           {
@@ -153,7 +179,6 @@ in
         ];
       }
       {
-        id = 6;
         name = "game";
         keys = [
           {
@@ -164,7 +189,6 @@ in
         ];
       }
       {
-        id = 7;
         name = "download";
         keys = [
           {
@@ -175,7 +199,6 @@ in
         ];
       }
       {
-        id = 8;
         name = "dns";
         keys = [
           {
@@ -186,7 +209,6 @@ in
         ];
       }
       {
-        id = 9;
         name = "auth";
         keys = [
           {
@@ -197,7 +219,6 @@ in
         ];
       }
       {
-        id = 10;
         name = "admin";
         keys = [
           {
@@ -211,16 +232,7 @@ in
 
     # This will override settings that are not exposed as nix module options
     settings = {
-      policy.path = builtins.toFile "acl.json" (
-        builtins.toJSON {
-          inherit groups;
-          acls =
-            allow-admin-to-all
-            ++ allow-all-to-dns
-            ++ allow-to-self
-            ++ allow-all-to-internet-via-exit-node;
-        }
-      );
+      # Policy path is now managed by the module options
 
       ## TODO: Address the below to use my own options.
       # see also: https://github.com/kradalby/dotfiles/blob/bfeb24bf2593103d8e65523863c20daf649ca656/machines/headscale.oracldn/headscale.nix#L45
@@ -244,22 +256,22 @@ in
       };
 
       dns = {
-        inherit base_domain;
+        base_domain = lib.mkDefault defaultBaseDomain;
         override_local_dns = false;
         magic_dns = true;
         # Replace this in time with resolved magic DNS address of my DNS resolvers.
         nameservers.global = [ "192.168.1.220" ];
         domains = [ base_domain ];
 
-        # Because we utilise blocky locally across all machines but 
+        # Because we utilise blocky locally across all machines but
         # Tailscale will take control of DNS once a client is connected,
         # we'll opt to inject all custom records from blocky into tailscale
         # to ensure continuity in that space.
         # Blocky only supports A and AAAA, but as we don't use ipv6 we can
         # blindly assume A records here for now.
         #
-        # There's a future in which we can bootstrap tailscale suitably to 
-        # simply consume DNS from a suitable node utilising blocky - but it's 
+        # There's a future in which we can bootstrap tailscale suitably to
+        # simply consume DNS from a suitable node utilising blocky - but it's
         # still a work in progress.
         extra_records = lib.optionalAttrs config.services.blocky.enable (
           lib.mapAttrsToList (name: value: {
