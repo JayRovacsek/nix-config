@@ -37,6 +37,7 @@ in
   gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
   ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
   jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
+  onix = make-host aarch64-linux-unstable "onix" unstable-system;
   wartortle = extend-host self.common.images.configurations.rpi5 "wartortle";
   wigglytuff = extend-host self.common.images.configurations.rpi4 "wigglytuff";
 
