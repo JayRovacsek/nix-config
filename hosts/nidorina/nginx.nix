@@ -8,6 +8,7 @@ let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
+    anubis
     authelia
     bazarr
     deluge
@@ -164,7 +165,7 @@ let
       locations = {
         "/" = {
           priority = 200;
-          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
+          proxyPass = "${anubis.protocol}://${anubis.ipv4}:${builtins.toString anubis.port}";
           extraConfig = ''
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
