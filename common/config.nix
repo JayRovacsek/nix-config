@@ -184,6 +184,16 @@ _: {
       ];
     };
 
+    onix = {
+      hostname = "onix";
+      ips = [
+        {
+          address = "192.168.5.4";
+          fqdn = "onix.local";
+        }
+      ];
+    };
+
     pfsense = {
       hostname = "pfsense";
       ips = [
@@ -397,6 +407,15 @@ _: {
       port = 9091;
       protocol = "http";
       subdomain = "authelia";
+    };
+
+    anubis = {
+      ipv4 = "127.0.0.1";
+      port = 4444;
+      metrics-port = 4445;
+      protocol = "http";
+      bind-network = "tcp";
+      metrics-bind-network = "tcp";
     };
 
     bazarr = {
