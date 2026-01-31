@@ -1,7 +1,4 @@
 { pkgs, self }:
-let
-  inherit (pkgs) lib;
-in
 pkgs.testers.runNixOSTest {
   name = "authelia-nginx";
 
@@ -29,46 +26,8 @@ pkgs.testers.runNixOSTest {
         self.nixosModules.authelia
         self.nixosModules.nginx
         self.nixosModules.prometheus
+        ../options/modules/agenix/mock.nix
       ];
-
-      # Mock secrets option definition matching what agenix provides (roughly)
-      options.age = {
-        secrets = lib.mkOption {
-          type = lib.types.attrsOf (
-            lib.types.submodule {
-              options = {
-                path = lib.mkOption { type = lib.types.path; };
-                file = lib.mkOption { type = lib.types.path; };
-                owner = lib.mkOption {
-                  type = lib.types.str;
-                  default = "root";
-                };
-                group = lib.mkOption {
-                  type = lib.types.str;
-                  default = "root";
-                };
-                mode = lib.mkOption {
-                  type = lib.types.str;
-                  default = "0400";
-                };
-                name = lib.mkOption {
-                  type = lib.types.str;
-                  default = "secret";
-                };
-                symlink = lib.mkOption {
-                  type = lib.types.bool;
-                  default = true;
-                };
-              };
-            }
-          );
-          default = { };
-        };
-        identityPaths = lib.mkOption {
-          type = lib.types.listOf lib.types.str; # identityPaths are usually strings or paths
-          default = [ ];
-        };
-      };
 
       config = {
         # Inject 'self' into specialArgs for modules that need it
