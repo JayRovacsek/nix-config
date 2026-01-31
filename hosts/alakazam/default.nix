@@ -18,7 +18,7 @@ let
     inherit config pkgs;
     modules =
       with self.common.home-manager-module-sets;
-      hyprland-ironbar-desktop ++ games ++ ssh ++ impermanence;
+      hyprland-ironbar-desktop ++ games ++ ssh ++ impermanence ++ ai;
   };
 
   user-configs = merge [
