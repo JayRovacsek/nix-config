@@ -1,6 +1,6 @@
 { pkgs, self }:
 pkgs.testers.runNixOSTest {
-  name = "headscale-connectivity";
+  name = "headscale-integration";
 
   nodes = {
     headscale =

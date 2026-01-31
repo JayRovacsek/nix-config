@@ -1,6 +1,6 @@
 { pkgs, self }:
 pkgs.testers.runNixOSTest {
-  name = "authelia-nginx";
+  name = "authelia-auth";
 
   nodes.machine =
     { config, pkgs, ... }:

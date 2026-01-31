@@ -1,6 +1,6 @@
 { pkgs, self }:
 pkgs.testers.runNixOSTest {
-  name = "anubis";
+  name = "anubis-proxy";
   nodes.machine =
     {
       pkgs,

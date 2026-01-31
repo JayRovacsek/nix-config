@@ -55,4 +55,7 @@ in
   # Strip out below known issue packages when it comes to
   # hydra evaluation.
   packages = non-broken-packages;
+
+  # Expose tests
+  tests = self.checks;
 }

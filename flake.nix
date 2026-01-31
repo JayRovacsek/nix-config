@@ -418,10 +418,12 @@
           # Pre-commit hooks to enforce formatting, lining, find
           # antipatterns and ensure they don't reach upstream
           checks = {
-            authelia-nginx = import ./tests/authelia-nginx.nix { inherit pkgs self; };
-            anubis = import ./tests/anubis.nix { inherit pkgs self; };
-            headscale = import ./tests/headscale.nix { inherit pkgs self; };
-            headscale-connectivity = import ./tests/headscale-connectivity.nix {
+            authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
+            anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
+            headscale-declarative = import ./tests/headscale-declarative.nix {
+              inherit pkgs self;
+            };
+            headscale-integration = import ./tests/headscale-integration.nix {
               inherit pkgs self;
             };
 
