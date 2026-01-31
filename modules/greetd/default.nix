@@ -11,7 +11,7 @@ let
   # invalid
   cmd =
     if hyperland-present then
-      "${config.programs.hyprland.package}/bin/Hyprland"
+      "${config.programs.hyprland.package}/bin/start-hyprland"
     else
       "";
 
