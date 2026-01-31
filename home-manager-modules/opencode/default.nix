@@ -45,7 +45,6 @@ in
         "${agentsRepo}/plugins/business-analytics/agents"
         "${agentsRepo}/plugins/cloud-infrastructure/agents"
         "${agentsRepo}/plugins/code-documentation/agents"
-        "${agentsRepo}/plugins/conductor/agents"
         "${agentsRepo}/plugins/data-engineering/agents"
         "${agentsRepo}/plugins/database-design/agents"
         "${agentsRepo}/plugins/security-scanning/agents"
@@ -56,7 +55,6 @@ in
       name = "commands";
       paths = [
         "${agentsRepo}/plugins/code-documentation/commands"
-        "${agentsRepo}/plugins/conductor/commands"
         "${agentsRepo}/plugins/data-engineering/commands"
         "${agentsRepo}/plugins/security-scanning/commands"
         "${agentsRepo}/plugins/startup-business-analyst/commands"
@@ -68,17 +66,10 @@ in
         ./skills
         "${agentsRepo}/plugins/business-analytics/skills"
         "${agentsRepo}/plugins/cloud-infrastructure/skills"
-        "${agentsRepo}/plugins/conductor/skills"
         "${agentsRepo}/plugins/data-engineering/skills"
         "${agentsRepo}/plugins/database-design/skills"
         "${agentsRepo}/plugins/security-scanning/skills"
         "${agentsRepo}/plugins/startup-business-analyst/skills"
-      ];
-    };
-    "opencode/templates".source = pkgs.symlinkJoin {
-      name = "templates";
-      paths = [
-        "${agentsRepo}/plugins/conductor/templates"
       ];
     };
   };
