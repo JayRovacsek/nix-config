@@ -47,6 +47,7 @@ writers.writeYAML ".conform.yaml" {
             "secrets"
             "shells"
             "static"
+            "tests"
             "tooling"
             "tree-wide"
             "users"
