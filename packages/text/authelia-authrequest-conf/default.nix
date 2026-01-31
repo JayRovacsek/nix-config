@@ -1,5 +1,9 @@
-{ writeTextFile, ... }:
-# TODO: figure if I can ever remove the hardcoded site value on the 
+{
+  writeTextFile,
+  domain ? "authelia.rovacsek.com",
+  ...
+}:
+# TODO: figure if I can ever remove the hardcoded site value on the
 # last line of the config
 writeTextFile {
   name = "authelia-authrequest.conf";
@@ -28,6 +32,6 @@ writeTextFile {
     proxy_set_header Remote-Email $email;
 
     ## If the subreqest returns 200 pass to the backend, if the subrequest returns 401 redirect to the portal.
-    error_page 401 =302 https://authelia.rovacsek.com/?rd=$target_url;
+    error_page 401 =302 https://${domain}/?rd=$target_url;
   '';
 }

@@ -11,36 +11,18 @@ pkgs.testers.runNixOSTest {
       # Custom Authelia configuration for the test environment
       # We need this because the default module uses hardcoded IPs/domains suitable for production/LAN
       # but not for this self-contained VM test.
-      autheliaLocation = pkgs.writeText "authelia-location.conf" ''
-        location /authelia {
-            internal;
-            set $upstream_authelia http://127.0.0.1:9091/api/verify;
-            proxy_pass $upstream_authelia;
-            proxy_pass_request_body off;
-            proxy_set_header Content-Length "";
-            proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
-            proxy_set_header X-Original-Method $request_method;
-            proxy_set_header X-Forwarded-Method $request_method;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header X-Forwarded-Host $http_host;
-            proxy_set_header X-Forwarded-Uri $request_uri;
-            proxy_set_header X-Forwarded-For $remote_addr;
-        }
-      '';
+      autheliaLocation = pkgs.callPackage ../packages/text/authelia-location-conf {
+        inherit self;
+        autheliaUrl = "http://127.0.0.1:9091/api/verify";
+      };
 
-      autheliaAuthRequest = pkgs.writeText "authelia-authrequest.conf" ''
-        auth_request /authelia;
-        set $target_url $scheme://$http_host$request_uri;
-        auth_request_set $user $upstream_http_remote_user;
-        auth_request_set $groups $upstream_http_remote_groups;
-        auth_request_set $name $upstream_http_remote_name;
-        auth_request_set $email $upstream_http_remote_email;
-        proxy_set_header Remote-User $user;
-        proxy_set_header Remote-Groups $groups;
-        proxy_set_header Remote-Name $name;
-        proxy_set_header Remote-Email $email;
-        error_page 401 =302 https://authelia.test.rovacsek.com/?rd=$target_url;
-      '';
+      autheliaAuthRequest =
+        pkgs.callPackage ../packages/text/authelia-authrequest-conf
+          {
+            domain = "authelia.test.rovacsek.com";
+          };
+
+      autheliaProxy = self.packages.${pkgs.system}.authelia-proxy-conf;
     in
     {
       imports = [
@@ -54,27 +36,29 @@ pkgs.testers.runNixOSTest {
         secrets = lib.mkOption {
           type = lib.types.attrsOf (
             lib.types.submodule {
-              options.path = lib.mkOption { type = lib.types.path; };
-              options.file = lib.mkOption { type = lib.types.path; };
-              options.owner = lib.mkOption {
-                type = lib.types.str;
-                default = "root";
-              };
-              options.group = lib.mkOption {
-                type = lib.types.str;
-                default = "root";
-              };
-              options.mode = lib.mkOption {
-                type = lib.types.str;
-                default = "0400";
-              };
-              options.name = lib.mkOption {
-                type = lib.types.str;
-                default = "secret";
-              };
-              options.symlink = lib.mkOption {
-                type = lib.types.bool;
-                default = true;
+              options = {
+                path = lib.mkOption { type = lib.types.path; };
+                file = lib.mkOption { type = lib.types.path; };
+                owner = lib.mkOption {
+                  type = lib.types.str;
+                  default = "root";
+                };
+                group = lib.mkOption {
+                  type = lib.types.str;
+                  default = "root";
+                };
+                mode = lib.mkOption {
+                  type = lib.types.str;
+                  default = "0400";
+                };
+                name = lib.mkOption {
+                  type = lib.types.str;
+                  default = "secret";
+                };
+                symlink = lib.mkOption {
+                  type = lib.types.bool;
+                  default = true;
+                };
               };
             }
           );
@@ -113,66 +97,74 @@ pkgs.testers.runNixOSTest {
         };
 
         # Basic networking
-        networking.hostName = "test-machine";
-        networking.firewall.enable = false;
+        networking = {
+          hostName = "test-machine";
+          firewall.enable = false;
 
-        # Add a domain to /etc/hosts so we can resolve it
-        networking.hosts."127.0.0.1" = [
-          "authelia.test.rovacsek.com"
-          "prometheus-bypass.test.rovacsek.com"
-          "prometheus-protected.test.rovacsek.com"
-        ];
+          # Add a domain to /etc/hosts so we can resolve it
+          hosts."127.0.0.1" = [
+            "authelia.test.rovacsek.com"
+            "prometheus-bypass.test.rovacsek.com"
+            "prometheus-protected.test.rovacsek.com"
+          ];
+        };
 
-        # Configure nginx to be test mode (authelia module uses this to switch to test config)
-        services.nginx.test.enable = true;
-        services.nginx.domains = [ "rovacsek.com" ];
+        services = {
+          nginx = {
+            # Configure nginx to be test mode (authelia module uses this to switch to test config)
+            test.enable = true;
+            domains = [ "rovacsek.com" ];
 
-        # Fix for "access_control: 'default_policy' option 'deny' is invalid: when no rules are specified"
-        services.authelia.instances.test.settings.access_control.rules = [
-          {
-            domain = "test.rovacsek.com";
-            policy = "one_factor";
-          }
-          {
-            domain = "prometheus-bypass.test.rovacsek.com";
-            policy = "bypass";
-          }
-          {
-            domain = "prometheus-protected.test.rovacsek.com";
-            policy = "one_factor";
-          }
-        ];
+            # Generate VirtualHost for Authelia
+            virtualHosts =
+              (self.lib.nginx.generate-vhosts {
+                inherit config;
+                subdomain = "authelia";
+                overrides = {
+                  locations."/".proxyPass = "http://127.0.0.1:9091";
+                  enableAuthelia = false;
+                };
+              })
+              // (self.lib.nginx.generate-vhosts {
+                inherit config;
+                subdomain = "prometheus-bypass";
+                overrides = {
+                  locations."/".proxyPass = "http://127.0.0.1:9092";
+                  enableAuthelia = false;
+                  extraConfig = "include ${autheliaLocation};";
+                  locations."/".extraConfig =
+                    "include ${autheliaProxy}; include ${autheliaAuthRequest};";
+                };
+              })
+              // (self.lib.nginx.generate-vhosts {
+                inherit config;
+                subdomain = "prometheus-protected";
+                overrides = {
+                  locations."/".proxyPass = "http://127.0.0.1:9092";
+                  enableAuthelia = false;
+                  extraConfig = "include ${autheliaLocation};";
+                  locations."/".extraConfig =
+                    "include ${autheliaProxy}; include ${autheliaAuthRequest};";
+                };
+              });
+          };
 
-        # Generate VirtualHost for Authelia
-        services.nginx.virtualHosts =
-          (self.lib.nginx.generate-vhosts {
-            inherit config;
-            subdomain = "authelia";
-            overrides = {
-              locations."/".proxyPass = "http://127.0.0.1:9091";
-              enableAuthelia = false;
-            };
-          })
-          // (self.lib.nginx.generate-vhosts {
-            inherit config;
-            subdomain = "prometheus-bypass";
-            overrides = {
-              locations."/".proxyPass = "http://127.0.0.1:9092";
-              enableAuthelia = false;
-              extraConfig = "include ${autheliaLocation};";
-              locations."/".extraConfig = "include ${autheliaAuthRequest};";
-            };
-          })
-          // (self.lib.nginx.generate-vhosts {
-            inherit config;
-            subdomain = "prometheus-protected";
-            overrides = {
-              locations."/".proxyPass = "http://127.0.0.1:9092";
-              enableAuthelia = false;
-              extraConfig = "include ${autheliaLocation};";
-              locations."/".extraConfig = "include ${autheliaAuthRequest};";
-            };
-          });
+          # Fix for "access_control: 'default_policy' option 'deny' is invalid: when no rules are specified"
+          authelia.instances.test.settings.access_control.rules = [
+            {
+              domain = "test.rovacsek.com";
+              policy = "one_factor";
+            }
+            {
+              domain = "prometheus-bypass.test.rovacsek.com";
+              policy = "bypass";
+            }
+            {
+              domain = "prometheus-protected.test.rovacsek.com";
+              policy = "one_factor";
+            }
+          ];
+        };
 
         # Trust the self-signed certificate in the test environment
         security.pki.certificateFiles = [ ];
