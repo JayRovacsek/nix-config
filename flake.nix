@@ -415,11 +415,14 @@
           # procedural
           apps = import ./apps { inherit self pkgs; };
 
-          # Pre-commit hooks to enforce formatting, lining, find
-          # antipatterns and ensure they don't reach upstream
           checks = {
             authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
+
+            anubis-integration = import ./tests/anubis-integration.nix {
+              inherit pkgs self;
+            };
             anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
+
             headscale-declarative = import ./tests/headscale-declarative.nix {
               inherit pkgs self;
             };
