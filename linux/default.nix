@@ -6,7 +6,28 @@ let
   # Required package-sets
   inherit (self.common.package-sets) x86_64-linux-unstable aarch64-linux-unstable;
 
-  inherit (self.lib.host) extend-host make-host make-microvm;
+  inherit (self.lib.host)
+    extend-host
+    extend-microvm
+    make-minimal-host
+    make-minimal-microvm
+    ;
+
+  unstable-x86-base = make-minimal-host x86_64-linux-unstable unstable-system;
+  unstable-aarch64-base = make-minimal-host aarch64-linux-unstable unstable-system;
+
+  unstable-x86-microvm-base =
+    (make-minimal-microvm x86_64-linux-unstable unstable-system).extendModules
+      {
+        modules = with self.nixosModules; [
+          agenix
+          alloy
+          microvm-guest
+          nix-topology
+          time
+          timesyncd
+        ];
+      };
 in
 {
   # Cloud and hardware specific configurations
@@ -22,47 +43,47 @@ in
   # so exposure here is more to give a consistent base and be enabled to add tweaks
   # at a level in which it is inherited from all base-images
   # This host otherwise is simply a very base headless install
-  ditto = make-host x86_64-linux-unstable "ditto" unstable-system;
+  ditto = extend-host unstable-x86-base "ditto";
 
   # Cloud Instances
-  diglett = make-host x86_64-linux-unstable "diglett" unstable-system;
-  butterfree = make-host x86_64-linux-unstable "butterfree" unstable-system;
+  diglett = extend-host unstable-x86-base "diglett";
+  butterfree = extend-host unstable-x86-base "butterfree";
 
   # Testing Instances
-  mew = make-host x86_64-linux-unstable "mew" unstable-system;
+  mew = extend-host unstable-x86-base "mew";
 
   # Hosts
-  alakazam = make-host x86_64-linux-unstable "alakazam" unstable-system;
-  dragonite = make-host x86_64-linux-unstable "dragonite" unstable-system;
-  gastly = make-host x86_64-linux-unstable "gastly" unstable-system;
+  alakazam = extend-host unstable-x86-base "alakazam";
+  dragonite = extend-host unstable-x86-base "dragonite";
+  gastly = extend-host unstable-x86-base "gastly";
   ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
-  jigglypuff = make-host aarch64-linux-unstable "jigglypuff" unstable-system;
-  onix = make-host aarch64-linux-unstable "onix" unstable-system;
+  jigglypuff = extend-host unstable-aarch64-base "jigglypuff";
+  onix = extend-host unstable-aarch64-base "onix";
   wartortle = extend-host self.common.images.configurations.rpi5 "wartortle";
   wigglytuff = extend-host self.common.images.configurations.rpi4 "wigglytuff";
 
   ## WSL Configuration
-  zubat = make-host x86_64-linux-unstable "zubat" unstable-system;
+  zubat = extend-host unstable-x86-base "zubat";
 
   ## W10 Migration Base Install Host
-  grimer = make-host x86_64-linux-unstable "grimer" unstable-system;
+  grimer = extend-host unstable-x86-base "grimer";
 
   ## MicroVMs
-  bellsprout = make-microvm x86_64-linux-unstable "bellsprout" unstable-system;
-  igglybuff = make-microvm x86_64-linux-unstable "igglybuff" unstable-system;
-  machop = make-microvm x86_64-linux-unstable "machop" unstable-system;
-  magikarp = make-microvm x86_64-linux-unstable "magikarp" unstable-system;
-  magnemite = make-microvm x86_64-linux-unstable "magnemite" unstable-system;
-  magneton = make-microvm x86_64-linux-unstable "magneton" unstable-system;
-  mankey = make-microvm x86_64-linux-unstable "mankey" unstable-system;
-  meowth = make-microvm x86_64-linux-unstable "meowth" unstable-system;
-  mr-mime = make-microvm x86_64-linux-unstable "mr-mime" unstable-system;
-  nidoking = make-microvm x86_64-linux-unstable "nidoking" unstable-system;
-  nidorina = make-microvm x86_64-linux-unstable "nidorina" unstable-system;
-  nidorino = make-microvm x86_64-linux-unstable "nidorino" unstable-system;
-  oddish = make-microvm x86_64-linux-unstable "oddish" unstable-system;
-  poliwag = make-microvm x86_64-linux-unstable "poliwag" unstable-system;
-  porygon = make-microvm x86_64-linux-unstable "porygon" unstable-system;
-  slowpoke = make-microvm x86_64-linux-unstable "slowpoke" unstable-system;
-  tentacruel = make-microvm x86_64-linux-unstable "tentacruel" unstable-system;
+  bellsprout = extend-microvm unstable-x86-microvm-base "bellsprout";
+  igglybuff = extend-microvm unstable-x86-microvm-base "igglybuff";
+  machop = extend-microvm unstable-x86-microvm-base "machop";
+  magikarp = extend-microvm unstable-x86-microvm-base "magikarp";
+  magnemite = extend-microvm unstable-x86-microvm-base "magnemite";
+  magneton = extend-microvm unstable-x86-microvm-base "magneton";
+  mankey = extend-microvm unstable-x86-microvm-base "mankey";
+  meowth = extend-microvm unstable-x86-microvm-base "meowth";
+  mr-mime = extend-microvm unstable-x86-microvm-base "mr-mime";
+  nidoking = extend-microvm unstable-x86-microvm-base "nidoking";
+  nidorina = extend-microvm unstable-x86-microvm-base "nidorina";
+  nidorino = extend-microvm unstable-x86-microvm-base "nidorino";
+  oddish = extend-microvm unstable-x86-microvm-base "oddish";
+  poliwag = extend-microvm unstable-x86-microvm-base "poliwag";
+  porygon = extend-microvm unstable-x86-microvm-base "porygon";
+  slowpoke = extend-microvm unstable-x86-microvm-base "slowpoke";
+  tentacruel = extend-microvm unstable-x86-microvm-base "tentacruel";
 }
