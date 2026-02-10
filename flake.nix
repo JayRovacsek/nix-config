@@ -100,6 +100,7 @@
         flake-compat.follows = "flake-compat";
         naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
+        nix-systems.follows = "systems";
       };
       url = "github:JakeStanger/ironbar";
     };
@@ -180,7 +181,6 @@
     nix-minecraft = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:Infinidoge/nix-minecraft";
