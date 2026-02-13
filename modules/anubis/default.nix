@@ -6,6 +6,8 @@ let
   inherit (self.common.config.services) anubis hydra;
 in
 {
+  networking.firewall.allowedTCPPorts = [ anubis.port ];
+
   services.anubis = {
     instances.default = {
       enable = true;

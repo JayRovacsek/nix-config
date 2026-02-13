@@ -113,6 +113,12 @@ in
       "Nextcloud"
     ])
 
+    ## Opencode
+    ++ (lib.optionals (home-packages-has "opencode") [
+      ".local/state/opencode"
+      ".local/share/opencode"
+    ])
+
     ++ (lib.optionals (home-packages-has "ollama") [
       ".ollama"
     ])

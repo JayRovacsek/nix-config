@@ -41,8 +41,15 @@ let
   make-host =
     package-set: name: system-builder:
     let
+      base = make-minimal-host package-set system-builder;
+    in
+    extend-host base name;
+
+  make-minimal-host =
+    package-set: system-builder:
+    let
       inherit (package-set) system identifier pkgs;
-      modules = self.common.modules.${identifier} ++ [ ../hosts/${name} ];
+      modules = self.common.modules.${identifier};
       specialArgs = {
         inherit self;
       };
@@ -79,13 +86,18 @@ let
     let
       base = make-minimal-microvm package-set system-builder;
     in
-    base.extendModules { modules = [ ../hosts/${name} ]; };
+    extend-microvm base name;
+
+  extend-microvm =
+    base: name: base.extendModules { modules = [ ../hosts/${name} ]; };
 
 in
 {
   inherit
     extend-host
+    extend-microvm
     make-host
+    make-minimal-host
     make-microvm
     make-minimal-microvm
     ;
