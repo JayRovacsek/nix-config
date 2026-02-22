@@ -3,9 +3,15 @@ let
   inherit (self.common.config.services) grafana loki prometheus;
 in
 {
-  age.secrets.grafana-admin-password = {
-    file = ../../secrets/grafana/admin-password.age;
-    owner = config.systemd.services.grafana.serviceConfig.User;
+  age.secrets = {
+    grafana-admin-password = {
+      file = ../../secrets/grafana/admin-password.age;
+      owner = config.systemd.services.grafana.serviceConfig.User;
+    };
+    grafana-secret-key = {
+      file = ../../secrets/grafana/grafana-secret-key.age;
+      owner = config.systemd.services.grafana.serviceConfig.User;
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -57,6 +63,7 @@ in
       security = {
         admin_password = "$__file{${config.age.secrets.grafana-admin-password.path}}";
         admin_user = "admin";
+        secret_key = "$__file{${config.age.secrets.grafana-secret-key.path}}";
       };
 
       server = {

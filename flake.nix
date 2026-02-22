@@ -182,6 +182,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
       url = "github:Infinidoge/nix-minecraft";
     };

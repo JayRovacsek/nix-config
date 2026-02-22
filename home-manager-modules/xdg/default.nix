@@ -11,7 +11,7 @@
       enable = true;
       createDirectories = true;
       extraConfig = {
-        XDG_DEVELOPMENT_DIR = "${config.home.homeDirectory}/dev";
+        DEVELOPMENT = "${config.home.homeDirectory}/dev";
       };
     };
   };

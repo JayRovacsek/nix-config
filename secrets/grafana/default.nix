@@ -8,4 +8,5 @@ let
 in
 {
   "admin-password.age".publicKeys = mr-mime-keys;
+  "grafana-secret-key.age".publicKeys = mr-mime-keys;
 }
