@@ -8,7 +8,6 @@ let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
-    anubis
     authelia
     bazarr
     deluge
@@ -165,12 +164,11 @@ let
       locations = {
         "/" = {
           priority = 200;
-          proxyPass = "${anubis.protocol}://${anubis.ipv4}:${builtins.toString anubis.port}";
+          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
           extraConfig = ''
             proxy_set_header Host $host;
-            proxy_set_header X-Real-Ip $remote_addr;
+            proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
             add_header Front-End-Https on;
           '';
         };
@@ -384,6 +382,11 @@ in
     };
 
     statusPage = true;
+
+    appendHttpConfig = ''
+      proxy_headers_hash_max_size 1024;
+      proxy_headers_hash_bucket_size 128;
+    '';
 
     virtualHosts = merge [
       authelia-vhost

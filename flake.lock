@@ -463,11 +463,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736945073,
-        "narHash": "sha256-WsrcGLZ84KwH2GqN86aXPtkh5usfV2sYse3py0ZV0ks=",
+        "lastModified": 1771732926,
+        "narHash": "sha256-elz1aN7HtJJrWa2rWLy0ysa3xPmn+qghEr0fsJOmjLg=",
         "owner": "JayRovacsek",
         "repo": "hydra-badge-api",
-        "rev": "f48ce19cf6e23dc59e0f7e38885aa452078888f4",
+        "rev": "067c68f83b73c4bdb066282d472fae220ce09d77",
         "type": "github"
       },
       "original": {

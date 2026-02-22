@@ -5,7 +5,6 @@
       acme
       agenix
       alloy
-      anubis
       ddclient
       microvm-guest
       nginx
