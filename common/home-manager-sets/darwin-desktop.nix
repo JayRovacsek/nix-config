@@ -6,6 +6,7 @@ ai
 ++ desktop
 ++ (with self.homeManagerModules; [
   alacritty
+  dbt
   dock
   utm
 ])

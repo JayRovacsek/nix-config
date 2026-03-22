@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self,
   ...
 }:
 let
@@ -67,7 +68,8 @@ in
 
           # XML
           redhat.vscode-xml
-        ];
+        ]
+        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
 
       keybindings = [
         {

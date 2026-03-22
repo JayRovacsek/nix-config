@@ -18,7 +18,31 @@ let
     nativeBuildInputs = [ pkgs.gnused ];
 
     postPatch = ''
-      find . -type f -exec grep -l "^model: " {} + | xargs sed -i 's/^model: .*$//'
+      find . -type f -exec grep -l "^model: " {} + | xargs sed -i '/^model: /d'
+    '';
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r . $out
+    '';
+  };
+
+  dbtSkillsRepo = pkgs.stdenv.mkDerivation {
+    name = "dbt-skills-repo";
+    src = pkgs.fetchFromGitHub {
+      owner = "dbt-labs";
+      repo = "dbt-agent-skills";
+      rev = "59aa1faf061d288e76044de0bee74248b0399a55";
+      hash = "sha256-wszrCm1PefAUKjWuClPBWr6ZvSOwakmfAKVR4ueuxVc=";
+    };
+
+    dontBuild = true;
+    dontFixup = true;
+
+    nativeBuildInputs = [ pkgs.gnused ];
+
+    postPatch = ''
+      find . -type f -exec grep -l "^user-invocable: " {} + | xargs sed -i '/^user-invocable: /d'
     '';
 
     installPhase = ''
@@ -31,7 +55,7 @@ in
   programs.opencode = {
     enable = true;
     settings = {
-      plugin = [ "opencode-gemini-auth@latest" ];
+      plugin = [ ];
 
       mcp.nixos = {
         type = "local";
@@ -91,6 +115,7 @@ in
         "${agentsRepo}/plugins/security-scanning/skills"
         "${agentsRepo}/plugins/startup-business-analyst/skills"
         "${agentsRepo}/plugins/systems-programming/skills"
+        "${dbtSkillsRepo}/skills"
       ];
     };
   };
