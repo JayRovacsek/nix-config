@@ -22,14 +22,7 @@ in
 
     initContent = lib.mkOrder 550 ''
       DISABLE_AUTO_UPDATE="true"
-      DISABLE_COMPFIX="true"
-
-      setopt extendedglob
-      autoload -Uz compinit
-      for dump in ~/.zcompdump(N.mh+24); do
-        compinit
-      done
-      compinit -C
+      ZSH_DISABLE_COMPFIX="true"
     '';
 
     oh-my-zsh = {
