@@ -142,33 +142,39 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "wshobson";
       repo = "agents";
-      rev = "cbb60494b1df88ff43bff46821df5e71af6883c7";
-      hash = "sha256-2GvwdGRwtICeZntcexjEY3GkrTLG/AMVId2k3NUMtqI=";
+      rev = "1ad2f007d5e9ec822a2d79e727ac1dcdf5f66f11";
+      hash = "sha256-bWrT+N64nHKaJKtoluhLYGz72H6Oqht4k3HwWGU59Uc=";
     };
     patchRules = [ "^model: " ];
     components = {
       agents = [
+        "plugins/backend-development/agents"
         "plugins/business-analytics/agents"
         "plugins/cloud-infrastructure/agents"
         "plugins/code-documentation/agents"
         "plugins/data-engineering/agents"
         "plugins/database-design/agents"
+        "plugins/javascript-typescript/agents"
         "plugins/security-scanning/agents"
         "plugins/startup-business-analyst/agents"
         "plugins/systems-programming/agents"
       ];
       skills = [
+        "plugins/backend-development/skills"
         "plugins/business-analytics/skills"
         "plugins/cloud-infrastructure/skills"
         "plugins/data-engineering/skills"
         "plugins/database-design/skills"
+        "plugins/javascript-typescript/skills"
         "plugins/security-scanning/skills"
         "plugins/startup-business-analyst/skills"
         "plugins/systems-programming/skills"
       ];
       commands = [
+        "plugins/backend-development/commands"
         "plugins/code-documentation/commands"
         "plugins/data-engineering/commands"
+        "plugins/javascript-typescript/commands"
         "plugins/security-scanning/commands"
         "plugins/startup-business-analyst/commands"
         "plugins/systems-programming/commands"
@@ -452,10 +458,14 @@ in
       Assisted-by: Claude Opus 4 via OpenCode
       ```
 
-      ## Nix-First Tooling
+      ## Nix-First Tooling & Execution
 
-      - All tooling must use `nix run`, `nix shell`, or Nix store paths.
-      - Never assume packages are installed locally or globally.
+      - All tool calls MUST use `nix run` or `nix shell` commands as the base.
+      - Any agents, skills, or tools that call for a binary without qualifying how to run it MUST be assumed to mean execution via Nix. Never assume packages are installed locally or globally.
+      - **Package Discovery & Validation:**
+        1. First attempt: Search for the required package using the available `nixos` MCP server.
+        2. Fallback: Use web search to find packages described in the official `nixpkgs` repository.
+        3. If a tool is required that is not already defined in `nixpkgs`, **STOP** and ask the user for clarification or pathways forward.
       - Use `nixfmt` to format all `.nix` files before committing.
 
       ## Code Quality
