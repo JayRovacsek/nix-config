@@ -405,6 +405,16 @@ in
          the orchestrator must review, reconcile, and verify the combined
          results before reporting back to the user.
 
+      ## Skill & Tool Selection
+
+      Before beginning any task, **always** check the list of available
+      skills and tools. If a skill closely matches the task at hand, load
+      and follow it — this is a strong preference, not optional. Skills
+      encode domain-specific workflows, templates, and best practices that
+      produce higher quality results than ad-hoc reasoning. Only skip
+      loading a skill when no available skill is a reasonable fit for the
+      work being done.
+
       ## Commit Message Format
 
       This repository enforces [Conventional Commits](https://www.conventionalcommits.org)
