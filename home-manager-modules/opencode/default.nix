@@ -553,6 +553,15 @@ in
           options.enable = true;
         };
       };
+
+      permission = {
+        # -----------------------------------------------------------------
+        # External directories the agent may read/write outside the project
+        # -----------------------------------------------------------------
+        external_directory = {
+          "~/dev/**" = "allow";
+        };
+      };
     };
   };
 }
