@@ -396,6 +396,13 @@ in
          intent — clarify ambiguities, confirm assumptions, and seek feedback
          at each significant decision point. Only skip questions if the user
          explicitly tells you not to ask.
+      4. **Use Australian English (EN-AU) spelling** in all prose: commit
+         messages, code comments, documentation, and agent output. This
+         means "colour", "organisation", "categorise", "analyse",
+         "behaviour", etc. The only exceptions are identifiers required by
+         code — HTTP headers (`Authorization`), API field names, library
+         symbols, and similar technical tokens where US spelling is part of
+         a protocol or specification.
 
       ## Execution Model: Parallel Orchestration
 
