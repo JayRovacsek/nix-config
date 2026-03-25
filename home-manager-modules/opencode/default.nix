@@ -370,6 +370,11 @@ in
       2. **After making any code changes, delegate to a `code-review` agent to
          review the changes before considering the task complete.** Do not skip
          this step, even for small or seemingly trivial edits.
+      3. **Always ask qualifying questions before and during a task** to ensure
+         you fully understand the requirements and constraints. Do not assume
+         intent — clarify ambiguities, confirm assumptions, and seek feedback
+         at each significant decision point. Only skip questions if the user
+         explicitly tells you not to ask.
 
       ## Commit Message Format
 
