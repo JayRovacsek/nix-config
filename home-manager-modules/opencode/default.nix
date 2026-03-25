@@ -212,6 +212,27 @@ let
     };
   };
 
+  # Anthropic's official skill library — https://github.com/anthropics/skills
+  # Provides skills for Claude API usage, document generation (docx, pdf, pptx,
+  # xlsx), frontend design, MCP building, webapp testing, and more.
+  anthropicSkills = mkOpencodeSource {
+    name = "anthropic-skills";
+    src = pkgs.fetchFromGitHub {
+      owner = "anthropics";
+      repo = "skills";
+      rev = "98669c11ca63e9c81c11501e1437e5c47b556621";
+      hash = "sha256-w//9LB1OVG9jlllY+VDse7Js0dn5x6Ys2vPuQACKsTM=";
+    };
+    patchRules = [
+      "ALWAYS use \`claude-opus-4-6\`"
+      "This is non-negotiable"
+      "For the Claude model version, please use Claude Opus 4.6"
+    ];
+    components = {
+      skills = [ "skills" ];
+    };
+  };
+
   # ---------------------------------------------------------------------------
   # mkOpencodeAttrs: Extract per-entry attrsets from an mkOpencodeSource drv
   #
@@ -314,7 +335,8 @@ let
   externalSkills =
     (mkOpencodeAttrs wshobsonAgents).skills
     // (mkOpencodeAttrs dbtSkills).skills
-    // (mkOpencodeAttrs superpowers).skills;
+    // (mkOpencodeAttrs superpowers).skills
+    // (mkOpencodeAttrs anthropicSkills).skills;
   externalCommands =
     (mkOpencodeAttrs wshobsonAgents).commands
     // (mkOpencodeAttrs superpowers).commands;
