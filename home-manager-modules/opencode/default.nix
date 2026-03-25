@@ -376,6 +376,35 @@ in
          at each significant decision point. Only skip questions if the user
          explicitly tells you not to ask.
 
+      ## Execution Model: Parallel Orchestration
+
+      All tasks MUST be executed with maximum parallelism unless the user
+      explicitly requests sequential execution.
+
+      ### Delegation Rules
+
+      1. **Root-level agents are orchestrators, not implementers.** When you
+         are the top-level (root) agent in a conversation, your role is to
+         decompose work, select the best-fit specialist agent for each
+         sub-task, and spawn those agents in parallel. Do NOT implement
+         work yourself unless no suitable specialist agent exists or you
+         are already operating as a subagent.
+      2. **Agent selection is mandatory.** For every discrete sub-task, assess
+         which available agent persona is the most suitable (e.g.,
+         `nix-automator` for Nix changes, `code-reviewer` for reviews,
+         `security-auditor` for security, etc.) and delegate to it. Never
+         default to doing the work in-process when a specialist is available.
+      3. **Subagents implement directly.** If you have been spawned as a
+         subagent (i.e., you are not the root-level instance), you MUST
+         do the work yourself rather than spawning further subagents,
+         unless the task genuinely requires a different specialism.
+      4. **Maximise concurrency.** Independent sub-tasks MUST be dispatched
+         simultaneously, not sequentially. Only serialise tasks that have
+         true data dependencies on one another.
+      5. **Recombine and verify.** After all parallel sub-tasks complete,
+         the orchestrator must review, reconcile, and verify the combined
+         results before reporting back to the user.
+
       ## Commit Message Format
 
       This repository enforces [Conventional Commits](https://www.conventionalcommits.org)
