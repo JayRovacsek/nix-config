@@ -196,6 +196,22 @@ let
     };
   };
 
+  superpowers = mkOpencodeSource {
+    name = "superpowers";
+    src = pkgs.fetchFromGitHub {
+      owner = "obra";
+      repo = "superpowers";
+      rev = "5da4156bdbdcdf98ddf7b7d1931cf9fdc76956e7"; # v5.0.5
+      hash = "sha256-Yq7y6VDrREV60WpfaGsYdnWqoaS7g1hrtci4bGtgtZM=";
+    };
+    patchRules = [ "^model: " ];
+    components = {
+      agents = [ "agents" ];
+      skills = [ "skills" ];
+      commands = [ "commands" ];
+    };
+  };
+
   # ---------------------------------------------------------------------------
   # mkOpencodeAttrs: Extract per-entry attrsets from an mkOpencodeSource drv
   #
@@ -293,10 +309,15 @@ let
   # Composed attrsets: external sources (mkDefault-priority) merged with local
   # entries (right-wins via //). Local entries listed LAST to take precedence.
   # ---------------------------------------------------------------------------
-  externalAgents = (mkOpencodeAttrs wshobsonAgents).agents;
+  externalAgents =
+    (mkOpencodeAttrs wshobsonAgents).agents // (mkOpencodeAttrs superpowers).agents;
   externalSkills =
-    (mkOpencodeAttrs wshobsonAgents).skills // (mkOpencodeAttrs dbtSkills).skills;
-  externalCommands = (mkOpencodeAttrs wshobsonAgents).commands;
+    (mkOpencodeAttrs wshobsonAgents).skills
+    // (mkOpencodeAttrs dbtSkills).skills
+    // (mkOpencodeAttrs superpowers).skills;
+  externalCommands =
+    (mkOpencodeAttrs wshobsonAgents).commands
+    // (mkOpencodeAttrs superpowers).commands;
 
   composedAgentAttrs = externalAgents // localAgents;
   composedSkillAttrs = externalSkills // localSkills;
