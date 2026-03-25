@@ -599,6 +599,43 @@ in
           "test *" = "allow";
           "true*" = "allow";
           "false*" = "allow";
+          "hostname*" = "allow";
+
+          # --- systemd / launchd inspection (read-only) ---
+          "systemctl status*" = "allow";
+          "systemctl show*" = "allow";
+          "systemctl list-units*" = "allow";
+          "systemctl list-unit-files*" = "allow";
+          "systemctl list-timers*" = "allow";
+          "systemctl list-sockets*" = "allow";
+          "systemctl list-dependencies*" = "allow";
+          "systemctl list-jobs*" = "allow";
+          "systemctl is-active*" = "allow";
+          "systemctl is-enabled*" = "allow";
+          "systemctl is-failed*" = "allow";
+          "systemctl is-system-running*" = "allow";
+          "systemctl cat*" = "allow";
+          "systemctl help*" = "allow";
+          "systemctl --user status*" = "allow";
+          "systemctl --user show*" = "allow";
+          "systemctl --user list-units*" = "allow";
+          "systemctl --user list-unit-files*" = "allow";
+          "systemctl --user list-timers*" = "allow";
+          "systemctl --user list-sockets*" = "allow";
+          "systemctl --user list-dependencies*" = "allow";
+          "systemctl --user list-jobs*" = "allow";
+          "systemctl --user is-active*" = "allow";
+          "systemctl --user is-enabled*" = "allow";
+          "systemctl --user is-failed*" = "allow";
+          "systemctl --user is-system-running*" = "allow";
+          "systemctl --user cat*" = "allow";
+          "systemctl --user help*" = "allow";
+          "journalctl*" = "allow";
+          "launchctl list*" = "allow";
+          "launchctl print*" = "allow";
+          "launchctl blame*" = "allow";
+          "launchctl dumpstate*" = "allow";
+          "launchctl dumpjpcategory*" = "allow";
 
           # --- search & filter ---
           "find*" = "allow";
