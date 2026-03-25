@@ -723,6 +723,10 @@ in
           "deadnix*" = "allow";
           "statix*" = "allow";
 
+          # --- dbt (analytics engineering) ---
+          "dbt*" = "allow";
+          "dbtf*" = "allow";
+
           # --- git (non-destructive / read-only) ---
           "git status*" = "allow";
           "git diff*" = "allow";
