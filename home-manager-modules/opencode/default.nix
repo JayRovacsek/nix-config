@@ -566,8 +566,8 @@ in
         # Bash command allow-list
         #
         # Policy: default ask, explicitly allow non-destructive builtins
-        # that are common across Linux and macOS. Package managers are
-        # omitted — they should be invoked via nix run / nix shell.
+        # that are common across Linux and macOS, and explicitly deny
+        # anything destructive or representing a clear anti-pattern.
         # -----------------------------------------------------------------
         bash = {
           # default — anything not listed requires approval
@@ -669,6 +669,38 @@ in
           "git rebase*" = "allow";
           "git cherry-pick*" = "allow";
           "git push*" = "ask";
+
+          # -----------------------------------------------------------------
+          # DENY: destructive commands and clear anti-patterns
+          #
+          # These are never appropriate for an AI agent to run without
+          # extremely deliberate human intent — block them outright.
+          # -----------------------------------------------------------------
+          "rm -rf*" = "deny";
+          "chmod -R 777*" = "deny";
+          "chmod 777*" = "deny";
+          "dd *" = "deny";
+          "mkfs*" = "deny";
+          "shutdown*" = "deny";
+          "reboot*" = "deny";
+          "halt*" = "deny";
+          "poweroff*" = "deny";
+          "init *" = "deny";
+          "kill -9*" = "deny";
+          "killall*" = "deny";
+          "pkill*" = "deny";
+          ":(){*" = "deny"; # fork bomb
+          "curl*|*sh" = "deny"; # pipe-to-shell
+          "wget*|*sh" = "deny"; # pipe-to-shell
+          "sudo*" = "deny";
+          "su *" = "deny";
+          "doas*" = "deny";
+
+          # --- git destructive operations ---
+          "git push --force*" = "deny";
+          "git push -f*" = "deny";
+          "git clean -fd*" = "deny";
+          "git reset --hard*" = "deny";
         };
       };
     };
