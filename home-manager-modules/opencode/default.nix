@@ -561,6 +561,115 @@ in
         external_directory = {
           "~/dev/**" = "allow";
         };
+
+        # -----------------------------------------------------------------
+        # Bash command allow-list
+        #
+        # Policy: default ask, explicitly allow non-destructive builtins
+        # that are common across Linux and macOS. Package managers are
+        # omitted — they should be invoked via nix run / nix shell.
+        # -----------------------------------------------------------------
+        bash = {
+          # default — anything not listed requires approval
+          "*" = "ask";
+
+          # --- read-only filesystem inspection ---
+          "ls*" = "allow";
+          "pwd*" = "allow";
+          "cat*" = "allow";
+          "head*" = "allow";
+          "tail*" = "allow";
+          "wc*" = "allow";
+          "file*" = "allow";
+          "stat*" = "allow";
+          "readlink*" = "allow";
+          "realpath*" = "allow";
+          "basename*" = "allow";
+          "dirname*" = "allow";
+          "du*" = "allow";
+          "df*" = "allow";
+          "which*" = "allow";
+          "whoami*" = "allow";
+          "uname*" = "allow";
+          "printenv*" = "allow";
+          "id*" = "allow";
+          "date*" = "allow";
+          "tree*" = "allow";
+          "test *" = "allow";
+          "true*" = "allow";
+          "false*" = "allow";
+
+          # --- search & filter ---
+          "find*" = "allow";
+          "fd*" = "allow";
+          "grep*" = "allow";
+          "rg*" = "allow";
+          "awk*" = "allow";
+          "sed*" = "allow";
+          "sort*" = "allow";
+          "uniq*" = "allow";
+          "tr *" = "allow";
+          "cut*" = "allow";
+          "diff*" = "allow";
+          "comm*" = "allow";
+          "tee*" = "allow";
+          "xargs*" = "allow";
+
+          # --- text & data processing ---
+          "echo*" = "allow";
+          "printf*" = "allow";
+          "jq*" = "allow";
+          "yq*" = "allow";
+
+          # --- safe filesystem mutations ---
+          "mkdir*" = "allow";
+          "cp *" = "allow";
+          "mv *" = "allow";
+          "touch*" = "allow";
+          "ln*" = "allow";
+
+          # --- nix (the whole point) ---
+          "nix*" = "allow";
+          "nixfmt*" = "allow";
+          "deadnix*" = "allow";
+          "statix*" = "allow";
+
+          # --- git (non-destructive / read-only) ---
+          "git status*" = "allow";
+          "git diff*" = "allow";
+          "git log*" = "allow";
+          "git show*" = "allow";
+          "git branch*" = "allow";
+          "git remote*" = "allow";
+          "git rev-parse*" = "allow";
+          "git ls-tree*" = "allow";
+          "git ls-files*" = "allow";
+          "git ls-remote*" = "allow";
+          "git describe*" = "allow";
+          "git tag*" = "allow";
+          "git config --get*" = "allow";
+          "git config --list*" = "allow";
+          "git rev-list*" = "allow";
+          "git shortlog*" = "allow";
+          "git blame*" = "allow";
+          "git worktree list*" = "allow";
+          "git cat-file*" = "allow";
+          "git name-rev*" = "allow";
+          "git merge-base*" = "allow";
+
+          # --- git (write, but safe / standard workflow) ---
+          "git add*" = "allow";
+          "git commit*" = "allow";
+          "git checkout*" = "allow";
+          "git switch*" = "allow";
+          "git stash*" = "allow";
+          "git fetch*" = "allow";
+          "git pull*" = "allow";
+          "git merge*" = "allow";
+          "git rebase*" = "allow";
+          "git cherry-pick*" = "allow";
+          "git push*" = "ask";
+        };
       };
     };
   };
