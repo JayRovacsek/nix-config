@@ -82,7 +82,7 @@ in
     extraPackages = with pkgs; [
       git
       nixd
-      nixfmt-rfc-style
+      nixfmt
     ];
     host = "0.0.0.0";
     serverDataDir = "${config.users.users.openvscode-server.home}/.config/openvscode-server";
@@ -150,10 +150,10 @@ in
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
       "nix.enableLanguageServer" = true;
-      "nix.formatterPath" = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+      "nix.formatterPath" = "${pkgs.nixfmt}/bin/nixfmt";
       "nix.serverSettings" = {
         nixd = {
-          formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+          formatting.command = [ "${pkgs.nixfmt}/bin/nixfmt" ];
           "options" = {
             darwin.expr = ''(builtins.getFlake "${nix-options}").options.darwin'';
             home-manager.expr = ''(builtins.getFlake "${nix-options}").options.home-manager'';

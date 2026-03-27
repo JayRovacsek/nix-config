@@ -441,8 +441,9 @@
                   enable = true;
                   settings.edit = true;
                 };
-                nixfmt-rfc-style = {
+                nixfmt = {
                   enable = true;
+                  package = pkgs.nixfmt;
                   settings.width = 80;
                 };
                 prettier = {
@@ -537,7 +538,7 @@
               conform
               deadnix
               git-cliff
-              nixfmt-rfc-style
+              nixfmt
               nodePackages.prettier
               statix
               trufflehog
@@ -546,7 +547,7 @@
           };
 
           # Formatter option for `nix fmt` - redundant via checks but nice to have
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt;
 
           # Locally defined packages for flake consumption or consumption
           # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay

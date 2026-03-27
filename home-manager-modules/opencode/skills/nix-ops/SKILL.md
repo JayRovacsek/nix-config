@@ -48,7 +48,7 @@ Use this skill when you need to build, test, lint, or format code in this Nix co
   nix fmt
   ```
 
-  Uses `nixfmt-rfc-style` with a width of 80. Always run this before committing.
+  Uses `nixfmt` with a width of 80. Always run this before committing.
 
 - **Manual Linting:**
   - **Dead Code:** `deadnix .` (or `deadnix --edit .` to auto-remove)
