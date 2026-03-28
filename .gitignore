@@ -10,8 +10,5 @@ terraform.tfstate.backup
 terraform.tfvars
 
 # Tooling
-_typos.toml
-.conform.yaml
 .direnv
 .pre-commit-config.yaml
-cliff.toml
