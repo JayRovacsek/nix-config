@@ -1,0 +1,191 @@
+[changelog]
+body = """
+{# ----------------------------------------
+   Helper: Build GitHub repo URL
+----------------------------------------- #}
+{% macro remote_url() -%}
+https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+{%- endmacro %}
+
+{# ----------------------------------------
+   Helper: Format a single commit line
+----------------------------------------- #}
+{% macro print_commit(commit) -%}
+- 
+  {% if commit.scope %}
+    *({{ commit.scope }})*
+  {% endif %}
+  {% if commit.breaking %}
+    [**breaking**]
+  {% endif %}
+  {{ commit.message | upper_first }}
+  - (
+      [{{ commit.id | truncate(length=7, end="") }}]
+      ({{ self::remote_url() }}/commit/{{ commit.id }})
+    )
+{%- endmacro %}
+
+{# ----------------------------------------
+   Version header
+----------------------------------------- #}
+{% if version %}
+
+  {% if previous.version %}
+## [{{ version | trim_start_matches(pat="v") }}](
+{{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }}
+) - {{ timestamp | date(format="%Y-%m-%d") }}
+
+  {% else %}
+## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+  {% endif %}
+
+{% else %}
+## [unreleased]
+{% endif %}
+
+{# ----------------------------------------
+   Group commits by type (feat, fix, etc.)
+----------------------------------------- #}
+{% for group, commits in commits | group_by(attribute="group") %}
+
+### {{ group | striptags | trim | upper_first }}
+
+  {# --- Scoped commits first --- #}
+  {% for commit in commits
+     | filter(attribute="scope")
+     | sort(attribute="scope") %}
+
+    {{ self::print_commit(commit=commit) }}
+
+  {% endfor %}
+
+  {# --- Spacer (this weird raw block prevents trimming issues) --- #}
+  {% raw %}{% endraw %}
+
+  {# --- Commits without scope --- #}
+  {% for commit in commits %}
+    {% if not commit.scope %}
+      {{ self::print_commit(commit=commit) }}
+    {% endif %}
+  {% endfor %}
+
+{% endfor %}
+"""
+footer = ""
+header = ""
+trim = true
+
+[git]
+conventional_commits = true
+filter_commits = true
+filter_unconventional = true
+ignore_tags = "rc"
+protect_breaking_commits = false
+skip_tags = "beta|alpha"
+sort_commits = "newest"
+split_commits = true
+tag_pattern = ".*"
+topo_order = false
+[[git.commit_parsers]]
+group = "<!-- 0 -->⛰️  Features"
+message = "^feat"
+
+[[git.commit_parsers]]
+group = "<!-- 1 -->🐛 Bug Fixes"
+message = "^fix"
+
+[[git.commit_parsers]]
+group = "<!-- 2 -->🚜 Refactor"
+message = "^refactor"
+
+[[git.commit_parsers]]
+group = "<!-- 3 -->📚 Documentation"
+message = "^doc"
+
+[[git.commit_parsers]]
+group = "<!-- 4 -->🎨 Styling"
+message = "^style"
+
+[[git.commit_parsers]]
+group = "<!-- 5 -->🧪 Testing"
+message = "^test"
+
+[[git.commit_parsers]]
+message = "^chore"
+skip = true
+
+[[git.commit_parsers]]
+body = ".*security"
+group = "<!-- 6 -->🛡️ Security"
+
+[[git.commit_parsers]]
+body = ".*apps"
+group = "<!-- 7 -->📱 Apps"
+
+[[git.commit_parsers]]
+body = ".*checks"
+group = "<!-- 8 -->✅ Checks"
+
+[[git.commit_parsers]]
+body = ".*common"
+group = "<!-- 9 -->⚫ Common"
+
+[[git.commit_parsers]]
+body = ".*darwin"
+group = "<!-- 10 -->🐧 Darwin"
+
+[[git.commit_parsers]]
+body = ".*flake"
+group = "<!-- 11 -->❄️ Flake"
+
+[[git.commit_parsers]]
+body = ".*home-manager-modules"
+group = "<!-- 12 -->🏠 HM"
+
+[[git.commit_parsers]]
+body = ".*hydra"
+group = "<!-- 13 -->🐍 Hydra"
+
+[[git.commit_parsers]]
+body = ".*lib"
+group = "<!-- 14 -->📚 Lib"
+
+[[git.commit_parsers]]
+body = ".*linux"
+group = "<!-- 15 -->😘 Linux"
+
+[[git.commit_parsers]]
+body = ".*modules"
+group = "<!-- 16 -->🧱 Modules"
+
+[[git.commit_parsers]]
+body = ".*options"
+group = "<!-- 17 -->⚙️ Options"
+
+[[git.commit_parsers]]
+body = ".*overlays"
+group = "<!-- 18 -->🎭 Overlays"
+
+[[git.commit_parsers]]
+body = ".*packages"
+group = "<!-- 19 -->📦 Packages"
+
+[[git.commit_parsers]]
+body = ".*secrets"
+group = "<!-- 20 -->🤫 Secrets"
+
+[[git.commit_parsers]]
+body = ".*shells"
+group = "<!-- 21 -->🐚 Shells"
+
+[[git.commit_parsers]]
+body = ".*tooling"
+group = "<!-- 22 -->⚒️ Tooling"
+
+[[git.commit_parsers]]
+body = ".*users"
+group = "<!-- 23 -->🙋 Users"
+
+[remote.github]
+owner = "JayRovacsek"
+repo = "nix-config"
