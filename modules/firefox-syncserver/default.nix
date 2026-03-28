@@ -13,8 +13,6 @@ in
 
     secrets."firefox-syncserver-secrets" = {
       file = ../../secrets/firefox-syncserver/secrets.age;
-      # Magic value as per: https://github.com/NixOS/nixpkgs/blob/b0d36bd0a420ecee3bc916c91886caca87c894e9/nixos/modules/services/networking/firefox-syncserver.nix#L7
-      owner = "firefox-syncserver";
       mode = "0400";
     };
   };
@@ -29,6 +27,8 @@ in
       settings = {
         host = "0.0.0.0";
         inherit port;
+        syncstorage.database_url = "mysql://firefox-syncserver@localhost/firefox_syncserver?socket=%2Frun%2Fmysqld%2Fmysqld.sock";
+        tokenserver.database_url = "mysql://firefox-syncserver@localhost/firefox_syncserver?socket=%2Frun%2Fmysqld%2Fmysqld.sock";
       };
       logLevel = "error";
       singleNode = {
