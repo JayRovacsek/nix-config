@@ -32,8 +32,6 @@ let
 
   desc = prJobsets // {
     main = mkFlakeJobset "main";
-    staging = mkFlakeJobset "staging";
-    testing = mkFlakeJobset "testing";
   };
 
   log = {
