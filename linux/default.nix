@@ -1,10 +1,14 @@
 { self }:
 let
   # Required build functions
-  inherit (self.common.system) unstable-system;
+  inherit (self.common.system) bleeding-edge-system unstable-system;
 
   # Required package-sets
-  inherit (self.common.package-sets) x86_64-linux-unstable aarch64-linux-unstable;
+  inherit (self.common.package-sets)
+    x86_64-linux-bleeding-edge
+    x86_64-linux-unstable
+    aarch64-linux-unstable
+    ;
 
   inherit (self.lib.host)
     extend-host
@@ -13,6 +17,7 @@ let
     make-minimal-microvm
     ;
 
+  bleeding-edge-x86-base = make-minimal-host x86_64-linux-bleeding-edge bleeding-edge-system;
   unstable-x86-base = make-minimal-host x86_64-linux-unstable unstable-system;
   unstable-aarch64-base = make-minimal-host aarch64-linux-unstable unstable-system;
 
@@ -53,7 +58,7 @@ in
   mew = extend-host unstable-x86-base "mew";
 
   # Hosts
-  alakazam = extend-host unstable-x86-base "alakazam";
+  alakazam = extend-host bleeding-edge-x86-base "alakazam";
   dragonite = extend-host unstable-x86-base "dragonite";
   gastly = extend-host unstable-x86-base "gastly";
   ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
