@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    bleeding-edge.url = "github:nixos/nixpkgs";
+    bleeding-edge.url = "github:nixos/nixpkgs/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/release-25.11";
 
