@@ -26,13 +26,15 @@ in
   # See also: https://github.com/ryantm/agenix/issues/45
   fileSystems = {
     "/var/lib".neededForBoot = true;
-  } // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
+  }
+  // lib.optionalAttrs agenix-required { "/agenix".neededForBoot = true; };
 
   imports = [
     # TODO: reintroduce this once solved for nextcloud
     # "${modulesPath}/profiles/hardened.nix"
     ../../options/modules/systemd
-  ] ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
+  ]
+  ++ (lib.optionals (!microvm) [ self.inputs.microvm.nixosModules.microvm ]);
 
   microvm.shares =
     (lib.optionals agenix-required [
@@ -101,10 +103,10 @@ in
       networkConfig.DHCP = "yes";
     };
 
-    sleep.extraConfig = ''
-      AllowHibernation=no
-      AllowSuspend=no
-    '';
+    sleep.settings.Sleep = {
+      AllowHibernation = "no";
+      AllowSuspend = "no";
+    };
   };
 
   services.openssh = {
