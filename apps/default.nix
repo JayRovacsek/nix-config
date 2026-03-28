@@ -12,14 +12,10 @@ let
   hydra = import ./hydra.nix { inherit self pkgs; };
 
   tofu = import ./tofu.nix { inherit self pkgs; };
-
-  tooling = import ./tooling.nix { inherit self pkgs; };
-
 in
 merge [
   agenix
   distributed-builds
   hydra
   tofu
-  tooling
 ]
