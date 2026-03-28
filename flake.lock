@@ -97,17 +97,17 @@
     },
     "bleeding-edge": {
       "locked": {
-        "lastModified": 1774664579,
-        "narHash": "sha256-x625KqlfEGXJy+vGFtLWIyCpH7QqWeOn3HNRqtu07i4=",
+        "lastModified": 1774470386,
+        "narHash": "sha256-Flcgf0aiOLmbe5GCYljBqGtIglKc1r/cuC2S847NvMU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1ba28435d06ab6b06e8f8fe191adacbb091d0a1f",
+        "rev": "35bb7d4770f4784b660c5ff5a66bda6e1175198e",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "master",
         "repo": "nixpkgs",
+        "rev": "35bb7d4770f4784b660c5ff5a66bda6e1175198e",
         "type": "github"
       }
     },
