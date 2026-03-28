@@ -1,17 +1,14 @@
-{ pkgs, self, ... }:
 {
-  imports = [ self.inputs.lix-module.nixosModules.default ];
+  self,
+  ...
+}@args:
+{
+  imports =
+    with self.inputs.lix-module;
+    if args._class == "nixos" then
+      [ nixosModules.lixFromNixpkgs ]
+    else
+      [ darwinModules.lixFromNixpkgs ];
 
-  nixpkgs.overlays = [
-    (_final: prev: {
-      inherit (prev.lixPackageSets.stable)
-        nix-eval-jobs
-        nix-fast-build
-        nixpkgs-direnv
-        nixpkgs-review
-        ;
-    })
-  ];
-
-  nix.package = pkgs.lixPackageSets.stable.lix;
+  lix.enable = true;
 }
