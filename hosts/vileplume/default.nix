@@ -13,7 +13,6 @@ let
     modules =
       with self.common.home-manager-module-sets;
       darwin-desktop
-      ++ ai
       ++ ssh
       ++ [
         { programs.thunderbird.enable = lib.mkForce false; }
