@@ -254,17 +254,35 @@ let
   # Produces: { agents = { name = path; ... }; skills = { ... }; commands = { ... }; }
   #
   # For agents/commands: .md files are enumerated and the .md suffix is stripped
-  # from the key name (upstream module re-adds it when generating xdg entries).
+  # from the key name.  Each value is a standalone store path produced by
+  # builtins.path.  Because derivation outputs are strings (not Nix path types),
+  # these CANNOT be passed through programs.opencode.agents/commands (which uses
+  # lib.isPath).  Instead, external agents/commands are written directly to
+  # xdg.configFile with explicit source attributes — see effectiveExternalAgents
+  # and externalAgentFiles below.
   #
-  # For skills: directories (and symlinks) are enumerated as-is. The values are
-  # store-path strings ("${drv}/skills/foo") so the upstream module treats them
-  # as recursive directory sources.
+  # For skills: directories are copied into standalone store paths via
+  # builtins.path.  The upstream HM opencode module accepts both Nix path types
+  # and store-path strings for skills (it checks both lib.isPath and
+  # builtins.isString with storeDir prefix), so all skills pass through
+  # programs.opencode.skills directly.
   # ---------------------------------------------------------------------------
   mkOpencodeAttrs =
     drv:
     let
       # Enumerate .md files in a subdirectory, stripping the .md suffix from keys.
-      # Returns { name-without-ext = "${drv}/<subdir>/<name>.md"; ... }
+      # Returns { name-without-ext = "/nix/store/...-opencode-<type>-<name>"; ... }
+      #
+      # Each value is a store-path string produced by builtins.path.  The
+      # upstream HM opencode module checks `lib.isPath` on agent/command
+      # values: paths become { source = ...; } (symlinked), strings become
+      # { text = ...; } (written as literal text — broken for store paths).
+      #
+      # Because derivation outputs can only produce strings (not Nix path
+      # types), external agents/commands CANNOT be passed through
+      # programs.opencode.agents/commands.  Instead, the composed config
+      # below writes them directly to xdg.configFile with explicit source
+      # attributes, bypassing the isPath check entirely.
       enumerateMdFiles =
         subdir:
         let
@@ -275,7 +293,13 @@ let
           ) entries;
         in
         lib.mapAttrs' (
-          name: _: lib.nameValuePair (lib.removeSuffix ".md" name) (dir + "/${name}")
+          name: _:
+          lib.nameValuePair (lib.removeSuffix ".md" name) (
+            builtins.path {
+              path = "${dir}/${name}";
+              name = "opencode-${subdir}-${lib.removeSuffix ".md" name}";
+            }
+          )
         ) mdEntries;
 
       # Enumerate skill directories (or symlinks to directories).
@@ -347,6 +371,19 @@ let
   # ---------------------------------------------------------------------------
   # Composed attrsets: external sources (mkDefault-priority) merged with local
   # entries (right-wins via //). Local entries listed LAST to take precedence.
+  #
+  # External agents/commands are store-path STRINGS (from builtins.path).
+  # The upstream HM opencode module uses `lib.isPath` to decide whether to
+  # create a symlink ({ source }) or write literal text ({ text }).  Since
+  # derivation outputs are always strings, external agents/commands must
+  # bypass programs.opencode.agents/commands and instead be written directly
+  # to xdg.configFile with explicit source attributes.
+  #
+  # Local agents/commands are Nix PATH types (./agents + "/${name}") and
+  # pass through the HM option correctly.
+  #
+  # Skills use a separate code path in the HM module that accepts both
+  # paths and store-path strings, so all skills go through the option.
   # ---------------------------------------------------------------------------
   externalAgents =
     (mkOpencodeAttrs wshobsonAgents).agents // (mkOpencodeAttrs superpowers).agents;
@@ -359,9 +396,26 @@ let
     (mkOpencodeAttrs wshobsonAgents).commands
     // (mkOpencodeAttrs superpowers).commands;
 
-  composedAgentAttrs = externalAgents // localAgents;
   composedSkillAttrs = externalSkills // localSkills;
-  composedCommandAttrs = externalCommands;
+
+  # External agents/commands that overlap with local entries are dropped
+  # (local takes precedence via removeAttrs).
+  effectiveExternalAgents = removeAttrs externalAgents (
+    builtins.attrNames localAgents
+  );
+  effectiveExternalCommands = externalCommands;
+
+  # Convert external agents/commands to xdg.configFile entries with explicit
+  # source attributes, creating proper symlinks instead of literal text files.
+  externalAgentFiles = lib.mapAttrs' (
+    name: storePath:
+    lib.nameValuePair "opencode/agent/${name}.md" { source = storePath; }
+  ) effectiveExternalAgents;
+
+  externalCommandFiles = lib.mapAttrs' (
+    name: storePath:
+    lib.nameValuePair "opencode/command/${name}.md" { source = storePath; }
+  ) effectiveExternalCommands;
 
   # ---------------------------------------------------------------------------
   # MCP server declarations
@@ -403,12 +457,12 @@ in
   programs.opencode = {
     enable = true;
 
-    # Composed attrsets: upstream HM module handles xdg.configFile placement.
-    # Each agent/command entry is a path to an .md file; each skill entry is
-    # a Nix path (via builtins.path) pointing to a directory with SKILL.md.
-    agents = composedAgentAttrs;
+    # Local agents/commands are Nix path types and pass through the HM
+    # option's lib.isPath check correctly (creating symlinks).
+    # External agents/commands are handled via xdg.configFile below.
+    agents = localAgents;
     skills = composedSkillAttrs;
-    commands = composedCommandAttrs;
+    commands = { };
 
     # Global agent instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md.
     # All agents automatically receive these rules as baseline context.
@@ -885,4 +939,13 @@ in
       };
     };
   };
+
+  # ---------------------------------------------------------------------------
+  # External agents/commands: bypass programs.opencode.agents/commands (which
+  # require Nix path types) and write xdg.configFile entries directly with
+  # explicit source attributes.  This creates proper symlinks to the store
+  # paths produced by builtins.path, rather than writing the path string as
+  # literal file content.
+  # ---------------------------------------------------------------------------
+  xdg.configFile = externalAgentFiles // externalCommandFiles;
 }
