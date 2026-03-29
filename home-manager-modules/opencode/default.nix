@@ -596,15 +596,62 @@ in
       Assisted-by: Claude Opus 4 via OpenCode
       ```
 
-      ## Nix-First Tooling & Execution
+      ## Tooling & Execution
 
-      - All tool calls MUST use `nix run` or `nix shell` commands as the base.
-      - Any agents, skills, or tools that call for a binary without qualifying how to run it MUST be assumed to mean execution via Nix. Never assume packages are installed locally or globally.
+      - **Prefer locally available tools first.** OpenCode commonly runs inside
+        a `direnv` shell (or similar environment) that already provides required
+        binaries on `$PATH`. If a tool is available locally, use it directly
+        rather than wrapping it in a Nix command.
+      - **Fallback to Nix** when a required tool is not on `$PATH`. Use
+        `nix run` or `nix shell` to obtain it. Never assume a tool is globally
+        installed outside of a managed shell environment — if it is not on
+        `$PATH`, reach for Nix.
       - **Package Discovery & Validation:**
         1. First attempt: Search for the required package using the available `nixos` MCP server.
         2. Fallback: Use web search to find packages described in the official `nixpkgs` repository.
         3. If a tool is required that is not already defined in `nixpkgs`, **STOP** and ask the user for clarification or pathways forward.
       - Use `nixfmt` to format all `.nix` files before committing.
+
+      ## Document Handling
+
+      **CRITICAL — this rule is non-negotiable.**
+
+      When any agent is tasked with reading, analysing, generating, or
+      converting a document file (`.docx`, `.pdf`, `.pptx`, `.xlsx`, or any
+      similar office/document format), it **MUST** first check the list of
+      available skills for one that handles the document type. The Anthropic
+      skills library includes purpose-built skills for document generation
+      and processing (e.g., `create-document` for `.docx`/`.pdf`/`.pptx`/`.xlsx`).
+
+      **Mandatory workflow:**
+      1. Before touching the document, enumerate available skills and look for
+         a match (e.g., a skill whose name or description covers the document
+         format in question).
+      2. If a matching skill exists, **load and follow it**. Do not improvise
+         a custom approach when a vetted skill is available.
+      3. Only proceed without a skill if no available skill is a reasonable fit
+         — and in that case, state explicitly in your output that no matching
+         skill was found.
+
+      Failure to check for and use an available document skill is a policy
+      violation.
+
+      ## Temporary Files & Directories
+
+      **Never use system temporary directories** (`/tmp`, `/private/tmp`,
+      `$TMPDIR`, or any OS-managed transient path) for scratch files or
+      intermediate build artefacts. Instead, create a temporary directory
+      **within the project working directory** (e.g., `.tmp/`, `tmp/`, or a
+      task-specific subdirectory) and clean it up when finished.
+
+      **Rationale:** System temp directories are shared, ephemeral, and may be
+      purged at any time. Keeping temporary artefacts local to the project
+      ensures reproducibility, simplifies debugging, and avoids leaking data
+      outside the workspace.
+
+      The repository `.gitignore` excludes `.tmp/` and `tmp/` as a safety net,
+      but agents **must still clean up** after themselves — do not rely on
+      `.gitignore` as a substitute for proper cleanup.
 
       ## Code Quality
 

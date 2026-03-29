@@ -1,1 +1,48 @@
-/nix/store/cyvrhj4nyqchlyg25xhh89dv3vqslmrp-conform.yaml
+policies:
+  - spec:
+      body:
+        required: false
+      conventional:
+        scopes:
+          - apps
+          - checks
+          - common
+          - darwin
+          - docs
+          - flake
+          - home-manager-modules
+          - hydra
+          - iac
+          - lib
+          - linux
+          - modules
+          - options
+          - overlays
+          - packages
+          - secrets
+          - shells
+          - static
+          - tests
+          - tooling
+          - tree-wide
+          - users
+        types:
+          - build
+          - chore
+          - ci
+          - docs
+          - feat
+          - fix
+          - perf
+          - refactor
+          - release
+          - style
+          - test
+      gpg:
+        required: true
+      header:
+        case: lower
+        imperative: true
+        invalidLastCharacters: .
+        length: 140
+    type: commit

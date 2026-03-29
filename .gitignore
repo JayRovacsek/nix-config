@@ -9,6 +9,10 @@ terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
 
+# Agent scratch directories (see rules in home-manager-modules/opencode/default.nix)
+.tmp/
+tmp/
+
 # Tooling
 .direnv
 .pre-commit-config.yaml
