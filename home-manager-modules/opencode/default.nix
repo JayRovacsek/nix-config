@@ -279,10 +279,20 @@ let
         ) mdEntries;
 
       # Enumerate skill directories (or symlinks to directories).
-      # Returns { skill-name = "${drv}/skills/skill-name"; ... }
-      # Values are store-path strings so the upstream HM module will treat
-      # them as recursive directory sources (the isString + hasPrefix storeDir
-      # branch in the upstream config).
+      # Returns { skill-name = /nix/store/...-opencode-skill-<name>; ... }
+      #
+      # Each value is a Nix path produced by builtins.path, NOT a plain
+      # store-path string. This distinction matters for Home Manager:
+      #
+      #   - String values (e.g. "${drv}/skills/foo") hit the isString branch
+      #     in the HM module, which creates a recursive directory symlink.
+      #     On macOS (APFS synthetic firmlink for /nix), the resulting
+      #     double-hop symlink chain through the store fails to resolve.
+      #
+      #   - Path values hit the isPath branch, which also uses recursive
+      #     directory source but with a top-level store path (single hop).
+      #     builtins.path copies the directory contents into a fresh store
+      #     path, avoiding the subdirectory chain that breaks on macOS.
       enumerateSkillDirs =
         let
           dir = "${drv}/skills";
@@ -291,7 +301,15 @@ let
             _: type: type == "directory" || type == "symlink"
           ) entries;
         in
-        lib.mapAttrs' (name: _: lib.nameValuePair name "${dir}/${name}") dirEntries;
+        lib.mapAttrs' (
+          name: _:
+          lib.nameValuePair name (
+            builtins.path {
+              path = "${dir}/${name}";
+              name = "opencode-skill-${name}";
+            }
+          )
+        ) dirEntries;
     in
     {
       agents = enumerateMdFiles "agents";
@@ -387,7 +405,7 @@ in
 
     # Composed attrsets: upstream HM module handles xdg.configFile placement.
     # Each agent/command entry is a path to an .md file; each skill entry is
-    # a store-path string pointing to a directory with SKILL.md inside.
+    # a Nix path (via builtins.path) pointing to a directory with SKILL.md.
     agents = composedAgentAttrs;
     skills = composedSkillAttrs;
     commands = composedCommandAttrs;
