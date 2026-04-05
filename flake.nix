@@ -3,7 +3,7 @@
 
   inputs = {
     # Stable / Unstable split in packages
-    bleeding-edge.url = "github:nixos/nixpkgs/35bb7d4770f4784b660c5ff5a66bda6e1175198e";
+    bleeding-edge.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/release-25.11";
 
@@ -539,7 +539,7 @@
               deadnix
               git-cliff
               nixfmt
-              nodePackages.prettier
+              prettier
               statix
               trufflehog
               typos
