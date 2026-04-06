@@ -9,7 +9,7 @@ let
     pkgs.writers.writeBash "copy-configs" ''
       ${coreutils}/bin/mkdir -p ./modules/remote-builds/
       ${coreutils}/bin/cat ${configs} > ./modules/remote-builds/machines.json
-      ${pkgs.nodePackages.prettier}/bin/prettier -w ./modules/remote-builds/machines.json
+      ${pkgs.prettier}/bin/prettier -w ./modules/remote-builds/machines.json
     ''
   );
 

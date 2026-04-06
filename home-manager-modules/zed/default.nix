@@ -186,7 +186,7 @@ in
                 "--stdin-filepath"
                 "{buffer_path}"
               ];
-              command = "${pkgs.nodePackages.prettier}/bin/prettier";
+              command = "${pkgs.prettier}/bin/prettier";
             };
           };
         };
@@ -207,7 +207,7 @@ in
                 "--stdin-filepath"
                 "{buffer_path}"
               ];
-              command = "${pkgs.nodePackages.prettier}/bin/prettier";
+              command = "${pkgs.prettier}/bin/prettier";
             };
           };
           language_servers = [

@@ -7,7 +7,7 @@ let
     jq
     lib
     opentofu
-    nodePackages
+    prettier
     system
     terraform-docs
     tfsec
@@ -39,7 +39,7 @@ let
   removeVars = remove vars;
   removeReadme = remove readme;
 
-  # Simple wrapper for using a file if it exists in 
+  # Simple wrapper for using a file if it exists in
   # stack directory
   use = stack: x: ''
     if [[ -e ./packages/terranix/${stack}/${x} ]]; then
@@ -108,7 +108,7 @@ let
     ${gnused}/bin/sed -i 's/^# /## /' stack-readme.md
 
     # Lint the file
-    ${nodePackages.prettier}/bin/prettier -w stack-readme.md
+    ${prettier}/bin/prettier -w stack-readme.md
   '';
 
   tfsec-ignored-checks = [
@@ -228,13 +228,13 @@ let
         program = terraformProgram cfg name "destroy" "destroy";
       };
 
-      # To utilise import, we should pass values via the argument style 
+      # To utilise import, we should pass values via the argument style
       # described here: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-run.html#examples
       # eg;
       # $ nix run .#thing-import resource.name upstream-identifier
       # OR as a very real example I utilised on implementing this:
       # nix run .\#github-import -- github_repository.dotfiles dotfiles
-      # 
+      #
       # This is possible thanks to the fact we're certainly running in
       # bash in this setting and can (ab)use the $@ pattern.
       "${name}-import" = {
