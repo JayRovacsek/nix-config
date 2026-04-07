@@ -14,7 +14,7 @@ let
     enable = true;
     package =
       if osConfig.nix.package.pname == "lix" then
-        pkgs.lixPackageSets.stable.nix-direnv
+        pkgs.lixPackageSets.latest.nix-direnv
       else
         pkgs.nix-direnv;
   };
