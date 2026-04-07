@@ -95,10 +95,10 @@ in
     networking
     nix
     remote-builds
-    ssh
     skhd
-    yabai
+    ssh
     time
+    yabai
     zsh
   ];
 
