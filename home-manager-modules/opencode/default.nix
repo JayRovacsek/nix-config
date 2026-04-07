@@ -224,7 +224,7 @@ let
       hash = "sha256-w//9LB1OVG9jlllY+VDse7Js0dn5x6Ys2vPuQACKsTM=";
     };
     patchRules = [
-      "ALWAYS use \`claude-opus-4-6\`"
+      "ALWAYS use `claude-opus-4-6`"
       "This is non-negotiable"
       "For the Claude model version, please use Claude Opus 4.6"
     ];
@@ -409,12 +409,12 @@ let
   # source attributes, creating proper symlinks instead of literal text files.
   externalAgentFiles = lib.mapAttrs' (
     name: storePath:
-    lib.nameValuePair "opencode/agent/${name}.md" { source = storePath; }
+    lib.nameValuePair "opencode/agents/${name}.md" { source = storePath; }
   ) effectiveExternalAgents;
 
   externalCommandFiles = lib.mapAttrs' (
     name: storePath:
-    lib.nameValuePair "opencode/command/${name}.md" { source = storePath; }
+    lib.nameValuePair "opencode/commands/${name}.md" { source = storePath; }
   ) effectiveExternalCommands;
 
   # ---------------------------------------------------------------------------
@@ -733,7 +733,9 @@ in
     '';
 
     settings = {
-      plugin = [ ];
+      plugin = [
+        "@simonwjackson/opencode-direnv@f257fa7f7e19ea8722fdfe546c2cb8b736d9387d"
+      ];
 
       inherit mcp;
 

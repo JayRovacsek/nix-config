@@ -9,19 +9,30 @@
     ../../options/home-manager-modules/ollama
   ];
 
-  home.file.".continue/config.yaml".source =
-    pkgs.writers.writeYAML "config.yaml"
-      {
-        name = "Local Config";
-        version = "1.0.0";
-        schema = "v1";
-        inherit (config.services.ollama) models;
+  programs.opencode.settings.provider = lib.mkIf config.programs.opencode.enable {
+    ollama = {
+      npm = "@ai-sdk/openai-compatible";
+      name = "Ollama";
+      options = {
+        baseURL = "http://127.0.0.1:11434/v1";
       };
+      models = builtins.foldl' (
+        acc: model:
+        acc
+        // {
+          "${model.model}" = {
+            attachment = true;
+            inherit (model) name;
+            reasoning = true;
+            temperature = true;
+            tool_call = true;
+          };
+        }
+      ) { } config.services.ollama.models;
+    };
+  };
 
   programs.vscode.profiles.default = {
-    extensions = lib.mkIf config.programs.vscode.enable [
-      pkgs.vscode-extensions.continue.continue
-    ];
     userSettings."yaml.schemas"."file://${config.home.homeDirectory}/.vscode-oss/extensions/Continue.continue/config-yaml-schema.json" =
       [
         ".continue/**/*.yaml"
@@ -30,16 +41,26 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-cpu;
+
+    environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = "65536";
+      OLLAMA_NO_CLOUD = "1";
+    };
+
+    package = pkgs.ollama.overrideAttrs (_: {
+      version = "0.20.2";
+      src = pkgs.fetchFromGitHub {
+        owner = "ollama";
+        repo = "ollama";
+        tag = "v0.20.2";
+        hash = "sha256-Ic3eLOohLR7MQGkLvDJBNOCiBBKxh6l8X9MgK0b4w+Y=";
+      };
+    });
+
     models = [
       {
-        name = "nomic-embed-text";
-        model = "nomic-embed-text";
-        roles = [ "embed" ];
-      }
-      {
-        name = "gemma3:4b";
-        model = "gemma3:4b";
+        name = "gemma4";
+        model = "gemma4:latest";
         roles = [
           "autocomplete"
           "chat"

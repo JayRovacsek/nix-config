@@ -37,6 +37,11 @@ let
     };
   };
 
+  EnvironmentVariables = {
+    OLLAMA_CONTEXT_LENGTH = "65536";
+    OLLAMA_NO_CLOUD = "1";
+  };
+
   darwin-configuration = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
     home.packages = [ cfg.package ];
     launchd.agents = {
@@ -44,6 +49,8 @@ let
         inherit (cfg) enable;
 
         config = {
+          inherit EnvironmentVariables;
+
           AbandonProcessGroup = true;
           ExitTimeOut = 0;
           KeepAlive = {
@@ -71,6 +78,8 @@ let
             inherit (cfg) enable;
 
             config = {
+              inherit EnvironmentVariables;
+
               AbandonProcessGroup = true;
               ExitTimeOut = 0;
               KeepAlive.OtherJobEnabled."local.ollama-serve" = true;
