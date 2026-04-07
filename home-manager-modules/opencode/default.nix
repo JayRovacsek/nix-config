@@ -937,6 +937,100 @@ in
           "git push -f*" = "deny";
           "git clean -fd*" = "deny";
           "git reset --hard*" = "deny";
+
+          # -----------------------------------------------------------------
+          # DENY: arbitrary package runners & installers
+          #
+          # These tools fetch and execute unvetted, unpinned code from
+          # public registries. All package management in this repository
+          # goes through Nix — anything else is an anti-pattern.
+          # -----------------------------------------------------------------
+
+          # --- Node.js / JavaScript ecosystem ---
+          "npx*" = "deny";
+          "bunx*" = "deny";
+          "pnpx*" = "deny";
+          "pnpm dlx*" = "deny";
+          "yarn dlx*" = "deny";
+          "npm install*" = "deny";
+          "npm i *" = "deny";
+          "npm ci*" = "deny";
+          "yarn install*" = "deny";
+          "yarn add*" = "deny";
+          "bun install*" = "deny";
+          "bun add*" = "deny";
+          "pnpm install*" = "deny";
+          "pnpm add*" = "deny";
+          "volta install*" = "deny";
+          "corepack enable*" = "deny";
+          "corepack prepare*" = "deny";
+
+          # --- Python ecosystem ---
+          "uvx*" = "deny";
+          "pipx run*" = "deny";
+          "pipx install*" = "deny";
+          "pip install*" = "deny";
+          "pip3 install*" = "deny";
+          "uv pip install*" = "deny";
+          "uv tool install*" = "deny";
+          "uv tool run*" = "deny";
+          "poetry install*" = "deny";
+          "poetry add*" = "deny";
+          "pdm install*" = "deny";
+          "pdm add*" = "deny";
+          "conda install*" = "deny";
+          "conda create*" = "deny";
+          "mamba install*" = "deny";
+          "mamba create*" = "deny";
+          "micromamba install*" = "deny";
+
+          # --- Rust ecosystem ---
+          "cargo install*" = "deny";
+          "cargo binstall*" = "deny";
+          "cargo-binstall*" = "deny";
+
+          # --- Go ecosystem ---
+          "go install*" = "deny";
+          "go run *://*" = "deny"; # remote module URLs
+
+          # --- Deno (remote execution) ---
+          "deno run http*" = "deny";
+          "deno install*" = "deny";
+          "deno add*" = "deny";
+
+          # --- Ruby ecosystem ---
+          "gem install*" = "deny";
+          "bundle install*" = "deny";
+          "bundle add*" = "deny";
+
+          # --- PHP ecosystem ---
+          "composer require*" = "deny";
+          "composer install*" = "deny";
+          "composer update*" = "deny";
+
+          # --- Nix (imperative anti-patterns) ---
+          "nix-env -i*" = "deny";
+          "nix-env --install*" = "deny";
+
+          # --- System package managers (bypass Nix) ---
+          "brew install*" = "deny";
+          "brew upgrade*" = "deny";
+          "port install*" = "deny";
+          "apt install*" = "deny";
+          "apt-get install*" = "deny";
+          "yum install*" = "deny";
+          "dnf install*" = "deny";
+          "zypper install*" = "deny";
+          "pacman -S*" = "deny";
+          "apk add*" = "deny";
+          "snap install*" = "deny";
+          "flatpak install*" = "deny";
+
+          # --- Container (unpinned image pulls) ---
+          "docker run*" = "deny";
+          "docker pull*" = "deny";
+          "podman run*" = "deny";
+          "podman pull*" = "deny";
         };
       };
     };
