@@ -1,6 +1,122 @@
 # Nix Operations Skill
 
-Use this skill when you need to build, test, lint, or format code in this Nix configuration repository.
+Use this skill when you need to build, test, lint, format, or explore code in this Nix configuration repository.
+
+## Interactive Nix REPL (Strongest Preference)
+
+When you need to evaluate Nix expressions — inspecting attribute paths, checking
+option types, testing expression fragments, exploring flake outputs — **always
+prefer `nix repl` via `tui-use`** over one-shot `nix eval` commands.
+
+The REPL keeps the flake loaded in memory, so subsequent evaluations are near-instant
+instead of re-parsing the entire flake each time. This matters in a large
+NixOS configuration repository.
+
+### Prerequisites
+
+Before using the REPL workflow, verify `tui-use` is available:
+
+```bash
+tui-use --version
+```
+
+If that fails (command not found or error), fall back to one-shot `nix eval`
+commands described in the "Fallback" section below.
+
+### Starting a REPL Session
+
+```bash
+# Start nix repl and load the current flake
+tui-use start --label nix-repl "nix repl .#"
+tui-use wait --text "nix-repl>"
+tui-use snapshot                               # confirm load succeeded
+```
+
+This loads all flake outputs into scope. The snapshot shows how many variables
+were added. You can now tab-complete and evaluate any attribute path directly.
+
+### Evaluating Expressions
+
+```bash
+# Type an expression and press enter
+tui-use type "nixosConfigurations.ditto.config.networking.hostName\n"
+tui-use wait --text "nix-repl>"
+tui-use snapshot                               # read the result
+
+# Inspect option types
+tui-use type ":t nixosConfigurations.ditto.config.services\n"
+tui-use wait --text "nix-repl>"
+tui-use snapshot
+
+# List attribute names
+tui-use type "builtins.attrNames packages.aarch64-darwin\n"
+tui-use wait --text "nix-repl>"
+tui-use snapshot
+
+# Test an expression fragment
+tui-use type "let x = 1 + 2; in x\n"
+tui-use wait --text "nix-repl>"
+tui-use snapshot
+```
+
+After each `type`, call `wait` to block until the REPL has finished evaluating,
+then `snapshot` to read the result. Without `snapshot` you will not see the output.
+
+### Reading Output
+
+```bash
+# Take a snapshot to read the current screen
+tui-use snapshot
+
+# If output is long, scroll up to see earlier content
+tui-use scrollup 10
+tui-use snapshot
+
+# Search for a specific pattern in the screen
+tui-use find "hostName"
+```
+
+### REPL Built-in Commands
+
+These are typed inside the REPL session (via `tui-use type`):
+
+| Command     | Purpose                                       |
+| ----------- | --------------------------------------------- |
+| `:t <expr>` | Show the type of an expression                |
+| `:p <expr>` | Pretty-print a value (forces full evaluation) |
+| `:l <path>` | Load a Nix file into scope                    |
+| `:lf <ref>` | Load a flake reference into scope             |
+| `:r`        | Reload all loaded files (after edits)         |
+| `:?`        | Show help                                     |
+| `:q`        | Quit the REPL                                 |
+
+After editing `.nix` files, use `:r` to reload without restarting the session.
+Note: `:r` reloads files already in scope. If you add entirely new imports that
+were not part of the original evaluation, restart the REPL instead.
+
+```bash
+tui-use type ":r\n"
+tui-use wait --text "nix-repl>"
+```
+
+### Cleaning Up
+
+Always kill the session when finished:
+
+```bash
+tui-use type ":q\n"
+tui-use kill                                   # idempotent — safe even if REPL already exited
+```
+
+### Fallback: One-Shot Evaluation
+
+Use `nix eval` when `tui-use` is unavailable or for a single quick check
+where starting a REPL is not worthwhile:
+
+```bash
+nix eval .#nixosConfigurations.ditto.config.networking.hostName
+nix eval --json .#packages.aarch64-darwin.tui-use.meta
+```
 
 ## Build Commands
 
@@ -62,8 +178,9 @@ Use this skill when you need to build, test, lint, or format code in this Nix co
 
 ## Development Workflow
 
-1.  **Read:** Use `nix search` or read `flake.nix` to understand inputs and outputs.
+1.  **Explore:** Start a `nix repl` session via `tui-use` (or use `nix eval` if `tui-use` is unavailable) to understand the flake structure and test expressions interactively.
 2.  **Edit:** Modify `.nix` files.
-3.  **Format:** Run `nix fmt`.
-4.  **Verify:** Run `statix check` and `deadnix`.
-5.  **Build:** Verify the build succeeds before asking the user to apply/switch.
+3.  **Reload:** Use `:r` in the REPL to pick up changes without restarting.
+4.  **Format:** Run `nix fmt`.
+5.  **Verify:** Run `statix check` and `deadnix`.
+6.  **Build:** Verify the build succeeds before asking the user to apply/switch.
