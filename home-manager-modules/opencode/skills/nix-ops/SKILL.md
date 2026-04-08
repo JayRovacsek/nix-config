@@ -2,6 +2,33 @@
 
 Use this skill when you need to build, test, lint, format, or explore code in this Nix configuration repository.
 
+## Prefer Lix Over CppNix
+
+This repository prefers [Lix](https://lix.systems) — a community fork of Nix —
+wherever it is available. Lix is invoked via the same `nix` binary; it is a
+drop-in replacement. All commands in this skill (`nix build`, `nix eval`,
+`nix repl`, `nix flake check`, etc.) work identically under Lix.
+
+### Detection
+
+Run `nix --version` and inspect the first line of output:
+
+| Output contains           | Implementation |
+| ------------------------- | -------------- |
+| `nix (Lix, like Nix) ...` | Lix            |
+| `nix (Nix) ...`           | CppNix         |
+
+```bash
+# Quick one-liner: exits 0 if Lix, 1 if CppNix
+nix --version 2>&1 | grep -q "Lix"
+```
+
+If Lix is the active implementation, no action is needed — just use `nix` as
+normal. If CppNix is detected and Lix is available elsewhere on the system
+(e.g. via `nix-shell` or an alternative profile), prefer switching to Lix
+before proceeding. If Lix is not available at all, CppNix is an acceptable
+fallback — do not block on its absence.
+
 ## Interactive Nix REPL (Strongest Preference)
 
 When you need to evaluate Nix expressions — inspecting attribute paths, checking
