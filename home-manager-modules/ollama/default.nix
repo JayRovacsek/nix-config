@@ -66,7 +66,7 @@
     models = [
       {
         name = "gemma4";
-        model = "gemma4:latest";
+        model = "gemma4:e2b";
         roles = [
           "autocomplete"
           "chat"
