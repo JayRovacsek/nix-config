@@ -760,6 +760,14 @@ in
         "@simonwjackson/opencode-direnv@f257fa7f7e19ea8722fdfe546c2cb8b736d9387d"
       ];
 
+      # Only offer models from locally defined providers — GitHub Copilot
+      # (built-in, authenticated via device flow) and Ollama (custom,
+      # defined in home-manager-modules/ollama).
+      enabled_providers = [
+        "github-copilot"
+        "ollama"
+      ];
+
       inherit mcp;
 
       lsp.nixd = {
