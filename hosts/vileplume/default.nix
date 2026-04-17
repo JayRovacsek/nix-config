@@ -109,6 +109,9 @@ in
     localHostName = "vileplume";
   };
 
+  # Allow members of the admin group to sudo without a password
+  security.sudo.extraConfig = "%admin ALL=(ALL) NOPASSWD: ALL";
+
   system = {
     primaryUser = "j.rovacsek";
     stateVersion = 4;
