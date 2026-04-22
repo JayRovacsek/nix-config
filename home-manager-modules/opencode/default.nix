@@ -436,6 +436,37 @@ let
     lib.nameValuePair "opencode/commands/${name}.md" { source = storePath; }
   ) effectiveExternalCommands;
 
+  snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
+    lib.generators.toYAML { } {
+      other_services = {
+        object_manager = false;
+        query_manager = true;
+        semantic_manager = true;
+
+        sql_statement_permissions = [
+          { Alter = false; }
+          { Command = false; }
+          { Comment = false; }
+          { Commit = false; }
+          { Copy = false; }
+          { Create = false; }
+          { Delete = false; }
+          { Describe = true; }
+          { Drop = false; }
+          { Insert = false; }
+          { Merge = false; }
+          { Rollback = false; }
+          { Select = true; }
+          { Transaction = false; }
+          { TruncateTable = false; }
+          { Unknown = false; }
+          { Update = false; }
+          { Use = true; }
+        ];
+      };
+    }
+  );
+
   # ---------------------------------------------------------------------------
   # MCP server declarations
   #
@@ -453,22 +484,19 @@ let
     # GitHub API: issues, PRs, repos, code search, CI status
     # Requires GITHUB_PERSONAL_ACCESS_TOKEN in the environment at runtime
     (mkMcpServer {
-      name = "github";
-      command = [ "${pkgs.github-mcp-server}/bin/github-mcp-server" ];
-      args = [ "stdio" ];
+      name = "snowflake";
+      command = [ "snowflake-labs-mcp" ];
+      args = [
+        "--service-config-file"
+        snowflake-mcp-config
+        "--authenticator"
+        "externalbrowser"
+      ];
     })
 
-    # Terraform registry: provider docs, resource schemas, module search
     (mkMcpServer {
-      name = "terraform";
-      command = [ "${pkgs.terraform-mcp-server}/bin/terraform-mcp-server" ];
-      args = [ "stdio" ];
-    })
-
-    # Context7: up-to-date library documentation & code examples (remote/SSE)
-    (mkMcpServer {
-      name = "context7";
-      url = "https://mcp.context7.com/mcp";
+      name = "atlassian";
+      url = "https://mcp.atlassian.com/v1/mcp";
     })
   ];
 in
