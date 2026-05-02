@@ -19,7 +19,7 @@ Notes about deployment diagram:
 - nix-topology does not currently render all services in use, but does do a great job in presenting the more common services thus far & is awesome in engaging proposed changes that would benefit the community
 - the diagram is centred around my home-lab only. Configurations that deploy to AWS, Linode and more exist but are excluded from the diagram for now
 
-![Topology of Deployment](../resources/deployment.svg)
+TODO: Topology diagram is out of date currently, need to update it
 
 ## Why?
 
