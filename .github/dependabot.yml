@@ -1,27 +1,27 @@
 version: 2
-updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+
+multi-ecosystem-groups:
+  weekly-rollup:
     schedule:
       interval: "weekly"
-    target-branch: "main"
-    open-pull-requests-limit: 3
-    assignees:
-      - JayRovacsek
-    commit-message:
-      prefix: "chore(iac)"
-    pull-request-branch-name:
-      separator: "-"
 
+updates:
   - package-ecosystem: "nix"
     directory: "/"
     schedule:
       interval: "weekly"
     target-branch: "main"
-    open-pull-requests-limit: 3
     assignees:
       - JayRovacsek
+    open-pull-requests-limit: 1
+    patterns:
+      - "*"
+    multi-ecosystem-group: "weekly-rollup"
     commit-message:
       prefix: "chore(iac)"
     pull-request-branch-name:
       separator: "-"
+    groups:
+      all-nix:
+        patterns:
+          - "*"
