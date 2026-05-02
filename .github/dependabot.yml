@@ -4,7 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: "staging"
+    target-branch: "main"
     open-pull-requests-limit: 1
-    reviewers:
-      - "JayRovacsek"
+
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+    open-pull-requests-limit: 1
