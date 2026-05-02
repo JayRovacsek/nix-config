@@ -403,14 +403,14 @@ _: {
   services = {
     authelia = {
       authelia = false;
-      ipv4 = "192.168.9.2";
+      ipv4 = "192.168.1.220";
       port = 9091;
       protocol = "http";
       subdomain = "authelia";
     };
 
     anubis = {
-      ipv4 = "127.0.0.1";
+      ipv4 = "192.168.1.220";
       port = 4444;
       metrics-port = 4445;
       protocol = "http";
@@ -482,7 +482,7 @@ _: {
 
     firefox-syncserver = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "127.0.0.1";
       port = 5002;
       protocol = "http";
       subdomain = "firefox-syncserver";
@@ -536,7 +536,7 @@ _: {
 
     grafana = {
       authelia = true;
-      ipv4 = "192.168.18.2";
+      ipv4 = "192.168.1.220";
       port = 3002;
       protocol = "http";
       subdomain = "grafana";
@@ -583,7 +583,7 @@ _: {
 
     loki = {
       authelia = false;
-      ipv4 = "192.168.18.2";
+      ipv4 = "192.168.1.220";
       port = 3100;
       protocol = "http";
       push-api = "loki/api/v1/push";
@@ -615,17 +615,18 @@ _: {
       subdomain = "minecraft";
     };
 
-    nextcloud = {
+    nextcloud = rec {
       authelia = false;
-      ipv4 = "192.168.10.3";
+      ipv4 = "192.168.1.220";
       port = 443;
       protocol = "https";
       subdomain = "nextcloud";
+      hostName = "${subdomain}.rovacsek.com";
     };
 
     nginx = {
       authelia = false;
-      ipv4 = "192.168.5.3";
+      ipv4 = "192.168.1.220";
     };
 
     openvpn = {
@@ -651,7 +652,7 @@ _: {
 
     pfsense = {
       authelia = true;
-      ipv4 = "192.168.5.1";
+      ipv4 = "192.168.1.1";
       port = 443;
       protocol = "https";
       subdomain = "pfsense";
@@ -659,7 +660,7 @@ _: {
 
     prometheus = {
       authelia = false;
-      ipv4 = "192.168.18.2";
+      ipv4 = "192.168.1.220";
       port = 9092;
       protocol = "http";
       write-api = "api/v1/write";

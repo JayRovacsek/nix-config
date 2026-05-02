@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   self,
   ...
@@ -40,5 +41,11 @@ in
     };
 
     mysql.package = pkgs.mariadb;
+
+    nginx.virtualHosts = {
+      "firefox-syncserver.rovacsek.com" = {
+        enableACME = lib.mkForce false;
+      };
+    };
   };
 }

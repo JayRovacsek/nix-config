@@ -88,7 +88,9 @@ in
 {
 
   age = {
-    identityPaths = [ "/agenix/id-ed25519-restic-primary" ];
+    identityPaths = [
+      "/agenix/id-ed25519-restic-primary"
+    ];
     secrets = {
       nextcloud-password.file = ../../secrets/restic/nextcloud-password.age;
       logs-password.file = ../../secrets/restic/logs-password.age;

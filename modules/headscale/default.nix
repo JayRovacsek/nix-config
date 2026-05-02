@@ -273,7 +273,7 @@ in
         # There's a future in which we can bootstrap tailscale suitably to
         # simply consume DNS from a suitable node utilising blocky - but it's
         # still a work in progress.
-        extra_records = lib.optionalAttrs config.services.blocky.enable (
+        extra_records = lib.mkIf config.services.blocky.enable (
           lib.mapAttrsToList (name: value: {
             inherit name value;
             type = "A";

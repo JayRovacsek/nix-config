@@ -18,7 +18,7 @@ let
     inherit config pkgs;
     modules =
       with self.common.home-manager-module-sets;
-      hyprland-ironbar-desktop ++ games ++ ssh ++ impermanence ++ ai;
+      hyprland-ironbar-desktop ++ ssh ++ impermanence ++ ai;
   };
 
   user-configs = merge [
@@ -94,6 +94,9 @@ in
       "aarch64-linux"
     ];
   };
+
+  # TODO: Replace when not running a 1060
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
   environment.systemPackages = with pkgs; [
     agenix

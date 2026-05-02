@@ -15,8 +15,22 @@ let
 
   package = pkgs.nextcloud32;
   packages = pkgs.nextcloud32Packages;
+
+  inherit (self.lib) certificates;
+  certificate-lib = certificates pkgs;
+  inherit (certificate-lib) generate-self-signed;
+
+  cert = generate-self-signed "nextcloud.rovacsek.com";
+
 in
 {
+  imports = [ self.inputs.nuschtos-modules.nixosModule ];
+
+  users = {
+    groups.nextcloud.gid = 10003;
+    users.nextcloud.uid = 988;
+  };
+
   age = {
     identityPaths = [ "/agenix/id-ed25519-nextcloud-primary" ];
 
@@ -40,7 +54,10 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [ ffmpeg-headless ];
+  environment.systemPackages = with pkgs; [
+    ffmpeg-headless
+    nodejs_24
+  ];
 
   networking.firewall.allowedTCPPorts = [
     80
@@ -49,6 +66,20 @@ in
 
   services = {
     nextcloud = {
+      # TODO: Remap this to the standard /var/lib/nextcloud location
+      home = "/var/lib/4ac804cde4c09910c564d43eb76cb9ca/nextcloud";
+      datadir = "/var/lib/4ac804cde4c09910c564d43eb76cb9ca/nextcloud";
+
+      configureMemories = true;
+      settings = {
+        datadirectory = "/srv/nextcloud";
+        # Handle for version requirement of current memories install
+        # See also: https://github.com/NuschtOS/nixos-modules/blob/e28ac24205fc6e0a78889b790326f99ee594b718/modules/nextcloud.nix#L103C13-L103C60
+        # "memories.exiftool" = lib.mkForce (lib.getExe pkgs.exiftool-12-70);
+      };
+
+      inherit (self.common.config.services.nextcloud) hostName;
+
       enable = true;
 
       appstoreEnable = true;
@@ -59,7 +90,10 @@ in
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
+        overwriteProtocol = "https";
       };
+
+      nginx.enableFastcgiRequestBuffering = true;
 
       extraApps = {
         inherit (packages.apps)
@@ -125,7 +159,19 @@ in
         preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
         reduce_to_languages = [ "en" ];
         trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
-        trusted_domains = [ "192.168.10.3" ];
+        trusted_domains = [ self.common.config.services.nextcloud.ipv4 ];
+      };
+    };
+
+    nginx = {
+      statusPage = true;
+
+      virtualHosts."nextcloud.rovacsek.com" = {
+        enableAuthelia = false;
+        forceSSL = true;
+        # TODO: remove self signed certificate in the future.
+        sslCertificate = "${cert}/share/self-signed.crt";
+        sslCertificateKey = "${cert}/share/privkey.key";
       };
     };
 

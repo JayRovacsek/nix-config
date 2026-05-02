@@ -1,21 +1,6 @@
 { self, ... }:
 let
-  party = [
-    "bellsprout"
-    "igglybuff"
-    "machop"
-    "magikarp"
-    "mankey"
-    "meowth"
-    "mr-mime"
-    "nidoking"
-    "nidorina"
-    "nidorino"
-    "poliwag"
-    "porygon"
-    "slowpoke"
-    "tentacruel"
-  ];
+  party = [ ];
 in
 {
   microvm = {

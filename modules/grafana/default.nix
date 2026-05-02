@@ -67,10 +67,11 @@ in
       };
 
       server = {
+        root_url = "https://grafana.rovacsek.com";
         domain = "grafana.rovacsek.com";
-        # root_url = "https://${name}.${domain}/";
         enable_gzip = true;
-        enforce_domain = true;
+        # TODO: Revert to true once I've resolved auth in-front of these services
+        enforce_domain = false;
         http_addr = "0.0.0.0";
 
         inherit (grafana) protocol;

@@ -61,26 +61,30 @@ in
   imports = with self.nixosModules; [
     ./backups.nix
     ./disk-config.nix
-    ./microvms.nix
+    ./nginx.nix
+    acme
     agenix
     alloy
     blocky
+    ddclient
     firefox-syncserver
     fonts
     generations
     gnupg
+    grafana
     harmonia
-    hydra
     i18n
     jellyfin
     jellyseerr
-    logging
+    loki
     lorri
-    microvm-host
+    nextcloud
+    nginx
     nix
     nix-topology
     nvidia
     openssh
+    prometheus
     remote-builds
     smartd
     ssh
@@ -92,7 +96,6 @@ in
     tmp-tmpfs
     tmux
     udev
-    unifi
     zfs
     zramSwap
     zsh
@@ -141,6 +144,9 @@ in
       "zfs"
     ];
   };
+
+  # TODO: rotate this to be service-centric
+  age.identityPaths = [ "/agenix/id-ed25519-mr-mime-primary" ];
 
   environment.systemPackages = with pkgs; [
     agenix

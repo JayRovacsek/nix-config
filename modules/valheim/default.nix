@@ -24,6 +24,10 @@ in
       backend = "podman";
       containers.valheim = {
         environment = {
+          # TODO: move this to a systemd envfile
+          SERVER_NAME = "";
+          SERVER_PASS = "";
+
           SERVER_PUBLIC = "false";
           RESTART_CRON = "";
           TZ = config.time.timeZone;

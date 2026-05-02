@@ -8,7 +8,7 @@
 let
   # Agenix is likely required if we have a share from host to guest passing
   # a secret and identity paths has some kind of value.
-  agenix-required = config.age.identityPaths != [ ];
+  agenix-required = (config.age.identityPaths or [ ]) != [ ];
 in
 {
   # Ensure a machine id exists and is stable on the host - this is required

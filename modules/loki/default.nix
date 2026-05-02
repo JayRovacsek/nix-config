@@ -8,6 +8,9 @@ in
   ];
 
   services.loki = {
+    # TODO: make this better at being described in common config attributes
+    dataDir = "/srv/logs/loki";
+
     enable = true;
     configuration = {
       auth_enabled = false;

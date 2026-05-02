@@ -1,5 +1,6 @@
 {
   lib,
+  osConfig,
   pkgs,
   self,
   ...
@@ -501,12 +502,44 @@ let
   ];
 in
 {
+
+  programs.opencode.settings.provider =
+    # lib.mkIf osConfig.services.llama-cpp.enable
+    {
+      # TODO: Correct this to leverage common config options, expose only over tailscale or alike
+      llama-cpp = {
+        npm = "@ai-sdk/openai-compatible";
+        name = "llama-cpp";
+        options = {
+          baseURL = "http://192.168.1.220:8080/v1";
+        };
+        models = {
+          gemma-4-E2B = {
+            name = "unsloth/gemma-4-E4B-it-GGUF";
+            limit = {
+              context = 128000;
+              output = 65536;
+            };
+          };
+        };
+
+        #   builtins.mapAttrs (key: value: {
+        #   name = if value ? alias && value.alias != "" then value.alias else key;
+        #   contextLength = value.n_ctx or null;
+        # }
+
+        # ) osConfig.services.llama-cpp.modelsPreset;
+      };
+    };
+
   home.packages = [
     self.packages.${pkgs.system}.tui-use
   ];
 
   programs.opencode = {
     enable = true;
+
+    package = pkgs.opencode;
 
     # Local agents/commands are Nix path types and pass through the HM
     # option's lib.isPath check correctly (creating symlinks).
@@ -516,14 +549,14 @@ in
     commands = { };
 
     # Global agent instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md.
-    # All agents automatically receive these rules as baseline context.
+    # All agents automatically receive this content as baseline context.
     #
     # Commit policy references:
     #   - Conventional Commits: https://www.conventionalcommits.org
     #   - Assisted-by footer: https://xeiaso.net/notes/2025/assisted-by-footer/
     #   - Conform config: packages/text/conform-config/default.nix
     #   - Git-cliff config: packages/text/git-cliff-config/default.nix
-    rules = ''
+    context = ''
       # Repository Guidelines
 
       **All AI agents MUST comply with every rule in this document.**
@@ -785,16 +818,21 @@ in
 
     settings = {
       plugin = [
-        "@simonwjackson/opencode-direnv@f257fa7f7e19ea8722fdfe546c2cb8b736d9387d"
+        "@simonwjackson/opencode-direnv@v2025.1211.9"
       ];
 
       # Only offer models from locally defined providers — GitHub Copilot
       # (built-in, authenticated via device flow) and Ollama (custom,
       # defined in home-manager-modules/ollama).
-      enabled_providers = [
-        "github-copilot"
-        "ollama"
-      ];
+      # TODO: Make this a bit smarter on how it's built - hardcoded while testing
+      enabled_providers = lib.unique (
+        [
+          "github-copilot"
+          "ollama"
+          "llama-cpp"
+        ]
+        ++ lib.optional osConfig.services.llama-cpp.enable "llama-cpp"
+      );
 
       inherit mcp;
 

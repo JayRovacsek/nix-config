@@ -28,6 +28,8 @@ let
 
   config = {
     allowUnfree = true;
+    # TODO: expose a cuda packageset for all iterations already exposed rather than default to true
+    cudaSupport = true;
     permittedInsecurePackages = [ ];
   };
 

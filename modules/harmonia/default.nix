@@ -22,7 +22,7 @@ in
 
   nix.gc.automatic = lib.mkForce false;
 
-  services.harmonia = {
+  services.harmonia.cache = {
     enable = true;
     # Refer to: https://github.com/nix-community/harmonia/?tab=readme-ov-file#harmonia
     settings = {

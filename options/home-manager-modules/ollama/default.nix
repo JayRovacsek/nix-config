@@ -191,6 +191,8 @@ in
     };
   };
 
+  # TODO: investigate if this needs to be split across OSes, or if we can better handle both at once.
+  # This currently fails on darwin as it seems to be clobbered by linux options
   config = lib.mkMerge [
     darwin-configuration
     linux-configuration

@@ -19,7 +19,6 @@
     buildbot-nix = {
       url = "github:nix-community/buildbot-nix";
       inputs = {
-        flake-parts.follows = "flake-parts";
         hercules-ci-effects.follows = "hercules-ci-effects";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
@@ -257,7 +256,6 @@
         flake-root.follows = "flake-root";
         git-hooks-nix.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
       };
       url = "github:tiiuae/sbomnix";
     };
@@ -478,6 +476,7 @@
                       "Flor"
                       "gastly"
                       "Gastly"
+                      "initialize"
                       "Iy"
                       "maximize"
                       "minimize"
@@ -493,6 +492,7 @@
                       "personalization"
                       "Pn"
                       "prioritize"
+                      "Randomized"
                       "Recognize"
                       "sanitize"
                       "SART"
@@ -516,7 +516,7 @@
                 };
 
                 trufflehog-verified = {
-                  enable = false;
+                  enable = true;
                   name = "Trufflehog Search";
                   entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
                   language = "system";

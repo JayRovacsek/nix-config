@@ -16,6 +16,8 @@ let
 
   agenix-in-use = builtins.hasAttr "age" config;
 
+  llama-cpp-in-use = config.services.llama-cpp.enable;
+
   # If instances are defined, assume they may be all utilised
   # TODO: check if a filter for enabled is required here in the case of
   # failure on directory not existing
@@ -85,6 +87,9 @@ in
         "/var/lib/lightdm"
         "/var/lib/lightdm-data"
       ])
+
+      ++ (lib.optionals llama-cpp-in-use [ "/var/cache/private/llama-cpp" ])
+
       # Microvms
       ++ (lib.optionals microvm ([ "/var/lib/microvms" ] ++ microvm-state-dirs))
       ## Mysql

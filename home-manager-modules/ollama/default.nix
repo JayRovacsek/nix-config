@@ -9,20 +9,6 @@
     ../../options/home-manager-modules/ollama
   ];
 
-  nixpkgs.overlays = [
-    (_: prev: {
-      ollama-git = prev.ollama.overrideAttrs (_: {
-        version = "0.20.8-rc0";
-        src = prev.fetchFromGitHub {
-          owner = "ollama";
-          repo = "ollama";
-          tag = "v0.20.8-rc0";
-          hash = "sha256-J/VLij0MVuJ64m0NiT9n1vwAg8MxJpPHbhoeVZTnZAE=";
-        };
-      });
-    })
-  ];
-
   programs.opencode.settings.provider = lib.mkIf config.programs.opencode.enable {
     ollama = {
       npm = "@ai-sdk/openai-compatible";
@@ -46,22 +32,23 @@
     };
   };
 
-  programs.vscode.profiles.default = {
-    userSettings."yaml.schemas"."file://${config.home.homeDirectory}/.vscode-oss/extensions/Continue.continue/config-yaml-schema.json" =
-      [
-        ".continue/**/*.yaml"
-      ];
-  };
-
   services.ollama = {
     enable = true;
 
     environmentVariables = {
-      OLLAMA_CONTEXT_LENGTH = "131072";
+      OLLAMA_CONTEXT_LENGTH = "65536";
       OLLAMA_NO_CLOUD = "1";
     };
 
-    package = pkgs.ollama-git;
+    package = pkgs.ollama.overrideAttrs (_: {
+      version = "0.20.2";
+      src = pkgs.fetchFromGitHub {
+        owner = "ollama";
+        repo = "ollama";
+        tag = "v0.20.2";
+        hash = "sha256-Ic3eLOohLR7MQGkLvDJBNOCiBBKxh6l8X9MgK0b4w+Y=";
+      };
+    });
 
     models = [
       {

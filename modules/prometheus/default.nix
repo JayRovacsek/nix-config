@@ -8,6 +8,8 @@ in
   services.prometheus = {
     enable = true;
 
+    # TODO: mount /srv/logs as stateDir
+
     exporters.node = {
       inherit (exporters-node) port;
       enable = true;
