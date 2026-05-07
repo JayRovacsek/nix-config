@@ -1,6 +1,5 @@
 {
   lib,
-  osConfig,
   pkgs,
   self,
   ...
@@ -930,6 +929,13 @@ in
 
           # --- search & filter ---
           "find*" = "allow";
+          "find*delete*" = "deny";
+          "find*-delete*" = "deny";
+          "find*-exec*rm*" = "deny";
+          "find*-execdir*rm*" = "deny";
+          "find*-ok*rm*" = "deny";
+          "find*-exec*unlink*" = "deny";
+          "find*-execdir*unlink*" = "deny";
           "fd*" = "allow";
           "grep*" = "allow";
           "rg*" = "allow";
@@ -1037,6 +1043,19 @@ in
           "git push -f*" = "deny";
           "git clean -fd*" = "deny";
           "git reset --hard*" = "deny";
+
+          # --- git --no-verify: blocks hook-skipping across all git commands ---
+          # --no-verify skips pre-commit and commit-msg hooks, violating
+          # commit policy enforcement. This flag is dangerous in any context.
+          "git commit*--no-verify*" = "deny";
+          "git merge*--no-verify*" = "deny";
+          "git cherry-pick*--no-verify*" = "deny";
+          "git am*--no-verify*" = "deny";
+          "git rebase*--no-verify*" = "deny";
+          "git send-email*--no-verify*" = "deny";
+
+          # --- git commit -n: blocks unsigned commits (enforce GPG signing) ---
+          "git commit*-n*" = "deny";
 
           # -----------------------------------------------------------------
           # DENY: arbitrary package runners & installers

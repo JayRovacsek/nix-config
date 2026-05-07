@@ -25,17 +25,17 @@ let
   alakazam-monitors = [
     # Position 1
     {
-      name = "DVI-D-1";
+      name = "HDMI-A-1";
       resolution = "1920x1080";
       position = "0x0";
       scale = "1";
-      extra = "transform,1";
+      extra = "";
     }
     # Position 2
     {
-      name = "HDMI-A-1";
+      name = "DP-5";
       resolution = "1920x1080";
-      position = "1080x420";
+      position = "1920x0";
       scale = "1";
       extra = "";
     }
@@ -43,15 +43,7 @@ let
     {
       name = "DP-3";
       resolution = "1920x1080";
-      position = "3000x420";
-      scale = "1";
-      extra = "";
-    }
-    # Position 4
-    {
-      name = "DP-5";
-      resolution = "1920x1080";
-      position = "4920x420";
+      position = "3840x0";
       scale = "1";
       extra = "";
     }
