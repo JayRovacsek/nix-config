@@ -76,6 +76,7 @@ in
     i18n
     jellyfin
     jellyseerr
+    llama-cpp
     loki
     lorri
     nextcloud
