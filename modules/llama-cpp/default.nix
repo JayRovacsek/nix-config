@@ -18,17 +18,17 @@ _: {
       #   jinja = "on";
       # };
 
-      # gemma-4-E4B = {
-      #   hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
-      #   hf-file = "gemma-4-E4B-it-UD-Q5_K_XL.gguf";
-      #   alias = "unsloth/gemma-4-E4B-it-GGUF";
-      #   fit = "on";
-      #   temp = "1.0";
-      #   top-p = "0.95";
-      #   min-p = "0.01";
-      #   top-k = "40";
-      #   jinja = "on";
-      # };
+      gemma-4-E4B = {
+        hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
+        hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
+        alias = "gemma-4-E4B-it-GGUF";
+        fit = "on";
+        temp = "1.0";
+        top-p = "0.95";
+        min-p = "0.01";
+        top-k = "40";
+        jinja = "on";
+      };
 
       # "deepseek-r1-8b" = {
       #   hf-repo = "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF";
@@ -67,7 +67,6 @@ _: {
       #   hf-repo = "unsloth/gemma-4-31B-it-GGUF:UD-IQ2_XXS";
       #   hf-file = "gemma-4-31B-it-UD-IQ2_XXS.gguf";
       #   alias = "unsloth/gemma-4-31B-it-GGUF";
-      #   fit = "on";
       #   temp = "1.0";
       #   top-p = "0.95";
       #   min-p = "0.01";
@@ -113,6 +112,7 @@ _: {
 
       "--n-gpu-layers"
       "999" # offload all layers to GPU
+
       "--no-mmap" # avoid memory mapping to save host RAM
       "--mlock" # lock memory into RAM to avoid swapping
     ];
