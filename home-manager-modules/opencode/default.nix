@@ -929,6 +929,13 @@ in
 
           # --- search & filter ---
           "find*" = "allow";
+          "find*delete*" = "deny";
+          "find*-delete*" = "deny";
+          "find*-exec*rm*" = "deny";
+          "find*-execdir*rm*" = "deny";
+          "find*-ok*rm*" = "deny";
+          "find*-exec*unlink*" = "deny";
+          "find*-execdir*unlink*" = "deny";
           "fd*" = "allow";
           "grep*" = "allow";
           "rg*" = "allow";
