@@ -95,9 +95,6 @@ in
     ];
   };
 
-  # TODO: Replace when not running a 1060
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-
   environment.systemPackages = with pkgs; [
     agenix
     curl
@@ -113,8 +110,6 @@ in
       };
       intel.updateMicrocode = true;
     };
-    # System uses a 1060 - so not recommended to use open modules
-    nvidia.open = lib.mkForce false;
   };
 
   networking = {
