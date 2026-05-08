@@ -19,6 +19,7 @@
   microvm = import ./microvm.nix { inherit self; };
   nginx = import ./nginx.nix { inherit self; };
   options = import ./options.nix { inherit self; };
+  opencode = import ./opencode.nix { inherit self; };
   ssh = import ./ssh.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   terraform = import ./terraform.nix { inherit self; };

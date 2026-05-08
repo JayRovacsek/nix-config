@@ -7,139 +7,10 @@
 }:
 let
   # ---------------------------------------------------------------------------
-  # mkOpencodeSource: Generic builder for external agent/skill/command sources
-  #
-  # Takes a source (fetchFromGitHub or flake input), applies patch rules to
-  # strip unwanted frontmatter from .md files, then copies selected component
-  # subdirectories into a normalised $out/{agents,skills,commands}/ structure.
-  # ---------------------------------------------------------------------------
-  mkOpencodeSource =
-    {
-      name,
-      src,
-      patchRules ? [ ],
-      components ? { },
-    }:
-    let
-      agentPaths = components.agents or [ ];
-      skillPaths = components.skills or [ ];
-      commandPaths = components.commands or [ ];
-
-      # Generate sed delete-line commands for each patch rule regex
-      sedArgs = lib.concatMapStringsSep " " (
-        pattern: "-e '/${pattern}/d'"
-      ) patchRules;
-
-      patchPhase = lib.optionalString (
-        patchRules != [ ]
-      ) "find . -name '*.md' -type f -exec ${pkgs.gnused}/bin/sed -i ${sedArgs} {} +";
-
-      # Copy a list of source subdirectories into a target directory,
-      # preserving internal structure. Note: cp -rT is last-wins on
-      # filename conflicts (unlike symlinkJoin which is first-wins).
-      # This is safe here because paths come from a single upstream repo.
-      copyComponents =
-        targetDir: paths:
-        lib.concatMapStringsSep "\n" (srcPath: ''
-          if [ -d "${srcPath}" ]; then
-            cp -rT "${srcPath}" "$out/${targetDir}"
-          fi
-        '') paths;
-    in
-    pkgs.stdenv.mkDerivation {
-      inherit name src;
-
-      dontBuild = true;
-      dontFixup = true;
-
-      nativeBuildInputs = lib.optional (patchRules != [ ]) pkgs.gnused;
-
-      postPatch = patchPhase;
-
-      installPhase = ''
-        mkdir -p $out/{agents,skills,commands}
-        ${copyComponents "agents" agentPaths}
-        ${copyComponents "skills" skillPaths}
-        ${copyComponents "commands" commandPaths}
-      '';
-    };
-
-  # ---------------------------------------------------------------------------
-  # mkMcpServer: Declarative MCP server builder
-  #
-  # Supports three invocation patterns:
-  #   1. Flake ref: `nix run <flakeRef> -- [args]`  (for non-nixpkgs flakes)
-  #   2. Store path: `<pkg>/bin/<binary> [args]`     (for nixpkgs packages)
-  #   3. Remote URL: SSE/HTTP endpoint               (for hosted MCP servers)
-  #
-  # Exactly one of { flakeRef, command, url } must be provided.
-  # ---------------------------------------------------------------------------
-  mkMcpServer =
-    {
-      name,
-      flakeRef ? null,
-      command ? null,
-      url ? null,
-      args ? [ ],
-      env ? { },
-      headers ? { }, # HTTP headers for remote MCP servers (e.g., Authorization)
-    }:
-    let
-      hasFlakeRef = flakeRef != null;
-      hasCommand = command != null;
-      hasUrl = url != null;
-
-      localBase =
-        if hasFlakeRef then
-          {
-            type = "local";
-            command = [
-              "nix"
-              "run"
-              flakeRef
-              "--"
-            ]
-            ++ args;
-          }
-        else
-          {
-            type = "local";
-            command = command ++ args;
-          };
-
-      remoteBase = {
-        type = "remote";
-        inherit url;
-      };
-
-      base = if hasUrl then remoteBase else localBase;
-
-      # Only include env/headers when non-empty
-      envAttr = lib.optionalAttrs (env != { }) { inherit env; };
-      headersAttr = lib.optionalAttrs (headers != { }) { inherit headers; };
-    in
-    assert lib.assertMsg (
-      (lib.count (x: x) [
-        hasFlakeRef
-        hasCommand
-        hasUrl
-      ]) == 1
-    ) "mkMcpServer '${name}': exactly one of flakeRef, command, or url must be set";
-    assert lib.assertMsg (
-      !(hasUrl && args != [ ])
-    ) "mkMcpServer '${name}': 'args' cannot be used with remote 'url' servers";
-    assert lib.assertMsg (
-      !(!hasUrl && headers != { })
-    ) "mkMcpServer '${name}': 'headers' can only be used with remote 'url' servers";
-    {
-      ${name} = base // envAttr // headersAttr;
-    };
-
-  # ---------------------------------------------------------------------------
   # Source definitions
   # ---------------------------------------------------------------------------
 
-  wshobsonAgents = mkOpencodeSource {
+  wshobsonAgents = self.lib.opencode.mkOpencodeSource pkgs {
     name = "wshobson-agents";
     src = pkgs.fetchFromGitHub {
       owner = "wshobson";
@@ -184,7 +55,7 @@ let
     };
   };
 
-  dbtSkills = mkOpencodeSource {
+  dbtSkills = self.lib.opencode.mkOpencodeSource pkgs {
     name = "dbt-agent-skills";
     src = pkgs.fetchFromGitHub {
       owner = "dbt-labs";
@@ -198,7 +69,7 @@ let
     };
   };
 
-  superpowers = mkOpencodeSource {
+  superpowers = self.lib.opencode.mkOpencodeSource pkgs {
     name = "superpowers";
     src = pkgs.fetchFromGitHub {
       owner = "obra";
@@ -218,7 +89,7 @@ let
   # Gives agents access to interactive terminal programs (REPLs, installers,
   # TUI apps) via PTY automation. Skills only; the CLI is packaged separately
   # in packages/node/tui-use.
-  tuiUseSkills = mkOpencodeSource {
+  tuiUseSkills = self.lib.opencode.mkOpencodeSource pkgs {
     name = "tui-use-skills";
     src = pkgs.fetchFromGitHub {
       owner = "onesuper";
@@ -234,7 +105,7 @@ let
   # Anthropic's official skill library — https://github.com/anthropics/skills
   # Provides skills for Claude API usage, document generation (docx, pdf, pptx,
   # xlsx), frontend design, MCP building, webapp testing, and more.
-  anthropicSkills = mkOpencodeSource {
+  anthropicSkills = self.lib.opencode.mkOpencodeSource pkgs {
     name = "anthropic-skills";
     src = pkgs.fetchFromGitHub {
       owner = "anthropics";
@@ -251,114 +122,6 @@ let
       skills = [ "skills" ];
     };
   };
-
-  # ---------------------------------------------------------------------------
-  # mkOpencodeAttrs: Extract per-entry attrsets from an mkOpencodeSource drv
-  #
-  # NOTE: This uses Import From Derivation (IFD). builtins.readDir is called
-  # on derivation output paths ("${drv}/agents", etc.), which forces the
-  # derivation to be built during Nix evaluation rather than at build time.
-  #
-  # Trade-offs:
-  #   - IFD is necessary because external sources (fetchFromGitHub) are opaque
-  #     derivations whose output contents cannot be enumerated at eval time
-  #     without building them first.
-  #   - Performance: the derivation must be realised during `nix eval` / module
-  #     evaluation. These are small copy-only derivations so the cost is low
-  #     once cached (fixed-output fetch + trivial installPhase).
-  #   - Compatibility: IFD works with both CppNix and Lix. Some CI evaluators
-  #     (e.g. Hydra with restrict-eval) may reject IFD — this repo does not
-  #     use Hydra, so that is acceptable.
-  #
-  # Produces: { agents = { name = path; ... }; skills = { ... }; commands = { ... }; }
-  #
-  # For agents/commands: .md files are enumerated and the .md suffix is stripped
-  # from the key name.  Each value is a standalone store path produced by
-  # builtins.path.  Because derivation outputs are strings (not Nix path types),
-  # these CANNOT be passed through programs.opencode.agents/commands (which uses
-  # lib.isPath).  Instead, external agents/commands are written directly to
-  # xdg.configFile with explicit source attributes — see effectiveExternalAgents
-  # and externalAgentFiles below.
-  #
-  # For skills: directories are copied into standalone store paths via
-  # builtins.path.  The upstream HM opencode module accepts both Nix path types
-  # and store-path strings for skills (it checks both lib.isPath and
-  # builtins.isString with storeDir prefix), so all skills pass through
-  # programs.opencode.skills directly.
-  # ---------------------------------------------------------------------------
-  mkOpencodeAttrs =
-    drv:
-    let
-      # Enumerate .md files in a subdirectory, stripping the .md suffix from keys.
-      # Returns { name-without-ext = "/nix/store/...-opencode-<type>-<name>"; ... }
-      #
-      # Each value is a store-path string produced by builtins.path.  The
-      # upstream HM opencode module checks `lib.isPath` on agent/command
-      # values: paths become { source = ...; } (symlinked), strings become
-      # { text = ...; } (written as literal text — broken for store paths).
-      #
-      # Because derivation outputs can only produce strings (not Nix path
-      # types), external agents/commands CANNOT be passed through
-      # programs.opencode.agents/commands.  Instead, the composed config
-      # below writes them directly to xdg.configFile with explicit source
-      # attributes, bypassing the isPath check entirely.
-      enumerateMdFiles =
-        subdir:
-        let
-          dir = "${drv}/${subdir}";
-          entries = builtins.readDir dir;
-          mdEntries = lib.filterAttrs (
-            name: type: (type == "regular" || type == "symlink") && lib.hasSuffix ".md" name
-          ) entries;
-        in
-        lib.mapAttrs' (
-          name: _:
-          lib.nameValuePair (lib.removeSuffix ".md" name) (
-            builtins.path {
-              path = "${dir}/${name}";
-              name = "opencode-${subdir}-${lib.removeSuffix ".md" name}";
-            }
-          )
-        ) mdEntries;
-
-      # Enumerate skill directories (or symlinks to directories).
-      # Returns { skill-name = /nix/store/...-opencode-skill-<name>; ... }
-      #
-      # Each value is a Nix path produced by builtins.path, NOT a plain
-      # store-path string. This distinction matters for Home Manager:
-      #
-      #   - String values (e.g. "${drv}/skills/foo") hit the isString branch
-      #     in the HM module, which creates a recursive directory symlink.
-      #     On macOS (APFS synthetic firmlink for /nix), the resulting
-      #     double-hop symlink chain through the store fails to resolve.
-      #
-      #   - Path values hit the isPath branch, which also uses recursive
-      #     directory source but with a top-level store path (single hop).
-      #     builtins.path copies the directory contents into a fresh store
-      #     path, avoiding the subdirectory chain that breaks on macOS.
-      enumerateSkillDirs =
-        let
-          dir = "${drv}/skills";
-          entries = builtins.readDir dir;
-          dirEntries = lib.filterAttrs (
-            _: type: type == "directory" || type == "symlink"
-          ) entries;
-        in
-        lib.mapAttrs' (
-          name: _:
-          lib.nameValuePair name (
-            builtins.path {
-              path = "${dir}/${name}";
-              name = "opencode-skill-${name}";
-            }
-          )
-        ) dirEntries;
-    in
-    {
-      agents = enumerateMdFiles "agents";
-      skills = enumerateSkillDirs;
-      commands = enumerateMdFiles "commands";
-    };
 
   # ---------------------------------------------------------------------------
   # Local agents: enumerate .md files from ./agents at eval time (no IFD —
@@ -405,16 +168,17 @@ let
   # paths and store-path strings, so all skills go through the option.
   # ---------------------------------------------------------------------------
   externalAgents =
-    (mkOpencodeAttrs wshobsonAgents).agents // (mkOpencodeAttrs superpowers).agents;
+    (self.lib.opencode.mkOpencodeAttrs wshobsonAgents).agents
+    // (self.lib.opencode.mkOpencodeAttrs superpowers).agents;
   externalSkills =
-    (mkOpencodeAttrs wshobsonAgents).skills
-    // (mkOpencodeAttrs dbtSkills).skills
-    // (mkOpencodeAttrs superpowers).skills
-    // (mkOpencodeAttrs anthropicSkills).skills
-    // (mkOpencodeAttrs tuiUseSkills).skills;
+    (self.lib.opencode.mkOpencodeAttrs wshobsonAgents).skills
+    // (self.lib.opencode.mkOpencodeAttrs dbtSkills).skills
+    // (self.lib.opencode.mkOpencodeAttrs superpowers).skills
+    // (self.lib.opencode.mkOpencodeAttrs anthropicSkills).skills
+    // (self.lib.opencode.mkOpencodeAttrs tuiUseSkills).skills;
   externalCommands =
-    (mkOpencodeAttrs wshobsonAgents).commands
-    // (mkOpencodeAttrs superpowers).commands;
+    (self.lib.opencode.mkOpencodeAttrs wshobsonAgents).commands
+    // (self.lib.opencode.mkOpencodeAttrs superpowers).commands;
 
   composedSkillAttrs = externalSkills // localSkills;
 
@@ -477,14 +241,14 @@ let
 
   mcp = lib.mergeAttrsList [
     # NixOS/Home Manager/nix-darwin package & option search
-    (mkMcpServer {
+    (self.lib.opencode.mkMcpServer {
       name = "nixos";
       flakeRef = "github:utensils/mcp-nixos";
     })
 
     # GitHub API: issues, PRs, repos, code search, CI status
     # Requires GITHUB_PERSONAL_ACCESS_TOKEN in the environment at runtime
-    (mkMcpServer {
+    (self.lib.opencode.mkMcpServer {
       name = "snowflake";
       command = [ "snowflake-labs-mcp" ];
       args = [
@@ -495,7 +259,7 @@ let
       ];
     })
 
-    (mkMcpServer {
+    (self.lib.opencode.mkMcpServer {
       name = "atlassian";
       url = "https://mcp.atlassian.com/v1/mcp";
     })
@@ -707,7 +471,7 @@ in
       compaction = {
         auto = true;
         prune = true;
-        reserved = 10000;
+        reserved = 20000;
       };
 
       lsp.nixd = {
