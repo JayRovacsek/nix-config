@@ -5,40 +5,39 @@ _: {
     openFirewall = true;
     host = "0.0.0.0";
     modelsPreset = {
-      # gemma-4-E2B = {
-      #   hf-repo = "unsloth/gemma-4-E2B-it-GGUF";
-      #   hf-file = "gemma-4-E2B-it-UD-Q5_K_XL.gguf";
-      #   alias = "unsloth/gemma-4-E2B-it-GGUF";
-      #   fit = "on";
-      #   seed = "3407";
-      #   temp = "1.0";
-      #   top-p = "0.95";
-      #   min-p = "0.01";
-      #   top-k = "40";
-      #   jinja = "on";
-      # };
+      gemma-4-E2B = {
+        hf-repo = "unsloth/gemma-4-E2B-it-GGUF";
+        hf-file = "gemma-4-E2B-it-UD-Q4_K_XL.gguf";
+        alias = "unsloth/gemma-4-E2B-it-GGUF";
+        fit = "on";
+        temp = "1.0";
+        top-p = "0.95";
+        min-p = "0.0";
+        top-k = "20";
+        jinja = "on";
+      };
 
-      # gemma-4-E4B = {
-      #   hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
-      #   hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
-      #   alias = "unsloth/gemma-4-E4B";
-      #   fit = "on";
-      #   temp = "1.0";
-      #   top-p = "0.95";
-      #   min-p = "0.01";
-      #   top-k = "40";
-      #   jinja = "on";
-      # };
+      gemma-4-E4B = {
+        hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
+        hf-file = "gemma-4-E4B-it-UD-Q4_K_XL.gguf";
+        alias = "unsloth/gemma-4-E4B";
+        fit = "on";
+        temp = "1.0";
+        top-p = "0.95";
+        min-p = "0.0";
+        top-k = "20";
+        jinja = "on";
+      };
 
-      # "deepseek-r1-8b" = {
-      #   hf-repo = "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF";
-      #   hf-file = "DeepSeek-R1-0528-Qwen3-8B-Q8_0.gguf";
-      #   alias = "unsloth/DeepSeek-R1-0528-Qwen3-8B";
-      #   fit = "on";
-      #   temp = "0.6";
-      #   top-p = "0.95";
-      #   jinja = "on";
-      # };
+      "deepseek-r1-8b" = {
+        hf-repo = "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF";
+        hf-file = "DeepSeek-R1-0528-Qwen3-8B-UD-Q4_K_XL.gguf";
+        alias = "unsloth/DeepSeek-R1-0528-Qwen3-8B";
+        fit = "on";
+        temp = "0.6";
+        top-p = "0.95";
+        jinja = "on";
+      };
 
       "gemma-4-26B-A4B" = {
         hf-repo = "unsloth/gemma-4-26B-A4B-it-GGUF";
@@ -52,39 +51,39 @@ _: {
         jinja = "on";
       };
 
-      # "qwen3.6-35b-a3b" = {
-      #   hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
-      #   hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
-      #   alias = "unsloth/Qwen3-Coder-30B-A3B";
-      #   fit = "on";
-      #   temp = "0.6";
-      #   top-p = "0.8";
-      #   top-k = "20";
-      #   min-p = "0.0";
-      #   jinja = "on";
-      # };
+      "qwen3.6-35b-a3b" = {
+        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+        hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
+        alias = "unsloth/Qwen3.6-35B-A3B";
+        fit = "on";
+        temp = "0.7";
+        top-p = "0.8";
+        top-k = "20";
+        min-p = "0.0";
+        jinja = "on";
+      };
 
-      # "qwen3-coder-30b-a3b" = {
-      #   hf-repo = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF";
-      #   hf-file = "Qwen3-Coder-30B-A3B-Instruct-UD-IQ2_XXS.gguf";
-      #   alias = "unsloth/Qwen3-Coder-30B-A3B";
-      #   fit = "on";
-      #   temp = "0.7";
-      #   top-p = "0.8";
-      #   top-k = "20";
-      #   jinja = "on";
-      # };
+      "qwen3-coder-30b-a3b" = {
+        hf-repo = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF";
+        hf-file = "Qwen3-Coder-30B-A3B-Instruct-UD-IQ2_XXS.gguf";
+        alias = "unsloth/Qwen3-Coder-30B-A3B";
+        fit = "on";
+        temp = "0.7";
+        top-p = "0.8";
+        top-k = "20";
+        jinja = "on";
+      };
 
-      # gemma-4-31B = {
-      #   hf-repo = "unsloth/gemma-4-31B-it-GGUF:UD-IQ2_XXS";
-      #   hf-file = "gemma-4-31B-it-UD-IQ2_XXS.gguf";
-      #   alias = "unsloth/gemma-4-31B-it-GGUF";
-      #   temp = "1.0";
-      #   top-p = "0.95";
-      #   min-p = "0.01";
-      #   top-k = "64";
-      #   jinja = "on";
-      # };
+      gemma-4-31B = {
+        hf-repo = "unsloth/gemma-4-31B-it-GGUF";
+        hf-file = "gemma-4-31B-it-UD-IQ2_XXS.gguf";
+        alias = "unsloth/gemma-4-31B-it-GGUF";
+        temp = "1.0";
+        top-p = "0.95";
+        min-p = "0.0";
+        top-k = "20";
+        jinja = "on";
+      };
     };
 
     extraFlags = [
