@@ -18,17 +18,17 @@ _: {
       #   jinja = "on";
       # };
 
-      gemma-4-E4B = {
-        hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
-        hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
-        alias = "unsloth/gemma-4-E4B";
-        fit = "on";
-        temp = "1.0";
-        top-p = "0.95";
-        min-p = "0.01";
-        top-k = "40";
-        jinja = "on";
-      };
+      # gemma-4-E4B = {
+      #   hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
+      #   hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
+      #   alias = "unsloth/gemma-4-E4B";
+      #   fit = "on";
+      #   temp = "1.0";
+      #   top-p = "0.95";
+      #   min-p = "0.01";
+      #   top-k = "40";
+      #   jinja = "on";
+      # };
 
       # "deepseek-r1-8b" = {
       #   hf-repo = "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF";
@@ -40,17 +40,29 @@ _: {
       #   jinja = "on";
       # };
 
-      "qwen3.6-35b-a3b" = {
-        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
-        hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
-        alias = "unsloth/Qwen3-Coder-30B-A3B";
+      "gemma-4-26B-A4B" = {
+        hf-repo = "unsloth/gemma-4-26B-A4B-it-GGUF";
+        hf-file = "gemma-4-26B-A4B-it-UD-IQ2_XXS.gguf";
+        alias = "unsloth/gemma-4-26B-A4B";
         fit = "on";
-        temp = "0.6";
-        top-p = "0.8";
-        top-k = "20";
-        min-p = "0.0";
+        temp = "1.0";
+        top-p = "0.95";
+        min-p = "0.01";
+        top-k = "64";
         jinja = "on";
       };
+
+      # "qwen3.6-35b-a3b" = {
+      #   hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+      #   hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
+      #   alias = "unsloth/Qwen3-Coder-30B-A3B";
+      #   fit = "on";
+      #   temp = "0.6";
+      #   top-p = "0.8";
+      #   top-k = "20";
+      #   min-p = "0.0";
+      #   jinja = "on";
+      # };
 
       # "qwen3-coder-30b-a3b" = {
       #   hf-repo = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF";
@@ -87,11 +99,8 @@ _: {
       # 262144 = 256k tokens.
       "-c"
       "262144"
-
-      # ── Idle model unload ─────────────────────────────────────────────
-      # Unload model weights from GPU VRAM after 3h of no requests.
-      "--sleep-idle-seconds"
-      "10800" # 3h
+      # 131072 = 128k tokens.
+      # "131072"
 
       # ── API ───────────────────────────────────────────────────────────
       "--jinja" # enable jinja2 chat template support
@@ -115,6 +124,11 @@ _: {
 
       "--no-mmap" # avoid memory mapping to save host RAM
       "--mlock" # lock memory into RAM to avoid swapping
+
+      "--repeat-penalty"
+      "1.05"
+      "--repeat-last-n"
+      "32"
     ];
   };
 }
