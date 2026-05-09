@@ -156,10 +156,9 @@ let
   #
   # External agents/commands are store-path STRINGS (from builtins.path).
   # The upstream HM opencode module uses `lib.isPath` to decide whether to
-  # create a symlink ({ source }) or write literal text ({ text }).  Since
-  # derivation outputs are always strings, external agents/commands must
-  # bypass programs.opencode.agents/commands and instead be written directly
-  # to xdg.configFile with explicit source attributes.
+  # create a symlink ({ source }) or write literal text ({ text }). Since
+  # derivation outputs are always strings, external agents/commands are
+  # now applied directly to programs.opencode.* properties instead of xdg.configFile.
   #
   # Local agents/commands are Nix PATH types (./agents + "/${name}") and
   # pass through the HM option correctly.
@@ -189,17 +188,10 @@ let
   );
   effectiveExternalCommands = externalCommands;
 
-  # Convert external agents/commands to xdg.configFile entries with explicit
-  # source attributes, creating proper symlinks instead of literal text files.
-  externalAgentFiles = lib.mapAttrs' (
-    name: storePath:
-    lib.nameValuePair "opencode/agents/${name}.md" { source = storePath; }
-  ) effectiveExternalAgents;
-
-  externalCommandFiles = lib.mapAttrs' (
-    name: storePath:
-    lib.nameValuePair "opencode/commands/${name}.md" { source = storePath; }
-  ) effectiveExternalCommands;
+  # Convert external agents/commands to attribute sets for programs.opencode properties.
+  # This avoids using xdg.configFile and applies them directly to the module options.
+  externalAgentsForOpencode = effectiveExternalAgents;
+  externalCommandsForOpencode = effectiveExternalCommands;
 
   snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
     lib.generators.toYAML { } {
@@ -277,10 +269,10 @@ in
 
     # Local agents/commands are Nix path types and pass through the HM
     # option's lib.isPath check correctly (creating symlinks).
-    # External agents/commands are handled via xdg.configFile below.
-    agents = localAgents;
+    # External agents/commands are now applied directly to programs.opencode properties.
+    agents = externalAgentsForOpencode // localAgents;
     skills = composedSkillAttrs;
-    commands = { };
+    commands = externalCommandsForOpencode;
 
     settings.provider =
       # lib.mkIf osConfig.services.llama-cpp.enable
@@ -291,15 +283,6 @@ in
           name = "llama-cpp";
           options = {
             baseURL = "http://192.168.1.220:8080/v1";
-          };
-          models = {
-            gemma-4-E2B = {
-              name = "unsloth/gemma-4-E4B-it-GGUF";
-              limit = {
-                context = 128000;
-                output = 65536;
-              };
-            };
           };
 
           #   builtins.mapAttrs (key: value: {
@@ -794,12 +777,4 @@ in
     };
   };
 
-  # ---------------------------------------------------------------------------
-  # External agents/commands: bypass programs.opencode.agents/commands (which
-  # require Nix path types) and write xdg.configFile entries directly with
-  # explicit source attributes.  This creates proper symlinks to the store
-  # paths produced by builtins.path, rather than writing the path string as
-  # literal file content.
-  # ---------------------------------------------------------------------------
-  xdg.configFile = externalAgentFiles // externalCommandFiles;
 }
