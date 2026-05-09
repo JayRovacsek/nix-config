@@ -13,10 +13,10 @@ The core package is a stateless CLI tool designed for high-performance video tra
 - **Batch Mode**: Recursively scans a directory, uses `ffprobe` to check for the target codec, and performs the encoding.
 - **Single File Mode**: Processes a specific file using provided FFmpeg arguments.
 - **Safety & Integrity**:
-  - Preserves original filenames, locations, and file permissions.
-  - Uses "safe defaults" to prevent destructive actions on unsuitable files.
-  - Gracefully handles errors during the transcoding process.
-- **Hardware Acceleration**: Designed to leverage FFmpeg's hardware acceleration (e.g., `-hwaccel cuda`).
+  - **Atomic Replacement**: To prevent data loss, the script will transcode to a temporary file, verify its integrity via `ffprobe`, and then use an atomic swap (`os.replace`) to replace the original file.
+  - **Metadata Parity**: Preserves original filenames, locations, and file permissions (using `shutil.copymode` or similar).
+  - **Safe Defaults**: Uses "safe defaults" to prevent destructive actions on unsuitable files and gracefully handles errors during the transcoding process.
+- **Hardware Acceleration**: Designed to leverage FFmpeg's hardware acceleration (e.g., `-hwaccel cuda`) and specific encoders like `av1_nvenc` when requested.
 
 ### CLI Interface
 
