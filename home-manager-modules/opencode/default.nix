@@ -379,7 +379,7 @@ in
       All commits enforce [Conventional Commits](https://www.conventionalcommits.org)
       validated by [conform](https://github.com/siderolabs/conform) and parsed by
       [git-cliff](https://git-cliff.org) for changelog generation. Every commit
-      message **MUST** follow the format defined by the `conventional-commit-format` skill. Load and follow it immediately.
+      message **MUST** follow the format defined by the `git-commit` skill. Load and follow it immediately.
 
       ## Tooling & Execution
 

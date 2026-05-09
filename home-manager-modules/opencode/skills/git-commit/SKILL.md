@@ -1,18 +1,16 @@
 ---
-name: conventional-commit-format
+name: git-commit
 version: "1.0.0"
-description: Enforces Conventional Commits with local repository norm detection, falling back to standard conventional commit defaults. Includes casing rules, header constraints, and mandatory Assisted-by attribution footer for AI-assisted contributions.
-user-invocable: true
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
+description: Use this skill whenever a commit is requested or suggested to enforce Conventional Commit formatting and AI attribution.
 ---
 
 # Conventional Commit Format Skill
 
 This skill enforces a structured commit message format. Every commit message MUST follow the structure defined below. The skill first checks for local repository norms (conform configs, commitlint, gitlint, etc.) and falls back to standard Conventional Commits defaults when none are found.
+
+## When to use me
+
+Use this skill whenever a commit is being prepared or when the user asks to make a commit.
 
 ## Commit Message Format
 
