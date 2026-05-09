@@ -27,25 +27,26 @@ The core package is a stateless CLI tool designed for high-performance video tra
 
 ## 2. NixOS Module: `video-transcoder-service`
 
-A systemd-based service module that provides "intelligence" and persistent monitoring for the core package.
+A module that wraps the core package into a `systemd` service and manages the "intelligence":
 
-### Features
-
-- **Daemon Mode**: Uses the `watchdog` library to monitor the filesystem for new files or changes in the target directory.
-- **State Management**: Maintains a lightweight SQLite database to track processed files, preventing redundant `ffprobe` calls and ensuring efficiency across restarts.
+- **Daemon Mode**: Uses the `watchdog` library to monitor filesystem events.
+- **State Management**: Maintains a lightweight SQLite database to track processed files, preventing redundant `ffprobe` calls and ensuring the service doesn't re-process files upon restart.
 - **NixOS Options**:
   - `videoTranscoder.watchDirectory`: The directory to monitor.
-  - `videoTranscoder.targetCodec`: The default codec (default: `"av1"`).
+  - `videoTranscoder.targetCodec`: The default codec (e.g., `"av1"`).
   - `videoTranscoder.ffmpegArgs`: Custom FFmpeg options provided as a string.
   - `videoTranscoder.stateDatabase`: Path to the SQLite database.
+  - `videoTranscoder.maxConcurrentEncodes`: Limit on simultaneous encoding tasks (default: `1`).
   - Standard systemd options (user, group, etc.).
 
-### Workflow
+### Workflow & Concurrency
 
 1. Filesystem event detected by `watchdog`.
 2. Module checks the SQLite database to see if the file/path was already processed.
-3. If new, the module invokes `video-transcoder --file <path> --codec <codec> --ffmpeg-args <args>`.
-4. Upon successful completion, the file path is recorded in the SQLite database.
+3. If new, the task is added to an internal execution queue.
+4. The service manages a worker pool controlled by `maxConcurrentEncodes` to process the queue.
+5. **Conflict Prevention**: The queue management and SQLite state ensure that no file is processed more than once and no two tasks target the same file path simultaneously.
+6. Upon successful completion, the file path is recorded in the SQLite database.
 
 ## 3. Technology Stack
 
