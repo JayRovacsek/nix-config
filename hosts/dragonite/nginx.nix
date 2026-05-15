@@ -12,7 +12,7 @@ let
     firefox-syncserver
     harmonia
     jellyfin
-    jellyseerr
+    seerr
     nextcloud
     ;
 
@@ -97,11 +97,11 @@ let
 
   jellyseerr-vhost = generate-vhosts {
     inherit config;
-    inherit (jellyseerr) port subdomain;
+    inherit (seerr) port subdomain;
     overrides = {
       enableAuthelia = false;
       locations."/".proxyPass =
-        "${jellyseerr.protocol}://${jellyseerr.ipv4}:${builtins.toString jellyseerr.port}";
+        "${seerr.protocol}://${seerr.ipv4}:${builtins.toString seerr.port}";
     };
   };
 

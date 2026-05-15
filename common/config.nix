@@ -565,7 +565,7 @@ _: {
       };
     };
 
-    jellyseerr = {
+    seerr = {
       authelia = false;
       ipv4 = "192.168.1.220";
       port = 5055;
