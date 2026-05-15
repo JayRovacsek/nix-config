@@ -112,9 +112,7 @@
     },
     "buildbot-nix": {
       "inputs": {
-        "hercules-ci-effects": [
-          "hercules-ci-effects"
-        ],
+        "hercules-ci-effects": "hercules-ci-effects",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -253,6 +251,27 @@
       }
     },
     "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "buildbot-nix",
+          "hercules-ci-effects",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775087534,
+        "narHash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
+        "type": "github"
+      },
+      "original": {
+        "id": "flake-parts",
+        "type": "indirect"
+      }
+    },
+    "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
       },
@@ -401,10 +420,9 @@
     },
     "hercules-ci-effects": {
       "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
+        "flake-parts": "flake-parts",
         "nixpkgs": [
+          "buildbot-nix",
           "nixpkgs"
         ]
       },
@@ -566,16 +584,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1777296278,
-        "narHash": "sha256-soc4E8rYVJl2k5NpJK/OwsSL4Yd3wO6XA9lupu8hAZE=",
-        "ref": "release-2.95",
-        "rev": "351dbdfdca55d949ba3ff09d8c36a5d47c4da722",
-        "revCount": 19073,
+        "lastModified": 1778243067,
+        "narHash": "sha256-rEhhsqccghnnJHjsqCCBzdD7PyF/ibDe8zadnajBmjI=",
+        "ref": "refs/tags/2.95.3",
+        "rev": "753944a1720496c0e0c49c3142adfb9634da269d",
+        "revCount": 19084,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix"
       },
       "original": {
-        "ref": "release-2.95",
+        "ref": "refs/tags/2.95.3",
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix"
       }
@@ -1067,12 +1085,11 @@
         "devshell": "devshell",
         "disko": "disko",
         "flake-compat": "flake-compat",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "flake-root": "flake-root",
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "gitignore": "gitignore",
-        "hercules-ci-effects": "hercules-ci-effects",
         "home-manager": "home-manager",
         "hydra-badge-api": "hydra-badge-api",
         "impermanence": "impermanence",
