@@ -21,7 +21,7 @@ _: {
       gemma-4-E4B = {
         hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
         hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
-        alias = "gemma-4-E4B-it-GGUF";
+        alias = "unsloth/gemma-4-E4B";
         fit = "on";
         temp = "1.0";
         top-p = "0.95";
