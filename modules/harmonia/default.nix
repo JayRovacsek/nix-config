@@ -13,7 +13,9 @@ in
 
     secrets."harmonia-priv-key.pem" = lib.mkForce {
       file = ../../secrets/nix-serve/cache-priv-key.pem.age;
-      owner = "harmonia";
+      owner = lib.mkIf (
+        config.systemd.services.harmonia.serviceConfig.DynamicUser == false
+      ) config.systemd.services.harmonia.serviceConfig.User;
       mode = "0400";
     };
   };

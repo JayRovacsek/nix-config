@@ -7,6 +7,8 @@
     secrets.zfs-fde-key.file = ../../secrets/zfs/dragonite-fde-key.age;
   };
 
+  boot.zfs.forceImportRoot = false;
+
   disko.devices = {
     disk = {
       wwn-0x5000c500c892b513 = {

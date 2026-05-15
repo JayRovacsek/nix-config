@@ -13,7 +13,7 @@ let
   };
 in
 {
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
     mutableExtensionsDir = false;
     package = pkgs.vscodium;

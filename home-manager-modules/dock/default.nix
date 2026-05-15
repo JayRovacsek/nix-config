@@ -57,7 +57,7 @@ in
       ++ (lib.optional (anyUserHas "brave") braveEntry)
       ++ (lib.optional (anyUserHas "keepassxc") keepassEntry)
       ++ [ outlookEntry ]
-      ++ (lib.optional (anyUserHas "vscode") vscodiumEntry)
+      ++ (lib.optional (anyUserHas "vscodium") vscodiumEntry)
       ++ (lib.optional (anyUserHas "slack") slackEntry);
   };
 }
