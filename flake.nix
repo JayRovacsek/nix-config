@@ -537,9 +537,17 @@
               actionlint
               conform
               deadnix
+              ffmpeg
               git-cliff
               nixfmt
               prettier
+              (pkgs.python3.withPackages (
+                ps: with ps; [
+                  openai
+                  pytest
+                  watchdog
+                ]
+              ))
               statix
               trufflehog
               typos
