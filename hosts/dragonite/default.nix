@@ -65,6 +65,7 @@ in
     acme
     agenix
     alloy
+    anubis
     blocky
     ddclient
     firefox-syncserver
@@ -73,6 +74,7 @@ in
     gnupg
     grafana
     harmonia
+    hydra
     i18n
     jellyfin
     jellyseerr

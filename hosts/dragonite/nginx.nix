@@ -9,11 +9,13 @@ let
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
     authelia
+    anubis
     firefox-syncserver
     harmonia
+    hydra
     jellyfin
-    seerr
     nextcloud
+    seerr
     ;
 
   authelia-vhost = generate-vhosts {
@@ -68,6 +70,30 @@ let
           deny all;
         '';
         proxyPass = "${harmonia.protocol}://${harmonia.ipv4}:${builtins.toString harmonia.port}";
+      };
+    };
+  };
+
+  hydra-vhost = generate-vhosts {
+    inherit config;
+    inherit (hydra) subdomain;
+    overrides = {
+      enableAuthelia = false;
+      locations = {
+        "/" = {
+          priority = 200;
+          proxyPass = "${anubis.protocol}://${anubis.ipv4}:${builtins.toString anubis.port}";
+        };
+        "~ ^/(badge)" = {
+          priority = 100;
+          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.badge-port}$request_uri";
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+          '';
+        };
       };
     };
   };
@@ -191,6 +217,7 @@ in
       authelia-vhost
       firefox-syncserver-vhost
       harmonia-vhost
+      hydra-vhost
       jellyfin-vhost
       jellyseerr-vhost
       localhost-vhost
