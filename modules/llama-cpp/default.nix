@@ -18,10 +18,22 @@ _: {
       #   jinja = "on";
       # };
 
-      gemma-4-E4B = {
-        hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
-        hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
-        alias = "unsloth/gemma-4-E4B";
+      # gemma-4-E4B = {
+      #   hf-repo = "unsloth/gemma-4-E4B-it-GGUF";
+      #   hf-file = "gemma-4-E4B-it-UD-Q8_K_XL.gguf";
+      #   alias = "unsloth/gemma-4-E4B";
+      #   fit = "on";
+      #   temp = "1.0";
+      #   top-p = "0.95";
+      #   min-p = "0.01";
+      #   top-k = "40";
+      #   jinja = "on";
+      # };
+
+      gemma-4-26B-A4B = {
+        hf-repo = "unsloth/gemma-4-26B-A4B-it-GGUF";
+        hf-file = "gemma-4-26B-A4B-it-UD-IQ2_XXS.gguf";
+        alias = "unsloth/gemma-4-26B-A4B";
         fit = "on";
         temp = "1.0";
         top-p = "0.95";
@@ -40,17 +52,17 @@ _: {
       #   jinja = "on";
       # };
 
-      "qwen3.6-35b-a3b" = {
-        hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
-        hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
-        alias = "unsloth/Qwen3-Coder-30B-A3B";
-        fit = "on";
-        temp = "0.6";
-        top-p = "0.8";
-        top-k = "20";
-        min-p = "0.0";
-        jinja = "on";
-      };
+      # "qwen3.6-35b-a3b" = {
+      #   hf-repo = "unsloth/Qwen3.6-35B-A3B-GGUF";
+      #   hf-file = "Qwen3.6-35B-A3B-UD-IQ2_XXS.gguf";
+      #   alias = "unsloth/Qwen3-Coder-30B-A3B";
+      #   fit = "on";
+      #   temp = "0.6";
+      #   top-p = "0.8";
+      #   top-k = "20";
+      #   min-p = "0.0";
+      #   jinja = "on";
+      # };
 
       # "qwen3-coder-30b-a3b" = {
       #   hf-repo = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF";
