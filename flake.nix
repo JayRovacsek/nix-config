@@ -122,7 +122,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         lix.follows = "lix";
-        nixpkgs.follows = "nixpkgs";
       };
       url = "git+https://git.lix.systems/lix-project/hydra";
     };
@@ -247,6 +246,7 @@
         flake-root.follows = "flake-root";
         git-hooks-nix.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
+        vulnix.follows = "vulnix";
       };
       url = "github:tiiuae/sbomnix";
     };
@@ -274,6 +274,16 @@
 
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/treefmt-nix";
+    };
+
+    vulnix = {
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       url = "github:numtide/treefmt-nix";
     };
   };
