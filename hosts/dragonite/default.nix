@@ -73,6 +73,7 @@ in
     gnupg
     grafana
     harmonia
+    hydra
     i18n
     jellyfin
     jellyseerr
