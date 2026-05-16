@@ -8,6 +8,7 @@ ai
   alacritty
   dbt
   dock
+  home-manager-darwin
   utm
 ])
 ++ [
