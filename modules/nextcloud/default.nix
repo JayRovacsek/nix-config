@@ -90,7 +90,6 @@ in
         adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
         adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
-        overwriteProtocol = "https";
       };
 
       nginx.enableFastcgiRequestBuffering = true;
@@ -154,7 +153,7 @@ in
         loglevel = 2;
         maintenance_window_start = "12";
         "memcache.local" = ''\OC\Memcache\Redis'';
-        overwriteProtocol = "https";
+        overwriteprotocol = "https";
         "profile.enabled" = false;
         preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
         reduce_to_languages = [ "en" ];
