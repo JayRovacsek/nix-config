@@ -142,7 +142,7 @@ in
     minimumDiskFree = 25;
     minimumDiskFreeEvaluator = 50;
     notificationSender = "";
-    package = self.inputs.stable.legacyPackages.${pkgs.system}.hydra;
+    package = self.inputs.lix-hydra.packages.${pkgs.system}.default;
     inherit port;
     smtpHost = null;
     tracker = "";
