@@ -9,6 +9,7 @@ let
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
     authelia
+    anubis
     firefox-syncserver
     harmonia
     hydra
@@ -81,13 +82,7 @@ let
       locations = {
         "/" = {
           priority = 200;
-          proxyPass = "${hydra.protocol}://${hydra.ipv4}:${builtins.toString hydra.port}";
-          extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            add_header Front-End-Https on;
-          '';
+          proxyPass = "${anubis.protocol}://${anubis.ipv4}:${builtins.toString anubis.port}";
         };
         "~ ^/(badge)" = {
           priority = 100;

@@ -65,6 +65,7 @@ in
     acme
     agenix
     alloy
+    anubis
     blocky
     ddclient
     firefox-syncserver
