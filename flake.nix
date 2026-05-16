@@ -284,7 +284,7 @@
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
-      url = "github:numtide/treefmt-nix";
+      url = "github:nix-community/vulnix";
     };
   };
 
