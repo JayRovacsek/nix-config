@@ -8,8 +8,8 @@ _: {
           fqdn = "alakazam.local";
         }
       ];
+      shares = [ ];
     };
-
     bellsprout = {
       hostname = "bellsprout";
       ips = [
@@ -22,8 +22,23 @@ _: {
           fqdn = "sonarr.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:83";
+      shares = [
+        {
+          hostPath = "/srv/tv";
+          isReadOnly = false;
+          mountPoint = "/srv/tv";
+          name = "tv";
+        }
+        {
+          hostPath = "/srv/downloads";
+          isReadOnly = false;
+          mountPoint = "/srv/downloads";
+          name = "downloads";
+        }
+      ];
+      vlan = "download";
     };
-
     car_bed = {
       hostname = "car_bed";
       ips = [
@@ -32,8 +47,8 @@ _: {
           fqdn = "car_bed.local";
         }
       ];
+      shares = [ ];
     };
-
     dragonite = {
       hostname = "dragonite";
       ips = [
@@ -50,8 +65,9 @@ _: {
           fqdn = "jellyseerr.local";
         }
       ];
+      isDnsServer = true;
+      shares = [ ];
     };
-
     igglybuff = {
       hostname = "igglybuff";
       ips = [
@@ -60,8 +76,11 @@ _: {
           fqdn = "igglybuff.local";
         }
       ];
+      isDnsServer = true;
+      macAddress = "02:42:c0:a8:06:08";
+      shares = [ ];
+      vlan = "dns";
     };
-
     ivysaur = {
       hostname = "ivysaur";
       ips = [
@@ -70,8 +89,9 @@ _: {
           fqdn = "ivysaur.local";
         }
       ];
+      isDnsServer = true;
+      shares = [ ];
     };
-
     jigglypuff = {
       hostname = "jigglypuff";
       ips = [
@@ -80,8 +100,8 @@ _: {
           fqdn = "jigglypuff.local";
         }
       ];
+      shares = [ ];
     };
-
     machop = {
       hostname = "machop";
       ips = [
@@ -90,8 +110,23 @@ _: {
           fqdn = "machop.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:85";
+      shares = [
+        {
+          hostPath = "/srv/music";
+          isReadOnly = false;
+          mountPoint = "/srv/music";
+          name = "music";
+        }
+        {
+          hostPath = "/srv/downloads";
+          isReadOnly = false;
+          mountPoint = "/srv/downloads";
+          name = "downloads";
+        }
+      ];
+      vlan = "download";
     };
-
     magikarp = {
       hostname = "magikarp";
       ips = [
@@ -100,8 +135,10 @@ _: {
           fqdn = "magikarp.local";
         }
       ];
+      macAddress = "02:42:c0:a8:19:02";
+      shares = [ ];
+      vlan = "headscale";
     };
-
     magnemite = {
       hostname = "magnemite";
       ips = [
@@ -110,8 +147,8 @@ _: {
           fqdn = "magnemite.local";
         }
       ];
+      shares = [ ];
     };
-
     magneton = {
       hostname = "magneton";
       ips = [
@@ -120,8 +157,8 @@ _: {
           fqdn = "magneton.local";
         }
       ];
+      shares = [ ];
     };
-
     mankey = {
       hostname = "mankey";
       ips = [
@@ -130,8 +167,17 @@ _: {
           fqdn = "mankey.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:82";
+      shares = [
+        {
+          hostPath = "/srv/downloads";
+          isReadOnly = false;
+          mountPoint = "/srv/downloads";
+          name = "downloads";
+        }
+      ];
+      vlan = "download";
     };
-
     meowth = {
       hostname = "meowth";
       ips = [
@@ -140,8 +186,22 @@ _: {
           fqdn = "meowth.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:89";
+      shares = [ ];
+      vlan = "download";
     };
-
+    mr-mime = {
+      hostname = "mr-mime";
+      ips = [
+        {
+          address = "192.168.18.2";
+          fqdn = "mr-mime.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:12:02";
+      shares = [ ];
+      vlan = "log";
+    };
     nidoking = {
       hostname = "nidoking";
       ips = [
@@ -154,8 +214,8 @@ _: {
           fqdn = "nextcloud.local";
         }
       ];
+      shares = [ ];
     };
-
     nidorino = {
       hostname = "nidorino";
       ips = [
@@ -168,8 +228,10 @@ _: {
           fqdn = "authelia.local";
         }
       ];
+      macAddress = "02:42:c0:a8:09:02";
+      shares = [ ];
+      vlan = "auth";
     };
-
     oddish = {
       hostname = "oddish";
       ips = [
@@ -182,8 +244,8 @@ _: {
           fqdn = "bazarr.local";
         }
       ];
+      shares = [ ];
     };
-
     onix = {
       hostname = "onix";
       ips = [
@@ -192,8 +254,8 @@ _: {
           fqdn = "onix.local";
         }
       ];
+      shares = [ ];
     };
-
     pfsense = {
       hostname = "pfsense";
       ips = [
@@ -202,8 +264,8 @@ _: {
           fqdn = "pfsense.local";
         }
       ];
+      shares = [ ];
     };
-
     poliwag = {
       hostname = "poliwag";
       ips = [
@@ -216,8 +278,23 @@ _: {
           fqdn = "radarr.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:84";
+      shares = [
+        {
+          hostPath = "/srv/movies";
+          isReadOnly = false;
+          mountPoint = "/srv/movies";
+          name = "movies";
+        }
+        {
+          hostPath = "/srv/downloads";
+          isReadOnly = false;
+          mountPoint = "/srv/downloads";
+          name = "downloads";
+        }
+      ];
+      vlan = "download";
     };
-
     porygon = {
       hostname = "porygon";
       ips = [
@@ -266,8 +343,8 @@ _: {
           fqdn = "valheim.local";
         }
       ];
+      shares = [ ];
     };
-
     slowpoke = {
       hostname = "slowpoke";
       ips = [
@@ -276,8 +353,10 @@ _: {
           fqdn = "slowpoke.local";
         }
       ];
+      macAddress = "02:42:c0:a8:04:8a";
+      shares = [ ];
+      vlan = "download";
     };
-
     tentacruel = {
       hostname = "tentacruel";
       ips = [
@@ -290,8 +369,8 @@ _: {
           fqdn = "home-assistant.local";
         }
       ];
+      shares = [ ];
     };
-
     tv = {
       hostname = "tv";
       ips = [
@@ -300,8 +379,8 @@ _: {
           fqdn = "tv.local";
         }
       ];
+      shares = [ ];
     };
-
     ubiquiti_ap = {
       hostname = "ubiquiti_ap";
       ips = [
@@ -310,8 +389,8 @@ _: {
           fqdn = "ubiquiti_ap.local";
         }
       ];
+      shares = [ ];
     };
-
     victreebel = {
       hostname = "victreebel";
       ips = [
@@ -320,8 +399,8 @@ _: {
           fqdn = "victreebel.local";
         }
       ];
+      shares = [ ];
     };
-
     vileplume = {
       hostname = "vileplume";
       ips = [
@@ -330,8 +409,8 @@ _: {
           fqdn = "vileplume.local";
         }
       ];
+      shares = [ ];
     };
-
     wartortle = {
       hostname = "wartortle";
       ips = [
@@ -340,8 +419,9 @@ _: {
           fqdn = "wartortle.local";
         }
       ];
+      isDnsServer = true;
+      shares = [ ];
     };
-
     wigglytuff = {
       hostname = "wigglytuff";
       ips = [
@@ -350,9 +430,9 @@ _: {
           fqdn = "wigglytuff.local";
         }
       ];
+      shares = [ ];
     };
   };
-
   networks = [
     {
       name = "iot";
@@ -399,25 +479,22 @@ _: {
       vlan-tag = 25;
     }
   ];
-
   services = {
+    anubis = {
+      bind-network = "tcp";
+      ipv4 = "192.168.1.220";
+      metrics-bind-network = "tcp";
+      metrics-port = 4445;
+      port = 4444;
+      protocol = "http";
+    };
     authelia = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.9.2";
       port = 9091;
       protocol = "http";
       subdomain = "authelia";
     };
-
-    anubis = {
-      ipv4 = "192.168.1.220";
-      port = 4444;
-      metrics-port = 4445;
-      protocol = "http";
-      bind-network = "tcp";
-      metrics-bind-network = "tcp";
-    };
-
     bazarr = {
       authelia = true;
       ipv4 = "192.168.4.139";
@@ -425,12 +502,10 @@ _: {
       protocol = "http";
       subdomain = "bazarr";
     };
-
     bedrock-connect = {
       ipv4 = "192.168.17.2";
       port = 19134;
     };
-
     binarycache = {
       authelia = false;
       ipv4 = "192.168.1.220";
@@ -438,7 +513,6 @@ _: {
       protocol = "http";
       subdomain = "binarycache";
     };
-
     blocky = {
       authelia = false;
       ipv4 = null;
@@ -451,17 +525,15 @@ _: {
       protocol = "dns";
       subdomain = null;
     };
-
     buildbot = {
       authelia = false;
       ipv4 = "192.168.5.5";
-      port = 8010;
       pbPort = 9989;
       pbProtocol = "tcp";
+      port = 8010;
       protocol = "http";
       subdomain = "buildbot";
     };
-
     code = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -469,9 +541,6 @@ _: {
       protocol = "http";
       subdomain = "code";
     };
-
-    exporters-node.port = 9100;
-
     deluge = {
       authelia = true;
       ipv4 = "192.168.4.130";
@@ -479,7 +548,9 @@ _: {
       protocol = "http";
       subdomain = "deluge";
     };
-
+    exporters-node = {
+      port = 9100;
+    };
     firefox-syncserver = {
       authelia = false;
       ipv4 = "127.0.0.1";
@@ -487,7 +558,6 @@ _: {
       protocol = "http";
       subdomain = "firefox-syncserver";
     };
-
     flaresolverr = {
       authelia = false;
       ipv4 = "192.168.4.138";
@@ -495,45 +565,6 @@ _: {
       protocol = "http";
       subdomain = "flaresolverr";
     };
-
-    harmonia = {
-      authelia = false;
-      ipv4 = "192.168.1.220";
-      port = 5001;
-      protocol = "http";
-      subdomain = "binarycache";
-    };
-
-    headscale = {
-      authelia = false;
-      ipv4 = "192.168.25.2";
-      port = 8080;
-      protocol = "http";
-      subdomain = "headscale";
-      base_domain = "rovacsek.com.internal";
-
-      derpServerStunPort = 3478;
-      grpcPort = 50443;
-      metricsPort = 9090;
-    };
-
-    home-assistant = {
-      authelia = true;
-      ipv4 = "192.168.12.2";
-      port = 8123;
-      protocol = "http";
-      subdomain = "home-assistant";
-    };
-
-    hydra = {
-      authelia = false;
-      ipv4 = "192.168.1.220";
-      port = 3000;
-      badge-port = 8081;
-      protocol = "http";
-      subdomain = "hydra";
-    };
-
     grafana = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -541,38 +572,62 @@ _: {
       protocol = "http";
       subdomain = "grafana";
     };
-
+    harmonia = {
+      authelia = false;
+      ipv4 = "192.168.1.220";
+      port = 5001;
+      protocol = "http";
+      subdomain = "binarycache";
+    };
+    headscale = {
+      authelia = false;
+      base_domain = "rovacsek.com.internal";
+      derpServerStunPort = 3478;
+      grpcPort = 50443;
+      ipv4 = "192.168.25.2";
+      metricsPort = 9090;
+      port = 8080;
+      protocol = "http";
+      subdomain = "headscale";
+    };
+    home-assistant = {
+      authelia = true;
+      ipv4 = "192.168.12.2";
+      port = 8123;
+      protocol = "http";
+      subdomain = "home-assistant";
+    };
+    hydra = {
+      authelia = false;
+      badge-port = 8081;
+      ipv4 = "192.168.1.220";
+      port = 3000;
+      protocol = "http";
+      subdomain = "hydra";
+    };
     jellyfin = {
       authelia = false;
+      groups = {
+        jellyfin = {
+          gid = 10001;
+          members = [ "jellyfin" ];
+        };
+      };
+      https-port = 8920;
       ipv4 = "192.168.1.220";
       port = 8096;
       protocol = "http";
       subdomain = "jellyfin";
-
-      https-port = 8920;
-
-      groups.jellyfin = {
-        gid = 10001;
-        members = [ "jellyfin" ];
-      };
-
-      users.jellyfin = {
-        createHome = false;
-        description = "User account generated for running a specific service";
-        group = "jellyfin";
-        isSystemUser = true;
-        uid = 998;
+      users = {
+        jellyfin = {
+          createHome = false;
+          description = "User account generated for running a specific service";
+          group = "jellyfin";
+          isSystemUser = true;
+          uid = 998;
+        };
       };
     };
-
-    seerr = {
-      authelia = false;
-      ipv4 = "192.168.1.220";
-      port = 5055;
-      protocol = "http";
-      subdomain = "jellyseerr";
-    };
-
     lidarr = {
       authelia = true;
       ipv4 = "192.168.4.133";
@@ -580,7 +635,6 @@ _: {
       protocol = "http";
       subdomain = "lidarr";
     };
-
     loki = {
       authelia = false;
       ipv4 = "192.168.1.220";
@@ -593,47 +647,39 @@ _: {
         uid = 401;
       };
     };
-
     media = {
-      groups.media = {
-        gid = 400;
-        members = [
-          "jellyfin"
-        ];
+      groups = {
+        media = {
+          gid = 400;
+          members = [ "jellyfin" ];
+        };
       };
-      users.media = {
-        group = "media";
-        isSystemUser = true;
-        uid = 400;
+      users = {
+        media = {
+          group = "media";
+          isSystemUser = true;
+          uid = 400;
+        };
       };
     };
-
     minecraft = {
-      ipv4 = "192.168.17.2";
       bedrock-port = 19133;
+      ipv4 = "192.168.17.2";
       java-port = 25565;
       subdomain = "minecraft";
     };
-
-    nextcloud = rec {
+    nextcloud = {
       authelia = false;
+      hostName = "nextcloud.rovacsek.com";
       ipv4 = "192.168.1.220";
       port = 443;
       protocol = "https";
       subdomain = "nextcloud";
-      hostName = "${subdomain}.rovacsek.com";
     };
-
     nginx = {
       authelia = false;
       ipv4 = "192.168.1.220";
     };
-
-    openvpn = {
-      port = 1194;
-      protocol = "udp";
-    };
-
     openssh = {
       public-keys = [
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMO6FTToBOIByP9uVP2Ke2jGD/ESxPcXEMhvR7unukNGAAAABHNzaDo= jay@rovacsek.com"
@@ -642,14 +688,16 @@ _: {
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILDjbVDfVzpcxnx9fl4pBr6eKAJdSyX4JLyBK02N9YeFAAAABHNzaDo= jay@rovacsek.com"
       ];
     };
-
+    openvpn = {
+      port = 1194;
+      protocol = "udp";
+    };
     palworld = {
       authelia = false;
       ipv4 = "192.168.17.2";
       port = 8211;
       subdomain = "palworld";
     };
-
     pfsense = {
       authelia = true;
       ipv4 = "192.168.1.1";
@@ -657,16 +705,14 @@ _: {
       protocol = "https";
       subdomain = "pfsense";
     };
-
     prometheus = {
       authelia = false;
       ipv4 = "192.168.1.220";
       port = 9092;
       protocol = "http";
-      write-api = "api/v1/write";
       subdomain = "prometheus";
+      write-api = "api/v1/write";
     };
-
     prowlarr = {
       authelia = true;
       ipv4 = "192.168.4.137";
@@ -674,7 +720,6 @@ _: {
       protocol = "http";
       subdomain = "prowlarr";
     };
-
     radarr = {
       authelia = true;
       ipv4 = "192.168.4.132";
@@ -682,7 +727,13 @@ _: {
       protocol = "http";
       subdomain = "radarr";
     };
-
+    seerr = {
+      authelia = false;
+      ipv4 = "192.168.1.220";
+      port = 5055;
+      protocol = "http";
+      subdomain = "jellyseerr";
+    };
     sonarr = {
       authelia = true;
       ipv4 = "192.168.4.131";
@@ -690,9 +741,13 @@ _: {
       protocol = "http";
       subdomain = "sonarr";
     };
-
-    telegraf.output.prometheus.port = 9273;
-
+    telegraf = {
+      output = {
+        prometheus = {
+          port = 9273;
+        };
+      };
+    };
     unifi = {
       authelia = true;
       ipv4 = "192.168.1.220";
@@ -700,9 +755,14 @@ _: {
       protocol = "https";
       subdomain = "unifi";
     };
-
     valheim = {
       authelia = false;
+      groups = {
+        valheim = {
+          gid = 10105;
+          members = [ "valheim" ];
+        };
+      };
       ipv4 = "192.168.17.2";
       ports = [
         2456
@@ -710,16 +770,12 @@ _: {
       ];
       protocol = "udp";
       subdomain = "valheim";
-
-      groups.valheim = {
-        gid = 10105;
-        members = [ "valheim" ];
-      };
-
-      users.valheim = {
-        group = "valheim";
-        isSystemUser = true;
-        uid = 10105;
+      users = {
+        valheim = {
+          group = "valheim";
+          isSystemUser = true;
+          uid = 10105;
+        };
       };
     };
   };
