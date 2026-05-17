@@ -8,14 +8,21 @@ let
   inherit (self.lib) merge;
   inherit (self.lib.nginx) generate-vhosts;
   inherit (self.common.config.services)
-    authelia
     anubis
+    authelia
+    deluge
     firefox-syncserver
+    grafana
     harmonia
     hydra
     jellyfin
+    lidarr
     nextcloud
+    pfsense
+    prowlarr
+    radarr
     seerr
+    sonarr
     ;
 
   authelia-vhost = generate-vhosts {
@@ -38,6 +45,13 @@ let
     };
   };
 
+  deluge-vhost = generate-vhosts {
+    inherit config;
+    inherit (deluge) subdomain;
+    overrides.locations."/".proxyPass =
+      "${deluge.protocol}://${deluge.ipv4}:${builtins.toString deluge.port}";
+  };
+
   firefox-syncserver-vhost = generate-vhosts {
     inherit config;
     inherit (firefox-syncserver) subdomain;
@@ -46,6 +60,13 @@ let
       locations."/".proxyPass =
         "${firefox-syncserver.protocol}://${firefox-syncserver.ipv4}:${builtins.toString firefox-syncserver.port}";
     };
+  };
+
+  grafana-vhost = generate-vhosts {
+    inherit config;
+    inherit (grafana) subdomain;
+    overrides.locations."/".proxyPass =
+      "${grafana.protocol}://${grafana.ipv4}:${builtins.toString grafana.port}";
   };
 
   harmonia-vhost = generate-vhosts {
@@ -131,6 +152,24 @@ let
     };
   };
 
+  lidarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (lidarr) subdomain;
+    overrides.locations =
+      let
+        proxyPass = "${lidarr.protocol}://${lidarr.ipv4}:${builtins.toString lidarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/lidarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+      };
+  };
+
   localhost-vhost = {
     localhost = {
       enableAuthelia = false;
@@ -188,6 +227,71 @@ let
       };
     };
   };
+
+  pfsense-vhost = generate-vhosts {
+    inherit config;
+    inherit (pfsense) subdomain;
+    overrides.locations."/".proxyPass =
+      "${pfsense.protocol}://${pfsense.ipv4}:${builtins.toString pfsense.port}";
+  };
+
+  prowlarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (prowlarr) subdomain;
+    overrides.locations =
+      let
+        proxyPass = "${prowlarr.protocol}://${prowlarr.ipv4}:${builtins.toString prowlarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/prowlarr)?(/[0-9]+)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+        "~ (/prowlarr)?(/[0-9]+)?/download" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+      };
+  };
+
+  radarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (radarr) subdomain;
+    overrides.locations =
+      let
+        proxyPass = "${radarr.protocol}://${radarr.ipv4}:${builtins.toString radarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/radarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+      };
+  };
+
+  sonarr-vhost = generate-vhosts {
+    inherit config;
+    inherit (sonarr) subdomain;
+    overrides.locations =
+      let
+        proxyPass = "${sonarr.protocol}://${sonarr.ipv4}:${builtins.toString sonarr.port}";
+      in
+      {
+        "/" = {
+          inherit proxyPass;
+        };
+        "~ (/sonarr)?/api" = {
+          extraConfig = "";
+          inherit proxyPass;
+        };
+      };
+  };
 in
 {
   services.nginx = {
@@ -215,13 +319,20 @@ in
 
     virtualHosts = merge [
       authelia-vhost
+      deluge-vhost
       firefox-syncserver-vhost
+      grafana-vhost
       harmonia-vhost
       hydra-vhost
       jellyfin-vhost
       jellyseerr-vhost
+      lidarr-vhost
       localhost-vhost
       nextcloud-vhost
+      pfsense-vhost
+      prowlarr-vhost
+      radarr-vhost
+      sonarr-vhost
     ];
   };
 }

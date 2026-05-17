@@ -62,6 +62,7 @@ in
     ./backups.nix
     ./disk-config.nix
     ./nginx.nix
+    ./containers.nix
     acme
     agenix
     alloy

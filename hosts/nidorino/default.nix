@@ -1,33 +1,16 @@
-{ config, self, ... }:
+{ self, ... }:
 {
   imports = with self.nixosModules; [
     ./authelia.nix
     agenix
     alloy
     authelia
-    microvm-guest
+    container-guest
     nginx
     nix-topology
     time
     timesyncd
   ];
-
-  microvm = {
-    interfaces = [
-      {
-        type = "macvtap";
-        id = config.networking.hostName;
-        mac = "02:42:c0:a8:09:02";
-        macvtap = {
-          link = "auth";
-          mode = "bridge";
-        };
-      }
-    ];
-
-    mem = 1024;
-    vcpu = 2;
-  };
 
   networking.hostName = "nidorino";
 

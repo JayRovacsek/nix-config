@@ -1,8 +1,6 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_hardened;
-
     loader = {
       grub = {
         device = "/dev/xvda";

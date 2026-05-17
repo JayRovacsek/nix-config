@@ -48,11 +48,13 @@ in
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
-    } // optional-env-values;
+    }
+    // optional-env-values;
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = import ./settings.nix {
       inherit
         config
