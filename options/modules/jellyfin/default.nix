@@ -8,15 +8,15 @@
 with lib;
 let
   cfg = config.services.jellyfin;
-  CacheDirectory = "jellyfin";
   inherit (self.lib.generators) to-xml;
   inherit (lib) recursiveUpdate;
 
-  default-encoding-settings = import ./encoding-settings.nix {
-    inherit config pkgs;
-  };
-  default-system-settings = import ./system-settings.nix { inherit config; };
+  defaultSystemSettings = import ./system-settings.nix { inherit config; };
 
+  defaultNetworkSettings = import ./network-settings.nix { inherit cfg; };
+  defaultNotificationSettings = import ./notification-settings.nix { };
+
+  defaultLoggingSettings = import ./logging-settings.nix { };
 in
 {
   options = {
@@ -33,22 +33,6 @@ in
         };
       };
 
-      data-dir = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        description = ''
-          Jellyfin datadir location.
-        '';
-      };
-
-      cache-dir = mkOption {
-        type = types.nullOr types.path;
-        default = null;
-        description = ''
-          Jellyfin cachedir location.
-        '';
-      };
-
       metadata-dir = mkOption {
         type = types.nullOr types.path;
         default = null;
@@ -57,38 +41,32 @@ in
         '';
       };
 
-      use-declarative-settings = mkOption {
+      useDeclarativeSettings = mkOption {
         type = types.bool;
         default = false;
       };
 
-      system-settings = mkOption {
+      systemSettings = mkOption {
         type = types.nullOr types.attrs;
-        default = lib.optionalAttrs cfg.use-declarative-settings default-system-settings;
+        default = lib.optionalAttrs cfg.useDeclarativeSettings defaultSystemSettings;
         description = lib.mdDoc "System settings for Jellyfin.";
-      };
-
-      encoding-settings = mkOption {
-        type = types.nullOr types.attrs;
-        default = lib.optionalAttrs cfg.use-declarative-settings default-encoding-settings;
-        description = lib.mdDoc "Encoding settings for Jellyfin.";
       };
 
       network-settings = mkOption {
         type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
+        default = lib.optionalAttrs cfg.useDeclarativeSettings defaultNetworkSettings;
         description = lib.mdDoc "Network settings for Jellyfin.";
       };
 
       notification-settings = mkOption {
         type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
+        default = lib.optionalAttrs cfg.useDeclarativeSettings defaultNotificationSettings;
         description = lib.mdDoc "Notification settings for Jellyfin.";
       };
 
-      logging-settings = mkOption {
+      loggingSettings = mkOption {
         type = types.nullOr types.attrs;
-        default = if cfg.use-declarative-settings then { } else null;
+        default = lib.optionalAttrs cfg.useDeclarativeSettings defaultLoggingSettings;
         description = lib.mdDoc "Logging settings for Jellyfin.";
       };
     };
@@ -106,78 +84,48 @@ in
     };
 
     systemd.services.jellyfin = {
-      serviceConfig = rec {
-        inherit CacheDirectory;
-        ExecStart = lib.mkForce "${cfg.package}/bin/jellyfin --datadir '${
-          if cfg.data-dir == null then "/var/lib/${CacheDirectory}" else cfg.data-dir
-        }' --cachedir '${
-          if cfg.cache-dir == null then "/var/cache/${CacheDirectory}" else cfg.cache-dir
-        }'";
+      serviceConfig = {
+        path = [ pkgs.jellyfin-ffmpeg ];
       };
-
-      path = [ pkgs.jellyfin-ffmpeg ];
     };
 
-    environment.etc = mkIf cfg.use-declarative-settings {
-      "jellyfin/config/encoding.xml" = mkIf (cfg.encoding-settings != null) {
+    environment.etc = mkIf cfg.useDeclarativeSettings {
+      "jellyfin/config/network.xml" = {
         inherit (cfg) user group;
-        text = to-xml cfg.encoding-settings;
+        text = to-xml (recursiveUpdate defaultNetworkSettings cfg.network-settings);
         mode = "640";
       };
 
-      "jellyfin/config/network.xml" = mkIf (cfg.network-settings != null) {
+      "jellyfin/config/notifications.xml" = {
         inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./network-settings.nix { inherit cfg config; };
-          in
-          to-xml (recursiveUpdate default-settings cfg.network-settings);
+        text = to-xml (
+          recursiveUpdate defaultNotificationSettings cfg.notification-settings
+        );
         mode = "640";
       };
 
-      "jellyfin/config/notifications.xml" = mkIf (cfg.notification-settings != null) {
+      "jellyfin/config/system.xml" = {
         inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./notification-settings.nix { inherit cfg config; };
-          in
-          to-xml (recursiveUpdate default-settings cfg.notification-settings);
+        text = to-xml (recursiveUpdate defaultSystemSettings cfg.systemSettings);
         mode = "640";
       };
 
-      "jellyfin/config/system.xml" = mkIf (cfg.system-settings != null) {
+      "jellyfin/config/logging.default.json" = {
         inherit (cfg) user group;
-        text = to-xml cfg.system-settings;
-        mode = "640";
-      };
-
-      "jellyfin/config/logging.default.json" = mkIf (cfg.logging-settings != null) {
-        inherit (cfg) user group;
-        text =
-          let
-            default-settings = import ./logging-settings.nix { inherit cfg config; };
-          in
-          builtins.toJSON (recursiveUpdate default-settings cfg.logging-settings);
+        text = builtins.toJSON (
+          recursiveUpdate defaultLoggingSettings cfg.loggingSettings
+        );
         mode = "640";
       };
     };
 
-    systemd.tmpfiles = mkIf (cfg.logging-settings != null) {
-      rules =
-        let
-          config-dir =
-            if cfg.data-dir == null then
-              "/var/lib/${CacheDirectory}/config"
-            else
-              "${cfg.data-dir}/config";
-        in
-        [
-          "L+ ${config-dir}/encoding.xml - - - - /etc/jellyfin/config/encoding.xml"
-          "L+ ${config-dir}/logging.default.json - - - - /etc/jellyfin/config/logging.default.json"
-          "L+ ${config-dir}/network.xml - - - - /etc/jellyfin/config/network.xml"
-          "L+ ${config-dir}/notifications.xml - - - - /etc/jellyfin/config/notifications.xml"
-          "L+ ${config-dir}/system.xml - - - - /etc/jellyfin/config/system.xml"
-        ];
+    systemd.tmpfiles = mkIf cfg.useDeclarativeSettings {
+      rules = [
+        "L+ ${cfg.dataDir}/config/logging.default.json - - - - /etc/jellyfin/config/logging.default.json"
+        "L+ ${cfg.dataDir}/config/network.xml - - - - /etc/jellyfin/config/network.xml"
+        "L+ ${cfg.dataDir}/config/notifications.xml - - - - /etc/jellyfin/config/notifications.xml"
+        "L+ ${cfg.dataDir}/config/system.xml - - - - /etc/jellyfin/config/system.xml"
+      ];
     };
   };
 }
