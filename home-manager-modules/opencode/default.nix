@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  self,
   ...
 }:
 let
@@ -213,23 +212,6 @@ let
     };
   };
 
-  # tui-use — TUI automation for AI agents — https://github.com/onesuper/tui-use
-  # Gives agents access to interactive terminal programs (REPLs, installers,
-  # TUI apps) via PTY automation. Skills only; the CLI is packaged separately
-  # in packages/node/tui-use.
-  tuiUseSkills = mkOpencodeSource {
-    name = "tui-use-skills";
-    src = pkgs.fetchFromGitHub {
-      owner = "onesuper";
-      repo = "tui-use";
-      rev = "6ef66f1e723132bbfe8cb2e7f3dd31ad19e5b69e";
-      hash = "sha256-6vLaACk6qVQ0m53v7qojEioB8MhjU/qSbuzrjcPVeEw=";
-    };
-    components = {
-      skills = [ "skills" ];
-    };
-  };
-
   # Anthropic's official skill library — https://github.com/anthropics/skills
   # Provides skills for Claude API usage, document generation (docx, pdf, pptx,
   # xlsx), frontend design, MCP building, webapp testing, and more.
@@ -409,8 +391,7 @@ let
     (mkOpencodeAttrs wshobsonAgents).skills
     // (mkOpencodeAttrs dbtSkills).skills
     // (mkOpencodeAttrs superpowers).skills
-    // (mkOpencodeAttrs anthropicSkills).skills
-    // (mkOpencodeAttrs tuiUseSkills).skills;
+    // (mkOpencodeAttrs anthropicSkills).skills;
   externalCommands =
     (mkOpencodeAttrs wshobsonAgents).commands
     // (mkOpencodeAttrs superpowers).commands;
@@ -530,10 +511,6 @@ in
         # ) osConfig.services.llama-cpp.modelsPreset;
       };
     };
-
-  home.packages = [
-    self.packages.${pkgs.system}.tui-use
-  ];
 
   programs.opencode = {
     enable = true;
@@ -969,9 +946,6 @@ in
           # --- dbt (analytics engineering) ---
           "dbt*" = "allow";
           "dbtf*" = "allow";
-
-          # --- tui-use (PTY automation for interactive programs) ---
-          "tui-use*" = "allow";
 
           # --- git (non-destructive / read-only) ---
           "git status*" = "allow";
