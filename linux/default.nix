@@ -6,6 +6,7 @@ let
   # Required package-sets
   inherit (self.common.package-sets)
     x86_64-linux-unstable
+    x86_64-linux-cuda-unstable
     aarch64-linux-unstable
     ;
 
@@ -15,6 +16,7 @@ let
     ;
 
   unstable-x86-base = make-minimal-host x86_64-linux-unstable unstable-system;
+  unstable-x86-cuda-base = make-minimal-host x86_64-linux-cuda-unstable unstable-system;
   unstable-aarch64-base = make-minimal-host aarch64-linux-unstable unstable-system;
 in
 {
@@ -41,8 +43,8 @@ in
   mew = extend-host unstable-x86-base "mew";
 
   # Hosts
-  alakazam = extend-host unstable-x86-base "alakazam";
-  dragonite = extend-host unstable-x86-base "dragonite";
+  alakazam = extend-host unstable-x86-cuda-base "alakazam";
+  dragonite = extend-host unstable-x86-cuda-base "dragonite";
   gastly = extend-host unstable-x86-base "gastly";
   ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
   jigglypuff = extend-host unstable-aarch64-base "jigglypuff";
