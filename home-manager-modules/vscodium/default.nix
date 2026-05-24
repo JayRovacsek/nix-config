@@ -9,7 +9,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-MojAXAOBd3W64WZmzanTXc93J2TZ/h+YaHZ89hFMxPw=";
+    hash = "sha256-8o1I2XnngcHyKAD02Uf4nnxxrYcnPpsTzvc6j/TmKMk=";
   };
 in
 {
@@ -63,9 +63,6 @@ in
         ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
           # Python
           # Turns out that the below are not supported on aarch64 linux
-          ms-python.python
-          ms-python.debugpy
-
           # XML
           redhat.vscode-xml
         ]
