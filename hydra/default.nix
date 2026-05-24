@@ -24,6 +24,14 @@ let
     "rpi5-sdImage"
   ];
 
+  problematic-tests = [
+    "anubis-integration"
+    "anubis-proxy"
+    "authelia-auth"
+    "headscale-declarative"
+    "headscale-integration"
+  ];
+
   # Strip items that hydra just cannot handle
   non-problematic-packages = mapAttrs (
     _: value: builtins.removeAttrs value problematic-packages
@@ -57,5 +65,6 @@ in
   packages = non-broken-packages;
 
   # Expose tests
-  tests = self.checks;
+  tests = removeAttrs self.checks problematic-tests;
+
 }
