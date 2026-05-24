@@ -48,7 +48,6 @@ in
     logging
     lorri
     nix
-    nix-monitored
     nix-topology
     nvidia
     openssh
