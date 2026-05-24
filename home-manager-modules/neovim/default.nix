@@ -2,11 +2,6 @@
 {
   # Configuration Options
   # https://nix-community.github.io/nixvim/
-
-  home = {
-    packages = with pkgs; [ zathura ];
-  };
-
   programs = {
     nixvim = {
       enable = true;
@@ -78,15 +73,8 @@
           enable = true;
           servers = {
             bashls.enable = true;
-            cssls.enable = true;
-            eslint.enable = true;
-            html.enable = true;
             jsonls.enable = true;
             nixd.enable = true;
-            pylsp.enable = pkgs.stdenv.isLinux;
-            terraformls.enable = true;
-            tinymist.enable = true;
-            ts_ls.enable = true;
             yamlls.enable = true;
           };
         };
@@ -94,10 +82,6 @@
         # Language Specific Plugins
         nix.enable = true;
         nix-develop.enable = true;
-        typst-vim = {
-          enable = true;
-          settings.pdf_viewer = "zathura";
-        };
         web-devicons.enable = true;
       };
     };
