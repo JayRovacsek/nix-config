@@ -56,6 +56,11 @@ let
           identifier = "${system}-${target.name}";
         };
       }
+      // {
+        "${system}-cuda-${target.name}" = {
+          identifier = "${system}-cuda-${target.name}";
+        };
+      }
     ) { } targetGeneration)
   ) { } flake-utils.lib.defaultSystems;
 
