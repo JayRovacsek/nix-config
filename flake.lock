@@ -580,11 +580,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1778416090,
-        "narHash": "sha256-mIUB3qisOEoPs8L4ugeS+4HhGwKCGgBY3cg1aCuxeBU=",
+        "lastModified": 1779793009,
+        "narHash": "sha256-jHcICWs1AvP6OtD4+bv25kTXdBHvRD7yf74/Exd57XE=",
         "ref": "refs/heads/main",
-        "rev": "774a5af1bb4220a7069dee52c5eae2eae264c71d",
-        "revCount": 4362,
+        "rev": "756f7f5ee6cdcd46696e3ee0d143e65f4ca5dd42",
+        "revCount": 4365,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/hydra"
       },
@@ -918,16 +918,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1778003029,
-        "narHash": "sha256-q/nkKLDtHIyLjZpKhWk3cSK5IYsFqtMd6UtXF3ddjgA=",
+        "lastModified": 1779622335,
+        "narHash": "sha256-ViA62qtL5za7V3d5I8OA9q9JcFhsVAiL5jVHwEclWqk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5",
+        "rev": "705e9929918b43bd7b715dc0a878ac870449bb03",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
