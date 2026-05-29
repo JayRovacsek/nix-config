@@ -87,8 +87,6 @@ in
     border_size = 2;
     "col.active_border" = "rgba(${base03}ee)";
     "col.inactive_border" = "rgba(${base02}aa)";
-
-    layout = "dwindle";
   };
 
   ecosystem.no_update_news = true;
@@ -110,7 +108,6 @@ in
 
   # https://wiki.hyprland.org/Configuring/Dwindle-Layout/
   dwindle = {
-    pseudotile = true;
     preserve_split = true;
   };
 
@@ -128,7 +125,6 @@ in
     "$mainMod, V, togglefloating,"
     "CTRL SHIFT, Space, exec, ${fuzzel}/bin/fuzzel --vertical-pad 50 --horizontal-pad 100 --show-actions --lines 20 --width 80"
     "$mainMod, P, pseudo, # dwindle"
-    "$mainMod, J, togglesplit, # dwindle"
 
     # Move focus with mainMod + arrow keys
     "$mainMod, left, movefocus, l"
