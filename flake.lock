@@ -317,21 +317,6 @@
         "type": "github"
       }
     },
-    "flakey-profile": {
-      "locked": {
-        "lastModified": 1712898590,
-        "narHash": "sha256-FhGIEU93VHAChKEXx905TSiPZKga69bWl1VB37FK//I=",
-        "owner": "lf-",
-        "repo": "flakey-profile",
-        "rev": "243c903fd8eadc0f63d205665a92d4df91d42d9d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lf-",
-        "repo": "flakey-profile",
-        "type": "github"
-      }
-    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -591,34 +576,6 @@
       "original": {
         "type": "git",
         "url": "https://git.lix.systems/lix-project/hydra"
-      }
-    },
-    "lix-module": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "flakey-profile": "flakey-profile",
-        "lix": [
-          "lix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767364176,
-        "narHash": "sha256-l6YdEBYQxXjD8ujqvc0tKdwWc3K8UQOi+E4Y3DKQ318=",
-        "ref": "1688100bba140492658d597f6b307c327f35c780",
-        "rev": "1688100bba140492658d597f6b307c327f35c780",
-        "revCount": 179,
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/nixos-module.git"
-      },
-      "original": {
-        "ref": "1688100bba140492658d597f6b307c327f35c780",
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/nixos-module.git"
       }
     },
     "microvm": {
@@ -1082,7 +1039,6 @@
         "lib-aggregate": "lib-aggregate",
         "lix": "lix",
         "lix-hydra": "lix-hydra",
-        "lix-module": "lix-module",
         "microvm": "microvm",
         "naersk": "naersk",
         "nix-darwin": "nix-darwin",

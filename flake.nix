@@ -126,15 +126,6 @@
       url = "git+https://git.lix.systems/lix-project/hydra";
     };
 
-    lix-module = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        lix.follows = "lix";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "git+https://git.lix.systems/lix-project/nixos-module.git?ref=1688100bba140492658d597f6b307c327f35c780";
-    };
-
     microvm = {
       inputs = {
         flake-utils.follows = "flake-utils";
