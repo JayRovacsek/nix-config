@@ -42,6 +42,18 @@ _: {
         jinja = "on";
       };
 
+      # qwen3-6-27b = {
+      #   hf-repo = "unsloth/Qwen3.6-27B-GGUF";
+      #   hf-file = "Qwen3.6-27B-UD-IQ2_XXS.gguf";
+      #   alias = "unsloth/Qwen3.6-27B";
+      #   fit = "on";
+      #   temp = "1.0";
+      #   top-p = "0.95";
+      #   min-p = "0.01";
+      #   top-k = "64";
+      #   jinja = "on";
+      # };
+
       # "deepseek-r1-8b" = {
       #   hf-repo = "unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF";
       #   hf-file = "DeepSeek-R1-0528-Qwen3-8B-Q8_0.gguf";
