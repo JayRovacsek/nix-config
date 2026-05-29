@@ -87,7 +87,7 @@ in
     ## Firefox; note that ".cache/mozilla/firefox" could be
     # added to the below to retain the browser cache, but I'm going to see
     # how it goes just nuking that directory for now.
-    ++ (lib.optionals (home-packages-has "firefox") [ ".mozilla/firefox" ])
+    ++ (lib.optionals (home-packages-has "firefox") [ ".config/mozilla/firefox" ])
 
     # Jellyfin
     ++ (lib.optionals (home-packages-has "jellyfin-media-player") [
