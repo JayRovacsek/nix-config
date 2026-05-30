@@ -61,12 +61,13 @@ in
           bierner.markdown-preview-github-styles
         ]
         ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
-          # Python
-          # Turns out that the below are not supported on aarch64 linux
           # XML
           redhat.vscode-xml
         ]
-        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
+        ++ (with self.packages.${pkgs.system}; [
+          dbt-vsix
+          llama-vscode
+        ]);
 
       keybindings = [
         {
@@ -162,6 +163,9 @@ in
         "workbench.colorTheme" = "Tomorrow Night Blue";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.settings.editor" = "json";
+
+        "llama-vscode.endpoint" = "http://localhost:8012";
+        "llama-vscode.endpoint_chat" = "http://localhost:8011";
       };
     };
   };
