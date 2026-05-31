@@ -101,6 +101,11 @@ in
     ## Keybase
     ++ (lib.optionals (home-packages-has "keybase") [ ".local/share/keybase" ])
 
+    ++ (lib.optionals (any-packages-has "llama-cpp") [
+      ".cache/llama.cpp"
+      ".cache/huggingface"
+    ])
+
     ## Lutris
     ++ (lib.optionals (home-packages-has "lutris") [
       ".config/lutris"
