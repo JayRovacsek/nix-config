@@ -7,7 +7,12 @@
 let
   inherit (pkgs) system;
 
-  inherit (self.packages.${system}) anthropic-skills dbt-agent-skills superpowers;
+  inherit (self.packages.${system})
+    anthropic-skills
+    dbt-agent-skills
+    wshobson-agents
+    superpowers
+    ;
 
   mkMcpServer =
     {
@@ -73,11 +78,52 @@ let
   agents =
     # Superpowers
     {
-      code-reviewer = "${superpowers}/share/agents/code-reviewer";
+      code-reviewer = "${superpowers}/share/agents/code-reviewer.md";
     }
     # wshobson agents
     // {
-
+      ai-engineer = "${wshobson-agents}/share/agents/ai-engineer.md";
+      bash-pro = "${wshobson-agents}/share/agents/bash-pro.md";
+      business-analyst = "${wshobson-agents}/share/agents/business-analyst.md";
+      cloud-architect = "${wshobson-agents}/share/agents/cloud-architect.md";
+      code-reviewer = "${wshobson-agents}/share/agents/code-reviewer.md";
+      context-manager = "${wshobson-agents}/share/agents/context-manager.md";
+      data-engineer = "${wshobson-agents}/share/agents/data-engineer.md";
+      data-scientist = "${wshobson-agents}/share/agents/data-scientist.md";
+      database-architect = "${wshobson-agents}/share/agents/database-architect.md";
+      database-optimizer = "${wshobson-agents}/share/agents/database-optimizer.md";
+      docs-architect = "${wshobson-agents}/share/agents/docs-architect.md";
+      error-detective = "${wshobson-agents}/share/agents/error-detective.md";
+      eval-judge = "${wshobson-agents}/share/agents/eval-judge.md";
+      eval-orchestrator = "${wshobson-agents}/share/agents/eval-orchestrator.md";
+      frontend-developer = "${wshobson-agents}/share/agents/frontend-developer.md";
+      hr-pro = "${wshobson-agents}/share/agents/hr-pro.md";
+      image-generator = "${wshobson-agents}/share/agents/image-generator.md";
+      legal-advisor = "${wshobson-agents}/share/agents/legal-advisor.md";
+      mermaid-expert = "${wshobson-agents}/share/agents/mermaid-expert.md";
+      ml-engineer = "${wshobson-agents}/share/agents/ml-engineer.md";
+      mlops-engineer = "${wshobson-agents}/share/agents/mlops-engineer.md";
+      orchestrate = "${wshobson-agents}/share/agents/orchestrate.md";
+      performance-engineer = "${wshobson-agents}/share/agents/performance-engineer.md";
+      playwright = "${wshobson-agents}/share/agents/playwright.md";
+      policy-enforcer = "${wshobson-agents}/share/agents/policy-enforcer.md";
+      posix-shell-pro = "${wshobson-agents}/share/agents/posix-shell-pro.md";
+      prompt-crafter = "${wshobson-agents}/share/agents/prompt-crafter.md";
+      prompt-engineer = "${wshobson-agents}/share/agents/prompt-engineer.md";
+      python-pro = "${wshobson-agents}/share/agents/python-pro.md";
+      qa = "${wshobson-agents}/share/agents/qa.md";
+      review-policy-author = "${wshobson-agents}/share/agents/review-policy-author.md";
+      review = "${wshobson-agents}/share/agents/review.md";
+      security-auditor = "${wshobson-agents}/share/agents/security-auditor.md";
+      sql-pro = "${wshobson-agents}/share/agents/sql-pro.md";
+      startup-analyst = "${wshobson-agents}/share/agents/startup-analyst.md";
+      threat-modeling-expert = "${wshobson-agents}/share/agents/threat-modeling-expert.md";
+      typescript-pro = "${wshobson-agents}/share/agents/typescript-pro.md";
+    }
+    # Local
+    // {
+      nix-automator = ./agents/nix-automator.md;
+      product-manager = ./agents/product-manager.md;
     };
 
   skills =
@@ -127,6 +173,94 @@ let
       running-dbt-commands = "${dbt-agent-skills}/share/skills/running-dbt-commands";
       troubleshooting-dbt-job-errors = "${dbt-agent-skills}/share/skills/troubleshooting-dbt-job-errors";
       using-dbt-for-analytics-engineering = "${dbt-agent-skills}/share/skills/using-dbt-for-analytics-engineering";
+    }
+    // {
+      api-design-principles = "${wshobson-agents}/share/skills/api-design-principles";
+      architecture-decision-records = "${wshobson-agents}/share/skills/architecture-decision-records";
+      architecture-patterns = "${wshobson-agents}/share/skills/architecture-patterns";
+      async-python-patterns = "${wshobson-agents}/share/skills/async-python-patterns";
+      bash-defensive-patterns = "${wshobson-agents}/share/skills/bash-defensive-patterns";
+      bats-testing-patterns = "${wshobson-agents}/share/skills/bats-testing-patterns";
+      billing-automation = "${wshobson-agents}/share/skills/billing-automation";
+      binary-analysis-patterns = "${wshobson-agents}/share/skills/binary-analysis-patterns";
+      block-no-verify-hook = "${wshobson-agents}/share/skills/block-no-verify-hook";
+      changelog-automation = "${wshobson-agents}/share/skills/changelog-automation";
+      code-review-excellence = "${wshobson-agents}/share/skills/code-review-excellence";
+      context-driven-development = "${wshobson-agents}/share/skills/context-driven-development";
+      cost-optimization = "${wshobson-agents}/share/skills/cost-optimization";
+      data-quality-frameworks = "${wshobson-agents}/share/skills/data-quality-frameworks";
+      data-storytelling = "${wshobson-agents}/share/skills/data-storytelling";
+      database-migration = "${wshobson-agents}/share/skills/database-migration";
+      dbt-transformation-patterns = "${wshobson-agents}/share/skills/dbt-transformation-patterns";
+      debugging-strategies = "${wshobson-agents}/share/skills/debugging-strategies";
+      dependency-upgrade = "${wshobson-agents}/share/skills/dependency-upgrade";
+      deployment-pipeline-design = "${wshobson-agents}/share/skills/deployment-pipeline-design";
+      design-system-patterns = "${wshobson-agents}/share/skills/design-system-patterns";
+      error-handling-patterns = "${wshobson-agents}/share/skills/error-handling-patterns";
+      evaluation-methodology = "${wshobson-agents}/share/skills/evaluation-methodology";
+      event-store-design = "${wshobson-agents}/share/skills/event-store-design";
+      gdpr-data-handling = "${wshobson-agents}/share/skills/gdpr-data-handling";
+      git-advanced-workflows = "${wshobson-agents}/share/skills/git-advanced-workflows";
+      github-actions-templates = "${wshobson-agents}/share/skills/github-actions-templates";
+      gitops-workflow = "${wshobson-agents}/share/skills/gitops-workflow";
+      godot-gdscript-patterns = "${wshobson-agents}/share/skills/godot-gdscript-patterns";
+      grafana-dashboards = "${wshobson-agents}/share/skills/grafana-dashboards";
+      interaction-design = "${wshobson-agents}/share/skills/interaction-design";
+      javascript-testing-patterns = "${wshobson-agents}/share/skills/javascript-testing-patterns";
+      kpi-dashboard-design = "${wshobson-agents}/share/skills/kpi-dashboard-design";
+      linkerd-patterns = "${wshobson-agents}/share/skills/linkerd-patterns";
+      llm-evaluation = "${wshobson-agents}/share/skills/llm-evaluation";
+      market-sizing-analysis = "${wshobson-agents}/share/skills/market-sizing-analysis";
+      ml-pipeline-workflow = "${wshobson-agents}/share/skills/ml-pipeline-workflow";
+      modern-javascript-patterns = "${wshobson-agents}/share/skills/modern-javascript-patterns";
+      multi-cloud-architecture = "${wshobson-agents}/share/skills/multi-cloud-architecture";
+      multi-reviewer-patterns = "${wshobson-agents}/share/skills/multi-reviewer-patterns";
+      nodejs-backend-patterns = "${wshobson-agents}/share/skills/nodejs-backend-patterns";
+      parallel-debugging = "${wshobson-agents}/share/skills/parallel-debugging";
+      parallel-feature-development = "${wshobson-agents}/share/skills/parallel-feature-development";
+      pci-compliance = "${wshobson-agents}/share/skills/pci-compliance";
+      prompt-engineering-patterns = "${wshobson-agents}/share/skills/prompt-engineering-patterns";
+      protect-mcp-setup = "${wshobson-agents}/share/skills/protect-mcp-setup";
+      python-anti-patterns = "${wshobson-agents}/share/skills/python-anti-patterns";
+      python-background-jobs = "${wshobson-agents}/share/skills/python-background-jobs";
+      python-code-style = "${wshobson-agents}/share/skills/python-code-style";
+      python-configuration = "${wshobson-agents}/share/skills/python-configuration";
+      python-design-patterns = "${wshobson-agents}/share/skills/python-design-patterns";
+      python-error-handling = "${wshobson-agents}/share/skills/python-error-handling";
+      python-observability = "${wshobson-agents}/share/skills/python-observability";
+      python-packaging = "${wshobson-agents}/share/skills/python-packaging";
+      python-performance-optimization = "${wshobson-agents}/share/skills/python-performance-optimization";
+      python-project-structure = "${wshobson-agents}/share/skills/python-project-structure";
+      python-resilience = "${wshobson-agents}/share/skills/python-resilience";
+      python-resource-management = "${wshobson-agents}/share/skills/python-resource-management";
+      python-testing-patterns = "${wshobson-agents}/share/skills/python-testing-patterns";
+      python-type-safety = "${wshobson-agents}/share/skills/python-type-safety";
+      rag-implementation = "${wshobson-agents}/share/skills/rag-implementation";
+      review-agent-setup = "${wshobson-agents}/share/skills/review-agent-setup";
+      risk-metrics-calculation = "${wshobson-agents}/share/skills/risk-metrics-calculation";
+      secrets-management = "${wshobson-agents}/share/skills/secrets-management";
+      security-requirement-extraction = "${wshobson-agents}/share/skills/security-requirement-extraction";
+      service-mesh-observability = "${wshobson-agents}/share/skills/service-mesh-observability";
+      shellcheck-configuration = "${wshobson-agents}/share/skills/shellcheck-configuration";
+      signed-audit-trails-recipe = "${wshobson-agents}/share/skills/signed-audit-trails-recipe";
+      similarity-search-patterns = "${wshobson-agents}/share/skills/similarity-search-patterns";
+      slo-implementation = "${wshobson-agents}/share/skills/slo-implementation";
+      sql-optimization-patterns = "${wshobson-agents}/share/skills/sql-optimization-patterns";
+      stride-analysis-patterns = "${wshobson-agents}/share/skills/stride-analysis-patterns";
+      task-coordination-strategies = "${wshobson-agents}/share/skills/task-coordination-strategies";
+      threat-mitigation-mapping = "${wshobson-agents}/share/skills/threat-mitigation-mapping";
+      typescript-advanced-types = "${wshobson-agents}/share/skills/typescript-advanced-types";
+      uv-package-manager = "${wshobson-agents}/share/skills/uv-package-manager";
+      vector-index-tuning = "${wshobson-agents}/share/skills/vector-index-tuning";
+      workflow-orchestration-patterns = "${wshobson-agents}/share/skills/workflow-orchestration-patterns";
+      workflow-patterns = "${wshobson-agents}/share/skills/workflow-patterns ";
+    }
+    # Local
+    // {
+      market-research = ./skills/market-research;
+      nix-ops = ./skills/nix-ops;
+      nixos-test-dev = ./skills/nixos-test-dev;
+      product-management = ./skills/product-management;
     };
 
   commands =
@@ -136,9 +270,51 @@ let
       execute-plan = "${superpowers}/share/commands/execute-plan";
       write-plan = "${superpowers}/share/commands/write-plan";
     }
-    # Wshobson agents
+    # Wshobson
     // {
-
+      ai-assistant = "${wshobson-agents}/share/commands/ai-assistant.md";
+      ai-review = "${wshobson-agents}/share/commands/ai-review.md";
+      approve-review = "${wshobson-agents}/share/commands/approve-review.md";
+      audit-chain = "${wshobson-agents}/share/commands/audit-chain.md";
+      block-no-verify = "${wshobson-agents}/share/commands/block-no-verify.md";
+      business-case = "${wshobson-agents}/share/commands/business-case.md";
+      code-explain = "${wshobson-agents}/share/commands/code-explain.md";
+      code-migrate = "${wshobson-agents}/share/commands/code-migrate.md";
+      compare = "${wshobson-agents}/share/commands/compare.md";
+      compliance-check = "${wshobson-agents}/share/commands/compliance-check.md";
+      component-scaffold = "${wshobson-agents}/share/commands/component-scaffold.md";
+      config-validate = "${wshobson-agents}/share/commands/config-validate.md";
+      context-restore = "${wshobson-agents}/share/commands/context-restore.md";
+      context-save = "${wshobson-agents}/share/commands/context-save.md";
+      cost-optimize = "${wshobson-agents}/share/commands/cost-optimize.md";
+      data-driven-feature = "${wshobson-agents}/share/commands/data-driven-feature.md";
+      data-pipeline = "${wshobson-agents}/share/commands/data-pipeline.md";
+      deps-audit = "${wshobson-agents}/share/commands/deps-audit.md";
+      deps-upgrade = "${wshobson-agents}/share/commands/deps-upgrade.md";
+      design-review = "${wshobson-agents}/share/commands/design-review.md";
+      doc-generate = "${wshobson-agents}/share/commands/doc-generate.md";
+      error-analysis = "${wshobson-agents}/share/commands/error-analysis.md";
+      find = "${wshobson-agents}/share/commands/find.md";
+      full-review = "${wshobson-agents}/share/commands/full-review.md";
+      full-stack-feature = "${wshobson-agents}/share/commands/full-stack-feature.md";
+      git-workflow = "${wshobson-agents}/share/commands/git-workflow.md";
+      improve-agent = "${wshobson-agents}/share/commands/improve-agent.md";
+      list-pending = "${wshobson-agents}/share/commands/list-pending.md";
+      manage = "${wshobson-agents}/share/commands/manage.md";
+      ml-pipeline = "${wshobson-agents}/share/commands/ml-pipeline.md";
+      multi-agent-optimize = "${wshobson-agents}/share/commands/multi-agent-optimize.md";
+      multi-agent-review = "${wshobson-agents}/share/commands/multi-agent-review.md";
+      multi-platform = "${wshobson-agents}/share/commands/multi-platform.md";
+      performance-optimization = "${wshobson-agents}/share/commands/performance-optimization.md";
+      pr-enhance = "${wshobson-agents}/share/commands/pr-enhance.md";
+      prompt-optimize = "${wshobson-agents}/share/commands/prompt-optimize.md";
+      python-scaffold = "${wshobson-agents}/share/commands/python-scaffold.md";
+      refactor-clean = "${wshobson-agents}/share/commands/refactor-clean.md";
+      slo-implement = "${wshobson-agents}/share/commands/slo-implement.md";
+      sql-migrations = "${wshobson-agents}/share/commands/sql-migrations.md";
+      typescript-scaffold = "${wshobson-agents}/share/commands/typescript-scaffold.md";
+      verify-receipt = "${wshobson-agents}/share/commands/verify-receipt.md";
+      workflow-automate = "${wshobson-agents}/share/commands/workflow-automate.md";
     };
 
   snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
