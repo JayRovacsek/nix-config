@@ -88,7 +88,6 @@
     ironbar = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         nix-systems.follows = "systems";
       };
@@ -132,11 +131,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix/e8d5f12b834a59187c7ec147a8952a0567f97939";
-    };
-
-    naersk = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/naersk";
     };
 
     nix-darwin = {
@@ -185,7 +179,10 @@
       url = "github:nix-community/nixos-generators";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:NixOS/nixos-hardware/master";
+    };
 
     nixos-wsl = {
       inputs = {
@@ -272,6 +269,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
