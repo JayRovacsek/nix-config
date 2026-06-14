@@ -57,6 +57,5 @@ in
 
   home-manager.sharedModules = [
     { stylix.targets.hyprland.enable = false; }
-    { stylix.targets.vscode.enable = false; }
   ];
 }

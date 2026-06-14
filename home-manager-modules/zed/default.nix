@@ -413,7 +413,7 @@ in
         metrics = false;
       };
       terminal = {
-        font_family = "Hack Nerd Font Mono";
+        font_family = "Hack Nerd Font";
       };
       theme = "Base16 Tomorrow Night Blue";
       toolbar = {
