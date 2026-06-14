@@ -120,7 +120,6 @@
     lix-hydra = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        lix.follows = "lix";
       };
       url = "git+https://git.lix.systems/lix-project/hydra";
     };
