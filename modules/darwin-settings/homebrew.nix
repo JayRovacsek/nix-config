@@ -24,8 +24,8 @@ in
     ];
 
     casks = [
-      "jellyfin-media-player"
       "keepingyouawake"
+      "microsoft-teams"
       "nextcloud"
       "onedrive"
       "zoom"

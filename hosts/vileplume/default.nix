@@ -18,7 +18,6 @@ let
         { programs.thunderbird.enable = lib.mkForce false; }
         {
           home.packages = with pkgs; [
-            teams
             # Required for work operations
             awscli2
             # Alternative browser to test assumptions
