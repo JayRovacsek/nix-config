@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   self,
@@ -27,7 +28,9 @@ in
         [
           # Nix
           jnoortheen.nix-ide
-          mkhl.direnv
+          (mkhl.direnv.override (_: {
+            direnv = config.programs.direnv.package;
+          }))
 
           # JS/TS
           dbaeumer.vscode-eslint
@@ -64,10 +67,7 @@ in
           # XML
           redhat.vscode-xml
         ]
-        ++ (with self.packages.${pkgs.system}; [
-          dbt-vsix
-          llama-vscode
-        ]);
+        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
 
       keybindings = [
         {
@@ -119,10 +119,10 @@ in
         "debug.javascript.autoAttachFilter" = "smart";
         "diffEditor.maxComputationTime" = 0;
         "diffEditor.wordWrap" = "off";
-        "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+        "direnv.path.executable" = "${config.programs.direnv.package}/bin/direnv";
         "direnv.restart.automatic" = true;
         "editor.bracketPairColorization.enabled" = true;
-        "editor.fontFamily" = "Hack Nerd Font Mono";
+        "editor.fontFamily" = "Hack Nerd Font";
         "editor.fontLigatures" = false;
         "editor.formatOnSave" = true;
         "editor.guides.bracketPairs" = "active";
@@ -155,17 +155,13 @@ in
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
         "terminal.integrated.defaultProfile.linux" = "zsh";
-        "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
+        "terminal.integrated.fontFamily" = "Hack Nerd Font";
         "terminal.integrated.defaultProfile.osx" = "zsh";
         "terminal.integrated.shellIntegration.enabled" = false;
         "typescript.updateImportsOnFileMove.enabled" = "always";
         "window.titleBarStyle" = "custom";
-        "workbench.colorTheme" = "Tomorrow Night Blue";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.settings.editor" = "json";
-
-        "llama-vscode.endpoint" = "http://localhost:8012";
-        "llama-vscode.endpoint_chat" = "http://localhost:8011";
       };
     };
   };
