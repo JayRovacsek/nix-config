@@ -22,7 +22,7 @@
         id = config.networking.hostName;
         mac = "02:42:c0:a8:05:03";
         macvtap = {
-          link = "reverse-proxy";
+          link = "r-proxy";
           mode = "bridge";
         };
       }
