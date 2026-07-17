@@ -51,15 +51,9 @@
     git-hooks = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/git-hooks.nix";
-    };
-
-    gitignore = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:hercules-ci/gitignore.nix";
     };
 
     home-manager = {
