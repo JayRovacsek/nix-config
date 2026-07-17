@@ -52,6 +52,7 @@ in
     nvidia
     openssh
     pipewire
+    playstation-controller
     remote-builds
     ssh
     steam
