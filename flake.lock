@@ -133,6 +133,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1781825982,
+        "narHash": "sha256-SlXKwIRIhrOSAcTjCB3ftPLzJWZStQIPS7J1FlZPnKk=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "469fd08d0bcf6926321fa973c6777fbc87785dd7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -485,11 +500,9 @@
     },
     "ironbar": {
       "inputs": {
+        "crane": "crane",
         "flake-compat": [
           "flake-compat"
-        ],
-        "naersk": [
-          "naersk"
         ],
         "nix-systems": [
           "systems"
@@ -499,11 +512,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779396698,
-        "narHash": "sha256-eJRLPQXVEpIBGrRy77I8XMuJExWiOhj1oLuex/Hj3bc=",
+        "lastModified": 1784563440,
+        "narHash": "sha256-0Evldl54NaJ0mCfBT6seBcCbg/UhHn7UyDwRvH+pLqA=",
         "owner": "JakeStanger",
         "repo": "ironbar",
-        "rev": "789c19753fe0e5e10ebc9d36a42dcc421247b3d8",
+        "rev": "75d3b5a8bb6f195d5b2edafe1819a41d33839d3f",
         "type": "github"
       },
       "original": {
