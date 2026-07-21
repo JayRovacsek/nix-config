@@ -1147,11 +1147,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778658483,
-        "narHash": "sha256-FZzQQ8tc/LKNbSXLlfc/z/JwYqE6Di9R/YoRnm9zFWM=",
+        "lastModified": 1780995381,
+        "narHash": "sha256-q91Amk0tTbACseVLmvd3LhBixcACyskVHD7lo1mSf28=",
         "owner": "tiiuae",
         "repo": "sbomnix",
-        "rev": "ef52049e0c9a62ff8acc9379fcb14292ee7fdd8d",
+        "rev": "30c95eb2fc0c402300ee05354c5cf84c7e5f74e2",
         "type": "github"
       },
       "original": {
