@@ -26,10 +26,8 @@ let
     acc: x:
     {
       ${x} = {
-        extraOptions = {
-          AddKeysToAgent = "yes";
-          ConnectTimeout = "3";
-        };
+        AddKeysToAgent = "yes";
+        ConnectTimeout = "3";
 
         forwardAgent = true;
         identitiesOnly = true;
@@ -51,7 +49,7 @@ in
 
     enableDefaultConfig = false;
 
-    matchBlocks = host-configs // {
+    settings = host-configs // {
       "github.com" = {
         inherit identityFile;
         user = "git";
