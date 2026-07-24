@@ -28,7 +28,6 @@ in
   minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
-  node-packages = read-package-directory ../packages/node;
   overlays = import ./overlays.nix { inherit self; };
   go-packages = read-package-directory ../packages/go;
   options = import ./options.nix { inherit self; };

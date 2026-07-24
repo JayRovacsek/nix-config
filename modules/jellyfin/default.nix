@@ -1,36 +1,52 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # Extended options for jellyfin
   imports = [ ../../options/modules/jellyfin ];
 
-  # TODO: add logic to ensure the unit loads _after_ zfs
-  # mounts if they exist as they may be utilised.
-
-  # As per: https://wiki.nixos.org/wiki/Jellyfin#Intro_Skipper_plugin
-  nixpkgs.overlays = with pkgs; [
-    (_: prev: {
-      jellyfin-web = prev.jellyfin-web.overrideAttrs (
-        _: _: {
-          installPhase = ''
-            runHook preInstall
-            ${gnused}/bin/sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
-            ${coreutils}/bin/mkdir -p $out/share
-            ${coreutils}/bin/cp -a dist $out/share/jellyfin-web
-            runHook postInstall
-          '';
-        }
-      );
-    })
-  ];
-
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
-    data-dir = null;
-    cache-dir = null;
-    metadata-dir = null;
-    use-declarative-settings = true;
+
+    # Upstream has started mapping these settings, so ho
+    # we'll be able to kill a range of our bespoke options
+    useDeclarativeSettings = true;
+
     user = "media";
     group = "media";
+
+    hardwareAcceleration = {
+      enable = true;
+      device = "/dev/nvidia0";
+      type = "nvenc";
+    };
+
+    forceEncodingConfig = true;
+
+    openFirewall = true;
+
+    transcoding = {
+      deleteSegments = true;
+      enableHardwareEncoding = true;
+      enableSubtitleExtraction = true;
+      enableToneMapping = true;
+      encodingPreset = "auto";
+
+      hardwareDecodingCodecs = {
+        av1 = true;
+        h264 = true;
+        hevc = true;
+        hevc10bit = true;
+        hevcRExt10bit = true;
+        hevcRExt12bit = true;
+        mpeg2 = true;
+        vc1 = true;
+        vp8 = true;
+        vp9 = true;
+      };
+      hardwareEncodingCodecs = {
+        av1 = true;
+        hevc = true;
+      };
+      throttleTranscoding = true;
+    };
   };
 }

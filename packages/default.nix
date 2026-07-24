@@ -7,7 +7,6 @@ let
     dotnet-packages
     images
     go-packages
-    node-packages
     python-packages
     resource-packages
     rust-packages
@@ -28,17 +27,6 @@ let
     accumulator: package:
     recursiveUpdate { ${package} = callPackage ./go/${package} { }; } accumulator
   ) { } go-packages;
-
-  node =
-    let
-      inherit (pkgs) nodejs_20;
-    in
-    builtins.foldl' (
-      accumulator: package:
-      recursiveUpdate {
-        ${package} = callPackage ./node/${package} { nodejs = nodejs_20; };
-      } accumulator
-    ) { } node-packages;
 
   other = builtins.foldl' (
     accumulator: package:
@@ -105,7 +93,6 @@ let
       "linode"
       "configurations"
     ])
-    node
     other
     python
     resources

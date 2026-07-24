@@ -33,79 +33,55 @@ fallback — do not block on its absence.
 
 When you need to evaluate Nix expressions — inspecting attribute paths, checking
 option types, testing expression fragments, exploring flake outputs — **always
-prefer `nix repl` via `tui-use`** over one-shot `nix eval` commands.
+prefer `nix repl`** over one-shot `nix eval` commands.
 
 The REPL keeps the flake loaded in memory, so subsequent evaluations are near-instant
 instead of re-parsing the entire flake each time. This matters in a large
 NixOS configuration repository.
 
-### Prerequisites
+### Agent-Centric Workflow
 
-Before using the REPL workflow, verify `tui-use` is available:
+LLM agents can leverage the REPL to perform stateful, multi-step exploration.
+Instead of multiple expensive `nix eval` calls, an agent can initiate a REPL session
+to maintain context and speed.
 
-```bash
-tui-use --version
-```
+#### 1. Persistent Session Interaction (Recommended)
 
-If that fails (command not found or error), fall back to one-shot `nix eval`
-commands described in the "Fallback" section below.
-
-### Starting a REPL Session
+An agent can interact with a persistent REPL session using `tmux`. This allows
+the agent to start a session in the background and send commands via `send-keys`.
 
 ```bash
-# Start nix repl and load the current flake
-tui-use start --label nix-repl "nix repl .#"
-tui-use wait --text "nix-repl>"
-tui-use snapshot                               # confirm load succeeded
-```
+# Start a detached REPL session
+tmux new-session -d -s nix-repl 'nix repl .#'
 
-This loads all flake outputs into scope. The snapshot shows how many variables
-were added. You can now tab-complete and evaluate any attribute path directly.
-
-### Evaluating Expressions
-
-```bash
-# Type an expression and press enter
-tui-use type "nixosConfigurations.ditto.config.networking.hostName\n"
-tui-use wait --text "nix-repl>"
-tui-use snapshot                               # read the result
+# Send a command to the session
+tmux send-keys -t nix-repl "nixosConfigurations.ditto.config.networking.hostName" Enter
 
 # Inspect option types
-tui-use type ":t nixosConfigurations.ditto.config.services\n"
-tui-use wait --text "nix-repl>"
-tui-use snapshot
+tmux send-keys -t nix-repl ":t nixosConfigurations.ditto.config.services" Enter
 
-# List attribute names
-tui-use type "builtins.attrNames packages.aarch64-darwin\n"
-tui-use wait --text "nix-repl>"
-tui-use snapshot
+# Reload files after edits
+tmux send-keys -t nix-repl ":r" Enter
 
-# Test an expression fragment
-tui-use type "let x = 1 + 2; in x\n"
-tui-use wait --text "nix-repl>"
-tui-use snapshot
+# Capture the output from the session to read it
+tmux capture-pane -t nix-repl -p
+
+# Exit the session
+tmux send-keys -t nix-repl ":q" Enter
 ```
 
-After each `type`, call `wait` to block until the REPL has finished evaluating,
-then `snapshot` to read the result. Without `snapshot` you will not see the output.
+#### 2. Fallback: One-Shot Evaluation
 
-### Reading Output
+For single-shot queries where a REPL session overhead is unnecessary, use `nix eval`.
 
 ```bash
-# Take a snapshot to read the current screen
-tui-use snapshot
-
-# If output is long, scroll up to see earlier content
-tui-use scrollup 10
-tui-use snapshot
-
-# Search for a specific pattern in the screen
-tui-use find "hostName"
+nix eval .#nixosConfigurations.ditto.config.networking.hostName
+nix eval --json .#packages.aarch64-darwin.meta
 ```
 
 ### REPL Built-in Commands
 
-These are typed inside the REPL session (via `tui-use type`):
+These are typed inside the REPL session:
 
 | Command     | Purpose                                       |
 | ----------- | --------------------------------------------- |
@@ -120,30 +96,6 @@ These are typed inside the REPL session (via `tui-use type`):
 After editing `.nix` files, use `:r` to reload without restarting the session.
 Note: `:r` reloads files already in scope. If you add entirely new imports that
 were not part of the original evaluation, restart the REPL instead.
-
-```bash
-tui-use type ":r\n"
-tui-use wait --text "nix-repl>"
-```
-
-### Cleaning Up
-
-Always kill the session when finished:
-
-```bash
-tui-use type ":q\n"
-tui-use kill                                   # idempotent — safe even if REPL already exited
-```
-
-### Fallback: One-Shot Evaluation
-
-Use `nix eval` when `tui-use` is unavailable or for a single quick check
-where starting a REPL is not worthwhile:
-
-```bash
-nix eval .#nixosConfigurations.ditto.config.networking.hostName
-nix eval --json .#packages.aarch64-darwin.tui-use.meta
-```
 
 ## Build Commands
 
@@ -205,7 +157,7 @@ nix eval --json .#packages.aarch64-darwin.tui-use.meta
 
 ## Development Workflow
 
-1.  **Explore:** Start a `nix repl` session via `tui-use` (or use `nix eval` if `tui-use` is unavailable) to understand the flake structure and test expressions interactively.
+1.  **Explore:** Use a persistent `nix repl` session (e.g., via `tmux send-keys`) to understand the flake structure and test expressions interactively.
 2.  **Edit:** Modify `.nix` files.
 3.  **Reload:** Use `:r` in the REPL to pick up changes without restarting.
 4.  **Format:** Run `nix fmt`.

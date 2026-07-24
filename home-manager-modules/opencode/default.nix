@@ -5,74 +5,15 @@
   ...
 }:
 let
-  # ---------------------------------------------------------------------------
-  # mkOpencodeSource: Generic builder for external agent/skill/command sources
-  #
-  # Takes a source (fetchFromGitHub or flake input), applies patch rules to
-  # strip unwanted frontmatter from .md files, then copies selected component
-  # subdirectories into a normalised $out/{agents,skills,commands}/ structure.
-  # ---------------------------------------------------------------------------
-  mkOpencodeSource =
-    {
-      name,
-      src,
-      patchRules ? [ ],
-      components ? { },
-    }:
-    let
-      agentPaths = components.agents or [ ];
-      skillPaths = components.skills or [ ];
-      commandPaths = components.commands or [ ];
+  inherit (pkgs) system;
 
-      # Generate sed delete-line commands for each patch rule regex
-      sedArgs = lib.concatMapStringsSep " " (
-        pattern: "-e '/${pattern}/d'"
-      ) patchRules;
+  inherit (self.packages.${system})
+    anthropic-skills
+    dbt-agent-skills
+    wshobson-agents
+    superpowers
+    ;
 
-      patchPhase = lib.optionalString (
-        patchRules != [ ]
-      ) "find . -name '*.md' -type f -exec ${pkgs.gnused}/bin/sed -i ${sedArgs} {} +";
-
-      # Copy a list of source subdirectories into a target directory,
-      # preserving internal structure. Note: cp -rT is last-wins on
-      # filename conflicts (unlike symlinkJoin which is first-wins).
-      # This is safe here because paths come from a single upstream repo.
-      copyComponents =
-        targetDir: paths:
-        lib.concatMapStringsSep "\n" (srcPath: ''
-          if [ -d "${srcPath}" ]; then
-            cp -rT "${srcPath}" "$out/${targetDir}"
-          fi
-        '') paths;
-    in
-    pkgs.stdenv.mkDerivation {
-      inherit name src;
-
-      dontBuild = true;
-      dontFixup = true;
-
-      nativeBuildInputs = lib.optional (patchRules != [ ]) pkgs.gnused;
-
-      postPatch = patchPhase;
-
-      installPhase = ''
-        mkdir -p $out/{agents,skills,commands}
-        ${copyComponents "agents" agentPaths}
-        ${copyComponents "skills" skillPaths}
-        ${copyComponents "commands" commandPaths}
-      '';
-    };
-
-  # ---------------------------------------------------------------------------
-  # mkMcpServer: Declarative MCP server builder
-  #
-  # Supports three invocation patterns:
-  #   1. Flake ref: `nix run <flakeRef> -- [args]`  (for non-nixpkgs flakes)
-  #   2. Store path: `<pkg>/bin/<binary> [args]`     (for nixpkgs packages)
-  #   3. Remote URL: SSE/HTTP endpoint               (for hosted MCP servers)
-  #
-  # Exactly one of { flakeRef, command, url } must be provided.
-  # ---------------------------------------------------------------------------
   mkMcpServer =
     {
       name,
@@ -134,307 +75,247 @@ let
       ${name} = base // envAttr // headersAttr;
     };
 
-  # ---------------------------------------------------------------------------
-  # Source definitions
-  # ---------------------------------------------------------------------------
-
-  wshobsonAgents = mkOpencodeSource {
-    name = "wshobson-agents";
-    src = pkgs.fetchFromGitHub {
-      owner = "wshobson";
-      repo = "agents";
-      rev = "1ad2f007d5e9ec822a2d79e727ac1dcdf5f66f11";
-      hash = "sha256-bWrT+N64nHKaJKtoluhLYGz72H6Oqht4k3HwWGU59Uc=";
-    };
-    patchRules = [ "^model: " ];
-    components = {
-      agents = [
-        "plugins/backend-development/agents"
-        "plugins/business-analytics/agents"
-        "plugins/cloud-infrastructure/agents"
-        "plugins/code-documentation/agents"
-        "plugins/data-engineering/agents"
-        "plugins/database-design/agents"
-        "plugins/javascript-typescript/agents"
-        "plugins/security-scanning/agents"
-        "plugins/startup-business-analyst/agents"
-        "plugins/systems-programming/agents"
-      ];
-      skills = [
-        "plugins/backend-development/skills"
-        "plugins/business-analytics/skills"
-        "plugins/cloud-infrastructure/skills"
-        "plugins/data-engineering/skills"
-        "plugins/database-design/skills"
-        "plugins/javascript-typescript/skills"
-        "plugins/security-scanning/skills"
-        "plugins/startup-business-analyst/skills"
-        "plugins/systems-programming/skills"
-      ];
-      commands = [
-        "plugins/backend-development/commands"
-        "plugins/code-documentation/commands"
-        "plugins/data-engineering/commands"
-        "plugins/javascript-typescript/commands"
-        "plugins/security-scanning/commands"
-        "plugins/startup-business-analyst/commands"
-        "plugins/systems-programming/commands"
-      ];
-    };
-  };
-
-  dbtSkills = mkOpencodeSource {
-    name = "dbt-agent-skills";
-    src = pkgs.fetchFromGitHub {
-      owner = "dbt-labs";
-      repo = "dbt-agent-skills";
-      rev = "59aa1faf061d288e76044de0bee74248b0399a55";
-      hash = "sha256-wszrCm1PefAUKjWuClPBWr6ZvSOwakmfAKVR4ueuxVc=";
-    };
-    patchRules = [ "^user-invocable: " ];
-    components = {
-      skills = [ "skills" ];
-    };
-  };
-
-  superpowers = mkOpencodeSource {
-    name = "superpowers";
-    src = pkgs.fetchFromGitHub {
-      owner = "obra";
-      repo = "superpowers";
-      rev = "5da4156bdbdcdf98ddf7b7d1931cf9fdc76956e7"; # v5.0.5
-      hash = "sha256-Yq7y6VDrREV60WpfaGsYdnWqoaS7g1hrtci4bGtgtZM=";
-    };
-    patchRules = [ "^model: " ];
-    components = {
-      agents = [ "agents" ];
-      skills = [ "skills" ];
-      commands = [ "commands" ];
-    };
-  };
-
-  # tui-use — TUI automation for AI agents — https://github.com/onesuper/tui-use
-  # Gives agents access to interactive terminal programs (REPLs, installers,
-  # TUI apps) via PTY automation. Skills only; the CLI is packaged separately
-  # in packages/node/tui-use.
-  tuiUseSkills = mkOpencodeSource {
-    name = "tui-use-skills";
-    src = pkgs.fetchFromGitHub {
-      owner = "onesuper";
-      repo = "tui-use";
-      rev = "6ef66f1e723132bbfe8cb2e7f3dd31ad19e5b69e";
-      hash = "sha256-6vLaACk6qVQ0m53v7qojEioB8MhjU/qSbuzrjcPVeEw=";
-    };
-    components = {
-      skills = [ "skills" ];
-    };
-  };
-
-  # Anthropic's official skill library — https://github.com/anthropics/skills
-  # Provides skills for Claude API usage, document generation (docx, pdf, pptx,
-  # xlsx), frontend design, MCP building, webapp testing, and more.
-  anthropicSkills = mkOpencodeSource {
-    name = "anthropic-skills";
-    src = pkgs.fetchFromGitHub {
-      owner = "anthropics";
-      repo = "skills";
-      rev = "98669c11ca63e9c81c11501e1437e5c47b556621";
-      hash = "sha256-w//9LB1OVG9jlllY+VDse7Js0dn5x6Ys2vPuQACKsTM=";
-    };
-    patchRules = [
-      "ALWAYS use `claude-opus-4-6`"
-      "This is non-negotiable"
-      "For the Claude model version, please use Claude Opus 4.6"
-    ];
-    components = {
-      skills = [ "skills" ];
-    };
-  };
-
-  # ---------------------------------------------------------------------------
-  # mkOpencodeAttrs: Extract per-entry attrsets from an mkOpencodeSource drv
-  #
-  # NOTE: This uses Import From Derivation (IFD). builtins.readDir is called
-  # on derivation output paths ("${drv}/agents", etc.), which forces the
-  # derivation to be built during Nix evaluation rather than at build time.
-  #
-  # Trade-offs:
-  #   - IFD is necessary because external sources (fetchFromGitHub) are opaque
-  #     derivations whose output contents cannot be enumerated at eval time
-  #     without building them first.
-  #   - Performance: the derivation must be realised during `nix eval` / module
-  #     evaluation. These are small copy-only derivations so the cost is low
-  #     once cached (fixed-output fetch + trivial installPhase).
-  #   - Compatibility: IFD works with both CppNix and Lix. Some CI evaluators
-  #     (e.g. Hydra with restrict-eval) may reject IFD — this repo does not
-  #     use Hydra, so that is acceptable.
-  #
-  # Produces: { agents = { name = path; ... }; skills = { ... }; commands = { ... }; }
-  #
-  # For agents/commands: .md files are enumerated and the .md suffix is stripped
-  # from the key name.  Each value is a standalone store path produced by
-  # builtins.path.  Because derivation outputs are strings (not Nix path types),
-  # these CANNOT be passed through programs.opencode.agents/commands (which uses
-  # lib.isPath).  Instead, external agents/commands are written directly to
-  # xdg.configFile with explicit source attributes — see effectiveExternalAgents
-  # and externalAgentFiles below.
-  #
-  # For skills: directories are copied into standalone store paths via
-  # builtins.path.  The upstream HM opencode module accepts both Nix path types
-  # and store-path strings for skills (it checks both lib.isPath and
-  # builtins.isString with storeDir prefix), so all skills pass through
-  # programs.opencode.skills directly.
-  # ---------------------------------------------------------------------------
-  mkOpencodeAttrs =
-    drv:
-    let
-      # Enumerate .md files in a subdirectory, stripping the .md suffix from keys.
-      # Returns { name-without-ext = "/nix/store/...-opencode-<type>-<name>"; ... }
-      #
-      # Each value is a store-path string produced by builtins.path.  The
-      # upstream HM opencode module checks `lib.isPath` on agent/command
-      # values: paths become { source = ...; } (symlinked), strings become
-      # { text = ...; } (written as literal text — broken for store paths).
-      #
-      # Because derivation outputs can only produce strings (not Nix path
-      # types), external agents/commands CANNOT be passed through
-      # programs.opencode.agents/commands.  Instead, the composed config
-      # below writes them directly to xdg.configFile with explicit source
-      # attributes, bypassing the isPath check entirely.
-      enumerateMdFiles =
-        subdir:
-        let
-          dir = "${drv}/${subdir}";
-          entries = builtins.readDir dir;
-          mdEntries = lib.filterAttrs (
-            name: type: (type == "regular" || type == "symlink") && lib.hasSuffix ".md" name
-          ) entries;
-        in
-        lib.mapAttrs' (
-          name: _:
-          lib.nameValuePair (lib.removeSuffix ".md" name) (
-            builtins.path {
-              path = "${dir}/${name}";
-              name = "opencode-${subdir}-${lib.removeSuffix ".md" name}";
-            }
-          )
-        ) mdEntries;
-
-      # Enumerate skill directories (or symlinks to directories).
-      # Returns { skill-name = /nix/store/...-opencode-skill-<name>; ... }
-      #
-      # Each value is a Nix path produced by builtins.path, NOT a plain
-      # store-path string. This distinction matters for Home Manager:
-      #
-      #   - String values (e.g. "${drv}/skills/foo") hit the isString branch
-      #     in the HM module, which creates a recursive directory symlink.
-      #     On macOS (APFS synthetic firmlink for /nix), the resulting
-      #     double-hop symlink chain through the store fails to resolve.
-      #
-      #   - Path values hit the isPath branch, which also uses recursive
-      #     directory source but with a top-level store path (single hop).
-      #     builtins.path copies the directory contents into a fresh store
-      #     path, avoiding the subdirectory chain that breaks on macOS.
-      enumerateSkillDirs =
-        let
-          dir = "${drv}/skills";
-          entries = builtins.readDir dir;
-          dirEntries = lib.filterAttrs (
-            _: type: type == "directory" || type == "symlink"
-          ) entries;
-        in
-        lib.mapAttrs' (
-          name: _:
-          lib.nameValuePair name (
-            builtins.path {
-              path = "${dir}/${name}";
-              name = "opencode-skill-${name}";
-            }
-          )
-        ) dirEntries;
-    in
+  agents =
+    # Superpowers
     {
-      agents = enumerateMdFiles "agents";
-      skills = enumerateSkillDirs;
-      commands = enumerateMdFiles "commands";
+      code-reviewer = "${superpowers}/share/agents/code-reviewer.md";
+    }
+    # wshobson agents
+    // {
+      ai-engineer = "${wshobson-agents}/share/agents/ai-engineer.md";
+      bash-pro = "${wshobson-agents}/share/agents/bash-pro.md";
+      business-analyst = "${wshobson-agents}/share/agents/business-analyst.md";
+      cloud-architect = "${wshobson-agents}/share/agents/cloud-architect.md";
+      code-reviewer = "${wshobson-agents}/share/agents/code-reviewer.md";
+      context-manager = "${wshobson-agents}/share/agents/context-manager.md";
+      data-engineer = "${wshobson-agents}/share/agents/data-engineer.md";
+      data-scientist = "${wshobson-agents}/share/agents/data-scientist.md";
+      database-architect = "${wshobson-agents}/share/agents/database-architect.md";
+      database-optimizer = "${wshobson-agents}/share/agents/database-optimizer.md";
+      docs-architect = "${wshobson-agents}/share/agents/docs-architect.md";
+      error-detective = "${wshobson-agents}/share/agents/error-detective.md";
+      eval-judge = "${wshobson-agents}/share/agents/eval-judge.md";
+      eval-orchestrator = "${wshobson-agents}/share/agents/eval-orchestrator.md";
+      frontend-developer = "${wshobson-agents}/share/agents/frontend-developer.md";
+      hr-pro = "${wshobson-agents}/share/agents/hr-pro.md";
+      image-generator = "${wshobson-agents}/share/agents/image-generator.md";
+      legal-advisor = "${wshobson-agents}/share/agents/legal-advisor.md";
+      mermaid-expert = "${wshobson-agents}/share/agents/mermaid-expert.md";
+      ml-engineer = "${wshobson-agents}/share/agents/ml-engineer.md";
+      mlops-engineer = "${wshobson-agents}/share/agents/mlops-engineer.md";
+      orchestrate = "${wshobson-agents}/share/agents/orchestrate.md";
+      performance-engineer = "${wshobson-agents}/share/agents/performance-engineer.md";
+      playwright = "${wshobson-agents}/share/agents/playwright.md";
+      policy-enforcer = "${wshobson-agents}/share/agents/policy-enforcer.md";
+      posix-shell-pro = "${wshobson-agents}/share/agents/posix-shell-pro.md";
+      prompt-crafter = "${wshobson-agents}/share/agents/prompt-crafter.md";
+      prompt-engineer = "${wshobson-agents}/share/agents/prompt-engineer.md";
+      python-pro = "${wshobson-agents}/share/agents/python-pro.md";
+      qa = "${wshobson-agents}/share/agents/qa.md";
+      review-policy-author = "${wshobson-agents}/share/agents/review-policy-author.md";
+      review = "${wshobson-agents}/share/agents/review.md";
+      security-auditor = "${wshobson-agents}/share/agents/security-auditor.md";
+      sql-pro = "${wshobson-agents}/share/agents/sql-pro.md";
+      startup-analyst = "${wshobson-agents}/share/agents/startup-analyst.md";
+      threat-modeling-expert = "${wshobson-agents}/share/agents/threat-modeling-expert.md";
+      typescript-pro = "${wshobson-agents}/share/agents/typescript-pro.md";
+    }
+    # Local
+    // {
+      nix-automator = ./agents/nix-automator.md;
+      product-manager = ./agents/product-manager.md;
     };
 
-  # ---------------------------------------------------------------------------
-  # Local agents: enumerate .md files from ./agents at eval time (no IFD —
-  # these are plain source paths available during evaluation).
-  # ---------------------------------------------------------------------------
-  localAgents =
-    let
-      entries = builtins.readDir ./agents;
-      mdFiles = lib.filterAttrs (
-        _: type: type == "regular" || type == "symlink"
-      ) entries;
-    in
-    lib.mapAttrs' (
-      name: _: lib.nameValuePair (lib.removeSuffix ".md" name) (./agents + "/${name}")
-    ) mdFiles;
+  skills =
+    # Superpowers
+    {
+      brainstorming = "${superpowers}/share/skills/brainstorming";
+      dispatching-parallel-agents = "${superpowers}/share/skills/dispatching-parallel-agents";
+      executing-plans = "${superpowers}/share/skills/executing-plans";
+      finishing-a-development-branch = "${superpowers}/share/skills/finishing-a-development-branch";
+      receiving-code-review = "${superpowers}/share/skills/receiving-code-review";
+      requesting-code-review = "${superpowers}/share/skills/requesting-code-review";
+      subagent-driven-development = "${superpowers}/share/skills/subagent-driven-development";
+      systematic-debugging = "${superpowers}/share/skills/systematic-debugging";
+      test-driven-development = "${superpowers}/share/skills/test-driven-development";
+      using-git-worktrees = "${superpowers}/share/skills/using-git-worktrees";
+      using-superpowers = "${superpowers}/share/skills/using-superpowers";
+      verification-before-completion = "${superpowers}/share/skills/verification-before-completion";
+      writing-plans = "${superpowers}/share/skills/writing-plans";
+      writing-skills = "${superpowers}/share/skills/writing-skills";
+    }
+    # Anthropic
+    // {
+      algorithmic-art = "${anthropic-skills}/share/skills/algorithmic-art";
+      canvas-design = "${anthropic-skills}/share/skills/canvas-design";
+      doc-coauthoring = "${anthropic-skills}/share/skills/doc-coauthoring";
+      docx = "${anthropic-skills}/share/skills/docx";
+      frontend-design = "${anthropic-skills}/share/skills/frontend-design";
+      internal-comms = "${anthropic-skills}/share/skills/internal-comms";
+      mcp-builder = "${anthropic-skills}/share/skills/mcp-builder";
+      pdf = "${anthropic-skills}/share/skills/pdf";
+      pptx = "${anthropic-skills}/share/skills/pptx";
+      skill-creator = "${anthropic-skills}/share/skills/skill-creator";
+      slack-gif-creator = "${anthropic-skills}/share/skills/slack-gif-creator";
+      theme-factory = "${anthropic-skills}/share/skills/theme-factory";
+      web-artifacts-builder = "${anthropic-skills}/share/skills/web-artifacts-builder";
+      webapp-testing = "${anthropic-skills}/share/skills/webapp-testing";
+      xlsx = "${anthropic-skills}/share/skills/xlsx";
+    }
+    # DBT
+    // {
+      adding-dbt-unit-test = "${dbt-agent-skills}/share/skills/adding-dbt-unit-test";
+      answering-natural-language-questions-with-dbt = "${dbt-agent-skills}/share/skills/answering-natural-language-questions-with-dbt";
+      building-dbt-semantic-layer = "${dbt-agent-skills}/share/skills/building-dbt-semantic-layer";
+      configuring-dbt-mcp-server = "${dbt-agent-skills}/share/skills/configuring-dbt-mcp-server";
+      fetching-dbt-docs = "${dbt-agent-skills}/share/skills/fetching-dbt-docs";
+      migrating-dbt-core-to-fusion = "${dbt-agent-skills}/share/skills/migrating-dbt-core-to-fusion";
+      running-dbt-commands = "${dbt-agent-skills}/share/skills/running-dbt-commands";
+      troubleshooting-dbt-job-errors = "${dbt-agent-skills}/share/skills/troubleshooting-dbt-job-errors";
+      using-dbt-for-analytics-engineering = "${dbt-agent-skills}/share/skills/using-dbt-for-analytics-engineering";
+    }
+    // {
+      api-design-principles = "${wshobson-agents}/share/skills/api-design-principles";
+      architecture-decision-records = "${wshobson-agents}/share/skills/architecture-decision-records";
+      architecture-patterns = "${wshobson-agents}/share/skills/architecture-patterns";
+      async-python-patterns = "${wshobson-agents}/share/skills/async-python-patterns";
+      bash-defensive-patterns = "${wshobson-agents}/share/skills/bash-defensive-patterns";
+      bats-testing-patterns = "${wshobson-agents}/share/skills/bats-testing-patterns";
+      billing-automation = "${wshobson-agents}/share/skills/billing-automation";
+      binary-analysis-patterns = "${wshobson-agents}/share/skills/binary-analysis-patterns";
+      block-no-verify-hook = "${wshobson-agents}/share/skills/block-no-verify-hook";
+      changelog-automation = "${wshobson-agents}/share/skills/changelog-automation";
+      code-review-excellence = "${wshobson-agents}/share/skills/code-review-excellence";
+      context-driven-development = "${wshobson-agents}/share/skills/context-driven-development";
+      cost-optimization = "${wshobson-agents}/share/skills/cost-optimization";
+      data-quality-frameworks = "${wshobson-agents}/share/skills/data-quality-frameworks";
+      data-storytelling = "${wshobson-agents}/share/skills/data-storytelling";
+      database-migration = "${wshobson-agents}/share/skills/database-migration";
+      dbt-transformation-patterns = "${wshobson-agents}/share/skills/dbt-transformation-patterns";
+      debugging-strategies = "${wshobson-agents}/share/skills/debugging-strategies";
+      dependency-upgrade = "${wshobson-agents}/share/skills/dependency-upgrade";
+      deployment-pipeline-design = "${wshobson-agents}/share/skills/deployment-pipeline-design";
+      design-system-patterns = "${wshobson-agents}/share/skills/design-system-patterns";
+      error-handling-patterns = "${wshobson-agents}/share/skills/error-handling-patterns";
+      evaluation-methodology = "${wshobson-agents}/share/skills/evaluation-methodology";
+      event-store-design = "${wshobson-agents}/share/skills/event-store-design";
+      gdpr-data-handling = "${wshobson-agents}/share/skills/gdpr-data-handling";
+      git-advanced-workflows = "${wshobson-agents}/share/skills/git-advanced-workflows";
+      github-actions-templates = "${wshobson-agents}/share/skills/github-actions-templates";
+      gitops-workflow = "${wshobson-agents}/share/skills/gitops-workflow";
+      godot-gdscript-patterns = "${wshobson-agents}/share/skills/godot-gdscript-patterns";
+      grafana-dashboards = "${wshobson-agents}/share/skills/grafana-dashboards";
+      interaction-design = "${wshobson-agents}/share/skills/interaction-design";
+      javascript-testing-patterns = "${wshobson-agents}/share/skills/javascript-testing-patterns";
+      kpi-dashboard-design = "${wshobson-agents}/share/skills/kpi-dashboard-design";
+      linkerd-patterns = "${wshobson-agents}/share/skills/linkerd-patterns";
+      llm-evaluation = "${wshobson-agents}/share/skills/llm-evaluation";
+      market-sizing-analysis = "${wshobson-agents}/share/skills/market-sizing-analysis";
+      ml-pipeline-workflow = "${wshobson-agents}/share/skills/ml-pipeline-workflow";
+      modern-javascript-patterns = "${wshobson-agents}/share/skills/modern-javascript-patterns";
+      multi-cloud-architecture = "${wshobson-agents}/share/skills/multi-cloud-architecture";
+      multi-reviewer-patterns = "${wshobson-agents}/share/skills/multi-reviewer-patterns";
+      nodejs-backend-patterns = "${wshobson-agents}/share/skills/nodejs-backend-patterns";
+      parallel-debugging = "${wshobson-agents}/share/skills/parallel-debugging";
+      parallel-feature-development = "${wshobson-agents}/share/skills/parallel-feature-development";
+      pci-compliance = "${wshobson-agents}/share/skills/pci-compliance";
+      prompt-engineering-patterns = "${wshobson-agents}/share/skills/prompt-engineering-patterns";
+      protect-mcp-setup = "${wshobson-agents}/share/skills/protect-mcp-setup";
+      python-anti-patterns = "${wshobson-agents}/share/skills/python-anti-patterns";
+      python-background-jobs = "${wshobson-agents}/share/skills/python-background-jobs";
+      python-code-style = "${wshobson-agents}/share/skills/python-code-style";
+      python-configuration = "${wshobson-agents}/share/skills/python-configuration";
+      python-design-patterns = "${wshobson-agents}/share/skills/python-design-patterns";
+      python-error-handling = "${wshobson-agents}/share/skills/python-error-handling";
+      python-observability = "${wshobson-agents}/share/skills/python-observability";
+      python-packaging = "${wshobson-agents}/share/skills/python-packaging";
+      python-performance-optimization = "${wshobson-agents}/share/skills/python-performance-optimization";
+      python-project-structure = "${wshobson-agents}/share/skills/python-project-structure";
+      python-resilience = "${wshobson-agents}/share/skills/python-resilience";
+      python-resource-management = "${wshobson-agents}/share/skills/python-resource-management";
+      python-testing-patterns = "${wshobson-agents}/share/skills/python-testing-patterns";
+      python-type-safety = "${wshobson-agents}/share/skills/python-type-safety";
+      rag-implementation = "${wshobson-agents}/share/skills/rag-implementation";
+      review-agent-setup = "${wshobson-agents}/share/skills/review-agent-setup";
+      risk-metrics-calculation = "${wshobson-agents}/share/skills/risk-metrics-calculation";
+      secrets-management = "${wshobson-agents}/share/skills/secrets-management";
+      security-requirement-extraction = "${wshobson-agents}/share/skills/security-requirement-extraction";
+      service-mesh-observability = "${wshobson-agents}/share/skills/service-mesh-observability";
+      shellcheck-configuration = "${wshobson-agents}/share/skills/shellcheck-configuration";
+      signed-audit-trails-recipe = "${wshobson-agents}/share/skills/signed-audit-trails-recipe";
+      similarity-search-patterns = "${wshobson-agents}/share/skills/similarity-search-patterns";
+      slo-implementation = "${wshobson-agents}/share/skills/slo-implementation";
+      sql-optimization-patterns = "${wshobson-agents}/share/skills/sql-optimization-patterns";
+      stride-analysis-patterns = "${wshobson-agents}/share/skills/stride-analysis-patterns";
+      task-coordination-strategies = "${wshobson-agents}/share/skills/task-coordination-strategies";
+      threat-mitigation-mapping = "${wshobson-agents}/share/skills/threat-mitigation-mapping";
+      typescript-advanced-types = "${wshobson-agents}/share/skills/typescript-advanced-types";
+      uv-package-manager = "${wshobson-agents}/share/skills/uv-package-manager";
+      vector-index-tuning = "${wshobson-agents}/share/skills/vector-index-tuning";
+      workflow-orchestration-patterns = "${wshobson-agents}/share/skills/workflow-orchestration-patterns";
+      workflow-patterns = "${wshobson-agents}/share/skills/workflow-patterns ";
+    }
+    # Local
+    // {
+      market-research = ./skills/market-research;
+      nix-ops = ./skills/nix-ops;
+      nixos-test-dev = ./skills/nixos-test-dev;
+      product-management = ./skills/product-management;
+    };
 
-  # ---------------------------------------------------------------------------
-  # Local skills: enumerate skill directories from ./skills at eval time.
-  # ---------------------------------------------------------------------------
-  localSkills =
-    let
-      entries = builtins.readDir ./skills;
-      dirs = lib.filterAttrs (
-        _: type: type == "directory" || type == "symlink"
-      ) entries;
-    in
-    lib.mapAttrs' (name: _: lib.nameValuePair name (./skills + "/${name}")) dirs;
-
-  # ---------------------------------------------------------------------------
-  # Composed attrsets: external sources (mkDefault-priority) merged with local
-  # entries (right-wins via //). Local entries listed LAST to take precedence.
-  #
-  # External agents/commands are store-path STRINGS (from builtins.path).
-  # The upstream HM opencode module uses `lib.isPath` to decide whether to
-  # create a symlink ({ source }) or write literal text ({ text }).  Since
-  # derivation outputs are always strings, external agents/commands must
-  # bypass programs.opencode.agents/commands and instead be written directly
-  # to xdg.configFile with explicit source attributes.
-  #
-  # Local agents/commands are Nix PATH types (./agents + "/${name}") and
-  # pass through the HM option correctly.
-  #
-  # Skills use a separate code path in the HM module that accepts both
-  # paths and store-path strings, so all skills go through the option.
-  # ---------------------------------------------------------------------------
-  externalAgents =
-    (mkOpencodeAttrs wshobsonAgents).agents // (mkOpencodeAttrs superpowers).agents;
-  externalSkills =
-    (mkOpencodeAttrs wshobsonAgents).skills
-    // (mkOpencodeAttrs dbtSkills).skills
-    // (mkOpencodeAttrs superpowers).skills
-    // (mkOpencodeAttrs anthropicSkills).skills
-    // (mkOpencodeAttrs tuiUseSkills).skills;
-  externalCommands =
-    (mkOpencodeAttrs wshobsonAgents).commands
-    // (mkOpencodeAttrs superpowers).commands;
-
-  composedSkillAttrs = externalSkills // localSkills;
-
-  # External agents/commands that overlap with local entries are dropped
-  # (local takes precedence via removeAttrs).
-  effectiveExternalAgents = removeAttrs externalAgents (
-    builtins.attrNames localAgents
-  );
-  effectiveExternalCommands = externalCommands;
-
-  # Convert external agents/commands to xdg.configFile entries with explicit
-  # source attributes, creating proper symlinks instead of literal text files.
-  externalAgentFiles = lib.mapAttrs' (
-    name: storePath:
-    lib.nameValuePair "opencode/agents/${name}.md" { source = storePath; }
-  ) effectiveExternalAgents;
-
-  externalCommandFiles = lib.mapAttrs' (
-    name: storePath:
-    lib.nameValuePair "opencode/commands/${name}.md" { source = storePath; }
-  ) effectiveExternalCommands;
+  commands =
+    # Superpowers
+    {
+      brainstorm = "${superpowers}/share/commands/brainstorm";
+      execute-plan = "${superpowers}/share/commands/execute-plan";
+      write-plan = "${superpowers}/share/commands/write-plan";
+    }
+    # Wshobson
+    // {
+      ai-assistant = "${wshobson-agents}/share/commands/ai-assistant.md";
+      ai-review = "${wshobson-agents}/share/commands/ai-review.md";
+      approve-review = "${wshobson-agents}/share/commands/approve-review.md";
+      audit-chain = "${wshobson-agents}/share/commands/audit-chain.md";
+      block-no-verify = "${wshobson-agents}/share/commands/block-no-verify.md";
+      business-case = "${wshobson-agents}/share/commands/business-case.md";
+      code-explain = "${wshobson-agents}/share/commands/code-explain.md";
+      code-migrate = "${wshobson-agents}/share/commands/code-migrate.md";
+      compare = "${wshobson-agents}/share/commands/compare.md";
+      compliance-check = "${wshobson-agents}/share/commands/compliance-check.md";
+      component-scaffold = "${wshobson-agents}/share/commands/component-scaffold.md";
+      config-validate = "${wshobson-agents}/share/commands/config-validate.md";
+      context-restore = "${wshobson-agents}/share/commands/context-restore.md";
+      context-save = "${wshobson-agents}/share/commands/context-save.md";
+      cost-optimize = "${wshobson-agents}/share/commands/cost-optimize.md";
+      data-driven-feature = "${wshobson-agents}/share/commands/data-driven-feature.md";
+      data-pipeline = "${wshobson-agents}/share/commands/data-pipeline.md";
+      deps-audit = "${wshobson-agents}/share/commands/deps-audit.md";
+      deps-upgrade = "${wshobson-agents}/share/commands/deps-upgrade.md";
+      design-review = "${wshobson-agents}/share/commands/design-review.md";
+      doc-generate = "${wshobson-agents}/share/commands/doc-generate.md";
+      error-analysis = "${wshobson-agents}/share/commands/error-analysis.md";
+      find = "${wshobson-agents}/share/commands/find.md";
+      full-review = "${wshobson-agents}/share/commands/full-review.md";
+      full-stack-feature = "${wshobson-agents}/share/commands/full-stack-feature.md";
+      git-workflow = "${wshobson-agents}/share/commands/git-workflow.md";
+      improve-agent = "${wshobson-agents}/share/commands/improve-agent.md";
+      list-pending = "${wshobson-agents}/share/commands/list-pending.md";
+      manage = "${wshobson-agents}/share/commands/manage.md";
+      ml-pipeline = "${wshobson-agents}/share/commands/ml-pipeline.md";
+      multi-agent-optimize = "${wshobson-agents}/share/commands/multi-agent-optimize.md";
+      multi-agent-review = "${wshobson-agents}/share/commands/multi-agent-review.md";
+      multi-platform = "${wshobson-agents}/share/commands/multi-platform.md";
+      performance-optimization = "${wshobson-agents}/share/commands/performance-optimization.md";
+      pr-enhance = "${wshobson-agents}/share/commands/pr-enhance.md";
+      prompt-optimize = "${wshobson-agents}/share/commands/prompt-optimize.md";
+      python-scaffold = "${wshobson-agents}/share/commands/python-scaffold.md";
+      refactor-clean = "${wshobson-agents}/share/commands/refactor-clean.md";
+      slo-implement = "${wshobson-agents}/share/commands/slo-implement.md";
+      sql-migrations = "${wshobson-agents}/share/commands/sql-migrations.md";
+      typescript-scaffold = "${wshobson-agents}/share/commands/typescript-scaffold.md";
+      verify-receipt = "${wshobson-agents}/share/commands/verify-receipt.md";
+      workflow-automate = "${wshobson-agents}/share/commands/workflow-automate.md";
+    };
 
   snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
     lib.generators.toYAML { } {
@@ -531,10 +412,6 @@ in
       };
     };
 
-  home.packages = [
-    self.packages.${pkgs.system}.tui-use
-  ];
-
   programs.opencode = {
     enable = true;
 
@@ -543,9 +420,7 @@ in
     # Local agents/commands are Nix path types and pass through the HM
     # option's lib.isPath check correctly (creating symlinks).
     # External agents/commands are handled via xdg.configFile below.
-    agents = localAgents;
-    skills = composedSkillAttrs;
-    commands = { };
+    inherit agents skills commands;
 
     # Global agent instructions written to $XDG_CONFIG_HOME/opencode/AGENTS.md.
     # All agents automatically receive this content as baseline context.
@@ -818,6 +693,7 @@ in
     settings = {
       plugin = [
         "@simonwjackson/opencode-direnv@v2025.1211.9"
+        "@tarquinen/opencode-dcp@v3.1.12"
       ];
 
       # Only offer models from locally defined providers — GitHub Copilot
@@ -969,9 +845,6 @@ in
           # --- dbt (analytics engineering) ---
           "dbt*" = "allow";
           "dbtf*" = "allow";
-
-          # --- tui-use (PTY automation for interactive programs) ---
-          "tui-use*" = "allow";
 
           # --- git (non-destructive / read-only) ---
           "git status*" = "allow";
@@ -1151,13 +1024,4 @@ in
       };
     };
   };
-
-  # ---------------------------------------------------------------------------
-  # External agents/commands: bypass programs.opencode.agents/commands (which
-  # require Nix path types) and write xdg.configFile entries directly with
-  # explicit source attributes.  This creates proper symlinks to the store
-  # paths produced by builtins.path, rather than writing the path string as
-  # literal file content.
-  # ---------------------------------------------------------------------------
-  xdg.configFile = externalAgentFiles // externalCommandFiles;
 }

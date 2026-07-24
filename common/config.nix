@@ -49,6 +49,19 @@ _: {
       ];
       shares = [ ];
     };
+    clefairy = {
+      hostname = "clefairy";
+      ips = [
+        {
+          address = "192.168.1.225";
+          fqdn = "clefairy.local";
+        }
+      ];
+      isDnsServer = false;
+      macAddress = "02:42:c0:a8:01:e1";
+      shares = [ ];
+      vlan = null;
+    };
     dragonite = {
       hostname = "dragonite";
       ips = [
@@ -443,7 +456,7 @@ _: {
       vlan-tag = 4;
     }
     {
-      name = "reverse-proxy";
+      name = "r-proxy";
       vlan-tag = 5;
     }
     {

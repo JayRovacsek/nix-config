@@ -51,15 +51,9 @@
     git-hooks = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:cachix/git-hooks.nix";
-    };
-
-    gitignore = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:hercules-ci/gitignore.nix";
     };
 
     home-manager = {
@@ -88,7 +82,6 @@
     ironbar = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         nix-systems.follows = "systems";
       };
@@ -121,18 +114,8 @@
     lix-hydra = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        lix.follows = "lix";
       };
       url = "git+https://git.lix.systems/lix-project/hydra";
-    };
-
-    lix-module = {
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        lix.follows = "lix";
-        nixpkgs.follows = "nixpkgs";
-      };
-      url = "git+https://git.lix.systems/lix-project/nixos-module.git?ref=1688100bba140492658d597f6b307c327f35c780";
     };
 
     microvm = {
@@ -141,11 +124,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix/e8d5f12b834a59187c7ec147a8952a0567f97939";
-    };
-
-    naersk = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/naersk";
     };
 
     nix-darwin = {
@@ -194,7 +172,10 @@
       url = "github:nix-community/nixos-generators";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:NixOS/nixos-hardware/master";
+    };
 
     nixos-wsl = {
       inputs = {
@@ -281,6 +262,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        flake-root.follows = "flake-root";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -481,6 +463,8 @@
                       "Iy"
                       "maximize"
                       "minimize"
+                      "modeling"
+                      "modelling"
                       "ND"
                       "no"
                       "noice"
@@ -489,6 +473,12 @@
                       "Normalizations"
                       "Normalized"
                       "normalizer"
+                      "optimisation"
+                      "optimise"
+                      "optimiser"
+                      "optimization"
+                      "optimize"
+                      "optimizer"
                       "Ot"
                       "personalization"
                       "Pn"

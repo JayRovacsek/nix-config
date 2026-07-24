@@ -48,11 +48,11 @@ in
     logging
     lorri
     nix
-    nix-monitored
     nix-topology
     nvidia
     openssh
     pipewire
+    playstation-controller
     remote-builds
     ssh
     steam

@@ -6,6 +6,7 @@ let
   # Required package-sets
   inherit (self.common.package-sets)
     x86_64-linux-unstable
+    x86_64-linux-cuda-unstable
     aarch64-linux-unstable
     ;
 
@@ -15,6 +16,7 @@ let
     ;
 
   unstable-x86-base = make-minimal-host x86_64-linux-unstable unstable-system;
+  unstable-x86-cuda-base = make-minimal-host x86_64-linux-cuda-unstable unstable-system;
   unstable-aarch64-base = make-minimal-host aarch64-linux-unstable unstable-system;
 in
 {
@@ -41,11 +43,30 @@ in
   mew = extend-host unstable-x86-base "mew";
 
   # Hosts
-  alakazam = extend-host unstable-x86-base "alakazam";
-  dragonite = extend-host unstable-x86-base "dragonite";
+  alakazam = extend-host unstable-x86-cuda-base "alakazam";
+  bellsprout = extend-host unstable-x86-base "bellsprout";
+  dragonite = extend-host unstable-x86-cuda-base "dragonite";
   gastly = extend-host unstable-x86-base "gastly";
+  igglybuff = extend-host unstable-x86-base "igglybuff";
   ivysaur = extend-host self.common.images.configurations.rpi5 "ivysaur";
   jigglypuff = extend-host unstable-aarch64-base "jigglypuff";
+  machop = extend-host unstable-x86-base "machop";
+  magikarp = extend-host unstable-x86-base "magikarp";
+  magnemite = extend-host unstable-x86-base "magnemite";
+  magneton = extend-host unstable-x86-base "magneton";
+  mankey = extend-host unstable-x86-base "mankey";
+  meowth = extend-host unstable-x86-base "meowth";
+  mr-mime = extend-host unstable-x86-base "mr-mime";
+  nidoking = extend-host unstable-x86-base "nidoking";
+  nidorina = extend-host unstable-x86-base "nidorina";
+  nidorino = extend-host unstable-x86-base "nidorino";
+  ninetales = extend-host unstable-x86-base "ninetales";
+  oddish = extend-host unstable-x86-base "oddish";
+  onix = extend-host unstable-x86-base "onix";
+  poliwag = extend-host unstable-x86-base "poliwag";
+  porygon = extend-host unstable-x86-base "porygon";
+  slowpoke = extend-host unstable-x86-base "slowpoke";
+  tentacruel = extend-host unstable-x86-base "tentacruel";
   wartortle = extend-host self.common.images.configurations.rpi5 "wartortle";
   wigglytuff = extend-host self.common.images.configurations.rpi4 "wigglytuff";
 

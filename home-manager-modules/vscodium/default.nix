@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   self,
@@ -9,7 +10,7 @@ let
     owner = "JayRovacsek";
     repo = "nix-options";
     rev = "main";
-    hash = "sha256-MojAXAOBd3W64WZmzanTXc93J2TZ/h+YaHZ89hFMxPw=";
+    hash = "sha256-8o1I2XnngcHyKAD02Uf4nnxxrYcnPpsTzvc6j/TmKMk=";
   };
 in
 {
@@ -27,7 +28,9 @@ in
         [
           # Nix
           jnoortheen.nix-ide
-          mkhl.direnv
+          (mkhl.direnv.override (_: {
+            direnv = config.programs.direnv.package;
+          }))
 
           # JS/TS
           dbaeumer.vscode-eslint
@@ -61,11 +64,6 @@ in
           bierner.markdown-preview-github-styles
         ]
         ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
-          # Python
-          # Turns out that the below are not supported on aarch64 linux
-          ms-python.python
-          ms-python.debugpy
-
           # XML
           redhat.vscode-xml
         ]
@@ -121,10 +119,10 @@ in
         "debug.javascript.autoAttachFilter" = "smart";
         "diffEditor.maxComputationTime" = 0;
         "diffEditor.wordWrap" = "off";
-        "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+        "direnv.path.executable" = "${config.programs.direnv.package}/bin/direnv";
         "direnv.restart.automatic" = true;
         "editor.bracketPairColorization.enabled" = true;
-        "editor.fontFamily" = "Hack Nerd Font Mono";
+        "editor.fontFamily" = "Hack Nerd Font";
         "editor.fontLigatures" = false;
         "editor.formatOnSave" = true;
         "editor.guides.bracketPairs" = "active";
@@ -157,12 +155,11 @@ in
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
         "terminal.integrated.defaultProfile.linux" = "zsh";
-        "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
+        "terminal.integrated.fontFamily" = "Hack Nerd Font";
         "terminal.integrated.defaultProfile.osx" = "zsh";
         "terminal.integrated.shellIntegration.enabled" = false;
         "typescript.updateImportsOnFileMove.enabled" = "always";
         "window.titleBarStyle" = "custom";
-        "workbench.colorTheme" = "Tomorrow Night Blue";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.settings.editor" = "json";
       };

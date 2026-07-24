@@ -1,8 +1,11 @@
 {
   pkgs,
+  self,
   ...
 }:
 {
+  imports = [ self.nixosModules.nix-monitored ];
+
   nixpkgs.overlays = [
     (final: prev: {
       nix-monitored = prev.nix-monitored.override {

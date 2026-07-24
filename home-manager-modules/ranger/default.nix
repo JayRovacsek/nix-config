@@ -17,7 +17,6 @@ let
     unrar
     unzip
     w3m
-    zathura
   ];
 in
 {

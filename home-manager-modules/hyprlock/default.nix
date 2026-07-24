@@ -35,7 +35,7 @@ in
           text = ''cmd[update:500] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
           #color = rgba(255, 255, 255, 0.6)
           font_size = 64;
-          font_family = "Hack Nerd Font Mono";
+          font_family = "Hack Nerd Font";
           position = "0, 16";
           shadow_passes = 3;
           shadow_size = 4;
@@ -56,7 +56,7 @@ in
         inner_color = "rgba(0, 0, 0, 0.5)";
         font_color = "rgb(200, 200, 200)";
         fade_on_empty = false;
-        font_family = "Hack Nerd Font Mono";
+        font_family = "Hack Nerd Font";
         placeholder_text = "<i><span foreground='##cdd6f4'>Password...</span></i>";
         hide_input = false;
         position = "0, 50";

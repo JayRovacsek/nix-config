@@ -28,7 +28,11 @@ let
 
   config = {
     allowUnfree = true;
-    # TODO: expose a cuda packageset for all iterations already exposed rather than default to true
+    permittedInsecurePackages = [ ];
+  };
+
+  cudaConfig = {
+    allowUnfree = true;
     cudaSupport = true;
     permittedInsecurePackages = [ ];
   };
@@ -50,6 +54,11 @@ let
       // {
         "${system}-${target.name}" = {
           identifier = "${system}-${target.name}";
+        };
+      }
+      // {
+        "${system}-cuda-${target.name}" = {
+          identifier = "${system}-cuda-${target.name}";
         };
       }
     ) { } targetGeneration)
@@ -92,6 +101,28 @@ let
           in
           import target.pkgs {
             inherit system config;
+            # Hack is required to contextually add overlays based.
+            # This might be better abstracted into a set that then is
+            # pulled via getAttr, but that'll be a next refactor step
+            # rather than MVP suitable.
+            overlays =
+              system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
+          };
+      }
+    ) { } targetGeneration)
+    // (builtins.foldl' (
+      accumulator: target:
+      accumulator
+      // {
+        "${system}-cuda-${target.name}" =
+          let
+            pkgs = target.pkgs.legacyPackages.${system};
+            inherit (pkgs.stdenv) isDarwin isLinux;
+            inherit (pkgs.lib.lists) optionals;
+          in
+          import target.pkgs {
+            config = cudaConfig;
+            inherit system;
             # Hack is required to contextually add overlays based.
             # This might be better abstracted into a set that then is
             # pulled via getAttr, but that'll be a next refactor step
