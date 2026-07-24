@@ -56,6 +56,7 @@ in
   };
 
   home-manager.sharedModules = [
+    { stylix.targets.vscodium.enable = false; }
     { stylix.targets.hyprland.enable = false; }
   ];
 }

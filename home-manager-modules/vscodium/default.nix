@@ -155,11 +155,12 @@ in
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
         "terminal.integrated.defaultProfile.linux" = "zsh";
-        "terminal.integrated.fontFamily" = "Hack Nerd Font";
         "terminal.integrated.defaultProfile.osx" = "zsh";
+        "terminal.integrated.fontFamily" = "Hack Nerd Font";
         "terminal.integrated.shellIntegration.enabled" = false;
         "typescript.updateImportsOnFileMove.enabled" = "always";
         "window.titleBarStyle" = "custom";
+        "workbench.colorTheme" = "Tomorrow Night Blue";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.settings.editor" = "json";
       };
