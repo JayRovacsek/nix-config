@@ -451,6 +451,7 @@
                       "browseable"
                       "center"
                       "centered"
+                      "certifi"
                       "crypted"
                       "customize"
                       "dota"

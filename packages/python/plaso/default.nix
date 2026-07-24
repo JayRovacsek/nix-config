@@ -155,7 +155,6 @@ buildPythonPackage rec {
       buildInputs = lib.optional stdenv.isLinux pkgs.attr;
       meta.platforms = old.meta.platforms ++ [
         "aarch64-darwin"
-        "x86_64-darwin"
       ];
       hardeningDisable = lib.optional stdenv.isDarwin "strictoverflow";
     }))

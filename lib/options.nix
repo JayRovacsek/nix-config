@@ -23,25 +23,25 @@ let
 
   darwin =
     let
-      system = "x86_64-darwin";
+      system = "aarch64-darwin";
     in
     darwinSystem {
       inherit system;
       pkgs = import nixpkgs { inherit system; };
       modules = [
-        self.common.options.x86_64-darwin-unstable.minimal
+        self.common.options.aarch64-darwin-unstable.minimal
         { system.stateVersion = 4; }
       ];
     };
 
   darwin-home-manager =
     let
-      system = "x86_64-darwin";
+      system = "aarch64-darwin";
     in
     homeManagerConfiguration {
       pkgs = import nixpkgs { inherit system; };
       modules = [
-        self.common.options.x86_64-darwin-unstable.all-home-manager-modules
+        self.common.options.aarch64-darwin-unstable.all-home-manager-modules
         {
           home = {
             enableNixpkgsReleaseCheck = false;

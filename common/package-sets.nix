@@ -4,10 +4,15 @@ let
   # any number of packagesets to be consumed without boilerplate
   inherit (self) inputs;
   # Inputs that expose overlays we require
-  inherit (self.inputs) flake-utils;
   inherit (self.common.overlays) darwin linux system-agnostic;
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
+
+  defaultSystems = [
+    "aarch64-darwin"
+    "aarch64-linux"
+    "x86_64-linux"
+  ];
 
   # Wrap packagesets in a way that makes it a little more
   # easy to utilise below
@@ -62,7 +67,7 @@ let
         };
       }
     ) { } targetGeneration)
-  ) { } flake-utils.lib.defaultSystems;
+  ) { } defaultSystems;
 
   # Take both of the above and then merge them plus the load of nixpkgs for
   # the input.
@@ -74,8 +79,6 @@ let
   # aarch64-darwin-unstable = { ... };
   # aarch64-linux-stable = { ... };
   # aarch64-linux-unstable = { ... };
-  # x86_64-darwin-stable = { ... };
-  # x86_64-darwin-unstable = { ... };
   # x86_64-linux-stable = { ... };
   # x86_64-linux-unstable = { ... };
   #
@@ -132,6 +135,6 @@ let
           };
       }
     ) { } targetGeneration)
-  ) { } flake-utils.lib.defaultSystems;
+  ) { } defaultSystems;
 in
 recursiveUpdate identifiers packageSets
