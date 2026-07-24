@@ -60,7 +60,6 @@ in
   nidoking = extend-host unstable-x86-base "nidoking";
   nidorina = extend-host unstable-x86-base "nidorina";
   nidorino = extend-host unstable-x86-base "nidorino";
-  ninetales = extend-host unstable-x86-base "ninetales";
   oddish = extend-host unstable-x86-base "oddish";
   onix = extend-host unstable-x86-base "onix";
   poliwag = extend-host unstable-x86-base "poliwag";
