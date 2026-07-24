@@ -13,8 +13,8 @@ let
   zfsServiceSupported =
     config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
 
-  package = pkgs.nextcloud33;
-  packages = pkgs.nextcloud33Packages;
+  package = pkgs.nextcloud34;
+  packages = pkgs.nextcloud34Packages;
 
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
