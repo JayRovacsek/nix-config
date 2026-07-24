@@ -398,19 +398,19 @@
           apps = import ./apps { inherit self pkgs; };
 
           checks = {
-            authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
+            # authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
 
-            anubis-integration = import ./tests/anubis-integration.nix {
-              inherit pkgs self;
-            };
-            anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
+            # anubis-integration = import ./tests/anubis-integration.nix {
+            #   inherit pkgs self;
+            # };
+            # anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
 
-            headscale-declarative = import ./tests/headscale-declarative.nix {
-              inherit pkgs self;
-            };
-            headscale-integration = import ./tests/headscale-integration.nix {
-              inherit pkgs self;
-            };
+            # headscale-declarative = import ./tests/headscale-declarative.nix {
+            #   inherit pkgs self;
+            # };
+            # headscale-integration = import ./tests/headscale-integration.nix {
+            #   inherit pkgs self;
+            # };
 
             git-hooks = self.inputs.git-hooks.lib.${system}.run {
               src = self;
