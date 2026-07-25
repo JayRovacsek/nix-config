@@ -38,6 +38,12 @@ let
         ;
     };
 
+  extend-host-as-container =
+    cfg: name:
+    (extend-host cfg name).extendModules {
+      modules = [ self.nixosModules.build-container-shim ];
+    };
+
   make-host =
     package-set: name: system-builder:
     let
@@ -95,6 +101,7 @@ in
 {
   inherit
     extend-host
+    extend-host-as-container
     extend-microvm
     make-host
     make-minimal-host
