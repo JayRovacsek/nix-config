@@ -8,5 +8,5 @@
     self.nixosModules.minimal-boot-filesystems
   ];
 
-  boot.loader.raspberryPi.bootloader = "kernel";
+  boot.loader.raspberry-pi.bootloader = "kernel";
 }
