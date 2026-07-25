@@ -220,6 +220,10 @@
       url = "github:NuschtOS/nixos-modules";
     };
 
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+    };
+
     sbomnix = {
       inputs = {
         flake-compat.follows = "flake-compat";
