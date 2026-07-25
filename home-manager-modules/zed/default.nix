@@ -46,8 +46,8 @@ in
     userSettings = {
       node = {
         ignore_system_version = true;
-        path = "${pkgs.nodejs_24}/bin/node";
-        npm_path = "${pkgs.nodejs_24}/bin/npm";
+        path = "${pkgs.nodejs_latest}/bin/node";
+        npm_path = "${pkgs.nodejs_latest}/bin/npm";
       };
 
       active_pane_magnification = 1;
