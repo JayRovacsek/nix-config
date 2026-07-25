@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   self,
   ...
@@ -10,41 +9,14 @@
     alloy
     blocky
     buildbot-coordinator
+    container-guest
     logging
-    microvm-guest
     nix
     nix-topology
     remote-builds
     time
     timesyncd
   ];
-
-  microvm = {
-    interfaces = [
-      {
-        type = "macvtap";
-        id = config.networking.hostName;
-        mac = "02:42:c0:a8:05:05";
-        macvtap = {
-          link = "r-proxy";
-          mode = "bridge";
-        };
-      }
-    ];
-
-    mem = 4096;
-
-    shares = [
-      {
-        # On the host
-        source = "/srv/databases/buildbot";
-        # In the MicroVM
-        mountPoint = "/var/lib/postgresql";
-        tag = "nextcloud";
-        proto = "virtiofs";
-      }
-    ];
-  };
 
   networking = {
     dhcpcd.enable = false;
