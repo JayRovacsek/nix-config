@@ -9,7 +9,10 @@ let
     self.nixosModules.raspberry-pi-4
     {
       # This is just a stub to enable hydra evaluation
-      fileSystems."/".device = "none";
+      fileSystems."/" = {
+        device = "none";
+        fsType = "tmpfs";
+      };
 
       networking.hostName = "rpi4";
 
