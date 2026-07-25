@@ -182,10 +182,9 @@
     nixos-wsl = {
       inputs = {
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      url = "github:nix-community/NixOS-WSL";
     };
 
     nixpkgs-wayland = {
