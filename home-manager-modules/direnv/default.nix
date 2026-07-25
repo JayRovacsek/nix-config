@@ -1,36 +1,22 @@
 {
   config,
-  osConfig,
-  pkgs,
+  self,
   ...
 }:
-let
-  enable = true;
-  enableBashIntegration = config.programs.bash.enable;
-  enableFishIntegration = config.programs.fish.enable;
-  enableZshIntegration = config.programs.zsh.enable;
-
-  nix-direnv = {
-    enable = true;
-    package =
-      if osConfig.nix.package.pname == "lix" then
-        pkgs.lixPackageSets.latest.nix-direnv
-      else
-        pkgs.nix-direnv;
-  };
-in
 {
+  imports = [ self.inputs.direnv-instant.homeModules.direnv-instant ];
+
   programs.direnv = {
-    inherit
-      enable
-      enableBashIntegration
-      enableFishIntegration
-      enableZshIntegration
-      nix-direnv
-      ;
+    enable = true;
     config = {
       global.load_dotenv = true;
       whitelist.prefix = [ "${config.home.homeDirectory}/dev" ];
     };
+    nix-direnv.enable = true;
+  };
+
+  programs.direnv-instant = {
+    enable = true;
+    settings.use_cache = true;
   };
 }

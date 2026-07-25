@@ -5,7 +5,7 @@
     # Stable / Unstable split in packages
     bleeding-edge.url = "github:nixos/nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/release-25.11";
+    stable.url = "github:nixos/nixpkgs/release-26.05";
 
     agenix = {
       inputs = {
@@ -27,6 +27,15 @@
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
+    };
+
+    direnv-instant = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:Mic92/direnv-instant";
     };
 
     disko = {
@@ -114,6 +123,8 @@
     lix-hydra = {
       inputs = {
         flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+        lix.follows = "lix";
       };
       url = "git+https://git.lix.systems/lix-project/hydra";
     };
@@ -221,7 +232,11 @@
     };
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi";
+      url = "github:nvmd/nixos-raspberrypi/develop";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     sbomnix = {
