@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 {
   # Configuration Options
   # https://nix-community.github.io/nixvim/
@@ -6,6 +6,7 @@
     nixvim = {
       enable = true;
       defaultEditor = true;
+      nixpkgs.source = self.inputs.nixpkgs;
       viAlias = true;
       vimAlias = true;
 
