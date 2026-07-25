@@ -1,4 +1,10 @@
 _: {
+  defaultSystems = [
+    "aarch64-darwin"
+    "aarch64-linux"
+    "x86_64-linux"
+  ];
+
   hosts = {
     alakazam = {
       hostname = "alakazam";

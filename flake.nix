@@ -379,180 +379,182 @@
       # two segments; those items inside the flake-utils block and those not.
       # The flake-utils block will automatically generate the <system>
       # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
-      flake-utils-output = flake-utils.lib.eachDefaultSystem (
-        system:
-        let
-          pkgs = import self.inputs.nixpkgs {
-            inherit system;
-            overlays = with self.inputs; [
-              nix-topology.overlays.default
-              devshell.overlays.default
-            ];
-          };
-        in
-        {
-          # Space in which exposed derivations can be ran via
-          # nix run .#foo - handy in the future for stuff like deploying
-          # via terraform or automation tasks that are relatively
-          # procedural
-          apps = import ./apps { inherit self pkgs; };
+      flake-utils-output =
+        flake-utils.lib.eachSystem standard-outputs.common.config.defaultSystems
+          (
+            system:
+            let
+              pkgs = import self.inputs.nixpkgs {
+                inherit system;
+                overlays = with self.inputs; [
+                  nix-topology.overlays.default
+                  devshell.overlays.default
+                ];
+              };
+            in
+            {
+              # Space in which exposed derivations can be ran via
+              # nix run .#foo - handy in the future for stuff like deploying
+              # via terraform or automation tasks that are relatively
+              # procedural
+              apps = import ./apps { inherit self pkgs; };
 
-          checks = {
-            # authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
+              checks = {
+                # authelia-auth = import ./tests/authelia-auth.nix { inherit pkgs self; };
 
-            # anubis-integration = import ./tests/anubis-integration.nix {
-            #   inherit pkgs self;
-            # };
-            # anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
+                # anubis-integration = import ./tests/anubis-integration.nix {
+                #   inherit pkgs self;
+                # };
+                # anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
 
-            # headscale-declarative = import ./tests/headscale-declarative.nix {
-            #   inherit pkgs self;
-            # };
-            # headscale-integration = import ./tests/headscale-integration.nix {
-            #   inherit pkgs self;
-            # };
+                # headscale-declarative = import ./tests/headscale-declarative.nix {
+                #   inherit pkgs self;
+                # };
+                # headscale-integration = import ./tests/headscale-integration.nix {
+                #   inherit pkgs self;
+                # };
 
-            git-hooks = self.inputs.git-hooks.lib.${system}.run {
-              src = self;
-              hooks = {
-                # Builtin hooks
-                actionlint.enable = true;
-                conform.enable = true;
-                deadnix = {
-                  enable = true;
-                  settings.edit = true;
-                };
-                nixfmt = {
-                  enable = true;
-                  package = pkgs.nixfmt;
-                  settings.width = 80;
-                };
-                prettier = {
-                  enable = true;
-                  settings = {
-                    ignore-path = [ self.packages.${system}.prettierignore ];
-                    write = true;
+                git-hooks = self.inputs.git-hooks.lib.${system}.run {
+                  src = self;
+                  hooks = {
+                    # Builtin hooks
+                    actionlint.enable = true;
+                    conform.enable = true;
+                    deadnix = {
+                      enable = true;
+                      settings.edit = true;
+                    };
+                    nixfmt = {
+                      enable = true;
+                      package = pkgs.nixfmt;
+                      settings.width = 80;
+                    };
+                    prettier = {
+                      enable = true;
+                      settings = {
+                        ignore-path = [ self.packages.${system}.prettierignore ];
+                        write = true;
+                      };
+                    };
+
+                    typos = {
+                      enable = true;
+                      settings = {
+                        binary = false;
+                        exclude = "*.age";
+                        ignored-words = [
+                          "Adge"
+                          "ags"
+                          "analyzer"
+                          "Analyzers"
+                          "authorization"
+                          "authorized"
+                          "ba"
+                          "browseable"
+                          "center"
+                          "centered"
+                          "certifi"
+                          "crypted"
+                          "customize"
+                          "dota"
+                          "ede"
+                          "flor"
+                          "Flor"
+                          "gastly"
+                          "Gastly"
+                          "initialize"
+                          "Iy"
+                          "maximize"
+                          "minimize"
+                          "modeling"
+                          "modelling"
+                          "ND"
+                          "no"
+                          "noice"
+                          "noo"
+                          "normalization"
+                          "Normalizations"
+                          "Normalized"
+                          "normalizer"
+                          "optimisation"
+                          "optimise"
+                          "optimiser"
+                          "optimization"
+                          "optimize"
+                          "optimizer"
+                          "Ot"
+                          "personalization"
+                          "Pn"
+                          "prioritize"
+                          "Randomized"
+                          "Recognize"
+                          "sanitize"
+                          "SART"
+                          "Serialization"
+                          "strat"
+                          "SYNOPSYS"
+                          "UE"
+                          "wih"
+                        ];
+                        locale = "en-au";
+                      };
+                    };
+
+                    # Custom hooks
+                    statix-write = {
+                      enable = true;
+                      name = "Statix Write";
+                      entry = "${pkgs.statix}/bin/statix fix";
+                      language = "system";
+                      pass_filenames = false;
+                    };
+
+                    trufflehog-verified = {
+                      enable = true;
+                      name = "Trufflehog Search";
+                      entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
+                      language = "system";
+                      pass_filenames = false;
+                    };
                   };
-                };
-
-                typos = {
-                  enable = true;
-                  settings = {
-                    binary = false;
-                    exclude = "*.age";
-                    ignored-words = [
-                      "Adge"
-                      "ags"
-                      "analyzer"
-                      "Analyzers"
-                      "authorization"
-                      "authorized"
-                      "ba"
-                      "browseable"
-                      "center"
-                      "centered"
-                      "certifi"
-                      "crypted"
-                      "customize"
-                      "dota"
-                      "ede"
-                      "flor"
-                      "Flor"
-                      "gastly"
-                      "Gastly"
-                      "initialize"
-                      "Iy"
-                      "maximize"
-                      "minimize"
-                      "modeling"
-                      "modelling"
-                      "ND"
-                      "no"
-                      "noice"
-                      "noo"
-                      "normalization"
-                      "Normalizations"
-                      "Normalized"
-                      "normalizer"
-                      "optimisation"
-                      "optimise"
-                      "optimiser"
-                      "optimization"
-                      "optimize"
-                      "optimizer"
-                      "Ot"
-                      "personalization"
-                      "Pn"
-                      "prioritize"
-                      "Randomized"
-                      "Recognize"
-                      "sanitize"
-                      "SART"
-                      "Serialization"
-                      "strat"
-                      "SYNOPSYS"
-                      "UE"
-                      "wih"
-                    ];
-                    locale = "en-au";
-                  };
-                };
-
-                # Custom hooks
-                statix-write = {
-                  enable = true;
-                  name = "Statix Write";
-                  entry = "${pkgs.statix}/bin/statix fix";
-                  language = "system";
-                  pass_filenames = false;
-                };
-
-                trufflehog-verified = {
-                  enable = true;
-                  name = "Trufflehog Search";
-                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
-                  language = "system";
-                  pass_filenames = false;
                 };
               };
-            };
-          };
 
-          # Shell environments (applied to both nix develop and nix-shell via
-          # shell.nix in top level directory)
-          devShells.default = pkgs.devshell.mkShell {
-            devshell.startup.git-hooks.text = self.checks.${system}.git-hooks.shellHook;
+              # Shell environments (applied to both nix develop and nix-shell via
+              # shell.nix in top level directory)
+              devShells.default = pkgs.devshell.mkShell {
+                devshell.startup.git-hooks.text = self.checks.${system}.git-hooks.shellHook;
 
-            name = "nix-config";
+                name = "nix-config";
 
-            packages = with pkgs; [
-              actionlint
-              conform
-              deadnix
-              git-cliff
-              nixfmt
-              prettier
-              statix
-              trufflehog
-              typos
-            ];
-          };
+                packages = with pkgs; [
+                  actionlint
+                  conform
+                  deadnix
+                  git-cliff
+                  nixfmt
+                  prettier
+                  statix
+                  trufflehog
+                  typos
+                ];
+              };
 
-          # Formatter option for `nix fmt` - redundant via checks but nice to have
-          formatter = pkgs.nixfmt;
+              # Formatter option for `nix fmt` - redundant via checks but nice to have
+              formatter = pkgs.nixfmt;
 
-          # Locally defined packages for flake consumption or consumption
-          # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
-          # (all systems in this flake apply this opinion via the common.modules)
-          # construct
-          packages = import ./packages { inherit self pkgs; };
+              # Locally defined packages for flake consumption or consumption
+              # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
+              # (all systems in this flake apply this opinion via the common.modules)
+              # construct
+              packages = import ./packages { inherit self pkgs; };
 
-          topology = import self.inputs.nix-topology {
-            inherit pkgs;
-            modules = [ self.common.topology ];
-          };
-        }
-      );
+              topology = import self.inputs.nix-topology {
+                inherit pkgs;
+                modules = [ self.common.topology ];
+              };
+            }
+          );
     in
     flake-utils-output // standard-outputs;
 }

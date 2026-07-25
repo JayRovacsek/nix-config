@@ -8,11 +8,7 @@ let
   # Required to fold sets together where shared keys exist
   inherit (inputs.stable.lib) recursiveUpdate;
 
-  defaultSystems = [
-    "aarch64-darwin"
-    "aarch64-linux"
-    "x86_64-linux"
-  ];
+  inherit (self.common.config) defaultSystems;
 
   # Wrap packagesets in a way that makes it a little more
   # easy to utilise below
