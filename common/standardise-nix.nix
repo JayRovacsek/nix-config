@@ -17,10 +17,10 @@ builtins.mapAttrs (
   {
     imports = [ ../options/modules/nix ];
 
-    # The below options should be suitable mappings of input 
-    # nixpkgs versions. In my case I utilise stable, unstable and 
+    # The below options should be suitable mappings of input
+    # nixpkgs versions. In my case I utilise stable, unstable and
     # bleeding-edge / master for various reasons.
-    # 
+    #
     # If you utilise this code, remember to ensure
     # your inputs are mapped correctly :)
     #
@@ -30,7 +30,7 @@ builtins.mapAttrs (
     # * not work (etc won't be happy with multiple definitions for the
     # same location)
     # OR
-    # * utilise only the first nixpkgs input (likely lexicographical order) 
+    # * utilise only the first nixpkgs input (likely lexicographical order)
     #
     nix.sources =
       (lib.optionals isBleedingEdge [

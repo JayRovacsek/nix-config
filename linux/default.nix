@@ -32,6 +32,7 @@ in
     linode
     oracle
     rpi4
+    rpi5
     ;
 
   # Base Configuration Hosts

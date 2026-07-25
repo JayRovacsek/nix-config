@@ -1,9 +1,9 @@
 { self }:
 let
-  inherit (self.common.system) unstable-system;
+  inherit (self.inputs) nixos-raspberrypi;
 
   inherit (self.common.package-sets) aarch64-linux-unstable;
-  inherit (aarch64-linux-unstable) system identifier pkgs;
+  inherit (aarch64-linux-unstable) system identifier;
 
   modules = self.common.modules.${identifier} ++ [
     self.nixosModules.raspberry-pi-4
@@ -35,10 +35,9 @@ let
     inherit self;
   };
 in
-unstable-system {
+nixos-raspberrypi.lib.nixosSystem {
   inherit
     modules
-    pkgs
     specialArgs
     system
     ;
