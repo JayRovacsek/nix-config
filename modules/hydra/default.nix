@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   self,
   ...
@@ -142,7 +141,6 @@ in
     minimumDiskFree = 25;
     minimumDiskFreeEvaluator = 50;
     notificationSender = "";
-    package = self.inputs.lix-hydra.packages.${pkgs.system}.default;
     inherit port;
     smtpHost = null;
     tracker = "";

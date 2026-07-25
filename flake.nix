@@ -120,15 +120,6 @@
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.95.3";
     };
 
-    lix-hydra = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-        lix.follows = "lix";
-      };
-      url = "git+https://git.lix.systems/lix-project/hydra";
-    };
-
     microvm = {
       inputs = {
         flake-utils.follows = "flake-utils";

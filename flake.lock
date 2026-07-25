@@ -566,32 +566,6 @@
         "url": "https://git.lix.systems/lix-project/lix"
       }
     },
-    "lix-hydra": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "lix": [
-          "lix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785002633,
-        "narHash": "sha256-NmFFjf6g3nmt257XUytmsnKR4XduTZVPm1lrNfOaBoE=",
-        "ref": "refs/heads/main",
-        "rev": "c85d3119f5e04842aacd742ff977d5439a63e606",
-        "revCount": 4393,
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/hydra"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.lix.systems/lix-project/hydra"
-      }
-    },
     "microvm": {
       "inputs": {
         "flake-utils": [
@@ -1072,7 +1046,6 @@
         "ironbar": "ironbar",
         "lib-aggregate": "lib-aggregate",
         "lix": "lix",
-        "lix-hydra": "lix-hydra",
         "microvm": "microvm",
         "nix-darwin": "nix-darwin",
         "nix-eval-jobs": "nix-eval-jobs",
