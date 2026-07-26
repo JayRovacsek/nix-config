@@ -21,30 +21,12 @@ let
 
   jellyfin-user = {
     users = {
-      extraUsers.jellyfin = {
-        createHome = false;
-        description = "User account generated for running a specific service";
-        group = "jellyfin";
-        isSystemUser = true;
-        uid = 998;
+      users = {
+        inherit (self.common.config.services.jellyfin.users) jellyfin;
+        inherit (self.common.config.services.media.users) media;
       };
 
-      groups = self.common.config.services.media.groups // {
-        users.gid = 100;
-
-        jellyfin = {
-          gid = 10001;
-          members = [ "jellyfin" ];
-        };
-
-        media.members = [
-          "jay"
-          "jellyfin"
-          "media"
-        ];
-      };
-
-      inherit (self.common.config.services.media) users;
+      inherit (self.common.config.services.media) groups;
     };
   };
 
@@ -79,7 +61,7 @@ in
     i18n
     jellyfin
     jellyseerr
-    llama-cpp
+    # llama-cpp
     loki
     lorri
     nextcloud

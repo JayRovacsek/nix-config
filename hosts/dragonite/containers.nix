@@ -94,11 +94,6 @@ in
         hostBridge = "br-${pokemon.vlan}";
 
         bindMounts = {
-          host = {
-            hostPath = "/var/lib/${builtins.hashString "md5" pokemon.name}";
-            mountPoint = "/var/lib";
-            isReadOnly = false;
-          };
           agenix = {
             hostPath = "/agenix/${builtins.hashString "md5" pokemon.name}";
             mountPoint = "/agenix";

@@ -54,7 +54,6 @@ in
     };
 
     identityPaths = [
-      "/agenix/id-ed25519-ssh-primary"
       "/agenix/id-ed25519-wireless-primary"
     ];
   };

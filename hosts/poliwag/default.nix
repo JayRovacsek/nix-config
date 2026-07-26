@@ -13,13 +13,14 @@
   networking.hostName = "poliwag";
 
   services.radarr = {
-    group = "media";
-    user = "media";
+    user = self.common.config.services.radarr.users.radarr.name;
+    inherit (self.common.config.services.radarr.users.radarr) group;
   };
 
   system.stateVersion = "24.05";
 
   users = {
-    inherit (self.common.config.services.media) groups users;
+    inherit (self.common.config.services.radarr) users;
+    inherit (self.common.config.services.media) groups;
   };
 }

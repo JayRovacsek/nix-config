@@ -13,13 +13,14 @@
   networking.hostName = "machop";
 
   services.lidarr = {
-    group = "media";
-    user = "media";
+    user = self.common.config.services.lidarr.users.lidarr.name;
+    inherit (self.common.config.services.lidarr.users.lidarr) group;
   };
 
   system.stateVersion = "24.05";
 
   users = {
-    inherit (self.common.config.services.media) groups users;
+    inherit (self.common.config.services.lidarr) users;
+    inherit (self.common.config.services.media) groups;
   };
 }
