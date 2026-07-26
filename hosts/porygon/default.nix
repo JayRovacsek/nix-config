@@ -4,8 +4,8 @@
     agenix
     alloy
     container-guest
+    dragonwilds-server
     nix-topology
-    valheim
     time
     timesyncd
   ];
