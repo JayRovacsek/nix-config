@@ -18,6 +18,12 @@ let
 
   llama-cpp-in-use = config.services.llama-cpp.enable;
 
+  remote-builds-in-use =
+    if builtins.hasAttr "remoteBuilds" config then
+      config.remoteBuilds.enable
+    else
+      false;
+
   # If instances are defined, assume they may be all utilised
   # TODO: check if a filter for enabled is required here in the case of
   # failure on directory not existing
@@ -29,6 +35,10 @@ in
 {
   imports = [ self.inputs.impermanence.nixosModules.impermanence ];
 
+  age.identityPaths = lib.mkIf (agenix-in-use && remote-builds-in-use) [
+    "/persistent/agenix/id-ed25519-ssh-primary"
+  ];
+
   fileSystems = {
     "/" = {
       device = "none";
@@ -39,9 +49,6 @@ in
         "mode=755"
       ];
     };
-    # "/agenix" = lib.mkIf agenix-in-use {
-    #   neededForBoot = true;
-    # };
   };
 
   environment.persistence."/persistent" = {
