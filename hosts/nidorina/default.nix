@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ self, ... }:
 {
   imports =
     (with self.nixosModules; [
@@ -6,7 +6,7 @@
       agenix
       alloy
       ddclient
-      microvm-guest
+      container-guest
       nginx
       nix-topology
       time
@@ -14,22 +14,6 @@
       tmp-tmpfs
     ])
     ++ [ ./nginx.nix ];
-
-  microvm = {
-    interfaces = [
-      {
-        type = "macvtap";
-        id = config.networking.hostName;
-        mac = "02:42:c0:a8:05:03";
-        macvtap = {
-          link = "r-proxy";
-          mode = "bridge";
-        };
-      }
-    ];
-
-    mem = 4096;
-  };
 
   networking.hostName = "nidorina";
 
