@@ -1,7 +1,20 @@
-{ ... }:
+{ lib, ... }:
 {
   # Extended options for jellyfin
   imports = [ ../../options/modules/jellyfin ];
+
+  # Required to enable nvidia capabilities to jellyfin. Otherwise
+  # configuration may seem fine, but never can invoke cuda backed capabilities
+  systemd.services.jellyfin = {
+    environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
+    serviceConfig.DeviceAllow = lib.mkForce [
+      "/dev/nvidia0 rw"
+      "/dev/nvidiactl rw"
+      "/dev/nvidia-uvm rw"
+      "/dev/nvidia-uvm-tools rw"
+      "/dev/nvidia-modeset rw"
+    ];
+  };
 
   services.jellyfin = {
     enable = true;
@@ -10,7 +23,7 @@
     # we'll be able to kill a range of our bespoke options
     useDeclarativeSettings = true;
 
-    user = "media";
+    user = "jellyfin";
     group = "media";
 
     hardwareAcceleration = {
