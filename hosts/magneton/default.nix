@@ -9,7 +9,6 @@
     agenix
     alloy
     blocky
-    buildbot-worker
     logging
     microvm-guest
     nix
