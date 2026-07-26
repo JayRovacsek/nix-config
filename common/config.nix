@@ -37,6 +37,12 @@ _: {
           name = "tv";
         }
         {
+          hostPath = "/var/lib/sonarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/sonarr";
+          name = "sonarr";
+        }
+        {
           hostPath = "/srv/downloads";
           isReadOnly = false;
           mountPoint = "/srv/downloads";
@@ -138,6 +144,12 @@ _: {
           name = "music";
         }
         {
+          hostPath = "/var/lib/lidarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/lidarr";
+          name = "lidarr";
+        }
+        {
           hostPath = "/srv/downloads";
           isReadOnly = false;
           mountPoint = "/srv/downloads";
@@ -189,6 +201,12 @@ _: {
       macAddress = "02:42:c0:a8:04:82";
       shares = [
         {
+          hostPath = "/var/lib/deluge";
+          isReadOnly = false;
+          mountPoint = "/var/lib/deluge";
+          name = "deluge";
+        }
+        {
           hostPath = "/srv/downloads";
           isReadOnly = false;
           mountPoint = "/srv/downloads";
@@ -206,7 +224,14 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:04:89";
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/var/lib/private/prowlarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/private/prowlarr";
+          name = "prowlarr";
+        }
+      ];
       vlan = "download";
     };
     mr-mime = {
@@ -248,7 +273,14 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:09:02";
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/var/lib/nidorino";
+          isReadOnly = false;
+          mountPoint = "/var/lib";
+          name = "movies";
+        }
+      ];
       vlan = "auth";
     };
     oddish = {
@@ -304,6 +336,12 @@ _: {
           isReadOnly = false;
           mountPoint = "/srv/movies";
           name = "movies";
+        }
+        {
+          hostPath = "/var/lib/radarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/radarr";
+          name = "radarr";
         }
         {
           hostPath = "/srv/downloads";
@@ -566,6 +604,12 @@ _: {
       port = 8112;
       protocol = "http";
       subdomain = "deluge";
+      users.deluge = {
+        group = "media";
+        name = "deluge";
+        isSystemUser = true;
+        uid = 83;
+      };
     };
     exporters-node = {
       port = 9100;
@@ -626,12 +670,6 @@ _: {
     };
     jellyfin = {
       authelia = false;
-      groups = {
-        jellyfin = {
-          gid = 10001;
-          members = [ "jellyfin" ];
-        };
-      };
       https-port = 8920;
       ipv4 = "192.168.1.220";
       port = 8096;
@@ -641,9 +679,12 @@ _: {
         jellyfin = {
           createHome = false;
           description = "User account generated for running a specific service";
-          group = "jellyfin";
           isSystemUser = true;
           uid = 998;
+          extraGroups = [
+            "video"
+            "render"
+          ];
         };
       };
     };
@@ -653,6 +694,12 @@ _: {
       port = 8686;
       protocol = "http";
       subdomain = "lidarr";
+      users.lidarr = {
+        group = "media";
+        name = "lidarr";
+        isSystemUser = true;
+        uid = 306;
+      };
     };
     loki = {
       authelia = false;
@@ -670,14 +717,18 @@ _: {
       groups = {
         media = {
           gid = 400;
-          members = [ "jellyfin" ];
+          members = [
+            "jellyfin"
+            "media"
+            "jay"
+          ];
         };
       };
       users = {
         media = {
           group = "media";
           isSystemUser = true;
-          uid = 400;
+          uid = 10002;
         };
       };
     };
@@ -745,6 +796,12 @@ _: {
       port = 7878;
       protocol = "http";
       subdomain = "radarr";
+      users.radarr = {
+        group = "media";
+        name = "radarr";
+        isSystemUser = true;
+        uid = 275;
+      };
     };
     seerr = {
       authelia = false;
@@ -759,6 +816,12 @@ _: {
       port = 9999;
       protocol = "http";
       subdomain = "sonarr";
+      users.sonarr = {
+        group = "media";
+        name = "sonarr";
+        isSystemUser = true;
+        uid = 274;
+      };
     };
     telegraf = {
       output = {
