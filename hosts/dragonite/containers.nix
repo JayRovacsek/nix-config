@@ -50,12 +50,11 @@ let
     "bellsprout"
     "igglybuff"
     "machop"
-    # "magikarp"
     "mankey"
     "meowth"
     "nidorino"
-    # "mr-mime"
     "poliwag"
+    "porygon"
     "slowpoke"
   ];
 
