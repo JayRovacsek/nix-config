@@ -4,14 +4,14 @@
     agenix
     alloy
     container-guest
+    dragonwilds-server
     nix-topology
-    valheim
     time
     timesyncd
   ];
 
   networking.hostName = "porygon";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 
 }

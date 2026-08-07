@@ -400,7 +400,16 @@ _: {
           fqdn = "valheim.local";
         }
       ];
-      shares = [ ];
+      macAddress = "02:42:c0:a8:11:02";
+      shares = [
+        {
+          hostPath = "/srv/games/servers/dragonwilds";
+          isReadOnly = false;
+          mountPoint = "/var/lib/dragonwilds";
+          name = "dragonwilds";
+        }
+      ];
+      vlan = "game";
     };
     slowpoke = {
       hostname = "slowpoke";
