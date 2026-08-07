@@ -38,20 +38,14 @@ in
       default = "${cfg.dataDir}/dragonwilds_backups";
     };
 
-    # TODO: refactor into secrets file given sensitive content
     serverConfig = lib.mkOption {
-      type = lib.types.attrs;
-      default = {
-        "/Script/Dominion.DedicatedServerSettings" = {
-          AdminPassword = "";
-          OwnerId = "";
-          ServerGuid = "";
-          ServerName = "";
-          WorldPassword = "";
-          DefaultWorldName = "";
-        };
-      };
-      description = "Server configuration file";
+      type = lib.types.path;
+      description = ''
+        Path to the server configuration file used to seed the server's
+        config on first start. This is a path so that sensitive values can
+        be managed via agenix, e.g. config.age.secrets.<name>.path. Ensure
+        the path is readable by the dragonwilds user.
+      '';
     };
 
     port = lib.mkOption {
@@ -70,13 +64,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."dragonwilds-server/server-settings.ini" = {
-      group = "dragonwilds";
-      user = "dragonwilds";
-      mode = "755";
-      text = lib.generators.toINI { } cfg.serverConfig;
-    };
-
     systemd.services.dragonwilds-server =
       let
         steamcmd = lib.getExe cfg.steamcmdPackage;
@@ -85,14 +72,11 @@ in
         install = lib.getExe' pkgs.coreutils "install";
         steamRun = "${pkgs.steam-run}/bin/steam-run";
 
-        generatedConfig =
-          config.environment.etc."dragonwilds-server/server-settings.ini".source.outPath;
-
         runtimeConfig = "${cfg.dataDir}/RSDragonwilds/Saved/Config/LinuxServer/DedicatedServer.ini";
 
         initialiseConfig = pkgs.writeShellScript "dragonwilds-init-config" ''
           if [ ! -f "${runtimeConfig}" ]; then
-            ${install} -m0644 ${generatedConfig} "${runtimeConfig}"
+            ${install} -m0644 "${cfg.serverConfig}" "${runtimeConfig}"
           fi
         '';
       in
