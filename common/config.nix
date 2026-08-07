@@ -600,6 +600,13 @@ _: {
       protocol = "http";
       subdomain = "buildbot";
     };
+    cicd = {
+      authelia = false;
+      ipv4 = "192.168.5.6";
+      port = 8010;
+      protocol = "http";
+      subdomain = "cicd";
+    };
     code = {
       authelia = true;
       ipv4 = "192.168.1.220";
