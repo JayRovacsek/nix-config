@@ -12,6 +12,6 @@
 
   networking.hostName = "porygon";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 
 }
