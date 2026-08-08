@@ -3,6 +3,23 @@
   # Extended options for jellyfin
   imports = [ ../../options/modules/jellyfin ];
 
+  # TODO: remove once https://github.com/NixOS/nixpkgs/pull/549747 is merged
+  nixpkgs = {
+    overlays = [
+      (_: prev: {
+        frei0r = prev.frei0r.overrideAttrs (old: {
+          nativeBuildInputs = old.nativeBuildInputs ++ [ prev.cudaPackages.cuda_nvcc ];
+          cmakeFlags = [
+            (prev.lib.cmakeBool "WITHOUT_GAVL" (!prev.stdenv.hostPlatform.isLinux))
+          ]
+          ++ prev.lib.optionals prev.config.cudaSupport [
+            (prev.lib.cmakeFeature "CUDAToolkit_ROOT" "${prev.lib.getBin prev.cudaPackages.cuda_nvcc}")
+          ];
+        });
+      })
+    ];
+  };
+
   # Required to enable nvidia capabilities to jellyfin. Otherwise
   # configuration may seem fine, but never can invoke cuda backed capabilities
   systemd.services.jellyfin = {
