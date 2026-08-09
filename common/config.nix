@@ -582,7 +582,7 @@ _: {
   services = {
     anubis = {
       bind-network = "tcp";
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.5.8";
       metrics-bind-network = "tcp";
       metrics-port = 4445;
       port = 4444;

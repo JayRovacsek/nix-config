@@ -9,7 +9,7 @@ in
   networking.firewall.allowedTCPPorts = [ anubis.port ];
 
   services.anubis = {
-    instances.default = {
+    instances.hydra = {
       enable = true;
 
       settings = {
