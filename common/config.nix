@@ -243,8 +243,45 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:12:02";
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/srv/logs";
+          isReadOnly = false;
+          mountPoint = "/srv/logs";
+          name = "log-data";
+        }
+        {
+          hostPath = "/var/lib/grafana";
+          isReadOnly = false;
+          mountPoint = "/var/lib/grafana";
+          name = "grafana";
+        }
+        {
+          hostPath = "/var/lib/loki";
+          isReadOnly = false;
+          mountPoint = "/var/lib/loki";
+          name = "loki";
+        }
+        {
+          hostPath = "/var/lib/prometheus2";
+          isReadOnly = false;
+          mountPoint = "/var/lib/prometheus2";
+          name = "prometheus";
+        }
+      ];
       vlan = "log";
+    };
+    natu = {
+      hostname = "natu";
+      ips = [
+        {
+          address = "192.168.5.8";
+          fqdn = "natu.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:05:08";
+      shares = [ ];
+      vlan = "r-proxy";
     };
     nidoking = {
       hostname = "nidoking";
@@ -673,7 +710,7 @@ _: {
     };
     grafana = {
       authelia = true;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 3002;
       protocol = "http";
       subdomain = "grafana";
@@ -746,7 +783,7 @@ _: {
     };
     loki = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 3100;
       protocol = "http";
       push-api = "loki/api/v1/push";
@@ -820,7 +857,7 @@ _: {
     };
     prometheus = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 9092;
       protocol = "http";
       subdomain = "prometheus";

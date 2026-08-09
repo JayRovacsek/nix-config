@@ -46,25 +46,21 @@ in
     ./containers.nix
     agenix
     alloy
-    anubis
     blocky
     firefox-syncserver
     fonts
     generations
     gnupg
-    grafana
     harmonia
     hydra
     i18n
     jellyfin
     jellyseerr
-    loki
     lorri
     nix
     nix-topology
     nvidia
     openssh
-    prometheus
     remote-builds
     smartd
     ssh

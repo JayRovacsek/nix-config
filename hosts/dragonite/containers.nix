@@ -52,6 +52,7 @@ let
     "machop"
     "mankey"
     "meowth"
+    "mr-mime"
     "natu"
     "nidoking"
     "nidorina"
