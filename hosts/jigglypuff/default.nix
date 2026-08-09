@@ -48,6 +48,7 @@ in
 
   imports = with self.nixosModules; [
     ./disk-config.nix
+    agenix
     alloy
     blocky
     fonts
