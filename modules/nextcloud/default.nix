@@ -66,9 +66,8 @@ in
 
   services = {
     nextcloud = {
-      # TODO: Remap this to the standard /var/lib/nextcloud location
-      home = "/var/lib/4ac804cde4c09910c564d43eb76cb9ca/nextcloud";
-      datadir = "/var/lib/4ac804cde4c09910c564d43eb76cb9ca/nextcloud";
+      home = "/var/lib/nextcloud";
+      datadir = "/var/lib/nextcloud";
 
       configureMemories = true;
       settings = {
@@ -160,8 +159,6 @@ in
     };
 
     nginx = {
-      statusPage = true;
-
       virtualHosts."nextcloud.rovacsek.com" = {
         enableAuthelia = false;
         forceSSL = true;
