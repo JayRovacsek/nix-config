@@ -248,6 +248,7 @@ _: {
     };
     nidoking = {
       hostname = "nidoking";
+      macAddress = "02:42:c0:a8:0a:03";
       ips = [
         {
           address = "192.168.10.3";
@@ -258,7 +259,40 @@ _: {
           fqdn = "nextcloud.local";
         }
       ];
+      shares = [
+        {
+          hostPath = "/var/lib/nextcloud";
+          isReadOnly = false;
+          mountPoint = "/var/lib/nextcloud";
+          name = "nextcloud";
+        }
+        {
+          hostPath = "/srv/nextcloud";
+          isReadOnly = false;
+          mountPoint = "/srv/nextcloud";
+          name = "nextcloud-data";
+        }
+        {
+          hostPath = "/var/lib/mysql-nextcloud";
+          isReadOnly = false;
+          mountPoint = "/var/lib/mysql";
+          name = "mysql";
+        }
+      ];
+      vlan = "nextcloud";
+
+    };
+    nidorina = {
+      hostname = "nidorina";
+      ips = [
+        {
+          address = "192.168.5.3";
+          fqdn = "nidorina.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:05:03";
       shares = [ ];
+      vlan = "r-proxy";
     };
     nidorino = {
       hostname = "nidorino";
@@ -750,14 +784,14 @@ _: {
     nextcloud = {
       authelia = false;
       hostName = "nextcloud.rovacsek.com";
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.10.3";
       port = 443;
       protocol = "https";
       subdomain = "nextcloud";
     };
     nginx = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.5.3";
     };
     openssh = {
       public-keys = [

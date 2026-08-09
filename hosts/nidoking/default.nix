@@ -41,8 +41,6 @@ in
     };
 
     nginx = {
-      statusPage = true;
-
       virtualHosts."nextcloud.rovacsek.com" = {
         enableAuthelia = false;
         forceSSL = true;

@@ -43,14 +43,11 @@ in
   imports = with self.nixosModules; [
     ./backups.nix
     ./disk-config.nix
-    ./nginx.nix
     ./containers.nix
-    acme
     agenix
     alloy
     anubis
     blocky
-    ddclient
     firefox-syncserver
     fonts
     generations
@@ -61,11 +58,8 @@ in
     i18n
     jellyfin
     jellyseerr
-    # llama-cpp
     loki
     lorri
-    nextcloud
-    nginx
     nix
     nix-topology
     nvidia

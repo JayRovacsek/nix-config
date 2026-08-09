@@ -52,6 +52,8 @@ let
     "machop"
     "mankey"
     "meowth"
+    "nidoking"
+    "nidorina"
     "nidorino"
     "poliwag"
     "porygon"
