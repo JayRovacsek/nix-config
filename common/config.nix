@@ -328,7 +328,20 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:05:03";
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/var/lib/private/ddclient";
+          isReadOnly = false;
+          mountPoint = "/var/lib/private/ddclient";
+          name = "ddclient";
+        }
+        {
+          hostPath = "/var/lib/acme";
+          isReadOnly = false;
+          mountPoint = "/var/lib/acme";
+          name = "acme";
+        }
+      ];
       vlan = "r-proxy";
     };
     nidorino = {
@@ -349,7 +362,7 @@ _: {
           hostPath = "/var/lib/nidorino";
           isReadOnly = false;
           mountPoint = "/var/lib";
-          name = "movies";
+          name = "nidorino";
         }
       ];
       vlan = "auth";
@@ -796,7 +809,7 @@ _: {
     media = {
       groups = {
         media = {
-          gid = 400;
+          gid = 10002;
           members = [
             "jellyfin"
             "media"
@@ -825,6 +838,10 @@ _: {
       port = 443;
       protocol = "https";
       subdomain = "nextcloud";
+      users = {
+        groups.nextcloud.gid = 10003;
+        users.nextcloud.uid = 988;
+      };
     };
     nginx = {
       authelia = false;

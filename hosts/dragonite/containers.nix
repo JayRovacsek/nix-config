@@ -90,7 +90,6 @@ in
         ephemeral = true;
 
         privateNetwork = true;
-        privateUsers = "pick";
 
         localMacAddress = pokemon.macAddress;
         hostBridge = "br-${pokemon.vlan}";

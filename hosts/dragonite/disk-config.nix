@@ -9,6 +9,14 @@
 
   boot.zfs.forceImportRoot = false;
 
+  systemd.tmpfiles.rules = with self.common.config.services; [
+    "z /srv/downloads 0750 ${toString deluge.users.deluge.uid} ${toString media.groups.media.gid} -"
+    "z /srv/movies 0750 ${toString radarr.users.radarr.uid} ${toString media.groups.media.gid} -"
+    "z /srv/music 0750 ${toString lidarr.users.lidarr.uid} ${toString media.groups.media.gid} -"
+    "z /srv/nextcloud 0750 ${toString nextcloud.users.users.nextcloud.uid} ${toString nextcloud.users.groups.nextcloud.gid} -"
+    "z /srv/tv 0750 ${toString sonarr.users.sonarr.uid} ${toString media.groups.media.gid} -"
+  ];
+
   disko.devices = {
     disk = {
       wwn-0x5000c500c892b513 = {

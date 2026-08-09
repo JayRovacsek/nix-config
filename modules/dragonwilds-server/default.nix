@@ -1,4 +1,9 @@
-{ config, self, ... }: {
+{
+  config,
+  self,
+  ...
+}:
+{
   imports = [
     ../../options/modules/dragonwilds-server
     self.nixosModules.agenix
