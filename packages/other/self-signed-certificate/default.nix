@@ -26,7 +26,7 @@ let
     # There's likely better ways to achieve this here, but for now all we're
     # going to do is split domain into chars, pull their ASCII value, sum
     # the values and then stringify it to get this effect to an extent while staying deterministic in output.
-    # 
+    #
     # As these certificates are only ever for testing purposes, seems completely
     # reasonable.
     text = ''

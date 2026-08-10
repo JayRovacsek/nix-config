@@ -19,7 +19,8 @@
     "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILDjbVDfVzpcxnx9fl4pBr6eKAJdSyX4JLyBK02N9YeFAAAABHNzaDo= jay@rovacsek.com"
   ];
   home.file = {
-    ".config/git/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaL4kr1XUQWWuj+iFjXeIiE6zhRDQFbOs+6toGSW9+5";
+    ".config/git/allowed_signers".text =
+      "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaL4kr1XUQWWuj+iFjXeIiE6zhRDQFbOs+6toGSW9+5";
   };
   accounts.email.accounts.git = {
     address = "jay@rovacsek.com";

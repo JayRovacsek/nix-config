@@ -26,9 +26,13 @@ let
   webcord-vencord =
     if nvidia-present then
       pkgs.webcord-vencord.overrideAttrs (old: {
-        installPhase = builtins.replaceStrings [ "--ozone-platform-hint=auto" ] [
-          "--ozone-platform-hint=auto --disable-gpu --no-update"
-        ] old.installPhase;
+        installPhase =
+          builtins.replaceStrings
+            [ "--ozone-platform-hint=auto" ]
+            [
+              "--ozone-platform-hint=auto --disable-gpu --no-update"
+            ]
+            old.installPhase;
       })
     else
       pkgs.webcord-vencord;
@@ -36,8 +40,8 @@ let
   use-webcord = is-hyprland || (isAarch64 && isLinux);
   use-discord = !use-webcord;
 
-  # If we're on hyprland (and can assume wayland) or aarch64-linux, use the 
-  # webcord-vencord package otherwise use discord override 
+  # If we're on hyprland (and can assume wayland) or aarch64-linux, use the
+  # webcord-vencord package otherwise use discord override
   packages =
     (lib.optional use-webcord webcord-vencord)
     ++ (lib.optional use-discord discord);

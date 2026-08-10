@@ -13,7 +13,7 @@ let
   # curl -k https://api.linode.com/v4/linode/stackscripts -H 'X-Filter: {"label": {"+contains": "CS:GO"}}' -H "Content-Type: application/json" | jq '.data | .[] | .label,.id'
   scriptId = 401700;
 
-  # Went to add this via data search so we don't have magic numbers, but seems no 
+  # Went to add this via data search so we don't have magic numbers, but seems no
   # option exists that is good here...
   hostedZoneId = "Z07293822L0ODVN4UL1I4";
 in

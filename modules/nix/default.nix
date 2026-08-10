@@ -18,7 +18,7 @@
       builders-use-substitutes = true;
       experimental-features = "nix-command flakes";
       http-connections = 0;
-      sandbox = true;
+      sandbox = "relaxed";
       substituters = [
         "https://nixos-raspberrypi.cachix.org"
         "https://nix-community.cachix.org"

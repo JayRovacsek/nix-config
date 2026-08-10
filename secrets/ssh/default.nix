@@ -7,10 +7,10 @@ let
   ];
 in
 {
-  # Secrets SSH keys - in this instance all hard-tokens so 
+  # Secrets SSH keys - in this instance all hard-tokens so
   # threat modelling would require physical access to fully
   # compromise anyway.
-  # Here we use a prefix of $USERNAME- so we can dynamically 
+  # Here we use a prefix of $USERNAME- so we can dynamically
   # generate suitable configs re; identity files and whatnot
   "type-a-1.age".publicKeys = sshKeys;
   "type-c-1.age".publicKeys = sshKeys;

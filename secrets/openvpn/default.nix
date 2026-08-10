@@ -12,7 +12,8 @@ let
   openvpn-server-keys = [
     primary-key
     secondary-key
-  ] ++ diglett-keys;
+  ]
+  ++ diglett-keys;
 
 in
 {

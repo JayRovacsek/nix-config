@@ -61,7 +61,8 @@ in
       dns_transport_list = [ "GETDNS_TRANSPORT_TLS" ];
       resolution_type = "GETDNS_RESOLUTION_STUB";
     };
-  } // loggingOptions;
+  }
+  // loggingOptions;
 
   networking.firewall.allowedTCPPorts = [ utilisedPort ];
   networking.firewall.allowedUDPPorts = [ utilisedPort ];
