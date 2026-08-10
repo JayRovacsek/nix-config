@@ -8,13 +8,13 @@ let
   inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
 in
 buildPythonPackage rec {
-  pname = "libfsxfs-python";
-  version = "20240501";
+  pname = "libfsxfs_python";
+  version = "20260703";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-taoqcksMtacBcwdCIGGCH/1wtzQukrZfqCdWO3TMhT4=";
+    hash = "sha256-uGlUMCRc8LFnT3Z/rN4YtB3myZk5iD+OBQRSJxsgyPI=";
   };
 
   build-system = [ setuptools ];
