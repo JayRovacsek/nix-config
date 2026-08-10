@@ -192,7 +192,8 @@ in
                       "__journal__systemd_user_unit" = "systemd_user_unit";
                     };
               }
-            ] ++ (lib.optional clamav-enabled clamav-promtail-config);
+            ]
+            ++ (lib.optional clamav-enabled clamav-promtail-config);
           }
         ];
 

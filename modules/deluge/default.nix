@@ -4,10 +4,6 @@
   self,
   ...
 }:
-let
-  user = "media";
-  owner = user;
-in
 {
   age = {
     identityPaths = [ "/agenix/id-ed25519-deluge-primary" ];

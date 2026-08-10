@@ -11,8 +11,9 @@ let
   inherit (python3Packages)
     buildPythonPackage
     jinja2
-    poetry-core
     lxml
+    poetry-core
+    poetry-dynamic-versioning
     python-docx
     setuptools
     six
@@ -21,18 +22,19 @@ let
 in
 buildPythonPackage rec {
   pname = "docxtpl";
-  version = "0.19.1";
+  version = "0.20.2";
   pyproject = true;
 
   pythonRemoveDeps = [ "black" ];
 
   nativeBuildInputs = [
     poetry-core
+    poetry-dynamic-versioning
   ];
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-WDaqtVg6guLoGwhvrhMM6U3AgPa3/g5D+D9OPj5drs8=";
+    hash = "sha256-7d8zUNcLTRIyCOgB1YW8sxPSEESjd6FPdaZtCWWEHeE=";
   };
 
   build-system = [ setuptools ];

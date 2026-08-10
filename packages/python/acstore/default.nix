@@ -14,12 +14,12 @@ let
 in
 buildPythonPackage rec {
   pname = "acstore";
-  version = "20240407";
+  version = "20260411";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-yubHDEZ5nwltQW8sLEAhgyaXI0svHCS3a7Mewi6cvpg=";
+    hash = "sha256-+1kpSulAxp4+BFwLMicL9wUQU2x6/JDF9VIeKzgrTI4=";
   };
 
   build-system = [ setuptools ];

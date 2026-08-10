@@ -23,8 +23,10 @@ in
     };
   };
 
-  systemd.services.docker.after = lib.optionals (
-    zfsBootSupported || zfsServiceSupported
-  ) [ "zfs-mount.service" ];
+  systemd.services.docker.after =
+    lib.optionals (zfsBootSupported || zfsServiceSupported)
+      [
+        "zfs-mount.service"
+      ];
   systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
 }

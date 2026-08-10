@@ -9,7 +9,7 @@ let
 
   meta = with lib; {
     homepage = "https://github.com/moul/mdtable";
-    description = "csv/json to markdown tables with customizable format";
+    description = "csv/json to markdown tables with customisable format";
     license = licenses.mit;
   };
 

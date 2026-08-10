@@ -95,7 +95,7 @@ let
     | ${findutils}/bin/xargs -I {} sh -c 'jq --arg type "{}" ".resource.{} \
     | to_entries | map(.value | {resource: \$type} + .)" ${cfg} > ./packages/terranix/${stack}/{}.json'
 
-    # Use the generated json files to propulate tables describing the deployed
+    # Use the generated json files to populate tables describing the deployed
     # resources
     ${findutils}/bin/find ./packages/terranix/${stack} -type f -name "*.json" \
     | ${toybox}/bin/rev | ${coreutils}/bin/cut -d '/' -f 1 | rev | ${gnused}/bin/sed 's/.json//g' \

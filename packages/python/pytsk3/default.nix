@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "pytsk3";
-  version = "20231007";
+  version = "20260715";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-uPE5ytLj+sv/fp1AYjwIdrHLRQU/EVnDZQEGwcK6T/g=";
+    hash = "sha256-UIJfl8tbm98xGUZhBNeOm+9RLdCgzhYVrqcArS9Fe44=";
   };
 
   build-system = [ setuptools ];

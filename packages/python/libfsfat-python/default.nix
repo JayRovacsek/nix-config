@@ -8,13 +8,13 @@ let
   inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
 in
 buildPythonPackage rec {
-  pname = "libfsfat-python";
-  version = "20240501";
+  pname = "libfsfat_python";
+  version = "20260717";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-75eftmduyuG8nJ/gOjm5inBhe+WVi+j5cFTtoBb3ngM=";
+    hash = "sha256-sPkdVteMUGSZnLTHXCBUCoQ8SivWXyHIyRbdDAd2Rus=";
   };
 
   build-system = [ setuptools ];

@@ -41,23 +41,11 @@ in
           # TOML
           tamasfe.even-better-toml
 
-          # Terraform
-          hashicorp.terraform
-
           # Spellcheck
           streetsidesoftware.code-spell-checker
 
           # Shell
           timonwong.shellcheck
-
-          # Docker
-          ms-azuretools.vscode-docker
-
-          # Theme
-          zhuangtongfa.material-theme
-
-          # Icons
-          pkief.material-icon-theme
 
           # Markdown
           bierner.markdown-mermaid
