@@ -761,6 +761,29 @@
         "type": "github"
       }
     },
+    "nixbot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785099231,
+        "narHash": "sha256-Z0BaMfBOFj3ysAHrW4e3vXxgWjobtvHjATSCtgaboFA=",
+        "owner": "Mic92",
+        "repo": "nixbot",
+        "rev": "a2baa3c6366bc38f72a0f2df9a6a1f44cfbe1c8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nixbot",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1736643958,
@@ -1027,7 +1050,6 @@
       "inputs": {
         "agenix": "agenix",
         "bleeding-edge": "bleeding-edge",
-        "buildbot-nix": "buildbot-nix",
         "devshell": "devshell",
         "direnv-instant": "direnv-instant",
         "disko": "disko",
@@ -1049,6 +1071,7 @@
         "nix-minecraft": "nix-minecraft",
         "nix-monitored": "nix-monitored",
         "nix-topology": "nix-topology",
+        "nixbot": "nixbot",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-raspberrypi": "nixos-raspberrypi",
