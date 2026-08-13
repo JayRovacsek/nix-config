@@ -29,8 +29,10 @@ let
         passwordFile = config.age.secrets.nextcloud-password.path;
         paths = [
           "/srv/nextcloud"
-          "/var/lib/${builtins.hashString "md5" "nidoking"}/nextcloud"
           "/var/lib/${builtins.hashString "md5" "nidoking"}/mysql"
+          "/var/lib/${builtins.hashString "md5" "nidoking"}/nextcloud"
+          "/var/lib/mysql-nextcloud"
+          "/var/lib/nextcloud"
         ];
         repository = "/mnt/backup/restic/nextcloud";
         timerConfig = null;

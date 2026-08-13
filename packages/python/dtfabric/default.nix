@@ -17,12 +17,12 @@ let
 in
 buildPythonPackage rec {
   pname = "dtfabric";
-  version = "20230520";
+  version = "20260506";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
+    hash = "sha256-n/z2OD3vZrEKoYC3eRVIx6XpgKwTbTaKqp2O2cg11fs=";
   };
 
   build-system = [ setuptools ];

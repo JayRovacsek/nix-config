@@ -233,7 +233,8 @@ in
 
       ".popup-launcher".padding = 0;
 
-      ".popup-launcher .popup-item:not(:first-child)".border-top = "1px solid @color_border";
+      ".popup-launcher .popup-item:not(:first-child)".border-top =
+        "1px solid @color_border";
 
       # -- music --
 

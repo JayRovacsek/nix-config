@@ -4,7 +4,6 @@
   fetchPypi,
   python3Packages,
   self,
-  stdenv,
   ...
 }:
 let
@@ -150,14 +149,7 @@ buildPythonPackage rec {
     python-dateutil
     pytsk3
     pytz
-    # This is required to support the darwin architecture for pyxattr
-    (pyxattr.overrideAttrs (old: rec {
-      buildInputs = lib.optional stdenv.isLinux pkgs.attr;
-      meta.platforms = old.meta.platforms ++ [
-        "aarch64-darwin"
-      ];
-      hardeningDisable = lib.optional stdenv.isDarwin "strictoverflow";
-    }))
+    pyxattr
     pyyaml
     pyzmq
     redis

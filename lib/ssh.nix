@@ -3,8 +3,8 @@ let
 
   # So this is a fair hack to avoid evaluation time per host in this
   # flake. But we will likely be able to address failing points with this in
-  # the future by creating a new app to accompany distributed builds 
-  # that would generate ahead of time better FQDN names when tailscale is 
+  # the future by creating a new app to accompany distributed builds
+  # that would generate ahead of time better FQDN names when tailscale is
   # also in the mix
   #
   # TODO: be less hacky

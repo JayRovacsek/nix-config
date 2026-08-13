@@ -37,7 +37,9 @@ let
     )}
   '';
 
-  floodgate-config = pkgs.writers.writeYAML "config.yml" (import ./floodgate-config.nix);
+  floodgate-config = pkgs.writers.writeYAML "config.yml" (
+    import ./floodgate-config.nix
+  );
   geyser-config = pkgs.writers.writeYAML "config.yml" (
     import ./geyser-config.nix { inherit self; }
   );

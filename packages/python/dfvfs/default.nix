@@ -4,7 +4,6 @@
   fetchPypi,
   python3Packages,
   self,
-  stdenv,
   ...
 }:
 let
@@ -53,12 +52,12 @@ let
 in
 buildPythonPackage rec {
   pname = "dfvfs";
-  version = "20240505";
+  version = "20260731";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-1stZe1ZnERKCg5Ww77bfv17fXvAaaESOi6oABQX6jwk=";
+    hash = "sha256-DUSiqDtRRD6ViM4W+JZa3aZ0ID1ruyL+mSa+N/mJJC8=";
   };
 
   build-system = [ setuptools ];
@@ -93,22 +92,13 @@ buildPythonPackage rec {
     libvshadow-python
     libvslvm-python
     pytsk3
-    # This is required to support the darwin architecture for pyxattr
-    (pyxattr.overrideAttrs (old: rec {
-      buildInputs = lib.optional stdenv.isLinux pkgs.attr;
-      meta.platforms = old.meta.platforms ++ [
-        "aarch64-darwin"
-      ];
-      hardeningDisable = lib.optional stdenv.isDarwin "strictoverflow";
-    }))
+    pyxattr
     pyyaml
   ];
 
-  disabled = pythonOlder "3.8";
+  pythonRemoveDeps = [ "xattr" ];
 
-  # This is required only as the build process incorrectly assumes xattr
-  # is not installed, despite it being included in dependencies.
-  patches = [ ./no-xattr-dependency.patch ];
+  disabled = pythonOlder "3.8";
 
   pythonImportsCheck = [ pname ];
 

@@ -69,6 +69,7 @@ in
   mankey = extend-host-as-container unstable-x86-base "mankey";
   meowth = extend-host-as-container unstable-x86-base "meowth";
   mr-mime = extend-host-as-container unstable-x86-base "mr-mime";
+  natu = extend-host-as-container unstable-x86-base "natu";
   nidoking = extend-host-as-container unstable-x86-base "nidoking";
   nidorina = extend-host-as-container unstable-x86-base "nidorina";
   nidorino = extend-host-as-container unstable-x86-base "nidorino";

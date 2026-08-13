@@ -1,7 +1,7 @@
 { cfg, ... }:
 # Hey there! If you're keen to tell me secrets below
 # shouldn't be in source code, please don't :)
-# The below values are not utilised and only intended to showcase 
+# The below values are not utilised and only intended to showcase
 # what a default configuration may look like.
 # Have an awesome day!
 let

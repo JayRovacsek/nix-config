@@ -37,7 +37,7 @@ let
       defaultHome = {
         enableNixpkgsReleaseCheck = false;
 
-        # State version here is the database layout NOT the packages version or 
+        # State version here is the database layout NOT the packages version or
         # associated settings.
         # stateVersion = "22.11";
 
@@ -55,7 +55,7 @@ let
       accounts = lib.attrsets.optionalAttrs (hasAttr "accounts" user-settings) user-settings.accounts;
 
     in
-    # Inverting the logic on recursive update here to increase readability: otherwise 
+    # Inverting the logic on recursive update here to increase readability: otherwise
     # overrides would need to follow the base config leading to it hiding at the end of
     # this file.
     flippedRecursiveUpdate overrides {
@@ -101,7 +101,8 @@ let
         "${cfg.group.name}" = {
           inherit (cfg.group) gid members;
         };
-      } // extraGroupExtendedOptions;
+      }
+      // extraGroupExtendedOptions;
     };
 
 in

@@ -11,7 +11,7 @@
 
   # Setting this up was, interesting. A few footguns to understand:
   # * zone is not zone as per zone-id in cloudflare
-  # * use directive should be roughly as below - I tried a few from other 
+  # * use directive should be roughly as below - I tried a few from other
   # user's configuration but did not have a great time with them
   # * cloudflare records need to exist prior to you adding them to the
   # below domains list - TODO: finish the cloudflare config terranix

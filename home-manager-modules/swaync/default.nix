@@ -42,82 +42,96 @@ in
         background-color = "#${base00}";
       };
 
-      ".floating-notifications.background .notification-row .notification-background" = {
-        box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #${base03}";
-        border-radius = "12.6px";
-        margin = "18px";
-        background-color = "#${base00}";
-        color = "#${base03}";
-        padding = 0;
-      };
+      ".floating-notifications.background .notification-row .notification-background" =
+        {
+          box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #${base03}";
+          border-radius = "12.6px";
+          margin = "18px";
+          background-color = "#${base00}";
+          color = "#${base03}";
+          padding = 0;
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification" = {
-        padding = "7px";
-        border-radius = "12.6px";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification" =
+        {
+          padding = "7px";
+          border-radius = "12.6px";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification.critical" = {
-        box-shadow = "inset 0 0 7px 0 #${base03}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification.critical" =
+        {
+          box-shadow = "inset 0 0 7px 0 #${base03}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification .notification-content" = {
-        margin = "7px";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification .notification-content" =
+        {
+          margin = "7px";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .summary" = {
-        color = "#${base03}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .summary" =
+        {
+          color = "#${base03}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .time" = {
-        color = "#${base04}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .time" =
+        {
+          color = "#${base04}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .body" = {
-        color = "#${base03}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification .notification-content .body" =
+        {
+          color = "#${base03}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > *" = {
-        min-height = "3.4em";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > *" =
+        {
+          min-height = "3.4em";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action" = {
-        border-radius = "7px";
-        color = "#${base03}";
-        background-color = "#${base04}";
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        margin = "7px";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action" =
+        {
+          border-radius = "7px";
+          color = "#${base03}";
+          background-color = "#${base04}";
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          margin = "7px";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        background-color = "#${base04}";
-        color = "#${base03}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" =
+        {
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          background-color = "#${base04}";
+          color = "#${base03}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active" = {
-        background-color = "#${base02}";
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        color = "#${base03}";
+      ".floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active" =
+        {
+          background-color = "#${base02}";
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          color = "#${base03}";
 
-      };
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .close-button" = {
-        margin = "7px";
-        padding = "2px";
-        border-radius = "6.3px";
-        color = "#${base00}";
-        background-color = "#${base09}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .close-button" =
+        {
+          margin = "7px";
+          padding = "2px";
+          border-radius = "6.3px";
+          color = "#${base00}";
+          background-color = "#${base09}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .close-button:hover" = {
-        background-color = "#${base08}";
-        color = "#${base00}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .close-button:hover" =
+        {
+          background-color = "#${base08}";
+          color = "#${base00}";
+        };
 
-      ".floating-notifications.background .notification-row .notification-background .close-button:active" = {
-        background-color = "#${base09}";
-        color = "#${base00}";
-      };
+      ".floating-notifications.background .notification-row .notification-background .close-button:active" =
+        {
+          background-color = "#${base09}";
+          color = "#${base00}";
+        };
 
       ".control-center" = {
         box-shadow = "0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #${base03}";
@@ -166,49 +180,58 @@ in
         border-radius = "7px";
       };
 
-      ".control-center .notification-row .notification-background .notification.critical" = {
-        box-shadow = "inset 0 0 7px 0 #${base09}";
-      };
+      ".control-center .notification-row .notification-background .notification.critical" =
+        {
+          box-shadow = "inset 0 0 7px 0 #${base09}";
+        };
 
-      ".control-center .notification-row .notification-background .notification .notification-content" = {
-        margin = "7px";
-      };
+      ".control-center .notification-row .notification-background .notification .notification-content" =
+        {
+          margin = "7px";
+        };
 
-      ".control-center .notification-row .notification-background .notification .notification-content .summary" = {
-        color = "#${base03}";
-      };
+      ".control-center .notification-row .notification-background .notification .notification-content .summary" =
+        {
+          color = "#${base03}";
+        };
 
-      ".control-center .notification-row .notification-background .notification .notification-content .time" = {
-        color = "#${base04}";
-      };
+      ".control-center .notification-row .notification-background .notification .notification-content .time" =
+        {
+          color = "#${base04}";
+        };
 
-      ".control-center .notification-row .notification-background .notification .notification-content .body" = {
-        color = "#${base03}";
-      };
+      ".control-center .notification-row .notification-background .notification .notification-content .body" =
+        {
+          color = "#${base03}";
+        };
 
-      ".control-center .notification-row .notification-background .notification > *:last-child > *" = {
-        min-height = "3.4em";
-      };
+      ".control-center .notification-row .notification-background .notification > *:last-child > *" =
+        {
+          min-height = "3.4em";
+        };
 
-      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action" = {
-        border-radius = "7px";
-        color = "#${base03}";
-        background-color = "#${base01}";
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        margin = "7px";
-      };
+      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action" =
+        {
+          border-radius = "7px";
+          color = "#${base03}";
+          background-color = "#${base01}";
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          margin = "7px";
+        };
 
-      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" = {
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        background-color = "#${base04}";
-        color = "#${base03}";
-      };
+      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover" =
+        {
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          background-color = "#${base04}";
+          color = "#${base03}";
+        };
 
-      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active" = {
-        box-shadow = "inset 0 0 0 1px #${base03}";
-        background-color = "#${base02}";
-        color = "#${base03}";
-      };
+      ".control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active" =
+        {
+          box-shadow = "inset 0 0 0 1px #${base03}";
+          background-color = "#${base02}";
+          color = "#${base03}";
+        };
 
       ".control-center .notification-row .notification-background .close-button" = {
         margin = "7px";
@@ -222,15 +245,17 @@ in
         border-radius = "6.3px";
       };
 
-      ".control-center .notification-row .notification-background .close-button:hover" = {
-        background-color = "#${base09}";
-        color = "#${base00}";
-      };
+      ".control-center .notification-row .notification-background .close-button:hover" =
+        {
+          background-color = "#${base09}";
+          color = "#${base00}";
+        };
 
-      ".control-center .notification-row .notification-background .close-button:active" = {
-        background-color = "#${base09}";
-        color = "#${base00}";
-      };
+      ".control-center .notification-row .notification-background .close-button:active" =
+        {
+          background-color = "#${base09}";
+          color = "#${base00}";
+        };
 
       ".control-center .notification-row .notification-background:hover" = {
         background-color = "#${base06}";
@@ -314,9 +339,10 @@ in
         color = "#${base09}";
       };
 
-      ".power-buttons button:hover, .powermode-buttons button:hover, .screenshot-buttons button:hover" = {
-        background = "#${base04}";
-      };
+      ".power-buttons button:hover, .powermode-buttons button:hover, .screenshot-buttons button:hover" =
+        {
+          background = "#${base04}";
+        };
 
       ".control-center .widget-label > label" = {
         color = "#${base03}";

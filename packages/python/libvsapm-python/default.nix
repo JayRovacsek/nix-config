@@ -8,13 +8,13 @@ let
   inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
 in
 buildPythonPackage rec {
-  pname = "libvsapm-python";
-  version = "20240503";
+  pname = "libvsapm_python";
+  version = "20260713";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-QLsfTZhdCysfdQNIyE62wDRfBEuqdiio0u9B5qOlSIM=";
+    hash = "sha256-MmsyFEGw/2xMnLphNF1pK7GDzn1/PPr/qqk31dOGSN0=";
   };
 
   build-system = [ setuptools ];

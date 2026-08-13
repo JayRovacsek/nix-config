@@ -3,7 +3,7 @@
   imports = [ self.inputs.disko.nixosModules.default ];
 
   fileSystems = {
-    "/".options = [ "size=4G" ];
+    "/".options = [ "size=12G" ];
     "/persistent".neededForBoot = true;
   };
 

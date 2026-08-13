@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "dfdatetime";
-  version = "20240504";
+  version = "20260730";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-WE/6UBEpkUSv2kyrtVrOxP4Gk2RaymKGQWEPQT9ra20=";
+    hash = "sha256-7gc/inLLBl+rDAGzVTEAMsLJlZ2WmNhns+SJ7ROahn4=";
   };
 
   build-system = [ setuptools ];

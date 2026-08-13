@@ -8,7 +8,7 @@ let
     private-repository-settings
     ;
 
-  # Replacing periods with hyphens won't always be a solve for terrafrom
+  # Replacing periods with hyphens won't always be a solve for terraform
   # resource names, but for now it's the only character we need to handle in this
   # space
   sanitise-resource-name = builtins.replaceStrings [ "." ] [ "-" ];

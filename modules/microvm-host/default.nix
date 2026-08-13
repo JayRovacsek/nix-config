@@ -56,7 +56,7 @@ let
           wants = vm-dependencies;
         };
 
-      # Required to ensure devices that are depended on by microvms are 
+      # Required to ensure devices that are depended on by microvms are
       # correctly started prior to virtual device services attempting to load
       "microvm-macvtap-interfaces@" =
         let

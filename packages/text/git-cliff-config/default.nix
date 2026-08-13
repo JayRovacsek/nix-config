@@ -1,5 +1,5 @@
 { writers, ... }:
-# TODO: figure if I can ever remove the hardcoded site value on the 
+# TODO: figure if I can ever remove the hardcoded site value on the
 # last line of the config
 writers.writeTOML "cliff.toml" {
   # https://git-cliff.org/docs/configuration

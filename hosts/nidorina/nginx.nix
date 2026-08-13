@@ -196,6 +196,7 @@ let
       kTLS = true;
 
       locations."/" = {
+        proxyPass = "${nextcloud.protocol}://${nextcloud.ipv4}:${builtins.toString nextcloud.port}";
         # The below is required as by default nginx will utilise differing
         # max client body sizes - this is simply a copy of the recommended
         # nextcloud proxy config, minus any headers as the response from

@@ -21,12 +21,12 @@ let
 in
 buildPythonPackage rec {
   pname = "dfwinreg";
-  version = "20240229";
+  version = "20260411";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-guiWjSx3LsPkPOgqN6axfE36FOuZet5LrnYIHZqQ6WM=";
+    hash = "sha256-QHK1MyiKedhkgdDdtPrBBGGmdUN+eK0rV0Y7T3SOf+g=";
   };
 
   build-system = [ setuptools ];

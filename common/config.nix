@@ -243,11 +243,49 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:12:02";
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/srv/logs";
+          isReadOnly = false;
+          mountPoint = "/srv/logs";
+          name = "log-data";
+        }
+        {
+          hostPath = "/var/lib/grafana";
+          isReadOnly = false;
+          mountPoint = "/var/lib/grafana";
+          name = "grafana";
+        }
+        {
+          hostPath = "/var/lib/loki";
+          isReadOnly = false;
+          mountPoint = "/var/lib/loki";
+          name = "loki";
+        }
+        {
+          hostPath = "/var/lib/prometheus2";
+          isReadOnly = false;
+          mountPoint = "/var/lib/prometheus2";
+          name = "prometheus";
+        }
+      ];
       vlan = "log";
+    };
+    natu = {
+      hostname = "natu";
+      ips = [
+        {
+          address = "192.168.5.8";
+          fqdn = "natu.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:05:08";
+      shares = [ ];
+      vlan = "r-proxy";
     };
     nidoking = {
       hostname = "nidoking";
+      macAddress = "02:42:c0:a8:0a:03";
       ips = [
         {
           address = "192.168.10.3";
@@ -258,7 +296,53 @@ _: {
           fqdn = "nextcloud.local";
         }
       ];
-      shares = [ ];
+      shares = [
+        {
+          hostPath = "/var/lib/nextcloud";
+          isReadOnly = false;
+          mountPoint = "/var/lib/nextcloud";
+          name = "nextcloud";
+        }
+        {
+          hostPath = "/srv/nextcloud";
+          isReadOnly = false;
+          mountPoint = "/srv/nextcloud";
+          name = "nextcloud-data";
+        }
+        {
+          hostPath = "/var/lib/mysql-nextcloud";
+          isReadOnly = false;
+          mountPoint = "/var/lib/mysql";
+          name = "mysql";
+        }
+      ];
+      vlan = "nextcloud";
+
+    };
+    nidorina = {
+      hostname = "nidorina";
+      ips = [
+        {
+          address = "192.168.5.3";
+          fqdn = "nidorina.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:05:03";
+      shares = [
+        {
+          hostPath = "/var/lib/private/ddclient";
+          isReadOnly = false;
+          mountPoint = "/var/lib/private/ddclient";
+          name = "ddclient";
+        }
+        {
+          hostPath = "/var/lib/acme";
+          isReadOnly = false;
+          mountPoint = "/var/lib/acme";
+          name = "acme";
+        }
+      ];
+      vlan = "r-proxy";
     };
     nidorino = {
       hostname = "nidorino";
@@ -278,7 +362,7 @@ _: {
           hostPath = "/var/lib/nidorino";
           isReadOnly = false;
           mountPoint = "/var/lib";
-          name = "movies";
+          name = "nidorino";
         }
       ];
       vlan = "auth";
@@ -548,7 +632,7 @@ _: {
   services = {
     anubis = {
       bind-network = "tcp";
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.5.8";
       metrics-bind-network = "tcp";
       metrics-port = 4445;
       port = 4444;
@@ -646,7 +730,7 @@ _: {
     };
     grafana = {
       authelia = true;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 3002;
       protocol = "http";
       subdomain = "grafana";
@@ -719,7 +803,7 @@ _: {
     };
     loki = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 3100;
       protocol = "http";
       push-api = "loki/api/v1/push";
@@ -732,7 +816,7 @@ _: {
     media = {
       groups = {
         media = {
-          gid = 400;
+          gid = 10002;
           members = [
             "jellyfin"
             "media"
@@ -757,14 +841,18 @@ _: {
     nextcloud = {
       authelia = false;
       hostName = "nextcloud.rovacsek.com";
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.10.3";
       port = 443;
       protocol = "https";
       subdomain = "nextcloud";
+      users = {
+        groups.nextcloud.gid = 10003;
+        users.nextcloud.uid = 988;
+      };
     };
     nginx = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.5.3";
     };
     openssh = {
       public-keys = [
@@ -793,7 +881,7 @@ _: {
     };
     prometheus = {
       authelia = false;
-      ipv4 = "192.168.1.220";
+      ipv4 = "192.168.18.2";
       port = 9092;
       protocol = "http";
       subdomain = "prometheus";

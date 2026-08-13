@@ -4,9 +4,7 @@
   self,
   ...
 }:
-
 let
-
   containerHostnames = builtins.attrNames config.containers;
 
   path-file = s: lib.last (lib.splitString "/" s);
@@ -52,6 +50,10 @@ let
     "machop"
     "mankey"
     "meowth"
+    "mr-mime"
+    "natu"
+    "nidoking"
+    "nidorina"
     "nidorino"
     "poliwag"
     "porygon"
@@ -118,6 +120,10 @@ in
         specialArgs = { inherit self; };
 
         config = _: {
+          nixpkgs.config = {
+            allowUnfree = lib.mkForce true;
+            cudaSupport = true;
+          };
           age = {
             identityPaths = [
               "/agenix/id-ed25519-${pokemon.name}-primary"
