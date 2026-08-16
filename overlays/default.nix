@@ -100,8 +100,9 @@
     _: prev:
     let
       lib-net =
-        (import "${self.inputs.lib-net}/net.nix" { inherit (self.inputs.nixpkgs) lib; })
-        .lib.net;
+        (import "${self.inputs.lib-net}/net.nix" {
+          inherit (self.inputs.nixpkgs_unstable) lib;
+        }).lib.net;
 
       net = builtins.removeAttrs (lib-net [ "types" ]);
 
@@ -112,6 +113,24 @@
         types.net = lib-net.types;
       };
     };
+
+  # nixpkgs' vmTools was refactored to expect `kernel` to be a real kernel
+  # derivation exposing `target` (the kernel image filename). disko's
+  # make-disk-image still passes `aggregateModules` (a buildEnv) as `kernel`,
+  # which strips `target`, breaking `system.build.diskoImages`. Preserve the
+  # kernel's `target` on the aggregated tree so `-kernel $out/<target>` works.
+  aggregateModules = _: prev: {
+    aggregateModules =
+      modules:
+      let
+        result = prev.aggregateModules modules;
+        kernel = builtins.head modules;
+      in
+      if modules != [ ] && kernel ? target then
+        result // { inherit (kernel) target; }
+      else
+        result;
+  };
 
   # Useful for SBCs when they will be missing modules that upstream definitions
   # expect but we won't use; e.g SATA
@@ -172,6 +191,6 @@
   };
 
   waybar = _: prev: {
-    inherit (self.inputs.nixpkgs.legacyPackages.${prev.system}) waybar;
+    inherit (self.inputs.nixpkgs_unstable.legacyPackages.${prev.system}) waybar;
   };
 }

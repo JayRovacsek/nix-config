@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   self,
   ...
 }:
@@ -16,7 +17,7 @@
   };
 
   programs.direnv-instant = {
-    enable = true;
+    enable = !(pkgs.stdenv.isAarch64 && pkgs.stdenv.isLinux);
     settings.use_cache = true;
   };
 }

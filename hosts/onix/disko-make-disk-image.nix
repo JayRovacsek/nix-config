@@ -22,9 +22,10 @@ let
       imagePkgs
       ;
   };
-  # Vendored from disko's lib/make-disk-image.nix with two fixes so that
-  # cross-architecture image builds (aarch64 target on an x86_64 builder)
-  # actually work:
+  # Vendored from disko's lib/make-disk-image.nix (rev
+  # ff8702b4de27f72b4c78573dfb89ec74e36abdf1) so cross-architecture image builds
+  # (aarch64 target on an x86_64 builder) actually work. Divergences from
+  # upstream:
   #
   # 1. The upstream binfmtSetup used `systemd-binfmt <(echo ...)`, relying on
   #    process substitution which needs /dev/fd. That is only wired up later
@@ -34,10 +35,14 @@ let
   #    /proc/sys/fs/binfmt_misc/register.
   #
   # 2. Upstream registered binfmt inside `installer`, which runs *after* the
-  #    partitioner on the `diskoImagesScript` path. The partitioner's
-  #    destroyFormatMount is built with the target (aarch64) pkgs, so it needs
-  #    binfmt registered before it runs. We register binfmt before the
+  #    partitioner on the `diskoImagesScript` path. The partitioner (and later
+  #    nixos-install) run aarch64 binaries and fail with "Exec format error"
+  #    unless binfmt is registered first. We register binfmt before the
   #    partitioner in the script's origBuilder instead.
+  #
+  # 3. system.build.diskoImages and system.build.diskoImagesScript are wrapped
+  #    in lib.mkForce so they override the plain definitions from disko's own
+  #    make-disk-image.nix (still imported via self.inputs.disko.nixosModules.default).
   binfmtSetup =
     lib.optionalString (cfg.enableBinfmt && binfmt.systemsAreDifferent)
       ''
