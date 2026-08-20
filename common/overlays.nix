@@ -15,6 +15,7 @@ in
   ];
 
   linux = [
+    self.overlays.aggregateModules
     self.overlays.element-desktop
     self.overlays.makeModulesClosure
     self.overlays.moonlight-wayland
