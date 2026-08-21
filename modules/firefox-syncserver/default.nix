@@ -43,6 +43,8 @@ in
         enableTLS = true;
         hostname = "firefox-syncserver.rovacsek.com";
       };
+
+      database.type = "mysql";
     };
 
     mysql.package = pkgs.mariadb;
