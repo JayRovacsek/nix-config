@@ -95,7 +95,7 @@ let
         "${system}-${target.name}" =
           let
             pkgs = target.pkgs.legacyPackages.${system};
-            inherit (pkgs.stdenv) isDarwin isLinux;
+            inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
             inherit (pkgs.lib.lists) optionals;
           in
           import target.pkgs {
