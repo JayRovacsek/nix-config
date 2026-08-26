@@ -92,7 +92,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
-        nix-systems.follows = "systems";
       };
       url = "github:JakeStanger/ironbar";
     };
