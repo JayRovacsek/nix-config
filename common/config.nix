@@ -379,13 +379,34 @@ _: {
           fqdn = "bazarr.local";
         }
       ];
-      shares = [ ];
+      macAddress = "02:42:c0:a8:04:8b";
+      shares = [
+        {
+          hostPath = "/srv/tv";
+          isReadOnly = false;
+          mountPoint = "/srv/tv";
+          name = "tv";
+        }
+        {
+          hostPath = "/srv/movies";
+          isReadOnly = false;
+          mountPoint = "/srv/movies";
+          name = "movies";
+        }
+        {
+          hostPath = "/var/lib/bazarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/bazarr";
+          name = "bazarr";
+        }
+      ];
+      vlan = "download";
     };
     onix = {
       hostname = "onix";
       ips = [
         {
-          address = "192.168.5.4";
+          address = "192.168.1.70";
           fqdn = "onix.local";
         }
       ];
@@ -651,6 +672,12 @@ _: {
       port = 6767;
       protocol = "http";
       subdomain = "bazarr";
+      users.bazarr = {
+        group = "media";
+        name = "bazarr";
+        isSystemUser = true;
+        uid = 400;
+      };
     };
     bedrock-connect = {
       ipv4 = "192.168.17.2";
@@ -683,6 +710,13 @@ _: {
       port = 8010;
       protocol = "http";
       subdomain = "buildbot";
+    };
+    cicd = {
+      authelia = false;
+      ipv4 = "192.168.5.6";
+      port = 8010;
+      protocol = "http";
+      subdomain = "cicd";
     };
     code = {
       authelia = true;
