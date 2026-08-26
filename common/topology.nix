@@ -14,23 +14,53 @@ let
     ;
   inherit (pkgs) system;
   inherit (lib) recursiveUpdate;
+
+  # The nixos-container extractor only sees guests attached via `interfaces`
+  # or `macvlans`, but dragonite attaches its containers via `hostBridge`.
+  # Connect each guest's eth0 directly to the vlan interface it is bridged
+  # onto, so it binds to that network without needing the bridge hop.
+  dragoniteContainers =
+    self.nixosConfigurations.dragonite.config.containers or { };
+
+  dragoniteVlans = lib.unique (
+    lib.mapAttrsToList (
+      _: c: lib.removePrefix "br-" c.hostBridge
+    ) dragoniteContainers
+  );
+
+  dragoniteContainerNodes = lib.mapAttrs (_: c: {
+    interfaces.eth0.physicalConnections = [
+      (mkConnection "dragonite" (lib.removePrefix "br-" c.hostBridge))
+    ];
+  }) dragoniteContainers;
 in
 {
-  nixosConfigurations = builtins.removeAttrs self.nixosConfigurations [
-    "amazon"
-    "butterfree"
-    "ditto"
-    "linode"
-    "mew"
-    "oracle"
-    "porygon"
-    "rpi4"
-    "rpi5"
-  ];
+  nixosConfigurations =
+    builtins.removeAttrs self.nixosConfigurations [
+      "amazon"
+      "butterfree"
+      "ditto"
+      "linode"
+      "mew"
+      "oracle"
+      "oddish"
+      "grimer"
+      "rpi4"
+      "rpi5"
+    ]
+    ++
+    # Temporarily removed until I can better represent the hosts
+    [
+      "magikarp"
+      "magnemite"
+      "magneton"
+      "onix"
+      "tentacruel"
+    ];
 
   nodes = {
     # WAN interfaces
-    internet = mkInternet { connections = mkConnection "pfsense" "em1"; };
+    internet = mkInternet { connections = mkConnection "pfsense" "em0"; };
     openvpn1 = mkInternet { connections = mkConnection "pfsense" "ovpnc1"; };
     openvpn2 = mkInternet { connections = mkConnection "diglett" "eth0"; };
 
@@ -50,13 +80,20 @@ in
         tun0.network = "ovpnc2";
       };
     };
-    dragonite.interfaces =
+    dragonite.interfaces = lib.mkForce (
       let
         interfaces = builtins.foldl' (
-          acc: vlan: recursiveUpdate acc { ${vlan.name}.network = vlan.name; }
-        ) { } self.common.config.networks;
+          acc: vlan:
+          recursiveUpdate acc {
+            ${vlan} = {
+              network = vlan;
+              virtual = true;
+            };
+          }
+        ) { } dragoniteVlans;
       in
-      recursiveUpdate { eth0.network = "lan"; } interfaces;
+      recursiveUpdate { eth0.network = "lan"; } interfaces
+    );
 
     gastly.interfaces.wlan0.network = "wlan";
     ivysaur.interfaces.eth0.network = "lan";
@@ -70,11 +107,9 @@ in
       image = "${self.packages.${system}.pfsense-logo}/share/logo.png";
       interfaceGroups = [
         [ "em0" ]
-        [
-          "em1"
-          "ovpnc1"
-          "ovpnc2"
-        ]
+        [ "em1" ]
+        [ "ovpnc1" ]
+        [ "ovpnc2" ]
       ];
 
       interfaces =
@@ -91,10 +126,12 @@ in
           ) { } self.common.config.networks;
         in
         {
+          em0 = { };
           em1 = {
             addresses = [ "192.168.1.1" ];
             network = "lan";
           };
+          ovpnc1 = { };
           ovpnc2 = {
             physicalConnections = [ (mkConnection "diglett" "tun0") ];
           };
@@ -103,8 +140,17 @@ in
     };
 
     switch = mkSwitch "US-24" {
-      hardware.info = "Ubiquiti UniFi 24 Port Managed Switch with SFP";
+      info = "Ubiquiti UniFi 24 Port Managed Switch with SFP";
       image = "${self.packages.${system}.ubiquiti-logo}/share/logo.png";
+      interfaceGroups = [
+        [
+          "eth0"
+          "eth1"
+          "eth2"
+          "eth4"
+        ]
+        [ "eth3" ]
+      ];
       interfaces =
         let
           interfaces = builtins.foldl' (
@@ -113,7 +159,13 @@ in
               ${vlan.name} = {
                 network = vlan.name;
                 virtual = true;
-                physicalConnections = [ (mkConnection "pfsense" vlan.name) ];
+                physicalConnections = [
+                  (mkConnection "pfsense" vlan.name)
+                ]
+                ++ lib.optionals (builtins.elem vlan.name dragoniteVlans) [
+                  (mkConnection "dragonite" vlan.name)
+                ];
+                sharesNetworkWith = [ ];
               };
             }
           ) { } self.common.config.networks;
@@ -150,6 +202,11 @@ in
     wap = mkSwitch "AP AC Lite" {
       hardware.info = "Ubiquiti UniFi AP AC Lite 802.11ac Access Point";
       image = "${self.packages.${system}.ubiquiti-logo}/share/logo.png";
+      interfaceGroups = [
+        [ "eth0" ]
+        [ "wlan1" ]
+        [ "wlan2" ]
+      ];
       interfaces = {
         eth0 = { };
         wlan1 = {
@@ -165,7 +222,8 @@ in
         };
       };
     };
-  };
+  }
+  // dragoniteContainerNodes;
 
   networks =
     let

@@ -253,7 +253,6 @@ let
       uv-package-manager = "${wshobson-agents}/share/skills/uv-package-manager";
       vector-index-tuning = "${wshobson-agents}/share/skills/vector-index-tuning";
       workflow-orchestration-patterns = "${wshobson-agents}/share/skills/workflow-orchestration-patterns";
-      workflow-patterns = "${wshobson-agents}/share/skills/workflow-patterns ";
     }
     # Local
     // {
@@ -382,36 +381,6 @@ let
   ];
 in
 {
-
-  programs.opencode.settings.provider =
-    # lib.mkIf osConfig.services.llama-cpp.enable
-    {
-      # TODO: Correct this to leverage common config options, expose only over tailscale or alike
-      llama-cpp = {
-        npm = "@ai-sdk/openai-compatible";
-        name = "llama-cpp";
-        options = {
-          baseURL = "http://192.168.1.220:8080/v1";
-        };
-        models = {
-          gemma-4-E2B = {
-            name = "unsloth/gemma-4-E4B-it-GGUF";
-            limit = {
-              context = 128000;
-              output = 65536;
-            };
-          };
-        };
-
-        #   builtins.mapAttrs (key: value: {
-        #   name = if value ? alias && value.alias != "" then value.alias else key;
-        #   contextLength = value.n_ctx or null;
-        # }
-
-        # ) osConfig.services.llama-cpp.modelsPreset;
-      };
-    };
-
   programs.opencode = {
     enable = true;
 

@@ -39,7 +39,7 @@ in
     };
   };
 
-  config = lib.mkIf pkgs.stdenv.isLinux {
+  config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     systemd = {
       network = {
         networks = builtins.foldl' (

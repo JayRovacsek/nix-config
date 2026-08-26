@@ -36,6 +36,6 @@
 
     };
     lovelaceConfigWritable = false;
-    openFirewall = true;
+    openFirewallForComponents = true;
   };
 }

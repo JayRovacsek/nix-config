@@ -55,6 +55,7 @@ let
     "nidoking"
     "nidorina"
     "nidorino"
+    "oddish"
     "poliwag"
     "porygon"
     "slowpoke"

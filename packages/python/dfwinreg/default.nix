@@ -9,13 +9,17 @@
 let
   inherit (pkgs) system;
 
-  inherit (python3Packages) buildPythonPackage pyyaml setuptools;
+  inherit (python3Packages)
+    buildPythonPackage
+    dtfabric
+    pyyaml
+    setuptools
+    ;
 
   inherit (self.packages.${system})
     dfdatetime
     libregf-python
     libcreg-python
-    dtfabric
     ;
 
 in

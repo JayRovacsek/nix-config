@@ -55,7 +55,7 @@ in
   gastly = extend-host unstable-x86-base "gastly";
   ivysaur = extend-host rpi5 "ivysaur";
   jigglypuff = extend-host unstable-aarch64-base "jigglypuff";
-  onix = extend-host unstable-x86-base "onix";
+  onix = extend-host unstable-aarch64-base "onix";
   wartortle = extend-host rpi5 "wartortle";
   wigglytuff = extend-host rpi4 "wigglytuff";
 

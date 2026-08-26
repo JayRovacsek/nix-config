@@ -12,6 +12,7 @@ let
   inherit (python3Packages)
     buildPythonPackage
     cffi
+    dtfabric
     pyyaml
     pyxattr
     pythonOlder
@@ -20,7 +21,6 @@ let
 
   inherit (self.packages.${system})
     dfdatetime
-    dtfabric
     libbde-python
     libcaes-python
     libewf-python

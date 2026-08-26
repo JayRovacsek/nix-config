@@ -14,7 +14,7 @@ Generally acts as my testing ground before modules get shipped to other hosts wh
 
 ## Bellsprout
 
-Container hosting sonarr
+Instance hosting sonarr
 
 ![Bellsprout](https://archives.bulbagarden.net/media/upload/a/a3/Spr_2c_069.png?raw=true)
 
@@ -58,7 +58,7 @@ Proof of concept installer image
 
 ## Igglybuff
 
-A Container providing DNS services
+A instance providing DNS services
 
 ![Igglybuff](https://archives.bulbagarden.net/media/upload/e/e7/Spr_2c_174.png?raw=true)
 
@@ -77,37 +77,37 @@ failure
 
 ## Machop
 
-Container hosting lidarr
+Instance hosting lidarr
 
 ![Machop](https://archives.bulbagarden.net/media/upload/3/33/Spr_2c_066.png?raw=true)
 
 ## Magikarp
 
-A Container providing the headscale control server instance for overlay networks
+A instance providing the headscale control server instance for overlay networks
 
 ![Magikarp](https://archives.bulbagarden.net/media/upload/f/f2/Spr_2c_129.png?raw=true)
 
 ## Magnemite
 
-Container hosting nixbot CICD infrastructure
+Instance hosting unifi controller
 
 ![Magnemite](https://archives.bulbagarden.net/media/upload/a/a0/Spr_2c_081.png?raw=true)
 
 ## Magneton
 
-Container hosting nixbot CICD infrastructure
+Instance hosting buildbot worker
 
 ![Magneton](https://archives.bulbagarden.net/media/upload/2/26/Spr_2c_082.png?raw=true)
 
 ## Mankey
 
-Container hosting deluge
+Instance hosting deluge
 
 ![Mankey](https://archives.bulbagarden.net/media/upload/1/1e/Spr_2c_056.png?raw=true)
 
 ## Meowth
 
-Container hosting prowlarr
+Instance hosting prowlarr
 
 ![Meowth](https://archives.bulbagarden.net/media/upload/b/b3/Spr_2c_052.png?raw=true)
 
@@ -119,25 +119,25 @@ Testing ground for configuration suitability - intended to be simply virtual via
 
 ## Mr Mime
 
-Container hosting observability stack (Grafana, Loki, Prometheus)
+Instance hosting observability stack (Grafana, Loki, Prometheus)
 
 ![Mr Mime](https://archives.bulbagarden.net/media/upload/7/70/Spr_2c_122.png?raw=true)
 
 ## Nidoking
 
-Container running Nextcloud
+Instance running Nextcloud
 
 ![Nidoking](https://archives.bulbagarden.net/media/upload/9/9c/Spr_2c_034.png?raw=true)
 
 ## Nidorina
 
-Container acting as the primary reverse proxy
+Instance acting as the primary reverse proxy
 
 ![Nidorina](https://archives.bulbagarden.net/media/upload/6/6e/Spr_2c_030.png?raw=true)
 
 ## Nidorino
 
-Container hosting Authelia authentication service
+Instance hosting Authelia authentication service
 
 ![Nidorino](https://archives.bulbagarden.net/media/upload/1/13/Spr_2c_033.png?raw=true)
 
@@ -149,7 +149,7 @@ Personal aarch64 Macbook
 
 ## Oddish
 
-Container hosting bazarr
+Instance hosting bazarr
 
 ![Oddish](https://archives.bulbagarden.net/media/upload/c/cd/Spr_2c_043.png?raw=true)
 
@@ -161,25 +161,25 @@ Orange Pi 5 Plus hosting Anubis and Blocky
 
 ## Poliwag
 
-Container running radarr
+Instance running radarr
 
 ![Poliwag](https://archives.bulbagarden.net/media/upload/4/48/Spr_2c_060.png?raw=true)
 
 ## Porygon
 
-Container running various game servers
+Instance running various game servers
 
 ![Porygon](https://archives.bulbagarden.net/media/upload/5/57/Spr_2c_137.png?raw=true)
 
 ## Slowpoke
 
-Container running flare-solverrr
+Instance running flare-solverrr
 
 ![Slowpoke](https://archives.bulbagarden.net/media/upload/9/92/Spr_2c_079.png?raw=true)
 
 ## Tentacruel
 
-Container hosting Home Assistant
+Instance hosting Home Assistant
 
 ![Tentacruel](https://archives.bulbagarden.net/media/upload/9/9e/Spr_2c_073.png?raw=true)
 
