@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  enable = with pkgs.stdenv; !(isLinux && isAarch64);
+  enable = with pkgs.stdenv.hostPlatform; !(isLinux && isAarch64);
 
   packages = lib.optionals enable (with pkgs; [ slack ]);
 in

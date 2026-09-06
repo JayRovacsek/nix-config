@@ -22,7 +22,7 @@ let
     with builtins;
     let
       inherit (pkgs) lib stdenv;
-      inherit (stdenv) isDarwin;
+      inherit (stdenv.hostPlatform) isDarwin;
       inherit (user-settings) name;
       inherit (lib) recursiveUpdate;
       inherit (lib.attrsets) filterAttrs;
