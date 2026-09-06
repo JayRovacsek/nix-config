@@ -97,6 +97,7 @@ in
           files_automatedtagging
           previewgenerator
           registration
+          recognize
           twofactor_webauthn
           ;
       };

@@ -7,7 +7,7 @@ let
     { pkgs, ... }:
     let
       inherit (self.inputs) home-manager;
-      inherit (pkgs.stdenv) isLinux;
+      inherit (pkgs.stdenv.hostPlatform) isLinux;
 
       base = {
         home-manager.useUserPackages = true;

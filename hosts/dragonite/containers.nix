@@ -55,6 +55,7 @@ let
     "nidoking"
     "nidorina"
     "nidorino"
+    "oddish"
     "poliwag"
     "porygon"
     "slowpoke"
@@ -76,6 +77,7 @@ let
   party = builtins.map (x: {
     name = x.hostname;
     inherit (x) macAddress vlan shares;
+    extraFlags = x.container.extraFlags or [ ];
   }) partyCommonConfigs;
 in
 {
@@ -93,6 +95,8 @@ in
 
         localMacAddress = pokemon.macAddress;
         hostBridge = "br-${pokemon.vlan}";
+
+        inherit (pokemon) extraFlags;
 
         bindMounts = {
           agenix = {

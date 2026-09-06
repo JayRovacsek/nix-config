@@ -63,6 +63,7 @@ in
           # "foo*" = [ "ads" ];
           "192.168.8.11/32" = [ "void" ];
           "192.168.8.50/32" = [ "void" ];
+          "192.168.8.58/32" = [ "void" ];
         };
 
         # which response will be sent, if query is blocked:

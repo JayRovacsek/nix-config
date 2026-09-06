@@ -379,13 +379,34 @@ _: {
           fqdn = "bazarr.local";
         }
       ];
-      shares = [ ];
+      macAddress = "02:42:c0:a8:04:8b";
+      shares = [
+        {
+          hostPath = "/srv/tv";
+          isReadOnly = false;
+          mountPoint = "/srv/tv";
+          name = "tv";
+        }
+        {
+          hostPath = "/srv/movies";
+          isReadOnly = false;
+          mountPoint = "/srv/movies";
+          name = "movies";
+        }
+        {
+          hostPath = "/var/lib/bazarr";
+          isReadOnly = false;
+          mountPoint = "/var/lib/bazarr";
+          name = "bazarr";
+        }
+      ];
+      vlan = "download";
     };
     onix = {
       hostname = "onix";
       ips = [
         {
-          address = "192.168.5.4";
+          address = "192.168.1.70";
           fqdn = "onix.local";
         }
       ];
@@ -437,6 +458,12 @@ _: {
       vlan = "download";
     };
     porygon = {
+      container = {
+        extraFlags = [
+          "--system-call-filter=keyctl"
+          "--system-call-filter=bpf"
+        ];
+      };
       hostname = "porygon";
       ips = [
         {
@@ -487,10 +514,16 @@ _: {
       macAddress = "02:42:c0:a8:11:02";
       shares = [
         {
-          hostPath = "/srv/games/servers/dragonwilds";
+          hostPath = "/srv/games/servers/valheim/2026-deep-north-server";
           isReadOnly = false;
-          mountPoint = "/var/lib/dragonwilds";
-          name = "dragonwilds";
+          mountPoint = "/var/lib/valheim";
+          name = "valheim";
+        }
+        {
+          hostPath = "/var/lib/containers";
+          isReadOnly = false;
+          mountPoint = "/var/lib/containers";
+          name = "containers";
         }
       ];
       vlan = "game";
@@ -651,6 +684,12 @@ _: {
       port = 6767;
       protocol = "http";
       subdomain = "bazarr";
+      users.bazarr = {
+        group = "media";
+        name = "bazarr";
+        isSystemUser = true;
+        uid = 400;
+      };
     };
     bedrock-connect = {
       ipv4 = "192.168.17.2";

@@ -17,7 +17,7 @@
   };
 
   home.packages =
-    (lib.optionals pkgs.stdenv.isLinux (
+    (lib.optionals pkgs.stdenv.hostPlatform.isLinux (
       with pkgs;
       [
         brave
@@ -31,7 +31,7 @@
         signal-desktop
       ]
     ))
-    ++ (lib.optionals pkgs.stdenv.isDarwin [
+    ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
 
     ]);
 }

@@ -7,7 +7,7 @@ builtins.mapAttrs (
   let
     pkgs = self.common.package-sets.${package-set};
     inherit (pkgs.lib) filterAttrs hasSuffix optionals;
-    inherit (pkgs.stdenv) isLinux isDarwin;
+    inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
     darwin = optionals isDarwin [
       ../options/modules/blocky-darwin
