@@ -1,9 +1,15 @@
-{ config, self, ... }:
+{
+  config,
+  self,
+  ...
+}:
 let
   inherit (self.common.config.services) valheim;
   string-ports = builtins.map (x: builtins.toString x) valheim.ports;
 in
 {
+  age.secrets.valheim-server-pass.file = ../../secrets/valheim/server-pass-file.age;
+
   networking.firewall.allowedUDPPorts = valheim.ports;
 
   users = {
@@ -24,9 +30,8 @@ in
       backend = "podman";
       containers.valheim = {
         environment = {
-          # TODO: move this to a systemd envfile
-          SERVER_NAME = "";
-          SERVER_PASS = "";
+          SERVER_NAME = "Deep North";
+          SERVER_PASS_FILE = config.age.secrets.valheim-server-pass.path;
 
           SERVER_PUBLIC = "false";
           RESTART_CRON = "";
@@ -144,7 +149,7 @@ in
         extraOptions = [
           "--cap-add=sys_nice"
         ];
-        image = "ghcr.io/lloesche/valheim-server";
+        image = "ghcr.io/community-valheim-tools/valheim-server";
         ports =
           let
             range = builtins.concatStringsSep "-" string-ports;
@@ -154,8 +159,8 @@ in
           ];
 
         volumes = [
-          "/srv/games/servers/valheim/2026-valheim-server/config:/config"
-          "/srv/games/servers/valheim/2026-valheim-server/data:/opt/valheim"
+          "/var/lib/valheim/config:/config"
+          "/var/lib/valheim/data:/opt/valheim"
         ];
       };
     };

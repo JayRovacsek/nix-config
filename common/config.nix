@@ -458,6 +458,12 @@ _: {
       vlan = "download";
     };
     porygon = {
+      container = {
+        extraFlags = [
+          "--system-call-filter=keyctl"
+          "--system-call-filter=bpf"
+        ];
+      };
       hostname = "porygon";
       ips = [
         {
@@ -508,10 +514,16 @@ _: {
       macAddress = "02:42:c0:a8:11:02";
       shares = [
         {
-          hostPath = "/srv/games/servers/dragonwilds";
+          hostPath = "/srv/games/servers/valheim/2026-deep-north-server";
           isReadOnly = false;
-          mountPoint = "/var/lib/dragonwilds";
-          name = "dragonwilds";
+          mountPoint = "/var/lib/valheim";
+          name = "valheim";
+        }
+        {
+          hostPath = "/var/lib/containers";
+          isReadOnly = false;
+          mountPoint = "/var/lib/containers";
+          name = "containers";
         }
       ];
       vlan = "game";
