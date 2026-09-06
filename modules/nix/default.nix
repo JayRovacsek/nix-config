@@ -16,7 +16,10 @@
       allow-import-from-derivation = true;
       auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
       builders-use-substitutes = true;
-      experimental-features = "nix-command flakes";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       http-connections = 0;
       sandbox = true;
       substituters = [
