@@ -16,14 +16,6 @@
       url = "github:ryantm/agenix";
     };
 
-    buildbot-nix = {
-      url = "github:nix-community/buildbot-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
-
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -92,7 +84,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
-        nix-systems.follows = "systems";
       };
       url = "github:JakeStanger/ironbar";
     };
@@ -126,6 +117,14 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix/e8d5f12b834a59187c7ec147a8952a0567f97939";
+    };
+
+    nixbot = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:Mic92/nixbot";
     };
 
     nix-darwin = {

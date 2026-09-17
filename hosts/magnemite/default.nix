@@ -8,7 +8,6 @@
     agenix
     alloy
     blocky
-    buildbot-coordinator
     container-guest
     logging
     nix

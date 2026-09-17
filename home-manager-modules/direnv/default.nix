@@ -17,7 +17,7 @@
   };
 
   programs.direnv-instant = {
-    enable = !(pkgs.stdenv.isAarch64 && pkgs.stdenv.isLinux);
+    enable = !(pkgs.stdenv.isAarch64 && pkgs.stdenv.hostPlatform.isLinux);
     settings.use_cache = true;
   };
 }
