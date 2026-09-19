@@ -530,7 +530,7 @@ _: {
       macAddress = "02:42:c0:a8:11:02";
       shares = [
         {
-          hostPath = "/srv/games/servers/valheim/2026-deep-north-server";
+          hostPath = "/srv/games/servers/valheim/2026-valheim-server";
           isReadOnly = false;
           mountPoint = "/var/lib/valheim";
           name = "valheim";
