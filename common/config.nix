@@ -284,6 +284,22 @@ _: {
       vlan = "r-proxy";
     };
     nidoking = {
+      container = {
+        allowedDevices = [
+          {
+            node = "/dev/dri/card0";
+            modifier = "rwm";
+          }
+          {
+            node = "/dev/dri/renderD128";
+            modifier = "rwm";
+          }
+          {
+            node = "/dev/nvidia0";
+            modifier = "rwm";
+          }
+        ];
+      };
       hostname = "nidoking";
       macAddress = "02:42:c0:a8:0a:03";
       ips = [
