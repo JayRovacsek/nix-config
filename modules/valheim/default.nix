@@ -8,8 +8,6 @@ let
   string-ports = builtins.map (x: builtins.toString x) valheim.ports;
 in
 {
-  age.secrets.valheim-server-pass.file = ../../secrets/valheim/server-pass-file.age;
-
   networking.firewall.allowedUDPPorts = valheim.ports;
 
   users = {
@@ -30,8 +28,8 @@ in
       backend = "podman";
       containers.valheim = {
         environment = {
-          SERVER_NAME = "Deep North";
-          SERVER_PASS_FILE = config.age.secrets.valheim-server-pass.path;
+          SERVER_NAME = "Dedicated";
+          SERVER_PASS = "";
 
           SERVER_PUBLIC = "false";
           RESTART_CRON = "";
