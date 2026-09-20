@@ -11,23 +11,17 @@ let
   cert = generate-self-signed "nextcloud.rovacsek.com";
 in
 {
-
-  imports =
-    with self.nixosModules;
-    [
-      agenix
-      alloy
-      container-guest
-      nextcloud
-      nginx
-      nix-topology
-      time
-      timesyncd
-      tmp-tmpfs
-    ]
-    ++ [
-      self.inputs.nuschtos-modules.nixosModules.nextcloud
-    ];
+  imports = with self.nixosModules; [
+    agenix
+    alloy
+    container-guest
+    nextcloud
+    nginx
+    nix-topology
+    time
+    timesyncd
+    tmp-tmpfs
+  ];
 
   networking.hostName = "nidoking";
 
