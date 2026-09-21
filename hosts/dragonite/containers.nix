@@ -77,7 +77,7 @@ let
   party = builtins.map (x: {
     name = x.hostname;
     inherit (x) macAddress vlan shares;
-    extraFlags = x.container.extraFlags or [ ];
+    container = x.container or { };
   }) partyCommonConfigs;
 in
 {
@@ -86,7 +86,7 @@ in
   containers = builtins.foldl' (
     acc: pokemon:
     lib.recursiveUpdate acc {
-      "${pokemon.name}" = {
+      "${pokemon.name}" = pokemon.container // {
         autoStart = true;
 
         ephemeral = true;
@@ -95,8 +95,6 @@ in
 
         localMacAddress = pokemon.macAddress;
         hostBridge = "br-${pokemon.vlan}";
-
-        inherit (pokemon) extraFlags;
 
         bindMounts = {
           agenix = {
