@@ -24,11 +24,13 @@
       sandbox = true;
       substituters = [
         "https://nixos-raspberrypi.cachix.org"
+        "https://cache.nixos-cuda.org"
         "https://nix-community.cachix.org"
         "https://binarycache.rovacsek.com/"
       ];
       trusted-public-keys = [
         "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "binarycache.rovacsek.com:xhZ1vkz2OQdHK/ex2ByA2GeziZoehrNHJCeMo7Afvr8="
       ];
