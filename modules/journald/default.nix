@@ -1,9 +1,9 @@
 _: {
   services.journald = {
-    extraConfig = ''
-      MaxRetentionSec=6hour
-      SystemMaxUse=256M
-    '';
+    settings.Journal = {
+      MaxRetentionSec = "6hour";
+      SystemMaxUse = "256M";
+    };
     storage = "volatile";
   };
 }

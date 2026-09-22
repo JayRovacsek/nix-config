@@ -92,7 +92,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
-        nix-systems.follows = "systems";
       };
       url = "github:JakeStanger/ironbar";
     };
@@ -122,10 +121,9 @@
 
     microvm = {
       inputs = {
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:astro/microvm.nix/e8d5f12b834a59187c7ec147a8952a0567f97939";
+      url = "github:astro/microvm.nix";
     };
 
     nix-darwin = {
@@ -135,7 +133,6 @@
 
     nix-eval-jobs = {
       inputs = {
-        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };

@@ -33,8 +33,6 @@ in
       settings = {
         host = "0.0.0.0";
         inherit port;
-        syncstorage.database_url = "mysql://firefox-syncserver@localhost/firefox_syncserver?socket=%2Frun%2Fmysqld%2Fmysqld.sock";
-        tokenserver.database_url = "mysql://firefox-syncserver@localhost/firefox_syncserver?socket=%2Frun%2Fmysqld%2Fmysqld.sock";
       };
       logLevel = "error";
       singleNode = {
