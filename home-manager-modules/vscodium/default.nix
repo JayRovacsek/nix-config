@@ -57,7 +57,10 @@ in
               # XML
               redhat.vscode-xml
             ]
-        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
+        ++ (with self.packages.${pkgs.system}; [
+          dbt-vsix
+          twinny
+        ]);
 
       keybindings = [
         {
