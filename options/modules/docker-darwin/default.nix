@@ -36,7 +36,7 @@ with lib;
     };
   };
 
-  config = mkIf (pkgs.stdenv.isDarwin && cfg.enable) {
+  config = mkIf (pkgs.stdenv.hostPlatform.isDarwin && cfg.enable) {
     environment.systemPackages = requiredPackages;
     launchd.user.agents.docker = {
 

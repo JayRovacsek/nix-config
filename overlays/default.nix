@@ -64,7 +64,7 @@
 
   keepassxc = _: prev: {
     keepassxc =
-      if prev.stdenv.isDarwin then
+      if prev.stdenv.hostPlatform.isDarwin then
         prev.stdenvNoCC.mkDerivation (finalAttrs: {
           pname = "keepassxc";
           version = "2.7.10";

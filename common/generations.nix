@@ -7,7 +7,7 @@ builtins.mapAttrs (
   let
     pkgs = self.common.package-sets.${package-set};
     inherit (pkgs) lib;
-    inherit (pkgs.stdenv) isLinux;
+    inherit (pkgs.stdenv.hostPlatform) isLinux;
   in
   {
     imports = lib.optionals isLinux [ ../modules/generations ];

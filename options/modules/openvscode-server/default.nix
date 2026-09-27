@@ -63,7 +63,7 @@ in
     };
   };
 
-  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
+  config = mkIf (pkgs.stdenv.hostPlatform.isLinux && cfg.enable) {
     environment.etc."openvscode-server/Machine/settings.json" =
       mkIf (cfg.use-declarative-settings && cfg.settings != { })
         {

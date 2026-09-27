@@ -18,7 +18,7 @@ let
 in
 {
   programs.ghostty = {
-    enable = pkgs.stdenv.isLinux;
+    enable = pkgs.stdenv.hostPlatform.isLinux;
 
     inherit
       enableBashIntegration

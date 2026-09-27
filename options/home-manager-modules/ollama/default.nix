@@ -42,39 +42,12 @@ let
     OLLAMA_NO_CLOUD = "1";
   };
 
-  darwin-configuration = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
-    home.packages = [ cfg.package ];
-    launchd.agents = {
-      ollama-serve = {
-        inherit (cfg) enable;
-
-        config = {
-          inherit EnvironmentVariables;
-
-          AbandonProcessGroup = true;
-          ExitTimeOut = 0;
-          KeepAlive = {
-            Crashed = true;
-            SuccessfulExit = false;
-          };
-          Label = "local.ollama-serve";
-          ProcessType = "Background";
-          ProgramArguments = [
-            "${cfg.package}/bin/ollama"
-            "serve"
-          ];
-          RunAtLoad = true;
-          StandardOutPath = cfg.logFile;
-          StandardErrorPath = cfg.logFile;
-        };
-      };
-    }
-    // builtins.foldl' (
-      acc: model:
-      (
-        acc
-        // {
-          "ollama-run-${model.name}" = {
+  darwin-configuration =
+    lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isDarwin)
+      {
+        home.packages = [ cfg.package ];
+        launchd.agents = {
+          ollama-serve = {
             inherit (cfg) enable;
 
             config = {
@@ -82,13 +55,15 @@ let
 
               AbandonProcessGroup = true;
               ExitTimeOut = 0;
-              KeepAlive.OtherJobEnabled."local.ollama-serve" = true;
-              Label = "ollama-run-${model.name}";
+              KeepAlive = {
+                Crashed = true;
+                SuccessfulExit = false;
+              };
+              Label = "local.ollama-serve";
               ProcessType = "Background";
               ProgramArguments = [
                 "${cfg.package}/bin/ollama"
-                "run"
-                model.model
+                "serve"
               ];
               RunAtLoad = true;
               StandardOutPath = cfg.logFile;
@@ -96,61 +71,90 @@ let
             };
           };
         }
-      )
-    ) { } cfg.models;
-  };
+        // builtins.foldl' (
+          acc: model:
+          (
+            acc
+            // {
+              "ollama-run-${model.name}" = {
+                inherit (cfg) enable;
 
-  linux-configuration = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
-    home.packages = [ cfg.package ];
-    systemd.user.services = {
-      ollama-serve = {
-        Install.WantedBy = [ "graphical-session.target" ];
+                config = {
+                  inherit EnvironmentVariables;
 
-        Service = {
-          ExecStart = "${lib.getExe cfg.package} serve";
-        };
-
-        Unit = {
-          After = [ "graphical-session-pre.target" ];
-          Description = "Ollama Serve";
-          PartOf = [ "graphical-session.target" ];
-        };
+                  AbandonProcessGroup = true;
+                  ExitTimeOut = 0;
+                  KeepAlive.OtherJobEnabled."local.ollama-serve" = true;
+                  Label = "ollama-run-${model.name}";
+                  ProcessType = "Background";
+                  ProgramArguments = [
+                    "${cfg.package}/bin/ollama"
+                    "run"
+                    model.model
+                  ];
+                  RunAtLoad = true;
+                  StandardOutPath = cfg.logFile;
+                  StandardErrorPath = cfg.logFile;
+                };
+              };
+            }
+          )
+        ) { } cfg.models;
       };
-    }
-    // builtins.foldl' (
-      acc: model:
-      (
-        acc
-        // {
-          "ollama-pull-${model.name}" = {
+
+  linux-configuration =
+    lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isLinux)
+      {
+        home.packages = [ cfg.package ];
+        systemd.user.services = {
+          ollama-serve = {
             Install.WantedBy = [ "graphical-session.target" ];
 
             Service = {
-              ExecStart = "${lib.getExe cfg.package} pull ${model.name}";
+              ExecStart = "${lib.getExe cfg.package} serve";
             };
 
             Unit = {
-              After = [ "ollama-serve.service" ];
-              Description = "Ollama Pull ${model.name}";
-            };
-          };
-
-          "ollama-run-${model.name}" = {
-            Install.WantedBy = [ "graphical-session.target" ];
-
-            Service = {
-              ExecStart = "${lib.getExe cfg.package} run ${model.name}";
-            };
-
-            Unit = {
-              After = [ "ollama-pull-${model.name}.service" ];
-              Description = "Ollama Run ${model.name}";
+              After = [ "graphical-session-pre.target" ];
+              Description = "Ollama Serve";
+              PartOf = [ "graphical-session.target" ];
             };
           };
         }
-      )
-    ) { } cfg.models;
-  };
+        // builtins.foldl' (
+          acc: model:
+          (
+            acc
+            // {
+              "ollama-pull-${model.name}" = {
+                Install.WantedBy = [ "graphical-session.target" ];
+
+                Service = {
+                  ExecStart = "${lib.getExe cfg.package} pull ${model.name}";
+                };
+
+                Unit = {
+                  After = [ "ollama-serve.service" ];
+                  Description = "Ollama Pull ${model.name}";
+                };
+              };
+
+              "ollama-run-${model.name}" = {
+                Install.WantedBy = [ "graphical-session.target" ];
+
+                Service = {
+                  ExecStart = "${lib.getExe cfg.package} run ${model.name}";
+                };
+
+                Unit = {
+                  After = [ "ollama-pull-${model.name}.service" ];
+                  Description = "Ollama Run ${model.name}";
+                };
+              };
+            }
+          )
+        ) { } cfg.models;
+      };
 in
 {
   options = {

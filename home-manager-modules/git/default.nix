@@ -7,8 +7,10 @@
 {
   age = {
     identityPaths =
-      (lib.optionals pkgs.stdenv.isLinux [ "/agenix/id-ed25519-jay-primary" ])
-      ++ (lib.optionals pkgs.stdenv.isDarwin [
+      (lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        "/agenix/id-ed25519-jay-primary"
+      ])
+      ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         "/private/var/agenix/id-ed25519-jay-primary"
       ]);
     secrets = {

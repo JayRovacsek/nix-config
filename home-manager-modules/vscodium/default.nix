@@ -51,11 +51,16 @@ in
           bierner.markdown-mermaid
           bierner.markdown-preview-github-styles
         ]
-        ++ lib.optionals (!(pkgs.stdenv.isLinux && pkgs.stdenv.isAarch64)) [
-          # XML
-          redhat.vscode-xml
-        ]
-        ++ (with self.packages.${pkgs.system}; [ dbt-vsix ]);
+        ++
+          lib.optionals (!(pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.isAarch64))
+            [
+              # XML
+              redhat.vscode-xml
+            ]
+        ++ (with self.packages.${pkgs.system}; [
+          dbt-vsix
+          twinny
+        ]);
 
       keybindings = [
         {

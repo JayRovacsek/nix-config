@@ -17,8 +17,11 @@ let
   jay = self.common.users.jay {
     inherit config pkgs;
     modules =
-      with self.common.home-manager-module-sets;
-      hyprland-ironbar-desktop ++ ssh ++ impermanence ++ ai;
+      (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh ++ impermanence ++ ai)
+      ++ (with self.homeManagerModules; [
+        chromium
+        r2modman
+      ]);
   };
 
   user-configs = merge [

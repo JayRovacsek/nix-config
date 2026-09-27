@@ -55,7 +55,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    ffmpeg-headless
+    ffmpeg-full
     nodejs_24
   ];
 
@@ -97,6 +97,7 @@ in
           files_automatedtagging
           previewgenerator
           registration
+          recognize
           twofactor_webauthn
           ;
       };
@@ -151,7 +152,7 @@ in
         "memcache.local" = ''\OC\Memcache\Redis'';
         overwriteprotocol = "https";
         "profile.enabled" = false;
-        preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+        preview_ffmpeg_path = "${pkgs.ffmpeg-full}/bin/ffmpeg";
         reduce_to_languages = [ "en" ];
         trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
         trusted_domains = [ self.common.config.services.nextcloud.ipv4 ];

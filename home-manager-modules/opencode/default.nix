@@ -669,11 +669,6 @@ in
       # (built-in, authenticated via device flow) and Ollama (custom,
       # defined in home-manager-modules/ollama).
       # TODO: Make this a bit smarter on how it's built - hardcoded while testing
-      enabled_providers = lib.unique [
-        "github-copilot"
-        "ollama"
-        "llama-cpp"
-      ];
 
       inherit mcp;
 

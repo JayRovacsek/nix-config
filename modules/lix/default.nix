@@ -10,7 +10,7 @@
     (final: prev: {
       nix-monitored = prev.nix-monitored.override {
         nix = final.lixPackageSets.latest.lix;
-        withNotify = pkgs.stdenv.isLinux;
+        withNotify = pkgs.stdenv.hostPlatform.isLinux;
       };
       nixos-rebuild = prev.nixos-rebuild.override {
         nix = final.nix-monitored;

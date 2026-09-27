@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   hack-font = pkgs.nerd-fonts.hack;
-  inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
 in
 {

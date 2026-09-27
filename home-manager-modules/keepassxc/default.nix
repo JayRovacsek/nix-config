@@ -14,7 +14,7 @@
   home = {
     file = {
       "Library/Application Support/Mozilla/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" =
-        lib.mkIf pkgs.stdenv.isDarwin {
+        lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           text = builtins.toJSON {
             name = "org.keepassxc.keepassxc_browser";
             description = "KeePassXC integration with native messaging support";
@@ -77,7 +77,10 @@
               WordSeparator = " ";
             };
 
-            Security.IconDownloadFallback = true;
+            Security = {
+              IconDownloadFallback = true;
+              LockDatabaseIdle = false;
+            };
           };
     };
 

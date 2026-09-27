@@ -7,7 +7,7 @@
   patchelf,
 }:
 let
-  inherit (stdenv) system;
+  inherit (stdenv.hostPlatform) system;
 
   hashes = {
     "x86_64-linux" = "sha256-0R+BkfRK+kFWLUvwgGcrfjyhI0XRlyRYr1XPCpQWWP4=";

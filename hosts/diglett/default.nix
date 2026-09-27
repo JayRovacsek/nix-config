@@ -64,7 +64,10 @@
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = "nix-command flakes";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       http-connections = 0;
       sandbox = true;
       trusted-users = [ "@wheel" ];
