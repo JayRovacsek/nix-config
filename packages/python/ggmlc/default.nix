@@ -5,7 +5,11 @@
   cmake,
   ninja,
   makeWrapper,
+  autoAddDriverRunpath,
   nix-update-script,
+  config,
+  cudaSupport ? config.cudaSupport,
+  cudaPackages ? { },
   ...
 }:
 
@@ -21,10 +25,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     hash = "sha256-dnJxf2Kax508EX87U+Dy01drbie1hgWDhOADbhidiC8=";
   };
 
-  # Upstream builds the native CLI runners and the runtime test with CMake, but
-  # only installs the Python extension. Install them into the wheel's scripts
-  # directory, which scikit-build-core maps to `.data/scripts` and `pip` places
-  # on $PATH.
+  # Upstream builds the native CLI runners, the Laya System-1 binary and the
+  # runtime test with CMake, but only installs the Python extension. Install them
+  # into the wheel's scripts directory, which scikit-build-core maps to
+  # `.data/scripts` and `pip` places on $PATH.
   postPatch = ''
     cat >> runtime/CMakeLists.txt <<'EOF'
 
@@ -32,6 +36,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
     if (GGMLC_BUILD_TESTS)
         install(TARGETS test-executor-cpu RUNTIME DESTINATION "''${SKBUILD_SCRIPTS_DIR}")
     endif()
+    EOF
+
+    cat >> examples/laya/CMakeLists.txt <<'EOF'
+
+    install(TARGETS laya RUNTIME DESTINATION "''${SKBUILD_SCRIPTS_DIR}")
     EOF
   '';
 
@@ -44,7 +53,17 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cmake
     ninja
     makeWrapper
-  ];
+  ]
+  ++ lib.optionals cudaSupport [ autoAddDriverRunpath ];
+
+  buildInputs = lib.optionals cudaSupport (
+    with cudaPackages;
+    [
+      cuda_cudart
+      cccl
+      libcublas
+    ]
+  );
 
   dependencies = with python3Packages; [
     numpy
@@ -59,10 +78,20 @@ python3Packages.buildPythonApplication (finalAttrs: {
   cmakeFlags = [
     # Do not emit -march=native / -mcpu=native; builds must be reproducible.
     (lib.cmakeBool "GGML_NATIVE" false)
-    # Example programs are not part of the Python distribution.
-    (lib.cmakeBool "GGMLC_BUILD_EXAMPLES" false)
+    # Build the Laya System-1 example, but not the other examples, which require
+    # models to be downloaded at runtime.
+    (lib.cmakeBool "GGMLC_BUILD_EXAMPLES" true)
+    (lib.cmakeBool "GGMLC_BUILD_EXAMPLE_LAYA" true)
+    (lib.cmakeBool "GGMLC_BUILD_EXAMPLE_TAB_COMPLETION" false)
+    (lib.cmakeBool "GGMLC_BUILD_EXAMPLE_TIMESFM" false)
     # Build the native runtime test so the packaged runtime can be exercised.
     (lib.cmakeBool "GGMLC_BUILD_TESTS" true)
+  ]
+  ++ lib.optionals cudaSupport [
+    (lib.cmakeBool "GGMLC_ENABLE_CUDA" true)
+    (lib.cmakeFeature "CUDAToolkit_ROOT" "${lib.getDev cudaPackages.cuda_nvcc}")
+    (lib.cmakeFeature "CMAKE_CUDA_COMPILER" "${lib.getExe cudaPackages.cuda_nvcc}")
+    (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaPackages.flags.cmakeCudaArchitecturesString)
   ];
 
   postInstall = ''
@@ -74,14 +103,19 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   # Exercise the packaged binaries: run the native runtime test, then compile
-  # and execute an example model through the packaged CLI runner.
+  # and execute an example model through the packaged CLI runner. CUDA builds
+  # link the NVIDIA driver, which is unavailable inside the build sandbox.
   doInstallCheck = true;
 
-  installCheckPhase = ''
+  installCheckPhase = lib.optionalString (!cudaSupport) ''
     runHook preInstallCheck
 
     # Native runtime test (runs an example MLP on the CPU backend).
     "$out/bin/test-executor-cpu"
+
+    # Laya System-1 binary (needs no model for help/list-presets).
+    "$out/bin/laya" help
+    "$out/bin/laya" list-presets
 
     # Make the packaged Python module and its runtime dependency importable.
     export PYTHONPATH="$out/${python3Packages.python.sitePackages}:${python3Packages.numpy}/${python3Packages.python.sitePackages}''${PYTHONPATH:+:$PYTHONPATH}"
@@ -190,7 +224,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     ];
   };
 
-  pythonImportsCheck = [
+  pythonImportsCheck = lib.optionals (!cudaSupport) [
     "ggmlc"
   ];
 
