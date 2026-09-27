@@ -10,27 +10,24 @@ let
   microvm = (has-microvm config) && (is-microvm-host config);
   # Microvms persist state via their machine-id, which is simply
   # an md5 of hostname.
-  microvm-state-dirs = builtins.map (
-    x: "/var/lib/${builtins.hashString "md5" x}"
-  ) (builtins.attrNames config.microvm.vms);
+  microvm-state-dirs = builtins.map (x: "/var/lib/${builtins.hashString "md5" x}") (
+    builtins.attrNames config.microvm.vms
+  );
 
   agenix-in-use = builtins.hasAttr "age" config;
 
   llama-cpp-in-use = config.services.llama-cpp.enable;
 
+  laya-in-use = builtins.hasAttr "laya" config.services && config.services.laya.enable;
+
   remote-builds-in-use =
-    if builtins.hasAttr "remoteBuilds" config then
-      config.remoteBuilds.enable
-    else
-      false;
+    if builtins.hasAttr "remoteBuilds" config then config.remoteBuilds.enable else false;
 
   # If instances are defined, assume they may be all utilised
   # TODO: check if a filter for enabled is required here in the case of
   # failure on directory not existing
   authelia = config.services.authelia.instances != { };
-  authelia-instances = lib.optionals authelia (
-    builtins.attrNames config.services.authelia.instances
-  );
+  authelia-instances = lib.optionals authelia (builtins.attrNames config.services.authelia.instances);
 in
 {
   imports = [ self.inputs.impermanence.nixosModules.impermanence ];
@@ -96,6 +93,9 @@ in
       ])
 
       ++ (lib.optionals llama-cpp-in-use [ "/var/cache/private/llama-cpp" ])
+
+      ## Laya (Hugging Face model cache)
+      ++ (lib.optional laya-in-use config.services.laya.hfHome)
 
       # Microvms
       ++ (lib.optionals microvm ([ "/var/lib/microvms" ] ++ microvm-state-dirs))

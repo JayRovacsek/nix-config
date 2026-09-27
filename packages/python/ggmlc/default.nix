@@ -92,6 +92,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
     (lib.cmakeFeature "CUDAToolkit_ROOT" "${lib.getDev cudaPackages.cuda_nvcc}")
     (lib.cmakeFeature "CMAKE_CUDA_COMPILER" "${lib.getExe cudaPackages.cuda_nvcc}")
     (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaPackages.flags.cmakeCudaArchitecturesString)
+    # The CUDA driver stub (libcuda.so) ships only in cuda_cudart's non-standard
+    # `lib/stubs` directory, which is not on the linker search path by default,
+    # so `-lcuda` fails to resolve. Add it explicitly (cf. nixpkgs nccl-ep).
+    (lib.cmakeFeature "CMAKE_EXE_LINKER_FLAGS" "-L${lib.getLib cudaPackages.cuda_cudart}/lib/stubs")
+    (lib.cmakeFeature "CMAKE_SHARED_LINKER_FLAGS" "-L${lib.getLib cudaPackages.cuda_cudart}/lib/stubs")
+    (lib.cmakeFeature "CMAKE_MODULE_LINKER_FLAGS" "-L${lib.getLib cudaPackages.cuda_cudart}/lib/stubs")
   ];
 
   postInstall = ''
