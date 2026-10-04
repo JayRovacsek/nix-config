@@ -8,10 +8,7 @@
     stable.url = "github:nixos/nixpkgs/release-26.05";
 
     agenix = {
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:ryantm/agenix";
     };
 
