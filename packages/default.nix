@@ -30,7 +30,11 @@ let
 
   other = builtins.foldl' (
     accumulator: package:
-    recursiveUpdate { ${package} = callPackage ./other/${package} { }; } accumulator
+    recursiveUpdate {
+      # Inject `self` via the callPackage scope so strict functions that don't
+      # declare it (and lack `...`) aren't passed an unexpected argument.
+      ${package} = lib.callPackageWith (pkgs // { inherit self; }) ./other/${package} { };
+    } accumulator
   ) { } (builtins.attrNames (builtins.readDir ./other));
 
   python = builtins.foldl' (
