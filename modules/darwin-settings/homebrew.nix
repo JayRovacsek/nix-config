@@ -16,7 +16,6 @@ _: {
     casks = [
       "keepingyouawake"
       "microsoft-teams"
-      "nextcloud"
       "okta-verify"
       "onedrive"
       "zoom"
