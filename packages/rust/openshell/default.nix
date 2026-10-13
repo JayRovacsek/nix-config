@@ -5,6 +5,8 @@
 {
   lib,
   fetchFromGitHub,
+  installShellFiles,
+  stdenv,
   rustPlatform,
   pkg-config,
   protobuf,
@@ -44,6 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   nativeBuildInputs = [
+    installShellFiles
     pkg-config
     rustPlatform.bindgenHook
   ];
@@ -67,6 +70,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # Upstream tests require docker, network access and git.
   doCheck = false;
+
+  # Same pattern as nixpkgs gh/ripgrep; skipped when cross compiling.
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd openshell \
+      --bash <($out/bin/openshell completions bash) \
+      --fish <($out/bin/openshell completions fish) \
+      --zsh <($out/bin/openshell completions zsh)
+  '';
 
   meta = {
     description = "Safe, private runtime for autonomous AI agents";
