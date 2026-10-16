@@ -7,6 +7,7 @@ desktop-minimal
   alacritty
   firefox
   keepassxc
+  nextcloud-client
   slack
   thunderbird
   vscodium
