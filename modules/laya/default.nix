@@ -4,21 +4,14 @@ _: {
   services.laya = {
     enable = true;
     instances = {
-      email = {
+      q4 = {
         model = {
           repo = "mys/laya-GGUF";
           file = "laya_english_ud_q4_k_m.gguf";
         };
-        port = 8080;
+        port = 8082;
         openFirewall = true;
-      };
-
-      triage = {
-        model = {
-          repo = "mys/laya-GGUF";
-          file = "laya_english_q8_0.gguf";
-        };
-        port = 8081;
+        device = "cuda";
       };
     };
   };
