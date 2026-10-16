@@ -21,7 +21,6 @@ let
   inherit (certificate-lib) generate-self-signed;
 
   cert = generate-self-signed "nextcloud.rovacsek.com";
-
 in
 {
   imports = [ self.inputs.nuschtos-modules.nixosModule ];
@@ -65,14 +64,13 @@ in
   ];
 
   services = {
+    mysql.settings.mysqld.innodb_buffer_pool_size = "2G";
+
     nextcloud = {
       home = "/var/lib/nextcloud";
       datadir = "/var/lib/nextcloud";
 
       configureMemories = true;
-      settings = {
-        datadirectory = "/srv/nextcloud";
-      };
 
       inherit (self.common.config.services.nextcloud) hostName;
 
@@ -137,25 +135,35 @@ in
       secretFile = config.age.secrets.nextcloud-secret-file.path;
 
       settings = {
-        default_locale = "en_AU";
         enabledPreviewProviders = [
           "OC\\Preview\\BMP"
           "OC\\Preview\\GIF"
           "OC\\Preview\\JPEG"
           "OC\\Preview\\PNG"
           "OC\\Preview\\HEIC"
+          "OC\\Preview\\Image"
+          "OC\\Preview\\HEIC"
+          "OC\\Preview\\TIFF"
+          "OC\\Preview\\Movie"
         ];
         "files.chunked_upload.max_size" = 0;
+        "memcache.local" = ''\OC\Memcache\Redis'';
+        "memories.exiftool" = "${pkgs.exiftool}/bin/exiftool";
+        "memories.vod.disable" = true;
+        "memories.vod.ffmpeg" = "${pkgs.ffmpeg-full}/bin/ffmpeg";
+        "memories.vod.ffprobe" = "${pkgs.ffmpeg-full}/bin/ffprobe";
+        "memories.vod.nvenc" = true;
+        "profile.enabled" = false;
+        datadirectory = "/srv/nextcloud";
+        default_locale = "en_AU";
         log_type = "file";
         loglevel = 2;
         maintenance_window_start = "12";
-        "memcache.local" = ''\OC\Memcache\Redis'';
         overwriteprotocol = "https";
-        "profile.enabled" = false;
         preview_ffmpeg_path = "${pkgs.ffmpeg-full}/bin/ffmpeg";
         reduce_to_languages = [ "en" ];
-        trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
         trusted_domains = [ self.common.config.services.nextcloud.ipv4 ];
+        trusted_proxies = [ self.common.config.services.nginx.ipv4 ];
       };
     };
 
