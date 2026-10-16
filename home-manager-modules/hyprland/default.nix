@@ -54,7 +54,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    configType = "hyprlang";
+    configType = "lua";
     settings = import ./settings.nix {
       inherit
         config

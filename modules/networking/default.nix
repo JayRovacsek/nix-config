@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   linux-settings = lib.optionalAttrs isLinux {
     useDHCP = false;

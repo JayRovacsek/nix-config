@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenv) isAarch64 isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isAarch64 isLinux;
 
   # Check if hyprland property exists on host programs, if it doesnt
   # don't attempt to check if enabled otherwise we'd error

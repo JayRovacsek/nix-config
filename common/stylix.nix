@@ -7,7 +7,7 @@ builtins.mapAttrs (
   let
     pkgs = self.common.package-sets.${package-set};
     inherit (pkgs) lib;
-    inherit (pkgs.stdenv) isLinux isDarwin;
+    inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
     inherit (self.inputs) stylix;
 
     darwin-modules = lib.optional isDarwin stylix.darwinModules.stylix;

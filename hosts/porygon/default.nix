@@ -4,7 +4,6 @@
     agenix
     alloy
     container-guest
-    dragonwilds-server
     nix-topology
     time
     timesyncd

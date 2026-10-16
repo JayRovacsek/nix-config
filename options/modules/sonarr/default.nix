@@ -103,7 +103,7 @@ with lib;
     };
   };
 
-  config = mkIf (pkgs.stdenv.isLinux && cfg.enable) {
+  config = mkIf (pkgs.stdenv.hostPlatform.isLinux && cfg.enable) {
 
     services.sonarr.settings.server.port = cfg.ports.http;
 

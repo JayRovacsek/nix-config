@@ -24,8 +24,6 @@ in
   boot = {
     kernelParams = [ "cma=128M" ];
 
-    kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_rpi3;
-
     initrd.availableKernelModules = [
       "mmc_block"
       "usbhid"
@@ -46,27 +44,31 @@ in
 
   hardware.enableRedistributableFirmware = true;
 
-  imports = with self.nixosModules; [
-    ./disk-config.nix
-    agenix
-    alloy
-    blocky
-    fonts
-    generations
-    gnupg
-    impermanence
-    journald
-    logging
-    nix
-    nix-topology
-    openssh
-    sudo
-    systemd-networkd
-    time
-    timesyncd
-    zramSwap
-    zsh
-  ];
+  imports =
+    (with self.nixosModules; [
+      ./disk-config.nix
+      agenix
+      alloy
+      blocky
+      fonts
+      generations
+      gnupg
+      impermanence
+      journald
+      logging
+      nix
+      nix-topology
+      openssh
+      sudo
+      systemd-networkd
+      time
+      timesyncd
+      zramSwap
+      zsh
+    ])
+    ++ ([
+      self.inputs.nixos-hardware.nixosModules.raspberry-pi-3
+    ]);
 
   networking = {
     hostName = "jigglypuff";

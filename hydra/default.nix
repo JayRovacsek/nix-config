@@ -9,6 +9,8 @@ let
   # Strip out unsupportable systems.
   supported-packages = builtins.removeAttrs self.packages unsupported-systems;
 
+  supported-checks = builtins.removeAttrs self.checks unsupported-systems;
+
   unsupported-configurations = [
     "amazon"
   ];
@@ -65,6 +67,6 @@ in
   packages = non-broken-packages;
 
   # Expose tests
-  tests = removeAttrs self.checks problematic-tests;
+  tests = removeAttrs supported-checks problematic-tests;
 
 }

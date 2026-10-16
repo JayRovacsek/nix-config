@@ -52,7 +52,8 @@ in
   };
 
   config =
-    lib.mkIf (pkgs.stdenv.isLinux && (cfg.client.enable || cfg.server.enable))
+    lib.mkIf
+      (pkgs.stdenv.hostPlatform.isLinux && (cfg.client.enable || cfg.server.enable))
       {
         networking.firewall = {
           allowedTCPPorts =

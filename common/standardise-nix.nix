@@ -7,7 +7,7 @@ builtins.mapAttrs (
   let
     inherit (value) lib;
 
-    inherit (value.stdenv) isDarwin;
+    inherit (value.stdenv.hostPlatform) isDarwin;
 
     isUnstable = lib.hasSuffix "unstable" name;
     isBleedingEdge = lib.hasSuffix "bleeding-edge" name;

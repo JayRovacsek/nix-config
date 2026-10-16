@@ -1,13 +1,10 @@
 { self }:
-let
-  inherit (self.inputs.nixpkgs) lib;
-  inherit (lib.strings) optionalString;
-in
 {
-  generate-monitors = builtins.map (
-    m:
-    "${m.name},${m.resolution},${m.position},${m.scale}${
-      optionalString (m.extra != "") ",${m.extra}"
-    }"
-  );
+  # Emit Hyprland Lua monitor rules (hl.monitor) from monitor definitions.
+  generate-monitors = builtins.map (m: {
+    output = m.name;
+    mode = m.resolution;
+    position = m.position;
+    scale = m.scale;
+  });
 }

@@ -5,7 +5,7 @@
   ...
 }:
 {
-  xdg = lib.mkIf pkgs.stdenv.isLinux {
+  xdg = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     userDirs = {
       enable = true;

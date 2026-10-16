@@ -13,13 +13,14 @@
   networking.hostName = "oddish";
 
   services.bazarr = {
-    group = "media";
-    user = "bazarr";
+    user = self.common.config.services.bazarr.users.bazarr.name;
+    inherit (self.common.config.services.bazarr.users.bazarr) group;
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "26.05";
 
   users = {
-    inherit (self.common.config.services.media) groups users;
+    inherit (self.common.config.services.bazarr) users;
+    inherit (self.common.config.services.media) groups;
   };
 }

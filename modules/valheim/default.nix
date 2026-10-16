@@ -1,4 +1,8 @@
-{ config, self, ... }:
+{
+  config,
+  self,
+  ...
+}:
 let
   inherit (self.common.config.services) valheim;
   string-ports = builtins.map (x: builtins.toString x) valheim.ports;
@@ -24,8 +28,7 @@ in
       backend = "podman";
       containers.valheim = {
         environment = {
-          # TODO: move this to a systemd envfile
-          SERVER_NAME = "";
+          SERVER_NAME = "Dedicated";
           SERVER_PASS = "";
 
           SERVER_PUBLIC = "false";
@@ -144,7 +147,7 @@ in
         extraOptions = [
           "--cap-add=sys_nice"
         ];
-        image = "ghcr.io/lloesche/valheim-server";
+        image = "ghcr.io/community-valheim-tools/valheim-server";
         ports =
           let
             range = builtins.concatStringsSep "-" string-ports;
@@ -154,8 +157,8 @@ in
           ];
 
         volumes = [
-          "/srv/games/servers/valheim/2026-valheim-server/config:/config"
-          "/srv/games/servers/valheim/2026-valheim-server/data:/opt/valheim"
+          "/var/lib/valheim/config:/config"
+          "/var/lib/valheim/data:/opt/valheim"
         ];
       };
     };

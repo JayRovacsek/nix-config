@@ -2,4 +2,5 @@
 with self.homeManagerModules;
 [
   opencode
+  openshell
 ]

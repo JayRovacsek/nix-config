@@ -73,8 +73,6 @@ in
       openssh
       # Make launcher on mac actually sane
       raycast
-      # pidof and whatnot
-      toybox
     ];
 
     variables.EDITOR = "nvim";
