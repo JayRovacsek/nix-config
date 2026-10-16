@@ -7,7 +7,6 @@
     nix-topology
     time
     timesyncd
-    valheim
   ];
 
   networking.hostName = "porygon";
