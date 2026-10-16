@@ -12,14 +12,6 @@
       url = "github:ryantm/agenix";
     };
 
-    buildbot-nix = {
-      url = "github:nix-community/buildbot-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
-
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -120,6 +112,14 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:astro/microvm.nix";
+    };
+
+    nixbot = {
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:Mic92/nixbot";
     };
 
     nix-darwin = {
