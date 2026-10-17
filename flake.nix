@@ -104,7 +104,7 @@
         nix_2_18.follows = "nixpkgs";
         pre-commit-hooks.follows = "git-hooks";
       };
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.95.3";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.96.0";
     };
 
     microvm = {
