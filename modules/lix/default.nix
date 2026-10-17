@@ -12,10 +12,8 @@
   # default accordingly) and drive it with Lix.
   nix.monitored = {
     enable = true;
-    package =
-      self.inputs.nix-monitored.packages.${pkgs.stdenv.hostPlatform.system}.default.override
-        {
-          nix = pkgs.lixPackageSets.latest.lix;
-        };
+    package = self.inputs.nix-monitored.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      nix = self.inputs.lix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    };
   };
 }

@@ -9,6 +9,7 @@ in
 {
   "jwt-secret-key.age".publicKeys = keys;
   "notifier-config.age".publicKeys = keys;
+  "secrets.age".publicKeys = keys;
   "session-secret-key.age".publicKeys = keys;
   "storage-encryption-key.age".publicKeys = keys;
   "users.age".publicKeys = keys;

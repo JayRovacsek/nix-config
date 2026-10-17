@@ -6,7 +6,7 @@
 }:
 let
   inherit (config.services) nginx;
-  inherit (self.common.config.services.authelia) port;
+  inherit (self.common.config.services.authelia) address port;
   inherit (lib) recursiveUpdate;
 
   # TODO: move this to an authelia option.
@@ -19,16 +19,28 @@ let
     {
       enable = prod;
 
-      settingsFiles = [ config.age.secrets.authelia-notifier-config.path ];
+      settingsFiles = [
+        config.age.secrets.authelia-notifier-config.path
+        config.age.secrets.authelia-secrets.path
+      ];
 
       secrets = {
         jwtSecretFile = config.age.secrets.authelia-jwt-secret-key.path;
         sessionSecretFile = config.age.secrets.authelia-session-secret-key.path;
-        storageEncryptionKeyFile =
-          config.age.secrets.authelia-storage-encryption-key.path;
+        storageEncryptionKeyFile = config.age.secrets.authelia-storage-encryption-key.path;
       };
 
       settings = {
+        # https://www.authelia.com/integration/openid-connect/clients/nextcloud/#authelia
+        definitions = {
+          user_attributes = {
+            ## Expression to evaluate admin privilege for Nextcloud.
+            is_nextcloud_admin = {
+              expression = ''"nextcloud-admin" in groups ? "yes" : "no"'';
+            };
+          };
+        };
+
         access_control.default_policy = "deny";
 
         authentication_backend = {
@@ -61,7 +73,6 @@ let
           inherit domain;
           expiration = "1h";
           inactivity = "5m";
-          remember_me_duration = "1M";
         };
 
         server = {
@@ -69,9 +80,7 @@ let
             read = 8196;
             write = 8196;
           };
-          path = "authelia";
-          host = "0.0.0.0";
-          inherit port;
+          inherit address;
         };
 
         storage.local.path = "/var/lib/authelia-production/authelia.sqlite";
@@ -113,12 +122,14 @@ in
     identityPaths = [ "/agenix/id-ed25519-authelia-primary" ];
     secrets =
       let
-        owner =
-          config.services.authelia.instances."${
-            if prod then "production" else "test"
-          }".user;
+        owner = config.services.authelia.instances."${if prod then "production" else "test"}".user;
       in
       {
+        authelia-secrets = {
+          file = ../../secrets/authelia/secrets.age;
+          inherit owner;
+        };
+
         authelia-jwt-secret-key = {
           file = ../../secrets/authelia/jwt-secret-key.age;
           inherit owner;

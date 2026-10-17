@@ -687,7 +687,8 @@ _: {
       port = 4444;
       protocol = "http";
     };
-    authelia = {
+    authelia = rec {
+      address = "tcp://0.0.0.0:${builtins.toString port}/${subdomain}";
       authelia = false;
       ipv4 = "192.168.9.2";
       port = 9091;
