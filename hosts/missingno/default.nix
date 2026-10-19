@@ -17,10 +17,9 @@ let
   jay = self.common.users.jay {
     inherit config pkgs;
     modules =
-      (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh ++ impermanence ++ ai)
+      (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh)
       ++ (with self.homeManagerModules; [
         chromium
-        r2modman
         # {
         #   home.packages = with pkgs; [
         #     llama-cpp
@@ -77,9 +76,10 @@ in
       zramSwap
       zsh
     ])
-    ++ [
-      self.inputs.nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
-    ];
+    ++ (with self.inputs; [
+      lanzaboote.nixosModules.default
+      nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
+    ]);
 
   age.identityPaths = [
     "/agenix/id-ed25519-${config.networking.hostName}-primary"
@@ -89,6 +89,12 @@ in
     binfmt.emulatedSystems = [
       "aarch64-linux"
     ];
+    lanzaboote = {
+      autoEnrollKeys.enable = true;
+      autoGenerateKeys.enable = true;
+      enable = true;
+
+    };
   };
 
   environment.systemPackages = with pkgs; [

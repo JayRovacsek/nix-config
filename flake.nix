@@ -12,6 +12,8 @@
       url = "github:ryantm/agenix";
     };
 
+    crane.url = "github:ipetkov/crane";
+
     devshell = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/devshell";
@@ -78,10 +80,21 @@
 
     ironbar = {
       inputs = {
+        crane.follows = "crane";
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:JakeStanger/ironbar";
+    };
+
+    lanzaboote = {
+      inputs = {
+        crane.follows = "crane";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "git-hooks";
+        rust-overlay.follows = "rust-overlay";
+      };
+      url = "github:nix-community/lanzaboote";
     };
 
     lib-aggregate = {
@@ -220,6 +233,11 @@
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
       };
+    };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sbomnix = {
