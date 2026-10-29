@@ -834,6 +834,36 @@ in
       # (built-in, authenticated via device flow) and Ollama (custom,
       # defined in home-manager-modules/ollama).
       # TODO: Make this a bit smarter on how it's built - hardcoded while testing
+      provider = {
+        # Served by services.halogen-flash-server (modules/halogen-flash-server),
+        # which publishes the OpenAI-compatible API on hostAddress:hostPort.
+        # TODO: Correct this to leverage common config options, expose only over tailscale or alike
+        halogen-server = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "halogen-server";
+          options = {
+            baseURL = "http://127.0.0.1:11435/v1";
+          };
+          models = {
+            # https://huggingface.co/peonist-ai/halogen-qwen3.8-flash-next
+            # curl -sS http://localhost:11435/v1/models | jq -r '.data[].id'
+            "halogen-qwen3.8-flash-next" = {
+              name = "halogen-qwen3.8-flash-next";
+              limit = {
+                context = 262144;
+                output = 65536;
+              };
+              modalities = {
+                input = [
+                  "text"
+                  "image"
+                ];
+                output = [ "text" ];
+              };
+            };
+          };
+        };
+      };
 
       inherit mcp;
 
