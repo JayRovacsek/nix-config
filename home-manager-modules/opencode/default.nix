@@ -496,37 +496,6 @@ let
     name: source: lib.nameValuePair "opencode/commands/${name}.md" { inherit source; }
   ) commands;
 
-  snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
-    lib.generators.toYAML { } {
-      other_services = {
-        object_manager = false;
-        query_manager = true;
-        semantic_manager = true;
-
-        sql_statement_permissions = [
-          { Alter = false; }
-          { Command = false; }
-          { Comment = false; }
-          { Commit = false; }
-          { Copy = false; }
-          { Create = false; }
-          { Delete = false; }
-          { Describe = true; }
-          { Drop = false; }
-          { Insert = false; }
-          { Merge = false; }
-          { Rollback = false; }
-          { Select = true; }
-          { Transaction = false; }
-          { TruncateTable = false; }
-          { Unknown = false; }
-          { Update = false; }
-          { Use = true; }
-        ];
-      };
-    }
-  );
-
   # ---------------------------------------------------------------------------
   # MCP server declarations
   #
@@ -541,17 +510,31 @@ let
       flakeRef = "github:utensils/mcp-nixos";
     })
 
-    # GitHub API: issues, PRs, repos, code search, CI status
-    # Requires GITHUB_PERSONAL_ACCESS_TOKEN in the environment at runtime
+    # Grafana: dashboards, datasources, Prometheus/Loki queries, alerting.
+    # https://github.com/grafana/mcp-grafana
+    # Requires GRAFANA_URL and GRAFANA_SERVICE_ACCOUNT_TOKEN in the
+    # environment at runtime.
     (mkMcpServer {
-      name = "snowflake";
-      command = [ "snowflake-labs-mcp" ];
-      args = [
-        "--service-config-file"
-        snowflake-mcp-config
-        "--authenticator"
-        "externalbrowser"
-      ];
+      name = "grafana";
+      command = [ "${pkgs.mcp-grafana}/bin/mcp-grafana" ];
+    })
+
+    # Up-to-date library documentation from context7.com.
+    # https://github.com/upstash/context7
+    # Optional CONTEXT7_API_KEY in the environment for higher rate limits.
+    (mkMcpServer {
+      name = "context7";
+      command = [ "${pkgs.context7-mcp}/bin/context7-mcp" ];
+    })
+
+    # Firefox DevTools automation via WebDriver BiDi: page navigation, DOM
+    # snapshots, console and network inspection.
+    # https://github.com/mozilla/firefox-devtools-mcp
+    # Auto-detects a `firefox` binary on PATH at runtime (provided by the
+    # desktop home package set).
+    (mkMcpServer {
+      name = "firefox-devtools";
+      command = [ "${pkgs.firefox-devtools-mcp}/bin/firefox-devtools-mcp" ];
     })
 
     (mkMcpServer {
