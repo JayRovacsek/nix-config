@@ -17,8 +17,9 @@
                   mountpoint = "/boot";
                   type = "filesystem";
                 };
-                size = "500M";
+                size = "1G";
                 type = "EF00";
+                uuid = "e75ae1c6-3f62-4fc4-aa20-d1cf1fcd9c43";
               };
               root = {
                 content = {
@@ -27,11 +28,12 @@
                   type = "filesystem";
                 };
                 size = "100%";
+                uuid = "715c702d-7f78-4458-ac3b-a6310e652d4e";
               };
             };
             type = "gpt";
           };
-          device = "/dev/nvme0n1";
+          device = "/dev/nvme1n1";
           type = "disk";
         };
       };
