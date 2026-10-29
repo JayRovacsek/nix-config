@@ -21,11 +21,11 @@ with lib;
 let
   cfg = config.services.halogen-flash-server;
 
-  # Model artefacts the server refuses to start without (mirrors the upstream
-  # example's AssertPathExists pair).
-  checkpoint = "qwen38-flash-next-v2.hgn";
+  # The engine always reads its lookup table as qwen38-flash-next-ngram.hgn
+  # beside the checkpoint, whatever the checkpoint is called (docs/FLAGS.md);
+  # the name is not a supported flag, so it stays a constant here rather than
+  # an option.
   lookupTable = "qwen38-flash-next-ngram.hgn";
-  visionFile = "qwen38-flash-next-vision.hgn";
 
   defaultEnvironment = {
     HALOGEN_API_PORT = toString cfg.containerPort;
@@ -35,11 +35,17 @@ let
     HALOGEN_CACHE_DIR = "/cache";
     HALOGEN_CACHE_DISK_GIB = "64";
     HALOGEN_CACHE_PRUNE_OLD = "1"; # else every upgrade leaves a 30-60 GB subtree behind
+    # Codified from checkpointFile: modelDir is mounted read-only at /models,
+    # so the file name interpolates under that prefix. Set explicitly rather
+    # than left to the engine's default so it can never drift from the
+    # artefact the validation units gate on.
+    HALOGEN_CHECKPOINT = "/models/${cfg.checkpointFile}";
   }
   // lib.optionalAttrs cfg.enableVision {
-    # Boolean flag (current engine auto-discovers the file beside the
-    # checkpoint); NOT a path. See the model card.
-    HALOGEN_VISION_TOWER = "1";
+    # Path form of the flag (the engine also accepts `1` to auto-discover the
+    # file beside the checkpoint); interpolated so it can never drift from the
+    # validated artefact.
+    HALOGEN_VISION_TOWER = "/models/${cfg.visionFile}";
   };
 
   # Gates the container: catches empty/partial `hf download` results before
@@ -48,18 +54,22 @@ let
   # file's size for the record. The vision file is validated only when
   # enableVision is set — text-only hosts must not be blocked by it.
   requiredArtefacts = [
-    "${cfg.modelDir}/${checkpoint}"
+    "${cfg.modelDir}/${cfg.checkpointFile}"
     "${cfg.modelDir}/${lookupTable}"
   ]
-  ++ lib.optionals cfg.enableVision [ "${cfg.modelDir}/${visionFile}" ];
+  ++ lib.optionals cfg.enableVision [ "${cfg.modelDir}/${cfg.visionFile}" ];
 
+  # The hint's exclude globs skip the stock repo's superseded w4b and
+  # experimental ht43 checkpoints (tens of GB each); they match nothing on
+  # derivative repos, which is harmless. Derivatives may also need companion
+  # files from a different repo — see modelRepo.
   validateScript = pkgs.writeShellScript "halogen-flash-server-validate" ''
     set -euo pipefail
     echo "halogen: pinned model revision: ${cfg.modelRevision}"
     for f in ${lib.escapeShellArgs requiredArtefacts}; do
       if [ ! -s "$f" ]; then
         echo "halogen: missing or empty model artefact: $f" >&2
-        echo "halogen: pull with: hf download peonist-ai/halogen-qwen3.8-flash-next --revision ${cfg.modelRevision} --local-dir ${cfg.modelDir} --exclude 'qwen38-flash-next-w4b*' --exclude '*ht43*'" >&2
+        echo "halogen: e.g. pull with: hf download ${cfg.modelRepo} --revision ${cfg.modelRevision} --local-dir ${cfg.modelDir} --exclude 'qwen38-flash-next-w4b*' --exclude '*ht43*'" >&2
         exit 1
       fi
       echo "halogen: $f is $(stat -c %s "$f") bytes"
@@ -83,13 +93,48 @@ in
       description = "Version of the halogen-flash-server container image.";
     };
 
+    modelRepo = mkOption {
+      type = types.str;
+      default = "peonist-ai/halogen-qwen3.8-flash-next";
+      description = ''
+        Hugging Face repository the model artefacts are pulled from; recorded
+        in the validation hint. Derivative checkpoints may publish only their
+        own checkpoint and still take the lookup table, tokenizer and vision
+        tower from peonist's repository — check the derivative's model card
+        and pull each companion file from its stated source.
+      '';
+    };
+
     modelRevision = mkOption {
       type = types.str;
       default = "647e3814953e8435d58f5d5aa13b97aca85a7d93";
       description = ''
-        Pinned Hugging Face revision of peonist-ai/halogen-qwen3.8-flash-next
-        carrying the v2 checkpoint and lookup table, recorded so the model
-        pull can be validated and reproduced.
+        Pinned Hugging Face revision of modelRepo carrying the checkpoint and
+        lookup table, recorded so the model pull can be validated and
+        reproduced.
+      '';
+    };
+
+    checkpointFile = mkOption {
+      type = types.str;
+      default = "qwen38-flash-next-v2.hgn";
+      description = ''
+        Checkpoint file name within modelDir. Served to the engine as
+        HALOGEN_CHECKPOINT=/models/<name>; the engine's own default matches
+        the stock v2 file, so pointing this at a derivative's file name is
+        how that derivative gets served instead. The validation artefacts
+        assume the v2 layout (checkpoint + n-gram table); the older w4b
+        checkpoint additionally needs a <name>.overlay.hgn sidecar and is
+        not covered by these checks.
+      '';
+    };
+
+    visionFile = mkOption {
+      type = types.str;
+      default = "qwen38-flash-next-vision.hgn";
+      description = ''
+        Vision tower file name within modelDir. Served as
+        HALOGEN_VISION_TOWER=/models/<name> when enableVision is set.
       '';
     };
 
@@ -97,8 +142,8 @@ in
       type = types.bool;
       default = true;
       description = ''
-        Enable the optional vision tower (qwen38-flash-next-vision.hgn) so the
-        server can read images. When false the server is text-only; text
+        Enable the optional vision tower (the file named by visionFile) so
+        the server can read images. When false the server is text-only; text
         behaviour is byte-identical either way. The vision file must be pulled
         beside the checkpoint when this is enabled.
       '';
@@ -257,10 +302,9 @@ in
       # llama-cpp and halogen are both memory-heavy on the 128 GiB
       # unified-memory Strix Halo box and must be mutually exclusive.
       conflicts = [ "llama-cpp.service" ];
-      unitConfig.AssertPathExists = [
-        "${cfg.modelDir}/${checkpoint}"
-        "${cfg.modelDir}/${lookupTable}"
-      ];
+      # Same artefact list the validate oneshot gates on (existence only;
+      # the oneshot adds the non-empty check).
+      unitConfig.AssertPathExists = requiredArtefacts;
       unitConfig.RequiresMountsFor = [ cfg.modelDir ];
       serviceConfig = {
         LimitMEMLOCK = "infinity";
