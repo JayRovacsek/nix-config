@@ -2,7 +2,10 @@
 
 They're all named after [characters from the GOAT RPG](https://www.youtube.com/watch?v=xFU2HL-PQNo)
 
-Breaking the use-cases down:
+NixOS hosts are defined in [`linux/default.nix`](../linux/default.nix) and nix-darwin hosts in
+[`darwin/default.nix`](../darwin/default.nix). Most of the self-contained services run as
+ephemeral NixOS containers on Dragonite, with each guest's configuration living in its own
+directory here.
 
 ## Alakazam
 
@@ -24,6 +27,12 @@ Work in progress declarative AWS AMI instance - could be beautiful if I could gi
 
 ![Butterfree](https://archives.bulbagarden.net/media/upload/c/c4/Spr_2c_012.png?raw=true)
 
+## Clefairy
+
+Instance hosting the unifi network controller
+
+![Clefairy](https://archives.bulbagarden.net/media/upload/8/82/Spr_2c_035.png?raw=true)
+
 ## Diglett
 
 Small Linode instance for running openvpn to provide a tunnel upstream for networks
@@ -42,6 +51,9 @@ as it's first task once online
 
 Personal server; using a modern Ryzen processor and Nvidia GPU
 
+Primary container host for the service fleet, and home to jellyfin, jellyseerr,
+harmonia (binary cache) and blocky DNS
+
 ![Dragonite](https://archives.bulbagarden.net/media/upload/b/ba/Spr_2c_149.png?raw=true)
 
 ## Gastly
@@ -52,19 +64,20 @@ Personal laptop; a secondary testing ground when I'm on the move
 
 ## Grimer
 
-Proof of concept installer image
+Graphical installer image (Cinnamon + Calamares) used as the base install host
+for migrating a machine off Windows 10
 
 ![Grimer](https://archives.bulbagarden.net/media/upload/3/3a/Spr_2c_088.png?raw=true)
 
 ## Igglybuff
 
-A instance providing DNS services
+An instance providing DNS services
 
 ![Igglybuff](https://archives.bulbagarden.net/media/upload/e/e7/Spr_2c_174.png?raw=true)
 
 ## Ivysaur
 
-A raspberry pi 4 that runs DNS services
+A raspberry pi 5 that runs DNS services
 
 ![Ivysaur](https://archives.bulbagarden.net/media/upload/2/2a/Spr_2c_002.png?raw=true)
 
@@ -83,19 +96,20 @@ Instance hosting lidarr
 
 ## Magikarp
 
-A instance providing the headscale control server instance for overlay networks
+An instance providing the headscale control server instance for overlay networks
 
 ![Magikarp](https://archives.bulbagarden.net/media/upload/f/f2/Spr_2c_129.png?raw=true)
 
 ## Magnemite
 
-Instance hosting unifi controller
+Instance running blocky DNS; the unifi controller it once hosted now lives on Clefairy
 
 ![Magnemite](https://archives.bulbagarden.net/media/upload/a/a0/Spr_2c_081.png?raw=true)
 
 ## Magneton
 
-Instance hosting buildbot worker
+Instance running blocky DNS and hosting nixbot - the CI service that builds
+GitHub repositories by topic, replacing the old buildbot worker
 
 ![Magneton](https://archives.bulbagarden.net/media/upload/2/26/Spr_2c_082.png?raw=true)
 
@@ -117,11 +131,27 @@ Testing ground for configuration suitability - intended to be simply virtual via
 
 ![Mew](https://archives.bulbagarden.net/media/upload/f/f3/Spr_2c_151.png?raw=true)
 
+## Missingno
+
+An AI-centric workstation - a Framework Desktop (AMD Ryzen AI Max 300 series, "Strix Halo")
+where the line between traditional compute and AI compute is gloriously blurred; a Hyprland
+desktop, ROCm playground and remote-build client in one
+
+Named after the infamous glitch Pokemon, because of course it was
+
+![Missingno](https://archives.bulbagarden.net/media/upload/b/b7/Missingno.png?raw=true)
+
 ## Mr Mime
 
-Instance hosting observability stack (Grafana, Loki, Prometheus)
+Instance hosting the observability stack (Grafana, Loki, Prometheus)
 
 ![Mr Mime](https://archives.bulbagarden.net/media/upload/7/70/Spr_2c_122.png?raw=true)
+
+## Natu
+
+Instance providing anubis - the anti-bot protection proxy that fronts public services
+
+![Natu](https://archives.bulbagarden.net/media/upload/6/6a/Spr_2c_177.png?raw=true)
 
 ## Nidoking
 
@@ -155,7 +185,7 @@ Instance hosting bazarr
 
 ## Onix
 
-Orange Pi 5 Plus hosting Anubis and Blocky
+Orange Pi 5 Plus running blocky DNS
 
 ![Onix](https://archives.bulbagarden.net/media/upload/8/85/Spr_2c_095.png?raw=true)
 
@@ -167,7 +197,7 @@ Instance running radarr
 
 ## Porygon
 
-Instance running various game servers
+Instance running various game servers (minecraft, palworld, terraria, valheim)
 
 ![Porygon](https://archives.bulbagarden.net/media/upload/5/57/Spr_2c_137.png?raw=true)
 
@@ -197,7 +227,7 @@ Work aarch64 Macbook
 
 ## Wartortle
 
-A raspberry pi 4 that runs DNS services
+A raspberry pi 5 that runs DNS services
 
 ![Wartortle](https://archives.bulbagarden.net/media/upload/5/5d/Spr_2c_008.png?raw=true)
 
@@ -213,3 +243,13 @@ A configuration that is leveraged within WSL settings. Yep, everyone hates Zubat
 isn't so far from WSL :cry:
 
 ![Zubat](https://archives.bulbagarden.net/media/upload/b/be/Spr_4h_041_m.png?raw=true)
+
+## Lavender Tower
+
+Sometimes Pokemon pass on. While we're source controlled, retired hosts aren't deleted but
+moved to [`lavender-tower/`](lavender-tower/) - maybe one day we'll buy a Revive for them.
+
+Current residents: Cloyster (a former Macbook, later reimagined as a Hyprland laptop) and the
+original Ninetales configuration.
+
+![Cloyster](https://archives.bulbagarden.net/media/upload/c/c0/Spr_2c_091.png?raw=true)
