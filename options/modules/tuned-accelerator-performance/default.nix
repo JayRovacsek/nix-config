@@ -21,6 +21,7 @@ in
     systemd.services.tuned-set-profile = {
       description = "Set TuneD profile";
       after = [ "tuned.service" ];
+      wants = [ "tuned.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";

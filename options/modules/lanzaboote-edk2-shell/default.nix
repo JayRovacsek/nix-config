@@ -65,7 +65,13 @@ in
     systemd.services.lanzaboote-edk2-shell = {
       description = "Install signed EDK2 UEFI Shell boot entry";
       wantedBy = [ "multi-user.target" ];
-      after = [ "local-fs.target" ];
+      after = [
+        "local-fs.target"
+        "generate-sb-keys.service"
+      ];
+      # Skip cleanly instead of failing if the Secure Boot keys are not
+      # present yet (generate-sb-keys runs before us, but stay defensive).
+      unitConfig.ConditionPathExists = toString lanzaboote.privateKeyFile;
 
       serviceConfig = {
         Type = "oneshot";
