@@ -80,8 +80,6 @@ in
       autoUpdateApps.enable = true;
 
       config = {
-        adminpassFile = config.age.secrets.nextcloud-admin-pass-file.path;
-        adminuser = "jay@rovacsek.com";
         dbtype = "mysql";
       };
 
