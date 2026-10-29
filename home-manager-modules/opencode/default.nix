@@ -739,10 +739,10 @@ in
       string, and wildcards do not match newlines — so an inline multi-line
       `git commit -m "..."` is denied, and compound commands like
       `git add ... && git commit ...` are permission-checked as a whole.
-      Message text can also collide with deny patterns: the `git commit*-n*`
+      Message text can also collide with deny patterns: the `git commit* -n*`
       rule (which blocks unsigned commits via `-n`/`--no-gpg-sign`) matches
-      any `-n` substring, including model names such as `flash-next` in the
-      `Assisted-by` trailer.
+      any ` -n` substring in the command, such as a message body containing
+      " -next".
 
       If a commit is ever denied, **MUST NOT** retry with flag variations,
       `--no-verify`, `-n`, or any other hook or signature bypass — those are
@@ -1109,7 +1109,10 @@ in
           "git send-email*--no-verify*" = "deny";
 
           # --- git commit -n: blocks unsigned commits (enforce GPG signing) ---
-          "git commit*-n*" = "deny";
+          # The leading space anchors the pattern to a flag boundary so
+          # message text containing "-n" substrings (e.g. model names like
+          # `flash-next`) does not trip the rule.
+          "git commit* -n*" = "deny";
 
           # -----------------------------------------------------------------
           # DENY: arbitrary package runners & installers
