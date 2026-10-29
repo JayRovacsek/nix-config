@@ -5,33 +5,38 @@ let
   hack-font = pkgs.nerd-fonts.hack;
 in
 {
+  home-manager.sharedModules = [
+    { stylix.targets.vscodium.enable = false; }
+    { stylix.targets.hyprland.enable = false; }
+  ];
+
   stylix = {
     enable = true;
     autoEnable = true;
     base16Scheme = tomorrow-night-blue-base16;
     fonts = {
+      emoji = {
+        name = "Noto Color Emoji";
+        package = pkgs.noto-fonts;
+      };
+
+      monospace = {
+        name = "Hack Nerd Font";
+        package = hack-font;
+      };
+
       sansSerif = {
+        name = "DejaVu Sans";
         # So the below is super wonky - on aarch64 builds for the rpi3 it'll
         # receive a invalid shasum, but no other time. For now we'll utilise
         # the same font package between sansSerif and serif to resolve this
         # but it may cause wonkiness in some settings re; fonts
         package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
       };
 
       serif = {
-        package = pkgs.dejavu_fonts;
         name = "DejaVu Serif";
-      };
-
-      monospace = {
-        package = hack-font;
-        name = "Hack Nerd Font";
-      };
-
-      emoji = {
-        package = pkgs.noto-fonts;
-        name = "Noto Color Emoji";
+        package = pkgs.dejavu_fonts;
       };
 
       sizes =
@@ -40,23 +45,13 @@ in
           medium = 12;
         in
         {
-          desktop = medium;
           applications = small;
-          terminal = medium;
+          desktop = medium;
           popups = small;
+          terminal = medium;
         };
     };
-
     homeManagerIntegration.followSystem = true;
-    image = pkgs.fetchurl {
-      url = "https://openclipart.org/image/2000px/311101";
-      hash = "sha256-mIMXYOENVSgH0PjhO02MM7beg9AT44uVDj/tXxilDx0=";
-    };
     polarity = "dark";
   };
-
-  home-manager.sharedModules = [
-    { stylix.targets.vscodium.enable = false; }
-    { stylix.targets.hyprland.enable = false; }
-  ];
 }
