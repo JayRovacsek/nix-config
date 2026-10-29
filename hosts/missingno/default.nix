@@ -33,9 +33,8 @@ in
 
   imports =
     (with self.nixosModules; [
-      # ./disk-config.nix
-      ./hw.nix
-      ./x.nix
+      ../../modules/hardware/strix-halo
+      ./disk-config.nix
       agenix
       alloy
       bluetooth
@@ -51,6 +50,7 @@ in
       i18n
       # impermanence
       # laya
+      lanzaboote-edk2-shell
       lix
       logging
       lorri
@@ -70,6 +70,7 @@ in
       timesyncd
       tmp-tmpfs
       tmux
+      tuned-accelerator-performance
       udev
       # zramSwap
       zsh
@@ -79,52 +80,101 @@ in
       nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
     ]);
 
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
-  };
-
-  age.identityPaths = [
-    "/agenix/id-ed25519-${config.networking.hostName}-primary"
-  ];
+  age.identityPaths = [ "/agenix/id-ed25519-${config.networking.hostName}-primary" ];
 
   boot = {
     binfmt.emulatedSystems = [
       "aarch64-linux"
     ];
+
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [ "amdgpu" ];
+    };
+
+    kernelModules = [
+      "kvm-amd"
+      "amdgpu"
+    ];
+
+    # https://offsite.guru/blog/halogen-strix-halo/
+    kernelPackages = pkgs.linuxPackages_7_2;
+
     lanzaboote = {
+      enable = true;
       autoEnrollKeys.enable = true;
       autoGenerateKeys.enable = true;
-      enable = true;
       pkiBundle = "/var/lib/sbctl";
     };
-  };
 
-  boot = {
-    loader.systemd-boot.edk2-uefi-shell.enable = true;
     loader.systemd-boot.enable = lib.mkForce false;
+
     supportedFilesystems = [
       "ntfs"
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    agenix
-    curl
-    dua
-    sbctl
-    dig
-  ];
+  environment = {
+    # ROCm/graphics environment variables come from the hardware/strix-halo
+    # module; only host-specific values are set here.
+    sessionVariables = {
+      HSA_OVERRIDE_GFX_VERSION = "11.5.1";
+      LD_LIBRARY_PATH = [
+        "${pkgs.rocmPackages.rocm-smi}/lib"
+        "${pkgs.libdrm}/lib"
+      ];
+      WLR_DRM_DEVICES = "/dev/dri/by-path/pci-0000:c3:00.0-card";
+    };
 
-  hardware.cpu.profile = {
-    cores = 16;
-    speed = 20;
+    systemPackages = with pkgs; [
+      vulkan-headers
+      vulkan-tools
+      vulkan-loader
+      vulkan-validation-layers
+      rocmPackages.rocm-smi
+      rocmPackages.rocminfo
+      rocmPackages.clr
+      agenix
+      curl
+      dua
+      sbctl
+      dig
+    ];
+  };
+
+  # fileSystems come from disk-config.nix via disko.
+
+  hardware = {
+    enableRedistributableFirmware = true;
+
+    cpu = {
+      amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      profile = {
+        cores = 16;
+        speed = 20;
+      };
+    };
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        mesa
+        rocmPackages.clr
+        rocmPackages.hipblas
+        rocmPackages.rocblas
+        rocmPackages.clr.icd
+        vulkan-tools
+        vulkan-loader
+        vulkan-validation-layers
+      ];
+    };
   };
 
   networking = {
@@ -132,9 +182,12 @@ in
     hostName = "missingno";
   };
 
-  programs.fuse.userAllowOther = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
+  programs = {
+    fuse.userAllowOther = true;
+    ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
+  };
 
   remoteBuilds = lib.mkForce {
     machineConfigs = [
@@ -159,10 +212,34 @@ in
     ];
   };
 
+  security.rtkit.enable = true;
+
+  services = {
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      # jack.enable = true;
+    };
+
+    pulseaudio.enable = false;
+
+    xserver = {
+      enable = true;
+      videoDrivers = [ "amdgpu" ];
+    };
+  };
+
   system.stateVersion = "26.05";
 
   systemd.services = {
-    "getty@tty1".enable = false;
     "autovt@tty1".enable = false;
+    "getty@tty1".enable = false;
   };
+
+  virtualisation.docker.enable = true;
 }
