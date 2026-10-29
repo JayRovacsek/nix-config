@@ -17,14 +17,9 @@ let
   jay = self.common.users.jay {
     inherit config pkgs;
     modules =
-      (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh)
+      (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh ++ ai)
       ++ (with self.homeManagerModules; [
         chromium
-        # {
-        #   home.packages = with pkgs; [
-        #     llama-cpp
-        #   ];
-        # }
       ]);
   };
 
@@ -39,6 +34,8 @@ in
   imports =
     (with self.nixosModules; [
       # ./disk-config.nix
+      ./hw.nix
+      ./x.nix
       agenix
       alloy
       bluetooth
@@ -48,6 +45,7 @@ in
       gnome-keyring
       gnupg
       greetd
+      halogen-flash-server
       home-manager
       hyprland
       i18n
@@ -73,13 +71,24 @@ in
       tmp-tmpfs
       tmux
       udev
-      zramSwap
+      # zramSwap
       zsh
     ])
     ++ (with self.inputs; [
-      lanzaboote.nixosModules.default
+      lanzaboote.nixosModules.lanzaboote
       nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
     ]);
+
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    # jack.enable = true;
+  };
 
   age.identityPaths = [
     "/agenix/id-ed25519-${config.networking.hostName}-primary"
@@ -93,13 +102,23 @@ in
       autoEnrollKeys.enable = true;
       autoGenerateKeys.enable = true;
       enable = true;
-
+      pkiBundle = "/var/lib/sbctl";
     };
+  };
+
+  boot = {
+    loader.systemd-boot.edk2-uefi-shell.enable = true;
+    loader.systemd-boot.enable = lib.mkForce false;
+    supportedFilesystems = [
+      "ntfs"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     agenix
     curl
+    dua
+    sbctl
     dig
   ];
 
@@ -140,7 +159,7 @@ in
     ];
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "26.05";
 
   systemd.services = {
     "getty@tty1".enable = false;
