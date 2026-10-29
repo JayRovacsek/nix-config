@@ -297,21 +297,20 @@ _: {
       container = {
         allowedDevices = [
           {
+            modifier = "rwm";
             node = "/dev/dri/card0";
-            modifier = "rwm";
           }
           {
+            modifier = "rwm";
             node = "/dev/dri/renderD128";
-            modifier = "rwm";
           }
           {
-            node = "/dev/nvidia0";
             modifier = "rwm";
+            node = "/dev/nvidia0";
           }
         ];
       };
       hostname = "nidoking";
-      macAddress = "02:42:c0:a8:0a:03";
       ips = [
         {
           address = "192.168.10.3";
@@ -322,6 +321,7 @@ _: {
           fqdn = "nextcloud.local";
         }
       ];
+      macAddress = "02:42:c0:a8:0a:03";
       shares = [
         {
           hostPath = "/var/lib/nextcloud";
@@ -343,7 +343,6 @@ _: {
         }
       ];
       vlan = "nextcloud";
-
     };
     nidorina = {
       hostname = "nidorina";
@@ -642,6 +641,7 @@ _: {
       shares = [ ];
     };
   };
+
   networks = [
     {
       name = "iot";
@@ -688,6 +688,7 @@ _: {
       vlan-tag = 25;
     }
   ];
+
   services = {
     anubis = {
       bind-network = "tcp";
@@ -711,11 +712,13 @@ _: {
       port = 6767;
       protocol = "http";
       subdomain = "bazarr";
-      users.bazarr = {
-        group = "media";
-        name = "bazarr";
-        isSystemUser = true;
-        uid = 400;
+      users = {
+        bazarr = {
+          group = "media";
+          isSystemUser = true;
+          name = "bazarr";
+          uid = 400;
+        };
       };
     };
     bedrock-connect = {
@@ -770,11 +773,13 @@ _: {
       port = 8112;
       protocol = "http";
       subdomain = "deluge";
-      users.deluge = {
-        group = "media";
-        name = "deluge";
-        isSystemUser = true;
-        uid = 83;
+      users = {
+        deluge = {
+          group = "media";
+          isSystemUser = true;
+          name = "deluge";
+          uid = 83;
+        };
       };
     };
     exporters-node = {
@@ -845,12 +850,12 @@ _: {
         jellyfin = {
           createHome = false;
           description = "User account generated for running a specific service";
-          isSystemUser = true;
-          uid = 998;
           extraGroups = [
             "video"
             "render"
           ];
+          isSystemUser = true;
+          uid = 998;
         };
       };
     };
@@ -860,11 +865,13 @@ _: {
       port = 8686;
       protocol = "http";
       subdomain = "lidarr";
-      users.lidarr = {
-        group = "media";
-        name = "lidarr";
-        isSystemUser = true;
-        uid = 306;
+      users = {
+        lidarr = {
+          group = "media";
+          isSystemUser = true;
+          name = "lidarr";
+          uid = 306;
+        };
       };
     };
     loki = {
@@ -912,8 +919,16 @@ _: {
       protocol = "https";
       subdomain = "nextcloud";
       users = {
-        groups.nextcloud.gid = 10003;
-        users.nextcloud.uid = 988;
+        groups = {
+          nextcloud = {
+            gid = 10003;
+          };
+        };
+        users = {
+          nextcloud = {
+            uid = 988;
+          };
+        };
       };
     };
     nginx = {
@@ -966,11 +981,13 @@ _: {
       port = 7878;
       protocol = "http";
       subdomain = "radarr";
-      users.radarr = {
-        group = "media";
-        name = "radarr";
-        isSystemUser = true;
-        uid = 275;
+      users = {
+        radarr = {
+          group = "media";
+          isSystemUser = true;
+          name = "radarr";
+          uid = 275;
+        };
       };
     };
     seerr = {
@@ -986,11 +1003,13 @@ _: {
       port = 9999;
       protocol = "http";
       subdomain = "sonarr";
-      users.sonarr = {
-        group = "media";
-        name = "sonarr";
-        isSystemUser = true;
-        uid = 274;
+      users = {
+        sonarr = {
+          group = "media";
+          isSystemUser = true;
+          name = "sonarr";
+          uid = 274;
+        };
       };
     };
     telegraf = {
@@ -1012,7 +1031,9 @@ _: {
       groups = {
         valheim = {
           gid = 10105;
-          members = [ "valheim" ];
+          members = [
+            "valheim"
+          ];
         };
       };
       ipv4 = "192.168.17.2";
