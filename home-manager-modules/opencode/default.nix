@@ -723,6 +723,31 @@ in
       chore(flake): update flake lock & deduplicate inputs
       ```
 
+      ### Commit Execution
+
+      **MUST:** commit using a message file, never an inline `-m` message.
+      Follow this exact sequence, with each step as a separate command
+      (never chained with `&&`):
+
+      1. Write the complete commit message (header, body, `Assisted-by`
+         trailer) to `.tmp/commit-msg.txt` inside the project.
+      2. `git add <paths>`
+      3. `git commit -F .tmp/commit-msg.txt`
+      4. `rm .tmp/commit-msg.txt`
+
+      Rationale: OpenCode's bash permission globs match the entire command
+      string, and wildcards do not match newlines — so an inline multi-line
+      `git commit -m "..."` is denied, and compound commands like
+      `git add ... && git commit ...` are permission-checked as a whole.
+      Message text can also collide with deny patterns: the `git commit*-n*`
+      rule (which blocks unsigned commits via `-n`/`--no-gpg-sign`) matches
+      any `-n` substring, including model names such as `flash-next` in the
+      `Assisted-by` trailer.
+
+      If a commit is ever denied, **MUST NOT** retry with flag variations,
+      `--no-verify`, `-n`, or any other hook or signature bypass — those are
+      denied outright. Switch to the file workflow above, or ask the user.
+
       ## AI-Assisted Contribution Policy
 
       This repository follows the `Assisted-by` commit footer convention
