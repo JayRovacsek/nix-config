@@ -83,7 +83,9 @@ Reordering attrsets must be a no-op for the evaluated system. Prove it:
 
    For files not reachable via `nixosConfigurations` (modules, flake parts),
    fall back to `nix-instantiate --parse <file>` plus whichever eval target
-   consumes them.
+   consumes them. For *pure data* files (flake parts such as host or service
+   registries), prefer the JSON round-trip gate below — it compares the whole
+   evaluated value, which is strictly stronger than a parse check.
 2. **Apply the reordering**, then format: `nixfmt <files>`.
 3. **Re-evaluate** with the same command. The outpath **must be byte-identical**
    to the baseline. If it differs, the change was not a pure reorder — diff
@@ -96,6 +98,74 @@ If the user has *also* requested semantic changes (dedupe, module extraction,
 disko migration), capture the baseline *after* those changes land, so the
 pure-reorder gate stays exact; semantic deltas are then explained separately
 by diffing individual options.
+
+## Canonicalising pure data files via JSON round-trip
+
+When the file is *pure data* — every value is a string, integer, float,
+boolean, null, list, or attrset, with no functions, paths, or derivations —
+`builtins.toJSON` can do the sorting and provide the validation gate in one
+step. `toJSON` emits attrset keys in ASCII-lexicographic order at every
+depth while preserving list order, which is exactly the layout rules above,
+and the JSON it produces doubles as a canonical whole-value comparison
+target.
+
+1. **Baseline.** Capture the canonical form of the evaluated value:
+
+   ```sh
+   nix eval --extra-experimental-features 'nix-command flakes' \
+     --json <target> > before.json   # e.g. .#common.config
+   ```
+
+2. **Losslessness check.** Prove nothing leaks through the round-trip:
+
+   ```sh
+   nix eval --impure --expr \
+     'let cfg = import ./common/config.nix { }; in
+      builtins.fromJSON (builtins.toJSON cfg) == cfg'   # must print true
+   ```
+
+   If this errors or prints `false`, the file holds non-JSON-representable
+   values and the shortcut does not apply — reorder by hand instead.
+
+3. **Regenerate.** `fromJSON` reads JSON into values but never emits Nix
+   *source*, so render the evaluated value back to source with
+   `scripts/render-nix.nix` — a generic pretty-printer that sorts keys and
+   preserves list order. Adapt its top-level wrapper to the file's function
+   signature (e.g. `_: { ... }`), then `nixfmt`.
+
+4. **Gate.** Re-run step 1 and require byte-identical JSON. Because the file
+   was generated from the evaluated value this passes by construction — any
+   mismatch means the regeneration step, not the ordering, went wrong.
+
+**Caveat — `rec` blocks and interpolated strings bake to literals.**
+Evaluation flattens `rec` attrsets and `${}` interpolations into plain
+values, so the round-trip preserves the *evaluated* data but erases the
+dynamic coupling in the source:
+
+```nix
+# before: address tracks port and subdomain
+authelia = rec {
+  address = "tcp://0.0.0.0:${builtins.toString port}/${subdomain}";
+  port = 9091;
+  subdomain = "authelia";
+}
+
+# after round-trip: a frozen literal that no longer tracks port edits
+authelia = {
+  address = "tcp://0.0.0.0:9091/authelia";
+  port = 9091;
+  subdomain = "authelia";
+}
+```
+
+Hand-write such blocks back into their `rec` + interpolation form after
+generation; the JSON gate then confirms the restoration is still a no-op.
+
+Two smaller notes: the round-trip flattens dotted keys (`users.bazarr = { … }`
+becomes nested attrsets — valid and self-consistent, collapse single-leaf
+roots by hand if you want the full layout rules), and empty-list assignments
+like `shares = [ ]` survive as data, because the drop-no-op-values rule is
+about option merging in modules, not plain data attrsets.
 
 ## Worked example
 
