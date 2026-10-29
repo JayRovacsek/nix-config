@@ -7,8 +7,7 @@
 }:
 let
   zfsBootSupported =
-    (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems)
-    != { };
+    (lib.filterAttrs (n: v: n == "zfs" && v) config.boot.supportedFilesystems) != { };
 
   zfsServiceSupported =
     config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
@@ -33,12 +32,6 @@ in
     identityPaths = [ "/agenix/id-ed25519-nextcloud-primary" ];
 
     secrets = {
-      nextcloud-admin-pass-file = {
-        file = ../../secrets/nextcloud/admin-pass.age;
-        mode = "0400";
-        # Magic value as per: https://github.com/NixOS/nixpkgs/blob/54aac082a4d9bb5bbc5c4e899603abfb76a3f6d6/nixos/modules/services/web-apps/nextcloud.nix#L975C33-L975C42
-        owner = "nextcloud";
-      };
       nextcloud-secret-file = {
         file = ../../secrets/nextcloud/secret-file.age;
         mode = "0400";
