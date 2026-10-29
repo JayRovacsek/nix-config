@@ -234,6 +234,16 @@ _: {
       ];
       vlan = "download";
     };
+    missingno = {
+      hostname = "missingno";
+      ips = [
+        {
+          address = "192.168.1.224";
+          fqdn = "missingno.local";
+        }
+      ];
+      shares = [ ];
+    };
     mr-mime = {
       hostname = "mr-mime";
       ips = [
