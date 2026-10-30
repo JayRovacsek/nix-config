@@ -37,6 +37,7 @@ in
       ./disk-config.nix
       agenix
       alloy
+      amd-gpu
       bluetooth
       clamav
       fonts
@@ -87,21 +88,18 @@ in
       "aarch64-linux"
     ];
 
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "thunderbolt"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-      ];
-      kernelModules = [ "amdgpu" ];
-    };
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "thunderbolt"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
 
+    # amdgpu comes from the amd-gpu module.
     kernelModules = [
       "kvm-amd"
-      "amdgpu"
     ];
 
     # https://offsite.guru/blog/halogen-strix-halo/
@@ -122,25 +120,12 @@ in
   };
 
   environment = {
-    # ROCm/graphics environment variables come from the hardware/strix-halo
-    # module; only host-specific values are set here.
-    sessionVariables = {
-      HSA_OVERRIDE_GFX_VERSION = "11.5.1";
-      LD_LIBRARY_PATH = [
-        "${pkgs.rocmPackages.rocm-smi}/lib"
-        "${pkgs.libdrm}/lib"
-      ];
-      WLR_DRM_DEVICES = "/dev/dri/by-path/pci-0000:c3:00.0-card";
-    };
+    # ROCm/graphics environment variables and packages come from the
+    # amd-gpu and hardware/strix-halo modules; only host-specific values
+    # are set here.
+    sessionVariables.WLR_DRM_DEVICES = "/dev/dri/by-path/pci-0000:c3:00.0-card";
 
     systemPackages = with pkgs; [
-      vulkan-headers
-      vulkan-tools
-      vulkan-loader
-      vulkan-validation-layers
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-      rocmPackages.clr
       agenix
       curl
       dua
@@ -152,7 +137,9 @@ in
   # fileSystems come from disk-config.nix via disko.
 
   hardware = {
-    enableRedistributableFirmware = true;
+    # enableRedistributableFirmware and the graphics stack come from the
+    # amd-gpu module.
+    amd-gpu.hsaOverrideGfxVersion = "11.5.1";
 
     cpu = {
       amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -160,20 +147,6 @@ in
         cores = 16;
         speed = 20;
       };
-    };
-
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        mesa
-        rocmPackages.clr
-        rocmPackages.hipblas
-        rocmPackages.rocblas
-        rocmPackages.clr.icd
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
-      ];
     };
   };
 
@@ -228,10 +201,8 @@ in
 
     pulseaudio.enable = false;
 
-    xserver = {
-      enable = true;
-      videoDrivers = [ "amdgpu" ];
-    };
+    # videoDrivers comes from the amd-gpu module.
+    xserver.enable = true;
   };
 
   system.stateVersion = "26.05";
