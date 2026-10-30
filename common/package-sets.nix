@@ -27,15 +27,11 @@ let
     name = "bleeding-edge";
   };
 
-  config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [ ];
-  };
+  # Shared with the per-system pkgs in flake.nix via common.nixpkgs-config.
+  config = self.common.nixpkgs-config;
 
-  cudaConfig = {
-    allowUnfree = true;
+  cudaConfig = config // {
     cudaSupport = true;
-    permittedInsecurePackages = [ ];
   };
 
   targetGeneration = [
@@ -104,8 +100,7 @@ let
             # This might be better abstracted into a set that then is
             # pulled via getAttr, but that'll be a next refactor step
             # rather than MVP suitable.
-            overlays =
-              system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
+            overlays = system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
           };
       }
     ) { } targetGeneration)
@@ -126,8 +121,7 @@ let
             # This might be better abstracted into a set that then is
             # pulled via getAttr, but that'll be a next refactor step
             # rather than MVP suitable.
-            overlays =
-              system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
+            overlays = system-agnostic ++ (optionals isDarwin darwin) ++ (optionals isLinux linux);
           };
       }
     ) { } targetGeneration)

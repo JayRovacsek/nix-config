@@ -6,9 +6,7 @@ let
     dir:
     builtins.attrNames (
       lib.filterAttrs (
-        n: v:
-        v == "directory"
-        && (builtins.hasAttr "default.nix" (builtins.readDir "${dir}/${n}"))
+        n: v: v == "directory" && (builtins.hasAttr "default.nix" (builtins.readDir "${dir}/${n}"))
       ) (builtins.readDir dir)
     );
 in
@@ -19,15 +17,14 @@ in
   dotnet-packages = read-package-directory ../packages/dotnet;
   home-manager = import ./home-manager.nix { inherit self; };
   home-manager-module-sets = import ./home-manager-sets { inherit self; };
-  home-manager-modules = builtins.attrNames (
-    builtins.readDir ../home-manager-modules
-  );
+  home-manager-modules = builtins.attrNames (builtins.readDir ../home-manager-modules);
   images = import ./images { inherit self; };
   keys = import ./keys.nix { inherit self; };
   metadata = import ./metadata.nix { inherit self; };
   minimal-modules = import ./minimal-modules.nix { inherit self; };
   modules = import ./modules.nix { inherit self; };
   nixos-modules = builtins.attrNames (builtins.readDir ../modules);
+  nixpkgs-config = import ./nixpkgs-config.nix { inherit self; };
   overlays = import ./overlays.nix { inherit self; };
   go-packages = read-package-directory ../packages/go;
   options = import ./options.nix { inherit self; };

@@ -404,6 +404,7 @@
         let
           pkgs = import self.inputs.nixpkgs {
             inherit system;
+            config = self.common.nixpkgs-config;
             overlays = with self.inputs; [
               nix-topology.overlays.default
               devshell.overlays.default
