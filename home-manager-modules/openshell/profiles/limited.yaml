@@ -33,9 +33,9 @@ filesystem_policy:
     - /tmp
     - /dev/null
 
-process:
-  run_as_user: sandbox
-  run_as_group: sandbox
+# No explicit process selectors: the pinned default image has no `sandbox`
+# account; the driver falls back to the image USER (non-root). Set numeric
+# run_as_user/run_as_group once the image defines a dedicated sandbox account.
 
 network_policies:
   # Non-credentialed GitHub hosts the upstream github profile does not

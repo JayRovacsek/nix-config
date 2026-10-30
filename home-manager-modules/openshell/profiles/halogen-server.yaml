@@ -7,9 +7,14 @@
 # and the gateway dials the host-side listener on the sandbox's behalf.
 # The host bind (127.0.0.1:11435, modules/halogen-flash-server) is unchanged.
 #
-# Client binaries:   opencode (the AI runtime) and curl (smoke tests).
-# Reference layout:  adjust to the sandbox image layout; list real paths,
-#                    not symlinks (binary matching follows the interpreter).
+# Client binaries:   bash (the agent shell) in the pinned default image
+#                    (nvcr.io/nvidia/base/ubuntu:24.04). The intended agent
+#                    runtime (opencode) and curl are listed commented below —
+#                    uncomment them when the sandbox image provides them
+#                    (e.g. a BYOC image), as credentials are only injected
+#                    for binaries that exist in the image.
+# Reference layout:  list real paths, not symlinks (binary matching follows
+#                    the interpreter).
 # Credential scope:  OPENAI_API_KEY, sent as a bearer header to
 #                    host.openshell.internal:11435 and nowhere else. The
 #                    server does not validate the value, but
@@ -44,5 +49,6 @@ endpoints:
     access: read-write
     enforcement: enforce
 binaries:
-  - /usr/local/bin/opencode
-  - /usr/bin/curl
+  - /usr/bin/bash
+  # - /usr/local/bin/opencode
+  # - /usr/bin/curl

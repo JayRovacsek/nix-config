@@ -32,7 +32,7 @@ reach the LLM inference defined in `home-manager-modules/opencode` — the
 | **Network** | Inference endpoint only | + GitHub family, Nix cache | + all AI provider APIs, Nix infra, web search, context7, Atlassian MCP, docs, ghcr.io |
 | **Tools** | opencode, curl | + git, gh, nix | full image toolchain minus denied runners |
 | **Filesystem** | workdir + `/tmp` writable, `/usr /lib /etc` read-only | same | same |
-| **Process** | non-root `sandbox` user | same | same |
+| **Process** | non-root (image USER fallback) | same | same |
 
 ## Codifying the opencode deny list in all profiles
 
