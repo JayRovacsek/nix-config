@@ -10,6 +10,7 @@ let
   inherit (self.packages.${system})
     anthropic-skills
     dbt-agent-skills
+    rea
     wshobson-agents
     superpowers
     ;
@@ -464,6 +465,16 @@ let
       troubleshooting-dbt-job-errors = "${dbt-agent-skills}/share/skills/troubleshooting-dbt-job-errors";
       using-dbt-for-analytics-engineering = "${dbt-agent-skills}/share/skills/using-dbt-for-analytics-engineering";
     }
+    # REA (Reverse Engineer Anything) — the full upstream skill suite:
+    # the published `skills/` artefact plus the auxiliary skills that
+    # upstream keeps under `.agents/skills/` (see packages/other/rea).
+    // {
+      reverse-engineer-anything = "${rea}/lib/node_modules/rea-agents/skills/reverse-engineer-anything";
+      rea-analysis-optimization = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-analysis-optimization";
+      rea-changelog-update = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-changelog-update";
+      rea-ci-tests-audit = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-ci-tests-audit";
+      rea-tool-design = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-tool-design";
+    }
     // wshobsonSkills
     # Local
     // {
@@ -535,6 +546,15 @@ let
     (mkMcpServer {
       name = "firefox-devtools";
       command = [ "${pkgs.firefox-devtools-mcp}/bin/firefox-devtools-mcp" ];
+    })
+
+    # REA — Reverse Engineer Anything: MCP server for reverse engineering
+    # native binaries, managed assemblies, JavaScript/Electron apps and
+    # more. https://github.com/morluto/rea (packaged in packages/other/rea)
+    (mkMcpServer {
+      name = "rea";
+      command = [ "${rea}/bin/rea" ];
+      args = [ "mcp" ];
     })
 
     (mkMcpServer {
