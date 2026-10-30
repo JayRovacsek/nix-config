@@ -1,0 +1,48 @@
+# Provider profile for the self-hosted OpenAI-compatible inference endpoint
+# declared in home-manager-modules/opencode (provider `halogen-server`,
+# baseURL http://127.0.0.1:11435/v1, model halogen-qwen3.8-flash-next).
+#
+# Sandbox view of the endpoint: network policy never authorises loopback
+# destinations, so the gateway host is addressed as `host.openshell.internal`
+# and the gateway dials the host-side listener on the sandbox's behalf.
+# The host bind (127.0.0.1:11435, modules/halogen-flash-server) is unchanged.
+#
+# Client binaries:   opencode (the AI runtime) and curl (smoke tests).
+# Reference layout:  adjust to the sandbox image layout; list real paths,
+#                    not symlinks (binary matching follows the interpreter).
+# Credential scope:  OPENAI_API_KEY, sent as a bearer header to
+#                    host.openshell.internal:11435 and nowhere else. The
+#                    server does not validate the value, but
+#                    @ai-sdk/openai-compatible requires a non-empty key.
+# Endpoint access:   /v1/** read-write, L7 enforced (chat completions are
+#                    POSTs; /v1/models covers discovery).
+# Smoke test:        openshell sandbox create --provider halogen-server -- \
+#                      curl -sS http://host.openshell.internal:11435/v1/models
+
+id: halogen-server
+display_name: Halogen Flash Server (self-hosted OpenAI-compatible)
+description: Self-hosted OpenAI-compatible inference API (halogen-qwen3.8-flash-next)
+category: inference
+inference_capable: true
+credentials:
+  - name: api_key
+    description: API key placeholder required by OpenAI-compatible clients
+    env_vars: [OPENAI_API_KEY]
+    required: true
+    auth_style: bearer
+    header_name: authorization
+discovery:
+  credentials: [api_key]
+endpoints:
+  - host: host.openshell.internal
+    port: 11435
+    path: /v1/**
+    protocol: rest
+    # `tls` is deliberately omitted: the schema accepts only omission or
+    # `skip`, and `skip` would stop L7 inspection and credential injection
+    # on this credentialed endpoint. Omission lets the proxy auto-detect.
+    access: read-write
+    enforcement: enforce
+binaries:
+  - /usr/local/bin/opencode
+  - /usr/bin/curl

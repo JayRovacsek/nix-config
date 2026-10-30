@@ -1,0 +1,43 @@
+# Tier: locked — locked-down AI use (offline, minimal tools).
+#
+# The sandbox runs the opencode agent against the self-hosted inference
+# endpoint and nothing else: no internet, no source control, no package
+# registries. Everything the agent can do is contained to its workdir;
+# everything it can reach is the gateway-hosted model API.
+#
+# Attached providers: halogen-server (profiles/halogen-server.yaml).
+#
+# Codifies the home-manager-modules/opencode bash deny list in OpenShell
+# terms: destructive commands (rm -rf, dd, mkfs, chmod 777) are contained by
+# a workdir-only writable root; sudo/su are moot under the non-root process
+# identity; package runners (npx, pip, cargo install, ...) and docker/podman
+# have no network path (their registries and sockets are absent) and are not
+# part of the image's minimal tool set.
+
+version: 1
+
+filesystem_policy:
+  # The project workspace is the only writable tree besides /tmp and
+  # /dev/null; the image's tooling is read-only. Populate the workspace with
+  # `sandbox upload` after creation (or `sandbox create --upload` without a
+  # trailing command), then launch opencode via `sandbox exec`.
+  include_workdir: true
+  read_only:
+    - /usr
+    - /lib
+    - /etc
+    - /proc
+  read_write:
+    - /tmp
+    - /dev/null
+
+process:
+  # Non-root workload identity; mirrors the opencode policy of denying
+  # sudo/su/doas. Omitted fields fall back to the image USER.
+  run_as_user: sandbox
+  run_as_group: sandbox
+
+# No standalone network rules: every authorised endpoint comes from the
+# attached halogen-server provider (_provider_* composition). With nothing
+# else attached, the sandbox is effectively offline except for inference.
+network_policies: {}
