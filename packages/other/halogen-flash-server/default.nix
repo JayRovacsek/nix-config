@@ -7,7 +7,7 @@
   jq,
   makeWrapper,
   rocmPackages,
-  python312,
+  python3,
   ...
 }:
 let
@@ -30,6 +30,21 @@ let
     rev = "v${version}";
     sha256 = "0q7xn7v1ipda84062hks1vwqigx08hi9qxi21lz1n8s69pbfg6fq";
   };
+
+  # serve_api.py and the bundled tools import the fastapi/starlette/pydantic
+  # web stack plus numpy (uvicorn is imported at serve time), and
+  # halogen_tools.py plus the entrypoint's hub helpers import transformers
+  # and huggingface_hub. The image ships these in its site-packages; the nix
+  # build composes them onto the interpreter instead of running it bare.
+  pythonEnv = python3.withPackages (ps: [
+    ps.fastapi
+    ps."huggingface-hub"
+    ps.numpy
+    ps.pydantic
+    ps.starlette
+    ps.transformers
+    ps.uvicorn
+  ]);
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "halogen-flash-server";
@@ -45,16 +60,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   # flash_serve and halogen-tools link libamdhip64.so.7 and
   # libhipblaslt.so.1; their Debian RUNPATH is rewritten to these.
-  # halogen-npu also needs libxrt_coreutil.so.2 (AMD XRT), which nixpkgs
-  # does not carry and the image itself does not bundle either -- NPU mode
-  # expects it from the host, so the missing dep is tolerated.
-  runtimeDependencies = [
+  # stdenv.cc.cc.lib supplies libstdc++/libgcc_s, which the Debian-built
+  # binaries also need. halogen-npu also needs libxrt_coreutil.so.2
+  # (AMD XRT), which nixpkgs does not carry and the image itself does not
+  # bundle either -- NPU mode expects it from the host, so the missing dep
+  # is tolerated.
+  buildInputs = [
     rocmPackages.clr
     rocmPackages.hipblaslt
+    stdenv.cc.cc.lib
   ];
   autoPatchelfIgnoreMissingDeps = [ "libxrt_coreutil.so.2" ];
 
   dontConfigure = true;
+  # Vendored prebuilt ELFs: keep them as upstream ships them (the EULA
+  # requires unmodified redistribution) and skip stripping a 32 MB binary.
+  dontStrip = true;
 
   # Merge the image's layers into a rootfs, applying OCI whiteouts, then
   # install the application files. The Debian base tree is not installed;
@@ -117,14 +138,18 @@ stdenv.mkDerivation (finalAttrs: {
 
     # The repo's entrypoint with its hardcoded image paths rewritten to
     # this output.
+    # Double quotes so the shell expands $out to this output path; single
+    # quotes left the literal text `$out` in the script, which trips
+    # `set -u` wherever the entrypoint references it outside a function
+    # that defines a local `out`.
     sed \
-      -e 's|/usr/local/bin/flash_serve|$out/bin/flash_serve|g' \
-      -e 's|/usr/local/bin/halogen-tools|$out/bin/halogen-tools|g' \
-      -e 's|/usr/local/bin/halogen-npu|$out/bin/halogen-npu|g' \
-      -e 's|/usr/local/bin/halogen-healthcheck|$out/bin/halogen-healthcheck|g' \
-      -e 's|/opt/halogen|$out/opt/halogen|g' \
-      -e 's|/halogen/tools|$out/share/halogen/tools|g' \
-      -e 's|python3|${python312}/bin/python3|g' \
+      -e "s|/usr/local/bin/flash_serve|$out/bin/flash_serve|g" \
+      -e "s|/usr/local/bin/halogen-tools|$out/bin/halogen-tools|g" \
+      -e "s|/usr/local/bin/halogen-npu|$out/bin/halogen-npu|g" \
+      -e "s|/usr/local/bin/halogen-healthcheck|$out/bin/halogen-healthcheck|g" \
+      -e "s|/opt/halogen|$out/opt/halogen|g" \
+      -e "s|/halogen/tools|$out/share/halogen/tools|g" \
+      -e "s|python3|${pythonEnv}/bin/python3|g" \
       $src/deploy/entrypoint.sh > $out/libexec/halogen-entrypoint.sh
     chmod +x $out/libexec/halogen-entrypoint.sh
 
@@ -142,8 +167,9 @@ stdenv.mkDerivation (finalAttrs: {
       --run 'export HALOGEN_MAX_TOK="''${HALOGEN_MAX_TOK:-32768}"' \
       --run 'export HALOGEN_MATMUL_ALGOS="''${HALOGEN_MATMUL_ALGOS:-1}"' \
       --run 'export HALOGEN_MATMUL_BUCKET="''${HALOGEN_MATMUL_BUCKET:-1}"' \
-      --run 'export HALOGEN_MATMUL_TUNING_FILE="''${HALOGEN_MATMUL_TUNING_FILE:-$out/opt/halogen/flash-tune.plan}"' \
-      --run 'export HALOGEN_DRAFT_VOCAB_FILE="''${HALOGEN_DRAFT_VOCAB_FILE:-$out/opt/halogen/draft-vocab.lists}"' \
+      --run 'export HALOGEN_MATMUL_TUNING_FILE="''${HALOGEN_MATMUL_TUNING_FILE:-${builtins.placeholder "out"}/opt/halogen/flash-tune.plan}"' \
+      --run 'export HALOGEN_DRAFT_VOCAB_FILE="''${HALOGEN_DRAFT_VOCAB_FILE:-${builtins.placeholder "out"}/opt/halogen/draft-vocab.lists}"' \
+      --run 'export _hg_hf="''${_hg_hf:-${pythonEnv}/bin/hf}"' \
       --run 'export HALOGEN_TOKENIZER="''${HALOGEN_TOKENIZER:-/tokenizer}"' \
       --run 'export HALOGEN_PORT="''${HALOGEN_PORT:-8730}"' \
       --run 'export HALOGEN_BIND="''${HALOGEN_BIND:-127.0.0.1}"' \
