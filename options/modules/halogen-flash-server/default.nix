@@ -21,7 +21,6 @@
   self,
   ...
 }:
-with lib;
 let
   cfg = config.services.halogen-flash-server;
 
@@ -40,7 +39,7 @@ let
   apiPort = if cfg.runtime == "oci" then cfg.containerPort else cfg.hostPort;
 
   defaultEnvironment = {
-    HALOGEN_API_PORT = toString apiPort;
+    HALOGEN_API_PORT = builtins.toString apiPort;
     HALOGEN_KV_SLOTS = "3"; # conversations generating at once (~115 MB each)
     HALOGEN_REASONING_EFFORT = "low"; # unset == the template's xhigh
     HALOGEN_MAX_TOKENS_DEFAULT = "32768"; # budget when a request sends none (hard cap 65536)
@@ -106,10 +105,10 @@ in
   imports = [ ../hardware/strix-halo ];
 
   options.services.halogen-flash-server = {
-    enable = mkEnableOption "halogen-flash-server inference server";
+    enable = lib.mkEnableOption "halogen-flash-server inference server";
 
-    runtime = mkOption {
-      type = types.enum [
+    runtime = lib.mkOption {
+      type = lib.types.enum [
         "oci"
         "package"
       ];
@@ -121,10 +120,10 @@ in
       '';
     };
 
-    package = mkOption {
-      type = types.package;
+    package = lib.mkOption {
+      type = lib.types.package;
       default = self.packages.${pkgs.system}.halogen-flash-server;
-      defaultText = literalExpression "self.packages.\${pkgs.system}.halogen-flash-server";
+      defaultText = lib.literalExpression "self.packages.\${pkgs.system}.halogen-flash-server";
       description = ''
         The halogen-flash-server package to run when runtime is "package".
         Defaults to this flake's own package; set to any derivation providing
@@ -133,18 +132,18 @@ in
       '';
     };
 
-    version = mkOption {
-      type = types.str;
+    version = lib.mkOption {
+      type = lib.types.str;
       # Pin exactly; never :latest. Follows the package's version so the
       # image tag and the vendored package can never drift apart; override
       # to pin the image to a different release.
       default = cfg.package.version;
-      defaultText = literalExpression "cfg.package.version";
+      defaultText = lib.literalExpression "cfg.package.version";
       description = "Version of the halogen-flash-server container image (oci runtime only).";
     };
 
-    modelRepo = mkOption {
-      type = types.str;
+    modelRepo = lib.mkOption {
+      type = lib.types.str;
       default = "peonist-ai/halogen-qwen3.8-flash-next";
       description = ''
         Hugging Face repository the model artefacts are pulled from; recorded
@@ -155,8 +154,8 @@ in
       '';
     };
 
-    modelRevision = mkOption {
-      type = types.str;
+    modelRevision = lib.mkOption {
+      type = lib.types.str;
       default = "647e3814953e8435d58f5d5aa13b97aca85a7d93";
       description = ''
         Pinned Hugging Face revision of modelRepo carrying the checkpoint and
@@ -165,8 +164,8 @@ in
       '';
     };
 
-    checkpointFile = mkOption {
-      type = types.str;
+    checkpointFile = lib.mkOption {
+      type = lib.types.str;
       default = "qwen38-flash-next-v2.hgn";
       description = ''
         Checkpoint file name within modelDir. Served to the engine as
@@ -179,8 +178,8 @@ in
       '';
     };
 
-    visionFile = mkOption {
-      type = types.str;
+    visionFile = lib.mkOption {
+      type = lib.types.str;
       default = "qwen38-flash-next-vision.hgn";
       description = ''
         Vision tower file name within modelDir. Served as
@@ -188,8 +187,8 @@ in
       '';
     };
 
-    enableVision = mkOption {
-      type = types.bool;
+    enableVision = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = ''
         Enable the optional vision tower (the file named by visionFile) so
@@ -199,8 +198,8 @@ in
       '';
     };
 
-    applyRecommendedSystemSettings = mkOption {
-      type = types.bool;
+    applyRecommendedSystemSettings = lib.mkOption {
+      type = lib.types.bool;
       default = true;
       description = ''
         Import the reusable hardware/strix-halo tuning baseline (kernel
@@ -208,20 +207,20 @@ in
       '';
     };
 
-    modelDir = mkOption {
-      type = types.str;
+    modelDir = lib.mkOption {
+      type = lib.types.str;
       default = "/srv/halogen-models";
       description = "Host directory holding the model weights, mounted read-only at /models by the oci runtime.";
     };
 
-    cacheDir = mkOption {
-      type = types.str;
+    cacheDir = lib.mkOption {
+      type = lib.types.str;
       default = "/srv/halogen-cache";
       description = "Host directory for the on-disk KV cache, mounted at /cache by the oci runtime.";
     };
 
-    hostAddress = mkOption {
-      type = types.str;
+    hostAddress = lib.mkOption {
+      type = lib.types.str;
       default = "127.0.0.1";
       description = ''
         Address to bind the published port on (oci runtime only). The API has
@@ -232,20 +231,20 @@ in
       '';
     };
 
-    hostPort = mkOption {
-      type = types.port;
+    hostPort = lib.mkOption {
+      type = lib.types.port;
       default = 11435;
       description = "Host port the API is published on.";
     };
 
-    containerPort = mkOption {
-      type = types.port;
+    containerPort = lib.mkOption {
+      type = lib.types.port;
       default = 8731;
       description = "Port the server listens on inside the container (oci runtime only).";
     };
 
-    extraEnvironment = mkOption {
-      type = types.attrsOf types.str;
+    extraEnvironment = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
       default = { };
       description = "Extra HALOGEN_* environment variables, merged over the defaults.";
     };
@@ -323,7 +322,9 @@ in
           # NEVER bind 0.0.0.0 — the API has no auth, so the loopback binding is
           # the access control. Deliberately no firewall rules: nothing should be
           # reachable beyond the loopback interface.
-          ports = [ "${cfg.hostAddress}:${toString cfg.hostPort}:${toString cfg.containerPort}" ];
+          ports = [
+            "${cfg.hostAddress}:${builtins.toString cfg.hostPort}:${builtins.toString cfg.containerPort}"
+          ];
           extraOptions = [
             # Lets a container that survived a unit restart be replaced instead
             # of wedging the fixed container name.
@@ -390,7 +391,7 @@ in
           serviceConfig = {
             # The wrapper defaults to mode "all" (engine + API).
             ExecStart = "${cfg.package}/bin/halogen-flash-server";
-            Environment = mapAttrsToList (k: v: "${k}=${v}") (defaultEnvironment // cfg.extraEnvironment);
+            Environment = lib.mapAttrsToList (k: v: "${k}=${v}") (defaultEnvironment // cfg.extraEnvironment);
             # Locked weights; the mmap/lock fails without this (the 8 MiB
             # systemd default is what forces manual `sudo` runs).
             LimitMEMLOCK = "infinity";
