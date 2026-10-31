@@ -2,9 +2,13 @@
   lib,
   stdenv,
   autoPatchelfHook,
+  coreutils,
   curl,
   dockerTools,
   fetchFromGitHub,
+  gawk,
+  gnugrep,
+  gnused,
   jq,
   makeWrapper,
   nix,
@@ -229,8 +233,24 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Launcher: entrypoint plus the image-borne ENV defaults (each still
     # overridable from the environment).
+    # The entrypoint calls awk/grep/sed and coreutils (stat, du, seq, env,
+    # timeout, ...) unqualified, and some hub helpers call `hf` bare instead
+    # of via $_hg_hf; in the image the Debian base tree provided them, but
+    # this package installs only the halogen payload. NixOS gives every
+    # service a minimal default PATH (coreutils, findutils, gnugrep, gnused,
+    # systemd) which has no awk, so every awk call in the entrypoint died
+    # with "command not found" (exit 127). Prepend the nixpkgs equivalents.
     makeWrapper $out/libexec/halogen-entrypoint.sh \
       $out/bin/halogen-flash-server \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          coreutils
+          gawk
+          gnugrep
+          gnused
+          pythonEnv
+        ]
+      }" \
       --run 'export HALOGEN_ARCH="''${HALOGEN_ARCH:-gfx1151}"' \
       --run 'export HIP_FORCE_DEV_KERNARG="''${HIP_FORCE_DEV_KERNARG:-1}"' \
       --run 'export HALOGEN_ATTN_FA="''${HALOGEN_ATTN_FA:-64}"' \
