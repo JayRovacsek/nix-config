@@ -10,6 +10,7 @@
     "networkmanager"
     "tty"
     "video"
+    "render"
     "wheel"
   ];
   openssh.authorizedKeys.keys = [

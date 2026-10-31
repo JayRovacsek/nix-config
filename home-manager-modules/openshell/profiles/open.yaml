@@ -1,0 +1,144 @@
+# Tier: open — AI use with minimal restrictions, bounded only by the
+# home-manager-modules/opencode permission policy.
+#
+# The agent may reach every AI provider and integration the opencode config
+# knows about, plus the web tooling its plugins use. "Open" is still an
+# allow-list (OpenShell has no wildcard-everything endpoint: wildcard hosts
+# need at least three DNS labels), so this tier enumerates the domain
+# families the opencode setup legitimately needs and keeps everything the
+# opencode config denies off the list.
+#
+# Attached providers:
+#   - halogen-server  (profiles/halogen-server.yaml)
+#   - github          (import an upstream-profile variant with
+#                      `access: read-write` on api.github.com and
+#                      `POST /**/git-receive-pack` on github.com, matching
+#                      opencode's `git push*: ask` stance)
+#   - openai, anthropic, openrouter, deepinfra, nvidia, ... (upstream
+#     profiles from openshell-shared; each contributes its own endpoint
+#     rules, so credentialed hosts are not repeated in this policy)
+#
+# Codifies the home-manager-modules/opencode bash deny list in OpenShell
+# terms — the full mapping table lives in docs/openshell-profiles.md. In
+# short: package-manager registries (npmjs, PyPI, crates.io, Go proxy,
+# RubyGems, Packagist) stay absent even though `node`/`python` binaries
+# exist; docker/podman stay socket-less; `brew`/`apt`-class installers are
+# absent from the image; destructive commands are contained by the
+# workdir-only writable root and the non-root process identity.
+
+version: 1
+
+filesystem_policy:
+  include_workdir: true
+  read_only:
+    - /usr
+    - /lib
+    - /etc
+    - /proc
+  read_write:
+    - /tmp
+    - /dev/null
+
+# No explicit process selectors: the pinned default image has no `sandbox`
+# account; the driver falls back to the image USER (non-root). Set numeric
+# run_as_user/run_as_group once the image defines a dedicated sandbox account.
+
+network_policies:
+  # --- Nix toolchain (opencode allows `nix*`) ---
+  nix_infra:
+    name: nix_infra
+    endpoints:
+      - host: cache.nixos.org
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+      - host: api.nixos.org
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+      - host: channels.nixos.org
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+      # Container registry reads for nixpkgs dockerTools.pullImage (the
+      # pattern used by packages/other/halogen-flash-server). `docker pull`
+      # itself stays denied: no socket is mounted and registry-1.docker.io
+      # is not listed.
+      - host: ghcr.io
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      - path: /usr/bin/nix
+
+  # --- Web tooling used by opencode plugins/MCP ---
+  # websearch plugin (DuckDuckGo) and general fetches.
+  web_search:
+    name: web_search
+    endpoints:
+      - host: duckduckgo.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+      - host: **.duckduckgo.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      - path: /usr/local/bin/opencode
+
+  # context7-mcp library docs. The context7-mcp process spawned by opencode
+  # makes the calls (binary matching follows the executable that opens the
+  # connection), so list its real path — adjust to the sandbox image, e.g.
+  # the node interpreter or the packaged binary.
+  context7:
+    name: context7
+    endpoints:
+      - host: **.context7.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      - path: /usr/local/bin/context7-mcp
+
+  # Atlassian remote MCP server (opencode mcp `atlassian`): a remote URL,
+  # connected to by opencode itself.
+  atlassian_mcp:
+    name: atlassian_mcp
+    endpoints:
+      - host: mcp.atlassian.com
+        port: 443
+        path: /v1/mcp
+        protocol: rest
+        access: read-write
+        enforcement: enforce
+    binaries:
+      - path: /usr/local/bin/opencode
+
+  # OpenShell's own docs, fetched by the openshell skills.
+  openshell_docs:
+    name: openshell_docs
+    endpoints:
+      - host: docs.nvidia.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      - path: /usr/local/bin/opencode
+      - path: /usr/bin/curl
+
+  # Self-hosted Grafana (opencode mcp `grafana`): set to the GRAFANA_URL host
+  # when the MCP server runs inside the sandbox, e.g.
+  #   - host: grafana.example.com
+  #     port: 443
+  #     protocol: rest
+  #     access: read-only
+  #     enforcement: enforce

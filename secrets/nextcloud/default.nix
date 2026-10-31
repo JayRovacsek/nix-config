@@ -7,7 +7,6 @@ let
   ];
 in
 {
-  "admin-pass.age".publicKeys = keys;
   "secret-file.age".publicKeys = keys;
   "exporter-token.age".publicKeys = keys;
 }

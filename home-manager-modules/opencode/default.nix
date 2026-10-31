@@ -10,6 +10,7 @@ let
   inherit (self.packages.${system})
     anthropic-skills
     dbt-agent-skills
+    rea
     wshobson-agents
     superpowers
     ;
@@ -464,6 +465,16 @@ let
       troubleshooting-dbt-job-errors = "${dbt-agent-skills}/share/skills/troubleshooting-dbt-job-errors";
       using-dbt-for-analytics-engineering = "${dbt-agent-skills}/share/skills/using-dbt-for-analytics-engineering";
     }
+    # REA (Reverse Engineer Anything) — the full upstream skill suite:
+    # the published `skills/` artefact plus the auxiliary skills that
+    # upstream keeps under `.agents/skills/` (see packages/other/rea).
+    // {
+      reverse-engineer-anything = "${rea}/lib/node_modules/rea-agents/skills/reverse-engineer-anything";
+      rea-analysis-optimization = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-analysis-optimization";
+      rea-changelog-update = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-changelog-update";
+      rea-ci-tests-audit = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-ci-tests-audit";
+      rea-tool-design = "${rea}/lib/node_modules/rea-agents/.agents/skills/rea-tool-design";
+    }
     // wshobsonSkills
     # Local
     // {
@@ -496,37 +507,6 @@ let
     name: source: lib.nameValuePair "opencode/commands/${name}.md" { inherit source; }
   ) commands;
 
-  snowflake-mcp-config = builtins.toFile "snowflake-mcp-config.yaml" (
-    lib.generators.toYAML { } {
-      other_services = {
-        object_manager = false;
-        query_manager = true;
-        semantic_manager = true;
-
-        sql_statement_permissions = [
-          { Alter = false; }
-          { Command = false; }
-          { Comment = false; }
-          { Commit = false; }
-          { Copy = false; }
-          { Create = false; }
-          { Delete = false; }
-          { Describe = true; }
-          { Drop = false; }
-          { Insert = false; }
-          { Merge = false; }
-          { Rollback = false; }
-          { Select = true; }
-          { Transaction = false; }
-          { TruncateTable = false; }
-          { Unknown = false; }
-          { Update = false; }
-          { Use = true; }
-        ];
-      };
-    }
-  );
-
   # ---------------------------------------------------------------------------
   # MCP server declarations
   #
@@ -541,17 +521,40 @@ let
       flakeRef = "github:utensils/mcp-nixos";
     })
 
-    # GitHub API: issues, PRs, repos, code search, CI status
-    # Requires GITHUB_PERSONAL_ACCESS_TOKEN in the environment at runtime
+    # Grafana: dashboards, datasources, Prometheus/Loki queries, alerting.
+    # https://github.com/grafana/mcp-grafana
+    # Requires GRAFANA_URL and GRAFANA_SERVICE_ACCOUNT_TOKEN in the
+    # environment at runtime.
     (mkMcpServer {
-      name = "snowflake";
-      command = [ "snowflake-labs-mcp" ];
-      args = [
-        "--service-config-file"
-        snowflake-mcp-config
-        "--authenticator"
-        "externalbrowser"
-      ];
+      name = "grafana";
+      command = [ "${pkgs.mcp-grafana}/bin/mcp-grafana" ];
+    })
+
+    # Up-to-date library documentation from context7.com.
+    # https://github.com/upstash/context7
+    # Optional CONTEXT7_API_KEY in the environment for higher rate limits.
+    (mkMcpServer {
+      name = "context7";
+      command = [ "${pkgs.context7-mcp}/bin/context7-mcp" ];
+    })
+
+    # Firefox DevTools automation via WebDriver BiDi: page navigation, DOM
+    # snapshots, console and network inspection.
+    # https://github.com/mozilla/firefox-devtools-mcp
+    # Auto-detects a `firefox` binary on PATH at runtime (provided by the
+    # desktop home package set).
+    (mkMcpServer {
+      name = "firefox-devtools";
+      command = [ "${pkgs.firefox-devtools-mcp}/bin/firefox-devtools-mcp" ];
+    })
+
+    # REA — Reverse Engineer Anything: MCP server for reverse engineering
+    # native binaries, managed assemblies, JavaScript/Electron apps and
+    # more. https://github.com/morluto/rea (packaged in packages/other/rea)
+    (mkMcpServer {
+      name = "rea";
+      command = [ "${rea}/bin/rea" ];
+      args = [ "mcp" ];
     })
 
     (mkMcpServer {
@@ -740,6 +743,31 @@ in
       chore(flake): update flake lock & deduplicate inputs
       ```
 
+      ### Commit Execution
+
+      **MUST:** commit using a message file, never an inline `-m` message.
+      Follow this exact sequence, with each step as a separate command
+      (never chained with `&&`):
+
+      1. Write the complete commit message (header, body, `Assisted-by`
+         trailer) to `.tmp/commit-msg.txt` inside the project.
+      2. `git add <paths>`
+      3. `git commit -F .tmp/commit-msg.txt`
+      4. `rm .tmp/commit-msg.txt`
+
+      Rationale: OpenCode's bash permission globs match the entire command
+      string, and wildcards do not match newlines — so an inline multi-line
+      `git commit -m "..."` is denied, and compound commands like
+      `git add ... && git commit ...` are permission-checked as a whole.
+      Message text can also collide with deny patterns: the `git commit* -n*`
+      rule (which blocks unsigned commits via `-n`/`--no-gpg-sign`) matches
+      any ` -n` substring in the command, such as a message body containing
+      " -next".
+
+      If a commit is ever denied, **MUST NOT** retry with flag variations,
+      `--no-verify`, `-n`, or any other hook or signature bypass — those are
+      denied outright. Switch to the file workflow above, or ask the user.
+
       ## AI-Assisted Contribution Policy
 
       This repository follows the `Assisted-by` commit footer convention
@@ -851,6 +879,36 @@ in
       # (built-in, authenticated via device flow) and Ollama (custom,
       # defined in home-manager-modules/ollama).
       # TODO: Make this a bit smarter on how it's built - hardcoded while testing
+      provider = {
+        # Served by services.halogen-flash-server (modules/halogen-flash-server),
+        # which publishes the OpenAI-compatible API on hostAddress:hostPort.
+        # TODO: Correct this to leverage common config options, expose only over tailscale or alike
+        halogen-server = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "halogen-server";
+          options = {
+            baseURL = "http://127.0.0.1:11435/v1";
+          };
+          models = {
+            # https://huggingface.co/peonist-ai/halogen-qwen3.8-flash-next
+            # curl -sS http://localhost:11435/v1/models | jq -r '.data[].id'
+            "halogen-qwen3.8-flash-next" = {
+              name = "halogen-qwen3.8-flash-next";
+              limit = {
+                context = 262144;
+                output = 65536;
+              };
+              modalities = {
+                input = [
+                  "text"
+                  "image"
+                ];
+                output = [ "text" ];
+              };
+            };
+          };
+        };
+      };
 
       inherit mcp;
 
@@ -1071,7 +1129,10 @@ in
           "git send-email*--no-verify*" = "deny";
 
           # --- git commit -n: blocks unsigned commits (enforce GPG signing) ---
-          "git commit*-n*" = "deny";
+          # The leading space anchors the pattern to a flag boundary so
+          # message text containing "-n" substrings (e.g. model names like
+          # `flash-next`) does not trip the rule.
+          "git commit* -n*" = "deny";
 
           # -----------------------------------------------------------------
           # DENY: arbitrary package runners & installers

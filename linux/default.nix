@@ -50,6 +50,8 @@ in
   mew = extend-host unstable-x86-base "mew";
 
   # Hosts
+  missingno = extend-host unstable-x86-base "missingno";
+
   alakazam = extend-host unstable-x86-cuda-base "alakazam";
   dragonite = extend-host unstable-x86-cuda-base "dragonite";
   gastly = extend-host unstable-x86-base "gastly";

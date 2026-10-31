@@ -1,0 +1,77 @@
+# Tier: limited — AI use with an explicit, scoped network allow-list.
+#
+# The agent keeps inference (halogen-server) and gains source control plus
+# the Nix toolchain, but only via explicitly named targets. Every other
+# host on the internet stays unreachable; new targets are added here (or
+# via an agent-authored policy proposal in `--approval-mode manual`).
+#
+# Attached providers:
+#   - halogen-server  (profiles/halogen-server.yaml)
+#   - github          (upstream profile + nix-store binaries, as declared in
+#                      home-manager-modules/opencode/default.nix: api.github.com
+#                      REST/GraphQL read-only, github.com clone/fetch only —
+#                      push stays denied because git-receive-pack is absent)
+#
+# Codifies the home-manager-modules/opencode bash deny list in OpenShell
+# terms: npm/pip/cargo/go/gem/composer installs are blocked by omitting
+# their registries (npx runs as node, so its fetches have no allowed
+# destination); docker/podman have no socket and no registry route;
+# nix-env -i shares the `nix` binary that `nix build` uses — the flag-level
+# deny stays an opencode-layer concern (see docs/openshell-profiles.md);
+# destructive filesystem commands are contained to the workdir.
+
+version: 1
+
+filesystem_policy:
+  include_workdir: true
+  read_only:
+    - /usr
+    - /lib
+    - /etc
+    - /proc
+  read_write:
+    - /tmp
+    - /dev/null
+
+# No explicit process selectors: the pinned default image has no `sandbox`
+# account; the driver falls back to the image USER (non-root). Set numeric
+# run_as_user/run_as_group once the image defines a dedicated sandbox account.
+
+network_policies:
+  # Non-credentialed GitHub hosts the upstream github profile does not
+  # declare but the toolchain needs: codeload (nix flake / git LFS tarballs)
+  # and raw (gh api / curl of file contents).
+  github_transport:
+    name: github_transport
+    endpoints:
+      - host: codeload.github.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+      - host: raw.githubusercontent.com
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      - path: /usr/bin/git
+      - path: /usr/bin/gh
+      - path: /usr/bin/nix
+
+  # Nix binary cache: the opencode policy allows `nix*`, so the cache is an
+  # explicit scoped target here. `nix flake` GitHub fetches work via the
+  # codeload endpoint in the github_transport rule above (the github
+  # provider's own rules only authorise git and gh).
+  nix_cache:
+    name: nix_cache
+    endpoints:
+      - host: cache.nixos.org
+        port: 443
+        protocol: rest
+        access: read-only
+        enforcement: enforce
+    binaries:
+      # List the real nix executable of the sandbox image; adjust if nix is
+      # installed from the Nix store (e.g. /nix/store/*-nix-*/bin/nix).
+      - path: /usr/bin/nix
