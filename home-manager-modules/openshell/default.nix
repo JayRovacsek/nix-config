@@ -27,10 +27,60 @@ in
         settings = lib.optionalAttrs isDarwin {
           openshell.drivers.docker.grpc_endpoint = "http://192.168.5.2:17670";
         };
+
+        # One sandbox per policy tier (docs/openshell-profiles.md). Each
+        # sandbox runs the module default command (`opencode`) on the
+        # module default image (nixpkgs/nix-flakes) and gains a generated
+        # wrapper command of the same name.
+        #
+        # The nix-flakes image ships nix but no `opencode` binary; override
+        # `command` (e.g. [ "nix" "run" "nixpkgs#opencode" ]) or point
+        # `image` at a BYOC image once one is available.
+        sandboxes = {
+          # Inference-only session. Active: the halogen-server provider
+          # instance exists on this gateway.
+          ai-locked = {
+            providers = [ "halogen-server" ];
+            policy = ./profiles/locked.yaml;
+          };
+
+          # + GitHub and the Nix cache. Disabled until a `github` provider
+          # instance exists: this host has no `gh` and no
+          # GITHUB_TOKEN/GH_TOKEN for `--auto-providers` to discover.
+          ai-limited = {
+            enable = false;
+            providers = [
+              "halogen-server"
+              "github"
+            ];
+            policy = ./profiles/limited.yaml;
+          };
+
+          # + the AI-provider profiles from openshell-shared. Disabled for
+          # the same reason as ai-limited, plus missing credentials for the
+          # openai/anthropic/openrouter/deepinfra/nvidia provider instances.
+          ai-open = {
+            enable = false;
+            providers = [
+              "halogen-server"
+              "github"
+              "openai"
+              "anthropic"
+              "openrouter"
+              "deepinfra"
+              "nvidia"
+            ];
+            policy = ./profiles/open.yaml;
+          };
+        };
       }
     ];
 
+    # Provider catalog: the custom inference profile plus the upstream
+    # profiles the tiers attach. The shared github profile ships without
+    # `binaries`, so the inline override adds the sandbox-image paths.
     providers = [
+      ./profiles/halogen-server.yaml
       "${openshell-shared}/share/providers/github.yaml"
       {
         id = "github";
@@ -40,9 +90,15 @@ in
           "/usr/bin/gh"
         ];
       }
+      "${openshell-shared}/share/providers/openai.yaml"
+      "${openshell-shared}/share/providers/anthropic.yaml"
+      "${openshell-shared}/share/providers/openrouter.yaml"
+      "${openshell-shared}/share/providers/deepinfra.yaml"
+      "${openshell-shared}/share/providers/nvidia.yaml"
     ];
 
-    # Minimal sandbox policy: no network access beyond attached providers.
+    # Default policy for ad-hoc `sandbox create` runs; the declared
+    # sandboxes carry their tier policies via `sandboxes.*.policy`.
     policies = [ { version = 1; } ];
   };
 }

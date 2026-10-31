@@ -19,6 +19,289 @@ let
       (attrsOf anything)
     ];
 
+  # A single sandbox: every `openshell sandbox create` flag, declared
+  # declaratively. The attribute name is the sandbox name (a DNS-1123
+  # label, as required by the Kubernetes driver).
+  sandbox = types.submodule (
+    { name, config, ... }: {
+      options = {
+        assertions = mkOption {
+          type = types.assertions;
+          default = [ ];
+          description = "Additional assertions that must hold for this sandbox.";
+        };
+
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Whether this sandbox should exist on its gateway; setting it to false deletes the sandbox from the gateway.";
+        };
+
+        image = mkOption {
+          type = types.str;
+          default = "nixpkgs/nix-flakes";
+          description = "Base image (`--from`). Ignored when `template` is set.";
+        };
+
+        template = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          description = ''
+            Create from a named sandbox workload template (`--template`)
+            instead of an inline workload. When set, `image`, `cpu`,
+            `memory`, `gpu`, `env` and `driverConfigJson` are not passed
+            to `sandbox create`.
+          '';
+        };
+
+        command = mkOption {
+          type = types.listOf types.str;
+          default = [ "opencode" ];
+          example = [
+            "nix"
+            "run"
+            "nixpkgs#opencode"
+          ];
+          description = ''
+            Canonical main process (the trailing `-- <COMMAND>...`).
+            Defaults to `opencode`. Use `[ ]` for the image's default
+            shell; `[ ]` is also required when `upload` is set (the CLI
+            rejects uploads with a trailing command).
+          '';
+        };
+
+        providers = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          example = [
+            "halogen-server"
+            "github"
+          ];
+          description = "Provider instances to attach (`--provider`, repeatable).";
+        };
+
+        autoProviders = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Auto-create missing provider instances from local credentials
+            (`--auto-providers` / `--no-auto-providers`). Needed for
+            non-interactive creation of providers whose instances do not
+            exist yet.
+          '';
+        };
+
+        policy = mkOption {
+          type = types.nullOr document;
+          default = null;
+          description = ''
+            Sandbox policy (`--policy`). When null, the gateway-wide
+            `OPENSHELL_SANDBOX_POLICY` applies. Checked against
+            `boundaryPolicy` at build time when set.
+          '';
+        };
+
+        labels = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          example = {
+            tier = "limited";
+          };
+          description = ''
+            Labels (`--label`, repeatable). The module also adds a
+            `nix-config-spec` label holding the hash of the rendered
+            create arguments so spec changes can be detected.
+          '';
+        };
+
+        env = mkOption {
+          type = types.attrsOf types.str;
+          default = { };
+          description = "Non-secret environment variables (`--env`, repeatable).";
+        };
+
+        noCredentialWarnings = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Suppress credential-looking `--env` warnings (`--no-credential-warnings`).";
+        };
+
+        cpu = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = "2";
+          description = "CPU limit (`--cpu`), Kubernetes-style quantity (500m, 1, 2.5).";
+        };
+
+        memory = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = "4Gi";
+          description = "Memory limit (`--memory`), byte quantity (512Mi, 4Gi, 8G).";
+        };
+
+        gpu = mkOption {
+          type = types.nullOr (
+            types.oneOf [
+              types.bool
+              types.ints.positive
+            ]
+          );
+          default = null;
+          example = 1;
+          description = ''
+            GPU request (`--gpu [COUNT]`). `true` requests the driver's
+            default selection; an integer requests that many GPUs.
+          '';
+        };
+
+        driverConfigJson = mkOption {
+          type = types.nullOr (
+            types.oneOf [
+              types.str
+              (types.attrsOf types.anything)
+            ]
+          );
+          default = null;
+          example = {
+            docker = {
+              cdi_devices = [ "nvidia.com/gpu=0" ];
+            };
+          };
+          description = ''
+            Driver-keyed settings (`--driver-config-json`). Attribute sets
+            are serialised with `builtins.toJSON`; strings are passed
+            verbatim as inline JSON. Requires `allow_driver_config` on
+            the gateway.
+          '';
+        };
+
+        restartPolicy = mkOption {
+          type = types.enum [
+            "never"
+            "on-failure"
+            "always"
+          ];
+          default = "never";
+          description = "Main-process restart behaviour (`--restart-policy`).";
+        };
+
+        detach = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Create without attaching (`--detach`). The load service runs
+            non-interactively; `false` blocks it until the main process
+            exits and suits only short-lived commands.
+          '';
+        };
+
+        noKeep = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Delete the sandbox once the main process exits (`--no-keep`).";
+        };
+
+        editor = mkOption {
+          type = types.nullOr (
+            types.enum [
+              "vscode"
+              "cursor"
+            ]
+          );
+          default = null;
+          description = "Remote editor to launch after creation (`--editor`).";
+        };
+
+        forward = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          example = [
+            "8080"
+            "0.0.0.0:3000"
+          ];
+          description = "Local port forwards (`--forward [BIND_ADDRESS:]PORT`, repeatable).";
+        };
+
+        expose = mkOption {
+          type = types.nullOr types.port;
+          default = null;
+          description = "Expose the unnamed HTTP/WebSocket service on this port (`--expose`).";
+        };
+
+        exposeAuthorizationMode = mkOption {
+          type = types.enum [
+            "strip"
+            "bearer-passthrough"
+          ];
+          default = "strip";
+          description = "Authorization handling for the exposed service (`--expose-authorization-mode`), only applied when `expose` is set.";
+        };
+
+        upload = mkOption {
+          type = types.listOf (types.either types.path types.str);
+          default = [ ];
+          example = [ "./config.json:/workspace/config.json" ];
+          description = ''
+            Local files to upload (`--upload PATH[:DEST]`, repeatable).
+            Paths are copied into the Nix store; strings are passed
+            verbatim and may carry an explicit `:DEST`. A bare path
+            lands in the sandbox under its store basename
+            (`<hash>-name`), so prefer the string form with an explicit
+            `:DEST` to control the destination name. Requires
+            `command = [ ]` (the CLI rejects uploads with a trailing
+            command).
+          '';
+        };
+
+        noGitIgnore = mkOption {
+          type = types.bool;
+          default = false;
+          description = "Disable `.gitignore` filtering for uploads (`--no-git-ignore`).";
+        };
+
+        approvalMode = mkOption {
+          type = types.enum [
+            "manual"
+            "auto"
+          ];
+          default = "manual";
+          description = "Handling of agent-authored policy proposals (`--approval-mode`).";
+        };
+      };
+
+      config = {
+        assertions = [
+          {
+            assertion = config.upload == [ ] || config.command == [ ];
+            message = "sandbox '${name}': `upload` cannot be combined with a trailing `command`; set `command = [ ]` to use uploads.";
+          }
+          {
+            assertion = !(config.labels ? "nix-config-spec");
+            message = "sandbox '${name}': the `nix-config-spec` label is reserved by the module for spec tracking; remove it from `labels`.";
+          }
+          {
+            assertion =
+              !config.noKeep || (config.forward == [ ] && config.expose == null && config.editor == null);
+            message = "sandbox '${name}': `noKeep` deletes the sandbox once the main process exits, which conflicts with `forward`, `expose` and `editor` (they keep the sandbox alive).";
+          }
+          {
+            assertion =
+              config.template == null
+              || (
+                config.cpu == null
+                && config.memory == null
+                && config.gpu == null
+                && config.env == { }
+                && config.driverConfigJson == null
+              );
+            message = "sandbox '${name}': `template` replaces the inline workload fields `cpu`, `memory`, `gpu`, `env` and `driverConfigJson`; unset them.";
+          }
+        ];
+      };
+    }
+  );
+
   gateway = types.submodule {
     options = {
       name = mkOption {
@@ -46,6 +329,66 @@ let
           DOCKER_HOST = "unix:///Users/me/.colima/default/docker.sock";
         };
         description = "Environment variables for the gateway process.";
+      };
+
+      sandboxes = mkOption {
+        type = types.attrsOf sandbox;
+        default = { };
+        example = lib.literalExpression ''
+          {
+            # Minimal: defaults give the nixpkgs/nix-flakes image running
+            # opencode, attached to one provider.
+            ai-locked = {
+              providers = [ "halogen-server" ];
+              policy = ./profiles/locked.yaml;
+            };
+
+            # Every option set explicitly (except `template`, which
+            # replaces the inline workload fields shown above):
+            ai-full = {
+              image = "nixpkgs/nix-flakes";
+              command = [ "opencode" ];
+              providers = [ "halogen-server" "github" ];
+              autoProviders = true;
+              policy = ./profiles/limited.yaml;
+              labels = { tier = "limited"; };
+              env = { FEATURE_FLAG = "on"; };
+              noCredentialWarnings = false;
+              cpu = "2";
+              memory = "4Gi";
+              gpu = 1;
+              driverConfigJson = { docker = { cdi_devices = [ "nvidia.com/gpu=0" ]; }; };
+              restartPolicy = "on-failure";
+              detach = true;
+              noKeep = false;
+              editor = "vscode";
+              forward = [ "8080" ];
+              expose = 8080;
+              exposeAuthorizationMode = "bearer-passthrough";
+              upload = [ ];
+              noGitIgnore = false;
+              approvalMode = "auto";
+            };
+
+            # Template-based: the workload shape comes from a named
+            # sandbox template; uploads require an empty command.
+            ai-template = {
+              template = "gpu-kata";
+              providers = [ "halogen-server" ];
+              command = [ ];
+              upload = [ "./config.json:/workspace/config.json" ];
+              noGitIgnore = true;
+              noKeep = true;
+            };
+          }
+        '';
+        description = ''
+          Sandboxes managed on this gateway, keyed by sandbox name (a
+          DNS-1123 label). The load service creates missing sandboxes
+          (detached), recreates ones whose rendered spec changed, and
+          deletes sandboxes that are no longer declared. Each enabled
+          sandbox also gains a generated wrapper command named after it.
+        '';
       };
     };
   };
@@ -138,6 +481,163 @@ let
 
   endpoint = gateway: "http://${gateway.settings.openshell.gateway.bind_address}";
 
+  # Label recording the rendered create-args hash on each managed sandbox,
+  # so spec changes can be detected on existing sandboxes (v0.1.3 has no
+  # user-settable annotations).
+  sandboxSpecLabel = "nix-config-spec";
+
+  # The full `openshell sandbox create` argument list for one sandbox,
+  # minus the spec label (whose value is the hash of these arguments).
+  sandboxBaseArgs =
+    name: s:
+    [
+      "sandbox"
+      "create"
+      "--name"
+      name
+    ]
+    ++ lib.optionals (s.template == null) (
+      [
+        "--from"
+        s.image
+      ]
+      ++ lib.optionals (s.cpu != null) [
+        "--cpu"
+        s.cpu
+      ]
+      ++ lib.optionals (s.memory != null) [
+        "--memory"
+        s.memory
+      ]
+      ++ lib.optionals (s.gpu != null) (
+        if s.gpu == true then [ "--gpu" ] else [ "--gpu=${toString s.gpu}" ]
+      )
+      ++ lib.optionals (s.driverConfigJson != null) [
+        "--driver-config-json"
+        (
+          if builtins.isAttrs s.driverConfigJson then
+            builtins.toJSON s.driverConfigJson
+          else
+            s.driverConfigJson
+        )
+      ]
+      ++ lib.mapAttrsToList (k: v: "--env=${k}=${v}") s.env
+    )
+    ++ lib.optionals (s.template != null) [
+      "--template"
+      s.template
+    ]
+    ++ map (p: "--provider=${p}") s.providers
+    ++ [ (if s.autoProviders then "--auto-providers" else "--no-auto-providers") ]
+    ++ lib.optionals (s.policy != null) [
+      "--policy"
+      (proveWithinBoundary "sandbox-${name}-policy" (toFile "sandbox-${name}-policy" s.policy))
+    ]
+    ++ lib.mapAttrsToList (k: v: "--label=${k}=${v}") s.labels
+    ++ lib.optionals s.noCredentialWarnings [ "--no-credential-warnings" ]
+    ++ [ "--restart-policy=${s.restartPolicy}" ]
+    ++ lib.optionals s.detach [ "--detach" ]
+    ++ lib.optionals s.noKeep [ "--no-keep" ]
+    ++ lib.optionals (s.editor != null) [
+      "--editor"
+      s.editor
+    ]
+    ++ map (f: "--forward=${f}") s.forward
+    ++ lib.optionals (s.expose != null) [
+      "--expose=${toString s.expose}"
+      "--expose-authorization-mode=${s.exposeAuthorizationMode}"
+    ]
+    ++ map (u: "--upload=${toString u}") s.upload
+    ++ lib.optionals s.noGitIgnore [ "--no-git-ignore" ]
+    ++ [ "--approval-mode=${s.approvalMode}" ];
+
+  # The trailing `-- <COMMAND>` part; empty when using the image's default
+  # shell. Kept separate because everything after `--` is parsed as the
+  # main command's arguments, never as flags.
+  sandboxCommandTail = s: lib.optionals (s.command != [ ]) ([ "--" ] ++ s.command);
+
+  sandboxSpecHash =
+    name: s:
+    lib.substring 0 12 (
+      builtins.hashString "sha256" (builtins.toJSON (sandboxBaseArgs name s ++ sandboxCommandTail s))
+    );
+
+  # The spec label goes before the `--` separator so it is parsed as a
+  # flag, while the command stays last.
+  sandboxCreateArgs =
+    name: s:
+    sandboxBaseArgs name s
+    ++ [ "--label=${sandboxSpecLabel}=${sandboxSpecHash name s}" ]
+    ++ sandboxCommandTail s;
+
+  # Per-sandbox agent wrapper: starts the sandbox if needed and attaches
+  # to its canonical main process (the agent session).
+  mkSandboxCommand =
+    gatewayName: sandboxName:
+    pkgs.writeShellScriptBin sandboxName ''
+      set -euo pipefail
+      export OPENSHELL_GATEWAY_ENDPOINT=${lib.escapeShellArg (endpoint gateways.${gatewayName})}
+      if ! ${bin}/openshell sandbox get ${lib.escapeShellArg sandboxName} >/dev/null 2>&1; then
+        echo "error: sandbox '${sandboxName}' is not present on gateway '${gatewayName}' (has home-manager been activated?)" >&2
+        exit 1
+      fi
+      ${bin}/openshell sandbox start ${lib.escapeShellArg sandboxName} >/dev/null 2>&1 || true
+      exec ${bin}/openshell sandbox connect ${lib.escapeShellArg sandboxName}
+    '';
+
+  sandboxCommands = lib.concatMap (
+    gatewayName:
+    lib.mapAttrsToList (sandboxName: s: mkSandboxCommand gatewayName sandboxName) (
+      lib.filterAttrs (_: s: s.enable) gateways.${gatewayName}.sandboxes
+    )
+  ) (lib.attrNames gateways);
+
+  # Bash that converges one gateway's sandboxes onto the declared set:
+  # delete undeclared sandboxes, recreate declared ones whose spec label
+  # changed, and create missing ones.
+  sandboxSyncScript =
+    gatewayName: gateway:
+    let
+      enabled = lib.filterAttrs (_: s: s.enable) gateway.sandboxes;
+      declaredNames = lib.concatStringsSep " " (lib.attrNames enabled);
+      sandboxBlock =
+        sandboxName: s:
+        let
+          args = lib.escapeShellArgs (sandboxCreateArgs sandboxName s);
+          nameArg = lib.escapeShellArg sandboxName;
+          specArg = lib.escapeShellArg (sandboxSpecHash sandboxName s);
+        in
+        ''
+          if ! printf '%s\n' "$existing" | grep -Fxq ${nameArg}; then
+            "$openshell" ${args} >/dev/null
+          else
+            info="$( "$openshell" sandbox get ${nameArg} --output json 2>/dev/null || true )"
+            label="$(printf '%s' "$info" | ${jq} -r '.labels["${sandboxSpecLabel}"] // ""' 2>/dev/null || true)"
+            phase="$(printf '%s' "$info" | ${jq} -r '.phase // ""' 2>/dev/null || true)"
+            if [ "$label" != ${specArg} ] || [ "$phase" = "Error" ]; then
+              "$openshell" sandbox delete ${nameArg} >/dev/null 2>&1 || true
+              for ((i = 0; i < 60; i++)); do
+                "$openshell" sandbox get ${nameArg} >/dev/null 2>&1 || break
+                sleep 1
+              done
+              "$openshell" ${args} >/dev/null
+            fi
+          fi
+        '';
+    in
+    ''
+      # --- sandboxes: converge the gateway's set onto the declared set ---
+      existing="$( "$openshell" sandbox list --output json | ${jq} -r '.sandboxes // [] | .[].name' )"
+      for name in $existing; do
+        case " ${declaredNames} " in
+          *" $name "*) : ;;
+          *) "$openshell" sandbox delete "$name" >/dev/null 2>&1 || true ;;
+        esac
+      done
+
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList sandboxBlock enabled)}
+    '';
+
   # Validated at build time, without starting the gateway.
   gatewayConfig =
     name: gateway:
@@ -169,7 +669,8 @@ let
     ''}"
   ];
 
-  # Reconcile the gateway database with the declared providers and policy.
+  # Reconcile the gateway database with the declared providers, policy and
+  # sandboxes.
   loadScript =
     name: gateway:
     pkgs.writeShellScript "openshell-load-${name}" ''
@@ -198,6 +699,8 @@ let
         else
           ''"$openshell" policy set --global --yes --policy ${globalPolicy}''
       }
+
+      ${lib.optionalString (gateway.sandboxes != { }) (sandboxSyncScript name gateway)}
     '';
 
   forEachGateway = f: lib.concatMapAttrs f gateways;
@@ -291,9 +794,9 @@ in
       type = types.nullOr document;
       default = null;
       description = ''
-        Boundary policy. When set, the merged `policies` and `globalPolicy`
-        are checked against it with `openshell-prover` at build time and the
-        build fails if either exceeds the boundary.
+        Boundary policy. When set, the merged `policies`, `globalPolicy` and
+        every sandbox `policy` are checked against it with `openshell-prover`
+        at build time and the build fails if any exceeds the boundary.
       '';
     };
 
@@ -319,9 +822,33 @@ in
             lib.length addresses == lib.length (lib.unique addresses);
           message = "services.openshell.gateways: each gateway name needs a distinct bind_address.";
         }
-      ];
+        {
+          assertion = lib.all (
+            gatewayName:
+            lib.all (
+              sandboxName:
+              builtins.match "[a-z0-9]([a-z0-9-]*[a-z0-9])?" sandboxName != null
+              && builtins.stringLength sandboxName <= 63
+            ) (lib.attrNames gateways.${gatewayName}.sandboxes)
+          ) (lib.attrNames gateways);
+          message = "services.openshell: every sandbox name must be a DNS-1123 label (at most 63 lowercase alphanumeric or '-' characters, beginning and ending with an alphanumeric character).";
+        }
+        {
+          # Wrapper commands are named after their sandbox, so sandbox
+          # names must be unique across all gateways.
+          assertion =
+            let
+              names = lib.concatMap (g: lib.attrNames g.sandboxes) (lib.attrValues gateways);
+            in
+            lib.length names == lib.length (lib.unique names);
+          message = "services.openshell: sandbox names must be unique across all gateways (each sandbox gains a generated wrapper command named after it).";
+        }
+      ]
+      # Enforce each sandbox's own assertions; submodule assertions are
+      # only checked when the parent config collects them.
+      ++ lib.concatMap (g: lib.mapAttrsToList (_: s: s.assertions) g.sandboxes) (lib.attrValues gateways);
 
-      home.packages = [ cfg.package ];
+      home.packages = [ cfg.package ] ++ sandboxCommands;
 
       # The CLI targets the first gateway (by name) unless told otherwise.
       home.sessionVariables =
