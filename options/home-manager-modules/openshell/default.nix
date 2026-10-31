@@ -26,7 +26,20 @@ let
     { name, config, ... }: {
       options = {
         assertions = mkOption {
-          type = types.assertions;
+          type = types.listOf (
+            types.submodule {
+              options = {
+                assertion = mkOption {
+                  type = types.bool;
+                  description = "Condition that must evaluate to true.";
+                };
+                message = mkOption {
+                  type = types.str;
+                  description = "Error shown when the assertion fails.";
+                };
+              };
+            }
+          );
           default = [ ];
           description = "Additional assertions that must hold for this sandbox.";
         };
@@ -845,8 +858,12 @@ in
         }
       ]
       # Enforce each sandbox's own assertions; submodule assertions are
-      # only checked when the parent config collects them.
-      ++ lib.concatMap (g: lib.mapAttrsToList (_: s: s.assertions) g.sandboxes) (lib.attrValues gateways);
+      # only checked when the parent config collects them. flatten splices
+      # each sandbox's list flat into the parent list instead of nesting it
+      # as a list element (which breaks `builtins.catAttrs` downstream).
+      ++ lib.concatMap (g: lib.flatten (lib.mapAttrsToList (_: s: s.assertions) g.sandboxes)) (
+        lib.attrValues gateways
+      );
 
       home.packages = [ cfg.package ] ++ sandboxCommands;
 
