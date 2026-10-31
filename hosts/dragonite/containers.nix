@@ -47,15 +47,17 @@ let
 
   # FHS files every container retains, as { name -> { path, mode, content } }.
   # The machine-id is the repo standard (md5 of hostname via the
-  # systemd.machineId option); ssh host keys are included only when the host
-  # pins them via programs.ssh.hostKeyBase64 / publicHostKeyBase64.
+  # systemd.machineId option). ssh host keys are included when the host
+  # declares programs.ssh.publicHostKeyBase64; the keypair itself is
+  # generated and owned on dragonite (secrets never live in this repo), so
+  # those entries carry no store source (content = null) and are
+  # bind-mounted exactly as they exist on disk.
   stateFilesFor =
     name:
     let
       cfg = containerConfig name;
       machineId = cfg.systemd.machineId or (builtins.hashString "md5" name);
-      sshPrivate = cfg.programs.ssh.hostKeyBase64 or null;
-      sshPublic = cfg.programs.ssh.publicHostKeyBase64 or null;
+      hasSshKeys = (cfg.programs.ssh.publicHostKeyBase64 or null) != null;
     in
     {
       machineId = {
@@ -64,29 +66,28 @@ let
         content = pkgs.writeText "machine-id-${name}" "${machineId}\n";
       };
     }
-    // lib.optionalAttrs (sshPrivate != null) {
+    // lib.optionalAttrs hasSshKeys {
       sshHostKey = {
         path = "etc/ssh/ssh_host_ed25519_key";
         mode = "0600";
-        content = pkgs.writeText "ssh_host_ed25519_key-${name}" (builtins.base64ToString sshPrivate);
+        content = null;
       };
-    }
-    // lib.optionalAttrs (sshPublic != null) {
       sshHostKeyPub = {
         path = "etc/ssh/ssh_host_ed25519_key.pub";
         mode = "0644";
-        content = pkgs.writeText "ssh_host_ed25519_key.pub-${name}" (builtins.base64ToString sshPublic);
+        content = null;
       };
     };
 
-  # Seed the state files on dragonite. `C` copies from the store only when
-  # the path is absent, so on-disk rotations survive rebuilds (same semantics
-  # as the agenix identity rules above).
+  # Seed the store-backed state files on dragonite. `C` copies from the
+  # store only when the path is absent, so on-disk rotations survive rebuilds
+  # (same semantics as the agenix identity rules above). Entries without a
+  # store source (host-managed ssh keys) are skipped.
   stateFileRules = concatLists (
     map (
       name:
       mapAttrsToList (_n: f: "C /var/lib/${name}/${f.path} ${f.mode} root root - - ${f.content}") (
-        stateFilesFor name
+        lib.filterAttrs (_n: f: f.content != null) (stateFilesFor name)
       )
     ) containerHostnames
   );

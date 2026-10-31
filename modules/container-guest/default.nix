@@ -61,10 +61,11 @@
 
   services.openssh = {
     enable = true;
-    # When the host has seeded a pinned host key (programs.ssh.hostKeyBase64),
-    # point sshd at the bind-mounted key instead of letting sshd-keygen mint
-    # a new one on every start.
-    hostKeys = lib.mkIf (config.programs.ssh.hostKeyBase64 != null) [
+    # When the host declares a pinned keypair (programs.ssh.publicHostKeyBase64),
+    # the key arrives via the state-directory bind mount (see
+    # hosts/dragonite/containers.nix); point sshd at it instead of letting
+    # sshd-keygen mint a new one on every start.
+    hostKeys = lib.mkIf (config.programs.ssh.publicHostKeyBase64 != null) [
       {
         type = "ed25519";
         path = "/etc/ssh/ssh_host_ed25519_key";
