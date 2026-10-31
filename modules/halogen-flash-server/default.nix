@@ -3,6 +3,8 @@ _: {
 
   services.halogen-flash-server = {
     enable = true;
+    # Run the nix-built package directly instead of the upstream OCI image.
+    runtime = "package";
     applyRecommendedSystemSettings = true;
     modelRepo = "Quat3rnion/halogen-qwen3.8-flash-next-v2-abliterated";
     # Historical r2 transplant — the combination the derivative's model card
