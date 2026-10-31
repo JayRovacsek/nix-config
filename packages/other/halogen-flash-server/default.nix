@@ -39,6 +39,7 @@ let
   pythonEnv = python3.withPackages (ps: [
     ps.fastapi
     ps."huggingface-hub"
+    ps.jinja2
     ps.numpy
     ps.pydantic
     ps.starlette
