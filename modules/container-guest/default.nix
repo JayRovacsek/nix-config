@@ -1,12 +1,18 @@
 {
   config,
+  lib,
   self,
   ...
 }:
 {
   # Ensure a machine id exists and is stable on the host - this is required
-  # to ensure consistent mount of the journald logs back to the host
-  environment.etc."machine-id" = {
+  # to ensure consistent mount of the journald logs back to the host.
+  #
+  # When the container host provides a state directory bind-mount
+  # (container-guest.stateBindMounts - see hosts/dragonite/containers.nix),
+  # /etc/machine-id arrives via that mount and environment.etc must stay out
+  # of the way: activation cannot replace a bind-mounted path with a symlink.
+  environment.etc."machine-id" = lib.mkIf (!config.container-guest.stateBindMounts) {
     mode = "0644";
     text = ''
       ${config.systemd.machineId}
@@ -14,6 +20,8 @@
   };
 
   imports = [
+    ../../options/modules/container-guest
+    ../../options/modules/ssh
     ../../options/modules/systemd
   ];
 
@@ -53,12 +61,20 @@
 
   services.openssh = {
     enable = true;
+    # When the host has seeded a pinned host key (programs.ssh.hostKeyBase64),
+    # point sshd at the bind-mounted key instead of letting sshd-keygen mint
+    # a new one on every start.
+    hostKeys = lib.mkIf (config.programs.ssh.hostKeyBase64 != null) [
+      {
+        type = "ed25519";
+        path = "/etc/ssh/ssh_host_ed25519_key";
+      }
+    ];
     settings = {
       PermitRootLogin = "yes";
       PasswordAuthentication = false;
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys =
-    self.common.config.services.openssh.public-keys;
+  users.users.root.openssh.authorizedKeys.keys = self.common.config.services.openssh.public-keys;
 }
