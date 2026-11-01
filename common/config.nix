@@ -14,6 +14,7 @@ _: {
           fqdn = "alakazam.local";
         }
       ];
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfM3EoPc1OO0NDzgSxZ4vwfHFk3Abb50Kly47cUrNxX root@alakazam";
       shares = [ ];
     };
     bellsprout = {
@@ -91,6 +92,7 @@ _: {
         }
       ];
       isDnsServer = true;
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVkYRAVcY5MsTstiLOlGh8fNSuMoTS2XDwpCXxBE2v1 root@dragonite";
       shares = [ ];
     };
     igglybuff = {
