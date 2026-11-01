@@ -5,8 +5,7 @@ let
   inherit (self.inputs.nixpkgs) lib;
 
   linux-suitable-hosts = builtins.filter (
-    hostname:
-    builtins.hasAttr "profile" nixosConfigurations.${hostname}.config.hardware.cpu
+    hostname: builtins.hasAttr "profile" nixosConfigurations.${hostname}.config.hardware.cpu
   ) linux-host-identifiers;
 
   linux-base-configs = builtins.map (
@@ -14,8 +13,7 @@ let
   ) linux-suitable-hosts;
 
   darwin-suitable-hosts = builtins.filter (
-    hostname:
-    builtins.hasAttr "profile" darwinConfigurations.${hostname}.config.hardware.cpu
+    hostname: builtins.hasAttr "profile" darwinConfigurations.${hostname}.config.hardware.cpu
   ) darwin-host-identifiers;
 
   darwin-base-configs = builtins.map (
@@ -48,12 +46,11 @@ let
     in
     [
       {
-        hostName = "${config.networking.hostName}.${
-          config.networking.localDomain or "local"
-        }";
+        hostName = "${config.networking.hostName}.${config.networking.localDomain or "local"}";
         maxJobs = profile.cores;
         protocol = "ssh-ng";
-        publicHostKey = config.programs.ssh.publicHostKeyBase64 or null;
+        # ssh validates via programs.ssh.knownHosts (modules/ssh).
+        publicHostKey = null;
         speedFactor = builtins.ceil (builtins.mul profile.cores profile.speed / 2);
         sshUser = "builder";
         supportedFeatures = config.nix.settings.system-features or [ ];

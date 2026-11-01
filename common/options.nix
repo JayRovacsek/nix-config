@@ -20,7 +20,6 @@ builtins.mapAttrs (
       ../options/modules/hardware
       ../options/modules/networking
       ../options/modules/nix
-      ../options/modules/ssh
     ];
 
     linux = optionals isLinux [ ../options/modules/systemd ];

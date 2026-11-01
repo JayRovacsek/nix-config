@@ -21,9 +21,11 @@
 
   imports = [
     ../../options/modules/container-guest
-    ../../options/modules/ssh
+    ../ssh
     ../../options/modules/systemd
   ];
+
+  systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
 
   # Ensure we're using networkd & open ssh
   networking = {
@@ -61,16 +63,18 @@
 
   services.openssh = {
     enable = true;
-    # When the host declares a pinned keypair (programs.ssh.publicHostKeyBase64),
-    # the key arrives via the state-directory bind mount (see
-    # hosts/dragonite/containers.nix); point sshd at it instead of letting
-    # sshd-keygen mint a new one on every start.
-    hostKeys = lib.mkIf (config.programs.ssh.publicHostKeyBase64 != null) [
-      {
-        type = "ed25519";
-        path = "/etc/ssh/ssh_host_ed25519_key";
-      }
-    ];
+    # When the shared inventory (common/config.nix) declares a public key
+    # for this host, the keypair arrives via the state-directory bind mount
+    # (see hosts/dragonite/containers.nix); point sshd at it instead of
+    # letting sshd-keygen mint a new one on every start.
+    hostKeys =
+      lib.mkIf ((self.common.config.hosts.${config.networking.hostName}.publicHostKey or null) != null)
+        [
+          {
+            type = "ed25519";
+            path = "/etc/ssh/ssh_host_ed25519_key";
+          }
+        ];
     settings = {
       PermitRootLogin = "yes";
       PasswordAuthentication = false;
