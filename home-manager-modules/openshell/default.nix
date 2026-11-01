@@ -9,12 +9,12 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin system;
   inherit (self.packages.${system}) openshell-shared;
-  # The host's nix binary-cache settings, forwarded to sandboxes via
-  # NIX_CONFIG so in-guest nix resolves the same caches as the host.
-  hostNixConfig = lib.concatStringsSep "\n" [
-    "substituters = ${lib.concatStringsSep " " osConfig.nix.settings.substituters}"
-    "trusted-public-keys = ${lib.concatStringsSep " " osConfig.nix.settings.trusted-public-keys}"
-  ];
+  # The host's nix binary-cache settings, forwarded to sandboxes so
+  # in-guest nix resolves the same caches as the host. The CLI rejects
+  # newlines in --env values, so the settings go in per-setting NIX_*
+  # variables rather than a multi-line NIX_CONFIG.
+  hostSubstituters = lib.concatStringsSep " " osConfig.nix.settings.substituters;
+  hostTrustedPublicKeys = lib.concatStringsSep " " osConfig.nix.settings.trusted-public-keys;
 in
 {
   imports = [ ../../options/home-manager-modules/openshell ];
@@ -43,8 +43,9 @@ in
         # nix-flakes image ships no opencode binary, so the command builds
         # it from nixpkgs (channel:nixos-unstable) into a sandbox-local
         # store (/tmp/nix-store, keeping /nix read-only), with the host's
-        # binary-cache settings forwarded via NIX_CONFIG. The disabled
-        # tiers keep the module default `opencode`.
+        # binary-cache settings forwarded via NIX_SUBSTITUTERS and
+        # NIX_TRUSTED_PUBLIC_KEYS. The disabled tiers keep the module
+        # default `opencode`.
         sandboxes = {
           # Inference-only session. Active: the halogen-server provider
           # instance exists on this gateway.
@@ -63,7 +64,8 @@ in
             policy = ./profiles/locked.yaml;
             env = {
               NIX_PATH = "nixpkgs=channel:nixos-unstable";
-              NIX_CONFIG = hostNixConfig;
+              NIX_SUBSTITUTERS = hostSubstituters;
+              NIX_TRUSTED_PUBLIC_KEYS = hostTrustedPublicKeys;
             };
           };
 

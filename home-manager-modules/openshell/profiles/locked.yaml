@@ -48,9 +48,9 @@ filesystem_policy:
 # Nix infrastructure egress: the nixpkgs channel (nixos.org, whose
 # downloads are served from cache.nixos.org) plus the host's binary caches
 # — the same hosts the host's nix.settings publishes, forwarded to the
-# sandbox via NIX_CONFIG — scoped to the nix binary (/bin/nix). The
-# halogen-server inference endpoints come from the attached provider
-# (_provider_* composition).
+# sandbox via NIX_SUBSTITUTERS/NIX_TRUSTED_PUBLIC_KEYS — scoped to the
+# nix binary (/bin/nix). The halogen-server inference endpoints come from
+# the attached provider (_provider_* composition).
 network_policies:
   nix:
     name: nix
