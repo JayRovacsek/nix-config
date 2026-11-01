@@ -18,15 +18,22 @@ version: 1
 
 filesystem_policy:
   # The project workspace is the only writable tree besides /tmp and
-  # /dev/null; the image's tooling is read-only. Populate the workspace with
-  # `sandbox upload` after creation (or `sandbox create --upload` without a
-  # trailing command), then launch opencode via `sandbox exec`.
+  # /dev/null; the image's tooling is read-only. The nix-flakes image keeps
+  # its binaries under /bin and /nix (bash's ELF interpreter lives in the
+  # Nix store), so both are listed alongside the FHS paths the policy was
+  # originally written for; entries an image lacks are skipped by the
+  # supervisor. Populate the workspace with `sandbox upload` after creation
+  # (or `sandbox create --upload` without a trailing command), then launch
+  # opencode via `sandbox exec`.
   include_workdir: true
   read_only:
-    - /usr
-    - /lib
+    - /bin
     - /etc
+    - /lib
+    - /lib64
+    - /nix
     - /proc
+    - /usr
   read_write:
     - /tmp
     - /dev/null
