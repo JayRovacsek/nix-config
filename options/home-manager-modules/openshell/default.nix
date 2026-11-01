@@ -83,6 +83,20 @@ let
           '';
         };
 
+        tty = mkOption {
+          type = types.nullOr types.bool;
+          default = null;
+          example = true;
+          description = ''
+            Allocate a pseudo-terminal for the main process (`--tty` /
+            `--no-tty`). `null` lets the CLI auto-detect from the
+            creating process's stdio — off when the load script runs
+            under systemd — so set `true` for interactive main
+            processes (a shell, a TUI agent); without a PTY,
+            `sandbox connect` attaches without a prompt or echo.
+          '';
+        };
+
         providers = mkOption {
           type = types.listOf types.str;
           default = [ ];
@@ -361,6 +375,7 @@ let
             ai-full = {
               image = "nixpkgs/nix-flakes";
               command = [ "opencode" ];
+              tty = true;
               providers = [ "halogen-server" "github" ];
               autoProviders = true;
               policy = ./profiles/limited.yaml;
@@ -549,6 +564,7 @@ let
     ++ lib.mapAttrsToList (k: v: "--label=${k}=${v}") s.labels
     ++ lib.optionals s.noCredentialWarnings [ "--no-credential-warnings" ]
     ++ [ "--restart-policy=${s.restartPolicy}" ]
+    ++ lib.optionals (s.tty != null) [ (if s.tty then "--tty" else "--no-tty") ]
     ++ lib.optionals s.detach [ "--detach" ]
     ++ lib.optionals s.noKeep [ "--no-keep" ]
     ++ lib.optionals (s.editor != null) [

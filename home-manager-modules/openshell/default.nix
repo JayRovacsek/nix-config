@@ -42,6 +42,7 @@ in
           # instance exists on this gateway.
           ai-locked = {
             command = [ "/bin/bash" ];
+            tty = true;
             providers = [ "halogen-server" ];
             policy = ./profiles/locked.yaml;
           };
