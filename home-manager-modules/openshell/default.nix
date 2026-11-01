@@ -28,18 +28,20 @@ in
           openshell.drivers.docker.grpc_endpoint = "http://192.168.5.2:17670";
         };
 
-        # One sandbox per policy tier (docs/openshell-profiles.md). Each
-        # sandbox runs the module default command (`opencode`) on the
-        # module default image (nixpkgs/nix-flakes) and gains a generated
+        # One sandbox per policy tier (docs/openshell-profiles.md), each on
+        # the module default image (nixpkgs/nix-flakes) with a generated
         # wrapper command of the same name.
         #
-        # The nix-flakes image ships nix but no `opencode` binary; override
-        # `command` (e.g. [ "nix" "run" "nixpkgs#opencode" ]) or point
-        # `image` at a BYOC image once one is available.
+        # The nix-flakes image ships nix and bash but no `opencode` binary,
+        # and the locked tier's offline policy cannot fetch one via nix, so
+        # ai-locked runs /bin/bash — the agent shell declared by the
+        # halogen-server provider. The disabled tiers keep the module
+        # default `opencode` until a BYOC image provides it.
         sandboxes = {
           # Inference-only session. Active: the halogen-server provider
           # instance exists on this gateway.
           ai-locked = {
+            command = [ "/bin/bash" ];
             providers = [ "halogen-server" ];
             policy = ./profiles/locked.yaml;
           };
