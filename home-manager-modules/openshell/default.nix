@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   self,
   ...
@@ -8,6 +9,12 @@
 let
   inherit (pkgs.stdenv.hostPlatform) isDarwin system;
   inherit (self.packages.${system}) openshell-shared;
+  # The host's nix binary-cache settings, forwarded to sandboxes via
+  # NIX_CONFIG so in-guest nix resolves the same caches as the host.
+  hostNixConfig = lib.concatStringsSep "\n" [
+    "substituters = ${lib.concatStringsSep " " osConfig.nix.settings.substituters}"
+    "trusted-public-keys = ${lib.concatStringsSep " " osConfig.nix.settings.trusted-public-keys}"
+  ];
 in
 {
   imports = [ ../../options/home-manager-modules/openshell ];
@@ -32,19 +39,32 @@ in
         # the module default image (nixpkgs/nix-flakes) with a generated
         # wrapper command of the same name.
         #
-        # The nix-flakes image ships nix and bash but no `opencode` binary,
-        # and the locked tier's offline policy cannot fetch one via nix, so
-        # ai-locked runs /bin/bash — the agent shell declared by the
-        # halogen-server provider. The disabled tiers keep the module
-        # default `opencode` until a BYOC image provides it.
+        # ai-locked spawns opencode inside the jail via nix-shell: the
+        # nix-flakes image ships no opencode binary, so the command builds
+        # it from nixpkgs (channel:nixos-unstable) into a sandbox-local
+        # store (/tmp/nix-store, keeping /nix read-only), with the host's
+        # binary-cache settings forwarded via NIX_CONFIG. The disabled
+        # tiers keep the module default `opencode`.
         sandboxes = {
           # Inference-only session. Active: the halogen-server provider
           # instance exists on this gateway.
           ai-locked = {
-            command = [ "/bin/bash" ];
+            command = [
+              "/usr/bin/nix-shell"
+              "--store"
+              "/tmp/nix-store"
+              "-p"
+              "opencode"
+              "--command"
+              "opencode"
+            ];
             tty = true;
             providers = [ "halogen-server" ];
             policy = ./profiles/locked.yaml;
+            env = {
+              NIX_PATH = "nixpkgs=channel:nixos-unstable";
+              NIX_CONFIG = hostNixConfig;
+            };
           };
 
           # + GitHub and the Nix cache. Disabled until a `github` provider

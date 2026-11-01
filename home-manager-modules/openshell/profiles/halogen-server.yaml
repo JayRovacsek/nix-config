@@ -7,14 +7,13 @@
 # and the gateway dials the host-side listener on the sandbox's behalf.
 # The host bind (127.0.0.1:11435, modules/halogen-flash-server) is unchanged.
 #
-# Client binaries:   bash (the agent shell) at /bin/bash in the sandbox
-#                    image (nixpkgs/nix-flakes ships bash as a regular file
-#                    at that path; the former /usr/bin/bash entry matched
-#                    the ubuntu base image, not this one). The intended
-#                    agent runtime (opencode) and curl are listed commented
-#                    below — uncomment them when the sandbox image provides
-#                    them (e.g. a BYOC image), as credentials are only
-#                    injected for binaries that exist in the image.
+# Client binaries:   bash (agent shell, /bin/bash) and nix (the nix-shell
+#                    entrypoint, /bin/nix — /usr/bin/nix-shell is a symlink
+#                    to it; matching follows real paths). opencode itself
+#                    realises into /tmp/nix-store at a nixpkgs-dependent
+#                    path and inherits credentials from its nix parent, so
+#                    it is not listed. curl stays commented: the image
+#                    ships no /usr/bin/curl.
 # Reference layout:  list real paths, not symlinks (binary matching follows
 #                    the interpreter).
 # Credential scope:  OPENAI_API_KEY, sent as a bearer header to
@@ -52,5 +51,5 @@ endpoints:
     enforcement: enforce
 binaries:
   - /bin/bash
-  # - /usr/local/bin/opencode
+  - /bin/nix
   # - /usr/bin/curl

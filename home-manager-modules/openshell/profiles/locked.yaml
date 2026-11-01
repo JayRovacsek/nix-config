@@ -1,9 +1,11 @@
-# Tier: locked — locked-down AI use (offline, minimal tools).
+# Tier: locked — locked-down AI use (inference + Nix caches only).
 #
-# The sandbox runs the opencode agent against the self-hosted inference
-# endpoint and nothing else: no internet, no source control, no package
-# registries. Everything the agent can do is contained to its workdir;
-# everything it can reach is the gateway-hosted model API.
+# The sandbox runs the opencode agent (via nix-shell) against the
+# self-hosted inference endpoint: no general internet, no source control;
+# the only package-registry egress is the Nix binary caches needed to
+# realise opencode (see network_policies). Everything the agent can do is
+# contained to its workdir; everything it can reach is the gateway-hosted
+# model API and those caches.
 #
 # Attached providers: halogen-server (profiles/halogen-server.yaml).
 #
@@ -22,9 +24,8 @@ filesystem_policy:
   # its binaries under /bin and /nix (bash's ELF interpreter lives in the
   # Nix store), so both are listed alongside the FHS paths the policy was
   # originally written for; entries an image lacks are skipped by the
-  # supervisor. Populate the workspace with `sandbox upload` after creation
-  # (or `sandbox create --upload` without a trailing command), then launch
-  # opencode via `sandbox exec`.
+  # supervisor. The sandbox's nix uses a store under /tmp (see the
+  # --store flag on the sandbox command) so /nix stays read-only.
   include_workdir: true
   read_only:
     - /bin
@@ -44,7 +45,21 @@ filesystem_policy:
 # sudo/su/doas. Set numeric run_as_user/run_as_group once the image defines a
 # dedicated sandbox account.
 
-# No standalone network rules: every authorised endpoint comes from the
-# attached halogen-server provider (_provider_* composition). With nothing
-# else attached, the sandbox is effectively offline except for inference.
-network_policies: {}
+# Nix infrastructure egress: the nixpkgs channel (nixos.org, whose
+# downloads are served from cache.nixos.org) plus the host's binary caches
+# — the same hosts the host's nix.settings publishes, forwarded to the
+# sandbox via NIX_CONFIG — scoped to the nix binary (/bin/nix). The
+# halogen-server inference endpoints come from the attached provider
+# (_provider_* composition).
+network_policies:
+  nix:
+    name: nix
+    endpoints:
+      - { host: nixos.org, port: 443 }
+      - { host: cache.nixos.org, port: 443 }
+      - { host: nixos-raspberrypi.cachix.org, port: 443 }
+      - { host: cache.nixos-cuda.org, port: 443 }
+      - { host: nix-community.cachix.org, port: 443 }
+      - { host: binarycache.rovacsek.com, port: 443 }
+    binaries:
+      - { path: /bin/nix }
