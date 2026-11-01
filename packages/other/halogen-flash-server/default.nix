@@ -1,4 +1,6 @@
 {
+  self,
+  pkgs,
   lib,
   stdenv,
   autoPatchelfHook,
@@ -139,16 +141,18 @@ stdenv.mkDerivation (finalAttrs: {
   # flash_serve and halogen-tools link libamdhip64.so.7 and
   # libhipblaslt.so.1; their Debian RUNPATH is rewritten to these.
   # stdenv.cc.cc.lib supplies libstdc++/libgcc_s, which the Debian-built
-  # binaries also need. halogen-npu also needs libxrt_coreutil.so.2
-  # (AMD XRT), which nixpkgs does not carry and the image itself does not
-  # bundle either -- NPU mode expects it from the host, so the missing dep
-  # is tolerated.
+  # binaries also need. halogen-npu links libxrt_coreutil.so.2 (AMD XRT),
+  # which nixpkgs does not carry and the image does not bundle either; it
+  # used to be tolerated as a missing dep, leaving the binary unloadable
+  # unless the host put XRT on the loader path. The vendored xrt-amdxdna
+  # package is now a buildInput, so patchelf rewrites the RUNPATH to its
+  # store lib dir and the NPU sidecar loads XRT directly from the store.
   buildInputs = [
     rocmPackages.clr
     rocmPackages.hipblaslt
     stdenv.cc.cc.lib
+    self.packages.${pkgs.system}.xrt-amdxdna
   ];
-  autoPatchelfIgnoreMissingDeps = [ "libxrt_coreutil.so.2" ];
 
   dontConfigure = true;
   # Vendored prebuilt ELFs: keep them as upstream ships them (the EULA

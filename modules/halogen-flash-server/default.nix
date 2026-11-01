@@ -1,4 +1,5 @@
-_: {
+{ self, pkgs, ... }:
+{
   imports = [ ../../options/modules/halogen-flash-server ];
 
   services.halogen-flash-server = {
@@ -15,5 +16,15 @@ _: {
     # compatibility with those stock companions is explicitly unvalidated.
     modelRevision = "e7783c5822dfda2785a0f5b435abf54df89fe8ee";
     checkpointFile = "qwen38-flash-next-v2-abliterated.hgn";
+    # NPU sidecar: the package runtime has no HALOGEN_DOWNLOAD, so the files
+    # from peonist-ai/halogen-npu-embeddinggemma-2 are pre-fetched into
+    # ${modelDir}/npu/embeddinggemma-2 (/srv/halogen-models).
+    # XRT (the entrypoint's hardcoded /opt/xilinx/xrt) comes from the
+    # vendored xrt-amdxdna package, built from source.
+    npu = {
+      enable = true;
+      models = [ "embeddinggemma-2" ];
+      xrtPackage = self.packages.${pkgs.system}.xrt-amdxdna;
+    };
   };
 }

@@ -38,6 +38,12 @@ let
   cachePrefix = if cfg.runtime == "oci" then "/cache" else cfg.cacheDir;
   apiPort = if cfg.runtime == "oci" then cfg.containerPort else cfg.hostPort;
 
+  # The XRT tree the NPU sidecar expects at /opt/xilinx/xrt: a store path
+  # when npu.xrtPackage is set (e.g. this flake's vendored xrt-amdxdna),
+  # otherwise the host directory named by npu.xrtDir.
+  xrtSource =
+    if cfg.npu.xrtPackage != null then "${cfg.npu.xrtPackage}/opt/xilinx/xrt" else cfg.npu.xrtDir;
+
   defaultEnvironment = {
     HALOGEN_API_PORT = builtins.toString apiPort;
     HALOGEN_KV_SLOTS = "3"; # conversations generating at once (~115 MB each)
@@ -58,6 +64,22 @@ let
     # file beside the checkpoint); interpolated so it can never drift from the
     # validated artefact.
     HALOGEN_VISION_TOWER = "${modelsPrefix}/${cfg.visionFile}";
+  }
+  // lib.optionalAttrs cfg.npu.enable {
+    # The entrypoint reads the sidecar's model list from HALOGEN_NPU_MODELS
+    # and looks for the files under _hg_npu_dir (its own default is
+    # /models/npu, which only exists on the oci runtime). Setting the prefix
+    # explicitly covers both runtimes; on oci it matches the mount point.
+    HALOGEN_NPU_MODELS = lib.concatStringsSep "," cfg.npu.models;
+    _hg_npu_dir = "${modelsPrefix}/npu";
+    # XRT's module_loader finds the shim and its driver plugins (including
+    # libxrt_driver_xdna.so.2) via XILINX_XRT, falling back to the prefix
+    # baked into libxrt_coreutil.so — the xrt derivation's store path, whose
+    # lib/ lacks the plugin (only the join holds coreutil and the plugin in
+    # one directory). Without this the NPU is never registered and
+    # halogen-npu dies with "No such device with index '0'". On oci the
+    # value is the container's mount point instead of the store path.
+    XILINX_XRT = if cfg.runtime == "oci" then "/opt/xilinx/xrt" else xrtSource;
   };
 
   # Gates the server unit: catches empty/partial `hf download` results before
@@ -198,6 +220,65 @@ in
       '';
     };
 
+    npu = {
+      enable = lib.mkEnableOption "the NPU sidecar (small models on the Ryzen AI NPU)";
+
+      models = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+        example = [
+          "embeddinggemma-2"
+          "qwen3-embedding-0.6b"
+        ];
+        description = ''
+          NPU model ids, or /models/<dir> paths for your own converted
+          checkpoints, joined into HALOGEN_NPU_MODELS. Files for known ids
+          live under modelDir/npu/<id>/ (fetched by the image's
+          HALOGEN_DOWNLOAD, or pre-pulled from peonist-ai/halogen-npu-<id>
+          when running the package runtime); the entrypoint checksums them
+          at start.
+        '';
+      };
+
+      device = lib.mkOption {
+        type = lib.types.str;
+        default = "/dev/accel/accel0";
+        description = ''
+          Host NPU device node, passed through to the container's fixed
+          /dev/accel/accel0 by the oci runtime. The package runtime's
+          entrypoint hardcodes this path, so the option only takes effect
+          on the oci runtime.
+        '';
+      };
+
+      xrtDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/opt/xilinx/xrt";
+        description = ''
+          Host XRT directory mounted read-only into the container by the oci
+          runtime. The package runtime's entrypoint hardcodes this path and
+          nixpkgs carries no XRT package, so the package runtime needs XRT
+          provided out of band (docs/NPU.md); without it the NPU engine
+          refuses to start while the Flash model keeps serving. Ignored when
+          xrtPackage is set.
+        '';
+      };
+
+      xrtPackage = lib.mkOption {
+        type = lib.types.nullOr lib.types.package;
+        default = null;
+        example = lib.literalExpression "self.packages.x86_64-linux.xrt-amdxdna";
+        description = ''
+          A derivation providing opt/xilinx/xrt (XRT with the amdxdna NPU
+          plugin) to use instead of the host path in xrtDir. When set, the
+          package runtime symlinks /opt/xilinx/xrt to it via tmpfiles and the
+          oci runtime mounts it read-only at that path, so hosts without a
+          distro XRT install (nixpkgs has none) still satisfy the entrypoint's
+          hardcoded /opt/xilinx/xrt/lib check.
+        '';
+      };
+    };
+
     applyRecommendedSystemSettings = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -266,6 +347,18 @@ in
         systemd.tmpfiles.rules = [
           "d ${cfg.modelDir} 0755 root root - -"
           "d ${cfg.cacheDir} 0755 root root - -"
+        ]
+        # The NPU sidecar expects its converted models under
+        # ${modelDir}/npu (the oci runtime mounts that at /models/npu);
+        # create it so the tree can be populated without a manual mkdir.
+        ++ lib.optionals cfg.npu.enable [
+          "d ${cfg.modelDir}/npu 0755 root root - -"
+        ]
+        # The entrypoint hardcodes /opt/xilinx/xrt/lib; on the package
+        # runtime, point it at the xrtPackage tree via symlink (the oci
+        # runtime gets it as a volume mount instead).
+        ++ lib.optionals (cfg.runtime == "package" && cfg.npu.enable && cfg.npu.xrtPackage != null) [
+          "L /opt/xilinx/xrt - - - - ${xrtSource}"
         ];
 
         # Records the pinned HF revision so the model pull can be validated and
@@ -314,11 +407,13 @@ in
           volumes = [
             "${cfg.modelDir}:/models:ro"
             "${cfg.cacheDir}:/cache"
-          ];
+          ]
+          ++ lib.optionals cfg.npu.enable [ "${xrtSource}:/opt/xilinx/xrt:ro" ];
           devices = [
             "/dev/kfd:/dev/kfd"
             "/dev/dri:/dev/dri"
-          ];
+          ]
+          ++ lib.optionals cfg.npu.enable [ "${cfg.npu.device}:/dev/accel/accel0" ];
           # NEVER bind 0.0.0.0 — the API has no auth, so the loopback binding is
           # the access control. Deliberately no firewall rules: nothing should be
           # reachable beyond the loopback interface.
