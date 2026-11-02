@@ -36,6 +36,7 @@ in
       ../../modules/hardware/strix-halo
       ./disk-config.nix
       agenix
+      ai-jail
       alloy
       amd-gpu
       bluetooth
@@ -159,7 +160,6 @@ in
 
   programs = {
     fuse.userAllowOther = true;
-    ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
   };
 
   remoteBuilds = lib.mkForce {

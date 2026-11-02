@@ -20,6 +20,38 @@
         "type": "github"
       }
     },
+    "ai-jail": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "git-hooks"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793373360,
+        "narHash": "sha256-NC6yXf8wHV/Z1nYyw7JbuzgM9QOtnMzvW7kNbYF2ki4=",
+        "owner": "akitaonrails",
+        "repo": "ai-jail",
+        "rev": "363561c86f07e9b08140c7fa040b791259f8fa83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akitaonrails",
+        "repo": "ai-jail",
+        "type": "github"
+      }
+    },
     "argononed": {
       "flake": false,
       "locked": {
@@ -1057,6 +1089,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "ai-jail": "ai-jail",
         "bleeding-edge": "bleeding-edge",
         "crane": "crane",
         "devshell": "devshell",

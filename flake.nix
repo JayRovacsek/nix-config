@@ -12,6 +12,20 @@
       url = "github:ryantm/agenix";
     };
 
+    # ai-jail: AI-agent sandbox (bubblewrap + Landlock + seccomp).
+    # Upstream reviewed at 363561c86f07 (GPL-3.0-only, akitaonrails);
+    # its dev-only inputs are folded onto ours where shared.
+    ai-jail = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "git-hooks";
+        rust-overlay.follows = "rust-overlay";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+      url = "github:akitaonrails/ai-jail";
+    };
+
     crane.url = "github:ipetkov/crane";
 
     devshell = {
