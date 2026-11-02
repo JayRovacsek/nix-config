@@ -129,6 +129,16 @@ _: {
       ];
       shares = [ ];
     };
+    jynx = {
+      hostname = "jynx";
+      ips = [
+        {
+          address = "192.168.8.61";
+          fqdn = "jynx.local";
+        }
+      ];
+      shares = [ ];
+    };
     machop = {
       hostname = "machop";
       ips = [
@@ -355,6 +365,7 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:05:03";
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgL/X0/b8ONf62/torBC/+0e/ho2F0CT533Z5rG8NJl root@nidorina";
       shares = [
         {
           hostPath = "/var/lib/private/ddclient";

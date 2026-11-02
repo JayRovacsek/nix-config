@@ -95,7 +95,7 @@ in
     gastly.interfaces.wlan0.network = "wlan";
     ivysaur.interfaces.eth0.network = "lan";
     jigglypuff.interfaces.vlan-dns.network = "dns";
-    jynx.interfaces.eth0.network = "lan";
+    jynx.interfaces.wlan0.network = "wlan";
     wartortle.interfaces.eth0.network = "lan";
     wigglytuff.interfaces.wlan0.network = "iot";
     zubat.interfaces.eth0.network = "lan";
