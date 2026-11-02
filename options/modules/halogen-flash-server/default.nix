@@ -476,6 +476,10 @@ in
         systemd.services.halogen-flash-server = {
           description = "halogen-flash-server inference server";
           after = [ "network.target" ];
+          # Without this the unit is only linked into /etc/systemd/system and
+          # never pulled in at boot (the oci runtime gets its wantedBy from
+          # the oci-containers module's autoStart instead).
+          wantedBy = [ "multi-user.target" ];
           # llama-cpp and halogen are both memory-heavy on the 128 GiB
           # unified-memory Strix Halo box and must be mutually exclusive.
           conflicts = [ "llama-cpp.service" ];
