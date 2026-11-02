@@ -10,10 +10,11 @@ let
   jynx = self.common.users.jynx {
     inherit config pkgs;
     modules = with self.common.home-manager-module-sets; base;
-    #  ++ impermanence;
   };
 in
 {
+  networking.wireless.enable = true;
+
   inherit (jynx) users home-manager;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -24,12 +25,13 @@ in
     generations
     home-manager
     i18n
-    # impermanence
+    bluetooth
     kde-big-picture
     nix
     nvidia
     openssh
     pulse-eight-cec
+    systemd-boot
     sudo
     time
     timesyncd
