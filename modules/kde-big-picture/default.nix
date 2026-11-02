@@ -1,4 +1,39 @@
 { config, pkgs, ... }:
+let
+  # Upstream 6.8.1 regression: the homescreen's PowerManagementItem.qml still
+  # imports `org.kde.plasma.private.batterymonitor`, which plasma-workspace
+  # 6.8 replaced with `org.kde.plasma.private.battery` (dropping the
+  # `InhibitionControl` type), so the homescreen aborts with
+  # "Type PowerManagementItem unavailable". The file was missed in the
+  # upstream port (still unfixed on master); swap in a battery-less stub that
+  # keeps the `inhibit` property the homescreen binds to.
+  powerManagementItemStub = pkgs.writeText "PowerManagementItem.qml" ''
+    /*
+        SPDX-FileCopyrightText: 2020 Aditya Mehra <aix.m@outlook.com>
+        SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+    */
+
+    import QtQuick
+
+    // Stub replacing the unported upstream file: the real implementation
+    // needs org.kde.plasma.private.batterymonitor (removed in Plasma 6.8).
+    // The homescreen only binds the `inhibit` property, so keep it inert.
+    Item {
+        id: powerManagementItem
+        property bool inhibit
+    }
+  '';
+
+  plasma-bigscreen = pkgs.kdePackages.plasma-bigscreen.overrideAttrs (
+    final: prev: {
+      postPatch = ''
+        ${prev.postPatch}
+
+        cp ${powerManagementItemStub} "$(find . -path '*homescreen*' -name PowerManagementItem.qml)"
+      '';
+    }
+  );
+in
 {
   imports = [
     ../../options/modules/kde-big-picture
@@ -21,7 +56,7 @@
 
       # The 10-foot, controller-driven session: registered and made the
       # default, with auto-login for the configured user.
-      sessionPackages = [ pkgs.kdePackages.plasma-bigscreen ];
+      sessionPackages = [ plasma-bigscreen ];
       defaultSession = "plasma-bigscreen-wayland";
       autoLogin = {
         enable = true;
@@ -43,7 +78,7 @@
   # sessionPackages only links the desktop entry, not the package's bin.
   environment.systemPackages = with pkgs; [
     jellyfin-media-player
-    kdePackages.plasma-bigscreen
+    plasma-bigscreen
     retroarch-full
   ];
 }
