@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   self,
   ...
 }:
@@ -14,6 +15,8 @@ let
 in
 {
   inherit (jynx) users home-manager;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   imports = with self.nixosModules; [
     ./disk-config.nix
@@ -38,12 +41,12 @@ in
   boot = {
     initrd = {
       availableKernelModules = [
-        "nvme"
-        "xhci_pci"
         "ahci"
-        "usbhid"
-        "usb_storage"
+        "nvme"
         "sd_mod"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
       ];
     };
     kernelModules = [ "kvm-intel" ];
@@ -64,6 +67,7 @@ in
       intel.updateMicrocode = true;
     };
   };
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   kde-big-picture.autoLoginUser = "jynx";
 
