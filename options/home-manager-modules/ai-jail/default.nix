@@ -5,17 +5,25 @@
 # required by opencode 2.x inside an ai-jail (upstream README, issues
 # #137/#176) — passing any extra arguments through to opencode:
 #
-#   ai-locked  — default containment (private tmp home, project dir
-#                read-write, opencode state mounted), no network except
-#                the host inference port forwarded onto the sandbox
-#                loopback.
-#   ai-limited — same containment plus filtered egress to `allowHosts`
-#                (hostnames match their subdomains; IP literals
-#                accepted) and `allowPrivateHosts`, plus the forwarded
-#                inference port.
-#   ai-open    — unrestricted network (--network); local access stays
-#                limited to the project dir and the private tmp home
-#                (host loopback is directly reachable, so no forward).
+#   ai-locked       — default containment (private tmp home, project dir
+#                     read-write, opencode state mounted), filtered egress
+#                     restricted to `profiles.locked.allowHosts` (the
+#                     halogen inference endpoint `127.0.0.1` by default)
+#                     plus the forwarded inference port; an empty list
+#                     falls back to pure `--no-network` isolation.
+#   ai-locked-yolo  — same containment, plus `opencode --auto`: permissions
+#                     that are not explicitly denied are auto-approved
+#                     (the deny list still blocks; see
+#                     home-manager-modules/opencode for the permission set).
+#   ai-limited      — same containment plus filtered egress to `allowHosts`
+#                     (hostnames match their subdomains; IP literals
+#                     accepted) and `allowPrivateHosts`, plus the forwarded
+#                     inference port.
+#   ai-limited-yolo — ai-limited with `opencode --auto`.
+#   ai-open         — unrestricted network (--network); local access stays
+#                     limited to the project dir and the private tmp home
+#                     (host loopback is directly reachable, so no forward).
+#   ai-open-yolo    — ai-open with `opencode --auto`.
 #
 # Upstream: https://github.com/akitaonrails/ai-jail (flake-pinned).
 {
@@ -29,11 +37,18 @@ let
   cfg = config.programs.ai-jail;
 
   # A tier wrapper: the ai-jail binary with the tier's flags baked in.
+  # `opencodeArgs` are appended to the opencode invocation (e.g. [ "--auto" ]
+  # for the yolo variants); `args` remain the ai-jail sandbox flags so a
+  # yolo wrapper inherits the exact containment of its base tier.
   mkWrapper =
-    { name, args }:
+    {
+      name,
+      args,
+      opencodeArgs ? [ ],
+    }:
     pkgs.writeShellScriptBin name ''
       exec ${cfg.package}/bin/ai-jail ${lib.escapeShellArgs args} \
-        opencode --standalone "$@"
+        opencode --standalone ${lib.escapeShellArgs opencodeArgs} "$@"
     '';
 
   # `--allow-host <host>` pairs for every allow-listed host.
@@ -51,6 +66,54 @@ let
       "--allow-private-host"
       host
     ]) hosts;
+
+  # Per-tier ai-jail flags, shared by each tier's standard and yolo wrappers.
+  tierArgs = {
+    # With allowHosts set (the default), the locked jail runs in filtered
+    # egress mode so the egress proxy authorises the halogen inference
+    # endpoint; an empty list restores pure `--no-network` isolation where
+    # `--forward-port` is the only route to the host.
+    locked =
+      (lib.optionals (cfg.profiles.locked.allowHosts == [ ]) [ "--no-network" ])
+      ++ allowHostArgs cfg.profiles.locked.allowHosts
+      ++ [
+        "--forward-port"
+        (toString cfg.inferencePort)
+      ]
+      ++ cfg.profiles.locked.extraArgs;
+
+    limited =
+      allowHostArgs cfg.profiles.limited.allowHosts
+      ++ allowPrivateHostArgs cfg.profiles.limited.allowPrivateHosts
+      ++ [
+        "--forward-port"
+        (toString cfg.inferencePort)
+      ]
+      ++ cfg.profiles.limited.extraArgs;
+
+    open = [ "--network" ] ++ cfg.profiles.open.extraArgs;
+  };
+
+  # The wrappers a tier provides: always the standard one when enabled,
+  # plus the yolo variant when the tier's `yolo` option is enabled.
+  mkTierPackages =
+    tier:
+    let
+      profile = cfg.profiles.${tier};
+    in
+    lib.optionals profile.enable (
+      [
+        (mkWrapper {
+          name = "ai-${tier}";
+          args = tierArgs.${tier};
+        })
+      ]
+      ++ lib.optional profile.yolo (mkWrapper {
+        name = "ai-${tier}-yolo";
+        args = tierArgs.${tier};
+        opencodeArgs = [ "--auto" ];
+      })
+    );
 in
 {
   options.programs.ai-jail = {
@@ -91,10 +154,35 @@ in
           description = "Whether to provide the ai-locked wrapper.";
         };
 
+        yolo = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Whether to provide the ai-locked-yolo wrapper: the same jail as
+            ai-locked, launching opencode with `--auto` so permissions that
+            are not explicitly denied are auto-approved.
+          '';
+        };
+
         extraArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
           description = "Extra ai-jail flags appended to the ai-locked wrapper.";
+        };
+
+        allowHosts = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ "127.0.0.1" ];
+          defaultText = lib.literalExpression ''[ "127.0.0.1" ]'';
+          description = ''
+            Filtered-egress allow-list for the ai-locked tier: the halogen
+            inference endpoint on the host loopback
+            (services.halogen-flash-server, published to opencode as the
+            `halogen-server` provider at http://127.0.0.1:11435/v1).
+            Without it the jail has no route to the model and the harness
+            cannot serve requests. Set to [ ] to fall back to pure
+            `--no-network` isolation (forward-port only).
+          '';
         };
       };
 
@@ -103,6 +191,16 @@ in
           type = lib.types.bool;
           default = true;
           description = "Whether to provide the ai-limited wrapper.";
+        };
+
+        yolo = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Whether to provide the ai-limited-yolo wrapper: the same jail as
+            ai-limited, launching opencode with `--auto` so permissions that
+            are not explicitly denied are auto-approved.
+          '';
         };
 
         extraArgs = lib.mkOption {
@@ -149,6 +247,16 @@ in
           description = "Whether to provide the ai-open wrapper.";
         };
 
+        yolo = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Whether to provide the ai-open-yolo wrapper: the same jail as
+            ai-open, launching opencode with `--auto` so permissions that
+            are not explicitly denied are auto-approved.
+          '';
+        };
+
         extraArgs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ ];
@@ -162,29 +270,8 @@ in
     home.packages = [
       cfg.package
     ]
-    ++ lib.optional cfg.profiles.locked.enable (mkWrapper {
-      name = "ai-locked";
-      args = [
-        "--no-network"
-        "--forward-port"
-        (toString cfg.inferencePort)
-      ]
-      ++ cfg.profiles.locked.extraArgs;
-    })
-    ++ lib.optional cfg.profiles.limited.enable (mkWrapper {
-      name = "ai-limited";
-      args =
-        allowHostArgs cfg.profiles.limited.allowHosts
-        ++ allowPrivateHostArgs cfg.profiles.limited.allowPrivateHosts
-        ++ [
-          "--forward-port"
-          (toString cfg.inferencePort)
-        ]
-        ++ cfg.profiles.limited.extraArgs;
-    })
-    ++ lib.optional cfg.profiles.open.enable (mkWrapper {
-      name = "ai-open";
-      args = [ "--network" ] ++ cfg.profiles.open.extraArgs;
-    });
+    ++ mkTierPackages "locked"
+    ++ mkTierPackages "limited"
+    ++ mkTierPackages "open";
   };
 }
