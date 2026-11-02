@@ -36,8 +36,14 @@
   # retroarch-full bundles every libretro core available on the platform
   # (including non-free ones); the plain `retroarch` attribute is a bare
   # wrapper with no cores.
+  #
+  # plasma-bigscreen itself must also be installed in the profile: the
+  # session script SDDM launches sources `plasma-bigscreen-common-env`
+  # and runs `plasma-bigscreen-envmanager` via bare PATH lookups, while
+  # sessionPackages only links the desktop entry, not the package's bin.
   environment.systemPackages = with pkgs; [
     jellyfin-media-player
+    kdePackages.plasma-bigscreen
     retroarch-full
   ];
 }
