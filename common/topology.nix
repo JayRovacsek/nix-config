@@ -19,13 +19,10 @@ let
   # or `macvlans`, but dragonite attaches its containers via `hostBridge`.
   # Connect each guest's eth0 directly to the vlan interface it is bridged
   # onto, so it binds to that network without needing the bridge hop.
-  dragoniteContainers =
-    self.nixosConfigurations.dragonite.config.containers or { };
+  dragoniteContainers = self.nixosConfigurations.dragonite.config.containers or { };
 
   dragoniteVlans = lib.unique (
-    lib.mapAttrsToList (
-      _: c: lib.removePrefix "br-" c.hostBridge
-    ) dragoniteContainers
+    lib.mapAttrsToList (_: c: lib.removePrefix "br-" c.hostBridge) dragoniteContainers
   );
 
   dragoniteContainerNodes = lib.mapAttrs (_: c: {
@@ -98,6 +95,7 @@ in
     gastly.interfaces.wlan0.network = "wlan";
     ivysaur.interfaces.eth0.network = "lan";
     jigglypuff.interfaces.vlan-dns.network = "dns";
+    jynx.interfaces.eth0.network = "lan";
     wartortle.interfaces.eth0.network = "lan";
     wigglytuff.interfaces.wlan0.network = "iot";
     zubat.interfaces.eth0.network = "lan";
