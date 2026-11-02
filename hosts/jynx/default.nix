@@ -9,11 +9,23 @@
 let
   jynx = self.common.users.jynx {
     inherit config pkgs;
-    modules = with self.common.home-manager-module-sets; base;
+    modules = with self.common.home-manager-module-sets; plasma-desktop;
   };
 in
 {
-  networking.wireless.enable = true;
+  age = {
+    secrets.wireless-env = {
+      file = ../../secrets/wireless/wireless-home.env.age;
+      mode = "0400";
+      owner = config.users.users.wpa_supplicant.name;
+    };
+
+    identityPaths = [
+      "/agenix/id-ed25519-wireless-primary"
+    ];
+  };
+
+  hardware.enableRedistributableFirmware = true;
 
   inherit (jynx) users home-manager;
 
@@ -73,7 +85,19 @@ in
 
   kde-big-picture.autoLoginUser = "jynx";
 
-  networking.hostName = "jynx";
+  networking = {
+    hostName = "jynx";
+    wireless = {
+      enable = true;
+      secretsFile = config.age.secrets.wireless-env.path;
+      interfaces = [ "wlp0s20f3" ];
+      networks."Ooo Ooo Net" = {
+        pskRaw = "ext:PSK";
+        priority = 10;
+        authProtocols = [ "WPA-PSK" ];
+      };
+    };
+  };
 
   powerManagement.enable = false;
 

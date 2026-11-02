@@ -30,8 +30,10 @@
 
   # Linux desktop + games
   hyprland-games-desktop =
-    self.common.home-manager-module-sets.hyprland-desktop
-    ++ self.common.home-manager-module-sets.games;
+    self.common.home-manager-module-sets.hyprland-desktop ++ self.common.home-manager-module-sets.games;
+
+  # Linux desktop + KDE Plasma (managed via plasma-manager)
+  plasma-desktop = import ./plasma-desktop.nix { inherit self; };
 
   ssh = [ self.homeManagerModules.ssh ];
 }
