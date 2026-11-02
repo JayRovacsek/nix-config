@@ -1,12 +1,18 @@
 { config, pkgs, ... }:
 let
-  # Upstream 6.8.1 regression: the homescreen's PowerManagementItem.qml still
-  # imports `org.kde.plasma.private.batterymonitor`, which plasma-workspace
-  # 6.8 replaced with `org.kde.plasma.private.battery` (dropping the
-  # `InhibitionControl` type), so the homescreen aborts with
-  # "Type PowerManagementItem unavailable". The file was missed in the
-  # upstream port (still unfixed on master); swap in a battery-less stub that
-  # keeps the `inhibit` property the homescreen binds to.
+  # Upstream 6.8.1 regressions patched here (all still unfixed upstream):
+  #
+  # * PowerManagementItem.qml imports org.kde.plasma.private.batterymonitor,
+  #   which plasma-workspace 6.8 renamed to org.kde.plasma.private.battery
+  #   (dropping the InhibitionControl type), so the homescreen aborts with
+  #   "Type PowerManagementItem unavailable". Replaced with a battery-less
+  #   stub that keeps the `inhibit` property the homescreen binds to.
+  #
+  # * homeoverlay/ColumnActionsRow.qml and indicators/Wifi.qml import
+  #   org.kde.plasma.networkmanagement (plasma-nm). This host manages
+  #   networking with systemd-networkd + systemd-resolved instead of
+  #   NetworkManager, so the import is dropped and the Wi-Fi button shows a
+  #   static icon.
   powerManagementItemStub = pkgs.writeText "PowerManagementItem.qml" ''
     /*
         SPDX-FileCopyrightText: 2020 Aditya Mehra <aix.m@outlook.com>
@@ -24,12 +30,150 @@ let
     }
   '';
 
+  columnActionsRowStub = pkgs.writeText "ColumnActionsRow.qml" ''
+    // SPDX-FileCopyrightText: 2026 Devin Lin <devin@kde.org>
+    // SPDX-License-Identifier: GPL-2.0-or-later
+
+    import QtQuick
+    import QtQuick.Layouts
+    import QtQuick.Controls as QQC2
+
+    import org.kde.kirigami as Kirigami
+    import org.kde.bigscreen as Bigscreen
+    import org.kde.plasma.plasmoid
+    import org.kde.plasma.private.volume
+
+    // NixOS patch: the org.kde.plasma.networkmanagement import (plasma-nm)
+    // is removed because this host uses systemd-networkd + systemd-resolved;
+    // the Wi-Fi button shows a static icon instead of PlasmaNM.ConnectionIcon.
+    RowLayout {
+        id: actionsRow
+        signal closeRequested()
+        signal screenshotRequested()
+
+        Layout.fillWidth: true
+        Layout.bottomMargin: Kirigami.Units.largeSpacing
+
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                screenshotButton.forceActiveFocus();
+            }
+        }
+
+        Item { Layout.fillWidth: true }
+
+        Bigscreen.Button {
+            id: screenshotButton
+            flat: true
+            icon.name: "view-fullscreen-symbolic"
+
+            QQC2.ToolTip.visible: focus
+            QQC2.ToolTip.text: i18n("Screenshot")
+            KeyNavigation.right: audioButton
+
+            onClicked: {
+                actionsRow.screenshotRequested();
+                actionsRow.closeRequested();
+            }
+        }
+
+        Bigscreen.Button {
+            id: audioButton
+            flat: true
+
+            QQC2.ToolTip.visible: focus
+            QQC2.ToolTip.text: i18n("Audio")
+            KeyNavigation.right: wifiButton
+
+            readonly property string dummyOutputName: "auto_null"
+            icon.name: PreferredDevice.sink
+                && (!isDummyOutput(PreferredDevice.sink)
+                    ? AudioIcon.forVolume(volumePercent(PreferredDevice.sink.volume), PreferredDevice.sink.muted, "")
+                    : AudioIcon.forVolume(0, true, ""))
+
+            function isDummyOutput(output) {
+                return output && output.name === dummyOutputName;
+            }
+
+            function volumePercent(volume) {
+                return Math.round(volume / PulseAudio.NormalVolume * 100.0);
+            }
+
+            onClicked: {
+                Plasmoid.openSettings("kcm_mediacenter_audiodevice")
+            }
+        }
+
+        Bigscreen.Button {
+            id: wifiButton
+            flat: true
+            icon.name: "network-wireless-symbolic"
+
+            QQC2.ToolTip.visible: focus
+            QQC2.ToolTip.text: i18n("Wi-Fi")
+            KeyNavigation.right: shutdownButton
+            onClicked: Plasmoid.openSettings("kcm_mediacenter_wifi")
+        }
+
+        Bigscreen.Button {
+            id: shutdownButton
+            flat: true
+            icon.name: Bigscreen.Global.launchReason === "swap" ? "window-close" : "system-shutdown"
+
+            QQC2.ToolTip.visible: focus
+            QQC2.ToolTip.text: i18n("Shutdown")
+
+            onClicked: (event)=> {
+                if (Bigscreen.Global.launchReason === "swap") {
+                    Bigscreen.Global.swapSession();
+                } else {
+                    // Prompt all since we don't have any other way of doing it.
+                    Bigscreen.Global.promptLogoutGreeter("promptAll");
+                }
+            }
+        }
+
+        Item { Layout.fillWidth: true }
+    }
+  '';
+
+  wifiIndicatorStub = pkgs.writeText "Wifi.qml" ''
+    /*
+        SPDX-FileCopyrightText: 2019 Marco Martin <mart@kde.org>
+        SPDX-FileCopyrightText: 2013-2017 Jan Grulich <jgrulich@redhat.com>
+
+        SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+    */
+
+    import QtQuick
+    import QtQuick.Layouts
+    import org.kde.plasma.core as PlasmaCore
+    import org.kde.plasma.components as PlasmaComponents
+    import org.kde.kirigami as Kirigami
+    import org.kde.plasma.private.nanoshell as NanoShell
+    import org.kde.plasma.plasmoid
+
+    // NixOS patch: org.kde.plasma.networkmanagement (plasma-nm) usage is
+    // removed because this host uses systemd-networkd + systemd-resolved;
+    // the indicator shows a static icon with no NetworkManager state.
+    AbstractIndicator {
+        id: connectionIcon
+        text: i18n("Internet Settings")
+        icon.name: "network-wireless-symbolic"
+        onClicked: {
+            Plasmoid.openSettings("kcm_mediacenter_wifi")
+        }
+    }
+  '';
+
   plasma-bigscreen = pkgs.kdePackages.plasma-bigscreen.overrideAttrs (
     final: prev: {
       postPatch = ''
         ${prev.postPatch}
 
         cp ${powerManagementItemStub} "$(find . -path '*homescreen*' -name PowerManagementItem.qml)"
+        cp ${columnActionsRowStub} "$(find . -path '*homeoverlay*' -name ColumnActionsRow.qml)"
+        cp ${wifiIndicatorStub} "$(find . -path '*indicators*' -name Wifi.qml)"
       '';
     }
   );
