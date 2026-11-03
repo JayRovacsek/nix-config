@@ -1,7 +1,6 @@
 # Per-user ai-jail configuration: installs the ai-jail binary in the
-# user's home profile and generates the tier wrapper scripts modelled on
-# docs/openshell-profiles.md. Every tier launches
-# `ai-jail <tier flags> opencode --standalone` — `--standalone` is
+# user's home profile and generates the tier wrapper scripts. Every tier
+# launches `ai-jail <tier flags> opencode --standalone` — `--standalone` is
 # required by opencode 2.x inside an ai-jail (upstream README, issues
 # #137/#176) — passing any extra arguments through to opencode:
 #
@@ -251,12 +250,12 @@ in
             [ "cache.nixos.org" "ghcr.io" "github.com" "raw.githubusercontent.com" ]
           '';
           description = ''
-            Filtered-egress allow-list for the ai-limited tier, matching
-            the GitHub family and Nix cache set of docs/openshell-profiles.md.
-            Hostnames match their subdomains (`github.com` covers
-            `api.github.com` and `codeload.github.com`); IP literals are
-            accepted. Public addresses only — private-range addresses go
-            in `allowPrivateHosts`.
+            Filtered-egress allow-list for the ai-limited tier, covering
+            the GitHub family and Nix cache hosts. Hostnames match their
+            subdomains (`github.com` covers `api.github.com` and
+            `codeload.github.com`); IP literals are accepted. Public
+            addresses only — private-range addresses go in
+            `allowPrivateHosts`.
           '';
         };
 
