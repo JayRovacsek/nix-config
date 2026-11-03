@@ -18,12 +18,17 @@
 #   ai-limited      — same containment plus filtered egress to `allowHosts`
 #                     (hostnames match their subdomains; IP literals
 #                     accepted) and `allowPrivateHosts`, plus the forwarded
-#                     inference port.
+#                     inference port, plus the read-only `gitPaths` mounts.
 #   ai-limited-yolo — ai-limited with `opencode --auto`.
 #   ai-open         — unrestricted network (--network); local access stays
 #                     limited to the project dir and the private tmp home
-#                     (host loopback is directly reachable, so no forward).
+#                     (host loopback is directly reachable, so no forward),
+#                     plus the read-only `gitPaths` mounts.
 #   ai-open-yolo    — ai-open with `opencode --auto`.
+#
+# The locked tier deliberately omits `gitPaths`: locked sessions get no
+# git config, allowed_signers or signing key, so they cannot sign or
+# authenticate as the user.
 #
 # Upstream: https://github.com/akitaonrails/ai-jail (flake-pinned).
 {
@@ -67,6 +72,14 @@ let
       host
     ]) hosts;
 
+  # `--map <path>` pairs for every read-only mount.
+  mapArgs =
+    paths:
+    lib.concatMap (path: [
+      "--map"
+      path
+    ]) paths;
+
   # Per-tier ai-jail flags, shared by each tier's standard and yolo wrappers.
   tierArgs = {
     # With allowHosts set (the default), the locked jail runs in filtered
@@ -89,9 +102,10 @@ let
         "--forward-port"
         (toString cfg.inferencePort)
       ]
+      ++ mapArgs cfg.gitPaths
       ++ cfg.profiles.limited.extraArgs;
 
-    open = [ "--network" ] ++ cfg.profiles.open.extraArgs;
+    open = [ "--network" ] ++ mapArgs cfg.gitPaths ++ cfg.profiles.open.extraArgs;
   };
 
   # The wrappers a tier provides: always the standard one when enabled,
@@ -141,8 +155,22 @@ in
       description = ''
         Host loopback port of the inference endpoint
         (services.halogen-flash-server) forwarded into locked and limited
-        jails. ai-jail never authorises host loopback in filtered mode, so
-        `--forward-port` is the only way to reach it without `--network`.
+        jails. In filtered-egress mode the forwarded port is the only
+        route to the endpoint without `--network`; the locked tier
+        additionally authorises it through the egress proxy via
+        `profiles.locked.allowHosts` (default `127.0.0.1`).
+      '';
+    };
+
+    gitPaths = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "${config.home.homeDirectory}/.config/git" ];
+      defaultText = lib.literalExpression ''[ "$\{config.home.homeDirectory}/.config/git" ]'';
+      description = ''
+        Standard git config locations mounted read-only into the limited
+        and open jails (and their yolo variants): git config,
+        allowed_signers and the git signing key. The locked tier omits
+        them so locked sessions cannot sign or authenticate as the user.
       '';
     };
 
@@ -160,7 +188,8 @@ in
           description = ''
             Whether to provide the ai-locked-yolo wrapper: the same jail as
             ai-locked, launching opencode with `--auto` so permissions that
-            are not explicitly denied are auto-approved.
+            are not explicitly denied are auto-approved. Has no effect when
+            `profiles.locked.enable` is false.
           '';
         };
 
@@ -199,7 +228,8 @@ in
           description = ''
             Whether to provide the ai-limited-yolo wrapper: the same jail as
             ai-limited, launching opencode with `--auto` so permissions that
-            are not explicitly denied are auto-approved.
+            are not explicitly denied are auto-approved. Has no effect when
+            `profiles.limited.enable` is false.
           '';
         };
 
@@ -253,7 +283,8 @@ in
           description = ''
             Whether to provide the ai-open-yolo wrapper: the same jail as
             ai-open, launching opencode with `--auto` so permissions that
-            are not explicitly denied are auto-approved.
+            are not explicitly denied are auto-approved. Has no effect when
+            `profiles.open.enable` is false.
           '';
         };
 

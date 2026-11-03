@@ -1,7 +1,7 @@
 # System-wide availability of ai-jail, the AI-agent sandbox (bubblewrap +
 # Landlock + seccomp). The package comes from the pinned ai-jail flake
-# input; per-user session wrappers (ai-locked, ai-limited, ai-open) are
-# declared in ../home-manager-modules/ai-jail.
+# input; per-user session wrappers (ai-locked, ai-limited, ai-open and
+# their -yolo variants) are declared in ../home-manager-modules/ai-jail.
 #
 # Upstream: https://github.com/akitaonrails/ai-jail — GPL-3.0-only Rust
 # sandboxer by akitaonrails, vendored via flake input because nixpkgs does
