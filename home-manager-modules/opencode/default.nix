@@ -518,7 +518,7 @@ let
     # NixOS/Home Manager/nix-darwin package & option search
     (mkMcpServer {
       name = "nixos";
-      flakeRef = "github:utensils/mcp-nixos";
+      flakeRef = "github:utensils/mcp-nixos/6a517811658c21f97bd7703b35546085117fc310";
     })
 
     # Grafana: dashboards, datasources, Prometheus/Loki queries, alerting.
@@ -760,9 +760,11 @@ in
       `git commit -m "..."` is denied, and compound commands like
       `git add ... && git commit ...` are permission-checked as a whole.
       Message text can also collide with deny patterns: the `git commit* -n*`
-      rule (which blocks unsigned commits via `-n`/`--no-gpg-sign`) matches
-      any ` -n` substring in the command, such as a message body containing
-      " -next".
+      rule (which blocks the `-n` short form of `--no-verify`) matches any
+      ` -n` substring in the command, such as a message body containing
+      " -next". The `git commit*--no-gpg-sign*` rule separately blocks the
+      signing-bypass flag, so a commit cannot opt out of GPG signing via
+      `--no-gpg-sign`.
 
       If a commit is ever denied, **MUST NOT** retry with flag variations,
       `--no-verify`, `-n`, or any other hook or signature bypass — those are
@@ -1128,11 +1130,15 @@ in
           "git rebase*--no-verify*" = "deny";
           "git send-email*--no-verify*" = "deny";
 
-          # --- git commit -n: blocks unsigned commits (enforce GPG signing) ---
-          # The leading space anchors the pattern to a flag boundary so
-          # message text containing "-n" substrings (e.g. model names like
-          # `flash-next`) does not trip the rule.
+          # --- git commit signing bypass: enforce GPG signing ---
+          # `--no-gpg-sign` turns off signing for a single commit (overriding
+          # `commit.gpgsign=true`); it has no short form, so it is matched
+          # explicitly. `-n` is the `--no-verify` short form (see above) and is
+          # also denied here. The leading space on the `-n` pattern anchors it
+          # to a flag boundary so message text containing "-n" substrings
+          # (e.g. model names like `flash-next`) does not trip the rule.
           "git commit* -n*" = "deny";
+          "git commit*--no-gpg-sign*" = "deny";
 
           # -----------------------------------------------------------------
           # DENY: arbitrary package runners & installers
