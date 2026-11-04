@@ -21,11 +21,35 @@
 # The optional `frida` dependency (runtime instrumentation) is installed:
 # upstream's `allowScripts` field in package.json permits its install
 # script, which fetches the prebuilt frida-core binary.
+#
+# NixOS host support: upstream's `supportsReaHost` (src/application/
+# LinuxHopper.ts) only recognises distributions with a deb/rpm/arch
+# package family and reports NixOS as `unsupported_host` in `rea doctor`
+# — upstream even asserts that in LinuxHopper.test.ts. postPatch extends
+# the predicate to recognise NixOS (the package itself comes from nixpkgs
+# rather than a distro package family) and flips the upstream test
+# assertion to match.
+#
+# FHS tool paths: upstream references host tools via absolute /usr paths
+# (shebangs, spawn targets, X11 helpers). postPatch rewrites them to the
+# corresponding nixpkgs store paths so the compiled dist/ and the shipped
+# scripts resolve them on NixOS. macOS-only paths (xcrun, codesign,
+# hdiutil, ...) and the Hopper launcher candidates (/usr/bin/hopper,
+# /opt/hopper*) are left untouched: they are probed conditionally on the
+# host OS and Hopper has no nixpkgs equivalent. Browser binaries
+# (/usr/bin/chromium etc.) are likewise left alone — browsers are
+# detected on PATH instead.
 {
   buildNpmPackage,
+  coreutils,
   fetchFromGitHub,
+  gdb,
   lib,
   nodejs_26,
+  python3,
+  util-linux,
+  xauth,
+  xvfb,
   ...
 }:
 buildNpmPackage rec {
@@ -45,6 +69,18 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-3WPXD+qm5WVfrTEvepKwX5RZBfbLBcPB0uDmKIx4MR8=";
 
+  # Tools whose /usr/bin references are rewritten to store paths in
+  # postPatch (see header comment); listed here so the dependency is
+  # explicit rather than only interpolated.
+  buildInputs = [
+    coreutils
+    gdb
+    python3
+    util-linux
+    xauth
+    xvfb
+  ];
+
   # The npm-deps cache already contains frida's built native module (its
   # install script ran during fetchNpmDeps, which has network access).
   # Re-running it in the sandboxed build phase would try to re-download the
@@ -59,6 +95,45 @@ buildNpmPackage rec {
   # `git`, which is absent from the build sandbox — so pack with scripts
   # disabled; `dist/` and `skills/` are already produced by buildPhase.
   npmPackFlags = [ "--ignore-scripts" ];
+
+  # Rewrites the hardcoded FHS tool paths and the NixOS host-support gate
+  # (see header comment). The path rules run on the source tree so the
+  # compiled dist/ inherits them; the `env node`/`env python3` shebang
+  # forms are rewritten before the bare `/usr/bin/env` so they point at
+  # the actual interpreters rather than coreutils' env. Dependencies' own
+  # FHS references are not touched: `node_modules` is installed after
+  # patching, from the npm cache.
+  postPatch = ''
+    # --- NixOS host support -------------------------------------------------
+    # Upstream gates `rea doctor` on a recognised deb/rpm/arch package
+    # family; extend the predicate to recognise NixOS and flip the upstream
+    # test assertion that pins the old behaviour.
+    sed -i \
+      's/): boolean => distribution?.packageFamily !== undefined;/): boolean => distribution?.packageFamily !== undefined || distribution?.id === "nixos";/' \
+      src/application/LinuxHopper.ts
+    sed -i \
+      -e 's/withholds host support from a distribution with no package family"/grants host support to NixOS but not an unknown host"/' \
+      -e '/ID=nixos/,+1 s/false/true/' \
+      src/application/LinuxHopper.test.ts
+
+    # --- FHS tool paths -------------------------------------------------------
+    grep -rlI -E '/usr/bin/(env|python3|gdb|prlimit|unshare|mount|true|Xvfb|xauth)' \
+      src scripts bridge .agents install.sh | while IFS= read -r f; do
+      sed -i \
+        -e 's|/usr/bin/env node|${nodejs_26}/bin/node|g' \
+        -e 's|/usr/bin/env python3|${python3}/bin/python3|g' \
+        -e 's|/usr/bin/python3|${python3}/bin/python3|g' \
+        -e 's|/usr/bin/env|${coreutils}/bin/env|g' \
+        -e 's|/usr/bin/true|${coreutils}/bin/true|g' \
+        -e 's|/usr/bin/prlimit|${util-linux}/bin/prlimit|g' \
+        -e 's|/usr/bin/unshare|${util-linux}/bin/unshare|g' \
+        -e 's|/usr/bin/mount|${util-linux}/bin/mount|g' \
+        -e 's|/usr/bin/gdb|${gdb}/bin/gdb|g' \
+        -e 's|/usr/bin/Xvfb|${xvfb}/bin/Xvfb|g' \
+        -e 's|/usr/bin/xauth|${xauth}/bin/xauth|g' \
+        "$f"
+    done
+  '';
 
   # `npm run compile` performs the TypeScript compilation (tsc -p
   # tsconfig.build.json plus the rolldown runtime bundle) that produces the
