@@ -21,15 +21,15 @@
   ...
 }:
 let
-  version = "0.18.21";
+  version = "0.18.23";
 
   # The engine is closed-source (Peonist EULA): the only published artefact
   # is the OCI image, so the prebuilt ELF binaries are vendored from it.
   # pullImage speaks the registry API via skopeo (no Docker daemon needed).
   image = dockerTools.pullImage {
     imageName = "ghcr.io/peonist-ai/halogen-flash-server";
-    imageDigest = "sha256:21006e5347f974241fd11e7bac5fc31759a4187f8267f7b52d8b564986b69821";
-    sha256 = "sha256-vIKv/zxO1RhVYWOqiQjXqeuZrR7kTo/szFrLth+XS7Y=";
+    imageDigest = "sha256:b53c96edc042b1d9570cda2771c5002527f94d6aca0c8704a4475aa621d355ff";
+    sha256 = "sha256-iO6igzNzoj2IqaQ+v2sS8aqs4T4R5Leavovjq3OILjI=";
     finalImageName = "halogen-flash-server";
     finalImageTag = version;
   };
@@ -38,7 +38,7 @@ let
     owner = "peonist-ai";
     repo = "halogen-flash-server";
     rev = "v${version}";
-    sha256 = "1cznd2k5w89bimf405va49gd6mq48591qmqy1icd2axz6n8fd77p";
+    sha256 = "1nyjn58bamcj20iw043nrf36fyq7gwbr8fkkzv1my3jmbylfis6w";
   };
 
   # serve_api.py and the bundled tools import the fastapi/starlette/pydantic
