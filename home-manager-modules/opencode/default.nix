@@ -873,8 +873,6 @@ in
 
     settings = {
       plugin = [
-        "@simonwjackson/opencode-direnv@v2025.1211.9"
-        "@tarquinen/opencode-dcp@v3.1.12"
       ];
 
       # Only offer models from locally defined providers — GitHub Copilot
