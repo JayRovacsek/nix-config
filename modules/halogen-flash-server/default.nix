@@ -2,8 +2,12 @@
 {
   imports = [ ../../options/modules/halogen-flash-server ];
 
+  networking.firewall.allowedTCPPorts = [ 11435 ];
+
   services.halogen-flash-server = {
     enable = true;
+    enableVision = true;
+    hostAddress = "0.0.0.0";
     # Run the nix-built package directly instead of the upstream OCI image.
     runtime = "package";
     applyRecommendedSystemSettings = true;
