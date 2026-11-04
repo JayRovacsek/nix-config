@@ -44,13 +44,17 @@ let
   # serve_api.py and the bundled tools import the fastapi/starlette/pydantic
   # web stack plus numpy (uvicorn is imported at serve time), and
   # halogen_tools.py plus the entrypoint's hub helpers import transformers
-  # and huggingface_hub. The image ships these in its site-packages; the nix
-  # build composes them onto the interpreter instead of running it bare.
+  # and huggingface_hub. The image also ships Pillow, which the server probes
+  # at startup to enable image input — without it flash_serve refuses with
+  # "this server was built without image support (Pillow is not installed)".
+  # The image ships these in its site-packages; the nix build composes them
+  # onto the interpreter instead of running it bare.
   pythonEnv = python3.withPackages (ps: [
     ps.fastapi
     ps."huggingface-hub"
     ps.jinja2
     ps.numpy
+    ps.pillow
     ps.pydantic
     ps.starlette
     ps.transformers
@@ -217,6 +221,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Serving front-end and tooling (Python).
     cp -r rootfs/halogen/tools $out/share/halogen/tools
+
+    # CORS: the upstream app ships no Access-Control-Allow-Origin handling at
+    # all (OPTIONS answers 405), so browser fetches from any origin are
+    # rejected even though the API itself returns 200. Attach Starlette's
+    # CORSMiddleware for all origins/methods/headers; the API has no auth of
+    # its own, so the firewall remains the access control.
+    chmod +w $out/share/halogen/tools/serve_api.py
+    sed -i 's|^    app = FastAPI(title="halogen")$|    app = FastAPI(title="halogen")\n    from fastapi.middleware.cors import CORSMiddleware\n    app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])|' $out/share/halogen/tools/serve_api.py
 
     # The repo's entrypoint with its hardcoded image paths rewritten to
     # this output.
