@@ -18,9 +18,11 @@
 # nixpkgs is 24.21.0 (too old), so `nodejs_26` (26.12.1) is selected
 # explicitly.
 #
-# The optional `frida` dependency (runtime instrumentation) is installed:
-# upstream's `allowScripts` field in package.json permits its install
-# script, which fetches the prebuilt frida-core binary.
+# Frida (runtime instrumentation): the npm `frida` dependency's native
+# binding is fetched by its install script from GitHub releases and never
+# lands in the packed output (the registry cache ships the JS wrapper
+# only), so the `frida` CLI is provided by nixpkgs' `frida-tools` and
+# propagated from this package instead.
 #
 # NixOS host support: upstream's `supportsReaHost` (src/application/
 # LinuxHopper.ts) only recognises distributions with a deb/rpm/arch
@@ -43,6 +45,7 @@
   buildNpmPackage,
   coreutils,
   fetchFromGitHub,
+  frida-tools,
   gdb,
   lib,
   nodejs_26,
@@ -81,10 +84,13 @@ buildNpmPackage rec {
     xvfb
   ];
 
-  # The npm-deps cache already contains frida's built native module (its
-  # install script ran during fetchNpmDeps, which has network access).
-  # Re-running it in the sandboxed build phase would try to re-download the
-  # frida toolchain from GitHub and fail, so skip scripts during rebuild.
+  # The `frida` CLI (see header comment); propagated so consumers of this
+  # package get it on PATH at runtime.
+  propagatedBuildInputs = [ frida-tools ];
+
+  # Re-running install scripts in the sandboxed build phase would make
+  # frida re-download its native binding from GitHub (not served by the
+  # npm registry cache), so skip scripts during rebuild.
   npmRebuildFlags = [ "--ignore-scripts" ];
 
   # `npm pack` (used by the install hook to stage the package into $out)
