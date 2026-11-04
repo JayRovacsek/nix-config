@@ -61,8 +61,7 @@ let
         }
       ];
 
-  bluetooth-enabled =
-    osConfig.hardware.bluetooth.enable || osConfig.services.blueman.enable;
+  bluetooth-enabled = osConfig.hardware.bluetooth.enable || osConfig.services.blueman.enable;
 
   swaync-enabled = config.services.swaync.enable;
 
@@ -73,9 +72,7 @@ let
   exec-once = bluetooth-exec ++ swaync-exec;
 
   # Render the exec-once commands as a Lua startup hook.
-  startup-commands = lib.concatMapStrings (
-    cmd: "  hl.exec_cmd(${toLua cmd})\n"
-  ) exec-once;
+  startup-commands = lib.concatMapStrings (cmd: "  hl.exec_cmd(${toLua cmd})\n") exec-once;
 
   startup-hook = mkLuaInline ("function()\n" + startup-commands + "end");
 
@@ -134,6 +131,11 @@ in
     dwindle = {
       preserve_split = true;
     };
+  }
+  // lib.optionalAttrs (hostName == "missingno") {
+    # Single-screen host: enable VRR (FreeSync) globally.
+    # https://wiki.hypr.land/Configuring/Variables/#misc
+    misc.vrr = 1;
   };
 
   # https://wiki.hypr.land/Configuring/Variables/#animations
