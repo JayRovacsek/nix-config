@@ -590,7 +590,9 @@ _: {
           fqdn = "home-assistant.local";
         }
       ];
+      macAddress = "02:42:c0:a8:0c:02";
       shares = [ ];
+      vlan = "home-assistant";
     };
     tv = {
       hostname = "tv";

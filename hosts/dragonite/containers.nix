@@ -125,6 +125,7 @@ let
     "poliwag"
     "porygon"
     "slowpoke"
+    "tentacruel"
   ];
 
   partyCommonConfigs = builtins.filter (x: builtins.elem x.hostname partyMembers) (

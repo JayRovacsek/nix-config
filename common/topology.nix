@@ -32,28 +32,24 @@ let
   }) dragoniteContainers;
 in
 {
-  nixosConfigurations =
-    builtins.removeAttrs self.nixosConfigurations [
-      "amazon"
-      "butterfree"
-      "ditto"
-      "linode"
-      "mew"
-      "oracle"
-      "oddish"
-      "grimer"
-      "rpi4"
-      "rpi5"
-    ]
-    ++
+  nixosConfigurations = builtins.removeAttrs self.nixosConfigurations [
+    "amazon"
+    "butterfree"
+    "ditto"
+    "linode"
+    "mew"
+    "oracle"
+    "oddish"
+    "grimer"
+    "rpi4"
+    "rpi5"
     # Temporarily removed until I can better represent the hosts
-    [
-      "magikarp"
-      "magnemite"
-      "magneton"
-      "onix"
-      "tentacruel"
-    ];
+    "magikarp"
+    "magnemite"
+    "magneton"
+    "onix"
+    "tentacruel"
+  ];
 
   nodes = {
     # WAN interfaces
