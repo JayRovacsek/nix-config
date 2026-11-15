@@ -47,17 +47,17 @@ let
 
   # FHS files every container retains, as { name -> { path, mode, content } }.
   # The machine-id is the repo standard (md5 of hostname via the
-  # systemd.machineId option). ssh host keys are included when the host
-  # declares programs.ssh.publicHostKeyBase64; the keypair itself is
-  # generated and owned on dragonite (secrets never live in this repo), so
-  # those entries carry no store source (content = null) and are
-  # bind-mounted exactly as they exist on disk.
+  # systemd.machineId option). ssh host keys are included when the shared
+  # inventory (common/config.nix) declares a publicHostKey for the host;
+  # the keypair itself is generated and owned on dragonite (secrets never
+  # live in this repo), so those entries carry no store source
+  # (content = null) and are bind-mounted exactly as they exist on disk.
   stateFilesFor =
     name:
     let
       cfg = containerConfig name;
       machineId = cfg.systemd.machineId or (builtins.hashString "md5" name);
-      hasSshKeys = (cfg.programs.ssh.publicHostKeyBase64 or null) != null;
+      hasSshKeys = (self.common.config.hosts.${name}.publicHostKey or null) != null;
     in
     {
       machineId = {
@@ -112,6 +112,7 @@ let
 
   partyMembers = [
     "bellsprout"
+    "hoothoot"
     "igglybuff"
     "machop"
     "mankey"

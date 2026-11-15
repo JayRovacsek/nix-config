@@ -64,6 +64,7 @@ in
 
   # Containers
   bellsprout = extend-host-as-container unstable-x86-base "bellsprout";
+  hoothoot = extend-host-as-container unstable-x86-base "hoothoot";
   igglybuff = extend-host-as-container unstable-x86-base "igglybuff";
   machop = extend-host-as-container unstable-x86-base "machop";
   magikarp = extend-host-as-container unstable-x86-base "magikarp";

@@ -95,6 +95,29 @@ _: {
       publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVkYRAVcY5MsTstiLOlGh8fNSuMoTS2XDwpCXxBE2v1 root@dragonite";
       shares = [ ];
     };
+    hoothoot = {
+      hostname = "hoothoot";
+      ips = [
+        {
+          address = "192.168.11.2";
+          fqdn = "hoothoot.local";
+        }
+        {
+          address = "192.168.11.2";
+          fqdn = "ntfy.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:0b:02";
+      shares = [
+        {
+          hostPath = "/var/lib/ntfy-sh";
+          isReadOnly = false;
+          mountPoint = "/var/lib/ntfy-sh";
+          name = "ntfy";
+        }
+      ];
+      vlan = "notify";
+    };
     igglybuff = {
       hostname = "igglybuff";
       ips = [
@@ -591,8 +614,21 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:0c:02";
-      shares = [ ];
-      vlan = "home-assistant";
+      shares = [
+        {
+          hostPath = "/var/lib/hass";
+          isReadOnly = false;
+          mountPoint = "/var/lib/hass";
+          name = "home-assistant";
+        }
+        {
+          hostPath = "/var/lib/tentacruel/var/log";
+          isReadOnly = false;
+          mountPoint = "/var/log";
+          name = "logs";
+        }
+      ];
+      vlan = "hass";
     };
     tv = {
       hostname = "tv";
@@ -687,7 +723,11 @@ _: {
       vlan-tag = 10;
     }
     {
-      name = "home-assistant";
+      name = "notify";
+      vlan-tag = 11;
+    }
+    {
+      name = "hass";
       vlan-tag = 12;
     }
     {
@@ -949,6 +989,13 @@ _: {
     nginx = {
       authelia = false;
       ipv4 = "192.168.5.3";
+    };
+    ntfy = {
+      authelia = false;
+      ipv4 = "192.168.11.2";
+      port = 80;
+      protocol = "http";
+      subdomain = "ntfy";
     };
     openssh = {
       public-keys = [
