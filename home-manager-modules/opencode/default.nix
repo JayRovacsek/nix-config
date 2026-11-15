@@ -518,7 +518,7 @@ let
     # NixOS/Home Manager/nix-darwin package & option search
     (mkMcpServer {
       name = "nixos";
-      flakeRef = "github:utensils/mcp-nixos/6a517811658c21f97bd7703b35546085117fc310";
+      command = [ "${pkgs.mcp-nixos}/bin/mcp-nixos" ];
     })
 
     # Grafana: dashboards, datasources, Prometheus/Loki queries, alerting.
@@ -555,11 +555,6 @@ let
       name = "rea";
       command = [ "${rea}/bin/rea" ];
       args = [ "mcp" ];
-    })
-
-    (mkMcpServer {
-      name = "atlassian";
-      url = "https://mcp.atlassian.com/v1/mcp";
     })
   ];
 in
