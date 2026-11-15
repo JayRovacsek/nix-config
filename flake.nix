@@ -325,9 +325,12 @@
         githubActions = self.inputs.nix-github-actions.lib.mkGithubMatrix {
           # TODO:
           # re-introduce darwin packages
-          # checks for pre-commits
           # nixosConfigurations for all suitable hosts
-          checks = lib.getAttrs [ "x86_64-linux" ] self.hydraJobs.packages;
+          #
+          # Expose each git hook as its own matrix entry (via `gitHooksChecks`)
+          # so the git-hooks workflow runs every hook as a separate x86_64-linux
+          # job instead of one combined check.
+          checks = lib.getAttrs [ "x86_64-linux" ] self.gitHooksChecks;
         };
 
         homeManagerModules = builtins.foldl' (
@@ -432,6 +435,144 @@
               devshell.overlays.default
             ];
           };
+
+          # The set of git hooks this repository enforces. Bound here so the
+          # exact same definitions can be reused both as the single combined
+          # `checks.git-hooks` derivation and as individual per-hook
+          # derivations (see `gitHooksChecks`) that feed the GitHub Actions
+          # matrix.
+          gitHooks = {
+            # Builtin hooks
+            actionlint.enable = true;
+            conform.enable = true;
+            deadnix = {
+              enable = true;
+              settings.edit = true;
+            };
+            nixfmt = {
+              enable = true;
+              package = pkgs.nixfmt;
+              settings.width = 80;
+            };
+            prettier = {
+              enable = true;
+              settings = {
+                ignore-path = [ self.packages.${system}.prettierignore ];
+                write = true;
+              };
+            };
+
+            typos = {
+              enable = true;
+              settings = {
+                binary = false;
+                exclude = "*.age";
+                ignored-words = [
+                  "Adge"
+                  "ags"
+                  "analyzer"
+                  "Analyzers"
+                  "authorization"
+                  "authorized"
+                  "authorizes"
+                  "authorizing"
+                  "ba"
+                  "browseable"
+                  "center"
+                  "centered"
+                  "certifi"
+                  "characterized"
+                  "chili"
+                  "crypted"
+                  "customizable"
+                  "customize"
+                  "defenses"
+                  "donut"
+                  "dota"
+                  "ede"
+                  "flor"
+                  "Flor"
+                  "gastly"
+                  "Gastly"
+                  "initialize"
+                  "initialized"
+                  "Iy"
+                  "maximize"
+                  "minimize"
+                  "modeling"
+                  "modelling"
+                  "ND"
+                  "no"
+                  "noice"
+                  "noo"
+                  "normalization"
+                  "Normalizations"
+                  "Normalized"
+                  "normalizer"
+                  "optimisation"
+                  "optimise"
+                  "optimiser"
+                  "optimization"
+                  "optimize"
+                  "optimizer"
+                  "organization"
+                  "organizations"
+                  "organize"
+                  "Ot"
+                  "personalization"
+                  "Pn"
+                  "prioritize"
+                  "RANDOMIZE"
+                  "Randomized"
+                  "Recognize"
+                  "recognized"
+                  "sanitize"
+                  "SART"
+                  "Serialization"
+                  "strat"
+                  "synchronized"
+                  "Synchronized"
+                  "SYNOPSYS"
+                  "UE"
+                  "utilization"
+                  "Utilization"
+                  "wih"
+                ];
+                locale = "en-au";
+              };
+            };
+
+            # Custom hooks
+            statix-write = {
+              enable = true;
+              name = "Statix Write";
+              entry = "${pkgs.statix}/bin/statix fix";
+              language = "system";
+              pass_filenames = false;
+            };
+
+            trufflehog-verified = {
+              enable = true;
+              name = "Trufflehog Search";
+              entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
+              language = "system";
+              pass_filenames = false;
+            };
+          };
+
+          # Expose every hook as its own `run` derivation so CI can build (and
+          # thereby execute) each one in isolation rather than only as one
+          # combined check. The attribute name matches the hook id, e.g.
+          # `actionlint` or `statix-write`.
+          gitHooksChecks = lib.mapAttrs (
+            name: hook:
+            self.inputs.git-hooks.lib.${system}.run {
+              src = self;
+              hooks = {
+                ${name} = hook;
+              };
+            }
+          ) gitHooks;
         in
         {
           # Space in which exposed derivations can be ran via
@@ -457,126 +598,13 @@
 
             git-hooks = self.inputs.git-hooks.lib.${system}.run {
               src = self;
-              hooks = {
-                # Builtin hooks
-                actionlint.enable = true;
-                conform.enable = true;
-                deadnix = {
-                  enable = true;
-                  settings.edit = true;
-                };
-                nixfmt = {
-                  enable = true;
-                  package = pkgs.nixfmt;
-                  settings.width = 80;
-                };
-                prettier = {
-                  enable = true;
-                  settings = {
-                    ignore-path = [ self.packages.${system}.prettierignore ];
-                    write = true;
-                  };
-                };
-
-                typos = {
-                  enable = true;
-                  settings = {
-                    binary = false;
-                    exclude = "*.age";
-                    ignored-words = [
-                      "Adge"
-                      "ags"
-                      "analyzer"
-                      "Analyzers"
-                      "authorization"
-                      "authorized"
-                      "authorizes"
-                      "authorizing"
-                      "ba"
-                      "browseable"
-                      "center"
-                      "centered"
-                      "certifi"
-                      "characterized"
-                      "chili"
-                      "crypted"
-                      "customizable"
-                      "customize"
-                      "defenses"
-                      "donut"
-                      "dota"
-                      "ede"
-                      "flor"
-                      "Flor"
-                      "gastly"
-                      "Gastly"
-                      "initialize"
-                      "initialized"
-                      "Iy"
-                      "maximize"
-                      "minimize"
-                      "modeling"
-                      "modelling"
-                      "ND"
-                      "no"
-                      "noice"
-                      "noo"
-                      "normalization"
-                      "Normalizations"
-                      "Normalized"
-                      "normalizer"
-                      "optimisation"
-                      "optimise"
-                      "optimiser"
-                      "optimization"
-                      "optimize"
-                      "optimizer"
-                      "organization"
-                      "organizations"
-                      "organize"
-                      "Ot"
-                      "personalization"
-                      "Pn"
-                      "prioritize"
-                      "RANDOMIZE"
-                      "Randomized"
-                      "Recognize"
-                      "recognized"
-                      "sanitize"
-                      "SART"
-                      "Serialization"
-                      "strat"
-                      "synchronized"
-                      "Synchronized"
-                      "SYNOPSYS"
-                      "UE"
-                      "utilization"
-                      "Utilization"
-                      "wih"
-                    ];
-                    locale = "en-au";
-                  };
-                };
-
-                # Custom hooks
-                statix-write = {
-                  enable = true;
-                  name = "Statix Write";
-                  entry = "${pkgs.statix}/bin/statix fix";
-                  language = "system";
-                  pass_filenames = false;
-                };
-
-                trufflehog-verified = {
-                  enable = true;
-                  name = "Trufflehog Search";
-                  entry = "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
-                  language = "system";
-                  pass_filenames = false;
-                };
-              };
+              hooks = gitHooks;
             };
           };
+
+          # Per-hook derivations (one per git hook) consumed by
+          # `githubActions.matrix` so each hook runs as its own isolated CI job.
+          inherit gitHooksChecks;
 
           # Shell environments (applied to both nix develop and nix-shell via
           # shell.nix in top level directory)
