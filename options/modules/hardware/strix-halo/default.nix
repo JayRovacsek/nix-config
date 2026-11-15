@@ -56,5 +56,7 @@ in
       HSA_ENABLE_SDMA = lib.mkDefault "0";
       HSA_OVERRIDE_GFX_VERSION = lib.mkDefault "11.5.1";
     };
+
+    boot.kernel.sysctl."vm.compact_memory" = 1;
   };
 }
