@@ -61,6 +61,7 @@ in
           # use client name (with wildcard support: * - sequence of any characters, [0-9] - range)
           # or single ip address / client subnet as CIDR notation
           # "foo*" = [ "ads" ];
+          "192.168.5.3/32" = [ "void" ];
           "192.168.8.11/32" = [ "void" ];
           "192.168.8.50/32" = [ "void" ];
           "192.168.8.58/32" = [ "void" ];
