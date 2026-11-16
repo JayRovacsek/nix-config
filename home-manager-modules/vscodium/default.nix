@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 let
@@ -54,11 +53,7 @@ in
         ++ lib.optionals (!(pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isAarch64)) [
           # XML
           redhat.vscode-xml
-        ]
-        ++ (with self.packages.${pkgs.system}; [
-          dbt-vsix
-          twinny
-        ]);
+        ];
 
       keybindings = [
         {
