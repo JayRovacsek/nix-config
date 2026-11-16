@@ -13,7 +13,8 @@
 #   ai-locked-yolo  — same containment, plus `opencode --auto`: permissions
 #                     that are not explicitly denied are auto-approved
 #                     (the deny list still blocks; see
-#                     home-manager-modules/opencode for the permission set).
+#                     home-manager-modules/agent-permissions for the
+#                     permission set).
 #   ai-limited      — same containment plus filtered egress to `allowHosts`
 #                     (hostnames match their subdomains; IP literals
 #                     accepted) and `allowPrivateHosts`, plus the forwarded
