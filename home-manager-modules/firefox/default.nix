@@ -8,7 +8,6 @@
 let
   addons = with pkgs.nur.repos.rycee.firefox-addons; [
     clearurls
-    darkreader
     decentraleyes
     keepassxc-browser
     multi-account-containers
@@ -16,7 +15,6 @@ let
     privacy-badger
     temporary-containers
     ublock-origin
-    user-agent-string-switcher
   ];
   # TODO: see if aarch can be supported upstream for this language set
   languagePacks =
@@ -105,26 +103,10 @@ in
             keyword = "no";
             url = "https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&query=%s";
           }
-
           {
             name = "Nix Home Manager Options Search";
             keyword = "hm";
             url = "https://home-manager-options.extranix.com/?query=%s";
-          }
-          {
-            name = "nib Jira Search";
-            keyword = "j";
-            url = "https://nibgroup.atlassian.net/issues/?jql=text~%22%s%22%20or%20description%20~%20%22%s%22%20or%20summary%20~%20%22%s%22";
-          }
-          {
-            name = "nib Confluence Search";
-            keyword = "c";
-            url = "https://nibgroup.atlassian.net/wiki/search/?text=%s";
-          }
-          {
-            name = "nib Github Search";
-            keyword = "ngh";
-            url = "https://github.com/nib-group?q=%s&type=&language=";
           }
           {
             name = "Terraform Search";
@@ -339,8 +321,7 @@ in
         "healthreport.uploadEnabled" = false;
 
         "identity.mobilepromo.android" = localhost;
-        "identity.sync.tokenserver.uri" =
-          "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
+        "identity.sync.tokenserver.uri" = "https://firefox-syncserver.rovacsek.com/1.0/sync/1.5";
 
         "intl.locale.matchOS" = true;
 
@@ -471,8 +452,7 @@ in
         "services.settings.server" = "";
         "services.sync.log.appender.file.logOnSuccess" = true;
         "services.sync.prefs.sync-seen.browser.search.update" = true;
-        "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" =
-          false;
+        "services.sync.prefs.sync.browser.newtabpage.activity-stream.redTopSite" = false;
         "services.sync.prefs.sync.browser.startup.homepage" = true;
         "services.sync.prefs.sync.browser.startup.page" = true;
         "services.sync.prefs.sync.privacy.globalprivacycontrol.enabled" = true;
