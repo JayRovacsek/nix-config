@@ -232,7 +232,11 @@ let
     // wshobsonSkills
     # Local
     // {
+      extension-vetting = ./skills/extension-vetting;
+      git-commit = ./skills/git-commit;
+      nix-build-verification = ./skills/nix-build-verification;
       nix-ops = ./skills/nix-ops;
+      nix-tooling-workflow = ./skills/nix-tooling-workflow;
       nixos-test-dev = ./skills/nixos-test-dev;
       product-management = ./skills/product-management;
     };

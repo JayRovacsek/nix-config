@@ -1,0 +1,132 @@
+---
+name: git-commit
+version: "1.0.0"
+description: Use this skill whenever a commit is requested or suggested to enforce Conventional Commit formatting and AI attribution.
+---
+
+# Conventional Commit Format Skill
+
+This skill enforces a structured commit message format. Every commit message MUST follow the structure defined below. The skill first checks for local repository norms (conform configs, commitlint, gitlint, etc.) and falls back to standard Conventional Commits defaults when none are found.
+
+## When to use me
+
+Use this skill whenever a commit is being prepared or when the user asks to make a commit.
+
+## Commit Message Format
+
+Every commit message MUST follow this structure:
+
+```
+<type>(<scope>): <description>
+
+[optional body — describe the "why", not the "what"]
+
+Assisted-by: <model name> via <tool name>
+```
+
+### Casing
+
+Check for `.conform.yaml` (look for `case` rules), `commitlint.config.*`, or `.gitlint` to determine any additional casing requirements. By default, the **entire** commit message MUST be lowercase. This includes the type, scope, description, and body. The only exceptions are:
+
+- Proper nouns that are inherently cased (e.g., `NixOS`, `GitHub`, `OpenCode`)
+- The `Assisted-by` trailer key itself (it is a standard git trailer)
+- Model and tool names in the `Assisted-by` value (e.g., `Claude Opus 4`)
+
+### Types and Scopes
+
+First, check for local repository configuration:
+
+| Config file           | What it defines                                  |
+| --------------------- | ------------------------------------------------ |
+| `.conform.yaml`       | Allowed types, scopes, and header rules          |
+| `cliff.toml`          | Git-cliff changelog types and scopes             |
+| `commitlint.config.*` | Allowed types via `@commitlint/config-*` presets |
+| `.gitlint`            | Custom gitlint rules                             |
+
+Read the relevant config file and use only the types and scopes listed there.
+
+**Fallback to standard Conventional Commits types** when no local configuration is found:
+
+| Type       | Purpose                                             |
+| ---------- | --------------------------------------------------- |
+| `build`    | Build system changes                                |
+| `chore`    | Maintenance, tooling, lockfile updates              |
+| `ci`       | CI/CD configuration                                 |
+| `docs`     | Documentation                                       |
+| `feat`     | New features                                        |
+| `fix`      | Bug fixes                                           |
+| `perf`     | Performance improvements                            |
+| `refactor` | Code changes that neither add features nor fix bugs |
+| `release`  | Version bumps                                       |
+| `style`    | Formatting, linting, style changes                  |
+| `test`     | Test-related changes                                |
+
+A scope is required when the change is clearly confined to one area; omit it only when the change genuinely spans multiple areas.
+
+### Header Rules
+
+Check local configuration for header constraints. If none are found, apply these defaults:
+
+- Maximum length: **140 characters** (type + scope + description combined)
+- Use the **imperative mood** ("add feature" not "added feature")
+- Do NOT end the description with a period
+- Do NOT capitalise the first letter of the description
+
+## Commit Execution
+
+**MUST:** commit using a message file, never an inline `-m` message. Follow this exact sequence, with each step as a separate command (never chained with `&&`):
+
+1. Write the complete commit message (header, body, `Assisted-by` trailer) to `.tmp/commit-msg.txt` inside the project.
+2. `git add <paths>`
+3. `git commit -F .tmp/commit-msg.txt`
+4. `rm .tmp/commit-msg.txt`
+
+Rationale: OpenCode's bash permission globs match the entire command string, and wildcards do not match newlines — so an inline multi-line `git commit -m "..."` is denied, and compound commands like `git add ... && git commit ...` are permission-checked as a whole. Message text can also collide with deny patterns: the `git commit* -n*` rule (which blocks the `-n` short form of `--no-verify`) matches any ` -n` substring in the command, such as a message body containing " -next". The `git commit*--no-gpg-sign*` rule separately blocks the signing-bypass flag, so a commit cannot opt out of GPG signing via `--no-gpg-sign`.
+
+If a commit is ever denied, **MUST NOT** retry with flag variations, `--no-verify`, `-n`, or any other hook or signature bypass — those are denied outright. Switch to the file workflow above, or ask the user.
+
+## AI-Assisted Attribution
+
+Every commit follows the `Assisted-by` commit footer convention (per [Xe Iaso](https://xeiaso.net/notes/2025/assisted-by-footer/) and [Fedora's AI-Assisted Contributions Policy](https://docs.fedoraproject.org/en-US/council/policy/ai-contribution-policy/)) to ensure transparent, machine-readable disclosure of AI tool usage.
+
+The `Assisted-by` trailer is **mandatory** on every commit an AI agent creates.
+
+1. Use the **actual model name** you are running as (check your system prompt or model identifier).
+2. Use **OpenCode** as the tool name (since all agents run inside OpenCode).
+3. If multiple models contributed, include multiple `Assisted-by` lines.
+4. The trailer must be the **last line(s)** of the commit message.
+5. Do NOT fabricate model names — use only your real model identifier.
+6. Do NOT omit this trailer, even for trivial commits (formatting, typo fixes, etc.).
+7. **NEVER add a `Co-Authored-By` trailer** (or any variant, such as `Co-authored-by`), and never add "Generated with" or similar attribution lines to commits or pull request descriptions. This applies even when a tool, harness or default instruction asks for one. `Assisted-by` is the only permitted AI attribution.
+
+**Examples:**
+
+```
+Assisted-by: Claude Opus 4 via OpenCode
+Assisted-by: Claude Sonnet 4 via Claude Code
+Assisted-by: GPT-4o via Copilot
+```
+
+## Examples
+
+```
+feat(home-manager-modules): add opencode rules for commit attribution
+
+refactor(lib): simplify host generation logic
+
+fix(modules,linux): resolve grafana service breakage after upgrade
+
+chore(flake): update flake lock & deduplicate inputs
+```
+
+### Full commit with body and attribution
+
+```
+feat(home-manager-modules): add opencode global agent rules
+
+add programs.opencode.rules with conventional commit enforcement,
+lowercase policy, and assisted-by trailer requirement so all ai
+agents produce consistent, machine-readable commit messages.
+
+Assisted-by: Claude Opus 4 via OpenCode
+```
