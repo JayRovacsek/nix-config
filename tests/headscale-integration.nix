@@ -36,53 +36,50 @@ pkgs.testers.runNixOSTest {
             server_url = lib.mkForce "http://headscale:8080";
             dns.magic_dns = true;
             dns.base_domain = lib.mkForce "test.net";
-            ip_prefixes = [ "100.64.0.0/10" ];
-
-            database.path = "/var/lib/headscale/db.sqlite";
-            derp.urls = lib.mkForce [ ];
-            derp.auto_update_enable = lib.mkForce false;
+            # Keep the DERP map offline: the module's embedded DERP server
+            # (region 999, reachable as headscale:8080) satisfies headscale
+            # 0.29's non-empty requirement, so empty urls avoids the upstream
+            # fetch that fails in the VM (no DNS).
+            derp = lib.mkForce {
+              urls = [ ];
+              auto_update_enabled = false;
+            };
           };
 
-          use-declarative-users = true;
-
-          users = lib.mkForce [
+          # Tagged keys, replacing the module's default list wholesale (the
+          # mkForce'd age.secrets above are then never referenced).
+          preauthKeys = lib.mkForce [
             {
-              name = "client1@test.net";
-              keys = [
-                {
-                  inherit (config.age.secrets.preauth-client1) path;
-                  reusable = true;
-                  ephemeral = true;
-                }
-              ];
+              name = "client1";
+              tags = [ "tag:client1" ];
+              inherit (config.age.secrets.preauth-client1) path;
+              reusable = true;
+              ephemeral = true;
             }
             {
-              name = "client2@test.net";
-              keys = [
-                {
-                  inherit (config.age.secrets.preauth-client2) path;
-                  reusable = true;
-                  ephemeral = true;
-                }
-              ];
+              name = "client2";
+              tags = [ "tag:client2" ];
+              inherit (config.age.secrets.preauth-client2) path;
+              reusable = true;
+              ephemeral = true;
             }
           ];
 
-          # Temporarily use wildcard src to isolate user matching issues
+          # Clients register as tagged devices, so scope the rules to
+          # autogroup:tagged rather than the wildcard source.
           acl.acls = lib.mkForce [
             {
               action = "accept";
-              src = [ "*" ];
+              src = [ "autogroup:tagged" ];
               dst = [ "100.64.0.0/10:80" ];
             }
             {
               action = "accept";
-              src = [ "*" ];
+              src = [ "autogroup:tagged" ];
               proto = "icmp";
               dst = [ "100.64.0.0/10:*" ];
             }
           ];
-
         };
 
         environment.systemPackages = [ pkgs.sqlite ];
@@ -126,13 +123,7 @@ pkgs.testers.runNixOSTest {
     start_all()
 
     headscale.wait_for_unit("headscale.service")
-
-    # Wait for setup to verify users are created
-    try:
-        headscale.wait_for_unit("headscale-user-setup.service")
-    except Exception as e:
-        headscale.succeed("journalctl -u headscale-user-setup.service >&2")
-        raise e
+    headscale.wait_for_unit("headscale-preauth-setup.service")
 
     # Authenticate client1
     client1.wait_for_unit("tailscaled.service")

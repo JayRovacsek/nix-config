@@ -33,13 +33,16 @@ pkgs.testers.runNixOSTest {
           firewall.enable = false;
         };
 
-        # Override database path to be in /tmp or predictable for test
-        services.headscale.settings.database.path = "/var/lib/headscale/db.sqlite";
-
-        # Disable DERP auto-update for offline test environment
-        services.headscale.settings.derp = {
-          auto_update_enable = pkgs.lib.mkForce false;
-          urls = pkgs.lib.mkForce [ ];
+        # Serve plain HTTP (no ACME/TLS) and keep the DERP map offline. The
+        # module's embedded DERP server (region 999) is added after GetDERPMap,
+        # so it alone satisfies headscale 0.29's non-empty DERPMap requirement.
+        # Empty urls avoids the upstream fetch that fails in the VM (no DNS).
+        services.headscale.settings = {
+          server_url = pkgs.lib.mkForce "http://127.0.0.1:8080";
+          derp = pkgs.lib.mkForce {
+            urls = [ ];
+            auto_update_enabled = false;
+          };
         };
 
         environment.systemPackages = [ pkgs.sqlite ];
@@ -50,27 +53,29 @@ pkgs.testers.runNixOSTest {
     machine.wait_for_unit("headscale.service")
 
     try:
-        machine.wait_for_unit("headscale-user-setup.service")
+        machine.wait_for_unit("headscale-preauth-setup.service")
     except Exception as e:
-        machine.succeed("journalctl -u headscale-user-setup.service >&2")
+        machine.succeed("journalctl -u headscale-preauth-setup.service >&2")
         raise e
 
-    # Check if users exist in DB
+    # All 10 declarative keys should be inserted
+    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT COUNT(*) FROM pre_auth_keys;\" | grep -x 10")
 
-    # We use sqlite3 to query the DB
+    # Keys are tagged and have no owning user (headscale 0.28+ model)
+    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT tags FROM pre_auth_keys WHERE key='hs_preauth_admin_key_12345';\" | grep tag:admin")
+    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT COUNT(*) FROM pre_auth_keys WHERE user_id IS NOT NULL;\" | grep -x 0")
 
-    # Check for user 'admin'
-    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT name FROM users WHERE name='admin';\" | grep admin")
+    # No users are created anymore
+    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT COUNT(*) FROM users;\" | grep -x 0")
 
-    # Check for key for 'admin'
-    # The key content should be what we wrote in the mock secret
-    machine.succeed("sqlite3 /var/lib/headscale/db.sqlite \"SELECT key FROM pre_auth_keys WHERE key LIKE 'hs_preauth_admin_key_%';\" | grep hs_preauth_admin_key_12345")
+    # The CLI (via the unix socket) sees the keys too
+    machine.succeed("headscale preauthkeys list | grep hs_preauth_admin_key_12345")
 
-    # Check ACL file generation
-    machine.succeed("grep 'group:admin' /nix/store/*acl.json")
-    machine.succeed("grep 'allow-to-self' /nix/store/*acl.json || grep 'group:work' /nix/store/*acl.json")
-
-    # Check if headscale CLI sees the users (it should if DB is correct)
-    machine.succeed("headscale users list | grep admin")
+    # Check ACL file generation (policy v2: tagOwners + acls referencing tags,
+    # no groups). Every tag used in the acls must be declared in tagOwners.
+    machine.succeed("grep 'tagOwners' /nix/store/*acl.json")
+    machine.succeed("grep 'tag:admin' /nix/store/*acl.json")
+    machine.succeed("grep 'tag:work' /nix/store/*acl.json")
+    machine.succeed("! grep -q 'group:' /nix/store/*acl.json")
   '';
 }

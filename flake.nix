@@ -589,12 +589,12 @@
             # };
             # anubis-proxy = import ./tests/anubis-proxy.nix { inherit pkgs self; };
 
-            # headscale-declarative = import ./tests/headscale-declarative.nix {
-            #   inherit pkgs self;
-            # };
-            # headscale-integration = import ./tests/headscale-integration.nix {
-            #   inherit pkgs self;
-            # };
+            headscale-declarative = import ./tests/headscale-declarative.nix {
+              inherit pkgs self;
+            };
+            headscale-integration = import ./tests/headscale-integration.nix {
+              inherit pkgs self;
+            };
 
             git-hooks = self.inputs.git-hooks.lib.${system}.run {
               src = self;
