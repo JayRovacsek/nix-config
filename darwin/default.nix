@@ -12,5 +12,6 @@ in
   # Hosts
   ninetales = make-host aarch64-darwin-unstable "ninetales" darwin-system;
   victreebel = make-host aarch64-darwin-unstable "victreebel" darwin-system;
+  machamp = make-host aarch64-darwin-unstable "machamp" darwin-system;
   vileplume = make-host aarch64-darwin-unstable "vileplume" darwin-system;
 }
