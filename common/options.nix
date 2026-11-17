@@ -24,7 +24,7 @@ builtins.mapAttrs (
 
     linux = optionals isLinux [ ../options/modules/systemd ];
 
-    is-system-appropriate =
+    isSystemAppropriate =
       isLinux: isDarwin: n:
       if isLinux && hasSuffix "darwin" n then
         false
@@ -39,7 +39,7 @@ builtins.mapAttrs (
       imports = builtins.map (v: ../options/modules/${v}) (
         builtins.attrNames (
           filterAttrs (
-            n: v: v == "directory" && (is-system-appropriate isLinux isDarwin n)
+            n: v: v == "directory" && (isSystemAppropriate isLinux isDarwin n)
           ) (builtins.readDir ../options/modules)
         )
       );
@@ -49,7 +49,7 @@ builtins.mapAttrs (
       imports = builtins.map (v: ../options/home-manager-modules/${v}) (
         builtins.attrNames (
           filterAttrs (
-            n: v: v == "directory" && (is-system-appropriate isLinux isDarwin n)
+            n: v: v == "directory" && (isSystemAppropriate isLinux isDarwin n)
           ) (builtins.readDir ../options/home-manager-modules)
         )
       );
