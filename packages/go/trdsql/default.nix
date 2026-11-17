@@ -5,7 +5,7 @@
 }:
 let
   pname = "trdsql";
-  version = "1.1.0";
+  version = "1.2.3";
 
   meta = with lib; {
     homepage = "https://github.com/noborus/trdsql";
@@ -17,10 +17,10 @@ let
     owner = "noborus";
     repo = "trdsql";
     rev = "v${version}";
-    hash = "sha256-MkjQAOIXnydEmOFnnYrvE2TF2I0GqSrSRUAjd+/hHwc=";
+    hash = "sha256-lYBdroPg0Z+7p4akwBV3ey9S3s1uemQMfkyfZC8xeGQ=";
   };
 
-  vendorHash = "sha256-PoIa58vdDPYGL9mjEeudRYqPfvvr3W+fX5c+NgRIoLg=";
+  vendorHash = "sha256-1s2fQue0mLhJ9dKILrERa21Ut05/zVCwL2txZlqcCqE=";
 
   doCheck = false;
 
