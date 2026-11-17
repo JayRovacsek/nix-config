@@ -3,9 +3,9 @@ let
   inherit (self.common) package-sets;
 in
 builtins.mapAttrs (
-  package-set: _:
+  packageSet: _:
   let
-    pkgs = self.common.package-sets.${package-set};
+    pkgs = self.common.package-sets.${packageSet};
     inherit (pkgs) lib;
     inherit (pkgs.stdenv.hostPlatform) isLinux;
   in
