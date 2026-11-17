@@ -33,6 +33,23 @@ let
     "waybar-colour-picker"
     "waybar-screenshot"
     "wofi-power"
+
+    # Commit-pinned fetchFromGitHub packages whose upstream repos publish no
+    # GitHub releases (verified: releases.atom is empty), so nix-update's
+    # native fetchers raise VersionError with nothing to derive a version from.
+    "opnreport"
+
+    # All fetched from saimoomedits/eww-widgets (no releases); each widget
+    # extracts a different script from the same commit-pinned source.
+    "eww-battery"
+    "eww-launch-bar"
+    "eww-mem-ad"
+    "eww-memory"
+    "eww-music-info"
+    "eww-pop"
+    "eww-sleek-bar"
+    "eww-wifi"
+    "eww-workspace"
   ];
 
   # Packages that declare a real passthru.updateScript and therefore must be
