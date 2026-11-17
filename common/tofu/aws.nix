@@ -7,7 +7,7 @@ let
   amiPath = "ami";
   logBucket = "logs-${builtins.toString account-id}";
   logPath = "terraform/logs";
-  state-bucket = "terraform-state-${builtins.toString account-id}";
+  stateBucket = "terraform-state-${builtins.toString account-id}";
   state-path = "terraform/state";
   state-table = "terraform-state";
 
@@ -28,7 +28,7 @@ let
     {
       Effect = "Allow";
       Action = [ "s3:ListBucket" ];
-      Resource = "arn:aws:s3:::${state-bucket}";
+      Resource = "arn:aws:s3:::${stateBucket}";
     }
     {
       Effect = "Allow";
@@ -37,7 +37,7 @@ let
         "s3:PutObject"
         "s3:DeleteObject"
       ];
-      Resource = "arn:aws:s3:::${state-bucket}/${state-path}/*";
+      Resource = "arn:aws:s3:::${stateBucket}/${state-path}/*";
     }
   ];
 
@@ -46,7 +46,7 @@ in
 {
   buckets = {
     state = {
-      name = state-bucket;
+      name = stateBucket;
       path = state-path;
     };
     ami = {
