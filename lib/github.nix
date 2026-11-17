@@ -16,10 +16,10 @@ let
   generate-repository =
     repository: overrides:
     let
-      resource-name = sanitiseResourceName repository.name;
+      resourceName = sanitiseResourceName repository.name;
     in
     {
-      "${resource-name}" =
+      "${resourceName}" =
         default-repository-settings
         // overrides
         // (removeAttrs (lib.recursiveUpdate repository (repository.overrides or { })) [
@@ -35,10 +35,10 @@ let
   generate-default-branch-rule =
     repository:
     let
-      resource-name = sanitiseResourceName repository.name;
+      resourceName = sanitiseResourceName repository.name;
     in
     {
-      "${resource-name}" = {
+      "${resourceName}" = {
         repository = repository.overrides.name or repository.name;
         branch = repository.overrides.branch or "main";
         rename = repository.overrides.rename or true;
