@@ -5,7 +5,7 @@ let
 
   amiBucket = "amis-${builtins.toString account-id}";
   amiPath = "ami";
-  log-bucket = "logs-${builtins.toString account-id}";
+  logBucket = "logs-${builtins.toString account-id}";
   log-path = "terraform/logs";
   state-bucket = "terraform-state-${builtins.toString account-id}";
   state-path = "terraform/state";
@@ -54,7 +54,7 @@ in
       path = amiPath;
     };
     log = {
-      name = log-bucket;
+      name = logBucket;
       path = log-path;
     };
   };
