@@ -58,7 +58,7 @@ _: {
          are already operating as a subagent.
       2. **Agent selection is mandatory.** For every discrete sub-task, assess
          which available agent persona is the most suitable (e.g.,
-         `nix-automator` for Nix changes, `code-reviewer` for reviews,
+         `nix-wizard` for Nix changes, `code-reviewer` for reviews,
          `security-auditor` for security, etc.) and delegate to it. Never
          default to doing the work in-process when a specialist is available.
       3. **Subagents implement directly.** If you have been spawned as a

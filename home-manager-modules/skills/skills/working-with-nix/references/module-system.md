@@ -219,9 +219,6 @@ redirect to it).
 
 ## NixOS test authoring essentials
 
-See the `nixos-test-dev` sibling skill for the full workflow; these are the
-essentials.
-
 | Topic | Rule |
 |---|---|
 | Structure | `nodes.<name>` (QEMU VMs), `containers.<name>` (systemd-nspawn), `testScript` (Python). `defaults`/`nodeDefaults`/`containerDefaults` apply options to all machines |
@@ -232,6 +229,15 @@ essentials.
 | Requirements | VMs need `kvm` system feature; nspawn containers need `auto-allocate-uids`, `cgroups`, `uid-range` feature, and `extra-sandbox-paths = [ "/dev/net" ]` when sharing a VLAN with VMs |
 | Interactive | `nix-build -A nixosTests.login.driverInteractive` then `./result/bin/nixos-test-driver`; `test_script()` runs the whole script; `interactive.sshBackdoor.enable` / `enableDebugHook` for debugging; `--keep-machine-state` reuses VM state |
 | Overrides | `extendNixOS { module; specialArgs; }`, `extend { modules; specialArgs; }`, `overrideTestDerivation` |
+
+### Sandbox patterns for service tests
+
+| Pattern | Rule |
+|---|---|
+| Minimal imports | Build test nodes from the modules under test (e.g. `self.nixosModules.nginx`), never a full host config — hosts carry hardware, disko, and secrets baggage |
+| Mock agenix secrets | Tests run sandboxed and cannot reach real secrets: declare `options.age.secrets` as `lib.mkOption { type = lib.types.attrsOf lib.types.anything; default = { }; }` and point entries at `pkgs.writeText` dummies |
+| Network/DNS isolation | Tests run offline or in a closed network: map domains to loopback (`networking.hosts."127.0.0.1" = [ "service.test.local" ];`) and set `enableACME = false; forceSSL = false;` (or use snakeoil certs) to test ingress flows |
+| Python testScript API | `machine.wait_for_unit("x.service")` blocks until the unit is active; `machine.wait_for_open_port(80)` until TCP listens; `machine.succeed`/`machine.fail` run commands with the expected exit status; use `curl -v -L` to see headers in logs |
 
 ## Guidelines (authoring in a real config repo)
 

@@ -125,7 +125,7 @@ let
     // wshobsonAgents
     # Local
     // {
-      nix-automator = ./agents/nix-automator.md;
+      nix-wizard = ./agents/nix-wizard.md;
       product-manager = ./agents/product-manager.md;
     };
 in

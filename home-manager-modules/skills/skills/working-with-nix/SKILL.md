@@ -1,7 +1,7 @@
 ---
 name: working-with-nix
 version: "1.0.0"
-description: Use when working with Nix, NixOS, or Lix and authoritative reference material is needed — configuring or administering NixOS, authoring NixOS modules, packaging software in nixpkgs style, or looking up nix CLI flags, nix.conf settings, and experimental features. Triggers on offline Nix/Lix docs lookup, module authoring, mkOption/option types, fetchers/stdenv/overrides, and CLI flag verification.
+description: Use when working with Nix, NixOS, or Lix and authoritative reference material is needed — configuring or administering NixOS, authoring NixOS modules, packaging software in nixpkgs style, running repo build/lint workflows, or looking up nix CLI flags, nix.conf settings, and experimental features. Triggers on offline Nix/Lix docs lookup, module authoring, mkOption/option types, fetchers/stdenv/overrides, CLI flag verification, and flake build/lint commands.
 user-invocable: true
 ---
 
@@ -21,10 +21,11 @@ Use this skill to:
 - Author or refactor NixOS modules (option declarations, types, merge semantics).
 - Write nixpkgs-style expressions (fetchers, stdenv, overrides, overlays).
 - Verify a CLI flag or `nix.conf` setting exists before using it.
+- Run this repo's build, lint, and tool-discovery workflow (builds, statix, deadnix,
+  REPL sessions).
 
-Do not use this skill for repo-specific build/verification commands (use
-`nix-ops`), tool discovery and execution mechanics (use `nix-tooling-workflow`),
-or full NixOS test authoring workflows (use `nixos-test-dev`).
+This skill absorbs the repo's `nix-ops`, `nix-tooling-workflow`, and
+`nixos-test-dev` content — no sibling skill lookups needed.
 
 ## Discovering the docs
 
@@ -99,6 +100,7 @@ store directory, `type=read` to read a file (e.g. the mdBook page or
 | Module authoring: option declarations, option types, `mkIf`/`mkMerge`, freeform modules, settings options, assertions, meta, activation scripts, unit handling, test essentials | [references/module-system.md](references/module-system.md) | `nixos/doc/manual/development/`, pkgs `doc/module-system/` |
 | Packaging: nixpkgs config keys, overlays, overrides, platform tiers, `lib` functions, fetchers, stdenv phases, dependency placement, trivial builders, meta conventions | [references/packaging.md](references/packaging.md) | pkgs `doc/using`, `doc/build-helpers`, `doc/stdenv`, `doc/functions`, `doc/packages` |
 | CLI: command groups, key flags, common options, `nix.conf` settings catalogue, experimental features, store URLs, Lix vs CppNix | [references/cli-reference.md](references/cli-reference.md) | Lix man pages (`man1`, `man5`), mdBook `command-ref/` |
+| Repo operations: tool discovery priority, build/lint commands, Lix detection, persistent REPL via tmux | [references/repo-operations.md](references/repo-operations.md) | Repo conventions (rolled in from `nix-ops`, `nix-tooling-workflow`) |
 
 ## Verification workflow
 
@@ -110,15 +112,6 @@ store directory, `type=read` to read a file (e.g. the mdBook page or
 3. To locate a `lib.*` function, consult `function-catalog.json` in the pkgs doc
    directory to map the namespace to its source file, then read that file.
 4. Only fall back to the web when the offline sources genuinely lack the answer.
-
-## Sibling skills
-
-- **nix-ops** — build, test, and lint commands for this repository (flake checks,
-  evaluation).
-- **nix-tooling-workflow** — tool discovery priority (local → `nix run` → nixos MCP
-  search) and formatting with nixfmt.
-- **nixos-test-dev** — authoring and running NixOS tests; use for full test-driven
-  module work beyond the essentials summarised in `references/module-system.md`.
 
 ## Common mistakes
 
