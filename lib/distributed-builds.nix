@@ -12,13 +12,13 @@ let
     host: generate-base-configs host nixosConfigurations
   ) linuxSuitableHosts;
 
-  darwin-suitable-hosts = builtins.filter (
+  darwinSuitableHosts = builtins.filter (
     hostname: builtins.hasAttr "profile" darwinConfigurations.${hostname}.config.hardware.cpu
   ) darwin-host-identifiers;
 
   darwin-base-configs = builtins.map (
     host: generate-base-configs host darwinConfigurations
-  ) darwin-suitable-hosts;
+  ) darwinSuitableHosts;
 
   base-configs = builtins.filter (cfg: cfg.speedFactor > 1) (
     lib.flatten (linuxBaseConfigs ++ darwin-base-configs)
