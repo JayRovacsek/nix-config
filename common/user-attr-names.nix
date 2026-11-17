@@ -6,7 +6,7 @@ let
   #
   # TODO: revisit this some time in the future to validate there
   # isn't an obvious way.
-  attr-names = [
+  attrNames = [
     "extraGroups"
     "hashedPassword"
     "initialHashedPassword"
@@ -16,4 +16,4 @@ let
     "openssh"
   ];
 in
-attr-names
+attrNames
