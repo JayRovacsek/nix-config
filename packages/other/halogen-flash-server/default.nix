@@ -1,10 +1,16 @@
 {
+  self,
+  pkgs,
   lib,
   stdenv,
   autoPatchelfHook,
+  coreutils,
   curl,
   dockerTools,
   fetchFromGitHub,
+  gawk,
+  gnugrep,
+  gnused,
   jq,
   makeWrapper,
   nix,
@@ -15,15 +21,15 @@
   ...
 }:
 let
-  version = "0.18.21";
+  version = "0.20.6";
 
   # The engine is closed-source (Peonist EULA): the only published artefact
   # is the OCI image, so the prebuilt ELF binaries are vendored from it.
   # pullImage speaks the registry API via skopeo (no Docker daemon needed).
   image = dockerTools.pullImage {
     imageName = "ghcr.io/peonist-ai/halogen-flash-server";
-    imageDigest = "sha256:21006e5347f974241fd11e7bac5fc31759a4187f8267f7b52d8b564986b69821";
-    sha256 = "sha256-vIKv/zxO1RhVYWOqiQjXqeuZrR7kTo/szFrLth+XS7Y=";
+    imageDigest = "sha256:f68892a56d8a1182645042574d702374bff402bb986ec4d49304cbe89483dbaf";
+    sha256 = "sha256-bWfSslKllRbfutruYbw/tE7VqtKCYj99eh3LX/8wrJM=";
     finalImageName = "halogen-flash-server";
     finalImageTag = version;
   };
@@ -32,19 +38,23 @@ let
     owner = "peonist-ai";
     repo = "halogen-flash-server";
     rev = "v${version}";
-    sha256 = "1cznd2k5w89bimf405va49gd6mq48591qmqy1icd2axz6n8fd77p";
+    sha256 = "00k36h8z0v58axdnxggp2jrxqnr236rxqg09b7w35nkywnxfspl3";
   };
 
   # serve_api.py and the bundled tools import the fastapi/starlette/pydantic
   # web stack plus numpy (uvicorn is imported at serve time), and
   # halogen_tools.py plus the entrypoint's hub helpers import transformers
-  # and huggingface_hub. The image ships these in its site-packages; the nix
-  # build composes them onto the interpreter instead of running it bare.
+  # and huggingface_hub. The image also ships Pillow, which the server probes
+  # at startup to enable image input — without it flash_serve refuses with
+  # "this server was built without image support (Pillow is not installed)".
+  # The image ships these in its site-packages; the nix build composes them
+  # onto the interpreter instead of running it bare.
   pythonEnv = python3.withPackages (ps: [
     ps.fastapi
     ps."huggingface-hub"
     ps.jinja2
     ps.numpy
+    ps.pillow
     ps.pydantic
     ps.starlette
     ps.transformers
@@ -135,16 +145,18 @@ stdenv.mkDerivation (finalAttrs: {
   # flash_serve and halogen-tools link libamdhip64.so.7 and
   # libhipblaslt.so.1; their Debian RUNPATH is rewritten to these.
   # stdenv.cc.cc.lib supplies libstdc++/libgcc_s, which the Debian-built
-  # binaries also need. halogen-npu also needs libxrt_coreutil.so.2
-  # (AMD XRT), which nixpkgs does not carry and the image itself does not
-  # bundle either -- NPU mode expects it from the host, so the missing dep
-  # is tolerated.
+  # binaries also need. halogen-npu links libxrt_coreutil.so.2 (AMD XRT),
+  # which nixpkgs does not carry and the image does not bundle either; it
+  # used to be tolerated as a missing dep, leaving the binary unloadable
+  # unless the host put XRT on the loader path. The vendored xrt-amdxdna
+  # package is now a buildInput, so patchelf rewrites the RUNPATH to its
+  # store lib dir and the NPU sidecar loads XRT directly from the store.
   buildInputs = [
     rocmPackages.clr
     rocmPackages.hipblaslt
     stdenv.cc.cc.lib
+    self.packages.${pkgs.system}.xrt-amdxdna
   ];
-  autoPatchelfIgnoreMissingDeps = [ "libxrt_coreutil.so.2" ];
 
   dontConfigure = true;
   # Vendored prebuilt ELFs: keep them as upstream ships them (the EULA
@@ -210,6 +222,14 @@ stdenv.mkDerivation (finalAttrs: {
     # Serving front-end and tooling (Python).
     cp -r rootfs/halogen/tools $out/share/halogen/tools
 
+    # CORS: the upstream app ships no Access-Control-Allow-Origin handling at
+    # all (OPTIONS answers 405), so browser fetches from any origin are
+    # rejected even though the API itself returns 200. Attach Starlette's
+    # CORSMiddleware for all origins/methods/headers; the API has no auth of
+    # its own, so the firewall remains the access control.
+    chmod +w $out/share/halogen/tools/serve_api.py
+    sed -i 's|^    app = FastAPI(title="halogen")$|    app = FastAPI(title="halogen")\n    from fastapi.middleware.cors import CORSMiddleware\n    app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])|' $out/share/halogen/tools/serve_api.py
+
     # The repo's entrypoint with its hardcoded image paths rewritten to
     # this output.
     # Double quotes so the shell expands $out to this output path; single
@@ -229,8 +249,24 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Launcher: entrypoint plus the image-borne ENV defaults (each still
     # overridable from the environment).
+    # The entrypoint calls awk/grep/sed and coreutils (stat, du, seq, env,
+    # timeout, ...) unqualified, and some hub helpers call `hf` bare instead
+    # of via $_hg_hf; in the image the Debian base tree provided them, but
+    # this package installs only the halogen payload. NixOS gives every
+    # service a minimal default PATH (coreutils, findutils, gnugrep, gnused,
+    # systemd) which has no awk, so every awk call in the entrypoint died
+    # with "command not found" (exit 127). Prepend the nixpkgs equivalents.
     makeWrapper $out/libexec/halogen-entrypoint.sh \
       $out/bin/halogen-flash-server \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          coreutils
+          gawk
+          gnugrep
+          gnused
+          pythonEnv
+        ]
+      }" \
       --run 'export HALOGEN_ARCH="''${HALOGEN_ARCH:-gfx1151}"' \
       --run 'export HIP_FORCE_DEV_KERNARG="''${HIP_FORCE_DEV_KERNARG:-1}"' \
       --run 'export HALOGEN_ATTN_FA="''${HALOGEN_ATTN_FA:-64}"' \

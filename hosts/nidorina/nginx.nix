@@ -13,6 +13,7 @@ let
     firefox-syncserver
     grafana
     harmonia
+    home-assistant
     jellyfin
     lidarr
     nextcloud
@@ -91,6 +92,13 @@ let
         proxyPass = "${harmonia.protocol}://${harmonia.ipv4}:${builtins.toString harmonia.port}";
       };
     };
+  };
+
+  home-assistant-vhost = generate-vhosts {
+    inherit config;
+    inherit (home-assistant) subdomain;
+    overrides.locations."/".proxyPass =
+      "${home-assistant.protocol}://${home-assistant.ipv4}:${builtins.toString home-assistant.port}";
   };
 
   jellyfin-vhost = generate-vhosts {
@@ -298,6 +306,7 @@ in
       firefox-syncserver-vhost
       grafana-vhost
       harmonia-vhost
+      home-assistant-vhost
       jellyfin-vhost
       jellyseerr-vhost
       lidarr-vhost

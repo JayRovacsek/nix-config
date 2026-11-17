@@ -10,33 +10,35 @@ let
 
   bool-to-int = b: if b then "1" else "0";
 
+  # Headscale 0.28+ requires every pre-auth key to be either user-owned or
+  # tagged (never neither). These keys are tagged, so nodes registered with
+  # them become tagged devices owned by the special "tagged-devices" user.
   preauth-key = {
     options = with types; {
+      name = mkOption {
+        type = str;
+        description = "Label for the key; used to derive the default tag.";
+      };
+
+      path = mkOption {
+        type = path;
+        description = "Path to the decrypted plaintext pre-auth key.";
+      };
+
+      tags = mkOption {
+        type = nullOr (listOf str);
+        default = null;
+        description = "Tags applied to nodes registered with this key. Defaults to [\"tag:<name>\"].";
+      };
+
       ephemeral = mkOption {
         type = bool;
         default = true;
       };
 
-      expiration = mkOption {
-        type = str;
-        default = "'2050-01-01 00:00:00.000000000+00:00'";
-      };
-
-      path = mkOption { type = path; };
-
       reusable = mkOption {
         type = bool;
         default = true;
-      };
-    };
-  };
-
-  users = {
-    options = with types; {
-      name = mkOption { type = str; };
-      keys = mkOption {
-        type = listOf (submodule preauth-key);
-        default = [ ];
       };
     };
   };
@@ -73,116 +75,126 @@ let
     };
   };
 
-  unixEpoch = "'1970-01-01 00:00:00.000000000+00:00'";
+  # Build the tags column value with SQLite's json_array() rather than
+  # embedding a JSON literal. The whole statement is wrapped in double quotes
+  # (so $KEY_CONTENT expands), and a literal '["tag:x"]' would carry double
+  # quotes that terminate that wrapper early — the shell then strips them and
+  # stores '[tag:x]', which headscale's GORM serializer:json cannot parse
+  # ("invalid character 'a' in literal true"). json_array uses only single
+  # quotes, so it survives the shell quoting and yields valid JSON.
+  tags-sql =
+    key:
+    let
+      tagsList = if key.tags != null then key.tags else [ "tag:${key.name}" ];
+    in
+    "json_array(" + builtins.concatStringsSep "," (map (t: "'${t}'") tagsList) + ")";
 
-  # We use a bash script loop instead of a single SQL block to avoid hardcoding IDs
-  script = with pkgs; ''
+  # The 'key' column no longer has a UNIQUE constraint (only 'prefix' does),
+  # so INSERT OR IGNORE cannot deduplicate. Guard with WHERE NOT EXISTS to
+  # keep the insert idempotent across reactivations.
+  insert-key = key: ''
+    KEY_CONTENT=$(tr -d '\r\n' < ${key.path})
+    ${pkgs.sqlite-interactive}/bin/sqlite3 -cmd ".timeout 5000" ${cfg.settings.database.sqlite.path} "INSERT INTO pre_auth_keys (key, tags, reusable, ephemeral) SELECT '$KEY_CONTENT', ${tags-sql key}, ${bool-to-int key.reusable}, ${bool-to-int key.ephemeral} WHERE NOT EXISTS (SELECT 1 FROM pre_auth_keys WHERE key = '$KEY_CONTENT');"
+  '';
+
+  script = ''
     # Wait for the database to be created by Headscale
-    # Loop until the database file exists and the 'users' table is present
-    while [ ! -f ${cfg.settings.database.path} ]; do
+    while [ ! -f ${cfg.settings.database.sqlite.path} ]; do
       echo "Waiting for database file to be created..."
       sleep 1
     done
 
-    # Wait for tables to be created (simple check for 'users' table)
-    until ${pkgs.sqlite-interactive}/bin/sqlite3 ${cfg.settings.database.path} "SELECT count(*) FROM users;" >/dev/null 2>&1; do
+    # Wait for tables to be created (simple check for 'pre_auth_keys' table)
+    until ${pkgs.sqlite-interactive}/bin/sqlite3 ${cfg.settings.database.sqlite.path} "SELECT count(*) FROM pre_auth_keys;" >/dev/null 2>&1; do
       echo "Waiting for tables to be initialised..."
       sleep 1
     done
 
-    ${builtins.concatStringsSep "\n" (
-      lib.imap0 (i: user: ''
-        # Ensure user exists
-        ${pkgs.sqlite-interactive}/bin/sqlite3 -cmd ".timeout 5000" ${cfg.settings.database.path} "INSERT OR IGNORE INTO users (name, created_at, updated_at) VALUES ('${user.name}', ${unixEpoch}, ${unixEpoch});"
-
-        # Get User ID
-        USER_ID_${toString i}=$(${pkgs.sqlite-interactive}/bin/sqlite3 ${cfg.settings.database.path} "SELECT id FROM users WHERE name='${user.name}';")
-
-        ${builtins.concatStringsSep "\n" (
-          lib.imap0 (_j: key: ''
-            KEY_CONTENT=$(cat ${key.path})
-            # Insert key if not exists (assuming unique key constraint on 'key' column which headscale usually has, or we check existence)
-            # We use INSERT OR REPLACE to update attributes like expiration/reusable if they change, but we need the ID to stay stable if possible, 
-            # actually if we replace, we might get a new ID which is fine for keys.
-            # But wait, if we use 'cat', we need to be careful about newlines.
-            KEY_CONTENT=$(echo $KEY_CONTENT | tr -d '\n')
-
-            # Insert key if not exists
-            # We need to handle the case where the key already exists but attributes need updating.
-            # However, 'key' is likely unique.
-            # If we simply INSERT OR REPLACE, we might break things if IDs change (though IDs are auto-increment).
-            # But the previous error "ON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint"
-            # suggests that 'key' might NOT be explicitly defined as UNIQUE in the schema Headscale created?
-            # Or maybe we are targeting the wrong constraint.
-
-            # Let's try a simple INSERT OR IGNORE to ensure the key exists.
-            # Updating attributes of existing keys is less critical for this test than getting them in.
-
-            ${pkgs.sqlite-interactive}/bin/sqlite3 -cmd ".timeout 5000" ${cfg.settings.database.path} "INSERT OR IGNORE INTO pre_auth_keys (key, user_id, reusable, ephemeral, created_at, expiration) VALUES ('$KEY_CONTENT', $USER_ID_${toString i}, ${bool-to-int key.reusable}, ${bool-to-int key.ephemeral}, ${unixEpoch}, ${key.expiration});"
-          '') user.keys
-        )}
-      '') cfg.users
-    )}
-
+    ${builtins.concatStringsSep "\n" (map insert-key cfg.preauthKeys)}
   '';
+
+  # Headscale 0.28+ (policy v2) rejects a policy at startup when a tag used
+  # in the acls is not declared in tagOwners. Every tag here originates from
+  # a pre-auth key, so declare those, each owned by the placeholder admin user.
+  # Merging attrsets (//) deduplicates tags shared across keys. Invariant: any
+  # custom acl.acls must only reference tags that also appear on a preauthKey,
+  # otherwise that tag would be missing from tagOwners and startup would fail.
+  tag-owners = builtins.foldl' (
+    acc: key:
+    acc
+    // builtins.listToAttrs (
+      builtins.map (tag: {
+        name = tag;
+        value = [ cfg.acl.tagOwner ];
+      }) (if key.tags != null then key.tags else [ "tag:${key.name}" ])
+    )
+  ) { } cfg.preauthKeys;
 
 in
 {
   options.services.headscale = {
-    users = mkOption {
-      type = with types; listOf (submodule users);
+    preauthKeys = mkOption {
+      type = with types; listOf (submodule preauth-key);
       default = [ ];
+      description = "Declarative pre-auth keys inserted directly into the Headscale database.";
     };
 
     acl = {
-      groups = mkOption {
-        type = types.attrsOf (types.listOf types.str);
-        default = { };
-        description = "Defines the user groups.";
-      };
-
       acls = mkOption {
-        type = types.listOf (types.submodule aclRule);
+        type = with types; listOf (submodule aclRule);
         default = [ ];
         description = "Defines the ACL rules.";
       };
-    };
 
-    use-declarative-users = mkOption {
-      type = types.bool;
-      default = false;
+      tagOwner = mkOption {
+        type = types.str;
+        default = "admin@";
+        description = ''
+          Owner recorded for every tag in the generated policy's tagOwners.
+          Headscale 0.28+ (policy v2) rejects a policy at startup when a tag
+          used in the acls is not declared in tagOwners. Since these keys are
+          userless, a placeholder admin user is used; the v2 parser accepts a
+          user token that has not registered yet (it resolves to an empty set).
+        '';
+      };
     };
   };
 
-  config = lib.mkIf cfg.use-declarative-users {
+  config = lib.mkIf (cfg.preauthKeys != [ ]) {
+    # Policy v2 (v1 support was removed upstream in 0.27): acls referencing
+    # tags, plus a tagOwners entry for each tag (required since 0.28). Unknown
+    # fields are rejected at load time, so the old lowercase "groups" key must
+    # not be emitted.
     services.headscale.settings.policy.path = pkgs.writeText "acl.json" (
       builtins.toJSON {
-        inherit (cfg.acl) groups;
-        acls = builtins.map (
-          rule: lib.filterAttrs (_n: v: v != null) rule
-        ) cfg.acl.acls;
+        tagOwners = tag-owners;
+        acls = builtins.map (rule: lib.filterAttrs (_n: v: v != null) rule) cfg.acl.acls;
       }
     );
 
-    systemd.services.headscale-user-setup = {
+    systemd.services.headscale-preauth-setup = {
       inherit script;
 
-      description = "Declarative configuration of Headscale users & keys";
+      description = "Declarative configuration of Headscale pre-auth keys";
 
-      # Run AFTER headscale to ensure DB is initialised
-      after = [ "headscale.service" ];
+      # Run AFTER headscale to ensure DB is initialised, and after agenix so
+      # the decrypted secret files exist
+      after = [
+        "agenix.service"
+        "headscale.service"
+      ];
       wants = [ "headscale.service" ];
       wantedBy = [ "multi-user.target" ];
 
-      # Required to use nix-shell within our script
       path = with pkgs; [
         bash
+        coreutils
         sqlite-interactive
       ];
 
       serviceConfig = {
-        User = config.services.headscale.user;
-        Group = config.services.headscale.group;
+        User = cfg.user;
+        Group = cfg.group;
         Type = "oneshot";
         RemainAfterExit = true;
         StateDirectory = "headscale";

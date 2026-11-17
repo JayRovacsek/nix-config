@@ -69,6 +69,13 @@ for migrating a machine off Windows 10
 
 ![Grimer](https://archives.bulbagarden.net/media/upload/3/3a/Spr_2c_088.png?raw=true)
 
+## Hoothoot
+
+Instance hosting ntfy - the HTTP pub-sub notification service the fleet uses
+to hoot about downloads, builds and general happenings
+
+![Hoothoot](https://archives.bulbagarden.net/media/upload/9/92/Spr_2c_163.png?raw=true)
+
 ## Igglybuff
 
 An instance providing DNS services

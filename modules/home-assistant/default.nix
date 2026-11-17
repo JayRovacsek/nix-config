@@ -1,5 +1,12 @@
-{ config, self, ... }:
 {
+  config,
+  self,
+  pkgs,
+  ...
+}:
+{
+  networking.firewall.allowedTCPPorts = [ 8123 ];
+
   services.home-assistant = {
     config = {
       homeassistant = {
@@ -9,7 +16,13 @@
         unit_system = "metric";
       };
       http = {
-        server_host = [ "127.0.0.1" ];
+        auth_oidc = {
+          client_id = "home-assistant";
+          client_secret = "REPLACE_ME";
+          discovery_url = "https://authelia.rovacsek.com/.well-known/openid-configuration";
+          display_name = "Authelia";
+        };
+        server_host = "auto";
         server_port = self.common.config.services.home-assistant.port;
         trusted_proxies = [
           self.common.config.services.nginx.ipv4
@@ -19,7 +32,7 @@
     };
     configDir = "/var/lib/hass";
     configWritable = false;
-    customComponents = [ ];
+    customComponents = [ pkgs.home-assistant-custom-components.auth_oidc ];
     customLovelaceModules = [ ];
     enable = true;
     extraArgs = [ ];

@@ -13,11 +13,16 @@
       ++ (lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         "/private/var/agenix/id-ed25519-jay-primary"
       ]);
+    # symlink = false installs each secret as a real file at its path rather
+    # than a symlink into $XDG_RUNTIME_DIR/agenix; the key material then
+    # travels with any mount of ~/.config/git (e.g. the ai-jail sandboxes),
+    # where the agenix runtime directory is not present.
     secrets = {
       git-signing-key = {
         file = ../../secrets/git/git-signing-key.age;
         mode = "400";
         path = "${config.xdg.configHome}/git/git-signing-key";
+        symlink = false;
       };
 
       # This doesn't need to be a secret, however the assessment of the public key
@@ -28,6 +33,7 @@
         file = ../../secrets/git/git-signing-key-pub.age;
         mode = "400";
         path = "${config.xdg.configHome}/git/git-signing-key.pub";
+        symlink = false;
       };
     };
   };

@@ -44,7 +44,7 @@ let
         sessionVariables.NIX_PATH = "nixpkgs=${builtins.toString pkgs.path}";
       };
 
-      stripped-user-settings = filterAttrs (
+      strippedUserSettings = filterAttrs (
         name: _: elem name user-attr-names
       ) user-settings;
 
@@ -62,7 +62,7 @@ let
       users.users.${name} = recursiveUpdate {
         shell = if name != "builder" then pkgs.zsh else pkgs.bash;
         home = if isDarwin then "/Users/${name}" else "/home/${name}";
-      } stripped-user-settings;
+      } strippedUserSettings;
 
       home-manager = {
         extraSpecialArgs = {

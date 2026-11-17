@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "docxcompose";
-  version = "1.4.0";
+  version = "2.2.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-vPJ5mgtjwp63ej15mi8oRDrg9p+Gkf89dT9wa+UVw+k=";
+    hash = "sha256-4saXA6L++tRHGq2ChhocXXs/SmaVEN5QS7NvQfZvbT4=";
   };
 
   build-system = [ setuptools ];

@@ -15,14 +15,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "ggmlc";
-  version = "0.9.5";
+  version = "0.9.7";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "monatis";
     repo = "ggmlc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-dnJxf2Kax508EX87U+Dy01drbie1hgWDhOADbhidiC8=";
+    hash = "sha256-aj+JQrxh0jp+gUVuh3EtcGa9DxXfJbPZruzABC8wLUo=";
   };
 
   # Upstream builds the native CLI runners, the Laya System-1 binary and the

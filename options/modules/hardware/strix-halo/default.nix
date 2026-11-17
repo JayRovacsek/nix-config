@@ -38,7 +38,7 @@ in
     # NOT mkDefault here: a mkDefault list definition is dropped outright in
     # favour of any plain host definition, instead of concatenating with it.
     boot.kernelParams = lib.mkIf cfg.applyKernelParams [
-      "amd_iommu=off"
+      "amd_iommu=pt"
       "amdgpu.gttsize=126976"
       "amdgpu.vm_fragment_size=8"
       "amdgpu.vm_update_mode=0"
@@ -56,5 +56,7 @@ in
       HSA_ENABLE_SDMA = lib.mkDefault "0";
       HSA_OVERRIDE_GFX_VERSION = lib.mkDefault "11.5.1";
     };
+
+    boot.kernel.sysctl."vm.compact_memory" = 1;
   };
 }

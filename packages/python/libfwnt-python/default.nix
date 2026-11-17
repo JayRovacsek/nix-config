@@ -14,7 +14,7 @@ let
 in
 buildPythonPackage {
   pname = "libfwnt-python";
-  version = "20240415";
+  version = "20260602";
   pyproject = true;
 
   src = fetchPypi {

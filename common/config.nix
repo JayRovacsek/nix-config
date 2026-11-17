@@ -14,6 +14,7 @@ _: {
           fqdn = "alakazam.local";
         }
       ];
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfM3EoPc1OO0NDzgSxZ4vwfHFk3Abb50Kly47cUrNxX root@alakazam";
       shares = [ ];
     };
     bellsprout = {
@@ -91,7 +92,31 @@ _: {
         }
       ];
       isDnsServer = true;
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVkYRAVcY5MsTstiLOlGh8fNSuMoTS2XDwpCXxBE2v1 root@dragonite";
       shares = [ ];
+    };
+    hoothoot = {
+      hostname = "hoothoot";
+      ips = [
+        {
+          address = "192.168.11.2";
+          fqdn = "hoothoot.local";
+        }
+        {
+          address = "192.168.11.2";
+          fqdn = "ntfy.local";
+        }
+      ];
+      macAddress = "02:42:c0:a8:0b:02";
+      shares = [
+        {
+          hostPath = "/var/lib/ntfy-sh";
+          isReadOnly = false;
+          mountPoint = "/var/lib/ntfy-sh";
+          name = "ntfy";
+        }
+      ];
+      vlan = "notify";
     };
     igglybuff = {
       hostname = "igglybuff";
@@ -123,6 +148,16 @@ _: {
         {
           address = "192.168.6.4";
           fqdn = "jigglypuff.local";
+        }
+      ];
+      shares = [ ];
+    };
+    jynx = {
+      hostname = "jynx";
+      ips = [
+        {
+          address = "192.168.8.61";
+          fqdn = "jynx.local";
         }
       ];
       shares = [ ];
@@ -353,6 +388,7 @@ _: {
         }
       ];
       macAddress = "02:42:c0:a8:05:03";
+      publicHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgL/X0/b8ONf62/torBC/+0e/ho2F0CT533Z5rG8NJl root@nidorina";
       shares = [
         {
           hostPath = "/var/lib/private/ddclient";
@@ -577,7 +613,22 @@ _: {
           fqdn = "home-assistant.local";
         }
       ];
-      shares = [ ];
+      macAddress = "02:42:c0:a8:0c:02";
+      shares = [
+        {
+          hostPath = "/var/lib/hass";
+          isReadOnly = false;
+          mountPoint = "/var/lib/hass";
+          name = "home-assistant";
+        }
+        {
+          hostPath = "/var/lib/tentacruel/var/log";
+          isReadOnly = false;
+          mountPoint = "/var/log";
+          name = "logs";
+        }
+      ];
+      vlan = "hass";
     };
     tv = {
       hostname = "tv";
@@ -672,7 +723,11 @@ _: {
       vlan-tag = 10;
     }
     {
-      name = "home-assistant";
+      name = "notify";
+      vlan-tag = 11;
+    }
+    {
+      name = "hass";
       vlan-tag = 12;
     }
     {
@@ -934,6 +989,13 @@ _: {
     nginx = {
       authelia = false;
       ipv4 = "192.168.5.3";
+    };
+    ntfy = {
+      authelia = false;
+      ipv4 = "192.168.11.2";
+      port = 80;
+      protocol = "http";
+      subdomain = "ntfy";
     };
     openssh = {
       public-keys = [

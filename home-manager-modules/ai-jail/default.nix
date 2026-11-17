@@ -1,0 +1,6 @@
+{ ... }:
+{
+  imports = [ ../../options/home-manager-modules/ai-jail ];
+
+  programs.ai-jail.enable = true;
+}

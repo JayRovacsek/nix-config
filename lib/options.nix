@@ -34,7 +34,7 @@ let
       ];
     };
 
-  darwin-home-manager =
+  darwinHomeManager =
     let
       system = "aarch64-darwin";
     in
@@ -56,7 +56,7 @@ let
       };
     };
 
-  linux-home-manager =
+  linuxHomeManager =
     let
       system = "x86_64-linux";
     in
@@ -78,19 +78,19 @@ let
       };
     };
 
-  home-manager-options = merge [
-    darwin-home-manager
-    linux-home-manager
+  homeManagerOptions = merge [
+    darwinHomeManager
+    linuxHomeManager
   ];
 
 in
 {
   inherit darwin linux;
-  home-manager = home-manager-options;
+  home-manager = homeManagerOptions;
 
   declarations = merge [
     darwin.options
-    home-manager-options.options
+    homeManagerOptions.options
     linux.options
   ];
 }

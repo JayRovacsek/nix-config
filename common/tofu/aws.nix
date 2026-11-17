@@ -3,13 +3,13 @@ let
   account-id = 372627124797;
   region = "ap-southeast-2";
 
-  ami-bucket = "amis-${builtins.toString account-id}";
-  ami-path = "ami";
-  log-bucket = "logs-${builtins.toString account-id}";
-  log-path = "terraform/logs";
-  state-bucket = "terraform-state-${builtins.toString account-id}";
-  state-path = "terraform/state";
-  state-table = "terraform-state";
+  amiBucket = "amis-${builtins.toString account-id}";
+  amiPath = "ami";
+  logBucket = "logs-${builtins.toString account-id}";
+  logPath = "terraform/logs";
+  stateBucket = "terraform-state-${builtins.toString account-id}";
+  statePath = "terraform/state";
+  stateTable = "terraform-state";
 
   ddb = [
     {
@@ -20,7 +20,7 @@ let
         "dynamodb:PutItem"
         "dynamodb:DeleteItem"
       ];
-      Resource = "arn:aws:dynamodb:${region}:${builtins.toString account-id}:table/${state-table}";
+      Resource = "arn:aws:dynamodb:${region}:${builtins.toString account-id}:table/${stateTable}";
     }
   ];
 
@@ -28,7 +28,7 @@ let
     {
       Effect = "Allow";
       Action = [ "s3:ListBucket" ];
-      Resource = "arn:aws:s3:::${state-bucket}";
+      Resource = "arn:aws:s3:::${stateBucket}";
     }
     {
       Effect = "Allow";
@@ -37,7 +37,7 @@ let
         "s3:PutObject"
         "s3:DeleteObject"
       ];
-      Resource = "arn:aws:s3:::${state-bucket}/${state-path}/*";
+      Resource = "arn:aws:s3:::${stateBucket}/${statePath}/*";
     }
   ];
 
@@ -46,21 +46,21 @@ in
 {
   buckets = {
     state = {
-      name = state-bucket;
-      path = state-path;
+      name = stateBucket;
+      path = statePath;
     };
     ami = {
-      name = ami-bucket;
-      path = ami-path;
+      name = amiBucket;
+      path = amiPath;
     };
     log = {
-      name = log-bucket;
-      path = log-path;
+      name = logBucket;
+      path = logPath;
     };
   };
   dynamo = {
     state = {
-      name = state-table;
+      name = stateTable;
     };
   };
   iam = {

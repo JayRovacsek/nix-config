@@ -122,8 +122,6 @@ in
 
   programs.fuse.userAllowOther = true;
 
-  programs.ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
-
   remoteBuilds = lib.mkForce {
     machineConfigs = [
       {

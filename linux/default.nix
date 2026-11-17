@@ -57,12 +57,14 @@ in
   gastly = extend-host unstable-x86-base "gastly";
   ivysaur = extend-host rpi5 "ivysaur";
   jigglypuff = extend-host unstable-aarch64-base "jigglypuff";
+  jynx = extend-host unstable-x86-cuda-base "jynx";
   onix = extend-host unstable-aarch64-base "onix";
   wartortle = extend-host rpi5 "wartortle";
   wigglytuff = extend-host rpi4 "wigglytuff";
 
   # Containers
   bellsprout = extend-host-as-container unstable-x86-base "bellsprout";
+  hoothoot = extend-host-as-container unstable-x86-base "hoothoot";
   igglybuff = extend-host-as-container unstable-x86-base "igglybuff";
   machop = extend-host-as-container unstable-x86-base "machop";
   magikarp = extend-host-as-container unstable-x86-base "magikarp";

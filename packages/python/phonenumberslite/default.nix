@@ -6,7 +6,7 @@
 }:
 let
   pname = "phonenumberslite";
-  version = "9.0.36";
+  version = "9.0.43";
 
   meta = with lib; {
     description = "phonenumbers Python Library";
@@ -28,6 +28,6 @@ buildPythonPackage {
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-pW5KcOOtS8KwAVYNJ3G3jSBgMULPL7eNegMWQiiWuJ4=";
+    hash = "sha256-gpgR7tsXD/jsx67+0tkTZuhA2usoEXSK290VkYkW4rE=";
   };
 }

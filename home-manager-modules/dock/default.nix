@@ -10,12 +10,12 @@ let
   homeManagerHas =
     package:
     # Check if the package exists as a program option in home-manager
-    if (builtins.hasAttr package config.programs) then
+    if builtins.any (p: lib.hasPrefix package (p.pname or p.name)) config.home.packages then
+      true
+    else if (builtins.hasAttr package config.programs) then
       config.programs."${package}".enable
     else
-      builtins.any (
-        p: lib.hasPrefix package (p.pname or p.name)
-      ) config.home.packages;
+      false;
 
   # Logic becomes that a user has installed an application with X
   # name via homebrew nix module - this notably is possible to include masApps
@@ -23,13 +23,9 @@ let
   homeBrewHas =
     package:
     (
-      builtins.elem package (
-        builtins.map (x: x.pname or x.name) osConfig.homebrew.casks
-      )
+      builtins.elem package (builtins.map (x: x.pname or x.name) osConfig.homebrew.casks)
       || builtins.elem package (builtins.map (x: x.name) osConfig.homebrew.casks)
-      || builtins.elem package (
-        builtins.map (x: x.pname or x.name) osConfig.homebrew.brews
-      )
+      || builtins.elem package (builtins.map (x: x.pname or x.name) osConfig.homebrew.brews)
       || builtins.elem package (builtins.map (x: x.name) osConfig.homebrew.brews)
       || builtins.elem package (builtins.attrNames osConfig.homebrew.masApps)
     );
@@ -39,6 +35,7 @@ let
   alacrittyEntry.path = "${pkgs.alacritty}/Applications/Alacritty.app";
   braveEntry.path = "${pkgs.brave}/Applications/Brave Browser.app";
   firefoxEntry.path = "${pkgs.firefox}/Applications/Firefox.app";
+  googleChromeEntry.path = "/Applications/Google Chrome.app";
   keepassEntry.path = "${pkgs.keepassxc}/Applications/KeePassXC.app";
   outlookEntry.path = "/Applications/Microsoft Outlook.app";
   slackEntry.path = "${pkgs.slack}/Applications/Slack.app";
@@ -53,10 +50,11 @@ in
     enable = true;
     entries =
       (lib.optional (anyUserHas "alacritty") alacrittyEntry)
+      ++ (lib.optional (anyUserHas "google-chrome") googleChromeEntry)
       ++ (lib.optional (anyUserHas "firefox") firefoxEntry)
       ++ (lib.optional (anyUserHas "brave") braveEntry)
+      ++ (lib.optional (anyUserHas "microsoft-outlook") outlookEntry)
       ++ (lib.optional (anyUserHas "keepassxc") keepassEntry)
-      ++ [ outlookEntry ]
       ++ (lib.optional (anyUserHas "vscodium") vscodiumEntry)
       ++ (lib.optional (anyUserHas "slack") slackEntry);
   };

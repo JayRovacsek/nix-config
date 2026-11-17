@@ -20,6 +20,7 @@ let
       (with self.common.home-manager-module-sets; hyprland-ironbar-desktop ++ ssh ++ ai)
       ++ (with self.homeManagerModules; [
         chromium
+        discord
       ]);
   };
 
@@ -36,6 +37,7 @@ in
       ../../modules/hardware/strix-halo
       ./disk-config.nix
       agenix
+      ai-jail
       alloy
       amd-gpu
       bluetooth
@@ -49,18 +51,14 @@ in
       home-manager
       hyprland
       i18n
-      # impermanence
-      # laya
       lanzaboote-edk2-shell
       lix
       logging
       lorri
       nix
       nix-topology
-      # nvidia
       openssh
-      # pipewire
-      # playstation-controller
+      playstation-controller
       remote-builds
       ssh
       steam
@@ -73,7 +71,6 @@ in
       tmux
       tuned-accelerator-performance
       udev
-      # zramSwap
       zsh
     ])
     ++ (with self.inputs; [
@@ -159,7 +156,6 @@ in
 
   programs = {
     fuse.userAllowOther = true;
-    ssh.publicHostKeyBase64 = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpmTTNFb1BjMU9PME5EemdTeFo0dndmSEZrM0FiYjUwS2x5NDdjVXJOeFggcm9vdEBhbGFrYXphbQo=";
   };
 
   remoteBuilds = lib.mkForce {
