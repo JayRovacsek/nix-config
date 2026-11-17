@@ -78,7 +78,7 @@ let
       };
     };
 
-  home-manager-options = merge [
+  homeManagerOptions = merge [
     darwinHomeManager
     linuxHomeManager
   ];
@@ -86,11 +86,11 @@ let
 in
 {
   inherit darwin linux;
-  home-manager = home-manager-options;
+  home-manager = homeManagerOptions;
 
   declarations = merge [
     darwin.options
-    home-manager-options.options
+    homeManagerOptions.options
     linux.options
   ];
 }
