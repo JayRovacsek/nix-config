@@ -34,7 +34,7 @@ let
       ];
     };
 
-  darwin-home-manager =
+  darwinHomeManager =
     let
       system = "aarch64-darwin";
     in
@@ -79,7 +79,7 @@ let
     };
 
   home-manager-options = merge [
-    darwin-home-manager
+    darwinHomeManager
     linux-home-manager
   ];
 
