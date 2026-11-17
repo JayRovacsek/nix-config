@@ -6,7 +6,7 @@ let
     dir:
     builtins.attrNames (
       lib.filterAttrs (
-        n: v: v == "directory" && (builtins.hasAttr "default.nix" (builtins.readDir "${dir}/${n}"))
+        n: v: v == "directory" && builtins.pathExists (dir + "/${n}/default.nix")
       ) (builtins.readDir dir)
     );
 in
