@@ -6,12 +6,12 @@ let
 
   # Filter the user standard directory for regular files
   # and consume them assuming they are sets NOT functions
-  user-files = filterAttrs (_: value: value == "regular") (readDir path);
+  userFiles = filterAttrs (_: value: value == "regular") (readDir path);
 
   # Given above list of regular files, create an array of the
   # user configs loaded as set values.
   user-configs = attrValues (
-    mapAttrs (name: _: import "${path}/${name}") user-files
+    mapAttrs (name: _: import "${path}/${name}") userFiles
   );
 
   # Fold set values by the username as the key and set as
