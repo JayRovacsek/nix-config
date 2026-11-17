@@ -56,7 +56,7 @@ let
       };
     };
 
-  linux-home-manager =
+  linuxHomeManager =
     let
       system = "x86_64-linux";
     in
@@ -80,7 +80,7 @@ let
 
   home-manager-options = merge [
     darwinHomeManager
-    linux-home-manager
+    linuxHomeManager
   ];
 
 in
