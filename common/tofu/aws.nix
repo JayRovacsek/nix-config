@@ -9,7 +9,7 @@ let
   logPath = "terraform/logs";
   stateBucket = "terraform-state-${builtins.toString account-id}";
   statePath = "terraform/state";
-  state-table = "terraform-state";
+  stateTable = "terraform-state";
 
   ddb = [
     {
@@ -20,7 +20,7 @@ let
         "dynamodb:PutItem"
         "dynamodb:DeleteItem"
       ];
-      Resource = "arn:aws:dynamodb:${region}:${builtins.toString account-id}:table/${state-table}";
+      Resource = "arn:aws:dynamodb:${region}:${builtins.toString account-id}:table/${stateTable}";
     }
   ];
 
@@ -60,7 +60,7 @@ in
   };
   dynamo = {
     state = {
-      name = state-table;
+      name = stateTable;
     };
   };
   iam = {
