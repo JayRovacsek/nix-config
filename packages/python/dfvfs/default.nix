@@ -52,12 +52,12 @@ let
 in
 buildPythonPackage rec {
   pname = "dfvfs";
-  version = "20260731";
+  version = "20260924";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-DUSiqDtRRD6ViM4W+JZa3aZ0ID1ruyL+mSa+N/mJJC8=";
+    hash = "sha256-ixdJgC6Fq2RBVcITrAdO+edKdVVpKQVyHhNXt7mAzq4=";
   };
 
   build-system = [ setuptools ];
