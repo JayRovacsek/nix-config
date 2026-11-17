@@ -9,12 +9,12 @@ let
 in
 buildPythonPackage rec {
   pname = "libfsxfs_python";
-  version = "20260703";
+  version = "20260901";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-uGlUMCRc8LFnT3Z/rN4YtB3myZk5iD+OBQRSJxsgyPI=";
+    hash = "sha256-n8hihDzbnoPPh06zuLDRppQS4pOWfoRxxBo4yjbNkwk=";
   };
 
   build-system = [ setuptools ];
