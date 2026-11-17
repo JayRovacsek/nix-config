@@ -8,7 +8,7 @@ let
     hostname: builtins.hasAttr "profile" nixosConfigurations.${hostname}.config.hardware.cpu
   ) linux-host-identifiers;
 
-  linux-base-configs = builtins.map (
+  linuxBaseConfigs = builtins.map (
     host: generate-base-configs host nixosConfigurations
   ) linuxSuitableHosts;
 
@@ -21,7 +21,7 @@ let
   ) darwin-suitable-hosts;
 
   base-configs = builtins.filter (cfg: cfg.speedFactor > 1) (
-    lib.flatten (linux-base-configs ++ darwin-base-configs)
+    lib.flatten (linuxBaseConfigs ++ darwin-base-configs)
   );
 
   hardware-profile =
