@@ -33,7 +33,7 @@ let
       let
         root = findFirst (x: hasSuffix x domain) "" config.services.nginx.domains;
 
-        self-signed = findFirst (x: hasSuffix x.domain domain) {
+        selfSigned = findFirst (x: hasSuffix x.domain domain) {
           keyPath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
           certificatePath = builtins.throw "services.nginx.test.enable is set to false - this throw should be impossible to hit";
         } config.services.nginx.test.certificateMap;
@@ -43,8 +43,8 @@ let
         forceSSL = true;
         kTLS = true;
         serverName = domain;
-        sslCertificate = mkIf test self-signed.certificatePath;
-        sslCertificateKey = mkIf test self-signed.keyPath;
+        sslCertificate = mkIf test selfSigned.certificatePath;
+        sslCertificateKey = mkIf test selfSigned.keyPath;
         useACMEHost = mkIf production root;
       } overrides
     );
