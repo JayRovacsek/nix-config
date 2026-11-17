@@ -22,7 +22,7 @@ let
     name = "unstable";
   };
 
-  bleeding-edge = {
+  bleedingEdge = {
     pkgs = inputs.bleeding-edge;
     name = "bleeding-edge";
   };
@@ -37,7 +37,7 @@ let
   targetGeneration = [
     stable
     unstable
-    bleeding-edge
+    bleedingEdge
   ];
 
   # Done to make available the packageset identifier via the identifier attribute of
