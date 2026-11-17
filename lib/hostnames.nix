@@ -10,9 +10,9 @@ let
     cfg:
     let
       inherit (cfg.networking) localDomain;
-      has-value = localDomain != "";
+      hasValue = localDomain != "";
     in
-    "${cfg.networking.hostName}${lib.optionalString has-value ".${localDomain}"}";
+    "${cfg.networking.hostName}${lib.optionalString hasValue ".${localDomain}"}";
 
   generate-tailscale-address =
     cfg:
