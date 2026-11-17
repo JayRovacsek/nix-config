@@ -239,6 +239,7 @@ let
       nix-tooling-workflow = ./skills/nix-tooling-workflow;
       nixos-test-dev = ./skills/nixos-test-dev;
       product-management = ./skills/product-management;
+      working-with-nix = ./skills/working-with-nix;
     };
 in
 {
