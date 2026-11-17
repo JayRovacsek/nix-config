@@ -58,11 +58,15 @@ let
   # with nix-update's native fetchers. Passing --use-update-script to a
   # package that has no updateScript makes nix-update force-evaluate the whole
   # merged package set and fail, so the flag is scoped to exactly this list.
+  # ggmlc is intentionally excluded here: its passthru.updateScript is the
+  # generic nix-update-script, which does not propagate --flake, so running it
+  # with --use-update-script falls back to a non-flake evaluation and fails on
+  # a missing default.nix. A plain fetchFromGitHub needs no dependency
+  # regeneration, so it is updated with the native fetchers instead.
   updateScriptPackages = [
     "battlenet-lancache-prefill"
     "epic-lancache-prefill"
     "steam-lancache-prefill"
-    "ggmlc"
     "halogen-flash-server"
   ];
 
