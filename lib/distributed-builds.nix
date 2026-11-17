@@ -24,7 +24,7 @@ let
     lib.flatten (linuxBaseConfigs ++ darwinBaseConfigs)
   );
 
-  hardware-profile =
+  hardwareProfile =
     system:
     if builtins.hasAttr "profile" system.hardware.cpu then
       { inherit (system.hardware.cpu.profile) cores speed; }
@@ -41,7 +41,7 @@ let
     hostname: parent-set:
     let
       inherit (parent-set.${hostname}) config;
-      profile = hardware-profile config;
+      profile = hardwareProfile config;
       inherit (config.nixpkgs) system;
     in
     [
