@@ -16,12 +16,12 @@ let
     hostname: builtins.hasAttr "profile" darwinConfigurations.${hostname}.config.hardware.cpu
   ) darwin-host-identifiers;
 
-  darwin-base-configs = builtins.map (
+  darwinBaseConfigs = builtins.map (
     host: generate-base-configs host darwinConfigurations
   ) darwinSuitableHosts;
 
   base-configs = builtins.filter (cfg: cfg.speedFactor > 1) (
-    lib.flatten (linuxBaseConfigs ++ darwin-base-configs)
+    lib.flatten (linuxBaseConfigs ++ darwinBaseConfigs)
   );
 
   hardware-profile =
