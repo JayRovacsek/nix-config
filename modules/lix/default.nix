@@ -8,10 +8,13 @@
   # `nixosModules` and `darwinModules`, so one import covers Linux and Darwin.
   imports = [ self.inputs.nix-monitored.nixosModules.default ];
 
-  # Build the package for the host system (notified builds are Linux-only and
-  # default accordingly) and drive it with Lix.
+  # Build the package for the host system and drive it with Lix.
+  # `notify` is set explicitly because nix-monitored's own default uses the
+  # deprecated `stdenv.isLinux`; providing a value here keeps the same
+  # Linux-only behaviour without forcing that deprecated default.
   nix.monitored = {
     enable = true;
+    notify = pkgs.stdenv.hostPlatform.isLinux;
     package = self.inputs.nix-monitored.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       nix = self.inputs.lix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
