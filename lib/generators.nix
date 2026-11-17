@@ -5,7 +5,7 @@ let
   inherit (lib.strings) concatLines;
   inherit (lib) foldl' optionalString;
 
-  bool-to-string = x: if x then "true" else "false";
+  boolToString = x: if x then "true" else "false";
 
   to-css =
     attrs:
@@ -43,7 +43,7 @@ let
             if builtins.typeOf value == "list" then
               (foldl' (acc: x: "${acc}${to-xml x}") "" value)
             else if builtins.typeOf value == "bool" then
-              bool-to-string value
+              boolToString value
             else
               builtins.toString value
           }</${name}>"
