@@ -4,7 +4,7 @@ let
   region = "ap-southeast-2";
 
   amiBucket = "amis-${builtins.toString account-id}";
-  ami-path = "ami";
+  amiPath = "ami";
   log-bucket = "logs-${builtins.toString account-id}";
   log-path = "terraform/logs";
   state-bucket = "terraform-state-${builtins.toString account-id}";
@@ -51,7 +51,7 @@ in
     };
     ami = {
       name = amiBucket;
-      path = ami-path;
+      path = amiPath;
     };
     log = {
       name = log-bucket;
