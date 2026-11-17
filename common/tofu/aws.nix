@@ -8,7 +8,7 @@ let
   logBucket = "logs-${builtins.toString account-id}";
   logPath = "terraform/logs";
   stateBucket = "terraform-state-${builtins.toString account-id}";
-  state-path = "terraform/state";
+  statePath = "terraform/state";
   state-table = "terraform-state";
 
   ddb = [
@@ -37,7 +37,7 @@ let
         "s3:PutObject"
         "s3:DeleteObject"
       ];
-      Resource = "arn:aws:s3:::${stateBucket}/${state-path}/*";
+      Resource = "arn:aws:s3:::${stateBucket}/${statePath}/*";
     }
   ];
 
@@ -47,7 +47,7 @@ in
   buckets = {
     state = {
       name = stateBucket;
-      path = state-path;
+      path = statePath;
     };
     ami = {
       name = amiBucket;
