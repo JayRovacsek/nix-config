@@ -11,12 +11,12 @@ let
   # Replacing periods with hyphens won't always be a solve for terraform
   # resource names, but for now it's the only character we need to handle in this
   # space
-  sanitise-resource-name = builtins.replaceStrings [ "." ] [ "-" ];
+  sanitiseResourceName = builtins.replaceStrings [ "." ] [ "-" ];
 
   generate-repository =
     repository: overrides:
     let
-      resource-name = sanitise-resource-name repository.name;
+      resource-name = sanitiseResourceName repository.name;
     in
     {
       "${resource-name}" =
@@ -35,7 +35,7 @@ let
   generate-default-branch-rule =
     repository:
     let
-      resource-name = sanitise-resource-name repository.name;
+      resource-name = sanitiseResourceName repository.name;
     in
     {
       "${resource-name}" = {
