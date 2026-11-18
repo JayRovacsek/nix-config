@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libvshadow-python";
-  version = "20240504";
+  version = "20260714";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-RBB+M2SzyrWJOXKVFohuIB7EWpCrLAtdvz8GkLzGxJQ=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libvshadow/releases/download/20260714/libvshadow-alpha-20260714.tar.gz";
+    hash = "sha256-floET4kAl76MQB2R72EyLDH+OOPB/TrglzF01sdWm9A=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyvshadow" ];
 
