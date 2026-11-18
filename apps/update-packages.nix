@@ -51,42 +51,6 @@ let
     "eww-wifi"
     "eww-workspace"
 
-    # libyal Python bindings: newer PyPI releases ship wheels only (no .tar.gz
-    # sdist), so fetchPypi 404s when nix-update recomputes the source hash.
-    # Their GitHub releases carry the C library rather than the Python package,
-    # so there is no fetchable source for the newer versions.
-    "libbde-python"
-    "libcaes-python"
-    "libcreg-python"
-    "libesedb-python"
-    "libevt-python"
-    "libevtx-python"
-    "libewf-python"
-    "libfcrypto-python"
-    "libfsapfs-python"
-    "libfsext-python"
-    "libfshfs-python"
-    "libfsntfs-python"
-    "libfvde-python"
-    "libfwsi-python"
-    "liblnk-python"
-    "libluksde-python"
-    "libmodi-python"
-    "libmsiecf-python"
-    "libolecf-python"
-    "libphdi-python"
-    "libqcow-python"
-    "libregf-python"
-    "libscca-python"
-    "libsigscan-python"
-    "libsmdev-python"
-    "libsmraw-python"
-    "libvhdi-python"
-    "libvmdk-python"
-    "libvsgpt-python"
-    "libvshadow-python"
-    "libvslvm-python"
-
     # buildGoModule: pdscan 0.2.0 requires go >= 1.27, nixpkgs ships 1.26.10,
     # so the vendor hash cannot be computed.
     "pdscan"
