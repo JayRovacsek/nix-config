@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "liblnk-python";
-  version = "20240423";
+  version = "20260525";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-oCRa/Z9Pbj5dnGbWR8c8PiChrfBPMpL4mGuMqw6Gfx8=";
+  src = fetchurl {
+    url = "https://github.com/libyal/liblnk/releases/download/20260525/liblnk-alpha-20260525.tar.gz";
+    hash = "sha256-czxjkmrNNcyaqQ961xIpjPII7glLAJswdSw6usK5LzY=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pylnk" ];
 
