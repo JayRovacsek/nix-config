@@ -1,34 +1,36 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libevt-python";
-
-  version = "20240421";
+  version = "20260705";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-z2kZ+rl7IEZpANJ4Vc9JiSMz5PLuQ5ySDoX6JgtZ1xU=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libevt/releases/download/20260705/libevt-alpha-20260705.tar.gz";
+    hash = "sha256-wUFgzY/neCQ88f5AlEaaABSg3Qjl6H+86xxM7dZWLUU=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyevt" ];
 
-  meta = rec {
+  meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libevt";
-    homepage = "https://github.com/libyal/libevt";
     downloadPage = "https://github.com/libyal/libevt/releases";
-    license = lib.licenses.lgpl3Plus;
+    homepage = "https://github.com/libyal/libevt";
+    license = licenses.lgpl3Plus;
   };
 }
