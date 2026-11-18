@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libscca-python";
-  version = "20240427";
+  version = "20260527";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-4Z3atLkaB4XFf0zPcrCC2wVNrogSzBktqNv4kWJuN5U=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libscca/releases/download/20260527/libscca-alpha-20260527.tar.gz";
+    hash = "sha256-X6ijq2ArRDHnXmH00h69RhdMUkp5Fz+MDq3KJM3b3BY=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyscca" ];
 
