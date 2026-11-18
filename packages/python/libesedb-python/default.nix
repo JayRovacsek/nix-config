@@ -1,33 +1,36 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libesedb-python";
-  version = "20240420";
+  version = "20260704";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-RyfQpuPRUfShQQfouOP4zO0QuUZmV8xqhWycf4bX0IE=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libesedb/releases/download/20260704/libesedb-experimental-20260704.tar.gz";
+    hash = "sha256-ePXkzRG1UeZz2ycKnUCr88jshSO5GTmpJRyoDuWoO9E=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyesedb" ];
 
-  meta = rec {
+  meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libesedb";
-    homepage = "https://github.com/libyal/libesedb";
     downloadPage = "https://github.com/libyal/libesedb/releases";
-    license = lib.licenses.lgpl3Plus;
+    homepage = "https://github.com/libyal/libesedb";
+    license = licenses.lgpl3Plus;
   };
 }
