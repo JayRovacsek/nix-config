@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libluksde-python";
-  version = "20240503";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-vBNIQQ3Q0aJoaKoKytH5cxi7GluZYaJLzBPy7hXUUqw=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libluksde/releases/download/20260902/libluksde-experimental-20260902.tar.gz";
+    hash = "sha256-IVH//dNaqG07btVWDA5VGUSDeEO4fMC44FGoVyMa2AA=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyluksde" ];
 
