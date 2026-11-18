@@ -1,36 +1,39 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libfsapfs-python";
-  version = "20240429";
+  version = "20261030";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-ibxeT0WjT2GlcfMhEz1NAWTUGnIatuqyKur+XbWcKe0=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfsapfs/releases/download/20261030/libfsapfs-experimental-20261030.tar.gz";
+    hash = "sha256-xyfSMZevPyyeOWGFRcRxk2ZjOmZnJbg74qMhSkihHfU=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfsapfs" ];
 
-  meta = rec {
+  meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libfsapfs";
     downloadPage = "https://github.com/libyal/libfsapfs/releases";
     homepage = "https://github.com/libyal/libfsapfs";
-    license = lib.licenses.lgpl3Plus;
+    license = licenses.lgpl3Plus;
   };
 }
