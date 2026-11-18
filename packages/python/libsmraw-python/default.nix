@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libsmraw-python";
-  version = "20240506";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-bGjrv8hji0URqRWLeyvY/yg09MyUlZ5S9/Fo4yoB+k0=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libsmraw/releases/download/20260902/libsmraw-alpha-20260902.tar.gz";
+    hash = "sha256-sdejoLPNcASgRh9w3x/ypIrpA8cSZSBSQfHOtx+2EWU=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pysmraw" ];
 
