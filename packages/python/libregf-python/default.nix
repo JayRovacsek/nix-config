@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libregf-python";
-  version = "20240421";
+  version = "20260526";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-oYbCR1zX59Cj4yQbM1fk5SC/YFB14BmiL0F4mix0Gvw=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libregf/releases/download/20260526/libregf-alpha-20260526.tar.gz";
+    hash = "sha256-TNoYugWLSwgFJVGT3iQSgQLS9mBa5UhTu4DYTvpD08U=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyregf" ];
 
