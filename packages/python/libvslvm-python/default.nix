@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libvslvm-python";
-  version = "20240504";
+  version = "20260901";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-VggKWu72cfFKXrDFiof2naWmQA6Jc2OWVSI0XVl9F3c=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libvslvm/releases/download/20260901/libvslvm-experimental-20260901.tar.gz";
+    hash = "sha256-n9B44yqfjZNAnIRscyFE4WP0VAto/z5FYIDCqgVmcLs=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyvslvm" ];
 
