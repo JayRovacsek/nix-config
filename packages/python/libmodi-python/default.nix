@@ -1,26 +1,31 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libmodi-python";
-  version = "20240507";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-9YOXSTaJwl3cVdCacze0idNfoad88UCtojXJ3PZ6pC0=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libmodi/releases/download/20260902/libmodi-experimental-20260902.tar.gz";
+    hash = "sha256-GgvxQ2UOwnk1RIwQZGIT9SfXJJW/6pbYmuEOc5+aSv0=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pymodi" ];
 
