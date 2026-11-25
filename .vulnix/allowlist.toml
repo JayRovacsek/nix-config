@@ -1,4 +1,4 @@
-# Vulnix allowlist — generated 2026-11-25 from a per-host scan of all nixosConfigurations.
+# Vulnix allowlist — generated 2026-11-26 from a per-host scan of all nixosConfigurations.
 # Sources: vulnix NVD scan, CISA KEV catalog, first.org EPSS, OSV.dev (direct + alias lookup),
 #          nixpkgs security tracker (tracker.security.nixos.org), nix why-depends provenance.
 # Criteria: (1) name-collision false positives confirmed against OSV package data or provenance;
@@ -68,8 +68,8 @@ cve = ["CVE-2026-67216","CVE-2026-67217"]
 comment = ["low risk in isolation: CVE-2026-67216 epss=0.006450000 percentile=0.516940000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-67217 epss=0.004330000 percentile=0.380430000 cvss=5.3, not in CISA KEV"]
 
 ["commonmark-0.2.6.1"]
-cve = ["CVE-2026-30838"]
-comment = ["low risk in isolation: CVE-2026-30838 epss=0.002450000 percentile=0.157300000 cvss=6.1, not in CISA KEV"]
+cve = ["CVE-2026-30838","CVE-2026-86430"]
+comment = ["low risk in isolation: CVE-2026-30838 epss=0.002450000 percentile=0.157300000 cvss=6.1, not in CISA KEV","nixpkgs security tracker rejected this CVE as not affecting nixpkgs (not_in_nixpkgs); see https://tracker.security.nixos.org/api/v1/suggestions/by-cve/CVE-2026-86430"]
 
 ["cups-2.4.19"]
 cve = ["CVE-2022-26691","CVE-2026-107885","CVE-2026-107886","CVE-2026-107888","CVE-2026-107890","CVE-2026-55453","CVE-2026-55467","CVE-2026-55480","CVE-2026-61702"]
