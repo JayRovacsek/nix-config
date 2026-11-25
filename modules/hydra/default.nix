@@ -53,7 +53,6 @@ let
     "github:SenchoPens/fromYaml"
     "github:srid/flake-root"
     "github:terranix/terranix"
-    "github:tiiuae/sbomnix"
     "github:tinted-theming/base16-foot"
     "github:tinted-theming/base16-helix"
     "github:tinted-theming/base16-tmux"
