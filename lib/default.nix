@@ -19,7 +19,6 @@
   microvm = import ./microvm.nix { inherit self; };
   nginx = import ./nginx.nix { inherit self; };
   options = import ./options.nix { inherit self; };
-  sbom = import ./sbom.nix { inherit self; };
   ssh = import ./ssh.nix { inherit self; };
   tailscale = import ./tailscale.nix { inherit self; };
   terraform = import ./terraform.nix { inherit self; };

@@ -32,7 +32,6 @@ in
   python-packages = readPackageDirectory ../packages/python;
   rust-packages = readPackageDirectory ../packages/rust;
   resource-packages = readPackageDirectory ../packages/resources;
-  sboms = self.lib.sbom.mkAllHostSboms self.nixosConfigurations;
   shell-packages = readPackageDirectory ../packages/shell;
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   stylix = import ./stylix.nix { inherit self; };
