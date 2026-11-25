@@ -1,0 +1,378 @@
+# Vulnix allowlist — generated 2026-11-25 from a per-host scan of all nixosConfigurations.
+# Sources: vulnix NVD scan, CISA KEV catalog, first.org EPSS, OSV.dev (direct + alias lookup).
+# Criteria: (1) name-collision false positives confirmed against OSV package data;
+#           (2) low risk in isolation — not in KEV, EPSS < 0.05, CVSS < 7.0.
+# Each entry carries the concrete evidence in its comment.
+
+["Diff-1.0.2"]
+cve = ["CVE-2024-13278","CVE-2026-73478"]
+comment = ["low risk in isolation: CVE-2026-73478 epss=0.003130000 percentile=0.243790000 cvss=5.3, not in CISA KEV","name-collision false positive: CVE-2024-13278 affects drupal/diff (Packagist:https://packages.drupal.org/8 via DRUPAL-CONTRIB-2024-042), not nixpkgs Diff-1.0.2"]
+
+["Sentry-5.16.3"]
+cve = ["CVE-2026-26004"]
+comment = ["low risk in isolation: CVE-2026-26004 epss=0.002800000 percentile=0.205890000 cvss=6.5, not in CISA KEV"]
+
+["ada-4.0.0"]
+cve = ["CVE-2024-9410"]
+comment = ["low risk in isolation: CVE-2024-9410 epss=0.003310000 percentile=0.264720000 cvss=5.3, not in CISA KEV"]
+
+["avahi-0.8"]
+cve = ["CVE-2025-59529"]
+comment = ["low risk in isolation: CVE-2025-59529 epss=0.002380000 percentile=0.148520000 cvss=5.5, not in CISA KEV"]
+
+["binutils-2.46"]
+cve = ["CVE-2025-69651","CVE-2025-69652"]
+comment = ["low risk in isolation: CVE-2025-69651 epss=0.002720000 percentile=0.195870000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2025-69652 epss=0.002020000 percentile=0.099780000 cvss=6.2, not in CISA KEV"]
+
+["binutils-2.47"]
+cve = ["CVE-2026-90801","CVE-2026-90802","CVE-2026-90803","CVE-2026-90804","CVE-2026-90828","CVE-2026-90829","CVE-2026-90830","CVE-2026-90831","CVE-2026-91779","CVE-2026-91780","CVE-2026-91781","CVE-2026-91782"]
+comment = ["low risk in isolation: CVE-2026-90801 epss=0.002080000 percentile=0.106890000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-90802 epss=0.001830000 percentile=0.077720000 cvss=4.4, not in CISA KEV","low risk in isolation: CVE-2026-90803 epss=0.002010000 percentile=0.097920000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-90804 epss=0.001970000 percentile=0.092490000 cvss=4.8, not in CISA KEV","low risk in isolation: CVE-2026-90828 epss=0.001700000 percentile=0.063390000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-90829 epss=0.001660000 percentile=0.057670000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-90830 epss=0.001650000 percentile=0.056140000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-90831 epss=0.001680000 percentile=0.060940000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-91779 epss=0.001700000 percentile=0.062640000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-91780 epss=0.001740000 percentile=0.067960000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-91781 epss=0.001760000 percentile=0.070460000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-91782 epss=0.001770000 percentile=0.071140000 cvss=3.3, not in CISA KEV"]
+
+["bison-3.8.2"]
+cve = ["CVE-2026-56390"]
+comment = ["low risk in isolation: CVE-2026-56390 epss=0.001250000 percentile=0.021570000 cvss=6.3, not in CISA KEV"]
+
+["bolt-0.9.8"]
+cve = ["CVE-2023-5214"]
+comment = ["low risk in isolation: CVE-2023-5214 epss=0.004470000 percentile=0.393970000 cvss=6.5, not in CISA KEV"]
+
+["capstone-5.0.9"]
+cve = ["CVE-2025-67873","CVE-2025-68114"]
+comment = ["low risk in isolation: CVE-2025-67873 epss=0.002500000 percentile=0.162490000 cvss=4.8, not in CISA KEV","low risk in isolation: CVE-2025-68114 epss=0.002150000 percentile=0.118060000 cvss=4.8, not in CISA KEV"]
+
+["cargo-1.97.1-x86_64-unknown-linux-gnu"]
+cve = ["CVE-2026-39837","CVE-2026-39839","CVE-2026-39840","CVE-2026-39841","CVE-2026-58519"]
+comment = ["low risk in isolation: CVE-2026-39837 epss=0.002000000 percentile=0.097420000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2026-39839 epss=0.001920000 percentile=0.087430000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39840 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39841 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-58519 epss=0.002410000 percentile=0.152350000 cvss=5.4, not in CISA KEV"]
+
+["cargo-1.99.1"]
+cve = ["CVE-2026-39837","CVE-2026-39839","CVE-2026-39840","CVE-2026-39841","CVE-2026-58519"]
+comment = ["low risk in isolation: CVE-2026-39837 epss=0.002000000 percentile=0.097420000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2026-39839 epss=0.001920000 percentile=0.087430000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39840 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39841 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-58519 epss=0.002410000 percentile=0.152350000 cvss=5.4, not in CISA KEV"]
+
+["cargo-1.99.1-x86_64-unknown-linux-gnu"]
+cve = ["CVE-2026-39837","CVE-2026-39839","CVE-2026-39840","CVE-2026-39841","CVE-2026-58519"]
+comment = ["low risk in isolation: CVE-2026-39837 epss=0.002000000 percentile=0.097420000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2026-39839 epss=0.001920000 percentile=0.087430000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39840 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39841 epss=0.001680000 percentile=0.059800000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-58519 epss=0.002410000 percentile=0.152350000 cvss=5.4, not in CISA KEV"]
+
+["cfitsio-4.7.0"]
+cve = ["CVE-2026-111124","CVE-2026-111125"]
+comment = ["low risk in isolation: CVE-2026-111124 epss=0.002380000 percentile=0.147790000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-111125 epss=0.002450000 percentile=0.156690000 cvss=6.1, not in CISA KEV"]
+
+["cjson-1.7.19"]
+cve = ["CVE-2026-67216","CVE-2026-67217"]
+comment = ["low risk in isolation: CVE-2026-67216 epss=0.006450000 percentile=0.516940000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-67217 epss=0.004330000 percentile=0.380430000 cvss=5.3, not in CISA KEV"]
+
+["commonmark-0.2.6.1"]
+cve = ["CVE-2026-30838"]
+comment = ["low risk in isolation: CVE-2026-30838 epss=0.002450000 percentile=0.157300000 cvss=6.1, not in CISA KEV"]
+
+["cups-2.4.19"]
+cve = ["CVE-2022-26691","CVE-2026-107885","CVE-2026-107886","CVE-2026-107888","CVE-2026-107890","CVE-2026-55453","CVE-2026-55467","CVE-2026-55480","CVE-2026-61702"]
+comment = ["low risk in isolation: CVE-2022-26691 epss=0.005950000 percentile=0.491750000 cvss=6.7, not in CISA KEV","low risk in isolation: CVE-2026-107885 epss=0.001470000 percentile=0.039010000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-107886 epss=0.002410000 percentile=0.152160000 cvss=2.3, not in CISA KEV","low risk in isolation: CVE-2026-107888 epss=0.001330000 percentile=0.027850000 cvss=5.1, not in CISA KEV","low risk in isolation: CVE-2026-107890 epss=0.001490000 percentile=0.040400000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-55453 epss=0.001950000 percentile=0.090150000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-55467 epss=0.001820000 percentile=0.077150000 cvss=2.5, not in CISA KEV","low risk in isolation: CVE-2026-55480 epss=0.002020000 percentile=0.100240000 cvss=5.7, not in CISA KEV","low risk in isolation: CVE-2026-61702 epss=0.004240000 percentile=0.372310000 cvss=5.3, not in CISA KEV"]
+
+["curl-0.4.49"]
+cve = ["CVE-2022-27776","CVE-2022-35252","CVE-2022-43552","CVE-2023-28320","CVE-2023-28321","CVE-2023-28322"]
+comment = ["low risk in isolation: CVE-2022-27776 epss=0.040980000 percentile=0.909080000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-35252 epss=0.041000000 percentile=0.909150000 cvss=3.7, not in CISA KEV","low risk in isolation: CVE-2022-43552 epss=0.027660000 percentile=0.865600000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2023-28320 epss=0.026580000 percentile=0.859580000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2023-28321 epss=0.018060000 percentile=0.790100000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2023-28322 epss=0.022110000 percentile=0.829460000 cvss=3.7, not in CISA KEV"]
+
+["dash-0.5.13.5"]
+cve = ["CVE-2024-21485"]
+comment = ["low risk in isolation: CVE-2024-21485 epss=0.014750000 percentile=0.743700000 cvss=6.5, not in CISA KEV"]
+
+["dbus-0.9.10"]
+cve = ["CVE-2022-42010","CVE-2022-42011","CVE-2022-42012"]
+comment = ["low risk in isolation: CVE-2022-42010 epss=0.011210000 percentile=0.668720000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-42011 epss=0.017680000 percentile=0.785560000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-42012 epss=0.017680000 percentile=0.785560000 cvss=6.5, not in CISA KEV"]
+
+["dbus-1"]
+cve = ["CVE-2022-42010","CVE-2022-42011","CVE-2022-42012"]
+comment = ["low risk in isolation: CVE-2022-42010 epss=0.011210000 percentile=0.668720000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-42011 epss=0.017680000 percentile=0.785560000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-42012 epss=0.017680000 percentile=0.785560000 cvss=6.5, not in CISA KEV"]
+
+["dhcpcd-10.3.2"]
+cve = ["CVE-2026-56113","CVE-2026-56114","CVE-2026-56116","CVE-2026-56117"]
+comment = ["low risk in isolation: CVE-2026-56113 epss=0.001750000 percentile=0.069660000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-56114 epss=0.001750000 percentile=0.069660000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-56116 epss=0.001880000 percentile=0.082600000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-56117 epss=0.000930000 percentile=0.005270000 cvss=4.7, not in CISA KEV"]
+
+["diff-0.1.13"]
+cve = ["CVE-2024-13278","CVE-2026-73478"]
+comment = ["low risk in isolation: CVE-2026-73478 epss=0.003130000 percentile=0.243790000 cvss=5.3, not in CISA KEV","name-collision false positive: CVE-2024-13278 affects drupal/diff (Packagist:https://packages.drupal.org/8 via DRUPAL-CONTRIB-2024-042), not nixpkgs diff-0.1.13"]
+
+["ffmpeg-7.1.5"]
+cve = ["CVE-2025-10256","CVE-2025-12343","CVE-2025-25468","CVE-2026-107660","CVE-2026-107675","CVE-2026-107676","CVE-2026-107677","CVE-2026-107678","CVE-2026-107695","CVE-2026-107696","CVE-2026-107697","CVE-2026-125064","CVE-2026-125065","CVE-2026-125066","CVE-2026-125067","CVE-2026-125068","CVE-2026-125172","CVE-2026-125173","CVE-2026-125174","CVE-2026-40962","CVE-2026-52295","CVE-2026-52296","CVE-2026-52297","CVE-2026-66037","CVE-2026-66038","CVE-2026-70629","CVE-2026-70630","CVE-2026-70631","CVE-2026-96611"]
+comment = ["low risk in isolation: CVE-2025-10256 epss=0.003420000 percentile=0.280750000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2025-12343 epss=0.001700000 percentile=0.063330000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2025-25468 epss=0.003810000 percentile=0.325940000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-107660 epss=0.001360000 percentile=0.029940000 cvss=4.8, not in CISA KEV","low risk in isolation: CVE-2026-107675 epss=0.001860000 percentile=0.080640000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-107676 epss=0.001420000 percentile=0.035010000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-107677 epss=0.001370000 percentile=0.030650000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107678 epss=0.000930000 percentile=0.004870000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107695 epss=0.004670000 percentile=0.409280000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-107696 epss=0.003590000 percentile=0.300420000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-107697 epss=0.003190000 percentile=0.251620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2026-125064 epss=0.001790000 percentile=0.074050000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125065 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125066 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125067 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125068 epss=0.001790000 percentile=0.074040000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125172 epss=0.001270000 percentile=0.023500000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-125173 epss=0.001620000 percentile=0.053280000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125174 epss=0.001790000 percentile=0.074040000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-40962 epss=0.001390000 percentile=0.032560000 cvss=4.9, not in CISA KEV","low risk in isolation: CVE-2026-52295 epss=0.001760000 percentile=0.070350000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-52296 epss=0.001580000 percentile=0.048830000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-52297 epss=0.001160000 percentile=0.016100000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-66037 epss=0.003490000 percentile=0.288830000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-66038 epss=0.002420000 percentile=0.153190000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-70629 epss=0.001750000 percentile=0.069240000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-70630 epss=0.001750000 percentile=0.069240000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-70631 epss=0.001780000 percentile=0.072870000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-96611 epss=0.001080000 percentile=0.011890000 cvss=6.9, not in CISA KEV"]
+
+["ffmpeg-8.1.3"]
+cve = ["CVE-2025-25468","CVE-2026-107675","CVE-2026-107676","CVE-2026-107677","CVE-2026-107678","CVE-2026-107696","CVE-2026-125064","CVE-2026-125065","CVE-2026-125066","CVE-2026-125067","CVE-2026-125068","CVE-2026-125172","CVE-2026-125173","CVE-2026-52295","CVE-2026-52296","CVE-2026-52297","CVE-2026-70629","CVE-2026-70630","CVE-2026-70631","CVE-2026-96611"]
+comment = ["low risk in isolation: CVE-2025-25468 epss=0.003810000 percentile=0.325940000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-107675 epss=0.001860000 percentile=0.080640000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-107676 epss=0.001420000 percentile=0.035010000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-107677 epss=0.001370000 percentile=0.030650000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107678 epss=0.000930000 percentile=0.004870000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107696 epss=0.003590000 percentile=0.300420000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-125064 epss=0.001790000 percentile=0.074050000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125065 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125066 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125067 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125068 epss=0.001790000 percentile=0.074040000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125172 epss=0.001270000 percentile=0.023500000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-125173 epss=0.001620000 percentile=0.053280000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-52295 epss=0.001760000 percentile=0.070350000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-52296 epss=0.001580000 percentile=0.048830000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-52297 epss=0.001160000 percentile=0.016100000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2026-70629 epss=0.001750000 percentile=0.069240000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-70630 epss=0.001750000 percentile=0.069240000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-70631 epss=0.001780000 percentile=0.072870000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-96611 epss=0.001080000 percentile=0.011890000 cvss=6.9, not in CISA KEV"]
+
+["ffmpeg-9.0.2"]
+cve = ["CVE-2025-25468","CVE-2026-107675","CVE-2026-107676","CVE-2026-107677","CVE-2026-107678","CVE-2026-107696","CVE-2026-125064","CVE-2026-125065","CVE-2026-125066","CVE-2026-125067","CVE-2026-125068","CVE-2026-125172","CVE-2026-125173"]
+comment = ["low risk in isolation: CVE-2025-25468 epss=0.003810000 percentile=0.325940000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-107675 epss=0.001860000 percentile=0.080640000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-107676 epss=0.001420000 percentile=0.035010000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-107677 epss=0.001370000 percentile=0.030650000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107678 epss=0.000930000 percentile=0.004870000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2026-107696 epss=0.003590000 percentile=0.300420000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-125064 epss=0.001790000 percentile=0.074050000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125065 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125066 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125067 epss=0.002200000 percentile=0.124230000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125068 epss=0.001790000 percentile=0.074040000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-125172 epss=0.001270000 percentile=0.023500000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-125173 epss=0.001620000 percentile=0.053280000 cvss=5.5, not in CISA KEV"]
+
+["filelock-0.1.1.9"]
+cve = ["CVE-2025-68146","CVE-2026-112909","CVE-2026-22701"]
+comment = ["low risk in isolation: CVE-2025-68146 epss=0.002040000 percentile=0.101950000 cvss=6.3, not in CISA KEV","low risk in isolation: CVE-2026-112909 epss=0.002200000 percentile=0.124660000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-22701 epss=0.001270000 percentile=0.023000000 cvss=5.3, not in CISA KEV"]
+
+["gcc-10.4.0"]
+cve = ["CVE-2023-4039"]
+comment = ["low risk in isolation: CVE-2023-4039 epss=0.010360000 percentile=0.645760000 cvss=4.8, not in CISA KEV"]
+
+["gcc-16.2.0"]
+cve = ["CVE-2023-4039"]
+comment = ["low risk in isolation: CVE-2023-4039 epss=0.010360000 percentile=0.645760000 cvss=4.8, not in CISA KEV"]
+
+["gcc-16.2.0-src"]
+cve = ["CVE-2023-4039"]
+comment = ["low risk in isolation: CVE-2023-4039 epss=0.010360000 percentile=0.645760000 cvss=4.8, not in CISA KEV"]
+
+["gcc-4.6.4"]
+cve = ["CVE-2023-4039"]
+comment = ["low risk in isolation: CVE-2023-4039 epss=0.010360000 percentile=0.645760000 cvss=4.8, not in CISA KEV"]
+
+["gimp-3.2.8"]
+cve = ["CVE-2026-78475","CVE-2026-79902","CVE-2026-80101","CVE-2026-82324","CVE-2026-82328","CVE-2026-82330","CVE-2026-82343"]
+comment = ["low risk in isolation: CVE-2026-78475 epss=0.002640000 percentile=0.183140000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-79902 epss=0.002660000 percentile=0.187600000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-80101 epss=0.002340000 percentile=0.141710000 cvss=4.4, not in CISA KEV","low risk in isolation: CVE-2026-82324 epss=0.001850000 percentile=0.080140000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-82328 epss=0.001840000 percentile=0.078520000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-82330 epss=0.002640000 percentile=0.183140000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-82343 epss=0.001830000 percentile=0.077950000 cvss=6.1, not in CISA KEV"]
+
+["git-2.56.0"]
+cve = ["CVE-2021-21684","CVE-2022-36884","CVE-2022-38663"]
+comment = ["low risk in isolation: CVE-2021-21684 epss=0.012420000 percentile=0.698120000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2022-36884 epss=0.010890000 percentile=0.660710000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2022-38663 epss=0.009670000 percentile=0.625080000 cvss=6.5, not in CISA KEV"]
+
+["glibc-2.44"]
+cve = ["CVE-2026-6238"]
+comment = ["low risk in isolation: CVE-2026-6238 epss=0.003580000 percentile=0.299260000 cvss=6.5, not in CISA KEV"]
+
+["glibc-2.44-57"]
+cve = ["CVE-2026-6238"]
+comment = ["low risk in isolation: CVE-2026-6238 epss=0.003580000 percentile=0.299260000 cvss=6.5, not in CISA KEV"]
+
+["glibc-2.44-57-source-unsecvars"]
+cve = ["CVE-2026-6238"]
+comment = ["low risk in isolation: CVE-2026-6238 epss=0.003580000 percentile=0.299260000 cvss=6.5, not in CISA KEV"]
+
+["go-1.24.13-linux-386-bootstrap"]
+cve = ["CVE-2023-49292","CVE-2026-27139","CVE-2026-27142","CVE-2026-32282","CVE-2026-32288","CVE-2026-32289","CVE-2026-39817","CVE-2026-39819","CVE-2026-39823","CVE-2026-39825","CVE-2026-39826","CVE-2026-42505"]
+comment = ["low risk in isolation: CVE-2023-49292 epss=0.003350000 percentile=0.271840000 cvss=4.9, not in CISA KEV","low risk in isolation: CVE-2026-27139 epss=0.002190000 percentile=0.122850000 cvss=2.5, not in CISA KEV","low risk in isolation: CVE-2026-27142 epss=0.003740000 percentile=0.317720000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-32282 epss=0.002970000 percentile=0.224520000 cvss=6.4, not in CISA KEV","low risk in isolation: CVE-2026-32288 epss=0.002950000 percentile=0.222720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-32289 epss=0.002950000 percentile=0.222740000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39817 epss=0.001700000 percentile=0.063180000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-39819 epss=0.001790000 percentile=0.074060000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39823 epss=0.003140000 percentile=0.245770000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39825 epss=0.003900000 percentile=0.336330000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39826 epss=0.003710000 percentile=0.314470000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-42505 epss=0.003820000 percentile=0.327150000 cvss=5.3, not in CISA KEV"]
+
+["go-1.24.13-linux-amd64-bootstrap"]
+cve = ["CVE-2023-49292","CVE-2026-27139","CVE-2026-27142","CVE-2026-32282","CVE-2026-32288","CVE-2026-32289","CVE-2026-39817","CVE-2026-39819","CVE-2026-39823","CVE-2026-39825","CVE-2026-39826","CVE-2026-42505"]
+comment = ["low risk in isolation: CVE-2023-49292 epss=0.003350000 percentile=0.271840000 cvss=4.9, not in CISA KEV","low risk in isolation: CVE-2026-27139 epss=0.002190000 percentile=0.122850000 cvss=2.5, not in CISA KEV","low risk in isolation: CVE-2026-27142 epss=0.003740000 percentile=0.317720000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-32282 epss=0.002970000 percentile=0.224520000 cvss=6.4, not in CISA KEV","low risk in isolation: CVE-2026-32288 epss=0.002950000 percentile=0.222720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-32289 epss=0.002950000 percentile=0.222740000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39817 epss=0.001700000 percentile=0.063180000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-39819 epss=0.001790000 percentile=0.074060000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39823 epss=0.003140000 percentile=0.245770000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39825 epss=0.003900000 percentile=0.336330000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39826 epss=0.003710000 percentile=0.314470000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-42505 epss=0.003820000 percentile=0.327150000 cvss=5.3, not in CISA KEV"]
+
+["go-1.24.13-linux-arm64-bootstrap"]
+cve = ["CVE-2023-49292","CVE-2026-27139","CVE-2026-27142","CVE-2026-32282","CVE-2026-32288","CVE-2026-32289","CVE-2026-39817","CVE-2026-39819","CVE-2026-39823","CVE-2026-39825","CVE-2026-39826","CVE-2026-42505"]
+comment = ["low risk in isolation: CVE-2023-49292 epss=0.003350000 percentile=0.271840000 cvss=4.9, not in CISA KEV","low risk in isolation: CVE-2026-27139 epss=0.002190000 percentile=0.122850000 cvss=2.5, not in CISA KEV","low risk in isolation: CVE-2026-27142 epss=0.003740000 percentile=0.317720000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-32282 epss=0.002970000 percentile=0.224520000 cvss=6.4, not in CISA KEV","low risk in isolation: CVE-2026-32288 epss=0.002950000 percentile=0.222720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-32289 epss=0.002950000 percentile=0.222740000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39817 epss=0.001700000 percentile=0.063180000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-39819 epss=0.001790000 percentile=0.074060000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39823 epss=0.003140000 percentile=0.245770000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-39825 epss=0.003900000 percentile=0.336330000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-39826 epss=0.003710000 percentile=0.314470000 cvss=6.1, not in CISA KEV","low risk in isolation: CVE-2026-42505 epss=0.003820000 percentile=0.327150000 cvss=5.3, not in CISA KEV"]
+
+["go-1.26.11"]
+cve = ["CVE-2023-49292"]
+comment = ["low risk in isolation: CVE-2023-49292 epss=0.003350000 percentile=0.271840000 cvss=4.9, not in CISA KEV"]
+
+["go-1.27.3"]
+cve = ["CVE-2023-49292"]
+comment = ["low risk in isolation: CVE-2023-49292 epss=0.003350000 percentile=0.271840000 cvss=4.9, not in CISA KEV"]
+
+["gzip-1.2.4"]
+cve = ["CVE-2026-41991"]
+comment = ["low risk in isolation: CVE-2026-41991 epss=0.001170000 percentile=0.016680000 cvss=4.7, not in CISA KEV"]
+
+["hedgehog-1.5"]
+cve = ["CVE-2021-4276"]
+comment = ["low risk in isolation: CVE-2021-4276 epss=0.006540000 percentile=0.520720000 cvss=4.1, not in CISA KEV"]
+
+["hedgehog-1.5-r2.cabal"]
+cve = ["CVE-2021-4276"]
+comment = ["low risk in isolation: CVE-2021-4276 epss=0.006540000 percentile=0.520720000 cvss=4.1, not in CISA KEV"]
+
+["home-0.5.12"]
+cve = ["CVE-2021-25264","CVE-2024-52327"]
+comment = ["low risk in isolation: CVE-2021-25264 epss=0.003110000 percentile=0.241150000 cvss=6.7, not in CISA KEV","low risk in isolation: CVE-2024-52327 epss=0.004850000 percentile=0.423010000 cvss=6.5, not in CISA KEV"]
+
+["inetutils-2.7"]
+cve = ["CVE-2026-32772"]
+comment = ["low risk in isolation: CVE-2026-32772 epss=0.002190000 percentile=0.122180000 cvss=3.4, not in CISA KEV"]
+
+["jam-2.6.1"]
+cve = ["CVE-2025-3841"]
+comment = ["low risk in isolation: CVE-2025-3841 epss=0.004600000 percentile=0.403260000 cvss=3.3, not in CISA KEV"]
+
+["jam-2.6.1.tar"]
+cve = ["CVE-2025-3841"]
+comment = ["low risk in isolation: CVE-2025-3841 epss=0.004600000 percentile=0.403260000 cvss=3.3, not in CISA KEV"]
+
+["jbig2dec-0.20"]
+cve = ["CVE-2023-46361"]
+comment = ["low risk in isolation: CVE-2023-46361 epss=0.008820000 percentile=0.599100000 cvss=6.5, not in CISA KEV"]
+
+["jq-1.8.2"]
+cve = ["CVE-2026-44777"]
+comment = ["low risk in isolation: CVE-2026-44777 epss=0.001610000 percentile=0.052080000 cvss=5.5, not in CISA KEV"]
+
+["kcoreaddons-5.116.0"]
+cve = ["CVE-2026-41526"]
+comment = ["low risk in isolation: CVE-2026-41526 epss=0.001700000 percentile=0.063620000 cvss=6.5, not in CISA KEV"]
+
+["libmpeg2-0.5.1"]
+cve = ["CVE-2022-37416"]
+comment = ["low risk in isolation: CVE-2022-37416 epss=0.009590000 percentile=0.622110000 cvss=6.5, not in CISA KEV"]
+
+["libsndfile-1.2.2"]
+cve = ["CVE-2024-50612","CVE-2024-50613","CVE-2025-56226"]
+comment = ["low risk in isolation: CVE-2024-50612 epss=0.003080000 percentile=0.238520000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2024-50613 epss=0.005400000 percentile=0.460650000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2025-56226 epss=0.003740000 percentile=0.317570000 cvss=5.3, not in CISA KEV"]
+
+["libssh2-1.11.1"]
+cve = ["CVE-2025-15661","CVE-2026-55199","CVE-2026-58051"]
+comment = ["low risk in isolation: CVE-2025-15661 epss=0.006480000 percentile=0.518060000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-55199 epss=0.009180000 percentile=0.609800000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-58051 epss=0.002860000 percentile=0.211990000 cvss=6.5, not in CISA KEV"]
+
+["lua-5.2.4"]
+cve = ["CVE-2021-43519"]
+comment = ["low risk in isolation: CVE-2021-43519 epss=0.012220000 percentile=0.693350000 cvss=5.5, not in CISA KEV"]
+
+["lua-5.2.4-env"]
+cve = ["CVE-2021-43519"]
+comment = ["low risk in isolation: CVE-2021-43519 epss=0.012220000 percentile=0.693350000 cvss=5.5, not in CISA KEV"]
+
+["malcontent-0.13.1"]
+cve = ["CVE-2026-24845","CVE-2026-28407"]
+comment = ["low risk in isolation: CVE-2026-24845 epss=0.003750000 percentile=0.318830000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-28407 epss=0.004200000 percentile=0.368180000 cvss=5.3, not in CISA KEV"]
+
+["mercurial-7.2.2"]
+cve = ["CVE-2022-43410"]
+comment = ["low risk in isolation: CVE-2022-43410 epss=0.008280000 percentile=0.582470000 cvss=5.3, not in CISA KEV"]
+
+["mercurial-7.2.2-vendor"]
+cve = ["CVE-2022-43410"]
+comment = ["low risk in isolation: CVE-2022-43410 epss=0.008280000 percentile=0.582470000 cvss=5.3, not in CISA KEV"]
+
+["mercurial-7.2.2-vendor-staging"]
+cve = ["CVE-2022-43410"]
+comment = ["low risk in isolation: CVE-2022-43410 epss=0.008280000 percentile=0.582470000 cvss=5.3, not in CISA KEV"]
+
+["network-3.2.8.0"]
+cve = ["CVE-2021-35050","CVE-2022-0486","CVE-2022-0997"]
+comment = ["low risk in isolation: CVE-2021-35050 epss=0.010330000 percentile=0.645060000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-0486 epss=0.003860000 percentile=0.331470000 cvss=4.4, not in CISA KEV","low risk in isolation: CVE-2022-0997 epss=0.005160000 percentile=0.445120000 cvss=3.9, not in CISA KEV"]
+
+["ninja-1.13.2"]
+cve = ["CVE-2021-4336"]
+comment = ["low risk in isolation: CVE-2021-4336 epss=0.006040000 percentile=0.496440000 cvss=5.5, not in CISA KEV"]
+
+["nix-0.23.2"]
+cve = ["CVE-2024-27297"]
+comment = ["low risk in isolation: CVE-2024-27297 epss=0.005860000 percentile=0.486940000 cvss=6.3, not in CISA KEV"]
+
+["nix-0.29.0"]
+cve = ["CVE-2024-27297"]
+comment = ["low risk in isolation: CVE-2024-27297 epss=0.005860000 percentile=0.486940000 cvss=6.3, not in CISA KEV"]
+
+["nix-0.31.1"]
+cve = ["CVE-2024-27297"]
+comment = ["low risk in isolation: CVE-2024-27297 epss=0.005860000 percentile=0.486940000 cvss=6.3, not in CISA KEV"]
+
+["nix-0.31.3"]
+cve = ["CVE-2024-27297"]
+comment = ["low risk in isolation: CVE-2024-27297 epss=0.005860000 percentile=0.486940000 cvss=6.3, not in CISA KEV"]
+
+["nix-0.32.0"]
+cve = ["CVE-2024-27297"]
+comment = ["low risk in isolation: CVE-2024-27297 epss=0.005860000 percentile=0.486940000 cvss=6.3, not in CISA KEV"]
+
+["openmp-21.1.8"]
+cve = ["CVE-2022-26345"]
+comment = ["low risk in isolation: CVE-2022-26345 epss=0.001790000 percentile=0.074220000 cvss=6.7, not in CISA KEV"]
+
+["openmp-22.0.0-rocm"]
+cve = ["CVE-2022-26345"]
+comment = ["low risk in isolation: CVE-2022-26345 epss=0.001790000 percentile=0.074220000 cvss=6.7, not in CISA KEV"]
+
+["paste-1.0.15"]
+cve = ["CVE-2022-21948"]
+comment = ["low risk in isolation: CVE-2022-21948 epss=0.005150000 percentile=0.444590000 cvss=4.3, not in CISA KEV"]
+
+["php-calendar-8.4.28"]
+cve = ["CVE-2022-4455"]
+comment = ["low risk in isolation: CVE-2022-4455 epss=0.006420000 percentile=0.515370000 cvss=3.5, not in CISA KEV"]
+
+["pip-20.3.4-source"]
+cve = ["CVE-2021-3572","CVE-2023-5752","CVE-2026-13346","CVE-2026-8643"]
+comment = ["low risk in isolation: CVE-2021-3572 epss=0.018290000 percentile=0.792840000 cvss=5.7, not in CISA KEV","low risk in isolation: CVE-2023-5752 epss=0.005020000 percentile=0.435510000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-13346 epss=0.002920000 percentile=0.219270000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2026-8643 epss=0.003200000 percentile=0.252030000 cvss=5.5, not in CISA KEV"]
+
+["python-2.7.18.12"]
+cve = ["CVE-2021-3733","CVE-2022-48564","CVE-2022-48566","CVE-2023-40217","CVE-2025-12084","CVE-2025-12781","CVE-2025-13462","CVE-2025-13837","CVE-2025-6075","CVE-2026-0864","CVE-2026-4360","CVE-2026-4519","CVE-2026-6019"]
+comment = ["low risk in isolation: CVE-2021-3733 epss=0.047990000 percentile=0.920790000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-48564 epss=0.016510000 percentile=0.770350000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-48566 epss=0.013010000 percentile=0.710600000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2023-40217 epss=0.007970000 percentile=0.572550000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2025-12084 epss=0.008560000 percentile=0.591370000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2025-12781 epss=0.008590000 percentile=0.592190000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2025-13462 epss=0.001830000 percentile=0.077460000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2025-13837 epss=0.002390000 percentile=0.149290000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2025-6075 epss=0.001490000 percentile=0.040580000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-0864 epss=0.001260000 percentile=0.022710000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2026-4360 epss=0.004810000 percentile=0.420230000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2026-4519 epss=0.003520000 percentile=0.291590000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2026-6019 epss=0.002190000 percentile=0.122510000 cvss=6.1, not in CISA KEV"]
+
+["python-3.14.6"]
+cve = ["CVE-2026-0864"]
+comment = ["low risk in isolation: CVE-2026-0864 epss=0.001260000 percentile=0.022710000 cvss=5.5, not in CISA KEV"]
+
+["safe-0.3.21"]
+cve = ["CVE-2021-33594","CVE-2021-33595","CVE-2021-33596","CVE-2021-40834","CVE-2021-40835","CVE-2021-44751","CVE-2022-28868","CVE-2022-28869","CVE-2022-28870","CVE-2022-28872","CVE-2022-28873","CVE-2022-38163","CVE-2022-38164","CVE-2022-47524"]
+comment = ["low risk in isolation: CVE-2021-33594 epss=0.010750000 percentile=0.656760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-33595 epss=0.010750000 percentile=0.656760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-33596 epss=0.007970000 percentile=0.572570000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-40834 epss=0.007510000 percentile=0.557290000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2021-40835 epss=0.007290000 percentile=0.549500000 cvss=4.6, not in CISA KEV","low risk in isolation: CVE-2021-44751 epss=0.005590000 percentile=0.472140000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28868 epss=0.005490000 percentile=0.465590000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28869 epss=0.004620000 percentile=0.405620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28870 epss=0.004620000 percentile=0.405620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28872 epss=0.004990000 percentile=0.433220000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28873 epss=0.005800000 percentile=0.483620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-38163 epss=0.007160000 percentile=0.544760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2022-38164 epss=0.005270000 percentile=0.452510000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-47524 epss=0.003770000 percentile=0.320840000 cvss=5.4, not in CISA KEV"]
+
+["safe-0.3.21-r1.cabal"]
+cve = ["CVE-2021-33594","CVE-2021-33595","CVE-2021-33596","CVE-2021-40834","CVE-2021-40835","CVE-2021-44751","CVE-2022-28868","CVE-2022-28869","CVE-2022-28870","CVE-2022-28872","CVE-2022-28873","CVE-2022-38163","CVE-2022-38164","CVE-2022-47524"]
+comment = ["low risk in isolation: CVE-2021-33594 epss=0.010750000 percentile=0.656760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-33595 epss=0.010750000 percentile=0.656760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-33596 epss=0.007970000 percentile=0.572570000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2021-40834 epss=0.007510000 percentile=0.557290000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2021-40835 epss=0.007290000 percentile=0.549500000 cvss=4.6, not in CISA KEV","low risk in isolation: CVE-2021-44751 epss=0.005590000 percentile=0.472140000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28868 epss=0.005490000 percentile=0.465590000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28869 epss=0.004620000 percentile=0.405620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28870 epss=0.004620000 percentile=0.405620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28872 epss=0.004990000 percentile=0.433220000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-28873 epss=0.005800000 percentile=0.483620000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2022-38163 epss=0.007160000 percentile=0.544760000 cvss=3.5, not in CISA KEV","low risk in isolation: CVE-2022-38164 epss=0.005270000 percentile=0.452510000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-47524 epss=0.003770000 percentile=0.320840000 cvss=5.4, not in CISA KEV"]
+
+["semver-1.0.28"]
+cve = ["CVE-2022-25883"]
+comment = ["low risk in isolation: CVE-2022-25883 epss=0.027610000 percentile=0.865320000 cvss=5.3, not in CISA KEV"]
+
+["setuptools-44.0.0-source"]
+cve = ["CVE-2022-40897","CVE-2026-59890"]
+comment = ["low risk in isolation: CVE-2022-40897 epss=0.026320000 percentile=0.858140000 cvss=5.9, not in CISA KEV","low risk in isolation: CVE-2026-59890 epss=0.005300000 percentile=0.454540000 cvss=6.1, not in CISA KEV"]
+
+["subversion-1.14.5"]
+cve = ["CVE-2022-29046","CVE-2022-29048"]
+comment = ["low risk in isolation: CVE-2022-29046 epss=0.025120000 percentile=0.850830000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2022-29048 epss=0.018750000 percentile=0.798180000 cvss=4.3, not in CISA KEV"]
+
+["taglib-1.13.1"]
+cve = ["CVE-2023-47466"]
+comment = ["low risk in isolation: CVE-2023-47466 epss=0.003250000 percentile=0.258680000 cvss=2.9, not in CISA KEV"]
+
+["tap-1.0.1"]
+cve = ["CVE-2023-41940"]
+comment = ["low risk in isolation: CVE-2023-41940 epss=0.006070000 percentile=0.497680000 cvss=5.4, not in CISA KEV"]
+
+["unzip-6.0"]
+cve = ["CVE-2021-4217","CVE-2022-0529","CVE-2022-0530"]
+comment = ["low risk in isolation: CVE-2021-4217 epss=0.006180000 percentile=0.503250000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2022-0529 epss=0.024210000 percentile=0.844850000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2022-0530 epss=0.020910000 percentile=0.819860000 cvss=5.5, not in CISA KEV"]
+
+["uuid-1.20.0"]
+cve = ["CVE-2026-41988"]
+comment = ["low risk in isolation: CVE-2026-41988 epss=0.001880000 percentile=0.083380000 cvss=3.2, not in CISA KEV"]
+
+["vault-0.3.1.6"]
+cve = ["CVE-2021-3024","CVE-2021-38554","CVE-2021-41802","CVE-2022-41316","CVE-2023-0620","CVE-2023-0665","CVE-2023-2121","CVE-2023-24999","CVE-2023-25000","CVE-2024-8365","CVE-2025-4166","CVE-2025-6011","CVE-2025-6014","CVE-2025-6037"]
+comment = ["low risk in isolation: CVE-2021-3024 epss=0.013720000 percentile=0.725230000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2021-38554 epss=0.009110000 percentile=0.607270000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2021-41802 epss=0.006090000 percentile=0.498820000 cvss=2.9, not in CISA KEV","low risk in isolation: CVE-2022-41316 epss=0.005220000 percentile=0.448870000 cvss=5.3, not in CISA KEV","low risk in isolation: CVE-2023-0620 epss=0.003780000 percentile=0.322440000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2023-0665 epss=0.003320000 percentile=0.266620000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2023-2121 epss=0.004170000 percentile=0.365120000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2023-24999 epss=0.005970000 percentile=0.492400000 cvss=4.4, not in CISA KEV","low risk in isolation: CVE-2023-25000 epss=0.002100000 percentile=0.110420000 cvss=5.0, not in CISA KEV","low risk in isolation: CVE-2024-8365 epss=0.004550000 percentile=0.399560000 cvss=6.2, not in CISA KEV","low risk in isolation: CVE-2025-4166 epss=0.004570000 percentile=0.401380000 cvss=4.5, not in CISA KEV","low risk in isolation: CVE-2025-6011 epss=0.003830000 percentile=0.328170000 cvss=3.7, not in CISA KEV","low risk in isolation: CVE-2025-6014 epss=0.004680000 percentile=0.410170000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2025-6037 epss=0.002690000 percentile=0.190860000 cvss=6.8, not in CISA KEV"]
+
+["warp-3.4.9"]
+cve = ["CVE-2022-2145","CVE-2022-3320","CVE-2022-3512","CVE-2022-4457","CVE-2023-0238","CVE-2023-0654"]
+comment = ["low risk in isolation: CVE-2022-2145 epss=0.003060000 percentile=0.235380000 cvss=5.8, not in CISA KEV","low risk in isolation: CVE-2022-3320 epss=0.004530000 percentile=0.398230000 cvss=6.7, not in CISA KEV","low risk in isolation: CVE-2022-3512 epss=0.004710000 percentile=0.412870000 cvss=6.7, not in CISA KEV","low risk in isolation: CVE-2022-4457 epss=0.001720000 percentile=0.065000000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-0238 epss=0.002060000 percentile=0.104440000 cvss=3.9, not in CISA KEV","low risk in isolation: CVE-2023-0654 epss=0.002170000 percentile=0.120350000 cvss=3.9, not in CISA KEV"]
+
+["wire-0.7.0"]
+cve = ["CVE-2021-21301","CVE-2021-32666","CVE-2021-32755","CVE-2022-23625","CVE-2022-31009","CVE-2022-43673","CVE-2023-22737"]
+comment = ["low risk in isolation: CVE-2021-21301 epss=0.010330000 percentile=0.644490000 cvss=2.6, not in CISA KEV","low risk in isolation: CVE-2021-32666 epss=0.009210000 percentile=0.610500000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2021-32755 epss=0.003140000 percentile=0.244940000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2022-23625 epss=0.012390000 percentile=0.697340000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-31009 epss=0.006980000 percentile=0.538120000 cvss=5.7, not in CISA KEV","low risk in isolation: CVE-2022-43673 epss=0.002950000 percentile=0.222630000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2023-22737 epss=0.007640000 percentile=0.561550000 cvss=6.5, not in CISA KEV"]
+
+["wire-0.7.0-go-modules"]
+cve = ["CVE-2021-21301","CVE-2021-32666","CVE-2021-32755","CVE-2022-23625","CVE-2022-31009","CVE-2022-43673","CVE-2023-22737"]
+comment = ["low risk in isolation: CVE-2021-21301 epss=0.010330000 percentile=0.644490000 cvss=2.6, not in CISA KEV","low risk in isolation: CVE-2021-32666 epss=0.009210000 percentile=0.610500000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2021-32755 epss=0.003140000 percentile=0.244940000 cvss=5.4, not in CISA KEV","low risk in isolation: CVE-2022-23625 epss=0.012390000 percentile=0.697340000 cvss=6.5, not in CISA KEV","low risk in isolation: CVE-2022-31009 epss=0.006980000 percentile=0.538120000 cvss=5.7, not in CISA KEV","low risk in isolation: CVE-2022-43673 epss=0.002950000 percentile=0.222630000 cvss=4.7, not in CISA KEV","low risk in isolation: CVE-2023-22737 epss=0.007640000 percentile=0.561550000 cvss=6.5, not in CISA KEV"]
+
+["word-wrap-0.5"]
+cve = ["CVE-2023-26115"]
+comment = ["low risk in isolation: CVE-2023-26115 epss=0.017090000 percentile=0.778100000 cvss=5.3, not in CISA KEV"]
+
+["yaml-0.11.11.2"]
+cve = ["CVE-2021-4235"]
+comment = ["low risk in isolation: CVE-2021-4235 epss=0.004270000 percentile=0.374830000 cvss=5.5, not in CISA KEV"]
+
+["yaml-0.11.11.2-r2.cabal"]
+cve = ["CVE-2021-4235"]
+comment = ["low risk in isolation: CVE-2021-4235 epss=0.004270000 percentile=0.374830000 cvss=5.5, not in CISA KEV"]
+
+["yarn-1.22.22"]
+cve = ["CVE-2025-8262","CVE-2025-9308"]
+comment = ["low risk in isolation: CVE-2025-8262 epss=0.008430000 percentile=0.587010000 cvss=4.3, not in CISA KEV","low risk in isolation: CVE-2025-9308 epss=0.002460000 percentile=0.157410000 cvss=3.3, not in CISA KEV"]
+
+["yasm-1.3.0"]
+cve = ["CVE-2021-33454","CVE-2021-33455","CVE-2021-33456","CVE-2021-33457","CVE-2021-33458","CVE-2021-33459","CVE-2021-33460","CVE-2021-33461","CVE-2021-33462","CVE-2021-33463","CVE-2021-33464","CVE-2021-33465","CVE-2021-33466","CVE-2021-33467","CVE-2021-33468","CVE-2023-30402","CVE-2023-31972","CVE-2023-31973","CVE-2023-31974","CVE-2023-31975","CVE-2023-51258"]
+comment = ["low risk in isolation: CVE-2021-33454 epss=0.003380000 percentile=0.274540000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33455 epss=0.003250000 percentile=0.257720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33456 epss=0.003250000 percentile=0.257730000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33457 epss=0.003250000 percentile=0.257720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33458 epss=0.003250000 percentile=0.257730000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33459 epss=0.003340000 percentile=0.269930000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33460 epss=0.003120000 percentile=0.243420000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33461 epss=0.003250000 percentile=0.257710000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33462 epss=0.003120000 percentile=0.243410000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33463 epss=0.003250000 percentile=0.257720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33464 epss=0.003120000 percentile=0.243420000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33465 epss=0.003250000 percentile=0.257710000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33466 epss=0.003250000 percentile=0.257730000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33467 epss=0.003120000 percentile=0.243420000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2021-33468 epss=0.003250000 percentile=0.257720000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-30402 epss=0.002910000 percentile=0.217140000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-31972 epss=0.002880000 percentile=0.213900000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-31973 epss=0.003100000 percentile=0.240420000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-31974 epss=0.002880000 percentile=0.213900000 cvss=5.5, not in CISA KEV","low risk in isolation: CVE-2023-31975 epss=0.004670000 percentile=0.409300000 cvss=3.3, not in CISA KEV","low risk in isolation: CVE-2023-51258 epss=0.002590000 percentile=0.175300000 cvss=5.5, not in CISA KEV"]
+
+["zlib-0.7.1.1"]
+cve = ["CVE-2023-6992"]
+comment = ["low risk in isolation: CVE-2023-6992 epss=0.002350000 percentile=0.144370000 cvss=4.0, not in CISA KEV"]
+
+["zlib-1.3.2"]
+cve = ["CVE-2023-6992"]
+comment = ["low risk in isolation: CVE-2023-6992 epss=0.002350000 percentile=0.144370000 cvss=4.0, not in CISA KEV"]
+
