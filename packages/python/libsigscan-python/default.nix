@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libsigscan-python";
-  version = "20240505";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-pCyXpLFSq738mA8/wMsgcsMPECfjIqxeKn83FpWOqN8=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libsigscan/releases/download/20260902/libsigscan-experimental-20260902.tar.gz";
+    hash = "sha256-Zgj2NvhpGRirzFuqzPz+Vjppze9mz6bOrUTpJihjc38=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pysigscan" ];
 

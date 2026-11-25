@@ -1,27 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libfwsi-python";
-  version = "20240423";
+  version = "20260522";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-2lgCmNhsSr8uD4Ed5scw+BWSxhxCt+d/jyrwZSVaKEM=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfwsi/releases/download/20260522/libfwsi-experimental-20260522.tar.gz";
+    hash = "sha256-fX/XJgXyscVM5z8ZsuAcJ5oLivY6HNYalaltzhcN5h0=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfwsi" ];
 

@@ -1,28 +1,31 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libqcow-python";
-  version = "20240308";
+  version = "20260703";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-6bPjrY0uiJu4nVWklso9lzyoAEMBASeGvLr2H5h5YWU=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libqcow/releases/download/20260703/libqcow-alpha-20260703.tar.gz";
+    hash = "sha256-1y8m8MBhCWC8Aux8Zksp1TweV0QFKk7uqIXtUCkowEs=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyqcow" ];
 

@@ -1,33 +1,36 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libevtx-python";
-  version = "20240504";
+  version = "20260705";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-YkrFbZnVe1rMWNvLIaz1lsKuQFk433knSta4ENIIrdY=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libevtx/releases/download/20260705/libevtx-alpha-20260705.tar.gz";
+    hash = "sha256-NIacOgHgSh6q4rCfOrExLLq0WgXMlacFkreD8WW2F8A=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyevtx" ];
 
   meta = with lib; rec {
     changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libevtx";
-    homepage = "https://github.com/libyal/libevtx";
     downloadPage = "https://github.com/libyal/libevtx/releases";
+    homepage = "https://github.com/libyal/libevtx";
     license = licenses.lgpl3Plus;
   };
 }

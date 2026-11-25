@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libolecf-python";
-  version = "20240427";
+  version = "20260526";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-Awz/Gbc7MPDwEPPR5C06/kzAE69uYLswQMdo8AQW+/0=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libolecf/releases/download/20260526/libolecf-alpha-20260526.tar.gz";
+    hash = "sha256-ov/OcSg+pRVv4oVvXJuhxNbNk7TXxHUA2BaETqgr2qo=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyolecf" ];
 

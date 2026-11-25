@@ -43,6 +43,7 @@ in
     nvidia
     openssh
     pulse-eight-cec
+    retroarch
     systemd-boot
     sudo
     time
@@ -84,6 +85,10 @@ in
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   kde-big-picture.autoLoginUser = "jynx";
+
+  # RetroArch is now a peer module (no longer pulled in by kde-big-picture),
+  # so enable it here to keep the bigscreen host's behaviour identical.
+  programs.retroarch.enable = true;
 
   networking = {
     hostName = "jynx";

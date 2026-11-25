@@ -1,28 +1,31 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libfvde-python";
-  version = "20240502";
+  version = "20260923";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-QEJ4VEXkLryDMPzqsuTkRSJfcG1/kKuhJ/WHy4Lq/nQ=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfvde/releases/download/20260923/libfvde-experimental-20260923.tar.gz";
+    hash = "sha256-bXVb7t9QB155nXwbltA3ukCGulLCL6SvSFyJ2PZrHos=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfvde" ];
 

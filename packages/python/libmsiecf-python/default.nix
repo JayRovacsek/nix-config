@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libmsiecf-python";
-  version = "20240425";
+  version = "20260525";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-mdylekKq2hfUO8xQkbvr9F0X5hMp2zE3qkFvfyw9rhY=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libmsiecf/releases/download/20260525/libmsiecf-alpha-20260525.tar.gz";
+    hash = "sha256-uPhNELT7nfpZJnEZA+FjGY1nP6NhnF3DISKKSOS2cB8=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pymsiecf" ];
 

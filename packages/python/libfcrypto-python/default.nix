@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libfcrypto-python";
-  version = "20240414";
+  version = "20260521";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-I7UKtc4+ELoijGzGpFHxrBml1MesRxRQ2/BC35bZ4AQ=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfcrypto/releases/download/20260521/libfcrypto-alpha-20260521.tar.gz";
+    hash = "sha256-xih60bWFFxtmkMQqWkTCrpT2DQc9odsefV3NX5hCwZE=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfcrypto" ];
 

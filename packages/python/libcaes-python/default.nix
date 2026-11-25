@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libcaes-python";
-  version = "20240413";
+  version = "20261028";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-L39X0Y65cRAkATLVxS+v32A7VNeVL6uJVOBHENNlDqo=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libcaes/releases/download/20261028/libcaes-alpha-20261028.tar.gz";
+    hash = "sha256-cq87HLINb9v1ZPnw8wvjtKkwpN2dHugHBZQmC132Bxc=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pycaes" ];
 

@@ -1,36 +1,39 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libfshfs-python";
-  version = "20240501";
+  version = "20260922";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-Jme2+FiWW7hGGmpuvm2HsdRiLUCX+rizxsh5FSk/kDY=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfshfs/releases/download/20260922/libfshfs-experimental-20260922.tar.gz";
+    hash = "sha256-ROK5L7n25UB0YV6r62kIRz6yDwDP0FymOIAq15TGoGc=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfshfs" ];
 
-  meta = with lib; {
+  meta = with lib; rec {
+    changelog = "${homepage}/releases/tag/${version}";
     description = "Python bindings module for libfshfs";
-
-    homepage = "https://github.com/libyal/libfshfs";
     downloadPage = "https://github.com/libyal/libfshfs/releases";
+    homepage = "https://github.com/libyal/libfshfs";
     license = licenses.lgpl3Plus;
   };
 }

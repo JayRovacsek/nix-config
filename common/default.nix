@@ -5,9 +5,9 @@ let
   readPackageDirectory =
     dir:
     builtins.attrNames (
-      lib.filterAttrs (
-        n: v: v == "directory" && builtins.pathExists (dir + "/${n}/default.nix")
-      ) (builtins.readDir dir)
+      lib.filterAttrs (n: v: v == "directory" && builtins.pathExists (dir + "/${n}/default.nix")) (
+        builtins.readDir dir
+      )
     );
 in
 {

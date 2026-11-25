@@ -20,6 +20,10 @@
 #                     accepted) and `allowPrivateHosts`, plus the forwarded
 #                     inference port, plus the read-only `gitPaths` mounts.
 #   ai-limited-yolo — ai-limited with `opencode --auto`.
+#   ai-limited-kvm     — ai-limited plus `--kvm` (/dev/kvm passthrough for
+#                        hardware virtualisation); reuses the limited tier's
+#                        host allow-lists.
+#   ai-limited-kvm-yolo — ai-limited-kvm with `opencode --auto`.
 #   ai-open         — unrestricted network (--network); local access stays
 #                     limited to the project dir and the private tmp home
 #                     (host loopback is directly reachable, so no forward),
@@ -104,6 +108,20 @@ let
       ]
       ++ mapArgs cfg.gitPaths
       ++ cfg.profiles.limited.extraArgs;
+
+    # ai-limited plus /dev/kvm passthrough (`--kvm`) for hardware
+    # virtualisation. Reuses the limited tier's host allow-lists (it is
+    # "limited + kvm") and has its own extraArgs.
+    "limited-kvm" =
+      allowHostArgs cfg.profiles.limited.allowHosts
+      ++ allowPrivateHostArgs cfg.profiles.limited.allowPrivateHosts
+      ++ [
+        "--forward-port"
+        (toString cfg.inferencePort)
+      ]
+      ++ mapArgs cfg.gitPaths
+      ++ [ "--kvm" ]
+      ++ cfg.profiles."limited-kvm".extraArgs;
 
     open = [ "--network" ] ++ mapArgs cfg.gitPaths ++ cfg.profiles.open.extraArgs;
   };
@@ -270,6 +288,33 @@ in
         };
       };
 
+      # ai-limited-kvm reuses the limited tier's host allow-lists, so it only
+      # needs its own enable/yolo/extraArgs controls.
+      "limited-kvm" = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Whether to provide the ai-limited-kvm wrapper.";
+        };
+
+        yolo = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = ''
+            Whether to provide the ai-limited-kvm-yolo wrapper: the same jail
+            as ai-limited-kvm, launching opencode with `--auto` so permissions
+            that are not explicitly denied are auto-approved. Has no effect
+            when `profiles.limited-kvm.enable` is false.
+          '';
+        };
+
+        extraArgs = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          description = "Extra ai-jail flags appended to the ai-limited-kvm wrapper.";
+        };
+      };
+
       open = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -303,6 +348,7 @@ in
     ]
     ++ mkTierPackages "locked"
     ++ mkTierPackages "limited"
+    ++ mkTierPackages "limited-kvm"
     ++ mkTierPackages "open";
   };
 }

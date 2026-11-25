@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libvhdi-python";
-  version = "20240509";
+  version = "20260901";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-5hyA2suR9DQh9IvKVWSvD7ujw5RWjL0B3Y+aCXblLvQ=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libvhdi/releases/download/20260901/libvhdi-alpha-20260901.tar.gz";
+    hash = "sha256-tcbxC5S96luQL8dKmE8K5MKbm7JPgbYxjFs41gu6JPI=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyvhdi" ];
 

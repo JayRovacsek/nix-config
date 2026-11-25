@@ -97,8 +97,20 @@ let
   home-assistant-vhost = generate-vhosts {
     inherit config;
     inherit (home-assistant) subdomain;
-    overrides.locations."/".proxyPass =
-      "${home-assistant.protocol}://${home-assistant.ipv4}:${builtins.toString home-assistant.port}";
+    overrides =
+      let
+        proxyPass = "${home-assistant.protocol}://${home-assistant.ipv4}:${builtins.toString home-assistant.port}";
+      in
+      {
+        locations = {
+          "/" = { inherit proxyPass; };
+          "~ ^/(api|local|media)/" = {
+            extraConfig = "";
+            inherit proxyPass;
+            proxyWebsockets = true;
+          };
+        };
+      };
   };
 
   jellyfin-vhost = generate-vhosts {

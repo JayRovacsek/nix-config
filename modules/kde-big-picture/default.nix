@@ -80,12 +80,10 @@ in
     };
   };
 
-  # Default Big Picture applications: RetroArch and the Jellyfin desktop
-  # client. Steam arrives via the shared steam module imported above.
-  #
-  # retroarch-full bundles every libretro core available on the platform
-  # (including non-free ones); the plain `retroarch` attribute is a bare
-  # wrapper with no cores.
+  # Default Big Picture applications: the Jellyfin desktop client and the
+  # session package. Steam arrives via the shared steam module imported
+  # above. RetroArch is no longer inlined here — it now lives in its own
+  # modules/retroarch module, imported at the host level as a peer.
   #
   # plasma-bigscreen itself must also be installed in the profile: the
   # session script SDDM launches sources `plasma-bigscreen-common-env`
@@ -99,7 +97,6 @@ in
   environment.systemPackages = with pkgs; [
     jellyfin-media-player
     plasma-bigscreen
-    retroarch-full
     kdePackages.kdeconnect-kde
     kdePackages.plasma-nm
   ];

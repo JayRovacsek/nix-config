@@ -1,30 +1,36 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  pname = "libfwnt-python";
-
-  version = "20240415";
-
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-
+  inherit (python3Packages)
+    buildPythonPackage
+    pythonOlder
+    setuptools
+    wheel
+    ;
 in
-buildPythonPackage {
+buildPythonPackage rec {
   pname = "libfwnt-python";
   version = "20260602";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-tDdndZKwW2ymR8Gh2AMUki+mXrb4JaxTByY/+Q0+JJM=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libfwnt/releases/download/20260602/libfwnt-alpha-20260602.tar.gz";
+    hash = "sha256-rlF/wkfcc6Dc8F5GaEXFa75K0dD1SOzoQqTemOvwYag=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [
+    setuptools
+    wheel
+  ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyfwnt" ];
 

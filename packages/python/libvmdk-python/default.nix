@@ -1,28 +1,31 @@
 {
   lib,
   zlib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libvmdk-python";
-  version = "20240510";
+  version = "20260714";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-bFd1sq2/Z1lGf9tWvkaSbKcJleO9WmNf5MFbdGavpz8=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libvmdk/releases/download/20260714/libvmdk-alpha-20260714.tar.gz";
+    hash = "sha256-j0KYGKrAm9BFfm9VDTnnBXh4VvdSPXs8gsqo7nWWeLE=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
+
+  build-system = [ setuptools wheel ];
 
   buildInputs = [ zlib ];
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyvmdk" ];
 

@@ -1,25 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libphdi-python";
-  version = "20240508";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-dXVH9X2lZpYqK5ki7yXC2YSCdCsiWy7rwFy8EXetohU=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libphdi/releases/download/20260902/libphdi-experimental-20260902.tar.gz";
+    hash = "sha256-hOIsoi4K/axIrKpvMhzMM8f9deLa3jalzLNc0d1vzPQ=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pyphdi" ];
 

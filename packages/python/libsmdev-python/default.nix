@@ -1,27 +1,28 @@
 {
   lib,
-  fetchPypi,
+  fetchurl,
+  pkg-config,
   python3Packages,
   ...
 }:
 let
-
-  inherit (python3Packages) buildPythonPackage pythonOlder setuptools;
-
+  inherit (python3Packages) buildPythonPackage pythonOlder setuptools wheel;
 in
 buildPythonPackage rec {
   pname = "libsmdev-python";
-  version = "20240505";
+  version = "20260902";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-IPzeHCxrFgqyeIYOVdJK3VVGGMmnrBCStO8CAZwYG+0=";
+  src = fetchurl {
+    url = "https://github.com/libyal/libsmdev/releases/download/20260902/libsmdev-alpha-20260902.tar.gz";
+    hash = "sha256-8oWpGlq61SW5IvCzPCvb9XS6W16CZQNbntBz3sblzf4=";
   };
 
-  build-system = [ setuptools ];
+  nativeBuildInputs = [ pkg-config ];
 
-  disabled = pythonOlder "3.7";
+  build-system = [ setuptools wheel ];
+
+  disabled = pythonOlder "3.10";
 
   pythonImportsCheck = [ "pysmdev" ];
 
