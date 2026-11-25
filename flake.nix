@@ -262,18 +262,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sbomnix = {
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        flake-root.follows = "flake-root";
-        git-hooks-nix.follows = "git-hooks";
-        nixpkgs.follows = "nixpkgs";
-        vulnix.follows = "vulnix";
-      };
-      url = "github:tiiuae/sbomnix";
-    };
-
     stylix = {
       inputs = {
         flake-parts.follows = "flake-parts";

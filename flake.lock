@@ -1126,7 +1126,6 @@
         "nuschtos-modules": "nuschtos-modules",
         "plasma-manager": "plasma-manager",
         "rust-overlay": "rust-overlay",
-        "sbomnix": "sbomnix",
         "stable": "stable",
         "stylix": "stylix",
         "systems": "systems",
@@ -1152,41 +1151,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "sbomnix": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "flake-root": [
-          "flake-root"
-        ],
-        "git-hooks-nix": [
-          "git-hooks"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "vulnix": [
-          "vulnix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1794913483,
-        "narHash": "sha256-nTuyv3Pp6e9/RDccvR3mkRsmk0Pz+6giMwbjDgVio6I=",
-        "owner": "tiiuae",
-        "repo": "sbomnix",
-        "rev": "f171f8a17b2132f0f9ad805dccee34fc5f3ffe0c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tiiuae",
-        "repo": "sbomnix",
         "type": "github"
       }
     },
