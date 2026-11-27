@@ -12,7 +12,7 @@ let
   zfsServiceSupported =
     config.services.zfs.autoScrub.enable || config.services.zfs.autoSnapshot.enable;
 
-  package = pkgs.nextcloud34;
+  package = pkgs.nextcloud35;
 
   inherit (self.lib) certificates;
   certificate-lib = certificates pkgs;
@@ -332,18 +332,43 @@ in
   # nextcloud, however they are either dependent on nextcloud-setup
   # or phpfpm-nextcloud so we do not need to add the after here as it's
   # implied.
+  #
+  # An unclean shutdown can leave MySQL's transaction cache log (tc.log) in a
+  # corrupt state, which stops mysqld from starting. A single oneshot unit
+  # removes the stale file from the MySQL data directory (on dragonite this is
+  # bind-mounted from /var/lib/mysql-nextcloud via the host's shares); both
+  # mysql and the nextcloud services depend on it so the cleanup runs once,
+  # before any of them start.
   systemd.services =
     let
-      after = lib.optionals (zfsBootSupported || zfsServiceSupported) [
+      zfsAfter = lib.optionals (zfsBootSupported || zfsServiceSupported) [
         "zfs-mount.service"
       ];
+      tcLogCleanup = "mysql-tc-log-cleanup.service";
     in
     {
-      nextcloud-setup = {
-        inherit after;
+      mysql-tc-log-cleanup = {
+        description = "Remove stale MySQL tc.log to allow startup after an unclean shutdown";
+        after = zfsAfter;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.coreutils}/bin/rm -f ${config.services.mysql.dataDir}/tc.log";
+        };
       };
+
+      mysql = {
+        after = [ tcLogCleanup ];
+        wants = [ tcLogCleanup ];
+      };
+
+      nextcloud-setup = {
+        after = zfsAfter ++ [ tcLogCleanup ];
+        wants = [ tcLogCleanup ];
+      };
+
       phpfpm-nextcloud = {
-        inherit after;
+        after = zfsAfter ++ [ tcLogCleanup ];
+        wants = [ tcLogCleanup ];
       };
     };
 
