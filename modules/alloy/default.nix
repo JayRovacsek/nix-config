@@ -8,6 +8,7 @@ let
   inherit (self.common.config.services) loki prometheus telegraf;
 
   blocky-enabled = config.services.blocky.enable;
+  cadvisor-enabled = config.services.cadvisor.enable;
   clamav-enabled = config.services.clamav.daemon.enable;
   hydra-enabled = config.services.hydra.enable;
   mysql-enabled = config.services.prometheus.exporters.mysqld.enable;
@@ -27,6 +28,20 @@ let
         labels.host = config.networking.hostName;
         targets = [
           "127.0.0.1:${builtins.toString config.services.blocky.settings.ports.http}"
+        ];
+      }
+    ];
+  };
+
+  cadvisor-prom-config = {
+    job_name = "cadvisor";
+    scheme = "http";
+
+    static_configs = [
+      {
+        labels.host = config.networking.hostName;
+        targets = [
+          "127.0.0.1:${builtins.toString config.services.cadvisor.port}"
         ];
       }
     ];
@@ -213,6 +228,7 @@ in
               name = "prometheus_scrape_configs";
               scrape_configs =
                 (lib.optional blocky-enabled blocky-prom-config)
+                ++ (lib.optional cadvisor-enabled cadvisor-prom-config)
                 ++ (lib.optionals hydra-enabled [
                   hydra-prom-config
                   hydra-notify-prom-config

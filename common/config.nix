@@ -18,6 +18,10 @@ _: {
       shares = [ ];
     };
     bellsprout = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "bellsprout";
       ips = [
         {
@@ -63,6 +67,10 @@ _: {
       shares = [ ];
     };
     clefairy = {
+      container = {
+        cpuQuota = "300%";
+        memoryMax = "3G";
+      };
       hostname = "clefairy";
       ips = [
         {
@@ -96,6 +104,10 @@ _: {
       shares = [ ];
     };
     hoothoot = {
+      container = {
+        cpuQuota = "100%";
+        memoryMax = "1G";
+      };
       hostname = "hoothoot";
       ips = [
         {
@@ -119,6 +131,10 @@ _: {
       vlan = "notify";
     };
     igglybuff = {
+      container = {
+        cpuQuota = "100%";
+        memoryMax = "1G";
+      };
       hostname = "igglybuff";
       ips = [
         {
@@ -163,6 +179,10 @@ _: {
       shares = [ ];
     };
     machop = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "machop";
       ips = [
         {
@@ -226,6 +246,10 @@ _: {
       shares = [ ];
     };
     mankey = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "mankey";
       ips = [
         {
@@ -251,6 +275,10 @@ _: {
       vlan = "download";
     };
     meowth = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "meowth";
       ips = [
         {
@@ -280,6 +308,10 @@ _: {
       shares = [ ];
     };
     mr-mime = {
+      container = {
+        cpuQuota = "300%";
+        memoryMax = "8G";
+      };
       hostname = "mr-mime";
       ips = [
         {
@@ -317,6 +349,10 @@ _: {
       vlan = "log";
     };
     natu = {
+      container = {
+        cpuQuota = "100%";
+        memoryMax = "1G";
+      };
       hostname = "natu";
       ips = [
         {
@@ -344,6 +380,8 @@ _: {
             node = "/dev/nvidia0";
           }
         ];
+        cpuQuota = "300%";
+        memoryMax = "8G";
       };
       hostname = "nidoking";
       ips = [
@@ -380,6 +418,10 @@ _: {
       vlan = "nextcloud";
     };
     nidorina = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "3G";
+      };
       hostname = "nidorina";
       ips = [
         {
@@ -406,6 +448,10 @@ _: {
       vlan = "r-proxy";
     };
     nidorino = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "3G";
+      };
       hostname = "nidorino";
       ips = [
         {
@@ -429,6 +475,10 @@ _: {
       vlan = "auth";
     };
     oddish = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "oddish";
       ips = [
         {
@@ -484,6 +534,10 @@ _: {
       shares = [ ];
     };
     poliwag = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "poliwag";
       ips = [
         {
@@ -520,10 +574,12 @@ _: {
     };
     porygon = {
       container = {
+        cpuQuota = "600%";
         extraFlags = [
           "--system-call-filter=keyctl"
           "--system-call-filter=bpf"
         ];
+        memoryMax = "8G";
       };
       hostname = "porygon";
       ips = [
@@ -590,6 +646,10 @@ _: {
       vlan = "game";
     };
     slowpoke = {
+      container = {
+        cpuQuota = "300%";
+        memoryMax = "3G";
+      };
       hostname = "slowpoke";
       ips = [
         {
@@ -602,6 +662,10 @@ _: {
       vlan = "download";
     };
     tentacruel = {
+      container = {
+        cpuQuota = "200%";
+        memoryMax = "2G";
+      };
       hostname = "tentacruel";
       ips = [
         {
@@ -807,6 +871,9 @@ _: {
       port = 8010;
       protocol = "http";
       subdomain = "buildbot";
+    };
+    cadvisor = {
+      port = 8082;
     };
     cicd = {
       authelia = false;

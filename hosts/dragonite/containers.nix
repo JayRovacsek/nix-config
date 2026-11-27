@@ -147,70 +147,103 @@ let
     inherit (x) macAddress vlan shares;
     container = x.container or { };
   }) partyCommonConfigs;
+
+  # ---------------------------------------------------------------------------
+  # Per-container resource limits
+  #
+  # The containers module invokes systemd-nspawn with --keep-unit, which
+  # disables --property= (systemd-nspawn(1)), so limits cannot be passed as
+  # nspawn flags. With --keep-unit the payload runs in the container@<name>
+  # service's own cgroup, so cpuQuota/memoryMax declared under a host's
+  # `container` config are applied as properties on that unit instead.
+  # ---------------------------------------------------------------------------
+
+  limitProperties = {
+    cpuQuota = "CPUQuota";
+    memoryMax = "MemoryMax";
+  };
+
+  containerServiceLimits = builtins.foldl' (
+    acc: pokemon:
+    let
+      limits = builtins.intersectAttrs limitProperties pokemon.container;
+    in
+    lib.recursiveUpdate acc (
+      lib.optionalAttrs (limits != { }) {
+        "container@${pokemon.name}".serviceConfig = lib.mapAttrs' (
+          opt: value: lib.nameValuePair limitProperties.${opt} value
+        ) limits;
+      }
+    )
+  ) { } party;
 in
 {
   systemd.tmpfiles.rules = varLibRules ++ agenixRules ++ stateFileRules;
 
+  systemd.services = containerServiceLimits;
+
   containers = builtins.foldl' (
     acc: pokemon:
     lib.recursiveUpdate acc {
-      "${pokemon.name}" = pokemon.container // {
-        autoStart = true;
+      "${pokemon.name}" =
+        (builtins.removeAttrs pokemon.container (builtins.attrNames limitProperties))
+        // {
+          autoStart = true;
 
-        ephemeral = true;
+          ephemeral = true;
 
-        privateNetwork = true;
+          privateNetwork = true;
 
-        localMacAddress = pokemon.macAddress;
-        hostBridge = "br-${pokemon.vlan}";
+          localMacAddress = pokemon.macAddress;
+          hostBridge = "br-${pokemon.vlan}";
 
-        bindMounts = {
-          agenix = {
-            hostPath = "/agenix/${builtins.hashString "md5" pokemon.name}";
-            mountPoint = "/agenix";
-            isReadOnly = false;
-          };
-        }
-        // lib.mapAttrs' (
-          _name: f:
-          lib.nameValuePair _name {
-            hostPath = "/var/lib/${pokemon.name}/${f.path}";
-            mountPoint = "/${f.path}";
-            isReadOnly = true;
+          bindMounts = {
+            agenix = {
+              hostPath = "/agenix/${builtins.hashString "md5" pokemon.name}";
+              mountPoint = "/agenix";
+              isReadOnly = false;
+            };
           }
-        ) (stateFilesFor pokemon.name)
-        //
-          (builtins.foldl' (
-            acc: share:
-            acc
-            // {
-              "${share.name}" = {
-                inherit (share)
-                  hostPath
-                  mountPoint
-                  isReadOnly
-                  ;
-              };
+          // lib.mapAttrs' (
+            _name: f:
+            lib.nameValuePair _name {
+              hostPath = "/var/lib/${pokemon.name}/${f.path}";
+              mountPoint = "/${f.path}";
+              isReadOnly = true;
             }
-          ) { })
-            pokemon.shares;
+          ) (stateFilesFor pokemon.name)
+          //
+            (builtins.foldl' (
+              acc: share:
+              acc
+              // {
+                "${share.name}" = {
+                  inherit (share)
+                    hostPath
+                    mountPoint
+                    isReadOnly
+                    ;
+                };
+              }
+            ) { })
+              pokemon.shares;
 
-        specialArgs = { inherit self; };
+          specialArgs = { inherit self; };
 
-        config = _: {
-          nixpkgs.config = {
-            allowUnfree = lib.mkForce true;
-            cudaSupport = true;
+          config = _: {
+            nixpkgs.config = {
+              allowUnfree = lib.mkForce true;
+              cudaSupport = true;
+            };
+            age = {
+              identityPaths = [
+                "/agenix/id-ed25519-${pokemon.name}-primary"
+              ];
+            };
+            container-guest.stateBindMounts = true;
+            imports = [ ../${pokemon.name} ];
           };
-          age = {
-            identityPaths = [
-              "/agenix/id-ed25519-${pokemon.name}-primary"
-            ];
-          };
-          container-guest.stateBindMounts = true;
-          imports = [ ../${pokemon.name} ];
         };
-      };
     }
   ) { } party;
 

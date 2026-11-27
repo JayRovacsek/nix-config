@@ -47,6 +47,7 @@ in
     agenix
     alloy
     blocky
+    cadvisor
     firefox-syncserver
     fonts
     generations
