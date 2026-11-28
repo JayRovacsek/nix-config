@@ -112,6 +112,7 @@ let
 
   partyMembers = [
     "bellsprout"
+    "clefairy"
     "hoothoot"
     "igglybuff"
     "machop"
@@ -176,11 +177,29 @@ let
       }
     )
   ) { } party;
+
+  # Stale-veth cleanup: nixos-containers adds --network-veth when localMacAddress
+  # is set, but its own preStart only deletes a stale vb-<name> when
+  # hostAddress/localAddress are set (not for our hostBridge+macAddress config).
+  # After an unclean stop the veth survives and every restart collides with it
+  # ("Failed to add new veth interfaces ... File exists"). Delete it unconditionally
+  # before start, replicating the cleanup the upstream gate omits.
+  containerVethCleanup = builtins.foldl' (
+    acc: pokemon:
+    lib.recursiveUpdate acc {
+      "container@${pokemon.name}".serviceConfig.ExecStartPre = lib.mkBefore [
+        (pkgs.writeShellScript "container-clean-veth-${pokemon.name}" ''
+          ${pkgs.iproute2}/bin/ip link del "vb-${pokemon.name}" 2>/dev/null || true
+          ${pkgs.iproute2}/bin/ip link del "ve-${pokemon.name}" 2>/dev/null || true
+        '')
+      ];
+    }
+  ) { } party;
 in
 {
   systemd.tmpfiles.rules = varLibRules ++ agenixRules ++ stateFileRules;
 
-  systemd.services = containerServiceLimits;
+  systemd.services = lib.recursiveUpdate containerServiceLimits containerVethCleanup;
 
   containers = builtins.foldl' (
     acc: pokemon:
