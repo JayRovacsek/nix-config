@@ -51,7 +51,17 @@ in
   ];
 
   services = {
-    mysql.settings.mysqld.innodb_buffer_pool_size = "2G";
+    # Tunings addressing the Nextcloud admin "Database checks" findings:
+    # enable the slow query log, lower the threshold so problematic queries
+    # are caught earlier, and enlarge the InnoDB redo log to reduce checkpoint
+    # pressure. innodb_log_file_size requires a service restart to take
+    # effect; MySQL recreates the redo log files on the next clean start.
+    mysql.settings.mysqld = {
+      innodb_buffer_pool_size = "2G";
+      innodb_log_file_size = "256M";
+      long_query_time = "2";
+      slow_query_log = "ON";
+    };
 
     nextcloud = {
       inherit (self.common.config.services.nextcloud) hostName;
