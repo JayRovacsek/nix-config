@@ -248,7 +248,7 @@ _: {
     mankey = {
       container = {
         cpuQuota = "200%";
-        memoryMax = "2G";
+        memoryMax = "4G";
       };
       hostname = "mankey";
       ips = [
